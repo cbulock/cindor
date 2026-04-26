@@ -1,5 +1,5 @@
-import "emberline-ui-core/register";
-import "emberline-ui-core/styles.css";
+import "../packages/core/src/register.ts";
+import "../packages/core/src/styles.css";
 
 const preview = {
   parameters: {

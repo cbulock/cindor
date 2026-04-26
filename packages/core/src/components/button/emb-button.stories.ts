@@ -1,6 +1,7 @@
 type ButtonStoryArgs = {
   disabled: boolean;
   label: string;
+  type: "button" | "submit" | "reset";
   variant: "solid" | "ghost";
 };
 
@@ -9,16 +10,21 @@ const meta = {
   args: {
     disabled: false,
     label: "Save",
+    type: "button",
     variant: "solid"
   },
   argTypes: {
+    type: {
+      control: "radio",
+      options: ["button", "submit", "reset"]
+    },
     variant: {
       control: "radio",
       options: ["solid", "ghost"]
     }
   },
-  render: ({ disabled, label, variant }: ButtonStoryArgs) =>
-    `<emb-button ${disabled ? "disabled" : ""} variant="${variant}">${label}</emb-button>`
+  render: ({ disabled, label, type, variant }: ButtonStoryArgs) =>
+    `<emb-button ${disabled ? "disabled" : ""} type="${type}" variant="${variant}">${label}</emb-button>`
 };
 
 export default meta;

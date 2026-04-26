@@ -7,11 +7,14 @@ export class EmbInput extends FormAssociatedElement {
   static styles = css`
     :host {
       display: inline-block;
-      width: min(100%, 320px);
+      width: var(--emb-field-inline-size, min(100%, 320px));
+      max-width: 100%;
+      min-width: 0;
       color: var(--fg);
     }
 
     input {
+      box-sizing: border-box;
       width: 100%;
       min-height: 36px;
       font: inherit;

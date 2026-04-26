@@ -23,7 +23,7 @@ Replace the file path as needed for the specific test you are working on.
 
 The target is a **web component library** that should stay compatible with both **React** and **Vue**.
 
-This library should use the upstream design system at <https://github.com/cbulock/design-system> as its visual and stylistic foundation. Treat that repository as a **living upstream system**, not a one-time reference snapshot.
+This library should use the upstream design system at <https://github.com/cbulock/emberline-design> as its visual and stylistic foundation. Treat that repository as a **living upstream system**, not a one-time reference snapshot.
 
 Favor this shape unless the repository later establishes a different one:
 

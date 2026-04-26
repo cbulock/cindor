@@ -27,7 +27,8 @@ export class EmbButton extends LitElement {
         background var(--duration-base) var(--ease-out),
         border-color var(--duration-base) var(--ease-out),
         color var(--duration-base) var(--ease-out),
-        box-shadow var(--duration-base) var(--ease-out);
+        box-shadow var(--duration-base) var(--ease-out),
+        transform var(--duration-base) var(--ease-out);
     }
 
     :host([variant="solid"]) button {
@@ -43,6 +44,7 @@ export class EmbButton extends LitElement {
     button:hover:not(:disabled) {
       border-color: var(--border-strong);
       background: var(--bg-subtle);
+      transform: translateY(-1px);
     }
 
     :host([variant="solid"]) button:hover:not(:disabled) {
@@ -58,6 +60,10 @@ export class EmbButton extends LitElement {
     button:focus-visible {
       outline: none;
       box-shadow: var(--ring-focus);
+    }
+
+    button:active:not(:disabled) {
+      transform: translateY(0);
     }
   `;
 

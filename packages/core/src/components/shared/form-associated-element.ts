@@ -18,7 +18,7 @@ export abstract class FormAssociatedElement extends LitElement {
     }
   }
 
-  protected setValidityFrom(control: HTMLInputElement): void {
+  protected setValidityFrom(control: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement): void {
     if (this.internals && typeof this.internals.setValidity === "function") {
       this.internals.setValidity(control.validity, control.validationMessage, control);
     }
