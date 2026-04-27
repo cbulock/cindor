@@ -52,7 +52,6 @@ import { EmbSpinner } from "./components/spinner/emb-spinner.js";
 import { EmbStepper } from "./components/stepper/emb-stepper.js";
 import { EmbSwitch } from "./components/switch/emb-switch.js";
 import { EmbTabs } from "./components/tabs/emb-tabs.js";
-import { EmbTag } from "./components/tag/emb-tag.js";
 import { EmbTelInput } from "./components/tel-input/emb-tel-input.js";
 import { EmbTextarea } from "./components/textarea/emb-textarea.js";
 import { EmbTimeInput } from "./components/time-input/emb-time-input.js";
@@ -121,7 +120,6 @@ const definitions = [
   ["emb-dialog", EmbDialog],
   ["emb-textarea", EmbTextarea],
   ["emb-switch", EmbSwitch],
-  ["emb-tag", EmbTag],
   ["emb-tabs", EmbTabs],
   ["emb-stepper", EmbStepper],
   ["emb-toolbar", EmbToolbar],

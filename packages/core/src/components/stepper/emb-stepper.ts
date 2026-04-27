@@ -77,6 +77,12 @@ export class EmbStepper extends LitElement {
       text-align: start;
     }
 
+    :host([orientation="horizontal"]) .control {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto auto;
+      gap: var(--space-3);
+    }
+
     button.control {
       cursor: pointer;
     }
@@ -107,11 +113,19 @@ export class EmbStepper extends LitElement {
       box-sizing: border-box;
     }
 
+    :host([orientation="horizontal"]) .indicator {
+      justify-self: start;
+    }
+
     .body {
       display: grid;
       gap: var(--space-1);
       min-width: 0;
       padding-block: var(--space-1);
+    }
+
+    :host([orientation="horizontal"]) .body {
+      padding-block: 0;
     }
 
     .label-row {

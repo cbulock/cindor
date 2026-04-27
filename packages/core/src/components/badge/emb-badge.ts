@@ -11,16 +11,19 @@ export class EmbBadge extends LitElement {
     span {
       display: inline-flex;
       align-items: center;
-      min-height: 22px;
-      padding: 0 var(--space-2);
+      min-height: 1.75rem;
+      padding: 0.125rem var(--space-2);
       border-radius: var(--radius-full);
       border: 1px solid var(--border);
       background: var(--bg-subtle);
       color: var(--fg);
+      box-sizing: border-box;
       font-family: var(--font-mono);
       font-size: var(--text-xs);
+      line-height: 1;
       letter-spacing: var(--tracking-mono);
       text-transform: uppercase;
+      white-space: nowrap;
     }
 
     :host([tone="accent"]) span {

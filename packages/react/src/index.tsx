@@ -55,7 +55,6 @@ import {
   EmbPasswordInput as EmbPasswordInputElement,
   EmbOption as EmbOptionElement,
   EmbTelInput as EmbTelInputElement,
-  EmbTag as EmbTagElement,
   EmbUrlInput as EmbUrlInputElement,
   EmbColorInput as EmbColorInputElement,
   EmbCheckbox as EmbCheckboxElement,
@@ -475,12 +474,6 @@ export const EmbTelInput = createComponent({
     onInput: "input",
     onChange: "change"
   }
-});
-
-export const EmbTag = createComponent({
-  react: React,
-  tagName: "emb-tag",
-  elementClass: EmbTagElement
 });
 
 export const EmbUrlInput = createComponent({

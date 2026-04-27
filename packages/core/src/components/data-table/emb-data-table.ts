@@ -21,6 +21,15 @@ export type DataTableSearchChangeDetail = {
 type SearchHost = HTMLElement & { value: string };
 type PaginationHost = HTMLElement & { currentPage: number };
 
+/**
+ * Searchable, sortable application data table built from native table semantics.
+ *
+ * @summary Searchable, sortable data table for application records.
+ * @tag emb-data-table
+ * @fires {CustomEvent<DataTablePageChangeDetail>} page-change - Fired when the current page changes through pagination.
+ * @fires {CustomEvent<DataTableSearchChangeDetail>} search-change - Fired when the search query changes and the matching row count updates.
+ * @fires {CustomEvent<{ sortDirection: DataTableSortDirection; sortKey: string }>} sort-change - Fired when the active sort column or direction changes.
+ */
 export class EmbDataTable extends LitElement {
   static styles = css`
     :host {
@@ -139,18 +148,43 @@ export class EmbDataTable extends LitElement {
     sortKey: { reflect: true, attribute: "sort-key" }
   };
 
+  /** Caption rendered above the table when provided. */
   caption = "";
+
+  /** Column definitions assigned as a property from JavaScript. */
   columns: DataTableColumn[] = [];
+
+  /** Current 1-based page index. */
   currentPage = 1;
+
+  /** Message shown when no visible rows remain after filtering or loading completes. */
   emptyMessage = "No rows to display.";
+
+  /** Shows the loading state instead of row data. */
   loading = false;
+
+  /** Maximum number of rows shown per page. Set to 0 to disable pagination. */
   pageSize = 10;
+
+  /** Row data assigned as a property from JavaScript. */
   rows: DataTableRow[] = [];
+
+  /** Enables the built-in search toolbar and filtering behavior. */
   searchable = false;
+
+  /** Accessible label applied to the internal search control. */
   searchLabel = "Search rows";
+
+  /** Placeholder text shown in the internal search control. */
   searchPlaceholder = "Search rows";
+
+  /** Current search query used to filter visible rows. */
   searchQuery = "";
+
+  /** Active sort direction for the current sort key. */
   sortDirection: DataTableSortDirection = "ascending";
+
+  /** Column key currently used for sorting. */
   sortKey = "";
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

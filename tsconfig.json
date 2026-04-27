@@ -3,5 +3,5 @@
   "compilerOptions": {
     "noEmit": true
   },
-  "include": ["packages/**/*.ts", "packages/**/*.tsx", ".storybook/**/*.ts", "vitest.config.ts"]
+  "include": ["packages/**/*.ts", "packages/**/*.tsx", "apps/**/*.ts", "apps/**/*.tsx", ".storybook/**/*.ts", "vitest.config.ts"]
 }

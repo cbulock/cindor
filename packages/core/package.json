@@ -2,12 +2,15 @@
   "name": "emberline-ui-core",
   "version": "0.1.0",
   "type": "module",
+  "customElements": "./custom-elements.json",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "src/styles.css"
+    "src/styles.css",
+    "custom-elements.json",
+    "component-docs.json"
   ],
   "sideEffects": [
     "./src/styles.css",
@@ -25,7 +28,9 @@
       "import": "./dist/register.js",
       "require": "./dist/register.cjs"
     },
-    "./styles.css": "./src/styles.css"
+    "./styles.css": "./src/styles.css",
+    "./custom-elements.json": "./custom-elements.json",
+    "./component-docs.json": "./component-docs.json"
   },
   "scripts": {
     "build": "tsup src/index.ts src/register.ts --format esm,cjs --dts"

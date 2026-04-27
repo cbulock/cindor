@@ -1485,24 +1485,6 @@ export const EmbTelInput = defineComponent({
   }
 });
 
-export const EmbTag = defineComponent({
-  name: "EmbTag",
-  props: {
-    tone: { type: String as PropType<ChipTone>, default: "accent" }
-  },
-  setup(props, { attrs, slots }) {
-    return () =>
-          h(
-            "emb-tag",
-            {
-              ...attrs,
-              tone: props.tone,
-            },
-            slots.default?.()
-          );
-  }
-});
-
 export const EmbUrlInput = defineComponent({
   name: "EmbUrlInput",
   props: {

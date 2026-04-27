@@ -488,10 +488,6 @@ export const componentDefinitions = [
     vueHandlers: textModelHandlers,
     vueProps: inputStringProps({ autocompleteDefault: "tel", includeIcons: true })
   }),
-  component("EmbTag", "emb-tag", {
-    slots: slots.default,
-    vueProps: [typed("tone", "ChipTone", "accent")]
-  }),
   component("EmbUrlInput", "emb-url-input", {
     vueHandlers: textModelHandlers,
     vueProps: inputStringProps({ autocompleteDefault: "url", includeIcons: true })

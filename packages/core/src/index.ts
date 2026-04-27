@@ -72,5 +72,4 @@ export {
 } from "./components/toast/toast-manager.js";
 export { EmbTooltip } from "./components/tooltip/emb-tooltip.js";
 export { EmbToolbar, type ToolbarOrientation } from "./components/toolbar/emb-toolbar.js";
-export { EmbTag } from "./components/tag/emb-tag.js";
 export { EmbUrlInput } from "./components/url-input/emb-url-input.js";

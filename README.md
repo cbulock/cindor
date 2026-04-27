@@ -10,6 +10,10 @@ The visual foundation comes from the upstream [emberline-design](https://github.
 - `packages/react` — React wrappers in `emberline-ui-react`
 - `packages/vue` — Vue wrappers in `emberline-ui-vue`
 
+## Apps
+
+- `apps/docs` — living documentation site built with the Emberline web components themselves
+
 The core package is the source of truth for behavior, events, accessibility, and styling hooks. React and Vue packages adapt those elements for framework ergonomics without re-implementing component logic.
 
 ## Development
@@ -23,6 +27,7 @@ npm install
 Run the workspace scripts from the repository root:
 
 ```bash
+npm run generate:manifest
 npm run generate:wrappers
 npm run build
 npm run lint
@@ -31,6 +36,9 @@ npm run test:watch
 npm run typecheck
 npm run storybook
 npm run build-storybook
+npm run docs
+npm run build:docs
+npm run docs:preview
 ```
 
 Run a single test file with Vitest:
@@ -42,6 +50,8 @@ npx vitest run packages/core/src/components/button/emb-button.test.ts
 Replace the file path as needed for the specific component you are working on.
 
 When adding or renaming components, update `scripts/wrapper-manifest.mjs` and run `npm run generate:wrappers` so the React and Vue wrapper exports stay aligned with the shared component metadata.
+
+The docs API reference is generated from the core component source. Run `npm run generate:manifest` after changing public component properties, events, methods, or slots so `packages/core/custom-elements.json` and `packages/core/component-docs.json` stay current.
 
 ## Architecture
 
@@ -95,6 +105,12 @@ packages/core/src/**/*.stories.ts
 ```
 
 Storybook accessibility checks are part of the expected component workflow. Stories for interactive components should render a real accessible-name pattern such as visible text paired with `aria-labelledby`, not placeholder-only examples.
+
+## Living docs
+
+The repository also includes a docs app at `apps/docs` that uses the published Emberline component APIs directly inside the site itself. It is intended to stay in the same repo so examples, package APIs, and docs content evolve together.
+
+GitHub Pages deployment is wired through `.github/workflows/docs-pages.yml`. The workflow builds `apps/docs` with a repo-aware `DOCS_BASE_PATH` so project-site deployments serve assets correctly from `https://<owner>.github.io/<repo>/`.
 
 ## Accessibility
 

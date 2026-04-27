@@ -1,0 +1,4795 @@
+{
+  "components": [
+    {
+      "className": "EmbAccordion",
+      "description": "",
+      "modulePath": "packages/core/src/components/accordion/emb-accordion.ts",
+      "properties": [
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "toggle",
+          "parameters": [
+            {
+              "name": "open",
+              "optional": true,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "summary"
+        },
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-accordion"
+    },
+    {
+      "className": "EmbAlert",
+      "description": "",
+      "modulePath": "packages/core/src/components/alert/emb-alert.ts",
+      "properties": [
+        {
+          "attributeName": "tone",
+          "defaultValue": "\"info\"",
+          "description": "",
+          "name": "tone",
+          "reflects": true,
+          "type": "\"info\" | \"success\" | \"warning\" | \"danger\"",
+          "values": [
+            "info",
+            "success",
+            "warning",
+            "danger"
+          ]
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-alert"
+    },
+    {
+      "className": "EmbAvatar",
+      "description": "",
+      "modulePath": "packages/core/src/components/avatar/emb-avatar.ts",
+      "properties": [
+        {
+          "attributeName": "alt",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "alt",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "src",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "src",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-avatar"
+    },
+    {
+      "className": "EmbBadge",
+      "description": "",
+      "modulePath": "packages/core/src/components/badge/emb-badge.ts",
+      "properties": [
+        {
+          "attributeName": "tone",
+          "defaultValue": "\"neutral\"",
+          "description": "",
+          "name": "tone",
+          "reflects": true,
+          "type": "\"neutral\" | \"accent\" | \"success\"",
+          "values": [
+            "neutral",
+            "accent",
+            "success"
+          ]
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-badge"
+    },
+    {
+      "className": "EmbBreadcrumbs",
+      "description": "",
+      "modulePath": "packages/core/src/components/breadcrumbs/emb-breadcrumbs.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-breadcrumbs"
+    },
+    {
+      "className": "EmbButton",
+      "description": "",
+      "modulePath": "packages/core/src/components/button/emb-button.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "icon-only",
+          "defaultValue": "false",
+          "description": "",
+          "name": "iconOnly",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "type",
+          "defaultValue": "\"button\"",
+          "description": "",
+          "name": "type",
+          "reflects": true,
+          "type": "\"button\" | \"submit\" | \"reset\"",
+          "values": [
+            "button",
+            "submit",
+            "reset"
+          ]
+        },
+        {
+          "attributeName": "variant",
+          "defaultValue": "\"solid\"",
+          "description": "",
+          "name": "variant",
+          "reflects": true,
+          "type": "\"solid\" | \"ghost\"",
+          "values": [
+            "solid",
+            "ghost"
+          ]
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "click",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "start-icon"
+        },
+        {
+          "description": "",
+          "name": "default"
+        },
+        {
+          "description": "",
+          "name": "end-icon"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-button"
+    },
+    {
+      "className": "EmbButtonGroup",
+      "description": "",
+      "modulePath": "packages/core/src/components/button-group/emb-button-group.ts",
+      "properties": [
+        {
+          "attributeName": "attached",
+          "defaultValue": "false",
+          "description": "",
+          "name": "attached",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "orientation",
+          "defaultValue": "\"horizontal\"",
+          "description": "",
+          "name": "orientation",
+          "reflects": true,
+          "type": "\"horizontal\" | \"vertical\"",
+          "values": [
+            "horizontal",
+            "vertical"
+          ]
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-button-group"
+    },
+    {
+      "className": "EmbCalendar",
+      "description": "",
+      "modulePath": "packages/core/src/components/calendar/emb-calendar.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "end-value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "endValue",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "max",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "min",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "min",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "month",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "month",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "range",
+          "defaultValue": "false",
+          "description": "",
+          "name": "range",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "start-value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "startValue",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-calendar"
+    },
+    {
+      "className": "EmbCard",
+      "description": "",
+      "modulePath": "packages/core/src/components/card/emb-card.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-card"
+    },
+    {
+      "className": "EmbCheckbox",
+      "description": "",
+      "modulePath": "packages/core/src/components/checkbox/emb-checkbox.ts",
+      "properties": [
+        {
+          "attributeName": "checked",
+          "defaultValue": "false",
+          "description": "",
+          "name": "checked",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"on\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-checkbox"
+    },
+    {
+      "className": "EmbChip",
+      "description": "",
+      "modulePath": "packages/core/src/components/chip/emb-chip.ts",
+      "properties": [
+        {
+          "attributeName": "tone",
+          "defaultValue": "\"neutral\"",
+          "description": "",
+          "name": "tone",
+          "reflects": true,
+          "type": "\"neutral\" | \"accent\" | \"success\"",
+          "values": [
+            "neutral",
+            "accent",
+            "success"
+          ]
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-chip"
+    },
+    {
+      "className": "EmbCodeBlock",
+      "description": "",
+      "modulePath": "packages/core/src/components/code-block/emb-code-block.ts",
+      "properties": [
+        {
+          "attributeName": "code",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "code",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "language",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "language",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-code-block"
+    },
+    {
+      "className": "EmbColorInput",
+      "description": "",
+      "modulePath": "packages/core/src/components/color-input/emb-color-input.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"#4f46e5\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-color-input"
+    },
+    {
+      "className": "EmbCombobox",
+      "description": "",
+      "modulePath": "packages/core/src/components/combobox/emb-combobox.ts",
+      "properties": [
+        {
+          "attributeName": "autocomplete",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "autocomplete",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": false,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "readonly",
+          "defaultValue": "false",
+          "description": "",
+          "name": "readonly",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "",
+          "name": "input",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        }
+      ],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-combobox"
+    },
+    {
+      "className": "EmbCommandPalette",
+      "description": "",
+      "modulePath": "packages/core/src/components/command-palette/emb-command-palette.ts",
+      "properties": [
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "commands",
+          "reflects": false,
+          "type": "CommandPaletteCommand[]",
+          "values": null
+        },
+        {
+          "attributeName": "empty-message",
+          "defaultValue": "\"No matching commands.\"",
+          "description": "",
+          "name": "emptyMessage",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"Search commands\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "query",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "query",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "title",
+          "defaultValue": "\"Command palette\"",
+          "description": "",
+          "name": "title",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "close",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "show",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "",
+          "name": "input",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "",
+          "name": "command-select",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-command-palette"
+    },
+    {
+      "className": "EmbDataTable",
+      "description": "Searchable, sortable application data table built from native table semantics.",
+      "modulePath": "packages/core/src/components/data-table/emb-data-table.ts",
+      "properties": [
+        {
+          "attributeName": "caption",
+          "defaultValue": "\"\"",
+          "description": "Caption rendered above the table when provided.",
+          "name": "caption",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "Column definitions assigned as a property from JavaScript.",
+          "name": "columns",
+          "reflects": false,
+          "type": "DataTableColumn[]",
+          "values": null
+        },
+        {
+          "attributeName": "current-page",
+          "defaultValue": "1",
+          "description": "Current 1-based page index.",
+          "name": "currentPage",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "empty-message",
+          "defaultValue": "\"No rows to display.\"",
+          "description": "Message shown when no visible rows remain after filtering or loading completes.",
+          "name": "emptyMessage",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "loading",
+          "defaultValue": "false",
+          "description": "Shows the loading state instead of row data.",
+          "name": "loading",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "page-size",
+          "defaultValue": "10",
+          "description": "Maximum number of rows shown per page. Set to 0 to disable pagination.",
+          "name": "pageSize",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "Row data assigned as a property from JavaScript.",
+          "name": "rows",
+          "reflects": false,
+          "type": "DataTableRow[]",
+          "values": null
+        },
+        {
+          "attributeName": "searchable",
+          "defaultValue": "false",
+          "description": "Enables the built-in search toolbar and filtering behavior.",
+          "name": "searchable",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "search-label",
+          "defaultValue": "\"Search rows\"",
+          "description": "Accessible label applied to the internal search control.",
+          "name": "searchLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "search-placeholder",
+          "defaultValue": "\"Search rows\"",
+          "description": "Placeholder text shown in the internal search control.",
+          "name": "searchPlaceholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "search-query",
+          "defaultValue": "\"\"",
+          "description": "Current search query used to filter visible rows.",
+          "name": "searchQuery",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "sort-direction",
+          "defaultValue": "\"ascending\"",
+          "description": "Active sort direction for the current sort key.",
+          "name": "sortDirection",
+          "reflects": true,
+          "type": "\"ascending\" | \"descending\"",
+          "values": [
+            "ascending",
+            "descending"
+          ]
+        },
+        {
+          "attributeName": "sort-key",
+          "defaultValue": "\"\"",
+          "description": "Column key currently used for sorting.",
+          "name": "sortKey",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "description": "Fired when the active sort column or direction changes.",
+          "name": "sort-change",
+          "type": "CustomEvent<{ sortDirection: DataTableSortDirection; sortKey: string }>",
+          "values": null
+        },
+        {
+          "description": "Fired when the current page changes through pagination.",
+          "name": "page-change",
+          "type": "CustomEvent<DataTablePageChangeDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the search query changes and the matching row count updates.",
+          "name": "search-change",
+          "type": "CustomEvent<DataTableSearchChangeDetail>",
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "Searchable, sortable data table for application records.",
+      "tagName": "emb-data-table"
+    },
+    {
+      "className": "EmbDateInput",
+      "description": "",
+      "modulePath": "packages/core/src/components/date-input/emb-date-input.ts",
+      "properties": [
+        {
+          "attributeName": "autocomplete",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "autocomplete",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "end-icon",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "endIcon",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "max",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "min",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "min",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "readonly",
+          "defaultValue": "false",
+          "description": "",
+          "name": "readonly",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "start-icon",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "startIcon",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "step",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "step",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-date-input"
+    },
+    {
+      "className": "EmbDialog",
+      "description": "",
+      "modulePath": "packages/core/src/components/dialog/emb-dialog.ts",
+      "properties": [
+        {
+          "attributeName": "modal",
+          "defaultValue": "true",
+          "description": "",
+          "name": "modal",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "close",
+          "parameters": [
+            {
+              "name": "returnValue",
+              "optional": true,
+              "type": "string"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "show",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "showModal",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-dialog"
+    },
+    {
+      "className": "EmbDivider",
+      "description": "",
+      "modulePath": "packages/core/src/components/divider/emb-divider.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-divider"
+    },
+    {
+      "className": "EmbDrawer",
+      "description": "",
+      "modulePath": "packages/core/src/components/drawer/emb-drawer.ts",
+      "properties": [
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "side",
+          "defaultValue": "\"end\"",
+          "description": "",
+          "name": "side",
+          "reflects": true,
+          "type": "\"start\" | \"end\"",
+          "values": [
+            "start",
+            "end"
+          ]
+        },
+        {
+          "attributeName": null,
+          "defaultValue": null,
+          "description": "",
+          "name": "close",
+          "reflects": false,
+          "type": null,
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-drawer"
+    },
+    {
+      "className": "EmbDropdownMenu",
+      "description": "",
+      "modulePath": "packages/core/src/components/dropdown-menu/emb-dropdown-menu.ts",
+      "properties": [
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "trigger"
+        },
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-dropdown-menu"
+    },
+    {
+      "className": "EmbDropzone",
+      "description": "",
+      "modulePath": "packages/core/src/components/dropzone/emb-dropzone.ts",
+      "properties": [
+        {
+          "attributeName": "accept",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "accept",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "multiple",
+          "defaultValue": "false",
+          "description": "",
+          "name": "multiple",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": null,
+          "description": "",
+          "name": "files",
+          "reflects": false,
+          "type": "FileList | null",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-dropzone"
+    },
+    {
+      "className": "EmbEmailInput",
+      "description": "",
+      "modulePath": "packages/core/src/components/email-input/emb-email-input.ts",
+      "properties": [
+        {
+          "attributeName": "autocomplete",
+          "defaultValue": "\"email\"",
+          "description": "",
+          "name": "autocomplete",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "end-icon",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "endIcon",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "max",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "min",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "min",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "readonly",
+          "defaultValue": "false",
+          "description": "",
+          "name": "readonly",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "start-icon",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "startIcon",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "step",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "step",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-email-input"
+    },
+    {
+      "className": "EmbEmptyState",
+      "description": "",
+      "modulePath": "packages/core/src/components/empty-state/emb-empty-state.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "media"
+        },
+        {
+          "description": "",
+          "name": "default"
+        },
+        {
+          "description": "",
+          "name": "actions"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-empty-state"
+    },
+    {
+      "className": "EmbErrorText",
+      "description": "",
+      "modulePath": "packages/core/src/components/error-text/emb-error-text.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-error-text"
+    },
+    {
+      "className": "EmbFieldset",
+      "description": "",
+      "modulePath": "packages/core/src/components/fieldset/emb-fieldset.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "legend",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "legend",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "legend"
+        },
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-fieldset"
+    },
+    {
+      "className": "EmbFileInput",
+      "description": "",
+      "modulePath": "packages/core/src/components/file-input/emb-file-input.ts",
+      "properties": [
+        {
+          "attributeName": "accept",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "accept",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "multiple",
+          "defaultValue": "false",
+          "description": "",
+          "name": "multiple",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": null,
+          "description": "",
+          "name": "files",
+          "reflects": false,
+          "type": "FileList | null",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-file-input"
+    },
+    {
+      "className": "EmbFormField",
+      "description": "",
+      "modulePath": "packages/core/src/components/form-field/emb-form-field.ts",
+      "properties": [
+        {
+          "attributeName": "description",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "description",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "error",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "error",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "label",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "label",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "label"
+        },
+        {
+          "description": "",
+          "name": "default"
+        },
+        {
+          "description": "",
+          "name": "description"
+        },
+        {
+          "description": "",
+          "name": "error"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-form-field"
+    },
+    {
+      "className": "EmbHelperText",
+      "description": "",
+      "modulePath": "packages/core/src/components/helper-text/emb-helper-text.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-helper-text"
+    },
+    {
+      "className": "EmbIcon",
+      "description": "",
+      "modulePath": "packages/core/src/components/icon/emb-icon.ts",
+      "properties": [
+        {
+          "attributeName": "label",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "label",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "LucideIconName | string",
+          "values": null
+        },
+        {
+          "attributeName": "size",
+          "defaultValue": "20",
+          "description": "",
+          "name": "size",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "stroke-width",
+          "defaultValue": "2",
+          "description": "",
+          "name": "strokeWidth",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-icon"
+    },
+    {
+      "className": "EmbIconButton",
+      "description": "",
+      "modulePath": "packages/core/src/components/icon-button/emb-icon-button.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "label",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "label",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "size",
+          "defaultValue": "16",
+          "description": "",
+          "name": "size",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "stroke-width",
+          "defaultValue": "2",
+          "description": "",
+          "name": "strokeWidth",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "type",
+          "defaultValue": "\"button\"",
+          "description": "",
+          "name": "type",
+          "reflects": true,
+          "type": "ButtonType",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "click",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-icon-button"
+    },
+    {
+      "className": "EmbInput",
+      "description": "",
+      "modulePath": "packages/core/src/components/input/emb-input.ts",
+      "properties": [
+        {
+          "attributeName": "type",
+          "defaultValue": "\"text\"",
+          "description": "",
+          "name": "type",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "autocomplete",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "autocomplete",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "end-icon",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "endIcon",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "max",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "min",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "min",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "readonly",
+          "defaultValue": "false",
+          "description": "",
+          "name": "readonly",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "start-icon",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "startIcon",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "step",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "step",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-input"
+    },
+    {
+      "className": "EmbLink",
+      "description": "",
+      "modulePath": "packages/core/src/components/link/emb-link.ts",
+      "properties": [
+        {
+          "attributeName": "download",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "download",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "href",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "href",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "rel",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "rel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "target",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "target",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "click",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-link"
+    },
+    {
+      "className": "EmbListbox",
+      "description": "",
+      "modulePath": "packages/core/src/components/listbox/emb-listbox.ts",
+      "properties": [
+        {
+          "attributeName": "active-index",
+          "defaultValue": "-1",
+          "description": "",
+          "name": "activeIndex",
+          "reflects": false,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "multiselectable",
+          "defaultValue": "false",
+          "description": "",
+          "name": "multiselectable",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "selected-value",
+          "defaultValue": null,
+          "description": "",
+          "name": "selectedValue",
+          "reflects": false,
+          "type": "string | undefined",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-listbox"
+    },
+    {
+      "className": "EmbMenu",
+      "description": "",
+      "modulePath": "packages/core/src/components/menu/emb-menu.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-menu"
+    },
+    {
+      "className": "EmbMenuItem",
+      "description": "",
+      "modulePath": "packages/core/src/components/menu-item/emb-menu-item.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "click",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-menu-item"
+    },
+    {
+      "className": "EmbMeter",
+      "description": "",
+      "modulePath": "packages/core/src/components/meter/emb-meter.ts",
+      "properties": [
+        {
+          "attributeName": "high",
+          "defaultValue": "100",
+          "description": "",
+          "name": "high",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "low",
+          "defaultValue": "0",
+          "description": "",
+          "name": "low",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "max",
+          "defaultValue": "100",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "min",
+          "defaultValue": "0",
+          "description": "",
+          "name": "min",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "optimum",
+          "defaultValue": "100",
+          "description": "",
+          "name": "optimum",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "0",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-meter"
+    },
+    {
+      "className": "EmbNumberInput",
+      "description": "",
+      "modulePath": "packages/core/src/components/number-input/emb-number-input.ts",
+      "properties": [
+        {
+          "attributeName": "autocomplete",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "autocomplete",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "end-icon",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "endIcon",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "max",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "min",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "min",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "readonly",
+          "defaultValue": "false",
+          "description": "",
+          "name": "readonly",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "start-icon",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "startIcon",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "step",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "step",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-number-input"
+    },
+    {
+      "className": "EmbOption",
+      "description": "",
+      "modulePath": "packages/core/src/components/option/emb-option.ts",
+      "properties": [
+        {
+          "attributeName": "active",
+          "defaultValue": "false",
+          "description": "",
+          "name": "active",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "label",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "label",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "selected",
+          "defaultValue": "false",
+          "description": "",
+          "name": "selected",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "click",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-option"
+    },
+    {
+      "className": "EmbPagination",
+      "description": "",
+      "modulePath": "packages/core/src/components/pagination/emb-pagination.ts",
+      "properties": [
+        {
+          "attributeName": "current-page",
+          "defaultValue": "1",
+          "description": "",
+          "name": "currentPage",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "max-visible-pages",
+          "defaultValue": "5",
+          "description": "",
+          "name": "maxVisiblePages",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "total-pages",
+          "defaultValue": "1",
+          "description": "",
+          "name": "totalPages",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "description": "",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-pagination"
+    },
+    {
+      "className": "EmbPasswordInput",
+      "description": "",
+      "modulePath": "packages/core/src/components/password-input/emb-password-input.ts",
+      "properties": [
+        {
+          "attributeName": "autocomplete",
+          "defaultValue": "\"current-password\"",
+          "description": "",
+          "name": "autocomplete",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "end-icon",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "endIcon",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "max",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "min",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "min",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "readonly",
+          "defaultValue": "false",
+          "description": "",
+          "name": "readonly",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "start-icon",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "startIcon",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "step",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "step",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-password-input"
+    },
+    {
+      "className": "EmbPopover",
+      "description": "",
+      "modulePath": "packages/core/src/components/popover/emb-popover.ts",
+      "properties": [
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "trigger"
+        },
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-popover"
+    },
+    {
+      "className": "EmbProgress",
+      "description": "",
+      "modulePath": "packages/core/src/components/progress/emb-progress.ts",
+      "properties": [
+        {
+          "attributeName": "max",
+          "defaultValue": "100",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "0",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-progress"
+    },
+    {
+      "className": "EmbRadio",
+      "description": "",
+      "modulePath": "packages/core/src/components/radio/emb-radio.ts",
+      "properties": [
+        {
+          "attributeName": "checked",
+          "defaultValue": "false",
+          "description": "",
+          "name": "checked",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"on\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-radio"
+    },
+    {
+      "className": "EmbRange",
+      "description": "",
+      "modulePath": "packages/core/src/components/range/emb-range.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "max",
+          "defaultValue": "100",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "min",
+          "defaultValue": "0",
+          "description": "",
+          "name": "min",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "step",
+          "defaultValue": "1",
+          "description": "",
+          "name": "step",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "0",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-range"
+    },
+    {
+      "className": "EmbRatingInput",
+      "description": "",
+      "modulePath": "packages/core/src/components/rating-input/emb-rating-input.ts",
+      "properties": [
+        {
+          "attributeName": "clearable",
+          "defaultValue": "false",
+          "description": "",
+          "name": "clearable",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "max",
+          "defaultValue": "5",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "0",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-rating-input"
+    },
+    {
+      "className": "EmbSearch",
+      "description": "",
+      "modulePath": "packages/core/src/components/search/emb-search.ts",
+      "properties": [
+        {
+          "attributeName": "start-icon",
+          "defaultValue": "\"search\"",
+          "description": "",
+          "name": "startIcon",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "autocomplete",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "autocomplete",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "end-icon",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "endIcon",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "max",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "min",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "min",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "readonly",
+          "defaultValue": "false",
+          "description": "",
+          "name": "readonly",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "step",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "step",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-search"
+    },
+    {
+      "className": "EmbSegmentedControl",
+      "description": "",
+      "modulePath": "packages/core/src/components/segmented-control/emb-segmented-control.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "options",
+          "reflects": false,
+          "type": "SegmentedControlOption[]",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-segmented-control"
+    },
+    {
+      "className": "EmbSelect",
+      "description": "",
+      "modulePath": "packages/core/src/components/select/emb-select.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-select"
+    },
+    {
+      "className": "EmbSkeleton",
+      "description": "",
+      "modulePath": "packages/core/src/components/skeleton/emb-skeleton.ts",
+      "properties": [
+        {
+          "attributeName": "variant",
+          "defaultValue": "\"line\"",
+          "description": "",
+          "name": "variant",
+          "reflects": true,
+          "type": "\"line\" | \"block\" | \"circle\"",
+          "values": [
+            "line",
+            "block",
+            "circle"
+          ]
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-skeleton"
+    },
+    {
+      "className": "EmbSpinner",
+      "description": "",
+      "modulePath": "packages/core/src/components/spinner/emb-spinner.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-spinner"
+    },
+    {
+      "className": "EmbStepper",
+      "description": "",
+      "modulePath": "packages/core/src/components/stepper/emb-stepper.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "interactive",
+          "defaultValue": "false",
+          "description": "",
+          "name": "interactive",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "orientation",
+          "defaultValue": "\"horizontal\"",
+          "description": "",
+          "name": "orientation",
+          "reflects": true,
+          "type": "\"horizontal\" | \"vertical\"",
+          "values": [
+            "horizontal",
+            "vertical"
+          ]
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "steps",
+          "reflects": false,
+          "type": "StepperStep[]",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "",
+          "name": "input",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-stepper"
+    },
+    {
+      "className": "EmbSwitch",
+      "description": "",
+      "modulePath": "packages/core/src/components/switch/emb-switch.ts",
+      "properties": [
+        {
+          "attributeName": "checked",
+          "defaultValue": "false",
+          "description": "",
+          "name": "checked",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"on\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-switch"
+    },
+    {
+      "className": "EmbTabs",
+      "description": "",
+      "modulePath": "packages/core/src/components/tabs/emb-tabs.ts",
+      "properties": [
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "description": "",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        }
+      ],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-tabs"
+    },
+    {
+      "className": "EmbTelInput",
+      "description": "",
+      "modulePath": "packages/core/src/components/tel-input/emb-tel-input.ts",
+      "properties": [
+        {
+          "attributeName": "autocomplete",
+          "defaultValue": "\"tel\"",
+          "description": "",
+          "name": "autocomplete",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "end-icon",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "endIcon",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "max",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "min",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "min",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "readonly",
+          "defaultValue": "false",
+          "description": "",
+          "name": "readonly",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "start-icon",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "startIcon",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "step",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "step",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-tel-input"
+    },
+    {
+      "className": "EmbTextarea",
+      "description": "",
+      "modulePath": "packages/core/src/components/textarea/emb-textarea.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "readonly",
+          "defaultValue": "false",
+          "description": "",
+          "name": "readonly",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "rows",
+          "defaultValue": "4",
+          "description": "",
+          "name": "rows",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-textarea"
+    },
+    {
+      "className": "EmbTimeInput",
+      "description": "",
+      "modulePath": "packages/core/src/components/time-input/emb-time-input.ts",
+      "properties": [
+        {
+          "attributeName": "autocomplete",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "autocomplete",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "end-icon",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "endIcon",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "max",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "min",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "min",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "readonly",
+          "defaultValue": "false",
+          "description": "",
+          "name": "readonly",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "start-icon",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "startIcon",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "step",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "step",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-time-input"
+    },
+    {
+      "className": "EmbToast",
+      "description": "",
+      "modulePath": "packages/core/src/components/toast/emb-toast.ts",
+      "properties": [
+        {
+          "attributeName": "dismissible",
+          "defaultValue": "false",
+          "description": "",
+          "name": "dismissible",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "open",
+          "defaultValue": "true",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "tone",
+          "defaultValue": "\"neutral\"",
+          "description": "",
+          "name": "tone",
+          "reflects": true,
+          "type": "\"neutral\" | \"success\" | \"warning\" | \"danger\"",
+          "values": [
+            "neutral",
+            "success",
+            "warning",
+            "danger"
+          ]
+        },
+        {
+          "attributeName": null,
+          "defaultValue": null,
+          "description": "",
+          "name": "close",
+          "reflects": false,
+          "type": null,
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-toast"
+    },
+    {
+      "className": "EmbToastRegion",
+      "description": "",
+      "modulePath": "packages/core/src/components/toast/emb-toast-region.ts",
+      "properties": [
+        {
+          "attributeName": "max-visible",
+          "defaultValue": "5",
+          "description": "",
+          "name": "maxVisible",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "placement",
+          "defaultValue": "\"top-end\"",
+          "description": "",
+          "name": "placement",
+          "reflects": true,
+          "type": "ToastPlacement",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "clear",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "dismissToast",
+          "parameters": [
+            {
+              "name": "id",
+              "optional": false,
+              "type": "string"
+            }
+          ],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "showToast",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": false,
+              "type": "ShowToastOptions"
+            }
+          ],
+          "returnType": "string"
+        }
+      ],
+      "events": [
+        {
+          "description": "",
+          "name": "toast-show",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "",
+          "name": "toast-remove",
+          "type": "CustomEvent",
+          "values": null
+        }
+      ],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-toast-region"
+    },
+    {
+      "className": "EmbToolbar",
+      "description": "",
+      "modulePath": "packages/core/src/components/toolbar/emb-toolbar.ts",
+      "properties": [
+        {
+          "attributeName": "orientation",
+          "defaultValue": "\"horizontal\"",
+          "description": "",
+          "name": "orientation",
+          "reflects": true,
+          "type": "\"horizontal\" | \"vertical\"",
+          "values": [
+            "horizontal",
+            "vertical"
+          ]
+        },
+        {
+          "attributeName": "wrap",
+          "defaultValue": "false",
+          "description": "",
+          "name": "wrap",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-toolbar"
+    },
+    {
+      "className": "EmbTooltip",
+      "description": "",
+      "modulePath": "packages/core/src/components/tooltip/emb-tooltip.ts",
+      "properties": [
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "text",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "text",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-tooltip"
+    },
+    {
+      "className": "EmbUrlInput",
+      "description": "",
+      "modulePath": "packages/core/src/components/url-input/emb-url-input.ts",
+      "properties": [
+        {
+          "attributeName": "autocomplete",
+          "defaultValue": "\"url\"",
+          "description": "",
+          "name": "autocomplete",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "end-icon",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "endIcon",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "max",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "min",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "min",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "readonly",
+          "defaultValue": "false",
+          "description": "",
+          "name": "readonly",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "start-icon",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "startIcon",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "step",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "step",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-url-input"
+    }
+  ]
+}
