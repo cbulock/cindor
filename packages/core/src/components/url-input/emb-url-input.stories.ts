@@ -1,6 +1,7 @@
 type UrlInputStoryArgs = {
   autocomplete: string;
   disabled: boolean;
+  label: string;
   placeholder: string;
   readonly: boolean;
   required: boolean;
@@ -8,24 +9,29 @@ type UrlInputStoryArgs = {
 };
 
 const meta = {
-  title: "Components/URL Input",
+  title: "Primitives/URL Input",
   args: {
     autocomplete: "url",
     disabled: false,
+    label: "Website",
     placeholder: "https://example.com",
     readonly: false,
     required: false,
     value: "https://emberline.dev"
   },
-  render: ({ autocomplete, disabled, placeholder, readonly, required, value }: UrlInputStoryArgs) => `
-    <emb-url-input
+  render: ({ autocomplete, disabled, label, placeholder, readonly, required, value }: UrlInputStoryArgs) => `
+    <div style="display:grid;gap:8px;width:min(100%, 320px);">
+      <span id="url-input-story-label">${label}</span>
+      <emb-url-input
+      aria-labelledby="url-input-story-label"
       autocomplete="${autocomplete}"
       ${disabled ? "disabled" : ""}
       placeholder="${placeholder}"
       ${readonly ? "readonly" : ""}
       ${required ? "required" : ""}
       value="${value}"
-    ></emb-url-input>
+      ></emb-url-input>
+    </div>
   `
 };
 

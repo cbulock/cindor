@@ -8,7 +8,7 @@ type RadioStoryArgs = {
 };
 
 const meta = {
-  title: "Components/Radio",
+  title: "Primitives/Radio",
   args: {
     checked: false,
     disabled: false,

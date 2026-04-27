@@ -9,7 +9,7 @@ type DialogStoryArgs = {
 };
 
 const meta = {
-  title: "Components/Dialog",
+  title: "Composites/Dialog",
   args: {
     confirmLabel: "Confirm",
     description: "This action removes the project shell and keeps the upstream design tokens intact.",
@@ -18,9 +18,9 @@ const meta = {
     title: "Delete project"
   },
   render: ({ confirmLabel, description, modal, open, title }: DialogStoryArgs) => html`
-    <emb-dialog .modal=${modal} .open=${open}>
-      <h3>${title}</h3>
-      <p>${description}</p>
+    <emb-dialog .modal=${modal} .open=${open} aria-labelledby="dialog-title" aria-describedby="dialog-description">
+      <h3 id="dialog-title">${title}</h3>
+      <p id="dialog-description">${description}</p>
       <emb-button>${confirmLabel}</emb-button>
     </emb-dialog>
   `

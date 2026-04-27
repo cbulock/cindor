@@ -1,54 +1,11 @@
-import { css, html } from "lit";
-import { live } from "lit/directives/live.js";
+import { css, html, type CSSResultGroup } from "lit";
 
-import { renderLucideIcon } from "../icon/lucide.js";
-import { FormAssociatedElement } from "../shared/form-associated-element.js";
+import { BaseInputElement } from "../input/emb-input.js";
 
-export class EmbPasswordInput extends FormAssociatedElement {
-  static styles = css`
-    :host {
-      display: inline-block;
-      width: var(--emb-field-inline-size, min(100%, 320px));
-      max-width: 100%;
-      min-width: 0;
-      color: var(--fg);
-    }
-
-    .surface {
-      position: relative;
-    }
-
-    input {
-      box-sizing: border-box;
-      width: 100%;
-      min-height: 36px;
-      font: inherit;
-      padding: 0 calc(var(--space-3) * 2 + 1rem + var(--space-2)) 0 var(--space-3);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--fg);
-      transition:
-        border-color var(--duration-base) var(--ease-out),
-        box-shadow var(--duration-base) var(--ease-out),
-        background var(--duration-base) var(--ease-out);
-    }
-
-    input::placeholder {
-      color: var(--fg-subtle);
-    }
-
-    input:disabled {
-      cursor: not-allowed;
-      color: var(--fg-subtle);
-      background: var(--bg-subtle);
-    }
-
-    input:focus-visible {
-      outline: none;
-      box-shadow: var(--ring-focus);
-    }
-
+export class EmbPasswordInput extends BaseInputElement {
+  static override styles: CSSResultGroup = [
+    BaseInputElement.styles,
+    css`
     .toggle {
       position: absolute;
       inset-block-start: 50%;
@@ -91,134 +48,16 @@ export class EmbPasswordInput extends FormAssociatedElement {
       transform: translateY(-50%) scale(0.98);
     }
 
-    .toggle-icon {
-      display: block;
-      inline-size: 1rem;
-      block-size: 1rem;
-    }
-  `;
+    `
+  ];
 
   static properties = {
-    autocomplete: { reflect: true },
-    disabled: { type: Boolean, reflect: true },
-    name: { reflect: true },
-    placeholder: { reflect: true },
-    readonly: { type: Boolean, reflect: true, attribute: "readonly" },
-    required: { type: Boolean, reflect: true },
+    ...BaseInputElement.properties,
     revealPassword: { state: true },
-    value: { reflect: true }
   };
 
   autocomplete = "current-password";
-  disabled = false;
-  name = "";
-  placeholder = "";
-  readonly = false;
-  required = false;
-  value = "";
-
-  private defaultValue = "";
   private revealPassword = false;
-
-  override connectedCallback(): void {
-    super.connectedCallback();
-    this.defaultValue = this.getAttribute("value") ?? this.value;
-  }
-
-  checkValidity(): boolean {
-    return this.inputElement?.checkValidity() ?? true;
-  }
-
-  override focus(options?: FocusOptions): void {
-    this.inputElement?.focus(options);
-  }
-
-  reportValidity(): boolean {
-    return this.inputElement?.reportValidity() ?? true;
-  }
-
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
-  }
-
-  formResetCallback(): void {
-    this.value = this.defaultValue;
-    this.syncFormState();
-  }
-
-  protected override render() {
-    return html`
-      <div class="surface" part="surface">
-        <input
-          part="control"
-          .value=${live(this.value)}
-          autocomplete=${this.autocomplete}
-          ?disabled=${this.disabled}
-          name=${this.name}
-          placeholder=${this.placeholder}
-          ?readonly=${this.readonly}
-          ?required=${this.required}
-          type=${this.revealPassword ? "text" : "password"}
-          @input=${this.handleInput}
-          @change=${this.handleChange}
-        />
-        <button
-          class="toggle"
-          part="toggle"
-          type="button"
-          ?disabled=${this.disabled}
-          aria-label=${this.revealPassword ? "Hide password" : "Show password"}
-          aria-pressed=${String(this.revealPassword)}
-          @click=${this.handleToggleClick}
-        >
-          ${renderLucideIcon({
-            name: this.revealPassword ? "eye-off" : "eye",
-            size: 16,
-            attributes: {
-              class: "toggle-icon",
-              part: "toggle-icon"
-            }
-          })}
-        </button>
-      </div>
-    `;
-  }
-
-  protected override updated(): void {
-    this.syncFormState();
-  }
-
-  private handleChange = (event: Event): void => {
-    event.stopPropagation();
-    const input = event.currentTarget as HTMLInputElement;
-    this.value = input.value;
-    this.syncFormState();
-    this.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
-  };
-
-  private handleInput = (event: InputEvent): void => {
-    event.stopPropagation();
-    const input = event.currentTarget as HTMLInputElement;
-    this.value = input.value;
-    this.syncFormState();
-    this.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
-  };
-
-  private syncFormState(): void {
-    if (this.disabled) {
-      this.setFormValue(null);
-      return;
-    }
-
-    this.setFormValue(this.value);
-    if (this.inputElement) {
-      this.setValidityFrom(this.inputElement);
-    }
-  }
-
-  private get inputElement(): HTMLInputElement | null {
-    return this.renderRoot.querySelector("input");
-  }
 
   private handleToggleClick = (): void => {
     if (this.disabled) {
@@ -228,4 +67,34 @@ export class EmbPasswordInput extends FormAssociatedElement {
     this.revealPassword = !this.revealPassword;
     this.inputElement?.focus();
   };
+
+  protected override get hasEndAdornment(): boolean {
+    return true;
+  }
+
+  protected override renderEndAdornment() {
+    return html`
+      <button
+        class="toggle"
+        part="toggle"
+        type="button"
+        ?disabled=${this.disabled}
+        aria-label=${this.revealPassword ? "Hide password" : "Show password"}
+        aria-pressed=${String(this.revealPassword)}
+        @click=${this.handleToggleClick}
+      >
+        <emb-icon
+          aria-hidden="true"
+          class="toggle-icon"
+          part="toggle-icon"
+          name=${this.revealPassword ? "eye-off" : "eye"}
+          size="16"
+        ></emb-icon>
+      </button>
+    `;
+  }
+
+  protected override get inputType(): string {
+    return this.revealPassword ? "text" : "password";
+  }
 }

@@ -86,6 +86,7 @@ export class EmbRange extends FormAssociatedElement {
 
   protected override updated(): void {
     this.syncFormState();
+    this.syncControlA11y(this.inputElement);
   }
 
   private handleInput = (event: InputEvent): void => {

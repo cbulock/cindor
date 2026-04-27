@@ -16,12 +16,12 @@ describe("emb-toast", () => {
     expect(element.renderRoot.querySelector('[part="surface"]')).toBeNull();
   });
 
-  it("renders a Lucide close icon when dismissible", async () => {
+  it("renders an icon button when dismissible", async () => {
     const element = document.createElement("emb-toast") as EmbToast;
     element.dismissible = true;
     document.body.append(element);
     await element.updateComplete;
 
-    expect(element.renderRoot.querySelector('[part="close-icon"]')).not.toBeNull();
+    expect(element.renderRoot.querySelector('[part="close-button"]')).not.toBeNull();
   });
 });

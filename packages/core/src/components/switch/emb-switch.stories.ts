@@ -6,7 +6,7 @@ type SwitchStoryArgs = {
 };
 
 const meta = {
-  title: "Components/Switch",
+  title: "Primitives/Switch",
   args: {
     checked: false,
     disabled: false,

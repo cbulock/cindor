@@ -36,31 +36,43 @@ export class EmbTooltip extends LitElement {
   open = false;
   text = "";
 
+  private static nextId = 0;
   private floatingBubble: HTMLElement | null = null;
   private floatingCleanup?: () => void;
+  private tooltipId = `emb-tooltip-${EmbTooltip.nextId++}`;
+  private triggerNode: HTMLElement | null = null;
   private updateFloatingPosition?: () => void;
 
   protected override render() {
     return html`
-      <span
-        class="trigger"
-        tabindex="0"
-        @mouseenter=${this.show}
-        @mouseleave=${this.hide}
-        @focusin=${this.show}
-        @focusout=${this.hide}
-      >
-        <slot></slot>
+      <span class="trigger" part="trigger">
+        <slot @slotchange=${this.handleSlotChange}></slot>
       </span>
-      ${this.open ? html`<span class="bubble" part="tooltip" role="tooltip">${this.text}</span>` : nothing}
+      ${this.open ? html`<span class="bubble" part="tooltip" id=${this.tooltipId} role="tooltip">${this.text}</span>` : nothing}
     `;
   }
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+    queueMicrotask(() => {
+      this.syncTriggerNode();
+    });
+  }
+
+  protected override firstUpdated(): void {
+    this.syncTriggerNode();
+  }
+
   protected override updated(): void {
+    if (!this.triggerNode) {
+      this.syncTriggerNode();
+    }
     this.syncFloatingPosition();
+    this.syncTriggerDescription();
   }
 
   override disconnectedCallback(): void {
+    this.detachTriggerListeners();
     this.destroyFloatingPosition();
     super.disconnectedCallback();
   }
@@ -71,6 +83,16 @@ export class EmbTooltip extends LitElement {
 
   private hide = (): void => {
     this.open = false;
+  };
+
+  private handleSlotChange = (): void => {
+    this.syncTriggerNode();
+  };
+
+  private handleTriggerKeyDown = (event: KeyboardEvent): void => {
+    if (event.key === "Escape") {
+      this.hide();
+    }
   };
 
   private syncFloatingPosition(): void {
@@ -118,6 +140,56 @@ export class EmbTooltip extends LitElement {
   }
 
   private get triggerElement(): HTMLElement | null {
-    return this.renderRoot.querySelector(".trigger");
+    return this.triggerNode ?? this.renderRoot.querySelector(".trigger");
+  }
+
+  private detachTriggerListeners(): void {
+    if (!this.triggerNode) {
+      return;
+    }
+
+    this.triggerNode.removeEventListener("mouseenter", this.show);
+    this.triggerNode.removeEventListener("mouseleave", this.hide);
+    this.triggerNode.removeEventListener("focusin", this.show);
+    this.triggerNode.removeEventListener("focusout", this.hide);
+    this.triggerNode.removeEventListener("keydown", this.handleTriggerKeyDown);
+    this.triggerNode.removeAttribute("aria-describedby");
+    this.triggerNode = null;
+  }
+
+  private syncTriggerDescription(): void {
+    if (!this.triggerNode) {
+      return;
+    }
+
+    if (this.open && this.text) {
+      this.triggerNode.setAttribute("aria-describedby", this.tooltipId);
+      return;
+    }
+
+    this.triggerNode.removeAttribute("aria-describedby");
+  }
+
+  private syncTriggerNode(): void {
+    const slot = this.renderRoot.querySelector("slot");
+    const nextTrigger = slot?.assignedElements({ flatten: true }).find((element): element is HTMLElement => element instanceof HTMLElement) ?? null;
+
+    if (nextTrigger === this.triggerNode) {
+      this.syncTriggerDescription();
+      return;
+    }
+
+    this.detachTriggerListeners();
+    if (!nextTrigger) {
+      return;
+    }
+
+    this.triggerNode = nextTrigger;
+    this.triggerNode.addEventListener("mouseenter", this.show);
+    this.triggerNode.addEventListener("mouseleave", this.hide);
+    this.triggerNode.addEventListener("focusin", this.show);
+    this.triggerNode.addEventListener("focusout", this.hide);
+    this.triggerNode.addEventListener("keydown", this.handleTriggerKeyDown);
+    this.syncTriggerDescription();
   }
 }

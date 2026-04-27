@@ -23,4 +23,20 @@ export abstract class FormAssociatedElement extends LitElement {
       this.internals.setValidity(control.validity, control.validationMessage, control);
     }
   }
+
+  protected syncControlA11y(control: HTMLElement | null): void {
+    if (!control) {
+      return;
+    }
+
+    for (const attributeName of ["aria-label", "aria-labelledby", "aria-describedby"]) {
+      const attributeValue = this.getAttribute(attributeName);
+      if (attributeValue === null || attributeValue === "") {
+        control.removeAttribute(attributeName);
+        continue;
+      }
+
+      control.setAttribute(attributeName, attributeValue);
+    }
+  }
 }

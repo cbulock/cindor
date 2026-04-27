@@ -10,11 +10,11 @@ describe("emb-search", () => {
     await element.updateComplete;
 
     const input = element.renderRoot.querySelector("input");
-    const icon = element.renderRoot.querySelector('[part="icon"]');
+    const icon = element.renderRoot.querySelector("emb-icon");
 
     expect(input?.value).toBe("button");
     expect(input?.getAttribute("type")).toBe("search");
     expect(icon).not.toBeNull();
-    expect(icon?.querySelector("circle")).not.toBeNull();
+    expect(icon?.getAttribute("name")).toBe("search");
   });
 });

@@ -1,7 +1,5 @@
 import { css, html, LitElement, nothing } from "lit";
 
-import { renderLucideIcon } from "../icon/lucide.js";
-
 export type ToastTone = "neutral" | "success" | "warning" | "danger";
 
 export class EmbToast extends LitElement {
@@ -37,35 +35,19 @@ export class EmbToast extends LitElement {
       border-color: color-mix(in srgb, var(--danger) 40%, var(--border));
     }
 
-    button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font: inherit;
-      border: 0;
-      background: transparent;
+    emb-icon-button {
       color: var(--fg-muted);
-      cursor: pointer;
-      padding: var(--space-1);
-      border-radius: var(--radius-sm);
       transition:
-        background var(--duration-base) var(--ease-out),
         color var(--duration-base) var(--ease-out),
         transform var(--duration-base) var(--ease-out);
     }
 
-    button:hover:not(:disabled) {
-      background: var(--bg-subtle);
+    emb-icon-button:hover {
       color: var(--fg);
       transform: scale(1.05);
     }
 
-    button:focus-visible {
-      outline: none;
-      box-shadow: var(--ring-focus);
-    }
-
-    button:active:not(:disabled) {
+    emb-icon-button:active {
       transform: scale(0.98);
     }
 
@@ -106,15 +88,7 @@ export class EmbToast extends LitElement {
       <div part="surface" role="status" aria-live="polite">
         <slot></slot>
         ${this.dismissible
-          ? html`<button part="close-button" type="button" aria-label="Dismiss toast" @click=${this.close}>
-              ${renderLucideIcon({
-                name: "x",
-                size: 16,
-                attributes: {
-                  part: "close-icon"
-                }
-              })}
-            </button>`
+          ? html`<emb-icon-button label="Dismiss toast" name="x" part="close-button" @click=${this.close}></emb-icon-button>`
           : nothing}
       </div>
     `;

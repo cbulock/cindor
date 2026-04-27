@@ -1,6 +1,5 @@
 import { css, html, LitElement, nothing } from "lit";
-
-import { renderLucideIcon } from "../icon/lucide.js";
+import { ifDefined } from "lit/directives/if-defined.js";
 
 export type DrawerSide = "start" | "end";
 
@@ -44,36 +43,20 @@ export class EmbDrawer extends LitElement {
       border-inline-start: 1px solid var(--border);
     }
 
-    button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font: inherit;
+    emb-icon-button {
       justify-self: end;
-      border: 0;
-      background: transparent;
       color: var(--fg-muted);
-      cursor: pointer;
-      padding: var(--space-1);
-      border-radius: var(--radius-sm);
       transition:
-        background var(--duration-base) var(--ease-out),
         color var(--duration-base) var(--ease-out),
         transform var(--duration-base) var(--ease-out);
     }
 
-    button:hover:not(:disabled) {
-      background: var(--bg-subtle);
+    emb-icon-button:hover {
       color: var(--fg);
       transform: rotate(90deg);
     }
 
-    button:focus-visible {
-      outline: none;
-      box-shadow: var(--ring-focus);
-    }
-
-    button:active:not(:disabled) {
+    emb-icon-button:active {
       transform: rotate(90deg) scale(0.96);
     }
 
@@ -120,10 +103,27 @@ export class EmbDrawer extends LitElement {
   open = false;
   side: DrawerSide = "end";
 
+  private previousFocusedElement: HTMLElement | null = null;
+
   close = (): void => {
     this.open = false;
     this.dispatchEvent(new Event("close", { bubbles: true, composed: true }));
   };
+
+  protected override updated(changedProperties: Map<PropertyKey, unknown>): void {
+    if (changedProperties.has("open")) {
+      if (this.open) {
+        this.previousFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+        queueMicrotask(() => {
+          this.panelElement?.focus();
+        });
+        return;
+      }
+
+      this.previousFocusedElement?.focus();
+      this.previousFocusedElement = null;
+    }
+  }
 
   protected override render() {
     if (!this.open) {
@@ -132,18 +132,84 @@ export class EmbDrawer extends LitElement {
 
     return html`
       <div class="backdrop" part="backdrop" @click=${this.close}></div>
-      <aside part="panel">
-        <button type="button" part="close-button" aria-label="Close drawer" @click=${this.close}>
-          ${renderLucideIcon({
-            name: "x",
-            size: 16,
-            attributes: {
-              part: "close-icon"
-            }
-          })}
-        </button>
+      <div
+        part="panel"
+        aria-describedby=${ifDefined(this.hostAriaDescribedBy)}
+        aria-label=${ifDefined(this.hostAriaLabel)}
+        aria-labelledby=${ifDefined(this.hostAriaLabelledBy)}
+        aria-modal="true"
+        role="dialog"
+        tabindex="-1"
+        @keydown=${this.handlePanelKeyDown}
+      >
+        <emb-icon-button label="Close drawer" name="x" part="close-button" @click=${this.close}></emb-icon-button>
         <slot></slot>
-      </aside>
+      </div>
     `;
+  }
+
+  private handlePanelKeyDown = (event: KeyboardEvent): void => {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      this.close();
+      return;
+    }
+
+    if (event.key !== "Tab") {
+      return;
+    }
+
+    const focusableElements = this.focusableElements;
+    if (focusableElements.length === 0) {
+      event.preventDefault();
+      this.panelElement?.focus();
+      return;
+    }
+
+    const shadowRoot = this.shadowRoot;
+    const currentIndex = focusableElements.indexOf(shadowRoot?.activeElement as HTMLElement);
+    const activeIndex = currentIndex >= 0 ? currentIndex : focusableElements.indexOf(document.activeElement as HTMLElement);
+
+    if (event.shiftKey) {
+      if (activeIndex <= 0) {
+        event.preventDefault();
+        focusableElements.at(-1)?.focus();
+      }
+      return;
+    }
+
+    if (activeIndex === focusableElements.length - 1) {
+      event.preventDefault();
+      focusableElements[0]?.focus();
+    }
+  };
+
+  private get hostAriaDescribedBy(): string | undefined {
+    return this.getAttribute("aria-describedby") ?? undefined;
+  }
+
+  private get hostAriaLabel(): string | undefined {
+    return this.getAttribute("aria-label") ?? undefined;
+  }
+
+  private get hostAriaLabelledBy(): string | undefined {
+    return this.getAttribute("aria-labelledby") ?? undefined;
+  }
+
+  private get focusableElements(): HTMLElement[] {
+    const panel = this.panelElement;
+    if (!panel) {
+      return [];
+    }
+
+    return Array.from(
+      panel.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )
+    );
+  }
+
+  private get panelElement(): HTMLElement | null {
+    return this.renderRoot.querySelector('[part="panel"]');
   }
 }

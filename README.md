@@ -23,6 +23,7 @@ npm install
 Run the workspace scripts from the repository root:
 
 ```bash
+npm run generate:wrappers
 npm run build
 npm run lint
 npm run test
@@ -39,6 +40,8 @@ npx vitest run packages/core/src/components/button/emb-button.test.ts
 ```
 
 Replace the file path as needed for the specific component you are working on.
+
+When adding or renaming components, update `scripts/wrapper-manifest.mjs` and run `npm run generate:wrappers` so the React and Vue wrapper exports stay aligned with the shared component metadata.
 
 ## Architecture
 
@@ -90,3 +93,14 @@ Storybook is configured for the core web components. Add or update stories next 
 ```text
 packages/core/src/**/*.stories.ts
 ```
+
+Storybook accessibility checks are part of the expected component workflow. Stories for interactive components should render a real accessible-name pattern such as visible text paired with `aria-labelledby`, not placeholder-only examples.
+
+## Accessibility
+
+Accessibility is a required part of component design in this repository:
+
+- every interactive component must expose a reliable accessible-name pattern
+- composite widgets must support keyboard interaction and focus management appropriate to their role
+- dialogs, drawers, popovers, menus, tooltips, and similar overlays must use correct semantics and dismissal behavior
+- new interactive component work should include accessibility assertions in tests and labeled Storybook examples

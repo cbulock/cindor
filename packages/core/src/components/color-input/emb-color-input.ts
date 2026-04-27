@@ -145,6 +145,7 @@ export class EmbColorInput extends FormAssociatedElement {
 
   protected override updated(): void {
     this.syncFormState();
+    this.syncControlA11y(this.inputElement);
   }
 
   private handleChange = (event: Event): void => {

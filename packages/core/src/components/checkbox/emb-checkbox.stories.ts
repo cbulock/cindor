@@ -6,7 +6,7 @@ type CheckboxStoryArgs = {
 };
 
 const meta = {
-  title: "Components/Checkbox",
+  title: "Primitives/Checkbox",
   args: {
     checked: false,
     disabled: false,

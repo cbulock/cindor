@@ -1,6 +1,5 @@
 import { css, html } from "lit";
 
-import { renderLucideIcon } from "../icon/lucide.js";
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
 
 export class EmbFileInput extends FormAssociatedElement {
@@ -43,34 +42,8 @@ export class EmbFileInput extends FormAssociatedElement {
       box-shadow: var(--ring-focus);
     }
 
-    .trigger {
-      font: inherit;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: var(--space-2);
-      min-height: 36px;
-      padding: 0 var(--space-4);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--fg);
-      cursor: pointer;
-      transition:
-        background var(--duration-base) var(--ease-out),
-        border-color var(--duration-base) var(--ease-out),
-        color var(--duration-base) var(--ease-out),
-        box-shadow var(--duration-base) var(--ease-out);
-    }
-
-    .trigger:hover:not(:disabled) {
-      border-color: var(--border-strong);
-      background: var(--bg-subtle);
-    }
-
-    .trigger:disabled {
-      cursor: not-allowed;
-      opacity: 0.6;
+    emb-button {
+      align-self: center;
     }
 
     .summary {
@@ -86,11 +59,15 @@ export class EmbFileInput extends FormAssociatedElement {
     }
 
     .files {
-      overflow: hidden;
+      min-width: 0;
       color: var(--fg-muted);
       font-size: var(--text-sm);
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
     }
 
     :host([disabled]) .surface {
@@ -146,7 +123,6 @@ export class EmbFileInput extends FormAssociatedElement {
 
   protected override render() {
     const fileNames = this.files ? Array.from(this.files).map((file) => file.name) : [];
-    const summary = fileNames.length > 0 ? fileNames.join(", ") : "No files selected";
     const triggerLabel = this.multiple ? "Choose files" : "Choose file";
 
     return html`
@@ -162,19 +138,25 @@ export class EmbFileInput extends FormAssociatedElement {
           @input=${this.handleInput}
           @change=${this.handleChange}
         />
-        <button class="trigger" part="trigger" type="button" ?disabled=${this.disabled} @click=${this.handleTriggerClick}>
-          ${renderLucideIcon({
-            name: "upload",
-            size: 16,
-            attributes: {
-              part: "trigger-icon"
-            }
-          })}
+        <emb-button part="trigger" type="button" variant="ghost" ?disabled=${this.disabled} @click=${this.handleTriggerClick}>
+          <emb-icon slot="start-icon" name="upload" part="trigger-icon" size="16"></emb-icon>
           ${triggerLabel}
-        </button>
+        </emb-button>
         <div class="summary">
           <div class="label" part="label">${this.multiple ? "Selected files" : "Selected file"}</div>
-          <div class="files" part="files">${summary}</div>
+          <div class="files" part="files">
+            ${fileNames.length > 0
+              ? html`
+                  <div class="chips" part="chips">
+                    ${fileNames.map(
+                      (fileName) => html`
+                        <emb-chip part="file-chip">${fileName}</emb-chip>
+                      `
+                    )}
+                  </div>
+                `
+              : "No files selected"}
+          </div>
         </div>
       </div>
     `;
@@ -182,6 +164,7 @@ export class EmbFileInput extends FormAssociatedElement {
 
   protected override updated(): void {
     this.syncFormState();
+    this.syncControlA11y(this.inputElement);
   }
 
   private handleInput = (event: InputEvent): void => {

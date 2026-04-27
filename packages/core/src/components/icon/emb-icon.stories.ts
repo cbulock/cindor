@@ -18,7 +18,7 @@ type IconStoryArgs = {
 };
 
 const meta = {
-  title: "Components/Icon",
+  title: "Primitives/Icon",
   args: {
     label: "Search",
     name: "search",

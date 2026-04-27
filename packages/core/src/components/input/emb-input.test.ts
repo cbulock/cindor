@@ -17,4 +17,29 @@ describe("emb-input", () => {
 
     expect(element.value).toBe("hello");
   });
+
+  it("forwards host labelling attributes to the internal input", async () => {
+    const element = document.createElement("emb-input") as EmbInput;
+    element.setAttribute("aria-label", "Project name");
+    document.body.append(element);
+    await element.updateComplete;
+
+    const input = element.renderRoot.querySelector("input");
+
+    expect(input?.getAttribute("aria-label")).toBe("Project name");
+  });
+
+  it("renders configured start and end icons", async () => {
+    const element = document.createElement("emb-input") as EmbInput;
+    element.startIcon = "search";
+    element.endIcon = "x";
+    document.body.append(element);
+    await element.updateComplete;
+
+    const icons = element.renderRoot.querySelectorAll("emb-icon");
+
+    expect(icons).toHaveLength(2);
+    expect(icons[0]?.getAttribute("name")).toBe("search");
+    expect(icons[1]?.getAttribute("name")).toBe("x");
+  });
 });

@@ -6,7 +6,7 @@ type FieldsetStoryArgs = {
 };
 
 const meta = {
-  title: "Components/Fieldset",
+  title: "Primitives/Fieldset",
   args: {
     bioPlaceholder: "Bio",
     disabled: false,

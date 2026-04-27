@@ -1,25 +1,31 @@
 type FileInputStoryArgs = {
   accept: string;
   disabled: boolean;
+  label: string;
   multiple: boolean;
   required: boolean;
 };
 
 const meta = {
-  title: "Components/File Input",
+  title: "Composites/File Input",
   args: {
     accept: ".png,.jpg",
     disabled: false,
+    label: "Upload assets",
     multiple: true,
     required: false
   },
-  render: ({ accept, disabled, multiple, required }: FileInputStoryArgs) => `
-    <emb-file-input
+  render: ({ accept, disabled, label, multiple, required }: FileInputStoryArgs) => `
+    <div style="display:grid;gap:8px;width:min(100%, 420px);">
+      <span id="file-input-story-label">${label}</span>
+      <emb-file-input
+      aria-labelledby="file-input-story-label"
       ${accept ? `accept="${accept}"` : ""}
       ${disabled ? "disabled" : ""}
       ${multiple ? "multiple" : ""}
       ${required ? "required" : ""}
-    ></emb-file-input>
+      ></emb-file-input>
+    </div>
   `
 };
 

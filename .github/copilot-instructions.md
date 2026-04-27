@@ -69,6 +69,7 @@ The workspace uses npm workspaces, TypeScript, tsup, Vitest, ESLint, and Storybo
 - Prefer **native HTML elements and browser behavior** over re-implementing controls in JavaScript. Start from semantic elements such as `button`, `input`, `select`, `textarea`, `dialog`, `fieldset`, `label`, and standard form semantics before introducing custom behavior.
 - Prefer **shared public APIs** across the core, React wrapper, and Vue wrapper so the same component concepts map cleanly between frameworks.
 - If wrappers are introduced, keep them **thin**: prop/event translation, typing, and lifecycle glue only.
+- Treat `scripts/wrapper-manifest.mjs` as the single source of truth for React/Vue wrapper generation. When wrapper exports change, update the manifest and regenerate the wrapper files instead of hand-editing `packages/react/src/index.tsx` or `packages/vue/src/index.ts`.
 - Treat **DOM events, attributes/properties, slots, CSS custom properties, and accessibility semantics** as the primary integration surface for the core components.
 - Keep **component-specific styles inside shadow DOM**. Do not export per-component CSS files unless there is a concrete non-shadow use case.
 - Keep the exported `emberline-ui-core/styles.css` focused on the shared global Emberline layer: fonts, tokens, base styles, and theme hooks.
@@ -76,4 +77,6 @@ The workspace uses npm workspaces, TypeScript, tsup, Vitest, ESLint, and Storybo
 - Prefer **standards-based integration points** that work in generic apps: custom elements registration, attributes/properties, slots, CSS custom properties/parts, and composed DOM events.
 - Prefer theme and styling integration that remains compatible with the upstream design system's conventions, including token-driven styling and root theme switching patterns such as `data-theme`.
 - Storybook is configured for the core web components. Add or update stories in `packages/core/src/**/*.stories.ts` alongside the component source.
+- Accessibility is a hard requirement for every component change. Interactive components must have an accessible name pattern, correct semantic roles, keyboard support, focus management where applicable, and Storybook stories that demonstrate labeled usage rather than placeholder-only usage.
+- When adding or updating interactive components, include accessibility assertions in tests and keep Storybook accessibility tooling passing.
 - Do not introduce React-only or Vue-only patterns into the core library unless the repository later documents that choice explicitly.

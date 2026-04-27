@@ -3,8 +3,10 @@ import { live } from "lit/directives/live.js";
 
 import { attachFloatingPosition } from "../shared/floating-position.js";
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
+import { EmbOption } from "../option/emb-option.js";
 
 type ComboboxOption = {
+  disabled: boolean;
   label: string;
   value: string;
 };
@@ -58,40 +60,11 @@ export class EmbCombobox extends FormAssociatedElement {
       display: none;
     }
 
-    .listbox {
+    emb-listbox {
       position: fixed;
       z-index: 10;
-      display: grid;
-      gap: var(--space-1);
       max-block-size: 240px;
       overflow: auto;
-      padding: var(--space-2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      background: var(--surface);
-      box-shadow: var(--shadow-md);
-    }
-
-    .option {
-      width: 100%;
-      padding: var(--space-2) var(--space-3);
-      border: 0;
-      border-radius: var(--radius-md);
-      background: transparent;
-      color: var(--fg);
-      cursor: pointer;
-      font: inherit;
-      text-align: start;
-    }
-
-    .option:hover,
-    .option[data-active="true"] {
-      background: var(--bg-subtle);
-    }
-
-    .option[data-selected="true"] {
-      color: var(--accent);
-      font-weight: 600;
     }
   `;
 
@@ -187,26 +160,28 @@ export class EmbCombobox extends FormAssociatedElement {
         />
         ${this.listboxVisible
           ? html`
-              <div class="listbox" part="listbox" id=${this.listId} role="listbox">
+              <emb-listbox
+                part="listbox"
+                id=${this.listId}
+                .activeIndex=${this.activeIndex}
+                .selectedValue=${this.value}
+                @option-hover=${this.handleOptionHoverEvent}
+                @option-select=${this.handleOptionSelect}
+              >
                 ${filteredOptions.map(
                   (option, index) => html`
-                    <button
+                    <emb-option
                       id=${this.getOptionId(index)}
-                      class="option"
-                      part=${index === this.activeIndex ? "option option-active" : "option"}
-                      type="button"
-                      role="option"
-                      aria-selected=${String(option.value === this.value)}
-                      data-active=${String(index === this.activeIndex)}
-                      data-selected=${String(option.value === this.value)}
-                      @mousedown=${this.handleOptionMouseDown}
-                      @click=${() => this.commitOption(index)}
+                      ?active=${index === this.activeIndex}
+                      ?disabled=${option.disabled}
+                      ?selected=${option.value === this.value}
+                      value=${option.value}
                     >
                       ${option.label}
-                    </button>
+                    </emb-option>
                   `
                 )}
-              </div>
+              </emb-listbox>
             `
           : nothing}
       </div>
@@ -215,6 +190,7 @@ export class EmbCombobox extends FormAssociatedElement {
 
   protected override updated(): void {
     this.syncFormState();
+    this.syncControlA11y(this.inputElement);
     this.syncFloatingPosition();
   }
 
@@ -264,14 +240,14 @@ export class EmbCombobox extends FormAssociatedElement {
     if (event.key === "ArrowDown") {
       event.preventDefault();
       this.open = true;
-      this.activeIndex = this.activeIndex < options.length - 1 ? this.activeIndex + 1 : options.length - 1;
+      this.activeIndex = this.getNextActiveIndex(1);
       return;
     }
 
     if (event.key === "ArrowUp") {
       event.preventDefault();
       this.open = true;
-      this.activeIndex = this.activeIndex > 0 ? this.activeIndex - 1 : 0;
+      this.activeIndex = this.getNextActiveIndex(-1);
       return;
     }
 
@@ -292,17 +268,28 @@ export class EmbCombobox extends FormAssociatedElement {
     this.refreshOptions();
   };
 
-  private handleOptionMouseDown = (event: MouseEvent): void => {
-    event.preventDefault();
-  };
-
   private refreshOptions(): void {
     this.optionNodes = Array.from(this.children)
-      .filter((child): child is HTMLOptionElement => child instanceof HTMLOptionElement)
-      .map((option) => ({
-        label: option.label || option.textContent?.trim() || option.value,
-        value: option.value
-      }));
+      .map((child) => {
+        if (child instanceof HTMLOptionElement) {
+          return {
+            disabled: child.disabled,
+            label: child.label || child.textContent?.trim() || child.value,
+            value: child.value
+          };
+        }
+
+        if (child instanceof EmbOption) {
+          return {
+            disabled: child.disabled,
+            label: child.label || child.textContent?.trim() || child.value,
+            value: child.value
+          };
+        }
+
+        return null;
+      })
+      .filter((option): option is ComboboxOption => option !== null);
 
     this.activeIndex = this.getInitialActiveIndex();
     this.requestUpdate();
@@ -311,7 +298,7 @@ export class EmbCombobox extends FormAssociatedElement {
   private commitOption(index: number): void {
     const option = this.filteredOptions[index];
 
-    if (!option) {
+    if (!option || option.disabled) {
       return;
     }
 
@@ -382,7 +369,7 @@ export class EmbCombobox extends FormAssociatedElement {
   }
 
   private get listboxElement(): HTMLElement | null {
-    return this.renderRoot.querySelector(".listbox");
+    return this.renderRoot.querySelector("emb-listbox");
   }
 
   private get filteredOptions(): ComboboxOption[] {
@@ -410,16 +397,58 @@ export class EmbCombobox extends FormAssociatedElement {
   }
 
   private getInitialActiveIndex(): number {
-    const exactMatchIndex = this.filteredOptions.findIndex((option) => option.value === this.value);
+    const exactMatchIndex = this.filteredOptions.findIndex((option) => option.value === this.value && !option.disabled);
 
     if (exactMatchIndex >= 0) {
       return exactMatchIndex;
     }
 
-    return this.filteredOptions.length > 0 ? 0 : -1;
+    return this.filteredOptions.findIndex((option) => !option.disabled);
   }
 
   private getOptionId(index: number): string {
     return `${this.listId}-option-${index}`;
+  }
+
+  private handleOptionHoverEvent = (event: CustomEvent<{ option: EmbOption }>): void => {
+    const index = this.renderedOptionElements.indexOf(event.detail.option);
+
+    if (index >= 0) {
+      this.activeIndex = index;
+    }
+  };
+
+  private handleOptionSelect = (event: CustomEvent<{ option: EmbOption }>): void => {
+    const index = this.renderedOptionElements.indexOf(event.detail.option);
+
+    if (index >= 0) {
+      this.commitOption(index);
+    }
+  };
+
+  private get renderedOptionElements(): EmbOption[] {
+    return Array.from(this.listboxElement?.querySelectorAll("emb-option") ?? []).filter(
+      (option): option is EmbOption => option instanceof EmbOption
+    );
+  }
+
+  private getNextActiveIndex(direction: 1 | -1): number {
+    const options = this.filteredOptions;
+
+    if (options.every((option) => option.disabled)) {
+      return -1;
+    }
+
+    let index = this.activeIndex;
+
+    for (let step = 0; step < options.length; step += 1) {
+      index = index < 0 ? (direction === 1 ? 0 : options.length - 1) : (index + direction + options.length) % options.length;
+
+      if (!options[index]?.disabled) {
+        return index;
+      }
+    }
+
+    return -1;
   }
 }

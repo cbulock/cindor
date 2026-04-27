@@ -1,5 +1,5 @@
 const meta = {
-  title: "Components/Spinner",
+  title: "Primitives/Spinner",
   render: () => `<emb-spinner></emb-spinner>`
 };
 

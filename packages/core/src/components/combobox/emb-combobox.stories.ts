@@ -1,6 +1,7 @@
 type ComboboxStoryArgs = {
   autocomplete: string;
   disabled: boolean;
+  label: string;
   optionOne: string;
   optionThree: string;
   optionTwo: string;
@@ -11,10 +12,11 @@ type ComboboxStoryArgs = {
 };
 
 const meta = {
-  title: "Components/Combobox",
+  title: "Composites/Combobox",
   args: {
     autocomplete: "",
     disabled: false,
+    label: "Framework",
     optionOne: "Web Components",
     optionThree: "Vue",
     optionTwo: "React",
@@ -26,6 +28,7 @@ const meta = {
   render: ({
     autocomplete,
     disabled,
+    label,
     optionOne,
     optionThree,
     optionTwo,
@@ -34,19 +37,23 @@ const meta = {
     required,
     value
   }: ComboboxStoryArgs) => `
-    <emb-combobox
-      ${autocomplete ? `autocomplete="${autocomplete}"` : ""}
+    <div style="display:grid;gap:8px;width:min(100%, 320px);">
+      <span id="combobox-story-label">${label}</span>
+      <emb-combobox
+       aria-labelledby="combobox-story-label"
+       ${autocomplete ? `autocomplete="${autocomplete}"` : ""}
       ${disabled ? "disabled" : ""}
       ${readonly ? "readonly" : ""}
       ${required ? "required" : ""}
-      placeholder="${placeholder}"
-      value="${value}"
-    >
-      <option value="${optionOne}">${optionOne}</option>
-      <option value="${optionTwo}">${optionTwo}</option>
-      <option value="${optionThree}">${optionThree}</option>
-    </emb-combobox>
-  `
+       placeholder="${placeholder}"
+       value="${value}"
+     >
+       <emb-option value="${optionOne}">${optionOne}</emb-option>
+       <emb-option value="${optionTwo}">${optionTwo}</emb-option>
+       <emb-option value="${optionThree}">${optionThree}</emb-option>
+       </emb-combobox>
+     </div>
+   `
 };
 
 export default meta;

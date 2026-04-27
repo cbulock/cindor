@@ -1,5 +1,6 @@
 type TimeInputStoryArgs = {
   disabled: boolean;
+  label: string;
   max: string;
   min: string;
   readonly: boolean;
@@ -9,9 +10,10 @@ type TimeInputStoryArgs = {
 };
 
 const meta = {
-  title: "Components/Time Input",
+  title: "Primitives/Time Input",
   args: {
     disabled: false,
+    label: "Meeting time",
     max: "",
     min: "",
     readonly: false,
@@ -19,8 +21,11 @@ const meta = {
     step: "900",
     value: "13:45"
   },
-  render: ({ disabled, max, min, readonly, required, step, value }: TimeInputStoryArgs) => `
-    <emb-time-input
+  render: ({ disabled, label, max, min, readonly, required, step, value }: TimeInputStoryArgs) => `
+    <div style="display:grid;gap:8px;width:min(100%, 320px);">
+      <span id="time-input-story-label">${label}</span>
+      <emb-time-input
+      aria-labelledby="time-input-story-label"
       ${disabled ? "disabled" : ""}
       ${max ? `max="${max}"` : ""}
       ${min ? `min="${min}"` : ""}
@@ -28,7 +33,8 @@ const meta = {
       ${required ? "required" : ""}
       ${step ? `step="${step}"` : ""}
       value="${value}"
-    ></emb-time-input>
+      ></emb-time-input>
+    </div>
   `
 };
 

@@ -1,6 +1,5 @@
 import { css, html, LitElement } from "lit";
-
-import { renderLucideIcon } from "../icon/lucide.js";
+import { ifDefined } from "lit/directives/if-defined.js";
 
 export class EmbDialog extends LitElement {
   static styles = css`
@@ -30,46 +29,20 @@ export class EmbDialog extends LitElement {
       padding-inline-end: calc(1rem + var(--space-3));
     }
 
-    .close-button {
+    emb-icon-button {
       position: absolute;
       inset-block-start: 0;
       inset-inline-end: 0;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      inline-size: 2rem;
-      block-size: 2rem;
-      padding: 0;
-      border: 0;
-      border-radius: var(--radius-sm);
-      background: transparent;
       color: var(--fg-muted);
-      cursor: pointer;
-      transition:
-        background var(--duration-base) var(--ease-out),
-        color var(--duration-base) var(--ease-out),
-        transform var(--duration-base) var(--ease-out);
     }
 
-    .close-button:hover {
-      background: var(--bg-subtle);
+    emb-icon-button:hover {
       color: var(--fg);
       transform: scale(1.05);
     }
 
-    .close-button:focus-visible {
-      outline: none;
-      box-shadow: var(--ring-focus);
-    }
-
-    .close-button:active {
+    emb-icon-button:active {
       transform: scale(0.98);
-    }
-
-    .close-icon {
-      display: block;
-      inline-size: 1rem;
-      block-size: 1rem;
     }
   `;
 
@@ -119,18 +92,16 @@ export class EmbDialog extends LitElement {
 
   protected override render() {
     return html`
-      <dialog part="dialog" @close=${this.handleClose} @cancel=${this.handleCancel}>
+      <dialog
+        part="dialog"
+        aria-describedby=${ifDefined(this.hostAriaDescribedBy)}
+        aria-label=${ifDefined(this.hostAriaLabel)}
+        aria-labelledby=${ifDefined(this.hostAriaLabelledBy)}
+        @close=${this.handleClose}
+        @cancel=${this.handleCancel}
+      >
         <div class="surface">
-          <button class="close-button" part="close-button" type="button" aria-label="Close dialog" @click=${this.handleDismiss}>
-            ${renderLucideIcon({
-              name: "x",
-              size: 16,
-              attributes: {
-                class: "close-icon",
-                part: "close-icon"
-              }
-            })}
-          </button>
+          <emb-icon-button label="Close dialog" name="x" part="close-button" @click=${this.handleDismiss}></emb-icon-button>
           <slot></slot>
         </div>
       </dialog>
@@ -212,5 +183,17 @@ export class EmbDialog extends LitElement {
 
   private get dialogElement(): HTMLDialogElement | null {
     return this.renderRoot.querySelector("dialog");
+  }
+
+  private get hostAriaDescribedBy(): string | undefined {
+    return this.getAttribute("aria-describedby") ?? undefined;
+  }
+
+  private get hostAriaLabel(): string | undefined {
+    return this.getAttribute("aria-label") ?? undefined;
+  }
+
+  private get hostAriaLabelledBy(): string | undefined {
+    return this.getAttribute("aria-labelledby") ?? undefined;
   }
 }

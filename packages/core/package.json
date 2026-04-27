@@ -33,6 +33,7 @@
   "dependencies": {
     "@floating-ui/dom": "^1.7.6",
     "emberline-design": "github:cbulock/emberline-design",
+    "highlight.js": "^11.11.1",
     "lit": "^3.2.1",
     "lucide": "^1.11.0"
   }

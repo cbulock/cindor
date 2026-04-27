@@ -4,7 +4,7 @@ type BadgeStoryArgs = {
 };
 
 const meta = {
-  title: "Components/Badge",
+  title: "Primitives/Badge",
   args: {
     label: "Active",
     tone: "neutral"

@@ -7,7 +7,7 @@ type LinkStoryArgs = {
 };
 
 const meta = {
-  title: "Components/Link",
+  title: "Primitives/Link",
   args: {
     download: "",
     href: "https://github.com/cbulock/emberline-components",

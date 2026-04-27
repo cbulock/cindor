@@ -112,6 +112,7 @@ export class EmbTextarea extends FormAssociatedElement {
 
   protected override updated(): void {
     this.syncFormState();
+    this.syncControlA11y(this.textareaElement);
   }
 
   private handleChange = (event: Event): void => {

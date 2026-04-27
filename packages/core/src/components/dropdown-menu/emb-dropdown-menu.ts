@@ -21,26 +21,15 @@ export class EmbDropdownMenu extends LitElement {
       display: none;
     }
 
-    .menu {
+    emb-menu.menu {
       position: fixed;
-      min-width: 200px;
-      padding: var(--space-2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      background: var(--surface);
-      box-shadow: var(--shadow-md);
       z-index: 20;
       opacity: 0;
       transform: translateY(-4px);
     }
 
-    details[open] .menu {
+    details[open] emb-menu.menu {
       animation: emb-dropdown-menu-enter var(--duration-base) var(--ease-out) forwards;
-    }
-
-    .menu ::slotted(*) {
-      display: block;
-      width: 100%;
     }
 
     @keyframes emb-dropdown-menu-enter {
@@ -72,9 +61,9 @@ export class EmbDropdownMenu extends LitElement {
         <summary part="trigger">
           <slot name="trigger"></slot>
         </summary>
-        <div class="menu" part="menu" role="menu">
+        <emb-menu class="menu" part="menu" @menu-item-select=${this.handleItemSelect}>
           <slot></slot>
-        </div>
+        </emb-menu>
       </details>
     `;
   }
@@ -136,10 +125,19 @@ export class EmbDropdownMenu extends LitElement {
   }
 
   private get menuElement(): HTMLElement | null {
-    return this.renderRoot.querySelector(".menu");
+    return this.renderRoot.querySelector("emb-menu");
   }
 
   private get triggerElement(): HTMLElement | null {
     return this.renderRoot.querySelector("summary");
+  }
+
+  private handleItemSelect = (): void => {
+    this.detailsElement?.removeAttribute("open");
+    this.open = false;
+  };
+
+  private get detailsElement(): HTMLDetailsElement | null {
+    return this.renderRoot.querySelector("details");
   }
 }

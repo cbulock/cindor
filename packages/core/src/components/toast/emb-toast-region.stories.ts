@@ -5,7 +5,7 @@ type ToastRegionStoryArgs = {
 };
 
 const meta = {
-  title: "Components/Toast Region",
+  title: "Composites/Toast Region",
   args: {
     firstTone: "success",
     placement: "top-end",

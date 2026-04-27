@@ -7,7 +7,7 @@ type DropdownMenuStoryArgs = {
 };
 
 const meta = {
-  title: "Components/Dropdown Menu",
+  title: "Composites/Dropdown Menu",
   args: {
     firstItem: "Edit",
     open: true,
@@ -22,10 +22,10 @@ const meta = {
   },
   render: ({ firstItem, open, secondItem, thirdItem, triggerLabel }: DropdownMenuStoryArgs) => `
     <emb-dropdown-menu ${open ? "open" : ""}>
-      <emb-button slot="trigger">${triggerLabel}</emb-button>
-      <emb-button variant="ghost">${firstItem}</emb-button>
-      <emb-button variant="ghost">${secondItem}</emb-button>
-      <emb-button variant="ghost">${thirdItem}</emb-button>
+      <span slot="trigger">${triggerLabel}</span>
+      <emb-menu-item>${firstItem}</emb-menu-item>
+      <emb-menu-item>${secondItem}</emb-menu-item>
+      <emb-menu-item>${thirdItem}</emb-menu-item>
     </emb-dropdown-menu>
   `
 };

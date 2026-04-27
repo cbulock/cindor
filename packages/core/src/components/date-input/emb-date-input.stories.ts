@@ -1,5 +1,6 @@
 type DateInputStoryArgs = {
   disabled: boolean;
+  label: string;
   max: string;
   min: string;
   readonly: boolean;
@@ -8,24 +9,29 @@ type DateInputStoryArgs = {
 };
 
 const meta = {
-  title: "Components/Date Input",
+  title: "Primitives/Date Input",
   args: {
     disabled: false,
+    label: "Publish date",
     max: "",
     min: "",
     readonly: false,
     required: false,
     value: "2026-04-26"
   },
-  render: ({ disabled, max, min, readonly, required, value }: DateInputStoryArgs) => `
-    <emb-date-input
+  render: ({ disabled, label, max, min, readonly, required, value }: DateInputStoryArgs) => `
+    <div style="display:grid;gap:8px;width:min(100%, 320px);">
+      <span id="date-input-story-label">${label}</span>
+      <emb-date-input
+      aria-labelledby="date-input-story-label"
       ${disabled ? "disabled" : ""}
       ${max ? `max="${max}"` : ""}
       ${min ? `min="${min}"` : ""}
       ${readonly ? "readonly" : ""}
       ${required ? "required" : ""}
       value="${value}"
-    ></emb-date-input>
+      ></emb-date-input>
+    </div>
   `
 };
 

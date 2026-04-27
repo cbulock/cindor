@@ -1,13 +1,15 @@
 type SelectStoryArgs = {
   disabled: boolean;
+  label: string;
   required: boolean;
   value: string;
 };
 
 const meta = {
-  title: "Components/Select",
+  title: "Primitives/Select",
   args: {
     disabled: false,
+    label: "Status",
     required: false,
     value: "open"
   },
@@ -17,12 +19,15 @@ const meta = {
       options: ["open", "in-progress", "closed"]
     }
   },
-  render: ({ disabled, required, value }: SelectStoryArgs) => `
-    <emb-select ${disabled ? "disabled" : ""} ${required ? "required" : ""} value="${value}">
+  render: ({ disabled, label, required, value }: SelectStoryArgs) => `
+    <div style="display:grid;gap:8px;width:min(100%, 320px);">
+      <span id="select-story-label">${label}</span>
+      <emb-select aria-labelledby="select-story-label" ${disabled ? "disabled" : ""} ${required ? "required" : ""} value="${value}">
       <option value="open">Open</option>
       <option value="in-progress">In progress</option>
       <option value="closed">Closed</option>
-    </emb-select>
+      </emb-select>
+    </div>
   `
 };
 

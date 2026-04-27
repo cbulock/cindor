@@ -5,7 +5,7 @@ type DividerStoryArgs = {
 };
 
 const meta = {
-  title: "Components/Divider",
+  title: "Primitives/Divider",
   args: {
     aboveLabel: "Above",
     belowLabel: "Below",

@@ -131,6 +131,7 @@ export class EmbSelect extends FormAssociatedElement {
 
   protected override updated(): void {
     this.syncFormState();
+    this.syncControlA11y(this.selectElement);
   }
 
   private handleChange = (event: Event): void => {

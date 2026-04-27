@@ -1,5 +1,6 @@
 type NumberInputStoryArgs = {
   disabled: boolean;
+  label: string;
   max: string;
   min: string;
   placeholder: string;
@@ -10,9 +11,10 @@ type NumberInputStoryArgs = {
 };
 
 const meta = {
-  title: "Components/Number Input",
+  title: "Primitives/Number Input",
   args: {
     disabled: false,
+    label: "Quantity",
     max: "10",
     min: "0",
     placeholder: "Quantity",
@@ -21,8 +23,11 @@ const meta = {
     step: "1",
     value: "3"
   },
-  render: ({ disabled, max, min, placeholder, readonly, required, step, value }: NumberInputStoryArgs) => `
-    <emb-number-input
+  render: ({ disabled, label, max, min, placeholder, readonly, required, step, value }: NumberInputStoryArgs) => `
+    <div style="display:grid;gap:8px;width:min(100%, 320px);">
+      <span id="number-input-story-label">${label}</span>
+      <emb-number-input
+      aria-labelledby="number-input-story-label"
       ${disabled ? "disabled" : ""}
       ${max ? `max="${max}"` : ""}
       ${min ? `min="${min}"` : ""}
@@ -31,7 +36,8 @@ const meta = {
       ${required ? "required" : ""}
       ${step ? `step="${step}"` : ""}
       value="${value}"
-    ></emb-number-input>
+      ></emb-number-input>
+    </div>
   `
 };
 

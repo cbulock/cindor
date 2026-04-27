@@ -10,12 +10,13 @@ describe("emb-tooltip", () => {
     document.body.append(element);
     await element.updateComplete;
 
-    const trigger = element.renderRoot.querySelector(".trigger");
+    const trigger = element.querySelector("button");
     trigger!.dispatchEvent(new Event("mouseenter"));
     await element.updateComplete;
     await Promise.resolve();
 
     expect(element.open).toBe(true);
     expect(element.renderRoot.querySelector('[role="tooltip"]')).not.toBeNull();
+    expect((element.querySelector("button"))?.getAttribute("aria-describedby")).toBeTruthy();
   });
 });

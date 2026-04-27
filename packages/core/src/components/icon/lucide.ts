@@ -14,6 +14,7 @@ import {
   Minus,
   Plus,
   Search,
+  Star,
   Upload,
   X,
   type IconNode
@@ -37,6 +38,7 @@ export const lucideIcons = {
   minus: Minus,
   plus: Plus,
   search: Search,
+  star: Star,
   upload: Upload,
   x: X
 } as const satisfies Record<string, LucideIconNode>;

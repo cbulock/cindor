@@ -1,19 +1,25 @@
 type ColorInputStoryArgs = {
   disabled: boolean;
+  label: string;
   value: string;
 };
 
 const meta = {
-  title: "Components/Color Input",
+  title: "Primitives/Color Input",
   args: {
     disabled: false,
+    label: "Accent color",
     value: "#4f46e5"
   },
-  render: ({ disabled, value }: ColorInputStoryArgs) => `
-    <emb-color-input
+  render: ({ disabled, label, value }: ColorInputStoryArgs) => `
+    <div style="display:grid;gap:8px;width:min(100%, 160px);">
+      <span id="color-input-story-label">${label}</span>
+      <emb-color-input
+      aria-labelledby="color-input-story-label"
       ${disabled ? "disabled" : ""}
       value="${value}"
-    ></emb-color-input>
+      ></emb-color-input>
+    </div>
   `
 };
 

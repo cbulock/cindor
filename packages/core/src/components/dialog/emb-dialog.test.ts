@@ -36,8 +36,8 @@ describe("emb-dialog", () => {
     document.body.append(element);
     await element.updateComplete;
 
-    const closeButton = element.renderRoot.querySelector('[part="close-button"]') as HTMLButtonElement;
-    closeButton.click();
+    const closeButton = element.renderRoot.querySelector('[part="close-button"]') as HTMLElement;
+    closeButton.dispatchEvent(new Event("click", { bubbles: true, composed: true }));
     await element.updateComplete;
 
     expect(element.open).toBe(false);
@@ -86,5 +86,18 @@ describe("emb-dialog", () => {
     expect(closeSpy).toHaveBeenCalled();
     expect(showSpy).toHaveBeenCalled();
     expect(element.open).toBe(true);
+  });
+
+  it("forwards accessible name and description to the dialog element", async () => {
+    const element = document.createElement("emb-dialog") as EmbDialog;
+    element.setAttribute("aria-labelledby", "dialog-title");
+    element.setAttribute("aria-describedby", "dialog-description");
+    document.body.append(element);
+    await element.updateComplete;
+
+    const dialog = element.renderRoot.querySelector("dialog");
+
+    expect(dialog?.getAttribute("aria-labelledby")).toBe("dialog-title");
+    expect(dialog?.getAttribute("aria-describedby")).toBe("dialog-description");
   });
 });
