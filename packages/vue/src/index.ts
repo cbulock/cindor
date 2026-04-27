@@ -13,6 +13,7 @@ import type {
   LucideIconName,
   SegmentedControlOption,
   SkeletonVariant,
+  SplitterOrientation,
   StepperOrientation,
   StepperStep,
   ToastPlacement,
@@ -721,6 +722,31 @@ export const EmbCommandPalette = defineComponent({
   }
 });
 
+export const EmbContextMenu = defineComponent({
+  name: "EmbContextMenu",
+  props: {
+    open: { type: Boolean, default: false }
+  },
+  emits: ["update:open", "toggle"],
+  setup(props, { attrs, emit, slots }) {
+    const handleToggle = (event: Event) => {
+      const target = event.currentTarget as OpenHost;
+      emit("update:open", target.open);
+      emit("toggle", event);
+    };
+    return () =>
+          h(
+            "emb-context-menu",
+            {
+              ...attrs,
+              open: props.open || undefined,
+              onToggle: handleToggle,
+            },
+            slots
+          );
+  }
+});
+
 export const EmbListbox = defineComponent({
   name: "EmbListbox",
   props: {
@@ -864,6 +890,49 @@ export const EmbSearch = defineComponent({
               onInput: handleInput,
               onChange: handleChange,
           });
+  }
+});
+
+export const EmbSplitter = defineComponent({
+  name: "EmbSplitter",
+  props: {
+    orientation: { type: String as PropType<SplitterOrientation>, default: "horizontal" }
+  },
+  emits: ["panel-resize"],
+  setup(props, { attrs, emit, slots }) {
+    const handlePanelResize = (event: Event) => {
+      emit("panel-resize", event);
+    };
+    return () =>
+          h(
+            "emb-splitter",
+            {
+              ...attrs,
+              orientation: props.orientation,
+              onPanelResize: handlePanelResize,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const EmbSplitterPanel = defineComponent({
+  name: "EmbSplitterPanel",
+  props: {
+    minSize: { type: Number, default: 10 },
+    size: { type: Number, default: 0 }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-splitter-panel",
+            {
+              ...attrs,
+              "min-size": props.minSize,
+              size: props.size,
+            },
+            slots.default?.()
+          );
   }
 });
 
@@ -1835,6 +1904,64 @@ export const EmbAccordion = defineComponent({
               ...attrs,
               open: props.open || undefined,
               onToggle: handleToggle,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const EmbTreeItem = defineComponent({
+  name: "EmbTreeItem",
+  props: {
+    disabled: { type: Boolean, default: false },
+    expanded: { type: Boolean, default: false },
+    label: { type: String, default: "" },
+    selected: { type: Boolean, default: false },
+    value: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-tree-item",
+            {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              expanded: props.expanded || undefined,
+              label: props.label || undefined,
+              selected: props.selected || undefined,
+              value: props.value || undefined,
+            },
+            slots
+          );
+  }
+});
+
+export const EmbTreeView = defineComponent({
+  name: "EmbTreeView",
+  props: {
+    modelValue: { type: String, default: "" }
+  },
+  emits: ["update:modelValue", "input", "change"],
+  setup(props, { attrs, emit, slots }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("change", event);
+    };
+    return () =>
+          h(
+            "emb-tree-view",
+            {
+              ...attrs,
+              value: props.modelValue,
+              onInput: handleInput,
+              onChange: handleChange,
             },
             slots.default?.()
           );

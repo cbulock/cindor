@@ -13,6 +13,7 @@ import { EmbCodeBlock } from "./components/code-block/emb-code-block.js";
 import { EmbColorInput } from "./components/color-input/emb-color-input.js";
 import { EmbCombobox } from "./components/combobox/emb-combobox.js";
 import { EmbCommandPalette } from "./components/command-palette/emb-command-palette.js";
+import { EmbContextMenu } from "./components/context-menu/emb-context-menu.js";
 import { EmbDataTable } from "./components/data-table/emb-data-table.js";
 import { EmbDateInput } from "./components/date-input/emb-date-input.js";
 import { EmbEmailInput } from "./components/email-input/emb-email-input.js";
@@ -49,11 +50,15 @@ import { EmbSegmentedControl } from "./components/segmented-control/emb-segmente
 import { EmbSkeleton } from "./components/skeleton/emb-skeleton.js";
 import { EmbSelect } from "./components/select/emb-select.js";
 import { EmbSpinner } from "./components/spinner/emb-spinner.js";
+import { EmbSplitter } from "./components/splitter/emb-splitter.js";
+import { EmbSplitterPanel } from "./components/splitter-panel/emb-splitter-panel.js";
 import { EmbStepper } from "./components/stepper/emb-stepper.js";
 import { EmbSwitch } from "./components/switch/emb-switch.js";
 import { EmbTabs } from "./components/tabs/emb-tabs.js";
 import { EmbTelInput } from "./components/tel-input/emb-tel-input.js";
 import { EmbTextarea } from "./components/textarea/emb-textarea.js";
+import { EmbTreeItem } from "./components/tree-item/emb-tree-item.js";
+import { EmbTreeView } from "./components/tree-view/emb-tree-view.js";
 import { EmbTimeInput } from "./components/time-input/emb-time-input.js";
 import { EmbToast } from "./components/toast/emb-toast.js";
 import { EmbToastRegion } from "./components/toast/emb-toast-region.js";
@@ -87,6 +92,7 @@ const definitions = [
   ["emb-empty-state", EmbEmptyState],
   ["emb-code-block", EmbCodeBlock],
   ["emb-command-palette", EmbCommandPalette],
+  ["emb-context-menu", EmbContextMenu],
   ["emb-color-input", EmbColorInput],
   ["emb-number-input", EmbNumberInput],
   ["emb-search", EmbSearch],
@@ -116,11 +122,15 @@ const definitions = [
   ["emb-checkbox", EmbCheckbox],
   ["emb-segmented-control", EmbSegmentedControl],
   ["emb-select", EmbSelect],
+  ["emb-splitter", EmbSplitter],
+  ["emb-splitter-panel", EmbSplitterPanel],
   ["emb-radio", EmbRadio],
   ["emb-dialog", EmbDialog],
   ["emb-textarea", EmbTextarea],
   ["emb-switch", EmbSwitch],
   ["emb-tabs", EmbTabs],
+  ["emb-tree-item", EmbTreeItem],
+  ["emb-tree-view", EmbTreeView],
   ["emb-stepper", EmbStepper],
   ["emb-toolbar", EmbToolbar],
   ["emb-accordion", EmbAccordion]

@@ -18,6 +18,7 @@ export { EmbCodeBlock } from "./components/code-block/emb-code-block.js";
 export { EmbColorInput } from "./components/color-input/emb-color-input.js";
 export { EmbCombobox } from "./components/combobox/emb-combobox.js";
 export { EmbCommandPalette, type CommandPaletteCommand } from "./components/command-palette/emb-command-palette.js";
+export { EmbContextMenu } from "./components/context-menu/emb-context-menu.js";
 export { EmbDateInput } from "./components/date-input/emb-date-input.js";
 export {
   EmbDataTable,
@@ -54,11 +55,15 @@ export { EmbSkeleton, type SkeletonVariant } from "./components/skeleton/emb-ske
 export { EmbSegmentedControl, type SegmentedControlOption } from "./components/segmented-control/emb-segmented-control.js";
 export { EmbSelect } from "./components/select/emb-select.js";
 export { EmbSpinner } from "./components/spinner/emb-spinner.js";
+export { EmbSplitter, type SplitterOrientation } from "./components/splitter/emb-splitter.js";
+export { EmbSplitterPanel } from "./components/splitter-panel/emb-splitter-panel.js";
 export { EmbStepper, type StepperOrientation, type StepperStatus, type StepperStep } from "./components/stepper/emb-stepper.js";
 export { EmbSwitch } from "./components/switch/emb-switch.js";
 export { EmbTabs } from "./components/tabs/emb-tabs.js";
 export { EmbTelInput } from "./components/tel-input/emb-tel-input.js";
 export { EmbTextarea } from "./components/textarea/emb-textarea.js";
+export { EmbTreeItem } from "./components/tree-item/emb-tree-item.js";
+export { EmbTreeView } from "./components/tree-view/emb-tree-view.js";
 export { EmbTimeInput } from "./components/time-input/emb-time-input.js";
 export { EmbToast, type ToastTone } from "./components/toast/emb-toast.js";
 export { EmbToastRegion } from "./components/toast/emb-toast-region.js";

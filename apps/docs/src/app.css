@@ -197,6 +197,11 @@ a {
   grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
 }
 
+.usage-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
 .catalog-controls {
   display: grid;
   gap: var(--space-3);
@@ -268,10 +273,19 @@ a {
 .preview-block {
   display: grid;
   gap: var(--space-3);
+  min-width: 0;
   padding: var(--space-4);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   background: var(--surface);
+}
+
+.preview-block emb-code-block,
+.install-grid > *,
+.demo-grid > *,
+.usage-grid > *,
+.component-page-grid > .section {
+  min-width: 0;
 }
 
 .component-meta {
@@ -321,6 +335,7 @@ a {
 }
 
 .component-page-grid {
+  align-items: start;
   display: grid;
   gap: var(--space-6);
   grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));

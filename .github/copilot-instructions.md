@@ -70,6 +70,8 @@ The workspace uses npm workspaces, TypeScript, tsup, Vitest, ESLint, and Storybo
 - Prefer **shared public APIs** across the core, React wrapper, and Vue wrapper so the same component concepts map cleanly between frameworks.
 - If wrappers are introduced, keep them **thin**: prop/event translation, typing, and lifecycle glue only.
 - Treat `scripts/wrapper-manifest.mjs` as the single source of truth for React/Vue wrapper generation. When wrapper exports change, update the manifest and regenerate the wrapper files instead of hand-editing `packages/react/src/index.tsx` or `packages/vue/src/index.ts`.
+- When adding a new component, wire it through the whole library surface: implement it under `packages/core/src/components/<name>/`, export it from `packages/core/src/index.ts`, register it in `packages/core/src/register.ts`, add stories/tests beside the source, update `scripts/wrapper-manifest.mjs` if it should be wrapped for React/Vue, regenerate wrappers, regenerate the component manifest, and add docs catalog/usage coverage in `apps/docs/src/catalog.ts` and `apps/docs/src/main.ts` as needed.
+- The repeatable validation flow for a new component is: `npm run generate:manifest`, `npm run generate:wrappers`, `npm run test`, `npm run typecheck`, `npm run lint`, and `npm run build`.
 - Treat **DOM events, attributes/properties, slots, CSS custom properties, and accessibility semantics** as the primary integration surface for the core components.
 - Keep **component-specific styles inside shadow DOM**. Do not export per-component CSS files unless there is a concrete non-shadow use case.
 - Keep the exported `emberline-ui-core/styles.css` focused on the shared global Emberline layer: fonts, tokens, base styles, and theme hooks.

@@ -950,6 +950,67 @@
       "tagName": "emb-command-palette"
     },
     {
+      "className": "EmbContextMenu",
+      "description": "Right-click menu surface that composes Emberline menu primitives.",
+      "modulePath": "packages/core/src/components/context-menu/emb-context-menu.ts",
+      "properties": [
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "close",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "openAt",
+          "parameters": [
+            {
+              "name": "x",
+              "optional": false,
+              "type": "number"
+            },
+            {
+              "name": "y",
+              "optional": false,
+              "type": "number"
+            }
+          ],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the menu opens or closes.",
+          "name": "toggle",
+          "type": "CustomEvent",
+          "values": null
+        }
+      ],
+      "slots": [
+        {
+          "description": "Element that receives context menu and keyboard-open interaction.",
+          "name": "trigger"
+        },
+        {
+          "description": "`emb-menu-item` children rendered inside the menu.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-context-menu"
+    },
+    {
       "className": "EmbDataTable",
       "description": "Searchable, sortable application data table built from native table semantics.",
       "modulePath": "packages/core/src/components/data-table/emb-data-table.ts",
@@ -3751,6 +3812,77 @@
       "tagName": "emb-spinner"
     },
     {
+      "className": "EmbSplitter",
+      "description": "Resizable panel group for workbench-style layouts.",
+      "modulePath": "packages/core/src/components/splitter/emb-splitter.ts",
+      "properties": [
+        {
+          "attributeName": "orientation",
+          "defaultValue": "\"horizontal\"",
+          "description": "",
+          "name": "orientation",
+          "reflects": true,
+          "type": "\"horizontal\" | \"vertical\"",
+          "values": [
+            "horizontal",
+            "vertical"
+          ]
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "description": "Fired whenever adjacent panel sizes change.",
+          "name": "panel-resize",
+          "type": "CustomEvent",
+          "values": null
+        }
+      ],
+      "slots": [
+        {
+          "description": "Direct child `emb-splitter-panel` elements.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-splitter"
+    },
+    {
+      "className": "EmbSplitterPanel",
+      "description": "Panel surface used inside EmbSplitter.",
+      "modulePath": "packages/core/src/components/splitter-panel/emb-splitter-panel.ts",
+      "properties": [
+        {
+          "attributeName": "min-size",
+          "defaultValue": "10",
+          "description": "",
+          "name": "minSize",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "size",
+          "defaultValue": "0",
+          "description": "",
+          "name": "size",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Panel content.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-splitter-panel"
+    },
+    {
       "className": "EmbStepper",
       "description": "",
       "modulePath": "packages/core/src/components/stepper/emb-stepper.ts",
@@ -4627,6 +4759,155 @@
       ],
       "summary": "",
       "tagName": "emb-tooltip"
+    },
+    {
+      "className": "EmbTreeItem",
+      "description": "Hierarchical item used inside EmbTreeView.\r\n\r\nSet `label` for the visible row text and nest additional `emb-tree-item`\r\nelements in the default slot to create branches.",
+      "modulePath": "packages/core/src/components/tree-item/emb-tree-item.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "expanded",
+          "defaultValue": "false",
+          "description": "",
+          "name": "expanded",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "label",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "label",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "selected",
+          "defaultValue": "false",
+          "description": "",
+          "name": "selected",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "click",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "toggle",
+          "parameters": [
+            {
+              "name": "expanded",
+              "optional": true,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the expanded branch state changes.",
+          "name": "toggle",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "Fired when the row is activated.",
+          "name": "tree-item-select",
+          "type": null,
+          "values": null
+        }
+      ],
+      "slots": [
+        {
+          "description": "Optional leading decoration for the tree row.",
+          "name": "start"
+        },
+        {
+          "description": "Nested child `emb-tree-item` elements for branch content.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-tree-item"
+    },
+    {
+      "className": "EmbTreeView",
+      "description": "Keyboard-accessible single-selection tree view.\r\n\r\nUse nested `emb-tree-item` elements to create branches and leaves.",
+      "modulePath": "packages/core/src/components/tree-view/emb-tree-view.ts",
+      "properties": [
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "description": "Fired when the selected item changes.",
+          "name": "input",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "Fired when the selected item changes.",
+          "name": "change",
+          "type": "CustomEvent",
+          "values": null
+        }
+      ],
+      "slots": [
+        {
+          "description": "Direct child `emb-tree-item` elements.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-tree-view"
     },
     {
       "className": "EmbUrlInput",

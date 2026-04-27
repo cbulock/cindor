@@ -32,11 +32,14 @@ import {
   EmbIcon as EmbIconElement,
   EmbCodeBlock as EmbCodeBlockElement,
   EmbCommandPalette as EmbCommandPaletteElement,
+  EmbContextMenu as EmbContextMenuElement,
   EmbListbox as EmbListboxElement,
   EmbMenu as EmbMenuElement,
   EmbMenuItem as EmbMenuItemElement,
   EmbNumberInput as EmbNumberInputElement,
   EmbSearch as EmbSearchElement,
+  EmbSplitter as EmbSplitterElement,
+  EmbSplitterPanel as EmbSplitterPanelElement,
   EmbSegmentedControl as EmbSegmentedControlElement,
   EmbCombobox as EmbComboboxElement,
   EmbDateInput as EmbDateInputElement,
@@ -65,6 +68,8 @@ import {
   EmbSwitch as EmbSwitchElement,
   EmbTabs as EmbTabsElement,
   EmbAccordion as EmbAccordionElement,
+  EmbTreeItem as EmbTreeItemElement,
+  EmbTreeView as EmbTreeViewElement,
 } from "emberline-ui-core";
 export { clearToasts, dismissToast, ensureToastRegion, showToast } from "emberline-ui-core";
 import "emberline-ui-core/register";
@@ -274,6 +279,15 @@ export const EmbCommandPalette = createComponent({
   }
 });
 
+export const EmbContextMenu = createComponent({
+  react: React,
+  tagName: "emb-context-menu",
+  elementClass: EmbContextMenuElement,
+  events: {
+    onToggle: "toggle"
+  }
+});
+
 export const EmbListbox = createComponent({
   react: React,
   tagName: "emb-listbox",
@@ -310,6 +324,21 @@ export const EmbSearch = createComponent({
     onChange: "change",
     onInput: "input"
   }
+});
+
+export const EmbSplitter = createComponent({
+  react: React,
+  tagName: "emb-splitter",
+  elementClass: EmbSplitterElement,
+  events: {
+    onPanelResize: "panel-resize"
+  }
+});
+
+export const EmbSplitterPanel = createComponent({
+  react: React,
+  tagName: "emb-splitter-panel",
+  elementClass: EmbSplitterPanelElement
 });
 
 export const EmbSegmentedControl = createComponent({
@@ -571,5 +600,21 @@ export const EmbAccordion = createComponent({
   elementClass: EmbAccordionElement,
   events: {
     onToggle: "toggle"
+  }
+});
+
+export const EmbTreeItem = createComponent({
+  react: React,
+  tagName: "emb-tree-item",
+  elementClass: EmbTreeItemElement
+});
+
+export const EmbTreeView = createComponent({
+  react: React,
+  tagName: "emb-tree-view",
+  elementClass: EmbTreeViewElement,
+  events: {
+    onChange: "change",
+    onInput: "input"
   }
 });

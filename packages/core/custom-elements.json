@@ -4,95 +4,6 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/alert/emb-alert.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Components/Alert\", args: { message: \"The upstream Emberline tokens loaded successfully.\", title: \"Heads up\", tone: \"info\" }, argTypes: { tone: { control: \"radio\", options: [\"info\", \"success\", \"warning\", \"danger\"] } }, render: ({ message, title, tone }: AlertStoryArgs) => ` <emb-alert tone=\"${tone}\"> <strong>${title}</strong> <span>${message}</span> </emb-alert> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/alert/emb-alert.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/alert/emb-alert.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/alert/emb-alert.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "EmbAlert",
-          "members": [
-            {
-              "kind": "field",
-              "name": "tone",
-              "privacy": "public",
-              "type": {
-                "text": "AlertTone"
-              },
-              "default": "\"info\"",
-              "attribute": "tone",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "tone",
-              "type": {
-                "text": "AlertTone"
-              },
-              "default": "\"info\"",
-              "fieldName": "tone"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EmbAlert",
-          "declaration": {
-            "name": "EmbAlert",
-            "module": "packages/core/src/components/alert/emb-alert.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/accordion/emb-accordion.stories.ts",
       "declarations": [
         {
@@ -357,6 +268,95 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/alert/emb-alert.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Components/Alert\", args: { message: \"The upstream Emberline tokens loaded successfully.\", title: \"Heads up\", tone: \"info\" }, argTypes: { tone: { control: \"radio\", options: [\"info\", \"success\", \"warning\", \"danger\"] } }, render: ({ message, title, tone }: AlertStoryArgs) => ` <emb-alert tone=\"${tone}\"> <strong>${title}</strong> <span>${message}</span> </emb-alert> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/alert/emb-alert.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/alert/emb-alert.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/alert/emb-alert.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "EmbAlert",
+          "members": [
+            {
+              "kind": "field",
+              "name": "tone",
+              "privacy": "public",
+              "type": {
+                "text": "AlertTone"
+              },
+              "default": "\"info\"",
+              "attribute": "tone",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "tone",
+              "type": {
+                "text": "AlertTone"
+              },
+              "default": "\"info\"",
+              "fieldName": "tone"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EmbAlert",
+          "declaration": {
+            "name": "EmbAlert",
+            "module": "packages/core/src/components/alert/emb-alert.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/badge/emb-badge.stories.ts",
       "declarations": [
         {
@@ -456,73 +456,6 @@
           "declaration": {
             "name": "EmbBadge",
             "module": "packages/core/src/components/badge/emb-badge.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/breadcrumbs/emb-breadcrumbs.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Components/Breadcrumbs\", args: { currentLabel: \"Breadcrumbs\", homeHref: \"/\", homeLabel: \"Home\", sectionHref: \"/components\", sectionLabel: \"Components\" }, render: ({ currentLabel, homeHref, homeLabel, sectionHref, sectionLabel }: BreadcrumbsStoryArgs) => ` <emb-breadcrumbs> <li><emb-link href=\"${homeHref}\">${homeLabel}</emb-link></li> <li><emb-link href=\"${sectionHref}\">${sectionLabel}</emb-link></li> <li aria-current=\"page\">${currentLabel}</li> </emb-breadcrumbs> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/breadcrumbs/emb-breadcrumbs.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/breadcrumbs/emb-breadcrumbs.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/breadcrumbs/emb-breadcrumbs.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "EmbBreadcrumbs",
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EmbBreadcrumbs",
-          "declaration": {
-            "name": "EmbBreadcrumbs",
-            "module": "packages/core/src/components/breadcrumbs/emb-breadcrumbs.ts"
           }
         }
       ]
@@ -965,6 +898,73 @@
           "declaration": {
             "name": "EmbButtonGroup",
             "module": "packages/core/src/components/button-group/emb-button-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/breadcrumbs/emb-breadcrumbs.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Components/Breadcrumbs\", args: { currentLabel: \"Breadcrumbs\", homeHref: \"/\", homeLabel: \"Home\", sectionHref: \"/components\", sectionLabel: \"Components\" }, render: ({ currentLabel, homeHref, homeLabel, sectionHref, sectionLabel }: BreadcrumbsStoryArgs) => ` <emb-breadcrumbs> <li><emb-link href=\"${homeHref}\">${homeLabel}</emb-link></li> <li><emb-link href=\"${sectionHref}\">${sectionLabel}</emb-link></li> <li aria-current=\"page\">${currentLabel}</li> </emb-breadcrumbs> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/breadcrumbs/emb-breadcrumbs.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/breadcrumbs/emb-breadcrumbs.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/breadcrumbs/emb-breadcrumbs.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "EmbBreadcrumbs",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EmbBreadcrumbs",
+          "declaration": {
+            "name": "EmbBreadcrumbs",
+            "module": "packages/core/src/components/breadcrumbs/emb-breadcrumbs.ts"
           }
         }
       ]
@@ -3261,6 +3261,256 @@
           "declaration": {
             "name": "EmbCommandPalette",
             "module": "packages/core/src/components/command-palette/emb-command-palette.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/context-menu/emb-context-menu.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Overlays/Context Menu\", args: { open: false }, argTypes: { open: { control: \"boolean\" } }, render: ({ open }: ContextMenuStoryArgs) => ` <emb-context-menu ${open ? \"open\" : \"\"}> <div slot=\"trigger\" style=\"padding: var(--space-6); border: 1px dashed var(--border); border-radius: var(--radius-lg);\"> Right click this surface </div> <emb-menu-item>Rename</emb-menu-item> <emb-menu-item>Duplicate</emb-menu-item> <emb-menu-item>Archive</emb-menu-item> </emb-context-menu> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/context-menu/emb-context-menu.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/context-menu/emb-context-menu.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/context-menu/emb-context-menu.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Right-click menu surface that composes Emberline menu primitives.",
+          "name": "EmbContextMenu",
+          "slots": [
+            {
+              "description": "Element that receives context menu and keyboard-open interaction.",
+              "name": "trigger"
+            },
+            {
+              "description": "`emb-menu-item` children rendered inside the menu.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "open",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "anchorX",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "anchorY",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "restoreFocusTarget",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "openAt",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "x",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "y",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "handleContextMenu",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleTriggerKeydown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleMenuItemSelect",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleMenuKeydown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleDocumentPointerDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleWindowBlur",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleViewportChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "positionMenu",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusFirstItem",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "dispatchToggleEvent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "menuElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "triggerElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "events": [
+            {
+              "name": "toggle",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the menu opens or closes."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "open"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EmbContextMenu",
+          "declaration": {
+            "name": "EmbContextMenu",
+            "module": "packages/core/src/components/context-menu/emb-context-menu.ts"
           }
         }
       ]
@@ -13270,6 +13520,432 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/splitter/emb-splitter.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Splitter\", args: { orientation: \"horizontal\" }, argTypes: { orientation: { control: \"inline-radio\", options: [\"horizontal\", \"vertical\"] } }, render: ({ orientation }: SplitterStoryArgs) => ` <emb-splitter orientation=\"${orientation}\" style=\"${orientation === \"vertical\" ? \"height: 24rem;\" : \"height: 18rem;\"}\"> <emb-splitter-panel size=\"28\" style=\"padding: var(--space-4);\"> <strong>Navigation</strong> <p>Resizable side content for filters and app structure.</p> </emb-splitter-panel> <emb-splitter-panel size=\"72\" style=\"padding: var(--space-4);\"> <strong>Workspace</strong> <p>Main panel content that grows as adjacent panels shrink.</p> </emb-splitter-panel> </emb-splitter> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/splitter/emb-splitter.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/splitter/emb-splitter.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/splitter/emb-splitter.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Resizable panel group for workbench-style layouts.",
+          "name": "EmbSplitter",
+          "slots": [
+            {
+              "description": "Direct child `emb-splitter-panel` elements.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "orientation",
+              "privacy": "public",
+              "type": {
+                "text": "SplitterOrientation"
+              },
+              "default": "\"horizontal\"",
+              "attribute": "orientation",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "activeDrag",
+              "type": {
+                "text": "{ handleIndex: number; startCoordinate: number; startSizes: number[] } | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "panelObserver",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new MutationObserver(() => { if (!this.syncingPanels) { this.syncPanels(); } })"
+            },
+            {
+              "kind": "field",
+              "name": "panels",
+              "type": {
+                "text": "EmbSplitterPanel[]"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "sizes",
+              "type": {
+                "text": "number[]"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "syncingPanels",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "method",
+              "name": "renderHandle",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "handleSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handlePointerDown",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "handleIndex",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "handleWindowPointerMove",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleWindowPointerUp",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleHandleKeydown",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "handleIndex",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "applyResize",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "handleIndex",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "baseSizes",
+                  "type": {
+                    "text": "number[]"
+                  }
+                },
+                {
+                  "name": "delta",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "setSizes",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "nextSizes",
+                  "type": {
+                    "text": "number[]"
+                  }
+                },
+                {
+                  "name": "emit",
+                  "default": "false"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "syncPanels",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "coordinateFor",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "containerElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "events": [
+            {
+              "name": "panel-resize",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired whenever adjacent panel sizes change."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "orientation",
+              "type": {
+                "text": "SplitterOrientation"
+              },
+              "default": "\"horizontal\"",
+              "fieldName": "orientation"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EmbSplitter",
+          "declaration": {
+            "name": "EmbSplitter",
+            "module": "packages/core/src/components/splitter/emb-splitter.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/splitter-panel/emb-splitter-panel.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Splitter Panel\", render: () => ` <emb-splitter-panel style=\"padding: var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-lg);\"> Standalone panel content </emb-splitter-panel> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/splitter-panel/emb-splitter-panel.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/splitter-panel/emb-splitter-panel.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/splitter-panel/emb-splitter-panel.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Panel surface used inside EmbSplitter.",
+          "name": "EmbSplitterPanel",
+          "slots": [
+            {
+              "description": "Panel content.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "minSize",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "10",
+              "attribute": "min-size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "size",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "min-size",
+              "type": {
+                "text": "number"
+              },
+              "default": "10",
+              "fieldName": "minSize"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "size"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EmbSplitterPanel",
+          "declaration": {
+            "name": "EmbSplitterPanel",
+            "module": "packages/core/src/components/splitter-panel/emb-splitter-panel.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/stepper/emb-stepper.stories.ts",
       "declarations": [
         {
@@ -14676,324 +15352,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/textarea/emb-textarea.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Primitives/Textarea\", args: { disabled: false, label: \"Release notes\", placeholder: \"Add release notes\", readonly: false, required: false, rows: 4, value: \"\" }, render: ({ disabled, label, placeholder, readonly, required, rows, value }: TextareaStoryArgs) => `<div style=\"display:grid;gap:8px;width:min(100%, 420px);\"><span id=\"textarea-story-label\">${label}</span><emb-textarea aria-labelledby=\"textarea-story-label\" ${disabled ? \"disabled\" : \"\"} placeholder=\"${placeholder}\" ${readonly ? \"readonly\" : \"\"} ${required ? \"required\" : \"\"} rows=\"${rows}\" value=\"${value}\"></emb-textarea></div>` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        },
-        {
-          "kind": "variable",
-          "name": "Filled",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ args: { value: \"Native-first components aligned to Emberline tokens.\" } }"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/textarea/emb-textarea.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/textarea/emb-textarea.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Filled",
-          "declaration": {
-            "name": "Filled",
-            "module": "packages/core/src/components/textarea/emb-textarea.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/textarea/emb-textarea.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "EmbTextarea",
-          "members": [
-            {
-              "kind": "field",
-              "name": "disabled",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "disabled",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "name",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "placeholder",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "placeholder",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "readonly",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "readonly",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "required",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "rows",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "default": "4",
-              "attribute": "rows",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "value",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "defaultValue",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "\"\""
-            },
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focus",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "formDisabledCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "disabled",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "formResetCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleChange",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleInput",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "syncFormState",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "textareaElement",
-              "type": {
-                "text": "HTMLTextAreaElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "disabled"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "name"
-            },
-            {
-              "name": "placeholder",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "placeholder"
-            },
-            {
-              "name": "readonly",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "readonly"
-            },
-            {
-              "name": "required",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "required"
-            },
-            {
-              "name": "rows",
-              "type": {
-                "text": "number"
-              },
-              "default": "4",
-              "fieldName": "rows"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "value"
-            }
-          ],
-          "superclass": {
-            "name": "FormAssociatedElement",
-            "module": "/packages/core/src/components/shared/form-associated-element.js"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EmbTextarea",
-          "declaration": {
-            "name": "EmbTextarea",
-            "module": "packages/core/src/components/textarea/emb-textarea.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/time-input/emb-time-input.stories.ts",
       "declarations": [
         {
@@ -15584,7 +15942,7 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/toolbar/emb-toolbar.stories.ts",
+      "path": "packages/core/src/components/textarea/emb-textarea.stories.ts",
       "declarations": [
         {
           "kind": "variable",
@@ -15592,7 +15950,7 @@
           "type": {
             "text": "object"
           },
-          "default": "{ title: \"Primitives/Toolbar\", args: { orientation: \"horizontal\", wrap: false }, argTypes: { orientation: { control: { type: \"inline-radio\" }, options: [\"horizontal\", \"vertical\"] } }, render: ({ orientation, wrap }: ToolbarStoryArgs) => html` <emb-toolbar aria-label=\"Text formatting\" orientation=${orientation} ?wrap=${wrap} > <emb-button-group attached> <emb-button variant=\"ghost\">Bold</emb-button> <emb-button variant=\"ghost\">Italic</emb-button> <emb-button variant=\"ghost\">Underline</emb-button> </emb-button-group> <emb-segmented-control .options=${alignmentOptions} aria-label=\"Text alignment\" value=\"left\" ></emb-segmented-control> <emb-icon-button label=\"More actions\" name=\"ellipsis\"></emb-icon-button> </emb-toolbar> ` }"
+          "default": "{ title: \"Primitives/Textarea\", args: { disabled: false, label: \"Release notes\", placeholder: \"Add release notes\", readonly: false, required: false, rows: 4, value: \"\" }, render: ({ disabled, label, placeholder, readonly, required, rows, value }: TextareaStoryArgs) => `<div style=\"display:grid;gap:8px;width:min(100%, 420px);\"><span id=\"textarea-story-label\">${label}</span><emb-textarea aria-labelledby=\"textarea-story-label\" ${disabled ? \"disabled\" : \"\"} placeholder=\"${placeholder}\" ${readonly ? \"readonly\" : \"\"} ${required ? \"required\" : \"\"} rows=\"${rows}\" value=\"${value}\"></emb-textarea></div>` }"
         },
         {
           "kind": "variable",
@@ -15601,6 +15959,14 @@
             "text": "object"
           },
           "default": "{}"
+        },
+        {
+          "kind": "variable",
+          "name": "Filled",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ args: { value: \"Native-first components aligned to Emberline tokens.\" } }"
         }
       ],
       "exports": [
@@ -15609,7 +15975,7 @@
           "name": "default",
           "declaration": {
             "name": "meta",
-            "module": "packages/core/src/components/toolbar/emb-toolbar.stories.ts"
+            "module": "packages/core/src/components/textarea/emb-textarea.stories.ts"
           }
         },
         {
@@ -15617,80 +15983,126 @@
           "name": "Default",
           "declaration": {
             "name": "Default",
-            "module": "packages/core/src/components/toolbar/emb-toolbar.stories.ts"
+            "module": "packages/core/src/components/textarea/emb-textarea.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Filled",
+          "declaration": {
+            "name": "Filled",
+            "module": "packages/core/src/components/textarea/emb-textarea.stories.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/toolbar/emb-toolbar.ts",
+      "path": "packages/core/src/components/textarea/emb-textarea.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "EmbToolbar",
+          "name": "EmbTextarea",
           "members": [
             {
               "kind": "field",
-              "name": "orientation",
-              "privacy": "public",
-              "type": {
-                "text": "ToolbarOrientation"
-              },
-              "default": "\"horizontal\"",
-              "attribute": "orientation",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "wrap",
+              "name": "disabled",
               "privacy": "public",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "attribute": "wrap",
+              "attribute": "disabled",
               "reflects": true
             },
             {
               "kind": "field",
-              "name": "handleKeyDown",
-              "privacy": "private"
+              "name": "name",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "name",
+              "reflects": true
             },
             {
               "kind": "field",
-              "name": "handleSlotChange",
-              "privacy": "private"
+              "name": "placeholder",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "placeholder",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "readonly",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "readonly",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "required",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "rows",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "4",
+              "attribute": "rows",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "value",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "defaultValue",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"\""
             },
             {
               "kind": "method",
-              "name": "findCurrentIndex",
-              "privacy": "private",
+              "name": "checkValidity",
               "return": {
                 "type": {
-                  "text": "number"
+                  "text": "boolean"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "path",
-                  "type": {
-                    "text": "EventTarget[]"
-                  }
-                },
-                {
-                  "name": "items",
-                  "type": {
-                    "text": "HTMLElement[]"
-                  }
-                }
-              ]
+              }
             },
             {
               "kind": "method",
-              "name": "focusItem",
-              "privacy": "private",
+              "name": "focus",
               "return": {
                 "type": {
                   "text": "void"
@@ -15698,16 +16110,62 @@
               },
               "parameters": [
                 {
-                  "name": "item",
+                  "name": "options",
+                  "optional": true,
                   "type": {
-                    "text": "HTMLElement"
+                    "text": "FocusOptions"
                   }
                 }
               ]
             },
             {
               "kind": "method",
-              "name": "syncToolbarA11y",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "formDisabledCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "disabled",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleInput",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "syncFormState",
               "privacy": "private",
               "return": {
                 "type": {
@@ -15716,55 +16174,10 @@
               }
             },
             {
-              "kind": "method",
-              "name": "collectToolbarItems",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "HTMLElement[]"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "root",
-                  "type": {
-                    "text": "Element"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "isDisabled",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ]
-            },
-            {
               "kind": "field",
-              "name": "toolbarElement",
+              "name": "textareaElement",
               "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "toolbarItems",
-              "type": {
-                "text": "HTMLElement[]"
+                "text": "HTMLTextAreaElement | null"
               },
               "privacy": "private",
               "readonly": true
@@ -15772,36 +16185,75 @@
           ],
           "attributes": [
             {
-              "name": "orientation",
-              "type": {
-                "text": "ToolbarOrientation"
-              },
-              "default": "\"horizontal\"",
-              "fieldName": "orientation"
-            },
-            {
-              "name": "wrap",
+              "name": "disabled",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "fieldName": "wrap"
+              "fieldName": "disabled"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "name"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "readonly",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "readonly"
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "required"
+            },
+            {
+              "name": "rows",
+              "type": {
+                "text": "number"
+              },
+              "default": "4",
+              "fieldName": "rows"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "value"
             }
           ],
           "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
+            "name": "FormAssociatedElement",
+            "module": "/packages/core/src/components/shared/form-associated-element.js"
+          }
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "EmbToolbar",
+          "name": "EmbTextarea",
           "declaration": {
-            "name": "EmbToolbar",
-            "module": "packages/core/src/components/toolbar/emb-toolbar.ts"
+            "name": "EmbTextarea",
+            "module": "packages/core/src/components/textarea/emb-textarea.ts"
           }
         }
       ]
@@ -16172,6 +16624,230 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/toolbar/emb-toolbar.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Primitives/Toolbar\", args: { orientation: \"horizontal\", wrap: false }, argTypes: { orientation: { control: { type: \"inline-radio\" }, options: [\"horizontal\", \"vertical\"] } }, render: ({ orientation, wrap }: ToolbarStoryArgs) => html` <emb-toolbar aria-label=\"Text formatting\" orientation=${orientation} ?wrap=${wrap} > <emb-button-group attached> <emb-button variant=\"ghost\">Bold</emb-button> <emb-button variant=\"ghost\">Italic</emb-button> <emb-button variant=\"ghost\">Underline</emb-button> </emb-button-group> <emb-segmented-control .options=${alignmentOptions} aria-label=\"Text alignment\" value=\"left\" ></emb-segmented-control> <emb-icon-button label=\"More actions\" name=\"ellipsis\"></emb-icon-button> </emb-toolbar> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/toolbar/emb-toolbar.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/toolbar/emb-toolbar.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/toolbar/emb-toolbar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "EmbToolbar",
+          "members": [
+            {
+              "kind": "field",
+              "name": "orientation",
+              "privacy": "public",
+              "type": {
+                "text": "ToolbarOrientation"
+              },
+              "default": "\"horizontal\"",
+              "attribute": "orientation",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "wrap",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "wrap",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "handleKeyDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "findCurrentIndex",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "path",
+                  "type": {
+                    "text": "EventTarget[]"
+                  }
+                },
+                {
+                  "name": "items",
+                  "type": {
+                    "text": "HTMLElement[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "focusItem",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "syncToolbarA11y",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "collectToolbarItems",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "HTMLElement[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "root",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "isDisabled",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "toolbarElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "toolbarItems",
+              "type": {
+                "text": "HTMLElement[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "orientation",
+              "type": {
+                "text": "ToolbarOrientation"
+              },
+              "default": "\"horizontal\"",
+              "fieldName": "orientation"
+            },
+            {
+              "name": "wrap",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "wrap"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EmbToolbar",
+          "declaration": {
+            "name": "EmbToolbar",
+            "module": "packages/core/src/components/toolbar/emb-toolbar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/tooltip/emb-tooltip.stories.ts",
       "declarations": [
         {
@@ -16412,6 +17088,668 @@
           "declaration": {
             "name": "EmbTooltip",
             "module": "packages/core/src/components/tooltip/emb-tooltip.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/tree-item/emb-tree-item.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Navigation/Tree Item\", args: { expanded: true, label: \"Guides\" }, argTypes: { expanded: { control: \"boolean\" } }, render: ({ expanded, label }: TreeItemStoryArgs) => ` <emb-tree-item label=\"${label}\" ${expanded ? \"expanded\" : \"\"}> <emb-tree-item label=\"Getting started\"></emb-tree-item> <emb-tree-item label=\"Theming\"></emb-tree-item> </emb-tree-item> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/tree-item/emb-tree-item.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/tree-item/emb-tree-item.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/tree-item/emb-tree-item.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Hierarchical item used inside EmbTreeView.\r\n\r\nSet `label` for the visible row text and nest additional `emb-tree-item`\r\nelements in the default slot to create branches.",
+          "name": "EmbTreeItem",
+          "slots": [
+            {
+              "description": "Optional leading decoration for the tree row.",
+              "name": "start"
+            },
+            {
+              "description": "Nested child `emb-tree-item` elements for branch content.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "expanded",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "expanded",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "selected",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "value",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "hasChildren",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "method",
+              "name": "click",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "toggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "expanded",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "handleItemClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleToggleClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "syncButtonState",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncChildren",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "dispatchToggleEvent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "nestedTreeItems",
+              "type": {
+                "text": "EmbTreeItem[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "buttonElement",
+              "type": {
+                "text": "HTMLButtonElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "events": [
+            {
+              "name": "toggle",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the expanded branch state changes."
+            },
+            {
+              "description": "Fired when the row is activated.",
+              "name": "tree-item-select"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "expanded",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "expanded"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "label"
+            },
+            {
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "selected"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "value"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EmbTreeItem",
+          "declaration": {
+            "name": "EmbTreeItem",
+            "module": "packages/core/src/components/tree-item/emb-tree-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/tree-view/emb-tree-view.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Navigation/Tree View\", render: () => ` <emb-tree-view> <emb-tree-item label=\"Overview\"></emb-tree-item> <emb-tree-item label=\"Guides\" expanded> <emb-tree-item label=\"Getting started\"></emb-tree-item> <emb-tree-item label=\"Design tokens\"></emb-tree-item> </emb-tree-item> <emb-tree-item label=\"Components\" expanded> <emb-tree-item label=\"Button\"></emb-tree-item> <emb-tree-item label=\"Dialog\"></emb-tree-item> </emb-tree-item> </emb-tree-view> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/tree-view/emb-tree-view.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/tree-view/emb-tree-view.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/tree-view/emb-tree-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Keyboard-accessible single-selection tree view.\r\n\r\nUse nested `emb-tree-item` elements to create branches and leaves.",
+          "name": "EmbTreeView",
+          "slots": [
+            {
+              "description": "Direct child `emb-tree-item` elements.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "value",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "treeObserver",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new MutationObserver(() => { this.refreshTree(); })"
+            },
+            {
+              "kind": "field",
+              "name": "handleSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleTreeItemSelect",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleTreeItemToggle",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleKeyDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleExpandKey",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "EmbTreeItem"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleCollapseKey",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "EmbTreeItem"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "refreshTree",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "selectAndFocus",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "EmbTreeItem"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "selectItem",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "EmbTreeItem"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "parentItem",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EmbTreeItem | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "EmbTreeItem"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "levelFor",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "EmbTreeItem"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "collectVisibleItems",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EmbTreeItem[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "root",
+                  "default": "this",
+                  "type": {
+                    "text": "ParentNode"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "allItems",
+              "type": {
+                "text": "EmbTreeItem[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "visibleItems",
+              "type": {
+                "text": "EmbTreeItem[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "ensureValidValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "childItems",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EmbTreeItem[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "EmbTreeItem"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "itemButton",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "HTMLButtonElement | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "EmbTreeItem"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "itemValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "EmbTreeItem"
+                  }
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "name": "input",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the selected item changes."
+            },
+            {
+              "name": "change",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the selected item changes."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "value"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EmbTreeView",
+          "declaration": {
+            "name": "EmbTreeView",
+            "module": "packages/core/src/components/tree-view/emb-tree-view.ts"
           }
         }
       ]

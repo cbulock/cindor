@@ -52,6 +52,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("color-input", "Color Input", "Primitive", "Forms", "input type=color", "Native color picker wrapped in Emberline styling."),
   defineComponent("combobox", "Combobox", "Component", "Selection", "input plus listbox", "Searchable option picker built from input, listbox, and option primitives."),
   defineComponent("command-palette", "Command Palette", "Component", "Overlays", "dialog plus search and listbox", "Search-first action launcher for keyboard-driven workflows."),
+  defineComponent("context-menu", "Context Menu", "Component", "Overlays", "right-click menu surface", "Pointer- and keyboard-opened contextual actions anchored to a trigger region."),
   defineComponent("data-table", "Data Table", "Component", "Data", "table", "Sortable, searchable, paginated table for application data."),
   defineComponent("date-input", "Date Input", "Primitive", "Forms", "input type=date", "Native date field wrapped in the shared Emberline input shell."),
   defineComponent("dialog", "Dialog", "Primitive", "Overlays", "dialog", "Modal and non-modal overlay built on the native dialog element."),
@@ -87,6 +88,8 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("segmented-control", "Segmented Control", "Composite", "Selection", "radio-backed grouped choices", "Single-selection segmented choices using native radio inputs."),
   defineComponent("select", "Select", "Primitive", "Forms", "select", "Styled native select wrapper that preserves platform behavior."),
   defineComponent("skeleton", "Skeleton", "Primitive", "Display", "placeholder block", "Loading placeholder for deferred content."),
+  defineComponent("splitter", "Splitter", "Component", "Display", "resizable flex layout", "Resizable multi-panel layout for application shells and workbench views."),
+  defineComponent("splitter-panel", "Splitter Panel", "Primitive", "Display", "panel surface", "Panel region that participates in splitter sizing and resizing."),
   defineComponent("spinner", "Spinner", "Primitive", "Feedback", "indeterminate loader", "Compact loading indicator for pending work."),
   defineComponent("stepper", "Stepper", "Component", "Navigation", "step list and buttons", "Progress and workflow navigation for multi-step flows."),
   defineComponent("switch", "Switch", "Primitive", "Forms", "checkbox-based toggle", "Boolean toggle styled as a switch."),
@@ -97,6 +100,8 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("toast", "Toast", "Component", "Feedback", "status message overlay", "Transient notification surface for background events."),
   defineComponent("toast-region", "Toast Region", "Component", "Feedback", "notification host region", "Fixed-position host that manages stacked toasts."),
   defineComponent("toolbar", "Toolbar", "Primitive", "Actions", "toolbar semantics", "Roving-focus action bar for grouped controls."),
+  defineComponent("tree-item", "Tree Item", "Primitive", "Navigation", "tree row", "Single row inside a tree with optional nested child items."),
+  defineComponent("tree-view", "Tree View", "Component", "Navigation", "hierarchical tree", "Single-selection tree surface for nested navigation and content hierarchies."),
   defineComponent("tooltip", "Tooltip", "Primitive", "Overlays", "hover and focus hint", "Contextual hint surface for terse supporting text."),
   defineComponent("url-input", "URL Input", "Primitive", "Forms", "input type=url", "URL field variant built from the shared input shell.")
 ].sort((left, right) => left.title.localeCompare(right.title));

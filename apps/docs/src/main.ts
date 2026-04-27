@@ -171,6 +171,22 @@ form?.addEventListener("submit", (event) => {
 });`;
 
 const installCode = `npm install emberline-ui-core`;
+const reactInstallCode = `npm install emberline-ui-core emberline-ui-react`;
+const vueInstallCode = `npm install emberline-ui-core emberline-ui-vue`;
+const reactQuickStartCode = `import "emberline-ui-core/styles.css";
+import { EmbButton } from "emberline-ui-react";
+
+export function App() {
+  return <EmbButton>Save changes</EmbButton>;
+}`;
+const vueQuickStartCode = `<script setup lang="ts">
+import "emberline-ui-core/styles.css";
+import { EmbButton } from "emberline-ui-vue";
+</script>
+
+<template>
+  <EmbButton>Save changes</EmbButton>
+</template>`;
 
 const dataTableSampleRows = [
   { id: "1", component: "emb-button", layer: "Primitive", use: "Actions" },
@@ -347,19 +363,27 @@ function renderHome(activeSectionId: string): string {
       <section class="section" id="getting-started" data-active-section="${String(activeSectionId === "getting-started")}">
         <div class="section-heading">
           <h2>Getting started</h2>
-          <p>Install the package, register the elements once, and then compose them in any app that supports standard custom elements.</p>
+          <p>Start with the core web components directly or consume the same surface through the thin React and Vue adapters.</p>
         </div>
 
         <div class="install-grid">
           <div class="preview-block">
-            <strong>Install</strong>
-            <p class="muted">The core package ships the shared styles plus the custom element registrations.</p>
+            <strong>Web components</strong>
+            <p class="muted">Use the core package when you want the standards-based custom elements directly in any app that supports them.</p>
             <emb-code-block code="${escapeAttribute(installCode)}" language="bash"></emb-code-block>
+            <emb-code-block code="${escapeAttribute(quickStartCode)}" language="ts"></emb-code-block>
           </div>
           <div class="preview-block">
-            <strong>Bootstrap</strong>
-            <p class="muted">Import global styles once, then register the elements in your app entrypoint.</p>
-            <emb-code-block code="${escapeAttribute(quickStartCode)}" language="ts"></emb-code-block>
+            <strong>React</strong>
+            <p class="muted">The React package wraps the same core elements and registers them for you, so usage stays close to standard JSX patterns.</p>
+            <emb-code-block code="${escapeAttribute(reactInstallCode)}" language="bash"></emb-code-block>
+            <emb-code-block code="${escapeAttribute(reactQuickStartCode)}" language="tsx"></emb-code-block>
+          </div>
+          <div class="preview-block">
+            <strong>Vue</strong>
+            <p class="muted">The Vue package exposes thin component wrappers over the same custom element implementation and shared styles.</p>
+            <emb-code-block code="${escapeAttribute(vueInstallCode)}" language="bash"></emb-code-block>
+            <emb-code-block code="${escapeAttribute(vueQuickStartCode)}" language="vue"></emb-code-block>
           </div>
         </div>
 
@@ -563,10 +587,26 @@ function renderComponentDetail(slug: string): string {
         <section class="section">
           <div class="section-heading">
             <h2>Usage</h2>
-            <p>Start from the custom element directly, then layer wrapper ergonomics on top if you are consuming Emberline through React or Vue.</p>
+            <p>The core web component API stays primary, and the React and Vue packages mirror that surface through thin wrappers instead of reimplementing component logic.</p>
           </div>
 
-          <emb-code-block code="${escapeAttribute(getUsageCode(doc))}" language="html"></emb-code-block>
+          <div class="usage-grid">
+            <div class="preview-block">
+              <strong>Web component</strong>
+              <p class="muted">Use the custom element directly when you want the lowest-level standards-based integration.</p>
+              <emb-code-block code="${escapeAttribute(getUsageCode(doc))}" language="html"></emb-code-block>
+            </div>
+            <div class="preview-block">
+              <strong>React</strong>
+              <p class="muted">Import the generated React wrapper when you want JSX ergonomics but the same underlying Emberline behavior.</p>
+              <emb-code-block code="${escapeAttribute(getReactUsageCode(doc))}" language="tsx"></emb-code-block>
+            </div>
+            <div class="preview-block">
+              <strong>Vue</strong>
+              <p class="muted">Use the Vue wrapper when you want template-first usage while keeping the core component contract aligned with the custom element.</p>
+              <emb-code-block code="${escapeAttribute(getVueUsageCode(doc))}" language="vue"></emb-code-block>
+            </div>
+          </div>
         </section>
 
         <section class="section">
@@ -944,6 +984,12 @@ function getUsageCode(doc: ComponentDoc): string {
 </emb-combobox>`;
     case "command-palette":
       return `<emb-command-palette title="Workspace commands"></emb-command-palette>`;
+    case "context-menu":
+      return `<emb-context-menu>
+  <div slot="trigger">Right click for actions</div>
+  <emb-menu-item>Rename</emb-menu-item>
+  <emb-menu-item>Duplicate</emb-menu-item>
+</emb-context-menu>`;
     case "data-table":
       return `<emb-data-table caption="Team members"></emb-data-table>`;
     case "date-input":
@@ -1046,6 +1092,13 @@ function getUsageCode(doc: ComponentDoc): string {
 </emb-select>`;
     case "skeleton":
       return `<emb-skeleton></emb-skeleton>`;
+    case "splitter":
+      return `<emb-splitter style="height: 18rem;">
+  <emb-splitter-panel size="28">Navigation</emb-splitter-panel>
+  <emb-splitter-panel size="72">Workspace</emb-splitter-panel>
+</emb-splitter>`;
+    case "splitter-panel":
+      return `<emb-splitter-panel size="30">Panel content</emb-splitter-panel>`;
     case "spinner":
       return `<emb-spinner></emb-spinner>`;
     case "stepper":
@@ -1071,6 +1124,18 @@ function getUsageCode(doc: ComponentDoc): string {
     <emb-button variant="ghost">Italic</emb-button>
   </emb-button-group>
 </emb-toolbar>`;
+    case "tree-item":
+      return `<emb-tree-item label="Guides" expanded>
+  <emb-tree-item label="Getting started"></emb-tree-item>
+</emb-tree-item>`;
+    case "tree-view":
+      return `<emb-tree-view>
+  <emb-tree-item label="Overview"></emb-tree-item>
+  <emb-tree-item label="Guides" expanded>
+    <emb-tree-item label="Getting started"></emb-tree-item>
+    <emb-tree-item label="Theming"></emb-tree-item>
+  </emb-tree-item>
+</emb-tree-view>`;
     case "tooltip":
       return `<emb-tooltip text="Helpful context"></emb-tooltip>`;
     case "url-input":
@@ -1082,6 +1147,197 @@ function getUsageCode(doc: ComponentDoc): string {
 </emb-accordion>`;
     default:
       return `<${doc.tag}></${doc.tag}>`;
+  }
+}
+
+function getReactUsageCode(doc: ComponentDoc): string {
+  const componentName = getWrapperComponentName(doc.tag);
+
+  return `import "emberline-ui-core/styles.css";
+import { ${componentName} } from "emberline-ui-react";
+
+export function Example() {
+  return (
+    ${getReactUsageMarkup(doc, componentName)}
+  );
+}`;
+}
+
+function getVueUsageCode(doc: ComponentDoc): string {
+  const componentName = getWrapperComponentName(doc.tag);
+
+  return `<script setup lang="ts">
+import "emberline-ui-core/styles.css";
+import { ${componentName} } from "emberline-ui-vue";
+</script>
+
+<template>
+  ${getVueUsageMarkup(doc, componentName)}
+</template>`;
+}
+
+function getWrapperComponentName(tagName: string): string {
+  return tagName
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join("");
+}
+
+function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
+  switch (doc.slug) {
+    case "alert":
+      return `<${componentName} tone="info">Update complete.</${componentName}>`;
+    case "badge":
+      return `<${componentName} tone="accent">Beta</${componentName}>`;
+    case "breadcrumbs":
+      return `<${componentName}>
+      <a href="/">Home</a>
+      <a href="/docs">Docs</a>
+      <a href="/docs/components">Components</a>
+    </${componentName}>`;
+    case "button":
+      return `<${componentName}>Save changes</${componentName}>`;
+    case "checkbox":
+      return `<${componentName}>Enable email updates</${componentName}>`;
+    case "chip":
+      return `<${componentName}>UI System</${componentName}>`;
+    case "code-block":
+      return `<${componentName} code="const ready = true;" language="ts" />`;
+    case "dialog":
+      return `<${componentName} open>
+      <h2>Confirm action</h2>
+      <p>Save current changes?</p>
+    </${componentName}>`;
+    case "empty-state":
+      return `<${componentName}>
+      <h3>No projects yet</h3>
+      <p>Create your first workspace to get started.</p>
+    </${componentName}>`;
+    case "error-text":
+      return `<${componentName}>Please enter a valid email address.</${componentName}>`;
+    case "helper-text":
+      return `<${componentName}>Used for keyboard shortcuts and system labels.</${componentName}>`;
+    case "icon-button":
+      return `<${componentName} label="Search" name="search" />`;
+    case "input":
+      return `<${componentName} placeholder="Project name" />`;
+    case "link":
+      return `<${componentName} href="#components">Browse components</${componentName}>`;
+    case "context-menu":
+      return `<${componentName}>
+      <div slot="trigger">Right click for actions</div>
+      <emb-menu-item>Rename</emb-menu-item>
+      <emb-menu-item>Duplicate</emb-menu-item>
+    </${componentName}>`;
+    case "number-input":
+      return `<${componentName} value="12" />`;
+    case "progress":
+      return `<${componentName} max={100} value={68}>68%</${componentName}>`;
+    case "search":
+      return `<${componentName} placeholder="Search docs" />`;
+    case "splitter":
+      return `<${componentName} style={{ height: "18rem" }}>
+      <emb-splitter-panel size="28">Navigation</emb-splitter-panel>
+      <emb-splitter-panel size="72">Workspace</emb-splitter-panel>
+    </${componentName}>`;
+    case "splitter-panel":
+      return `<${componentName} size={30}>Panel content</${componentName}>`;
+    case "switch":
+      return `<${componentName}>Available for notifications</${componentName}>`;
+    case "textarea":
+      return `<${componentName} rows={4}>Notes</${componentName}>`;
+    case "tree-item":
+      return `<${componentName} label="Guides" expanded>
+      <emb-tree-item label="Getting started"></emb-tree-item>
+    </${componentName}>`;
+    case "tree-view":
+      return `<${componentName}>
+      <emb-tree-item label="Overview"></emb-tree-item>
+      <emb-tree-item label="Guides" expanded>
+        <emb-tree-item label="Getting started"></emb-tree-item>
+      </emb-tree-item>
+    </${componentName}>`;
+    default:
+      return `<${componentName} />`;
+  }
+}
+
+function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
+  switch (doc.slug) {
+    case "alert":
+      return `<${componentName} tone="info">Update complete.</${componentName}>`;
+    case "badge":
+      return `<${componentName} tone="accent">Beta</${componentName}>`;
+    case "breadcrumbs":
+      return `<${componentName}>
+    <a href="/">Home</a>
+    <a href="/docs">Docs</a>
+    <a href="/docs/components">Components</a>
+  </${componentName}>`;
+    case "button":
+      return `<${componentName}>Save changes</${componentName}>`;
+    case "checkbox":
+      return `<${componentName}>Enable email updates</${componentName}>`;
+    case "chip":
+      return `<${componentName}>UI System</${componentName}>`;
+    case "code-block":
+      return `<${componentName} code="const ready = true;" language="ts" />`;
+    case "dialog":
+      return `<${componentName} open>
+    <h2>Confirm action</h2>
+    <p>Save current changes?</p>
+  </${componentName}>`;
+    case "empty-state":
+      return `<${componentName}>
+    <h3>No projects yet</h3>
+    <p>Create your first workspace to get started.</p>
+  </${componentName}>`;
+    case "error-text":
+      return `<${componentName}>Please enter a valid email address.</${componentName}>`;
+    case "helper-text":
+      return `<${componentName}>Used for keyboard shortcuts and system labels.</${componentName}>`;
+    case "icon-button":
+      return `<${componentName} label="Search" name="search" />`;
+    case "input":
+      return `<${componentName} placeholder="Project name" />`;
+    case "link":
+      return `<${componentName} href="#components">Browse components</${componentName}>`;
+    case "context-menu":
+      return `<${componentName}>
+    <div slot="trigger">Right click for actions</div>
+    <emb-menu-item>Rename</emb-menu-item>
+    <emb-menu-item>Duplicate</emb-menu-item>
+  </${componentName}>`;
+    case "number-input":
+      return `<${componentName} :value="12" />`;
+    case "progress":
+      return `<${componentName} :max="100" :value="68">68%</${componentName}>`;
+    case "search":
+      return `<${componentName} placeholder="Search docs" />`;
+    case "splitter":
+      return `<${componentName} style="height: 18rem;">
+    <emb-splitter-panel :size="28">Navigation</emb-splitter-panel>
+    <emb-splitter-panel :size="72">Workspace</emb-splitter-panel>
+  </${componentName}>`;
+    case "splitter-panel":
+      return `<${componentName} :size="30">Panel content</${componentName}>`;
+    case "switch":
+      return `<${componentName}>Available for notifications</${componentName}>`;
+    case "textarea":
+      return `<${componentName} :rows="4">Notes</${componentName}>`;
+    case "tree-item":
+      return `<${componentName} label="Guides" expanded>
+    <emb-tree-item label="Getting started"></emb-tree-item>
+  </${componentName}>`;
+    case "tree-view":
+      return `<${componentName}>
+    <emb-tree-item label="Overview"></emb-tree-item>
+    <emb-tree-item label="Guides" expanded>
+      <emb-tree-item label="Getting started"></emb-tree-item>
+    </emb-tree-item>
+  </${componentName}>`;
+    default:
+      return `<${componentName} />`;
   }
 }
 
@@ -1129,6 +1385,8 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "search":
     case "select":
     case "skeleton":
+    case "splitter":
+    case "splitter-panel":
     case "spinner":
     case "switch":
     case "tel-input":
@@ -1136,6 +1394,8 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "time-input":
     case "toast":
     case "toolbar":
+    case "tree-item":
+    case "tree-view":
     case "url-input":
       return getUsageCode(doc);
     case "data-table":
@@ -1157,6 +1417,7 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
       return `<emb-stepper id="stepper-preview" aria-label="Stepper preview" interactive></emb-stepper>`;
     case "accordion":
     case "command-palette":
+    case "context-menu":
     case "dialog":
     case "drawer":
     case "dropdown-menu":
@@ -1182,6 +1443,8 @@ function getPreviewFallbackText(doc: ComponentDoc): string {
   switch (doc.slug) {
     case "command-palette":
       return "Use the docs command palette itself with Ctrl/Cmd+K to experience the component in-context.";
+    case "context-menu":
+      return "Context menu is easiest to explore with an actual right-click target or keyboard-triggered menu scenario, so Storybook remains the richer interaction surface.";
     case "dialog":
     case "drawer":
     case "popover":

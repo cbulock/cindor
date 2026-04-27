@@ -332,6 +332,11 @@ export const componentDefinitions = [
       str("title", "Command palette", { alwaysPass: true })
     ]
   }),
+  component("EmbContextMenu", "emb-context-menu", {
+    slots: slots.all,
+    vueHandlers: [currentOpen],
+    vueProps: [bool("open")]
+  }),
   component("EmbListbox", "emb-listbox", {
     slots: slots.default,
     vueProps: [num("activeIndex", -1), bool("multiselectable"), str("selectedValue")]
@@ -361,6 +366,16 @@ export const componentDefinitions = [
     vueHandlers: textModelHandlers,
     vueProps: inputStringProps({ includeIcons: true, startIconDefault: "search" }),
     reactEvents: ["change", "input"]
+  }),
+  component("EmbSplitter", "emb-splitter", {
+    slots: slots.default,
+    reactEvents: ["panel-resize"],
+    vueHandlers: [handler("panel-resize")],
+    vueProps: [typed("orientation", "SplitterOrientation", "horizontal")]
+  }),
+  component("EmbSplitterPanel", "emb-splitter-panel", {
+    slots: slots.default,
+    vueProps: [num("minSize", 10, { attr: "min-size" }), num("size", 0)]
   }),
   component("EmbSegmentedControl", "emb-segmented-control", {
     slots: slots.none,
@@ -585,5 +600,15 @@ export const componentDefinitions = [
       })
     ],
     vueProps: [bool("open")]
+  }),
+  component("EmbTreeItem", "emb-tree-item", {
+    slots: slots.all,
+    vueProps: [bool("disabled"), bool("expanded"), str("label"), bool("selected"), str("value")]
+  }),
+  component("EmbTreeView", "emb-tree-view", {
+    slots: slots.default,
+    reactEvents: ["change", "input"],
+    vueHandlers: textModelHandlers,
+    vueProps: [str("modelValue", "", { attr: "value", alwaysPass: true })]
   })
 ];

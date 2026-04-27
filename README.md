@@ -53,6 +53,37 @@ When adding or renaming components, update `scripts/wrapper-manifest.mjs` and ru
 
 The docs API reference is generated from the core component source. Run `npm run generate:manifest` after changing public component properties, events, methods, or slots so `packages/core/custom-elements.json` and `packages/core/component-docs.json` stay current.
 
+## Adding a new component
+
+Use this workflow when adding a component so it is wired through the full library surface instead of existing only in the core package.
+
+1. Create the component in `packages/core/src/components/<component-name>/` with:
+   - `emb-<component-name>.ts`
+   - `emb-<component-name>.test.ts`
+   - `emb-<component-name>.stories.ts`
+2. Export the component from `packages/core/src/index.ts`.
+3. Register the custom element in `packages/core/src/register.ts`.
+4. If the component should be available in React and Vue, add it to `scripts/wrapper-manifest.mjs`, then run `npm run generate:wrappers`. Do not hand-edit `packages/react/src/index.tsx` or `packages/vue/src/index.ts`.
+5. If the component has public properties, events, methods, or slots, add or update source-level descriptions/JSDoc as needed, then run `npm run generate:manifest` so `packages/core/custom-elements.json` and `packages/core/component-docs.json` stay aligned.
+6. Add the component to the docs catalog in `apps/docs/src/catalog.ts`.
+7. Add or update docs usage/preview coverage in `apps/docs/src/main.ts` when the component needs dedicated examples, previews, or framework-specific snippets.
+8. Validate the full workflow from the repository root:
+
+```bash
+npm run generate:manifest
+npm run generate:wrappers
+npm run test
+npm run typecheck
+npm run lint
+npm run build
+```
+
+For faster iteration during development, it is also normal to run a targeted test file first, for example:
+
+```bash
+npx vitest run packages/core/src/components/button/emb-button.test.ts
+```
+
 ## Architecture
 
 This repository is designed around a few core rules:
