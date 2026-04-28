@@ -24,6 +24,7 @@ export class EmbCalendar extends FormAssociatedElement {
     :host {
       display: inline-grid;
       gap: var(--space-3);
+      --emb-calendar-month-min-inline-size: 0px;
       width: min(100%, var(--emb-calendar-inline-size, 320px));
       max-width: 100%;
       color: var(--fg);
@@ -31,6 +32,7 @@ export class EmbCalendar extends FormAssociatedElement {
 
     :host([range]) {
       --emb-calendar-inline-size: 680px;
+      --emb-calendar-month-min-inline-size: 260px;
     }
 
     .surface {
@@ -49,12 +51,14 @@ export class EmbCalendar extends FormAssociatedElement {
       grid-template-columns: auto 1fr auto;
       align-items: center;
       gap: var(--space-2);
+      min-width: 0;
     }
 
     .month-titles {
       display: grid;
       gap: var(--space-1);
-      grid-template-columns: repeat(var(--emb-calendar-month-count, 1), minmax(260px, 1fr));
+      min-width: 0;
+      grid-template-columns: repeat(var(--emb-calendar-month-count, 1), minmax(var(--emb-calendar-month-min-inline-size), 1fr));
     }
 
     .month {
@@ -65,12 +69,14 @@ export class EmbCalendar extends FormAssociatedElement {
     .months {
       display: grid;
       gap: var(--space-4);
-      grid-template-columns: repeat(var(--emb-calendar-month-count, 1), minmax(260px, 1fr));
+      min-width: 0;
+      grid-template-columns: repeat(var(--emb-calendar-month-count, 1), minmax(var(--emb-calendar-month-min-inline-size), 1fr));
     }
 
     .month-panel {
       display: grid;
       gap: var(--space-2);
+      min-width: 0;
     }
 
     table {

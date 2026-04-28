@@ -1,6 +1,7 @@
-import { css, html } from "lit";
+import { html } from "lit";
 import { live } from "lit/directives/live.js";
 
+import { createFieldHostStyles, createTextControlStyles, hiddenSlotStyles } from "../shared/control-styles.js";
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
 
 type SelectOption = {
@@ -18,46 +19,7 @@ type SelectOptGroup = {
 type SelectNode = { kind: "option"; option: SelectOption } | { kind: "optgroup"; group: SelectOptGroup };
 
 export class EmbSelect extends FormAssociatedElement {
-  static styles = css`
-    :host {
-      display: inline-block;
-      width: var(--emb-field-inline-size, min(100%, 320px));
-      max-width: 100%;
-      min-width: 0;
-      color: var(--fg);
-    }
-
-    select {
-      box-sizing: border-box;
-      width: 100%;
-      min-height: 36px;
-      font: inherit;
-      padding: 0 var(--space-3);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--fg);
-      transition:
-        border-color var(--duration-base) var(--ease-out),
-        box-shadow var(--duration-base) var(--ease-out),
-        background var(--duration-base) var(--ease-out);
-    }
-
-    select:disabled {
-      cursor: not-allowed;
-      color: var(--fg-subtle);
-      background: var(--bg-subtle);
-    }
-
-    select:focus-visible {
-      outline: none;
-      box-shadow: var(--ring-focus);
-    }
-
-    slot {
-      display: none;
-    }
-  `;
+  static styles = [createFieldHostStyles("min(100%, 320px)"), createTextControlStyles("select", { includePlaceholder: false }), hiddenSlotStyles];
 
   static properties = {
     disabled: { type: Boolean, reflect: true },

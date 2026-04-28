@@ -2,79 +2,45 @@ import { css, html, nothing, type CSSResultGroup } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { live } from "lit/directives/live.js";
 
+import { createFieldHostStyles, createTextControlStyles } from "../shared/control-styles.js";
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
 
 export class BaseInputElement extends FormAssociatedElement {
-  static styles: CSSResultGroup = css`
-    :host {
-      display: inline-block;
-      width: var(--emb-field-inline-size, min(100%, 320px));
-      max-width: 100%;
-      min-width: 0;
-      color: var(--fg);
-    }
+  static styles: CSSResultGroup = [
+    createFieldHostStyles("min(100%, 320px)"),
+    createTextControlStyles("input"),
+    css`
+      .surface {
+        position: relative;
+      }
 
-    .surface {
-      position: relative;
-    }
+      .surface[data-has-start-adornment="true"] input {
+        padding-inline-start: calc(var(--space-3) * 2 + 1rem);
+      }
 
-    input {
-      box-sizing: border-box;
-      width: 100%;
-      min-height: 36px;
-      font: inherit;
-      padding: 0 var(--space-3);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--fg);
-      transition:
-        border-color var(--duration-base) var(--ease-out),
-        box-shadow var(--duration-base) var(--ease-out),
-        background var(--duration-base) var(--ease-out);
-    }
+      .surface[data-has-end-adornment="true"] input {
+        padding-inline-end: calc(var(--space-3) * 2 + 1rem);
+      }
 
-    input::placeholder {
-      color: var(--fg-subtle);
-    }
+      .icon {
+        position: absolute;
+        inset-block-start: 50%;
+        block-size: 1rem;
+        inline-size: 1rem;
+        color: var(--fg-subtle);
+        pointer-events: none;
+        transform: translateY(-50%);
+      }
 
-    input:disabled {
-      cursor: not-allowed;
-      color: var(--fg-subtle);
-      background: var(--bg-subtle);
-    }
+      .start-icon {
+        inset-inline-start: var(--space-3);
+      }
 
-    input:focus-visible {
-      outline: none;
-      box-shadow: var(--ring-focus);
-    }
-
-    .surface[data-has-start-adornment="true"] input {
-      padding-inline-start: calc(var(--space-3) * 2 + 1rem);
-    }
-
-    .surface[data-has-end-adornment="true"] input {
-      padding-inline-end: calc(var(--space-3) * 2 + 1rem);
-    }
-
-    .icon {
-      position: absolute;
-      inset-block-start: 50%;
-      block-size: 1rem;
-      inline-size: 1rem;
-      color: var(--fg-subtle);
-      pointer-events: none;
-      transform: translateY(-50%);
-    }
-
-    .start-icon {
-      inset-inline-start: var(--space-3);
-    }
-
-    .end-icon {
-      inset-inline-end: var(--space-3);
-    }
-  `;
+      .end-icon {
+        inset-inline-end: var(--space-3);
+      }
+    `
+  ];
 
   static properties = {
     autocomplete: { reflect: true },

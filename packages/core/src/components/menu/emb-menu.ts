@@ -1,6 +1,7 @@
 import { css, html, LitElement } from "lit";
 
 import { EmbMenuItem } from "../menu-item/emb-menu-item.js";
+import { findCurrentIndexFromPath, handleLinearKeyboardNavigation } from "../shared/linear-navigation.js";
 
 export class EmbMenu extends LitElement {
   static styles = css`
@@ -38,31 +39,14 @@ export class EmbMenu extends LitElement {
       return;
     }
 
-    const currentItem = event.composedPath().find((node): node is EmbMenuItem => node instanceof EmbMenuItem);
-    const currentIndex = currentItem ? enabledItems.indexOf(currentItem) : -1;
-
-    if (event.key === "ArrowDown") {
-      event.preventDefault();
-      enabledItems[currentIndex < enabledItems.length - 1 ? currentIndex + 1 : 0]?.focus();
-      return;
-    }
-
-    if (event.key === "ArrowUp") {
-      event.preventDefault();
-      enabledItems[currentIndex > 0 ? currentIndex - 1 : enabledItems.length - 1]?.focus();
-      return;
-    }
-
-    if (event.key === "Home") {
-      event.preventDefault();
-      enabledItems[0]?.focus();
-      return;
-    }
-
-    if (event.key === "End") {
-      event.preventDefault();
-      enabledItems.at(-1)?.focus();
-    }
+    handleLinearKeyboardNavigation({
+      currentIndex: findCurrentIndexFromPath(event.composedPath(), enabledItems),
+      event,
+      items: enabledItems,
+      nextKeys: ["ArrowDown"],
+      onNavigate: (item) => item.focus(),
+      previousKeys: ["ArrowUp"]
+    });
   };
 
   private get menuItems(): EmbMenuItem[] {

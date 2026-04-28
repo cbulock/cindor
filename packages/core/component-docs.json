@@ -44,6 +44,68 @@
       "tagName": "emb-accordion"
     },
     {
+      "className": "EmbActivityFeed",
+      "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
+      "modulePath": "packages/core/src/components/activity-feed/emb-activity-feed.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "`emb-activity-item` children.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-activity-feed"
+    },
+    {
+      "className": "EmbActivityItem",
+      "description": "Single event row used inside EmbActivityFeed.",
+      "modulePath": "packages/core/src/components/activity-item/emb-activity-item.ts",
+      "properties": [
+        {
+          "attributeName": "unread",
+          "defaultValue": "false",
+          "description": "",
+          "name": "unread",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Leading avatar, icon, or status mark.",
+          "name": "leading"
+        },
+        {
+          "description": "Main activity title.",
+          "name": "title"
+        },
+        {
+          "description": "Time or date associated with the event.",
+          "name": "timestamp"
+        },
+        {
+          "description": "Supplemental metadata such as actor, environment, or destination.",
+          "name": "meta"
+        },
+        {
+          "description": "Optional trailing actions for the activity.",
+          "name": "actions"
+        },
+        {
+          "description": "Main event description.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-activity-item"
+    },
+    {
       "className": "EmbAlert",
       "description": "",
       "modulePath": "packages/core/src/components/alert/emb-alert.ts",
@@ -73,6 +135,170 @@
       ],
       "summary": "",
       "tagName": "emb-alert"
+    },
+    {
+      "className": "EmbAutocomplete",
+      "description": "Suggestion-first autocomplete input for search and remote result flows.",
+      "modulePath": "packages/core/src/components/autocomplete/emb-autocomplete.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "empty-message",
+          "defaultValue": "\"No matching suggestions.\"",
+          "description": "",
+          "name": "emptyMessage",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "loading",
+          "defaultValue": "false",
+          "description": "",
+          "name": "loading",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "query",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "query",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "suggestions",
+          "reflects": false,
+          "type": "AutocompleteSuggestion[]",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when a suggestion is committed.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when a suggestion is committed.",
+          "name": "suggestion-select",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "Fired as the query changes.",
+          "name": "input",
+          "type": null,
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-autocomplete"
     },
     {
       "className": "EmbAvatar",
@@ -843,6 +1069,72 @@
       "tagName": "emb-combobox"
     },
     {
+      "className": "EmbCommandBar",
+      "description": "Persistent contextual action bar for bulk actions and page-level commands.",
+      "modulePath": "packages/core/src/components/command-bar/emb-command-bar.ts",
+      "properties": [
+        {
+          "attributeName": "count",
+          "defaultValue": "0",
+          "description": "",
+          "name": "count",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "count-label",
+          "defaultValue": "\"selected\"",
+          "description": "",
+          "name": "countLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "description",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "description",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "label",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "label",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "sticky",
+          "defaultValue": "false",
+          "description": "",
+          "name": "sticky",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Optional supporting content shown with the summary copy.",
+          "name": "default"
+        },
+        {
+          "description": "Action controls rendered on the trailing edge.",
+          "name": "actions"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-command-bar"
+    },
+    {
       "className": "EmbCommandPalette",
       "description": "",
       "modulePath": "packages/core/src/components/command-palette/emb-command-palette.ts",
@@ -1325,6 +1617,438 @@
       "tagName": "emb-date-input"
     },
     {
+      "className": "EmbDatePicker",
+      "description": "Popup date picker that reuses the Emberline calendar surface.",
+      "modulePath": "packages/core/src/components/date-picker/emb-date-picker.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "max",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "min",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "min",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "month",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "month",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"Select a date\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "show",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "close",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the popup opens or closes.",
+          "name": "toggle",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "Fired when the selected date changes.",
+          "name": "input",
+          "type": null,
+          "values": null
+        },
+        {
+          "description": "Fired when the selected date changes.",
+          "name": "change",
+          "type": null,
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-date-picker"
+    },
+    {
+      "className": "EmbDateRangePicker",
+      "description": "Popup date range picker powered by the Emberline range calendar.",
+      "modulePath": "packages/core/src/components/date-range-picker/emb-date-range-picker.ts",
+      "properties": [
+        {
+          "attributeName": "end-value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "endValue",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "max",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "min",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "min",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "month",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "month",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"Select a date range\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "start-value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "startValue",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "show",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "close",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the popup opens or closes.",
+          "name": "toggle",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "Fired as the selected range changes.",
+          "name": "input",
+          "type": null,
+          "values": null
+        },
+        {
+          "description": "Fired when a range selection completes.",
+          "name": "change",
+          "type": null,
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-date-range-picker"
+    },
+    {
+      "className": "EmbDateTimePicker",
+      "description": "Combined date and time picker built from Emberline date and time fields.",
+      "modulePath": "packages/core/src/components/date-time-picker/emb-date-time-picker.ts",
+      "properties": [
+        {
+          "attributeName": "date-value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "dateValue",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "time-value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "timeValue",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when either the date or time value changes.",
+          "name": "input",
+          "type": null,
+          "values": null
+        },
+        {
+          "description": "Fired when the combined value changes.",
+          "name": "change",
+          "type": null,
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-date-time-picker"
+    },
+    {
+      "className": "EmbDescriptionItem",
+      "description": "Term-and-value pair used inside EmbDescriptionList.",
+      "modulePath": "packages/core/src/components/description-item/emb-description-item.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Label for the value.",
+          "name": "term"
+        },
+        {
+          "description": "Value content.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-description-item"
+    },
+    {
+      "className": "EmbDescriptionList",
+      "description": "Key-value description list for metadata and detail pages.",
+      "modulePath": "packages/core/src/components/description-list/emb-description-list.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "`emb-description-item` children.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-description-list"
+    },
+    {
       "className": "EmbDialog",
       "description": "",
       "modulePath": "packages/core/src/components/dialog/emb-dialog.ts",
@@ -1757,6 +2481,58 @@
       "tagName": "emb-email-input"
     },
     {
+      "className": "EmbEmptySearchResults",
+      "description": "Search-specific zero-state messaging with optional suggestions and actions.",
+      "modulePath": "packages/core/src/components/empty-search-results/emb-empty-search-results.ts",
+      "properties": [
+        {
+          "attributeName": "description",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "description",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "heading",
+          "defaultValue": "\"No matching results\"",
+          "description": "",
+          "name": "heading",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "query",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "query",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Optional guidance or search tips shown below the main copy.",
+          "name": "default"
+        },
+        {
+          "description": "Optional custom leading media.",
+          "name": "media"
+        },
+        {
+          "description": "Action controls for retry or broaden-search flows.",
+          "name": "actions"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-empty-search-results"
+    },
+    {
       "className": "EmbEmptyState",
       "description": "",
       "modulePath": "packages/core/src/components/empty-state/emb-empty-state.ts",
@@ -1943,6 +2719,80 @@
       "slots": [],
       "summary": "",
       "tagName": "emb-file-input"
+    },
+    {
+      "className": "EmbFilterBuilder",
+      "description": "Rule and group based filtering UI built from native fieldset, select, and input controls.\r\n\r\nThe serialized `value` property stores the current filter group as JSON.",
+      "modulePath": "packages/core/src/components/filter-builder/emb-filter-builder.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "fields",
+          "reflects": false,
+          "type": "FilterBuilderField[]",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": false,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the serialized filter value changes.",
+          "name": "input",
+          "type": "CustomEvent<FilterBuilderChangeDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the serialized filter value changes.",
+          "name": "change",
+          "type": "CustomEvent<FilterBuilderChangeDetail>",
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-filter-builder"
     },
     {
       "className": "EmbFormField",
@@ -2157,6 +3007,110 @@
       "slots": [],
       "summary": "",
       "tagName": "emb-icon-button"
+    },
+    {
+      "className": "EmbInlineEdit",
+      "description": "Inline text editing surface for titles, labels, and small editable values.",
+      "modulePath": "packages/core/src/components/inline-edit/emb-inline-edit.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "editing",
+          "defaultValue": "false",
+          "description": "",
+          "name": "editing",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"Click edit\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "beginEdit",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "cancelEdit",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "save",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when editing is cancelled.",
+          "name": "cancel",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the saved value changes.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when editing starts or stops.",
+          "name": "toggle",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "Fired while the draft value changes.",
+          "name": "input",
+          "type": null,
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-inline-edit"
     },
     {
       "className": "EmbInput",
@@ -2508,6 +3462,22 @@
       "tagName": "emb-menu-item"
     },
     {
+      "className": "EmbMenubar",
+      "description": "Horizontal application menubar with roving keyboard focus.",
+      "modulePath": "packages/core/src/components/menubar/emb-menubar.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Menubar commands or links.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-menubar"
+    },
+    {
       "className": "EmbMeter",
       "description": "",
       "modulePath": "packages/core/src/components/meter/emb-meter.ts",
@@ -2577,6 +3547,252 @@
       ],
       "summary": "",
       "tagName": "emb-meter"
+    },
+    {
+      "className": "EmbMultiSelect",
+      "description": "Searchable multi-select built from Emberline listbox and option primitives.\r\n\r\nUse light-DOM `option` or `emb-option` children as the source option set.",
+      "modulePath": "packages/core/src/components/multi-select/emb-multi-select.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"Select options\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "values",
+          "reflects": false,
+          "type": "string[]",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the selected values change.",
+          "name": "input",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "Fired when the selected values change.",
+          "name": "change",
+          "type": "CustomEvent",
+          "values": null
+        }
+      ],
+      "slots": [
+        {
+          "description": "`option` or `emb-option` children that define the available choices.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-multi-select"
+    },
+    {
+      "className": "EmbNavigationRail",
+      "description": "Vertical navigation rail for compact app-shell layouts.",
+      "modulePath": "packages/core/src/components/navigation-rail/emb-navigation-rail.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "`emb-navigation-rail-item` children.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-navigation-rail"
+    },
+    {
+      "className": "EmbNavigationRailItem",
+      "description": "Compact icon-and-label row used inside EmbNavigationRail.",
+      "modulePath": "packages/core/src/components/navigation-rail-item/emb-navigation-rail-item.ts",
+      "properties": [
+        {
+          "attributeName": "current",
+          "defaultValue": "false",
+          "description": "",
+          "name": "current",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "href",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "href",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "label",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "label",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "rel",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "rel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "target",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "target",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "click",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [
+        {
+          "description": "Leading icon or badge.",
+          "name": "start"
+        },
+        {
+          "description": "Optional label content.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-navigation-rail-item"
     },
     {
       "className": "EmbNumberInput",
@@ -2811,6 +4027,62 @@
       "tagName": "emb-option"
     },
     {
+      "className": "EmbPageHeader",
+      "description": "Reusable page header with breadcrumbs, metadata, and page-level actions.",
+      "modulePath": "packages/core/src/components/page-header/emb-page-header.ts",
+      "properties": [
+        {
+          "attributeName": "description",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "description",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "eyebrow",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "eyebrow",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "title",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "title",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Optional supporting content rendered below the main heading row.",
+          "name": "default"
+        },
+        {
+          "description": "Optional breadcrumb or parent-navigation content.",
+          "name": "breadcrumbs"
+        },
+        {
+          "description": "Optional metadata such as badges or supporting facts.",
+          "name": "meta"
+        },
+        {
+          "description": "Optional trailing actions such as buttons or segmented controls.",
+          "name": "actions"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-page-header"
+    },
+    {
       "className": "EmbPagination",
       "description": "",
       "modulePath": "packages/core/src/components/pagination/emb-pagination.ts",
@@ -2855,6 +4127,62 @@
       "slots": [],
       "summary": "",
       "tagName": "emb-pagination"
+    },
+    {
+      "className": "EmbPanelInspector",
+      "description": "Reusable details panel surface for inspector, properties, and supplemental context.",
+      "modulePath": "packages/core/src/components/panel-inspector/emb-panel-inspector.ts",
+      "properties": [
+        {
+          "attributeName": "description",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "description",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "sticky",
+          "defaultValue": "false",
+          "description": "",
+          "name": "sticky",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "title",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "title",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Main panel body content.",
+          "name": "default"
+        },
+        {
+          "description": "Optional trailing header actions.",
+          "name": "actions"
+        },
+        {
+          "description": "Optional footer content such as buttons or summaries.",
+          "name": "footer"
+        },
+        {
+          "description": "Optional metadata shown below the title copy.",
+          "name": "meta"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-panel-inspector"
     },
     {
       "className": "EmbPasswordInput",
@@ -3776,6 +5104,159 @@
       "tagName": "emb-select"
     },
     {
+      "className": "EmbSideNav",
+      "description": "Keyboard-accessible side navigation landmark with nested sections.\r\n\r\nUse direct child `emb-side-nav-item` elements, optionally nesting them to\r\ncreate collapsible sections.",
+      "modulePath": "packages/core/src/components/side-nav/emb-side-nav.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Direct child `emb-side-nav-item` elements.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-side-nav"
+    },
+    {
+      "className": "EmbSideNavItem",
+      "description": "Navigable row used inside EmbSideNav.\r\n\r\nSet `href` to render the row as a link, or omit it to render a button-like\r\nitem that can toggle its nested children.",
+      "modulePath": "packages/core/src/components/side-nav-item/emb-side-nav-item.ts",
+      "properties": [
+        {
+          "attributeName": "current",
+          "defaultValue": "false",
+          "description": "",
+          "name": "current",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "expanded",
+          "defaultValue": "false",
+          "description": "",
+          "name": "expanded",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "href",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "href",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "label",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "label",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "rel",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "rel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "target",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "target",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "click",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "toggle",
+          "parameters": [
+            {
+              "name": "expanded",
+              "optional": true,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the expanded branch state changes.",
+          "name": "toggle",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "Fired when a non-link leaf item is activated.",
+          "name": "side-nav-select",
+          "type": null,
+          "values": null
+        }
+      ],
+      "slots": [
+        {
+          "description": "Optional leading decoration such as an icon.",
+          "name": "start"
+        },
+        {
+          "description": "Nested child `emb-side-nav-item` elements.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-side-nav-item"
+    },
+    {
       "className": "EmbSkeleton",
       "description": "",
       "modulePath": "packages/core/src/components/skeleton/emb-skeleton.ts",
@@ -3881,6 +5362,63 @@
       ],
       "summary": "",
       "tagName": "emb-splitter-panel"
+    },
+    {
+      "className": "EmbStatCard",
+      "description": "Summary metric card for dashboards and KPI surfaces.",
+      "modulePath": "packages/core/src/components/stat-card/emb-stat-card.ts",
+      "properties": [
+        {
+          "attributeName": "change",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "change",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "label",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "label",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "tone",
+          "defaultValue": "\"neutral\"",
+          "description": "",
+          "name": "tone",
+          "reflects": true,
+          "type": "\"neutral\" | \"positive\" | \"negative\"",
+          "values": [
+            "neutral",
+            "positive",
+            "negative"
+          ]
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Optional supporting description or actions.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-stat-card"
     },
     {
       "className": "EmbStepper",
@@ -4105,6 +5643,119 @@
       ],
       "summary": "",
       "tagName": "emb-tabs"
+    },
+    {
+      "className": "EmbTagInput",
+      "description": "Freeform tag entry with removable tokens.",
+      "modulePath": "packages/core/src/components/tag-input/emb-tag-input.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"Add a tag\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "values",
+          "reflects": false,
+          "type": "string[]",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the committed tag values change.",
+          "name": "input",
+          "type": "CustomEvent<TagInputChangeDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the committed tag values change.",
+          "name": "change",
+          "type": "CustomEvent<TagInputChangeDetail>",
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "emb-tag-input"
     },
     {
       "className": "EmbTelInput",
@@ -4551,6 +6202,46 @@
       "tagName": "emb-time-input"
     },
     {
+      "className": "EmbTimeline",
+      "description": "Ordered event timeline for status history and activity summaries.",
+      "modulePath": "packages/core/src/components/timeline/emb-timeline.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "`emb-timeline-item` children.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-timeline"
+    },
+    {
+      "className": "EmbTimelineItem",
+      "description": "Single event row used inside EmbTimeline.",
+      "modulePath": "packages/core/src/components/timeline-item/emb-timeline-item.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Main event title.",
+          "name": "title"
+        },
+        {
+          "description": "Secondary event time or date.",
+          "name": "timestamp"
+        },
+        {
+          "description": "Event body content.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-timeline-item"
+    },
+    {
       "className": "EmbToast",
       "description": "",
       "modulePath": "packages/core/src/components/toast/emb-toast.ts",
@@ -4759,6 +6450,142 @@
       ],
       "summary": "",
       "tagName": "emb-tooltip"
+    },
+    {
+      "className": "EmbTransferList",
+      "description": "Dual-list selector for moving items between available and selected collections.\r\n\r\nUse light-DOM `option` or `emb-option` children as the source option set.",
+      "modulePath": "packages/core/src/components/transfer-list/emb-transfer-list.ts",
+      "properties": [
+        {
+          "attributeName": "available-label",
+          "defaultValue": "\"Available\"",
+          "description": "",
+          "name": "availableLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "selected-label",
+          "defaultValue": "\"Selected\"",
+          "description": "",
+          "name": "selectedLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "selectedValues",
+          "reflects": false,
+          "type": "string[]",
+          "values": null
+        },
+        {
+          "attributeName": "size",
+          "defaultValue": "8",
+          "description": "",
+          "name": "size",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the selected values change.",
+          "name": "input",
+          "type": "CustomEvent<TransferListChangeDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the selected values change.",
+          "name": "change",
+          "type": "CustomEvent<TransferListChangeDetail>",
+          "values": null
+        }
+      ],
+      "slots": [
+        {
+          "description": "`option` or `emb-option` children that define the available choices.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-transfer-list"
     },
     {
       "className": "EmbTreeItem",

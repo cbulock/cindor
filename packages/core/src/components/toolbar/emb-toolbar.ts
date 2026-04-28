@@ -1,5 +1,7 @@
 import { css, html, LitElement } from "lit";
 
+import { findCurrentIndexFromPath, handleLinearKeyboardNavigation } from "../shared/linear-navigation.js";
+
 export type ToolbarOrientation = "horizontal" | "vertical";
 
 const toolbarItemSelectors = ["emb-button", "emb-icon-button", "emb-segmented-control", "button", "a", "input", "select", "textarea"];
@@ -51,47 +53,22 @@ export class EmbToolbar extends LitElement {
       return;
     }
 
-    const key = event.key;
     const vertical = this.orientation === "vertical";
     const nextKey = vertical ? "ArrowDown" : "ArrowRight";
     const previousKey = vertical ? "ArrowUp" : "ArrowLeft";
-    const currentIndex = this.findCurrentIndex(event.composedPath(), items);
-
-    if (currentIndex === -1) {
-      return;
-    }
-
-    if (key === nextKey) {
-      event.preventDefault();
-      this.focusItem(items[(currentIndex + 1) % items.length]);
-      return;
-    }
-
-    if (key === previousKey) {
-      event.preventDefault();
-      this.focusItem(items[(currentIndex - 1 + items.length) % items.length]);
-      return;
-    }
-
-    if (key === "Home") {
-      event.preventDefault();
-      this.focusItem(items[0]);
-      return;
-    }
-
-    if (key === "End") {
-      event.preventDefault();
-      this.focusItem(items[items.length - 1]);
-    }
+    handleLinearKeyboardNavigation({
+      currentIndex: findCurrentIndexFromPath(event.composedPath(), items),
+      event,
+      items,
+      nextKeys: [nextKey],
+      onNavigate: (item) => this.focusItem(item),
+      previousKeys: [previousKey]
+    });
   };
 
   private handleSlotChange = (): void => {
     this.syncToolbarA11y();
   };
-
-  private findCurrentIndex(path: EventTarget[], items: HTMLElement[]): number {
-    return items.findIndex((item) => path.includes(item) || item.shadowRoot?.activeElement !== null);
-  }
 
   private focusItem(item: HTMLElement): void {
     if (typeof (item as { focus?: (options?: FocusOptions) => void }).focus === "function") {

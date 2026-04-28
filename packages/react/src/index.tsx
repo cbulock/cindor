@@ -13,6 +13,9 @@ import {
   EmbDivider as EmbDividerElement,
   EmbSpinner as EmbSpinnerElement,
   EmbAlert as EmbAlertElement,
+  EmbActivityFeed as EmbActivityFeedElement,
+  EmbActivityItem as EmbActivityItemElement,
+  EmbAutocomplete as EmbAutocompleteElement,
   EmbAvatar as EmbAvatarElement,
   EmbProgress as EmbProgressElement,
   EmbMeter as EmbMeterElement,
@@ -26,16 +29,28 @@ import {
   EmbErrorText as EmbErrorTextElement,
   EmbRange as EmbRangeElement,
   EmbFileInput as EmbFileInputElement,
+  EmbFilterBuilder as EmbFilterBuilderElement,
   EmbPagination as EmbPaginationElement,
+  EmbPageHeader as EmbPageHeaderElement,
+  EmbPanelInspector as EmbPanelInspectorElement,
   EmbDataTable as EmbDataTableElement,
   EmbEmptyState as EmbEmptyStateElement,
+  EmbEmptySearchResults as EmbEmptySearchResultsElement,
   EmbIcon as EmbIconElement,
   EmbCodeBlock as EmbCodeBlockElement,
+  EmbCommandBar as EmbCommandBarElement,
   EmbCommandPalette as EmbCommandPaletteElement,
   EmbContextMenu as EmbContextMenuElement,
+  EmbDatePicker as EmbDatePickerElement,
+  EmbDateRangePicker as EmbDateRangePickerElement,
+  EmbDateTimePicker as EmbDateTimePickerElement,
   EmbListbox as EmbListboxElement,
+  EmbDescriptionItem as EmbDescriptionItemElement,
+  EmbDescriptionList as EmbDescriptionListElement,
   EmbMenu as EmbMenuElement,
   EmbMenuItem as EmbMenuItemElement,
+  EmbMultiSelect as EmbMultiSelectElement,
+  EmbTagInput as EmbTagInputElement,
   EmbNumberInput as EmbNumberInputElement,
   EmbSearch as EmbSearchElement,
   EmbSplitter as EmbSplitterElement,
@@ -54,9 +69,13 @@ import {
   EmbDropzone as EmbDropzoneElement,
   EmbDrawer as EmbDrawerElement,
   EmbInput as EmbInputElement,
+  EmbInlineEdit as EmbInlineEditElement,
   EmbEmailInput as EmbEmailInputElement,
   EmbPasswordInput as EmbPasswordInputElement,
   EmbOption as EmbOptionElement,
+  EmbMenubar as EmbMenubarElement,
+  EmbNavigationRail as EmbNavigationRailElement,
+  EmbNavigationRailItem as EmbNavigationRailItemElement,
   EmbTelInput as EmbTelInputElement,
   EmbUrlInput as EmbUrlInputElement,
   EmbColorInput as EmbColorInputElement,
@@ -70,6 +89,12 @@ import {
   EmbAccordion as EmbAccordionElement,
   EmbTreeItem as EmbTreeItemElement,
   EmbTreeView as EmbTreeViewElement,
+  EmbStatCard as EmbStatCardElement,
+  EmbTimeline as EmbTimelineElement,
+  EmbTimelineItem as EmbTimelineItemElement,
+  EmbTransferList as EmbTransferListElement,
+  EmbSideNav as EmbSideNavElement,
+  EmbSideNavItem as EmbSideNavItemElement,
 } from "emberline-ui-core";
 export { clearToasts, dismissToast, ensureToastRegion, showToast } from "emberline-ui-core";
 import "emberline-ui-core/register";
@@ -136,6 +161,29 @@ export const EmbAlert = createComponent({
   react: React,
   tagName: "emb-alert",
   elementClass: EmbAlertElement
+});
+
+export const EmbActivityFeed = createComponent({
+  react: React,
+  tagName: "emb-activity-feed",
+  elementClass: EmbActivityFeedElement
+});
+
+export const EmbActivityItem = createComponent({
+  react: React,
+  tagName: "emb-activity-item",
+  elementClass: EmbActivityItemElement
+});
+
+export const EmbAutocomplete = createComponent({
+  react: React,
+  tagName: "emb-autocomplete",
+  elementClass: EmbAutocompleteElement,
+  events: {
+    onChange: "change",
+    onInput: "input",
+    onSuggestionSelect: "suggestion-select"
+  }
 });
 
 export const EmbAvatar = createComponent({
@@ -228,6 +276,16 @@ export const EmbFileInput = createComponent({
   }
 });
 
+export const EmbFilterBuilder = createComponent({
+  react: React,
+  tagName: "emb-filter-builder",
+  elementClass: EmbFilterBuilderElement,
+  events: {
+    onChange: "change",
+    onInput: "input"
+  }
+});
+
 export const EmbPagination = createComponent({
   react: React,
   tagName: "emb-pagination",
@@ -235,6 +293,18 @@ export const EmbPagination = createComponent({
   events: {
     onChange: "change"
   }
+});
+
+export const EmbPageHeader = createComponent({
+  react: React,
+  tagName: "emb-page-header",
+  elementClass: EmbPageHeaderElement
+});
+
+export const EmbPanelInspector = createComponent({
+  react: React,
+  tagName: "emb-panel-inspector",
+  elementClass: EmbPanelInspectorElement
 });
 
 export const EmbDataTable = createComponent({
@@ -254,6 +324,12 @@ export const EmbEmptyState = createComponent({
   elementClass: EmbEmptyStateElement
 });
 
+export const EmbEmptySearchResults = createComponent({
+  react: React,
+  tagName: "emb-empty-search-results",
+  elementClass: EmbEmptySearchResultsElement
+});
+
 export const EmbIcon = createComponent({
   react: React,
   tagName: "emb-icon",
@@ -264,6 +340,12 @@ export const EmbCodeBlock = createComponent({
   react: React,
   tagName: "emb-code-block",
   elementClass: EmbCodeBlockElement
+});
+
+export const EmbCommandBar = createComponent({
+  react: React,
+  tagName: "emb-command-bar",
+  elementClass: EmbCommandBarElement
 });
 
 export const EmbCommandPalette = createComponent({
@@ -288,10 +370,54 @@ export const EmbContextMenu = createComponent({
   }
 });
 
+export const EmbDatePicker = createComponent({
+  react: React,
+  tagName: "emb-date-picker",
+  elementClass: EmbDatePickerElement,
+  events: {
+    onChange: "change",
+    onInput: "input",
+    onToggle: "toggle"
+  }
+});
+
+export const EmbDateRangePicker = createComponent({
+  react: React,
+  tagName: "emb-date-range-picker",
+  elementClass: EmbDateRangePickerElement,
+  events: {
+    onChange: "change",
+    onInput: "input",
+    onToggle: "toggle"
+  }
+});
+
+export const EmbDateTimePicker = createComponent({
+  react: React,
+  tagName: "emb-date-time-picker",
+  elementClass: EmbDateTimePickerElement,
+  events: {
+    onChange: "change",
+    onInput: "input"
+  }
+});
+
 export const EmbListbox = createComponent({
   react: React,
   tagName: "emb-listbox",
   elementClass: EmbListboxElement
+});
+
+export const EmbDescriptionItem = createComponent({
+  react: React,
+  tagName: "emb-description-item",
+  elementClass: EmbDescriptionItemElement
+});
+
+export const EmbDescriptionList = createComponent({
+  react: React,
+  tagName: "emb-description-list",
+  elementClass: EmbDescriptionListElement
 });
 
 export const EmbMenu = createComponent({
@@ -304,6 +430,26 @@ export const EmbMenuItem = createComponent({
   react: React,
   tagName: "emb-menu-item",
   elementClass: EmbMenuItemElement
+});
+
+export const EmbMultiSelect = createComponent({
+  react: React,
+  tagName: "emb-multi-select",
+  elementClass: EmbMultiSelectElement,
+  events: {
+    onChange: "change",
+    onInput: "input"
+  }
+});
+
+export const EmbTagInput = createComponent({
+  react: React,
+  tagName: "emb-tag-input",
+  elementClass: EmbTagInputElement,
+  events: {
+    onChange: "change",
+    onInput: "input"
+  }
 });
 
 export const EmbNumberInput = createComponent({
@@ -469,6 +615,18 @@ export const EmbInput = createComponent({
   }
 });
 
+export const EmbInlineEdit = createComponent({
+  react: React,
+  tagName: "emb-inline-edit",
+  elementClass: EmbInlineEditElement,
+  events: {
+    onCancel: "cancel",
+    onChange: "change",
+    onInput: "input",
+    onToggle: "toggle"
+  }
+});
+
 export const EmbEmailInput = createComponent({
   react: React,
   tagName: "emb-email-input",
@@ -493,6 +651,24 @@ export const EmbOption = createComponent({
   react: React,
   tagName: "emb-option",
   elementClass: EmbOptionElement
+});
+
+export const EmbMenubar = createComponent({
+  react: React,
+  tagName: "emb-menubar",
+  elementClass: EmbMenubarElement
+});
+
+export const EmbNavigationRail = createComponent({
+  react: React,
+  tagName: "emb-navigation-rail",
+  elementClass: EmbNavigationRailElement
+});
+
+export const EmbNavigationRailItem = createComponent({
+  react: React,
+  tagName: "emb-navigation-rail-item",
+  elementClass: EmbNavigationRailItemElement
 });
 
 export const EmbTelInput = createComponent({
@@ -617,4 +793,44 @@ export const EmbTreeView = createComponent({
     onChange: "change",
     onInput: "input"
   }
+});
+
+export const EmbStatCard = createComponent({
+  react: React,
+  tagName: "emb-stat-card",
+  elementClass: EmbStatCardElement
+});
+
+export const EmbTimeline = createComponent({
+  react: React,
+  tagName: "emb-timeline",
+  elementClass: EmbTimelineElement
+});
+
+export const EmbTimelineItem = createComponent({
+  react: React,
+  tagName: "emb-timeline-item",
+  elementClass: EmbTimelineItemElement
+});
+
+export const EmbTransferList = createComponent({
+  react: React,
+  tagName: "emb-transfer-list",
+  elementClass: EmbTransferListElement,
+  events: {
+    onChange: "change",
+    onInput: "input"
+  }
+});
+
+export const EmbSideNav = createComponent({
+  react: React,
+  tagName: "emb-side-nav",
+  elementClass: EmbSideNavElement
+});
+
+export const EmbSideNavItem = createComponent({
+  react: React,
+  tagName: "emb-side-nav-item",
+  elementClass: EmbSideNavItemElement
 });

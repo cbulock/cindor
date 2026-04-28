@@ -3,7 +3,7 @@ import "emberline-ui-core/styles.css";
 import "./app.css";
 import componentDocsData from "../../../packages/core/component-docs.json";
 
-import type { CommandPaletteCommand, SegmentedControlOption, StepperStep } from "emberline-ui-core";
+import type { CommandPaletteCommand, FilterBuilderField, SegmentedControlOption, StepperStep } from "emberline-ui-core";
 
 import {
   componentCatalog,
@@ -48,6 +48,11 @@ type SegmentedControlHost = HTMLElement & {
 
 type StepperHost = HTMLElement & {
   steps: StepperStep[];
+  value: string;
+};
+
+type FilterBuilderHost = HTMLElement & {
+  fields: FilterBuilderField[];
   value: string;
 };
 
@@ -205,6 +210,71 @@ const segmentedDemoOptions: SegmentedControlOption[] = [
   { label: "Week", value: "week" },
   { label: "Month", value: "month" }
 ];
+
+const filterBuilderDemoFields: FilterBuilderField[] = [
+  {
+    label: "Status",
+    options: [
+      { label: "Open", value: "open" },
+      { label: "Closed", value: "closed" },
+      { label: "Escalated", value: "escalated" }
+    ],
+    type: "select",
+    value: "status"
+  },
+  {
+    label: "Priority",
+    options: [
+      { label: "High", value: "high" },
+      { label: "Medium", value: "medium" },
+      { label: "Low", value: "low" }
+    ],
+    type: "select",
+    value: "priority"
+  },
+  {
+    label: "Owner",
+    placeholder: "Teammate name",
+    type: "text",
+    value: "owner"
+  }
+];
+
+const filterBuilderPreviewValue = JSON.stringify({
+  children: [
+    {
+      field: "status",
+      id: "rule-0",
+      operator: "is",
+      type: "rule",
+      value: "open"
+    },
+    {
+      children: [
+        {
+          field: "priority",
+          id: "rule-1",
+          operator: "is",
+          type: "rule",
+          value: "high"
+        },
+        {
+          field: "owner",
+          id: "rule-2",
+          operator: "contains",
+          type: "rule",
+          value: "Cam"
+        }
+      ],
+      id: "group-1",
+      logic: "or",
+      type: "group"
+    }
+  ],
+  id: "group-0",
+  logic: "and",
+  type: "group"
+});
 
 const generatedComponentDocs = componentDocsData as GeneratedComponentDocs;
 const componentDocsByTag = new Map(generatedComponentDocs.components.map((component) => [component.tagName, component] as const));
@@ -870,6 +940,14 @@ function hydrateComponentPage(slug: string): void {
     trigger?.addEventListener("click", () => openPalette());
   }
 
+  if (slug === "filter-builder") {
+    const filterBuilder = root.querySelector<FilterBuilderHost>('[data-component-preview="filter-builder"] #filter-builder-preview');
+    if (filterBuilder) {
+      filterBuilder.fields = filterBuilderDemoFields;
+      filterBuilder.value = filterBuilderPreviewValue;
+    }
+  }
+
   if (slug === "segmented-control") {
     const segmented = root.querySelector<SegmentedControlHost>('[data-component-preview="segmented-control"] #segmented-control-preview');
     if (segmented) {
@@ -945,6 +1023,28 @@ function getUsageCode(doc: ComponentDoc): string {
   switch (doc.slug) {
     case "alert":
       return `<emb-alert tone="info">Update complete.</emb-alert>`;
+    case "activity-feed":
+      return `<emb-activity-feed>
+  <emb-activity-item unread>
+    <emb-avatar slot="leading" name="Ops"></emb-avatar>
+    <span slot="title">Database failover completed</span>
+    <span slot="timestamp">5 minutes ago</span>
+    <span slot="meta">Primary cluster</span>
+    Connections were restored automatically after the failover.
+  </emb-activity-item>
+</emb-activity-feed>`;
+    case "activity-item":
+      return `<emb-activity-feed>
+  <emb-activity-item unread>
+    <emb-avatar slot="leading" name="Ops"></emb-avatar>
+    <span slot="title">Database failover completed</span>
+    <span slot="timestamp">5 minutes ago</span>
+    <span slot="meta">Primary cluster</span>
+    Connections were restored automatically after the failover.
+  </emb-activity-item>
+</emb-activity-feed>`;
+    case "autocomplete":
+      return `<emb-autocomplete placeholder="Search people"></emb-autocomplete>`;
     case "avatar":
       return `<emb-avatar name="Ember Line"></emb-avatar>`;
     case "badge":
@@ -982,6 +1082,12 @@ function getUsageCode(doc: ComponentDoc): string {
   <option value="engineer">Engineer</option>
   <option value="pm">Product manager</option>
 </emb-combobox>`;
+    case "command-bar":
+      return `<emb-command-bar label="Bulk actions" description="Apply actions to the current selection." count="3">
+  <span>Selection updates are applied immediately.</span>
+  <emb-button slot="actions" variant="ghost">Clear</emb-button>
+  <emb-button slot="actions">Archive</emb-button>
+</emb-command-bar>`;
     case "command-palette":
       return `<emb-command-palette title="Workspace commands"></emb-command-palette>`;
     case "context-menu":
@@ -992,8 +1098,32 @@ function getUsageCode(doc: ComponentDoc): string {
 </emb-context-menu>`;
     case "data-table":
       return `<emb-data-table caption="Team members"></emb-data-table>`;
+    case "date-picker":
+      return `<emb-date-picker month="2026-04" value="2026-04-26"></emb-date-picker>`;
+    case "date-range-picker":
+      return `<emb-date-range-picker month="2026-04" start-value="2026-04-12" end-value="2026-04-18"></emb-date-range-picker>`;
+    case "date-time-picker":
+      return `<emb-date-time-picker value="2026-04-28T09:30"></emb-date-time-picker>`;
     case "date-input":
       return `<emb-date-input value="2026-04-26"></emb-date-input>`;
+    case "description-item":
+      return `<emb-description-list>
+  <emb-description-item>
+    <span slot="term">Status</span>
+    Healthy
+  </emb-description-item>
+</emb-description-list>`;
+    case "description-list":
+      return `<emb-description-list>
+  <emb-description-item>
+    <span slot="term">Status</span>
+    Healthy
+  </emb-description-item>
+  <emb-description-item>
+    <span slot="term">Region</span>
+    us-east-1
+  </emb-description-item>
+</emb-description-list>`;
     case "dialog":
       return `<emb-dialog open>
   <h2>Confirm action</h2>
@@ -1020,6 +1150,15 @@ function getUsageCode(doc: ComponentDoc): string {
   <h3>No projects yet</h3>
   <p>Create your first workspace to get started.</p>
 </emb-empty-state>`;
+    case "empty-search-results":
+      return `<emb-empty-search-results query="access policy">
+  <ul>
+    <li>Check spelling or abbreviations.</li>
+    <li>Remove one or more filters.</li>
+  </ul>
+  <emb-button slot="actions" variant="ghost">Reset filters</emb-button>
+  <emb-button slot="actions">Create saved search</emb-button>
+</emb-empty-search-results>`;
     case "error-text":
       return `<emb-error-text>Please enter a valid email address.</emb-error-text>`;
     case "fieldset":
@@ -1029,6 +1168,13 @@ function getUsageCode(doc: ComponentDoc): string {
 </emb-fieldset>`;
     case "file-input":
       return `<emb-file-input multiple accept=".pdf,.png"></emb-file-input>`;
+    case "filter-builder":
+      return `<emb-filter-builder id="team-filter-builder"></emb-filter-builder>
+<script type="module">
+  const builder = document.querySelector("#team-filter-builder");
+  builder.fields = ${JSON.stringify(filterBuilderDemoFields, null, 2)};
+  builder.value = ${JSON.stringify(filterBuilderPreviewValue)};
+</script>`;
     case "form-field":
       return `<emb-form-field label="Project name" description="Shown to your teammates.">
   <emb-input></emb-input>
@@ -1041,6 +1187,8 @@ function getUsageCode(doc: ComponentDoc): string {
       return `<emb-icon-button label="Search" name="search"></emb-icon-button>`;
     case "input":
       return `<emb-input placeholder="Project name"></emb-input>`;
+    case "inline-edit":
+      return `<emb-inline-edit value="Quarterly roadmap"></emb-inline-edit>`;
     case "link":
       return `<emb-link href="#components">Browse components</emb-link>`;
     case "listbox":
@@ -1057,8 +1205,33 @@ function getUsageCode(doc: ComponentDoc): string {
       return `<emb-menu>
   <emb-menu-item>Open settings</emb-menu-item>
 </emb-menu>`;
+    case "menubar":
+      return `<emb-menubar aria-label="Application menu">
+  <emb-button variant="ghost">File</emb-button>
+  <emb-button variant="ghost">Edit</emb-button>
+  <emb-button variant="ghost">View</emb-button>
+</emb-menubar>`;
     case "meter":
       return `<emb-meter min="0" max="100" low="25" high="75" optimum="90" value="72">72%</emb-meter>`;
+    case "multi-select":
+      return `<emb-multi-select placeholder="Choose a role">
+  <emb-option selected value="designer">Designer</emb-option>
+  <emb-option value="engineer">Engineer</emb-option>
+  <emb-option value="pm">Product manager</emb-option>
+</emb-multi-select>`;
+    case "navigation-rail":
+      return `<emb-navigation-rail aria-label="Workspace sections">
+  <emb-navigation-rail-item href="#home" label="Home" current>
+    <emb-icon slot="start" name="house"></emb-icon>
+  </emb-navigation-rail-item>
+  <emb-navigation-rail-item href="#projects" label="Projects">
+    <emb-icon slot="start" name="folder-kanban"></emb-icon>
+  </emb-navigation-rail-item>
+</emb-navigation-rail>`;
+    case "navigation-rail-item":
+      return `<emb-navigation-rail-item href="#home" label="Home" current>
+  <emb-icon slot="start" name="house"></emb-icon>
+</emb-navigation-rail-item>`;
     case "number-input":
       return `<emb-number-input value="12"></emb-number-input>`;
     case "option":
@@ -1069,6 +1242,32 @@ function getUsageCode(doc: ComponentDoc): string {
       return `<emb-pagination current-page="3" total-pages="12"></emb-pagination>`;
     case "password-input":
       return `<emb-password-input value="supersecret"></emb-password-input>`;
+    case "page-header":
+      return `<emb-page-header
+  eyebrow="Workspace"
+  title="Release overview"
+  description="Track deployment health, incidents, and pending approvals."
+>
+  <emb-breadcrumbs slot="breadcrumbs">
+    <a href="/">Home</a>
+    <a href="/workspaces">Workspaces</a>
+    <a href="/releases">Releases</a>
+  </emb-breadcrumbs>
+  <emb-badge slot="meta" tone="accent">Production</emb-badge>
+  <emb-button slot="actions">Deploy</emb-button>
+</emb-page-header>`;
+    case "panel-inspector":
+      return `<emb-panel-inspector title="Deployment details" description="Review metadata and release health.">
+  <emb-badge slot="meta" tone="accent">Healthy</emb-badge>
+  <emb-button slot="actions" variant="ghost">Open logs</emb-button>
+  <emb-description-list>
+    <emb-description-item>
+      <span slot="term">Version</span>
+      2026.04.28-1
+    </emb-description-item>
+  </emb-description-list>
+  <div slot="footer">Last updated 4 minutes ago by Release Bot.</div>
+</emb-panel-inspector>`;
     case "popover":
       return `<emb-popover open>
   <p>Supplemental information anchored to a trigger.</p>
@@ -1092,6 +1291,18 @@ function getUsageCode(doc: ComponentDoc): string {
 </emb-select>`;
     case "skeleton":
       return `<emb-skeleton></emb-skeleton>`;
+    case "side-nav":
+      return `<emb-side-nav aria-label="Documentation">
+  <emb-side-nav-item href="#overview" label="Overview"></emb-side-nav-item>
+  <emb-side-nav-item expanded label="Guides">
+    <emb-side-nav-item href="#getting-started" label="Getting started" current></emb-side-nav-item>
+    <emb-side-nav-item href="#theming" label="Theming"></emb-side-nav-item>
+  </emb-side-nav-item>
+</emb-side-nav>`;
+    case "side-nav-item":
+      return `<emb-side-nav-item expanded label="Guides">
+  <emb-side-nav-item href="#getting-started" label="Getting started"></emb-side-nav-item>
+</emb-side-nav-item>`;
     case "splitter":
       return `<emb-splitter style="height: 18rem;">
   <emb-splitter-panel size="28">Navigation</emb-splitter-panel>
@@ -1105,6 +1316,12 @@ function getUsageCode(doc: ComponentDoc): string {
       return `<emb-stepper></emb-stepper>`;
     case "switch":
       return `<emb-switch>Available for notifications</emb-switch>`;
+    case "tag-input":
+      return `<emb-tag-input placeholder="Add labels"></emb-tag-input>`;
+    case "stat-card":
+      return `<emb-stat-card label="Monthly recurring revenue" value="$84.2k" change="+12.4%" tone="positive">
+  Compared with the previous 30 days.
+</emb-stat-card>`;
     case "tabs":
       return `<emb-tabs value="overview"></emb-tabs>`;
     case "tel-input":
@@ -1113,6 +1330,34 @@ function getUsageCode(doc: ComponentDoc): string {
       return `<emb-textarea rows="4">Notes</emb-textarea>`;
     case "time-input":
       return `<emb-time-input value="09:30"></emb-time-input>`;
+    case "timeline":
+      return `<emb-timeline>
+  <emb-timeline-item>
+    <span slot="title">Project created</span>
+    <span slot="timestamp">Apr 20</span>
+    Initial workspace scaffolded.
+  </emb-timeline-item>
+  <emb-timeline-item>
+    <span slot="title">Production launch</span>
+    <span slot="timestamp">Today</span>
+    Traffic is now routed to the new system.
+  </emb-timeline-item>
+</emb-timeline>`;
+    case "timeline-item":
+      return `<emb-timeline>
+  <emb-timeline-item>
+    <span slot="title">Deployed</span>
+    <span slot="timestamp">2m ago</span>
+    Release 1.2.0 shipped to production.
+  </emb-timeline-item>
+</emb-timeline>`;
+    case "transfer-list":
+      return `<emb-transfer-list>
+  <option value="design">Design</option>
+  <option selected value="engineering">Engineering</option>
+  <option value="product">Product</option>
+  <option value="support">Support</option>
+</emb-transfer-list>`;
     case "toast":
       return `<emb-toast open tone="success">Saved successfully.</emb-toast>`;
     case "toast-region":
@@ -1153,6 +1398,20 @@ function getUsageCode(doc: ComponentDoc): string {
 function getReactUsageCode(doc: ComponentDoc): string {
   const componentName = getWrapperComponentName(doc.tag);
 
+  if (doc.slug === "filter-builder") {
+    return `import "emberline-ui-core/styles.css";
+import { EmbFilterBuilder } from "emberline-ui-react";
+import type { FilterBuilderField } from "emberline-ui-core";
+
+const fields: FilterBuilderField[] = ${JSON.stringify(filterBuilderDemoFields, null, 2)};
+
+const initialValue = ${JSON.stringify(filterBuilderPreviewValue)};
+
+export function Example() {
+  return <EmbFilterBuilder fields={fields} value={initialValue} />;
+}`;
+  }
+
   return `import "emberline-ui-core/styles.css";
 import { ${componentName} } from "emberline-ui-react";
 
@@ -1165,6 +1424,21 @@ export function Example() {
 
 function getVueUsageCode(doc: ComponentDoc): string {
   const componentName = getWrapperComponentName(doc.tag);
+
+  if (doc.slug === "filter-builder") {
+    return `<script setup lang="ts">
+import "emberline-ui-core/styles.css";
+import { EmbFilterBuilder } from "emberline-ui-vue";
+import type { FilterBuilderField } from "emberline-ui-core";
+
+const fields: FilterBuilderField[] = ${JSON.stringify(filterBuilderDemoFields, null, 2)};
+const initialValue = ${JSON.stringify(filterBuilderPreviewValue)};
+</script>
+
+<template>
+  <EmbFilterBuilder :fields="fields" :model-value="initialValue" />
+</template>`;
+  }
 
   return `<script setup lang="ts">
 import "emberline-ui-core/styles.css";
@@ -1187,6 +1461,28 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
   switch (doc.slug) {
     case "alert":
       return `<${componentName} tone="info">Update complete.</${componentName}>`;
+    case "activity-feed":
+      return `<${componentName}>
+      <emb-activity-item unread>
+        <emb-avatar slot="leading" name="Ops"></emb-avatar>
+        <span slot="title">Database failover completed</span>
+        <span slot="timestamp">5 minutes ago</span>
+        <span slot="meta">Primary cluster</span>
+        Connections were restored automatically after the failover.
+      </emb-activity-item>
+    </${componentName}>`;
+    case "activity-item":
+      return `<emb-activity-feed>
+      <${componentName} unread>
+        <emb-avatar slot="leading" name="Ops"></emb-avatar>
+        <span slot="title">Database failover completed</span>
+        <span slot="timestamp">5 minutes ago</span>
+        <span slot="meta">Primary cluster</span>
+        Connections were restored automatically after the failover.
+      </${componentName}>
+    </emb-activity-feed>`;
+    case "autocomplete":
+      return `<${componentName} placeholder="Search people" />`;
     case "badge":
       return `<${componentName} tone="accent">Beta</${componentName}>`;
     case "breadcrumbs":
@@ -1203,6 +1499,12 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName}>UI System</${componentName}>`;
     case "code-block":
       return `<${componentName} code="const ready = true;" language="ts" />`;
+    case "command-bar":
+      return `<${componentName} label="Bulk actions" description="Apply actions to the current selection." count={3}>
+      <span>Selection updates are applied immediately.</span>
+      <emb-button slot="actions" variant="ghost">Clear</emb-button>
+      <emb-button slot="actions">Archive</emb-button>
+    </${componentName}>`;
     case "dialog":
       return `<${componentName} open>
       <h2>Confirm action</h2>
@@ -1213,14 +1515,45 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
       <h3>No projects yet</h3>
       <p>Create your first workspace to get started.</p>
     </${componentName}>`;
+    case "empty-search-results":
+      return `<${componentName} query="access policy">
+      <ul>
+        <li>Check spelling or abbreviations.</li>
+        <li>Remove one or more filters.</li>
+      </ul>
+      <emb-button slot="actions" variant="ghost">Reset filters</emb-button>
+      <emb-button slot="actions">Create saved search</emb-button>
+    </${componentName}>`;
     case "error-text":
       return `<${componentName}>Please enter a valid email address.</${componentName}>`;
+    case "date-picker":
+      return `<${componentName} month="2026-04" value="2026-04-26" />`;
+    case "date-range-picker":
+      return `<${componentName} month="2026-04" startValue="2026-04-12" endValue="2026-04-18" />`;
+    case "date-time-picker":
+      return `<${componentName} value="2026-04-28T09:30" />`;
+    case "description-item":
+      return `<emb-description-list>
+      <${componentName}>
+        <span slot="term">Status</span>
+        Healthy
+      </${componentName}>
+    </emb-description-list>`;
+    case "description-list":
+      return `<${componentName}>
+      <emb-description-item>
+        <span slot="term">Status</span>
+        Healthy
+      </emb-description-item>
+    </${componentName}>`;
     case "helper-text":
       return `<${componentName}>Used for keyboard shortcuts and system labels.</${componentName}>`;
     case "icon-button":
       return `<${componentName} label="Search" name="search" />`;
     case "input":
       return `<${componentName} placeholder="Project name" />`;
+    case "inline-edit":
+      return `<${componentName} value="Quarterly roadmap" />`;
     case "link":
       return `<${componentName} href="#components">Browse components</${componentName}>`;
     case "context-menu":
@@ -1229,12 +1562,69 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
       <emb-menu-item>Rename</emb-menu-item>
       <emb-menu-item>Duplicate</emb-menu-item>
     </${componentName}>`;
+    case "menubar":
+      return `<${componentName} aria-label="Application menu">
+      <emb-button variant="ghost">File</emb-button>
+      <emb-button variant="ghost">Edit</emb-button>
+    </${componentName}>`;
+    case "navigation-rail":
+      return `<${componentName} aria-label="Workspace sections">
+      <emb-navigation-rail-item href="#home" label="Home" current>
+        <emb-icon slot="start" name="house"></emb-icon>
+      </emb-navigation-rail-item>
+    </${componentName}>`;
+    case "navigation-rail-item":
+      return `<${componentName} href="#home" label="Home" current>
+      <emb-icon slot="start" name="house"></emb-icon>
+    </${componentName}>`;
+    case "page-header":
+      return `<${componentName}
+      eyebrow="Workspace"
+      title="Release overview"
+      description="Track deployment health, incidents, and pending approvals."
+    >
+      <emb-breadcrumbs slot="breadcrumbs">
+        <a href="/">Home</a>
+        <a href="/workspaces">Workspaces</a>
+      </emb-breadcrumbs>
+      <emb-badge slot="meta" tone="accent">Production</emb-badge>
+      <emb-button slot="actions">Deploy</emb-button>
+    </${componentName}>`;
+    case "panel-inspector":
+      return `<${componentName} title="Deployment details" description="Review metadata and release health.">
+      <emb-badge slot="meta" tone="accent">Healthy</emb-badge>
+      <emb-button slot="actions" variant="ghost">Open logs</emb-button>
+      <emb-description-list>
+        <emb-description-item>
+          <span slot="term">Version</span>
+          2026.04.28-1
+        </emb-description-item>
+      </emb-description-list>
+      <div slot="footer">Last updated 4 minutes ago by Release Bot.</div>
+    </${componentName}>`;
     case "number-input":
       return `<${componentName} value="12" />`;
     case "progress":
       return `<${componentName} max={100} value={68}>68%</${componentName}>`;
+    case "multi-select":
+      return `<${componentName} placeholder="Choose a role">
+      <emb-option selected value="designer">Designer</emb-option>
+      <emb-option value="engineer">Engineer</emb-option>
+      <emb-option value="pm">Product manager</emb-option>
+    </${componentName}>`;
     case "search":
       return `<${componentName} placeholder="Search docs" />`;
+    case "side-nav":
+      return `<${componentName} aria-label="Documentation">
+      <emb-side-nav-item href="#overview" label="Overview"></emb-side-nav-item>
+      <emb-side-nav-item expanded label="Guides">
+        <emb-side-nav-item href="#getting-started" label="Getting started" current></emb-side-nav-item>
+      </emb-side-nav-item>
+    </${componentName}>`;
+    case "side-nav-item":
+      return `<${componentName} expanded label="Guides">
+      <emb-side-nav-item href="#getting-started" label="Getting started"></emb-side-nav-item>
+    </${componentName}>`;
     case "splitter":
       return `<${componentName} style={{ height: "18rem" }}>
       <emb-splitter-panel size="28">Navigation</emb-splitter-panel>
@@ -1244,8 +1634,36 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName} size={30}>Panel content</${componentName}>`;
     case "switch":
       return `<${componentName}>Available for notifications</${componentName}>`;
+    case "tag-input":
+      return `<${componentName} values={["Bug", "Urgent"]} placeholder="Add labels" />`;
+    case "stat-card":
+      return `<${componentName} label="Monthly recurring revenue" value="$84.2k" change="+12.4%" tone="positive">
+      Compared with the previous 30 days.
+    </${componentName}>`;
     case "textarea":
       return `<${componentName} rows={4}>Notes</${componentName}>`;
+    case "timeline":
+      return `<${componentName}>
+      <emb-timeline-item>
+        <span slot="title">Project created</span>
+        <span slot="timestamp">Apr 20</span>
+        Initial workspace scaffolded.
+      </emb-timeline-item>
+    </${componentName}>`;
+    case "timeline-item":
+      return `<emb-timeline>
+      <${componentName}>
+        <span slot="title">Deployed</span>
+        <span slot="timestamp">2m ago</span>
+        Release 1.2.0 shipped to production.
+      </${componentName}>
+    </emb-timeline>`;
+    case "transfer-list":
+      return `<${componentName} selectedValues={["engineering"]}>
+      <option value="design">Design</option>
+      <option value="engineering">Engineering</option>
+      <option value="product">Product</option>
+    </${componentName}>`;
     case "tree-item":
       return `<${componentName} label="Guides" expanded>
       <emb-tree-item label="Getting started"></emb-tree-item>
@@ -1266,6 +1684,28 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
   switch (doc.slug) {
     case "alert":
       return `<${componentName} tone="info">Update complete.</${componentName}>`;
+    case "activity-feed":
+      return `<${componentName}>
+    <emb-activity-item unread>
+      <emb-avatar slot="leading" name="Ops"></emb-avatar>
+      <span slot="title">Database failover completed</span>
+      <span slot="timestamp">5 minutes ago</span>
+      <span slot="meta">Primary cluster</span>
+      Connections were restored automatically after the failover.
+    </emb-activity-item>
+  </${componentName}>`;
+    case "activity-item":
+      return `<emb-activity-feed>
+    <${componentName} unread>
+      <emb-avatar slot="leading" name="Ops"></emb-avatar>
+      <span slot="title">Database failover completed</span>
+      <span slot="timestamp">5 minutes ago</span>
+      <span slot="meta">Primary cluster</span>
+      Connections were restored automatically after the failover.
+    </${componentName}>
+  </emb-activity-feed>`;
+    case "autocomplete":
+      return `<${componentName} placeholder="Search people" />`;
     case "badge":
       return `<${componentName} tone="accent">Beta</${componentName}>`;
     case "breadcrumbs":
@@ -1282,6 +1722,12 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName}>UI System</${componentName}>`;
     case "code-block":
       return `<${componentName} code="const ready = true;" language="ts" />`;
+    case "command-bar":
+      return `<${componentName} label="Bulk actions" description="Apply actions to the current selection." :count="3">
+    <span>Selection updates are applied immediately.</span>
+    <emb-button slot="actions" variant="ghost">Clear</emb-button>
+    <emb-button slot="actions">Archive</emb-button>
+  </${componentName}>`;
     case "dialog":
       return `<${componentName} open>
     <h2>Confirm action</h2>
@@ -1292,14 +1738,45 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
     <h3>No projects yet</h3>
     <p>Create your first workspace to get started.</p>
   </${componentName}>`;
+    case "empty-search-results":
+      return `<${componentName} query="access policy">
+    <ul>
+      <li>Check spelling or abbreviations.</li>
+      <li>Remove one or more filters.</li>
+    </ul>
+    <emb-button slot="actions" variant="ghost">Reset filters</emb-button>
+    <emb-button slot="actions">Create saved search</emb-button>
+  </${componentName}>`;
     case "error-text":
       return `<${componentName}>Please enter a valid email address.</${componentName}>`;
+    case "date-picker":
+      return `<${componentName} month="2026-04" value="2026-04-26" />`;
+    case "date-range-picker":
+      return `<${componentName} month="2026-04" start-value="2026-04-12" end-value="2026-04-18" />`;
+    case "date-time-picker":
+      return `<${componentName} value="2026-04-28T09:30" />`;
+    case "description-item":
+      return `<emb-description-list>
+    <${componentName}>
+      <span slot="term">Status</span>
+      Healthy
+    </${componentName}>
+  </emb-description-list>`;
+    case "description-list":
+      return `<${componentName}>
+    <emb-description-item>
+      <span slot="term">Status</span>
+      Healthy
+    </emb-description-item>
+  </${componentName}>`;
     case "helper-text":
       return `<${componentName}>Used for keyboard shortcuts and system labels.</${componentName}>`;
     case "icon-button":
       return `<${componentName} label="Search" name="search" />`;
     case "input":
       return `<${componentName} placeholder="Project name" />`;
+    case "inline-edit":
+      return `<${componentName} value="Quarterly roadmap" />`;
     case "link":
       return `<${componentName} href="#components">Browse components</${componentName}>`;
     case "context-menu":
@@ -1308,12 +1785,69 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
     <emb-menu-item>Rename</emb-menu-item>
     <emb-menu-item>Duplicate</emb-menu-item>
   </${componentName}>`;
+    case "menubar":
+      return `<${componentName} aria-label="Application menu">
+    <emb-button variant="ghost">File</emb-button>
+    <emb-button variant="ghost">Edit</emb-button>
+  </${componentName}>`;
+    case "navigation-rail":
+      return `<${componentName} aria-label="Workspace sections">
+    <emb-navigation-rail-item href="#home" label="Home" current>
+      <emb-icon slot="start" name="house"></emb-icon>
+    </emb-navigation-rail-item>
+  </${componentName}>`;
+    case "navigation-rail-item":
+      return `<${componentName} href="#home" label="Home" current>
+    <emb-icon slot="start" name="house"></emb-icon>
+  </${componentName}>`;
+    case "page-header":
+      return `<${componentName}
+    eyebrow="Workspace"
+    title="Release overview"
+    description="Track deployment health, incidents, and pending approvals."
+  >
+    <emb-breadcrumbs slot="breadcrumbs">
+      <a href="/">Home</a>
+      <a href="/workspaces">Workspaces</a>
+    </emb-breadcrumbs>
+    <emb-badge slot="meta" tone="accent">Production</emb-badge>
+    <emb-button slot="actions">Deploy</emb-button>
+  </${componentName}>`;
+    case "panel-inspector":
+      return `<${componentName} title="Deployment details" description="Review metadata and release health.">
+    <emb-badge slot="meta" tone="accent">Healthy</emb-badge>
+    <emb-button slot="actions" variant="ghost">Open logs</emb-button>
+    <emb-description-list>
+      <emb-description-item>
+        <span slot="term">Version</span>
+        2026.04.28-1
+      </emb-description-item>
+    </emb-description-list>
+    <div slot="footer">Last updated 4 minutes ago by Release Bot.</div>
+  </${componentName}>`;
     case "number-input":
       return `<${componentName} :value="12" />`;
     case "progress":
       return `<${componentName} :max="100" :value="68">68%</${componentName}>`;
+    case "multi-select":
+      return `<${componentName} placeholder="Choose a role">
+    <emb-option selected value="designer">Designer</emb-option>
+    <emb-option value="engineer">Engineer</emb-option>
+    <emb-option value="pm">Product manager</emb-option>
+  </${componentName}>`;
     case "search":
       return `<${componentName} placeholder="Search docs" />`;
+    case "side-nav":
+      return `<${componentName} aria-label="Documentation">
+    <emb-side-nav-item href="#overview" label="Overview"></emb-side-nav-item>
+    <emb-side-nav-item expanded label="Guides">
+      <emb-side-nav-item href="#getting-started" label="Getting started" current></emb-side-nav-item>
+    </emb-side-nav-item>
+  </${componentName}>`;
+    case "side-nav-item":
+      return `<${componentName} expanded label="Guides">
+    <emb-side-nav-item href="#getting-started" label="Getting started"></emb-side-nav-item>
+  </${componentName}>`;
     case "splitter":
       return `<${componentName} style="height: 18rem;">
     <emb-splitter-panel :size="28">Navigation</emb-splitter-panel>
@@ -1323,8 +1857,36 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName} :size="30">Panel content</${componentName}>`;
     case "switch":
       return `<${componentName}>Available for notifications</${componentName}>`;
+    case "tag-input":
+      return `<${componentName} :model-value="['Bug', 'Urgent']" placeholder="Add labels" />`;
+    case "stat-card":
+      return `<${componentName} label="Monthly recurring revenue" value="$84.2k" change="+12.4%" tone="positive">
+    Compared with the previous 30 days.
+  </${componentName}>`;
     case "textarea":
       return `<${componentName} :rows="4">Notes</${componentName}>`;
+    case "timeline":
+      return `<${componentName}>
+    <emb-timeline-item>
+      <span slot="title">Project created</span>
+      <span slot="timestamp">Apr 20</span>
+      Initial workspace scaffolded.
+    </emb-timeline-item>
+  </${componentName}>`;
+    case "timeline-item":
+      return `<emb-timeline>
+    <${componentName}>
+      <span slot="title">Deployed</span>
+      <span slot="timestamp">2m ago</span>
+      Release 1.2.0 shipped to production.
+    </${componentName}>
+  </emb-timeline>`;
+    case "transfer-list":
+      return `<${componentName} :model-value="['engineering']">
+    <option value="design">Design</option>
+    <option value="engineering">Engineering</option>
+    <option value="product">Product</option>
+  </${componentName}>`;
     case "tree-item":
       return `<${componentName} label="Guides" expanded>
     <emb-tree-item label="Getting started"></emb-tree-item>
@@ -1344,6 +1906,8 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
 function getPreviewMarkup(doc: ComponentDoc): string | null {
   switch (doc.slug) {
     case "alert":
+    case "activity-feed":
+    case "activity-item":
     case "avatar":
     case "badge":
     case "breadcrumbs":
@@ -1356,28 +1920,44 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "code-block":
     case "color-input":
     case "combobox":
+    case "command-bar":
+    case "autocomplete":
+    case "date-picker":
+    case "date-range-picker":
+    case "date-time-picker":
     case "date-input":
+    case "description-item":
+    case "description-list":
     case "divider":
     case "dropzone":
     case "email-input":
     case "empty-state":
+    case "empty-search-results":
     case "error-text":
     case "fieldset":
     case "file-input":
+    case "filter-builder":
     case "form-field":
     case "helper-text":
     case "icon":
     case "icon-button":
     case "input":
+    case "inline-edit":
     case "link":
     case "listbox":
     case "menu":
     case "menu-item":
+    case "menubar":
     case "meter":
+    case "multi-select":
+    case "navigation-rail":
+    case "navigation-rail-item":
     case "number-input":
     case "option":
     case "pagination":
     case "password-input":
+    case "page-header":
+    case "panel-inspector":
     case "progress":
     case "radio":
     case "range":
@@ -1385,19 +1965,26 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "search":
     case "select":
     case "skeleton":
+    case "side-nav":
+    case "side-nav-item":
     case "splitter":
     case "splitter-panel":
     case "spinner":
+    case "stat-card":
     case "switch":
+    case "tag-input":
     case "tel-input":
     case "textarea":
     case "time-input":
+    case "timeline":
+    case "timeline-item":
     case "toast":
     case "toolbar":
+    case "transfer-list":
     case "tree-item":
     case "tree-view":
     case "url-input":
-      return getUsageCode(doc);
+      return doc.slug === "filter-builder" ? `<emb-filter-builder id="filter-builder-preview"></emb-filter-builder>` : getUsageCode(doc);
     case "data-table":
       return `<div class="preview-block">
         <strong>Small data set preview</strong>

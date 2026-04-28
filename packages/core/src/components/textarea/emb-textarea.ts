@@ -1,51 +1,19 @@
-import { css, html } from "lit";
+import { html } from "lit";
 import { live } from "lit/directives/live.js";
 
+import { createFieldHostStyles, createTextControlStyles } from "../shared/control-styles.js";
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
 
 export class EmbTextarea extends FormAssociatedElement {
-  static styles = css`
-    :host {
-      display: inline-block;
-      width: var(--emb-field-inline-size, min(100%, 420px));
-      max-width: 100%;
-      min-width: 0;
-      color: var(--fg);
-    }
-
-    textarea {
-      box-sizing: border-box;
-      width: 100%;
-      min-height: 88px;
-      font: inherit;
-      line-height: var(--leading-normal);
-      padding: var(--space-3);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--fg);
-      resize: vertical;
-      transition:
-        border-color var(--duration-base) var(--ease-out),
-        box-shadow var(--duration-base) var(--ease-out),
-        background var(--duration-base) var(--ease-out);
-    }
-
-    textarea::placeholder {
-      color: var(--fg-subtle);
-    }
-
-    textarea:disabled {
-      cursor: not-allowed;
-      color: var(--fg-subtle);
-      background: var(--bg-subtle);
-    }
-
-    textarea:focus-visible {
-      outline: none;
-      box-shadow: var(--ring-focus);
-    }
-  `;
+  static styles = [
+    createFieldHostStyles("min(100%, 420px)"),
+    createTextControlStyles("textarea", {
+      lineHeight: "var(--leading-normal)",
+      minBlockSize: "88px",
+      padding: "var(--space-3)",
+      resize: "vertical"
+    })
+  ];
 
   static properties = {
     disabled: { type: Boolean, reflect: true },

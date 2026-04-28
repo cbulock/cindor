@@ -1,72 +1,27 @@
 import { css, html, nothing } from "lit";
 import { live } from "lit/directives/live.js";
 
+import { createFieldHostStyles, createTextControlStyles, floatingListboxStyles, hiddenSlotStyles } from "../shared/control-styles.js";
 import { attachFloatingPosition } from "../shared/floating-position.js";
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
+import { getNextEnabledIndex } from "../shared/linear-navigation.js";
+import { readLightDomOptions, type LightDomOption } from "../shared/light-dom-options.js";
 import { EmbOption } from "../option/emb-option.js";
 
-type ComboboxOption = {
-  disabled: boolean;
-  label: string;
-  value: string;
-};
+type ComboboxOption = LightDomOption;
 
 export class EmbCombobox extends FormAssociatedElement {
-  static styles = css`
-    :host {
-      display: inline-block;
-      width: var(--emb-field-inline-size, min(100%, 320px));
-      max-width: 100%;
-      min-width: 0;
-      color: var(--fg);
-    }
-
-    .surface {
-      position: relative;
-    }
-
-    input {
-      box-sizing: border-box;
-      width: 100%;
-      min-height: 36px;
-      font: inherit;
-      padding: 0 var(--space-3);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--fg);
-      transition:
-        border-color var(--duration-base) var(--ease-out),
-        box-shadow var(--duration-base) var(--ease-out),
-        background var(--duration-base) var(--ease-out);
-    }
-
-    input::placeholder {
-      color: var(--fg-subtle);
-    }
-
-    input:disabled {
-      cursor: not-allowed;
-      color: var(--fg-subtle);
-      background: var(--bg-subtle);
-    }
-
-    input:focus-visible {
-      outline: none;
-      box-shadow: var(--ring-focus);
-    }
-
-    slot {
-      display: none;
-    }
-
-    emb-listbox {
-      position: fixed;
-      z-index: 10;
-      max-block-size: 240px;
-      overflow: auto;
-    }
-  `;
+  static styles = [
+    createFieldHostStyles("min(100%, 320px)"),
+    createTextControlStyles("input"),
+    hiddenSlotStyles,
+    floatingListboxStyles,
+    css`
+      .surface {
+        position: relative;
+      }
+    `
+  ];
 
   static properties = {
     activeIndex: { state: true },
@@ -269,27 +224,7 @@ export class EmbCombobox extends FormAssociatedElement {
   };
 
   private refreshOptions(): void {
-    this.optionNodes = Array.from(this.children)
-      .map((child) => {
-        if (child instanceof HTMLOptionElement) {
-          return {
-            disabled: child.disabled,
-            label: child.label || child.textContent?.trim() || child.value,
-            value: child.value
-          };
-        }
-
-        if (child instanceof EmbOption) {
-          return {
-            disabled: child.disabled,
-            label: child.label || child.textContent?.trim() || child.value,
-            value: child.value
-          };
-        }
-
-        return null;
-      })
-      .filter((option): option is ComboboxOption => option !== null);
+    this.optionNodes = readLightDomOptions(this);
 
     this.activeIndex = this.getInitialActiveIndex();
     this.requestUpdate();
@@ -433,22 +368,6 @@ export class EmbCombobox extends FormAssociatedElement {
   }
 
   private getNextActiveIndex(direction: 1 | -1): number {
-    const options = this.filteredOptions;
-
-    if (options.every((option) => option.disabled)) {
-      return -1;
-    }
-
-    let index = this.activeIndex;
-
-    for (let step = 0; step < options.length; step += 1) {
-      index = index < 0 ? (direction === 1 ? 0 : options.length - 1) : (index + direction + options.length) % options.length;
-
-      if (!options[index]?.disabled) {
-        return index;
-      }
-    }
-
-    return -1;
+    return getNextEnabledIndex(this.filteredOptions, this.activeIndex, direction, (option) => option.disabled);
   }
 }

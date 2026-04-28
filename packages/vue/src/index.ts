@@ -2,6 +2,7 @@
 import { defineComponent, h, type PropType } from "vue";
 
 import type {
+  AutocompleteSuggestion,
   ButtonGroupOrientation,
   ButtonType,
   ButtonVariant,
@@ -10,10 +11,12 @@ import type {
   DataTableColumn,
   DataTableRow,
   DataTableSortDirection,
+  FilterBuilderField,
   LucideIconName,
   SegmentedControlOption,
   SkeletonVariant,
   SplitterOrientation,
+  StatCardTone,
   StepperOrientation,
   StepperStep,
   ToastPlacement,
@@ -229,6 +232,87 @@ export const EmbAlert = defineComponent({
             },
             slots.default?.()
           );
+  }
+});
+
+export const EmbActivityFeed = defineComponent({
+  name: "EmbActivityFeed",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-activity-feed",
+            {
+              ...attrs,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const EmbActivityItem = defineComponent({
+  name: "EmbActivityItem",
+  props: {
+    unread: { type: Boolean, default: false }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-activity-item",
+            {
+              ...attrs,
+              unread: props.unread || undefined,
+            },
+            slots
+          );
+  }
+});
+
+export const EmbAutocomplete = defineComponent({
+  name: "EmbAutocomplete",
+  props: {
+    disabled: { type: Boolean, default: false },
+    emptyMessage: { type: String, default: "No matching suggestions." },
+    loading: { type: Boolean, default: false },
+    modelValue: { type: String, default: "" },
+    name: { type: String, default: "" },
+    open: { type: Boolean, default: false },
+    placeholder: { type: String, default: "" },
+    required: { type: Boolean, default: false },
+    suggestions: { type: Array as PropType<AutocompleteSuggestion[]>, default: () => [] }
+  },
+  emits: ["update:modelValue", "input", "change", "suggestion-select"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("change", event);
+    };
+
+    const handleSuggestionSelect = (event: Event) => {
+      emit("suggestion-select", event);
+    };
+    return () =>
+          h("emb-autocomplete", {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              "empty-message": props.emptyMessage,
+              loading: props.loading || undefined,
+              value: props.modelValue,
+              name: props.name || undefined,
+              open: props.open || undefined,
+              placeholder: props.placeholder || undefined,
+              required: props.required || undefined,
+              suggestions: props.suggestions,
+              onInput: handleInput,
+              onChange: handleChange,
+              onSuggestionSelect: handleSuggestionSelect,
+          });
   }
 });
 
@@ -534,6 +618,40 @@ export const EmbFileInput = defineComponent({
   }
 });
 
+export const EmbFilterBuilder = defineComponent({
+  name: "EmbFilterBuilder",
+  props: {
+    disabled: { type: Boolean, default: false },
+    fields: { type: Array as PropType<FilterBuilderField[]>, default: () => [] },
+    name: { type: String, default: "" },
+    modelValue: { type: String, default: "" }
+  },
+  emits: ["update:modelValue", "input", "change"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("change", event);
+    };
+    return () =>
+          h("emb-filter-builder", {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              fields: props.fields,
+              name: props.name || undefined,
+              value: props.modelValue,
+              onInput: handleInput,
+              onChange: handleChange,
+          });
+  }
+});
+
 export const EmbPagination = defineComponent({
   name: "EmbPagination",
   props: {
@@ -556,6 +674,50 @@ export const EmbPagination = defineComponent({
               totalPages: props.totalPages,
               onChange: handleChange,
           });
+  }
+});
+
+export const EmbPageHeader = defineComponent({
+  name: "EmbPageHeader",
+  props: {
+    description: { type: String, default: "" },
+    eyebrow: { type: String, default: "" },
+    title: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-page-header",
+            {
+              ...attrs,
+              description: props.description || undefined,
+              eyebrow: props.eyebrow || undefined,
+              title: props.title || undefined,
+            },
+            slots
+          );
+  }
+});
+
+export const EmbPanelInspector = defineComponent({
+  name: "EmbPanelInspector",
+  props: {
+    description: { type: String, default: "" },
+    sticky: { type: Boolean, default: false },
+    title: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-panel-inspector",
+            {
+              ...attrs,
+              description: props.description || undefined,
+              sticky: props.sticky || undefined,
+              title: props.title || undefined,
+            },
+            slots
+          );
   }
 });
 
@@ -625,6 +787,28 @@ export const EmbEmptyState = defineComponent({
   }
 });
 
+export const EmbEmptySearchResults = defineComponent({
+  name: "EmbEmptySearchResults",
+  props: {
+    description: { type: String, default: "" },
+    heading: { type: String, default: "No matching results" },
+    query: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-empty-search-results",
+            {
+              ...attrs,
+              description: props.description || undefined,
+              heading: props.heading,
+              query: props.query || undefined,
+            },
+            slots
+          );
+  }
+});
+
 export const EmbIcon = defineComponent({
   name: "EmbIcon",
   props: {
@@ -661,6 +845,32 @@ export const EmbCodeBlock = defineComponent({
               language: props.language || undefined,
             },
             slots.default?.()
+          );
+  }
+});
+
+export const EmbCommandBar = defineComponent({
+  name: "EmbCommandBar",
+  props: {
+    count: { type: Number, default: 0 },
+    countLabel: { type: String, default: "selected" },
+    description: { type: String, default: "" },
+    label: { type: String, default: "" },
+    sticky: { type: Boolean, default: false }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-command-bar",
+            {
+              ...attrs,
+              count: props.count,
+              "count-label": props.countLabel,
+              description: props.description || undefined,
+              label: props.label || undefined,
+              sticky: props.sticky || undefined,
+            },
+            slots
           );
   }
 });
@@ -747,6 +957,138 @@ export const EmbContextMenu = defineComponent({
   }
 });
 
+export const EmbDatePicker = defineComponent({
+  name: "EmbDatePicker",
+  props: {
+    disabled: { type: Boolean, default: false },
+    max: { type: String, default: "" },
+    min: { type: String, default: "" },
+    month: { type: String, default: "" },
+    modelValue: { type: String, default: "" },
+    name: { type: String, default: "" },
+    open: { type: Boolean, default: false },
+    placeholder: { type: String, default: "Select a date" },
+    required: { type: Boolean, default: false }
+  },
+  emits: ["update:modelValue", "input", "change", "update:open", "toggle"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("change", event);
+    };
+
+    const handleToggle = (event: Event) => {
+      const target = event.currentTarget as OpenHost;
+      emit("update:open", target.open);
+      emit("toggle", event);
+    };
+    return () =>
+          h("emb-date-picker", {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              max: props.max || undefined,
+              min: props.min || undefined,
+              month: props.month || undefined,
+              value: props.modelValue,
+              name: props.name || undefined,
+              open: props.open || undefined,
+              placeholder: props.placeholder,
+              required: props.required || undefined,
+              onInput: handleInput,
+              onChange: handleChange,
+              onToggle: handleToggle,
+          });
+  }
+});
+
+export const EmbDateRangePicker = defineComponent({
+  name: "EmbDateRangePicker",
+  props: {
+    endValue: { type: String, default: "" },
+    max: { type: String, default: "" },
+    min: { type: String, default: "" },
+    month: { type: String, default: "" },
+    open: { type: Boolean, default: false },
+    placeholder: { type: String, default: "Select a date range" },
+    startValue: { type: String, default: "" }
+  },
+  emits: ["input", "change", "update:open", "toggle"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      emit("change", event);
+    };
+
+    const handleToggle = (event: Event) => {
+      const target = event.currentTarget as OpenHost;
+      emit("update:open", target.open);
+      emit("toggle", event);
+    };
+    return () =>
+          h("emb-date-range-picker", {
+              ...attrs,
+              "end-value": props.endValue || undefined,
+              max: props.max || undefined,
+              min: props.min || undefined,
+              month: props.month || undefined,
+              open: props.open || undefined,
+              placeholder: props.placeholder,
+              "start-value": props.startValue || undefined,
+              onInput: handleInput,
+              onChange: handleChange,
+              onToggle: handleToggle,
+          });
+  }
+});
+
+export const EmbDateTimePicker = defineComponent({
+  name: "EmbDateTimePicker",
+  props: {
+    dateValue: { type: String, default: "" },
+    disabled: { type: Boolean, default: false },
+    modelValue: { type: String, default: "" },
+    name: { type: String, default: "" },
+    required: { type: Boolean, default: false },
+    timeValue: { type: String, default: "" }
+  },
+  emits: ["update:modelValue", "input", "change"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("change", event);
+    };
+    return () =>
+          h("emb-date-time-picker", {
+              ...attrs,
+              "date-value": props.dateValue || undefined,
+              disabled: props.disabled || undefined,
+              value: props.modelValue,
+              name: props.name || undefined,
+              required: props.required || undefined,
+              "time-value": props.timeValue || undefined,
+              onInput: handleInput,
+              onChange: handleChange,
+          });
+  }
+});
+
 export const EmbListbox = defineComponent({
   name: "EmbListbox",
   props: {
@@ -763,6 +1105,34 @@ export const EmbListbox = defineComponent({
               activeIndex: props.activeIndex,
               multiselectable: props.multiselectable || undefined,
               selectedValue: props.selectedValue || undefined,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const EmbDescriptionItem = defineComponent({
+  name: "EmbDescriptionItem",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-description-item",
+            {
+              ...attrs,
+            },
+            slots
+          );
+  }
+});
+
+export const EmbDescriptionList = defineComponent({
+  name: "EmbDescriptionList",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-description-list",
+            {
+              ...attrs,
             },
             slots.default?.()
           );
@@ -798,6 +1168,84 @@ export const EmbMenuItem = defineComponent({
             },
             slots.default?.()
           );
+  }
+});
+
+export const EmbMultiSelect = defineComponent({
+  name: "EmbMultiSelect",
+  props: {
+    disabled: { type: Boolean, default: false },
+    name: { type: String, default: "" },
+    open: { type: Boolean, default: false },
+    placeholder: { type: String, default: "Select options" },
+    required: { type: Boolean, default: false },
+    modelValue: { type: Array as PropType<string[]>, default: () => [] }
+  },
+  emits: ["update:modelValue", "input", "change"],
+  setup(props, { attrs, emit, slots }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as HTMLElement & { values: string[] };
+      emit("update:modelValue", target.values);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as HTMLElement & { values: string[] };
+      emit("update:modelValue", target.values);
+      emit("change", event);
+    };
+    return () =>
+          h(
+            "emb-multi-select",
+            {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              name: props.name || undefined,
+              open: props.open || undefined,
+              placeholder: props.placeholder,
+              required: props.required || undefined,
+              values: props.modelValue,
+              onInput: handleInput,
+              onChange: handleChange,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const EmbTagInput = defineComponent({
+  name: "EmbTagInput",
+  props: {
+    disabled: { type: Boolean, default: false },
+    name: { type: String, default: "" },
+    placeholder: { type: String, default: "Add a tag" },
+    required: { type: Boolean, default: false },
+    modelValue: { type: Array as PropType<string[]>, default: () => [] }
+  },
+  emits: ["update:modelValue", "input", "change"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as HTMLElement & { values: string[] };
+      emit("update:modelValue", target.values);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as HTMLElement & { values: string[] };
+      emit("update:modelValue", target.values);
+      emit("change", event);
+    };
+    return () =>
+          h("emb-tag-input", {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              name: props.name || undefined,
+              placeholder: props.placeholder,
+              required: props.required || undefined,
+              values: props.modelValue,
+              onInput: handleInput,
+              onChange: handleChange,
+          });
   }
 });
 
@@ -1400,6 +1848,52 @@ export const EmbInput = defineComponent({
   }
 });
 
+export const EmbInlineEdit = defineComponent({
+  name: "EmbInlineEdit",
+  props: {
+    disabled: { type: Boolean, default: false },
+    editing: { type: Boolean, default: false },
+    modelValue: { type: String, default: "" },
+    placeholder: { type: String, default: "Click edit" }
+  },
+  emits: ["update:modelValue", "input", "change", "cancel", "update:editing", "toggle"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("change", event);
+    };
+
+    const handleCancel = (event: Event) => {
+      emit("cancel", event);
+    };
+
+    const handleToggle = (event: Event) => {
+      const target = event.currentTarget as HTMLElement & { editing: boolean };
+      emit("update:editing", target.editing);
+      emit("toggle", event);
+    };
+    return () =>
+          h("emb-inline-edit", {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              editing: props.editing || undefined,
+              value: props.modelValue,
+              placeholder: props.placeholder,
+              onInput: handleInput,
+              onChange: handleChange,
+              onCancel: handleCancel,
+              onToggle: handleToggle,
+          });
+  }
+});
+
 export const EmbEmailInput = defineComponent({
   name: "EmbEmailInput",
   props: {
@@ -1506,6 +2000,64 @@ export const EmbOption = defineComponent({
               value: props.value || undefined,
             },
             slots.default?.()
+          );
+  }
+});
+
+export const EmbMenubar = defineComponent({
+  name: "EmbMenubar",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-menubar",
+            {
+              ...attrs,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const EmbNavigationRail = defineComponent({
+  name: "EmbNavigationRail",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-navigation-rail",
+            {
+              ...attrs,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const EmbNavigationRailItem = defineComponent({
+  name: "EmbNavigationRailItem",
+  props: {
+    current: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    href: { type: String, default: "" },
+    label: { type: String, default: "" },
+    rel: { type: String, default: "" },
+    target: { type: String, default: "" },
+    value: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-navigation-rail-item",
+            {
+              ...attrs,
+              current: props.current || undefined,
+              disabled: props.disabled || undefined,
+              href: props.href || undefined,
+              label: props.label || undefined,
+              rel: props.rel || undefined,
+              target: props.target || undefined,
+              value: props.value || undefined,
+            },
+            slots
           );
   }
 });
@@ -1964,6 +2516,148 @@ export const EmbTreeView = defineComponent({
               onChange: handleChange,
             },
             slots.default?.()
+          );
+  }
+});
+
+export const EmbStatCard = defineComponent({
+  name: "EmbStatCard",
+  props: {
+    change: { type: String, default: "" },
+    label: { type: String, default: "" },
+    tone: { type: String as PropType<StatCardTone>, default: "neutral" },
+    value: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-stat-card",
+            {
+              ...attrs,
+              change: props.change || undefined,
+              label: props.label || undefined,
+              tone: props.tone,
+              value: props.value || undefined,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const EmbTimeline = defineComponent({
+  name: "EmbTimeline",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-timeline",
+            {
+              ...attrs,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const EmbTimelineItem = defineComponent({
+  name: "EmbTimelineItem",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-timeline-item",
+            {
+              ...attrs,
+            },
+            slots
+          );
+  }
+});
+
+export const EmbTransferList = defineComponent({
+  name: "EmbTransferList",
+  props: {
+    availableLabel: { type: String, default: "Available" },
+    disabled: { type: Boolean, default: false },
+    name: { type: String, default: "" },
+    required: { type: Boolean, default: false },
+    selectedLabel: { type: String, default: "Selected" },
+    modelValue: { type: Array as PropType<string[]>, default: () => [] },
+    size: { type: Number, default: 8 }
+  },
+  emits: ["update:modelValue", "input", "change"],
+  setup(props, { attrs, emit, slots }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as HTMLElement & { selectedValues: string[] };
+      emit("update:modelValue", target.selectedValues);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as HTMLElement & { selectedValues: string[] };
+      emit("update:modelValue", target.selectedValues);
+      emit("change", event);
+    };
+    return () =>
+          h(
+            "emb-transfer-list",
+            {
+              ...attrs,
+              "available-label": props.availableLabel,
+              disabled: props.disabled || undefined,
+              name: props.name || undefined,
+              required: props.required || undefined,
+              "selected-label": props.selectedLabel,
+              "selected-values": props.modelValue,
+              size: props.size,
+              onInput: handleInput,
+              onChange: handleChange,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const EmbSideNav = defineComponent({
+  name: "EmbSideNav",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-side-nav",
+            {
+              ...attrs,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const EmbSideNavItem = defineComponent({
+  name: "EmbSideNavItem",
+  props: {
+    current: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    expanded: { type: Boolean, default: false },
+    href: { type: String, default: "" },
+    label: { type: String, default: "" },
+    rel: { type: String, default: "" },
+    target: { type: String, default: "" },
+    value: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-side-nav-item",
+            {
+              ...attrs,
+              current: props.current || undefined,
+              disabled: props.disabled || undefined,
+              expanded: props.expanded || undefined,
+              href: props.href || undefined,
+              label: props.label || undefined,
+              rel: props.rel || undefined,
+              target: props.target || undefined,
+              value: props.value || undefined,
+            },
+            slots
           );
   }
 });

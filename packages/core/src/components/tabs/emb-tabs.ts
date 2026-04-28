@@ -1,5 +1,7 @@
 import { css, html, LitElement } from "lit";
 
+import { handleLinearKeyboardNavigation } from "../shared/linear-navigation.js";
+
 type TabPanel = {
   id: string;
   label: string;
@@ -175,37 +177,18 @@ export class EmbTabs extends LitElement {
 
     const currentIndex = this.panels.findIndex((panel) => panel.value === this.value);
     const fallbackIndex = currentIndex >= 0 ? currentIndex : 0;
-    let nextIndex: number | null = null;
-
-    switch (event.key) {
-      case "ArrowRight":
-      case "ArrowDown":
-        nextIndex = (fallbackIndex + 1) % this.panels.length;
-        break;
-      case "ArrowLeft":
-      case "ArrowUp":
-        nextIndex = (fallbackIndex - 1 + this.panels.length) % this.panels.length;
-        break;
-      case "Home":
-        nextIndex = 0;
-        break;
-      case "End":
-        nextIndex = this.panels.length - 1;
-        break;
-      default:
-        return;
-    }
-
-    event.preventDefault();
-
-    const nextPanel = this.panels[nextIndex];
-    if (!nextPanel) {
-      return;
-    }
-
-    this.select(nextPanel.value);
-    void this.updateComplete.then(() => {
-      this.focusTabAt(nextIndex);
+    handleLinearKeyboardNavigation({
+      currentIndex: fallbackIndex,
+      event,
+      items: this.panels,
+      nextKeys: ["ArrowRight", "ArrowDown"],
+      onNavigate: (panel, nextIndex) => {
+        this.select(panel.value);
+        void this.updateComplete.then(() => {
+          this.focusTabAt(nextIndex);
+        });
+      },
+      previousKeys: ["ArrowLeft", "ArrowUp"]
     });
   };
 
