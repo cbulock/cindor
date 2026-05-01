@@ -20,7 +20,7 @@ const meta = {
     value: ""
   },
   render: ({ disabled, label, placeholder, readonly, required, rows, value }: TextareaStoryArgs) =>
-    `<div style="display:grid;gap:8px;width:min(100%, 420px);"><span id="textarea-story-label">${label}</span><emb-textarea aria-labelledby="textarea-story-label" ${disabled ? "disabled" : ""} placeholder="${placeholder}" ${readonly ? "readonly" : ""} ${required ? "required" : ""} rows="${rows}" value="${value}"></emb-textarea></div>`
+    `<div style="display:grid;gap:8px;width:min(100%, 420px);"><span>${label}</span><emb-textarea aria-label="${label}" ${disabled ? "disabled" : ""} placeholder="${placeholder}" ${readonly ? "readonly" : ""} ${required ? "required" : ""} rows="${rows}" value="${value}"></emb-textarea></div>`
 };
 
 export default meta;

@@ -10,7 +10,7 @@ const meta = {
     label: "Edit"
   },
   render: ({ disabled, label }: MenuItemStoryArgs) => `
-    <emb-menu style="width:min(100%, 240px);">
+    <emb-menu aria-label="Item actions" style="width:min(100%, 240px);">
       <emb-menu-item ${disabled ? "disabled" : ""}>${label}</emb-menu-item>
     </emb-menu>
   `

@@ -1,7 +1,7 @@
 const meta = {
   title: "Navigation/Tree View",
   render: () => `
-    <emb-tree-view>
+    <emb-tree-view aria-label="Documentation navigation">
       <emb-tree-item label="Overview"></emb-tree-item>
       <emb-tree-item label="Guides" expanded>
         <emb-tree-item label="Getting started"></emb-tree-item>

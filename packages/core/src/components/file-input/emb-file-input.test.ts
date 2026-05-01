@@ -2,7 +2,20 @@ import "../../register.js";
 
 import { EmbFileInput } from "./emb-file-input.js";
 
+type TestInternals = Pick<ElementInternals, "setFormValue" | "setValidity">;
+
+function setFiles(input: HTMLInputElement, files: File[]): void {
+  Object.defineProperty(input, "files", {
+    configurable: true,
+    value: files
+  });
+}
+
 describe("emb-file-input", () => {
+  afterEach(() => {
+    document.body.innerHTML = "";
+  });
+
   it("renders selected file names and switches labels for multiple files", async () => {
     const element = document.createElement("emb-file-input") as EmbFileInput;
     element.multiple = true;
@@ -14,10 +27,7 @@ describe("emb-file-input", () => {
     const fileOne = new File(["alpha"], "alpha.txt", { type: "text/plain" });
     const fileTwo = new File(["beta"], "beta.txt", { type: "text/plain" });
 
-    Object.defineProperty(input, "files", {
-      configurable: true,
-      value: [fileOne, fileTwo]
-    });
+    setFiles(input, [fileOne, fileTwo]);
 
     input.dispatchEvent(new Event("change", { bubbles: true }));
     await element.updateComplete;
@@ -37,20 +47,14 @@ describe("emb-file-input", () => {
     const input = element.renderRoot.querySelector('input[type="file"]') as HTMLInputElement;
     const file = new File(["alpha"], "alpha.txt", { type: "text/plain" });
 
-    Object.defineProperty(input, "files", {
-      configurable: true,
-      value: [file]
-    });
+    setFiles(input, [file]);
 
     input.dispatchEvent(new Event("change", { bubbles: true }));
     await element.updateComplete;
 
     expect(element.renderRoot.querySelector('[part="files"]')?.textContent).toContain("alpha.txt");
 
-    Object.defineProperty(input, "files", {
-      configurable: true,
-      value: []
-    });
+    setFiles(input, []);
 
     input.dispatchEvent(new Event("change", { bubbles: true }));
     await element.updateComplete;
@@ -102,5 +106,86 @@ describe("emb-file-input", () => {
     trigger.click();
 
     expect(clicked).toBe(false);
+  });
+
+  it("forwards host aria-label to the native file input", async () => {
+    const element = document.createElement("emb-file-input") as EmbFileInput;
+    element.setAttribute("aria-label", "Upload assets");
+    document.body.append(element);
+    await element.updateComplete;
+
+    expect(element.renderRoot.querySelector('input[type="file"]')?.getAttribute("aria-label")).toBe("Upload assets");
+  });
+
+  it("stores selected files in form state for single and multiple uploads", async () => {
+    const element = document.createElement("emb-file-input") as EmbFileInput;
+    const internals = {
+      setFormValue: vi.fn(),
+      setValidity: vi.fn()
+    } satisfies TestInternals;
+    (element as unknown as { internals?: TestInternals }).internals = internals;
+    element.name = "uploads";
+    document.body.append(element);
+    await element.updateComplete;
+
+    const input = element.renderRoot.querySelector('input[type="file"]') as HTMLInputElement;
+    const singleFile = new File(["alpha"], "alpha.txt", { type: "text/plain" });
+    setFiles(input, [singleFile]);
+
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+    await element.updateComplete;
+
+    expect(internals.setFormValue).toHaveBeenLastCalledWith(singleFile);
+
+    element.multiple = true;
+    await element.updateComplete;
+
+    const secondFile = new File(["beta"], "beta.txt", { type: "text/plain" });
+    setFiles(input, [singleFile, secondFile]);
+
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+    await element.updateComplete;
+
+    const formData = internals.setFormValue.mock.calls.at(-1)?.[0];
+    expect(formData).toBeInstanceOf(FormData);
+    expect((formData as FormData).getAll("uploads")).toEqual([singleFile, secondFile]);
+  });
+
+  it("clears form state on reset and delegates input APIs", async () => {
+    const element = document.createElement("emb-file-input") as EmbFileInput;
+    const internals = {
+      setFormValue: vi.fn(),
+      setValidity: vi.fn()
+    } satisfies TestInternals;
+    (element as unknown as { internals?: TestInternals }).internals = internals;
+    document.body.append(element);
+    await element.updateComplete;
+
+    const input = element.renderRoot.querySelector('input[type="file"]') as HTMLInputElement;
+    const file = new File(["alpha"], "alpha.txt", { type: "text/plain" });
+    setFiles(input, [file]);
+    Object.defineProperty(input, "value", {
+      configurable: true,
+      writable: true,
+      value: "C:\\fakepath\\alpha.txt"
+    });
+    input.checkValidity = vi.fn(() => false);
+    input.reportValidity = vi.fn(() => false);
+    input.focus = vi.fn();
+
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+    await element.updateComplete;
+
+    expect(element.checkValidity()).toBe(false);
+    expect(element.reportValidity()).toBe(false);
+
+    element.focus();
+    expect(input.focus).toHaveBeenCalledTimes(1);
+
+    setFiles(input, []);
+    element.formResetCallback();
+
+    expect(input.value).toBe("");
+    expect(internals.setFormValue).toHaveBeenLastCalledWith(null);
   });
 });

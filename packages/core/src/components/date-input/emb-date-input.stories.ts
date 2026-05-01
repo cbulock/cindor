@@ -21,9 +21,9 @@ const meta = {
   },
   render: ({ disabled, label, max, min, readonly, required, value }: DateInputStoryArgs) => `
     <div style="display:grid;gap:8px;width:min(100%, 320px);">
-      <span id="date-input-story-label">${label}</span>
+      <span>${label}</span>
       <emb-date-input
-      aria-labelledby="date-input-story-label"
+      aria-label="${label}"
       ${disabled ? "disabled" : ""}
       ${max ? `max="${max}"` : ""}
       ${min ? `min="${min}"` : ""}

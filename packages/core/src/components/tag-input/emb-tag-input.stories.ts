@@ -18,7 +18,7 @@ const meta = {
     }
   },
   render: ({ disabled, required }: TagInputStoryArgs) => `
-    <emb-tag-input ${disabled ? "disabled" : ""} ${required ? "required" : ""} placeholder="Add labels"></emb-tag-input>
+    <emb-tag-input aria-label="Labels" ${disabled ? "disabled" : ""} ${required ? "required" : ""} placeholder="Add labels"></emb-tag-input>
   `
 };
 

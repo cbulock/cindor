@@ -1310,7 +1310,7 @@
         {
           "attributeName": "caption",
           "defaultValue": "\"\"",
-          "description": "Caption rendered above the table when provided.",
+          "description": "",
           "name": "caption",
           "reflects": true,
           "type": "string",
@@ -1319,7 +1319,7 @@
         {
           "attributeName": null,
           "defaultValue": "[]",
-          "description": "Column definitions assigned as a property from JavaScript.",
+          "description": "",
           "name": "columns",
           "reflects": false,
           "type": "DataTableColumn[]",
@@ -1328,7 +1328,7 @@
         {
           "attributeName": "current-page",
           "defaultValue": "1",
-          "description": "Current 1-based page index.",
+          "description": "",
           "name": "currentPage",
           "reflects": true,
           "type": "number",
@@ -1337,7 +1337,7 @@
         {
           "attributeName": "empty-message",
           "defaultValue": "\"No rows to display.\"",
-          "description": "Message shown when no visible rows remain after filtering or loading completes.",
+          "description": "",
           "name": "emptyMessage",
           "reflects": true,
           "type": "string",
@@ -1346,7 +1346,7 @@
         {
           "attributeName": "loading",
           "defaultValue": "false",
-          "description": "Shows the loading state instead of row data.",
+          "description": "",
           "name": "loading",
           "reflects": true,
           "type": "boolean",
@@ -1355,16 +1355,25 @@
         {
           "attributeName": "page-size",
           "defaultValue": "10",
-          "description": "Maximum number of rows shown per page. Set to 0 to disable pagination.",
+          "description": "",
           "name": "pageSize",
           "reflects": true,
           "type": "number",
           "values": null
         },
         {
+          "attributeName": "row-id-key",
+          "defaultValue": "\"id\"",
+          "description": "",
+          "name": "rowIdKey",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
           "attributeName": null,
           "defaultValue": "[]",
-          "description": "Row data assigned as a property from JavaScript.",
+          "description": "",
           "name": "rows",
           "reflects": false,
           "type": "DataTableRow[]",
@@ -1373,7 +1382,7 @@
         {
           "attributeName": "searchable",
           "defaultValue": "false",
-          "description": "Enables the built-in search toolbar and filtering behavior.",
+          "description": "",
           "name": "searchable",
           "reflects": true,
           "type": "boolean",
@@ -1382,7 +1391,7 @@
         {
           "attributeName": "search-label",
           "defaultValue": "\"Search rows\"",
-          "description": "Accessible label applied to the internal search control.",
+          "description": "",
           "name": "searchLabel",
           "reflects": true,
           "type": "string",
@@ -1391,7 +1400,7 @@
         {
           "attributeName": "search-placeholder",
           "defaultValue": "\"Search rows\"",
-          "description": "Placeholder text shown in the internal search control.",
+          "description": "",
           "name": "searchPlaceholder",
           "reflects": true,
           "type": "string",
@@ -1400,7 +1409,7 @@
         {
           "attributeName": "search-query",
           "defaultValue": "\"\"",
-          "description": "Current search query used to filter visible rows.",
+          "description": "",
           "name": "searchQuery",
           "reflects": true,
           "type": "string",
@@ -1409,7 +1418,7 @@
         {
           "attributeName": "sort-direction",
           "defaultValue": "\"ascending\"",
-          "description": "Active sort direction for the current sort key.",
+          "description": "",
           "name": "sortDirection",
           "reflects": true,
           "type": "\"ascending\" | \"descending\"",
@@ -1421,7 +1430,7 @@
         {
           "attributeName": "sort-key",
           "defaultValue": "\"\"",
-          "description": "Column key currently used for sorting.",
+          "description": "",
           "name": "sortKey",
           "reflects": true,
           "type": "string",
@@ -1430,6 +1439,18 @@
       ],
       "methods": [],
       "events": [
+        {
+          "description": "Fired when an inline editor updates a row value.",
+          "name": "cell-edit",
+          "type": "CustomEvent<DataTableCellEditDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when a row action button is pressed.",
+          "name": "row-action",
+          "type": "CustomEvent<DataTableRowActionDetail>",
+          "values": null
+        },
         {
           "description": "Fired when the active sort column or direction changes.",
           "name": "sort-change",
@@ -1449,7 +1470,12 @@
           "values": null
         }
       ],
-      "slots": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
       "summary": "Searchable, sortable data table for application records.",
       "tagName": "emb-data-table"
     },
@@ -2795,6 +2821,108 @@
       "tagName": "emb-filter-builder"
     },
     {
+      "className": "EmbForm",
+      "description": "",
+      "modulePath": "packages/core/src/components/form/emb-form.ts",
+      "properties": [
+        {
+          "attributeName": "description",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "description",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "error",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "error",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "submitting",
+          "defaultValue": "false",
+          "description": "",
+          "name": "submitting",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "submitting-label",
+          "defaultValue": "\"Submitting…\"",
+          "description": "",
+          "name": "submittingLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "success",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "success",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "validate-on-submit",
+          "defaultValue": "true",
+          "description": "",
+          "name": "validateOnSubmit",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "requestSubmit",
+          "parameters": [
+            {
+              "name": "submitter",
+              "optional": true,
+              "type": "HTMLElement"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reset",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-form"
+    },
+    {
       "className": "EmbFormField",
       "description": "",
       "modulePath": "packages/core/src/components/form-field/emb-form-field.ts",
@@ -2834,6 +2962,15 @@
           "reflects": true,
           "type": "boolean",
           "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "validationError",
+          "reflects": false,
+          "type": "string",
+          "values": null
         }
       ],
       "methods": [],
@@ -2858,6 +2995,32 @@
       ],
       "summary": "",
       "tagName": "emb-form-field"
+    },
+    {
+      "className": "EmbFormRow",
+      "description": "",
+      "modulePath": "packages/core/src/components/form-row/emb-form-row.ts",
+      "properties": [
+        {
+          "attributeName": "columns",
+          "defaultValue": "2",
+          "description": "",
+          "name": "columns",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-form-row"
     },
     {
       "className": "EmbHelperText",
@@ -3283,6 +3446,54 @@
       "slots": [],
       "summary": "",
       "tagName": "emb-input"
+    },
+    {
+      "className": "EmbLayout",
+      "description": "Vertical layout container for page and workflow composition.",
+      "modulePath": "packages/core/src/components/layout/emb-layout.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Layout regions such as `emb-layout-header`, `emb-layout-content`, or adjacent primitives.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-layout"
+    },
+    {
+      "className": "EmbLayoutContent",
+      "description": "Main content region for page sections, forms, and data views.",
+      "modulePath": "packages/core/src/components/layout-content/emb-layout-content.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Primary content for the current layout section.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-layout-content"
+    },
+    {
+      "className": "EmbLayoutHeader",
+      "description": "Header region for page-level titles, controls, and supporting metadata.",
+      "modulePath": "packages/core/src/components/layout-header/emb-layout-header.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Header copy, actions, or composition primitives.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-layout-header"
     },
     {
       "className": "EmbLink",
@@ -4413,6 +4624,49 @@
       "tagName": "emb-progress"
     },
     {
+      "className": "EmbProvider",
+      "description": "Lightweight theme scope for Emberline tokens and descendant components.",
+      "modulePath": "packages/core/src/components/provider/emb-provider.ts",
+      "properties": [
+        {
+          "attributeName": "color-scheme",
+          "defaultValue": "\"inherit\"",
+          "description": "",
+          "name": "colorScheme",
+          "reflects": true,
+          "type": "\"inherit\" | \"light\" | \"dark\"",
+          "values": [
+            "inherit",
+            "light",
+            "dark"
+          ]
+        },
+        {
+          "attributeName": "theme",
+          "defaultValue": "\"inherit\"",
+          "description": "",
+          "name": "theme",
+          "reflects": true,
+          "type": "\"inherit\" | \"light\" | \"dark\"",
+          "values": [
+            "inherit",
+            "light",
+            "dark"
+          ]
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Descendant application or component content.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-provider"
+    },
+    {
       "className": "EmbRadio",
       "description": "",
       "modulePath": "packages/core/src/components/radio/emb-radio.ts",
@@ -5364,6 +5618,90 @@
       "tagName": "emb-splitter-panel"
     },
     {
+      "className": "EmbStack",
+      "description": "Flexible spacing primitive for stacking, clustering, and wrapped inline layouts.",
+      "modulePath": "packages/core/src/components/stack/emb-stack.ts",
+      "properties": [
+        {
+          "attributeName": "align",
+          "defaultValue": "\"stretch\"",
+          "description": "",
+          "name": "align",
+          "reflects": true,
+          "type": "\"start\" | \"center\" | \"end\" | \"stretch\" | \"baseline\"",
+          "values": [
+            "start",
+            "center",
+            "end",
+            "stretch",
+            "baseline"
+          ]
+        },
+        {
+          "attributeName": "direction",
+          "defaultValue": "\"vertical\"",
+          "description": "",
+          "name": "direction",
+          "reflects": true,
+          "type": "\"vertical\" | \"horizontal\"",
+          "values": [
+            "vertical",
+            "horizontal"
+          ]
+        },
+        {
+          "attributeName": "gap",
+          "defaultValue": "\"3\"",
+          "description": "",
+          "name": "gap",
+          "reflects": true,
+          "type": "\"0\" | \"1\" | \"2\" | \"3\" | \"4\" | \"5\" | \"6\"",
+          "values": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ]
+        },
+        {
+          "attributeName": "justify",
+          "defaultValue": "\"start\"",
+          "description": "",
+          "name": "justify",
+          "reflects": true,
+          "type": "\"start\" | \"center\" | \"end\" | \"between\"",
+          "values": [
+            "start",
+            "center",
+            "end",
+            "between"
+          ]
+        },
+        {
+          "attributeName": "wrap",
+          "defaultValue": "false",
+          "description": "",
+          "name": "wrap",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Child elements arranged by the configured flex settings.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-stack"
+    },
+    {
       "className": "EmbStatCard",
       "description": "Summary metric card for dashboards and KPI surfaces.",
       "modulePath": "packages/core/src/components/stat-card/emb-stat-card.ts",
@@ -5612,6 +5950,41 @@
       "tagName": "emb-switch"
     },
     {
+      "className": "EmbTabPanel",
+      "description": "Optional tab panel wrapper for EmbTabs.",
+      "modulePath": "packages/core/src/components/tab-panel/emb-tab-panel.ts",
+      "properties": [
+        {
+          "attributeName": "label",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "label",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Panel content.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-tab-panel"
+    },
+    {
       "className": "EmbTabs",
       "description": "",
       "modulePath": "packages/core/src/components/tabs/emb-tabs.ts",
@@ -5643,6 +6016,61 @@
       ],
       "summary": "",
       "tagName": "emb-tabs"
+    },
+    {
+      "className": "EmbTag",
+      "description": "Compact tag surface for labels, filters, and removable metadata.",
+      "modulePath": "packages/core/src/components/tag/emb-tag.ts",
+      "properties": [
+        {
+          "attributeName": "dismissible",
+          "defaultValue": "false",
+          "description": "",
+          "name": "dismissible",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "remove-label",
+          "defaultValue": "\"Remove tag\"",
+          "description": "",
+          "name": "removeLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "tone",
+          "defaultValue": "\"accent\"",
+          "description": "",
+          "name": "tone",
+          "reflects": true,
+          "type": "\"neutral\" | \"accent\" | \"success\"",
+          "values": [
+            "neutral",
+            "accent",
+            "success"
+          ]
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "description": "Fired when the dismiss button is activated.",
+          "name": "remove",
+          "type": "Event",
+          "values": null
+        }
+      ],
+      "slots": [
+        {
+          "description": "Tag label.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "emb-tag"
     },
     {
       "className": "EmbTagInput",

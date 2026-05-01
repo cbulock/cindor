@@ -46,7 +46,8 @@ export class EmbFormField extends LitElement {
     description: { reflect: true },
     error: { reflect: true },
     label: { reflect: true },
-    required: { type: Boolean, reflect: true }
+    required: { type: Boolean, reflect: true },
+    validationError: { attribute: false }
   };
 
   private static nextId = 0;
@@ -55,6 +56,7 @@ export class EmbFormField extends LitElement {
   error = "";
   label = "";
   required = false;
+  validationError = "";
 
   private readonly fieldId = `emb-form-field-${EmbFormField.nextId++}`;
   private hasDescriptionSlot = false;
@@ -64,7 +66,7 @@ export class EmbFormField extends LitElement {
   protected override render() {
     const hasLabel = this.label !== "" || this.hasLabelSlot;
     const hasDescription = this.description !== "" || this.hasDescriptionSlot;
-    const hasError = this.error !== "" || this.hasErrorSlot;
+    const hasError = this.error !== "" || this.validationError !== "" || this.hasErrorSlot;
 
     return html`
       ${hasLabel
@@ -91,11 +93,11 @@ export class EmbFormField extends LitElement {
         : html`<slot name="description" hidden @slotchange=${this.handleDescriptionSlotChange}></slot>`}
       ${hasError
         ? html`
-            <div id=${this.errorId} part="error">
-              ${this.hasErrorSlot ? html`<slot name="error" @slotchange=${this.handleErrorSlotChange}></slot>` : this.error}
-            </div>
-          `
-        : html`<slot name="error" hidden @slotchange=${this.handleErrorSlotChange}></slot>`}
+              <div id=${this.errorId} part="error">
+               ${this.hasErrorSlot ? html`<slot name="error" @slotchange=${this.handleErrorSlotChange}></slot>` : this.error || this.validationError}
+              </div>
+            `
+         : html`<slot name="error" hidden @slotchange=${this.handleErrorSlotChange}></slot>`}
     `;
   }
 
@@ -145,7 +147,7 @@ export class EmbFormField extends LitElement {
     if (this.description !== "" || this.hasDescriptionSlot) {
       describedBy.push(this.descriptionId);
     }
-    if (this.error !== "" || this.hasErrorSlot) {
+    if (this.error !== "" || this.validationError !== "" || this.hasErrorSlot) {
       describedBy.push(this.errorId);
     }
 

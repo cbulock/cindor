@@ -17,9 +17,9 @@ const meta = {
   },
   render: ({ accept, disabled, label, multiple, required }: DropzoneStoryArgs) => `
     <div style="display:grid;gap:8px;width:min(100%, 520px);">
-      <span id="dropzone-story-label">${label}</span>
+      <span>${label}</span>
       <emb-dropzone
-        aria-labelledby="dropzone-story-label"
+        aria-label="${label}"
         ${accept ? `accept="${accept}"` : ""}
         ${disabled ? "disabled" : ""}
         ${multiple ? "multiple" : ""}

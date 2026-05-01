@@ -3,6 +3,10 @@ import "../../register.js";
 import { EmbDialog } from "./emb-dialog.js";
 
 describe("emb-dialog", () => {
+  afterEach(() => {
+    document.body.innerHTML = "";
+  });
+
   it("syncs open state to the internal dialog", async () => {
     const element = document.createElement("emb-dialog") as EmbDialog;
     document.body.append(element);
@@ -90,6 +94,7 @@ describe("emb-dialog", () => {
 
   it("forwards accessible name and description to the dialog element", async () => {
     const element = document.createElement("emb-dialog") as EmbDialog;
+    element.setAttribute("aria-label", "Project settings");
     element.setAttribute("aria-labelledby", "dialog-title");
     element.setAttribute("aria-describedby", "dialog-description");
     document.body.append(element);
@@ -97,7 +102,44 @@ describe("emb-dialog", () => {
 
     const dialog = element.renderRoot.querySelector("dialog");
 
+    expect(dialog?.getAttribute("aria-label")).toBe("Project settings");
     expect(dialog?.getAttribute("aria-labelledby")).toBe("dialog-title");
     expect(dialog?.getAttribute("aria-describedby")).toBe("dialog-description");
+  });
+
+  it("dispatches cancel events from the native dialog surface", async () => {
+    const element = document.createElement("emb-dialog") as EmbDialog;
+    const cancelled = vi.fn();
+    element.open = true;
+    element.addEventListener("cancel", cancelled);
+    document.body.append(element);
+    await element.updateComplete;
+
+    const dialog = element.renderRoot.querySelector("dialog") as HTMLDialogElement;
+    dialog.dispatchEvent(new Event("cancel", { bubbles: true, cancelable: true }));
+    await element.updateComplete;
+
+    expect(element.open).toBe(false);
+    expect(cancelled).toHaveBeenCalledTimes(1);
+  });
+
+  it("supports imperative show helpers and delegates focus", async () => {
+    const element = document.createElement("emb-dialog") as EmbDialog;
+    document.body.append(element);
+    await element.updateComplete;
+
+    const dialog = element.renderRoot.querySelector("dialog") as HTMLDialogElement;
+    dialog.focus = vi.fn();
+
+    element.focus();
+    expect(dialog.focus).toHaveBeenCalledTimes(1);
+
+    element.show();
+    expect(element.open).toBe(true);
+    expect(element.modal).toBe(false);
+
+    element.showModal();
+    expect(element.open).toBe(true);
+    expect(element.modal).toBe(true);
   });
 });

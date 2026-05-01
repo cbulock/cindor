@@ -13,7 +13,7 @@ const meta = {
     }
   },
   render: ({ open }: ContextMenuStoryArgs) => `
-    <emb-context-menu ${open ? "open" : ""}>
+    <emb-context-menu aria-label="Context actions" ${open ? "open" : ""}>
       <div slot="trigger" style="padding: var(--space-6); border: 1px dashed var(--border); border-radius: var(--radius-lg);">
         Right click this surface
       </div>

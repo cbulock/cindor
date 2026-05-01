@@ -102,4 +102,40 @@ describe("emb-tabs", () => {
 
     expect(element.value).toBe("overview");
   });
+
+  it("forwards host accessibility naming to the internal tablist", async () => {
+    const element = document.createElement("emb-tabs") as EmbTabs;
+    element.setAttribute("aria-label", "Project sections");
+    element.innerHTML = `
+      <section data-label="Overview" data-value="overview">Overview body</section>
+      <section data-label="Activity" data-value="activity">Activity body</section>
+    `;
+
+    document.body.append(element);
+    await element.updateComplete;
+
+    expect(element.renderRoot.querySelector('[role="tablist"]')?.getAttribute("aria-label")).toBe("Project sections");
+  });
+
+  it("supports emb-tab-panel children for explicit wrapper ergonomics", async () => {
+    const element = document.createElement("emb-tabs") as EmbTabs;
+    element.innerHTML = `
+      <emb-tab-panel label="Overview" value="overview">Overview body</emb-tab-panel>
+      <emb-tab-panel label="Activity" value="activity">Activity body</emb-tab-panel>
+    `;
+
+    document.body.append(element);
+    await element.updateComplete;
+
+    const tabs = Array.from(element.renderRoot.querySelectorAll('button[role="tab"]'));
+    expect(tabs[0]?.textContent?.trim()).toBe("Overview");
+    expect(tabs[1]?.textContent?.trim()).toBe("Activity");
+
+    tabs[1]?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    await element.updateComplete;
+
+    expect(element.value).toBe("activity");
+    expect((element.children[0] as HTMLElement).hidden).toBe(true);
+    expect((element.children[1] as HTMLElement).hidden).toBe(false);
+  });
 });

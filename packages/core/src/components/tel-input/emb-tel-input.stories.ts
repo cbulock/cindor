@@ -21,9 +21,9 @@ const meta = {
   },
   render: ({ autocomplete, disabled, label, placeholder, readonly, required, value }: TelInputStoryArgs) => `
     <div style="display:grid;gap:8px;width:min(100%, 320px);">
-      <span id="tel-input-story-label">${label}</span>
+      <span>${label}</span>
       <emb-tel-input
-      aria-labelledby="tel-input-story-label"
+      aria-label="${label}"
       autocomplete="${autocomplete}"
       ${disabled ? "disabled" : ""}
       placeholder="${placeholder}"

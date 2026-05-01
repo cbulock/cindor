@@ -120,6 +120,7 @@ export class EmbTabs extends LitElement {
   }
 
   protected override updated(): void {
+    this.syncListA11y();
     this.syncPanels();
   }
 
@@ -138,8 +139,8 @@ export class EmbTabs extends LitElement {
 
       return {
         id: child.id,
-        label: child.dataset.label ?? `Tab ${index + 1}`,
-        value: child.dataset.value ?? child.id
+        label: child.dataset.label ?? child.getAttribute("label") ?? `Tab ${index + 1}`,
+        value: child.dataset.value ?? child.getAttribute("value") ?? child.id
       };
     });
 
@@ -207,7 +208,27 @@ export class EmbTabs extends LitElement {
     }
   }
 
+  private syncListA11y(): void {
+    const list = this.tabListElement;
+    if (!list) {
+      return;
+    }
+
+    for (const attributeName of ["aria-label", "aria-labelledby", "aria-describedby"]) {
+      const attributeValue = this.getAttribute(attributeName);
+      if (attributeValue === null || attributeValue === "") {
+        list.removeAttribute(attributeName);
+      } else {
+        list.setAttribute(attributeName, attributeValue);
+      }
+    }
+  }
+
   private get tabElements(): HTMLButtonElement[] {
     return Array.from(this.renderRoot.querySelectorAll('button[role="tab"]'));
+  }
+
+  private get tabListElement(): HTMLElement | null {
+    return this.renderRoot.querySelector('[part="list"]');
   }
 }

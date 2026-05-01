@@ -9,19 +9,26 @@ describe("emb-data-table", () => {
   ];
 
   const rows: DataTableRow[] = [
-    { name: "Jordan", tickets: 8 },
-    { name: "Avery", tickets: 3 },
-    { name: "Morgan", tickets: 5 },
-    { name: "Taylor", tickets: 1 }
+    { id: "jordan", name: "Jordan", tickets: 8 },
+    { id: "avery", name: "Avery", tickets: 3 },
+    { id: "morgan", name: "Morgan", tickets: 5 },
+    { id: "taylor", name: "Taylor", tickets: 1 }
   ];
 
-  it("renders rows from column and row data", async () => {
+  const renderElement = async (overrides: Partial<EmbDataTable> = {}) => {
     const element = document.createElement("emb-data-table") as EmbDataTable;
-    element.columns = columns;
-    element.rows = rows;
+    Object.assign(element, {
+      columns,
+      rows: rows.map((row) => ({ ...row })),
+      ...overrides
+    });
     document.body.append(element);
     await element.updateComplete;
+    return element;
+  };
 
+  it("renders rows from column and row data", async () => {
+    const element = await renderElement();
     const bodyRows = element.renderRoot.querySelectorAll("tbody tr");
 
     expect(bodyRows).toHaveLength(4);
@@ -29,12 +36,7 @@ describe("emb-data-table", () => {
   });
 
   it("toggles sortable columns and emits sort-change", async () => {
-    const element = document.createElement("emb-data-table") as EmbDataTable;
-    element.columns = columns;
-    element.rows = rows;
-    document.body.append(element);
-    await element.updateComplete;
-
+    const element = await renderElement();
     const handler = vi.fn();
     element.addEventListener("sort-change", handler);
 
@@ -53,16 +55,34 @@ describe("emb-data-table", () => {
     expect(firstDescendingRow?.textContent).toContain("Taylor");
   });
 
-  it("filters rows with the built-in search control and emits search-change", async () => {
-    const element = document.createElement("emb-data-table") as EmbDataTable;
-    element.columns = columns;
-    element.rows = rows;
-    element.searchable = true;
-    element.pageSize = 2;
-    element.currentPage = 2;
-    document.body.append(element);
+  it("uses custom sort comparators", async () => {
+    const element = await renderElement({
+      columns: [
+        {
+          key: "name",
+          label: "Name length",
+          sortable: true,
+          sortComparator: (left, right) =>
+            String(left).length - String(right).length || String(left).localeCompare(String(right))
+        }
+      ]
+    });
+
+    const sortButton = element.renderRoot.querySelector('[part="sort-button"]') as HTMLButtonElement;
+    sortButton.click();
     await element.updateComplete;
 
+    const sortedRows = [...element.renderRoot.querySelectorAll("tbody tr")];
+    expect(sortedRows[0]?.textContent).toContain("Avery");
+    expect(sortedRows[3]?.textContent).toContain("Taylor");
+  });
+
+  it("filters rows with the built-in search control and emits search-change", async () => {
+    const element = await renderElement({
+      searchable: true,
+      pageSize: 2,
+      currentPage: 2
+    });
     const handler = vi.fn();
     element.addEventListener("search-change", handler);
 
@@ -73,7 +93,6 @@ describe("emb-data-table", () => {
     await element.updateComplete;
 
     const bodyRows = element.renderRoot.querySelectorAll("tbody tr");
-
     expect(bodyRows).toHaveLength(1);
     expect(bodyRows[0]?.textContent).toContain("Taylor");
     expect(element.currentPage).toBe(1);
@@ -81,13 +100,7 @@ describe("emb-data-table", () => {
   });
 
   it("paginates rows and emits page-change", async () => {
-    const element = document.createElement("emb-data-table") as EmbDataTable;
-    element.columns = columns;
-    element.rows = rows;
-    element.pageSize = 2;
-    document.body.append(element);
-    await element.updateComplete;
-
+    const element = await renderElement({ pageSize: 2 });
     const handler = vi.fn();
     element.addEventListener("page-change", handler);
 
@@ -97,31 +110,117 @@ describe("emb-data-table", () => {
     await element.updateComplete;
 
     const bodyRows = element.renderRoot.querySelectorAll("tbody tr");
-
     expect(element.currentPage).toBe(2);
     expect(bodyRows[0]?.textContent).toContain("Morgan");
     expect(handler).toHaveBeenCalledTimes(1);
   });
 
-  it("composes the shared search and pagination components", async () => {
-    const element = document.createElement("emb-data-table") as EmbDataTable;
-    element.columns = columns;
-    element.rows = rows;
-    element.searchable = true;
-    element.pageSize = 2;
-    document.body.append(element);
+  it("renders slot-backed cells using the row id key", async () => {
+    const element = await renderElement({
+      columns: [
+        { key: "name", label: "Name" },
+        { key: "tickets", label: "Priority", cellSlot: "priority-cell" }
+      ]
+    });
+    const customCell = document.createElement("span");
+    customCell.slot = "priority-cell-jordan";
+    customCell.textContent = "Escalated";
+    element.append(customCell);
+
     await element.updateComplete;
+
+    const slot = element.renderRoot.querySelector('slot[name="priority-cell-jordan"]') as HTMLSlotElement;
+
+    expect(slot.assignedElements()[0]?.textContent).toContain("Escalated");
+  });
+
+  it("renders tooltip-backed truncated cells", async () => {
+    const element = await renderElement({
+      columns: [
+        { key: "name", label: "Name", width: "8rem", truncate: true, tooltip: true },
+        { key: "tickets", label: "Tickets", numeric: true }
+      ]
+    });
+
+    const tooltip = element.renderRoot.querySelector("emb-tooltip");
+    const content = element.renderRoot.querySelector('[part="cell-content"]') as HTMLElement;
+
+    expect(tooltip).not.toBeNull();
+    expect(content.dataset.truncate).toBe("true");
+  });
+
+  it("emits cell-edit when inline editors change row values", async () => {
+    const element = await renderElement({
+      columns: [
+        { key: "name", label: "Name" },
+        {
+          key: "status",
+          label: "Status",
+          editor: {
+            type: "select",
+            options: [
+              { label: "Open", value: "open" },
+              { label: "Closed", value: "closed" }
+            ]
+          }
+        }
+      ],
+      rows: [{ id: "row-1", name: "Jordan", status: "open" }]
+    });
+    const handler = vi.fn();
+    element.addEventListener("cell-edit", handler);
+
+    const editor = element.renderRoot.querySelector("emb-select") as HTMLElement & { value: string };
+    editor.value = "closed";
+    editor.dispatchEvent(new Event("change"));
+    await element.updateComplete;
+
+    expect((element.rows[0] as Record<string, unknown>).status).toBe("closed");
+    expect(handler).toHaveBeenCalledTimes(1);
+    expect(handler.mock.calls[0]?.[0].detail).toMatchObject({
+      columnKey: "status",
+      rowId: "row-1",
+      value: "closed"
+    });
+  });
+
+  it("emits row-action for action cells", async () => {
+    const element = await renderElement({
+      columns: [
+        { key: "name", label: "Name" },
+        {
+          key: "actions",
+          label: "Actions",
+          actions: [{ key: "open", label: "Open ticket" }]
+        }
+      ]
+    });
+    const handler = vi.fn();
+    element.addEventListener("row-action", handler);
+
+    const button = element.renderRoot.querySelector("emb-button") as HTMLElement;
+    button.click();
+
+    expect(handler).toHaveBeenCalledTimes(1);
+    expect(handler.mock.calls[0]?.[0].detail).toMatchObject({
+      actionKey: "open",
+      columnKey: "actions",
+      rowId: "jordan"
+    });
+  });
+
+  it("composes the shared search and pagination components", async () => {
+    const element = await renderElement({
+      searchable: true,
+      pageSize: 2
+    });
 
     expect(element.renderRoot.querySelector("emb-search")).not.toBeNull();
     expect(element.renderRoot.querySelector("emb-pagination")).not.toBeNull();
   });
 
   it("renders loading and empty states", async () => {
-    const element = document.createElement("emb-data-table") as EmbDataTable;
-    element.columns = columns;
-    element.loading = true;
-    document.body.append(element);
-    await element.updateComplete;
+    const element = await renderElement({ loading: true, rows: [] });
 
     expect(element.renderRoot.querySelector("tbody")?.textContent).toContain("Loading rows...");
 

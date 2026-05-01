@@ -187,15 +187,19 @@ export class EmbCalendar extends FormAssociatedElement {
   value = "";
 
   private defaultEndValue = "";
+  private defaultMonth = "";
   private defaultStartValue = "";
   private defaultValue = "";
 
   override connectedCallback(): void {
     super.connectedCallback();
     this.defaultEndValue = this.getAttribute("end-value") ?? this.endValue;
+    this.defaultMonth = this.getAttribute("month") ?? this.month;
     this.defaultStartValue = this.getAttribute("start-value") ?? this.startValue;
     this.defaultValue = this.getAttribute("value") ?? this.value;
-    this.syncMonthFromSelectionOrToday();
+    if (!parseMonthString(this.month)) {
+      this.syncMonthFromSelectionOrToday();
+    }
   }
 
   checkValidity(): boolean {
@@ -218,9 +222,12 @@ export class EmbCalendar extends FormAssociatedElement {
 
   formResetCallback(): void {
     this.endValue = this.defaultEndValue;
+    this.month = this.defaultMonth;
     this.startValue = this.defaultStartValue;
     this.value = this.defaultValue;
-    this.syncMonthFromSelectionOrToday();
+    if (!parseMonthString(this.month)) {
+      this.syncMonthFromSelectionOrToday();
+    }
     this.syncFormState();
   }
 

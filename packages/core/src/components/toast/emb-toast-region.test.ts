@@ -3,6 +3,11 @@ import "../../register.js";
 import { EmbToastRegion } from "./emb-toast-region.js";
 
 describe("emb-toast-region", () => {
+  afterEach(() => {
+    vi.useRealTimers();
+    document.body.innerHTML = "";
+  });
+
   it("creates managed toasts imperatively", async () => {
     const region = document.createElement("emb-toast-region") as EmbToastRegion;
     document.body.append(region);
@@ -32,5 +37,55 @@ describe("emb-toast-region", () => {
 
     expect(region.querySelectorAll("emb-toast")).toHaveLength(1);
     expect(region.querySelector(`[data-toast-id="${secondId}"]`)?.textContent).toContain("Second");
+  });
+
+  it("supports custom ids, node content, and non-dismissible toasts", async () => {
+    const region = document.createElement("emb-toast-region") as EmbToastRegion;
+    document.body.append(region);
+    await region.updateComplete;
+
+    const content = document.createElement("strong");
+    content.textContent = "Saved";
+
+    const id = region.showToast({
+      content,
+      dismissible: false,
+      duration: 0,
+      id: "toast-custom"
+    });
+
+    const toast = region.querySelector('[data-toast-id="toast-custom"]');
+
+    expect(id).toBe("toast-custom");
+    expect(toast?.hasAttribute("dismissible")).toBe(false);
+    expect(toast?.querySelector("strong")?.textContent).toBe("Saved");
+  });
+
+  it("dispatches lifecycle events and removes timed toasts", async () => {
+    vi.useFakeTimers();
+
+    const region = document.createElement("emb-toast-region") as EmbToastRegion;
+    document.body.append(region);
+    await region.updateComplete;
+
+    const shown = vi.fn();
+    const removed = vi.fn();
+    region.addEventListener("toast-show", shown);
+    region.addEventListener("toast-remove", removed);
+
+    const id = region.showToast({ content: "Soon gone", duration: 25 });
+
+    expect(shown).toHaveBeenCalledTimes(1);
+    expect((shown.mock.calls[0]?.[0] as CustomEvent<{ id: string; tone: string }>).detail).toEqual({
+      id,
+      tone: "neutral"
+    });
+
+    vi.advanceTimersByTime(25);
+    await Promise.resolve();
+
+    expect(region.querySelector(`[data-toast-id="${id}"]`)).toBeNull();
+    expect(removed).toHaveBeenCalledTimes(1);
+    expect((removed.mock.calls[0]?.[0] as CustomEvent<{ id: string }>).detail.id).toBe(id);
   });
 });

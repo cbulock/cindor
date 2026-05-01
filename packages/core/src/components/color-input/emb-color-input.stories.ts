@@ -13,9 +13,9 @@ const meta = {
   },
   render: ({ disabled, label, value }: ColorInputStoryArgs) => `
     <div style="display:grid;gap:8px;width:min(100%, 160px);">
-      <span id="color-input-story-label">${label}</span>
+      <span>${label}</span>
       <emb-color-input
-      aria-labelledby="color-input-story-label"
+      aria-label="${label}"
       ${disabled ? "disabled" : ""}
       value="${value}"
       ></emb-color-input>

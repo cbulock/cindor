@@ -22,9 +22,9 @@ const meta = {
     }
   },
   render: ({ content, heading, open, side }: DrawerStoryArgs) => html`
-    <emb-drawer .open=${open} side="${side}" aria-labelledby="drawer-title" aria-describedby="drawer-description">
-      <h3 id="drawer-title">${heading}</h3>
-      <p id="drawer-description">${content}</p>
+    <emb-drawer .open=${open} side="${side}" aria-label=${heading}>
+      <h3>${heading}</h3>
+      <p>${content}</p>
     </emb-drawer>
   `
 };

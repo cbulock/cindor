@@ -27,9 +27,9 @@ const meta = {
   },
   render: ({ disabled, endValue, label, max, min, month, range, required, startValue, value }: CalendarStoryArgs) => `
     <div style="display:grid;gap:8px;width:min(100%, ${range ? "680px" : "320px"});">
-      <span id="calendar-story-label">${label}</span>
+      <span>${label}</span>
       <emb-calendar
-        aria-labelledby="calendar-story-label"
+        aria-label="${label}"
         ${disabled ? "disabled" : ""}
         ${endValue ? `end-value="${endValue}"` : ""}
         ${max ? `max="${max}"` : ""}

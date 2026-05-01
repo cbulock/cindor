@@ -179,18 +179,24 @@ const installCode = `npm install emberline-ui-core`;
 const reactInstallCode = `npm install emberline-ui-core emberline-ui-react`;
 const vueInstallCode = `npm install emberline-ui-core emberline-ui-vue`;
 const reactQuickStartCode = `import "emberline-ui-core/styles.css";
-import { EmbButton } from "emberline-ui-react";
+import { EmbButton, EmbProvider } from "emberline-ui-react";
 
 export function App() {
-  return <EmbButton>Save changes</EmbButton>;
+  return (
+    <EmbProvider theme="dark">
+      <EmbButton>Save changes</EmbButton>
+    </EmbProvider>
+  );
 }`;
 const vueQuickStartCode = `<script setup lang="ts">
 import "emberline-ui-core/styles.css";
-import { EmbButton } from "emberline-ui-vue";
+import { EmbButton, EmbProvider } from "emberline-ui-vue";
 </script>
 
 <template>
-  <EmbButton>Save changes</EmbButton>
+  <EmbProvider theme="dark">
+    <EmbButton>Save changes</EmbButton>
+  </EmbProvider>
 </template>`;
 
 const dataTableSampleRows = [
@@ -467,14 +473,35 @@ function renderHome(activeSectionId: string): string {
 
         <div class="preview-block">
           <strong>Quick form composition</strong>
-          <p class="muted">This example uses the same field primitives and button composition patterns expected in a consuming application.</p>
-          <emb-form-field label="Project name" description="Shown to workspace members.">
-            <emb-input placeholder="Emberline Docs"></emb-input>
-          </emb-form-field>
-          <emb-button-group attached>
-            <emb-button variant="ghost">Cancel</emb-button>
-            <emb-button>Create project</emb-button>
-          </emb-button-group>
+          <p class="muted">Scope a theme locally and compose reusable layout regions without introducing framework-specific provider APIs.</p>
+          <emb-provider theme="dark">
+            <emb-layout>
+              <emb-layout-header>
+                <emb-stack gap="2">
+                  <strong>New workspace</strong>
+                  <p class="muted">The provider and layout primitives stay close to standard web-component composition.</p>
+                </emb-stack>
+              </emb-layout-header>
+              <emb-layout-content>
+                <emb-form description="Create a workspace without leaving native form patterns.">
+                  <form onsubmit="event.preventDefault()">
+                    <emb-form-row>
+                      <emb-form-field label="Project name" description="Shown to workspace members." required>
+                        <emb-input name="projectName" placeholder="Emberline Docs" required></emb-input>
+                      </emb-form-field>
+                      <emb-form-field label="Owner email" description="Used for release notifications." required>
+                        <emb-email-input name="ownerEmail" placeholder="owner@example.com" required></emb-email-input>
+                      </emb-form-field>
+                    </emb-form-row>
+                    <emb-stack direction="horizontal" gap="2" wrap>
+                      <emb-button type="reset" variant="ghost">Cancel</emb-button>
+                      <emb-button type="submit">Create project</emb-button>
+                    </emb-stack>
+                  </form>
+                </emb-form>
+              </emb-layout-content>
+            </emb-layout>
+          </emb-provider>
         </div>
       </section>
 
@@ -514,23 +541,30 @@ function renderHome(activeSectionId: string): string {
         <div class="demo-grid">
           <div class="preview-block">
             <div class="live-toolbar">
-              <strong>Action clusters</strong>
-              <emb-badge>Primitive reuse</emb-badge>
+              <strong>Layout primitives</strong>
+              <emb-badge>New</emb-badge>
             </div>
-            <emb-toolbar aria-label="Editor actions">
-              <emb-button-group attached>
-                <emb-button variant="ghost">Bold</emb-button>
-                <emb-button variant="ghost">Italic</emb-button>
-                <emb-button variant="ghost">Underline</emb-button>
-              </emb-button-group>
-              <emb-segmented-control id="tone-options" aria-label="Alert tone"></emb-segmented-control>
-              <emb-icon-button label="More actions" name="ellipsis"></emb-icon-button>
-            </emb-toolbar>
-            <div class="callout">
-              <emb-alert id="pattern-alert" tone="${activeAlertTone}">
-                Compose higher-level patterns from reusable primitives instead of duplicating behavior in each component.
-              </emb-alert>
-            </div>
+            <emb-provider theme="dark">
+              <emb-layout>
+                <emb-layout-header>
+                  <emb-stack gap="2">
+                    <strong>Release workspace</strong>
+                    <emb-stack direction="horizontal" gap="2" wrap align="center">
+                      <emb-badge tone="accent">Production</emb-badge>
+                      <emb-button>Deploy</emb-button>
+                      <emb-button variant="ghost">Share</emb-button>
+                    </emb-stack>
+                  </emb-stack>
+                </emb-layout-header>
+                <emb-layout-content>
+                  <div class="callout">
+                    <emb-alert id="pattern-alert" tone="${activeAlertTone}">
+                      Compose higher-level patterns from reusable primitives instead of duplicating behavior in each component.
+                    </emb-alert>
+                  </div>
+                </emb-layout-content>
+              </emb-layout>
+            </emb-provider>
           </div>
 
           <div class="preview-block">
@@ -540,6 +574,27 @@ function renderHome(activeSectionId: string): string {
             </div>
             <p class="muted">The docs command palette is built from Emberline's dialog, search, listbox, and option components.</p>
             <emb-button data-action="open-palette">Jump with command palette</emb-button>
+          </div>
+
+          <div class="preview-block">
+            <div class="live-toolbar">
+              <strong>Form orchestration</strong>
+              <emb-badge>New surface</emb-badge>
+            </div>
+            <p class="muted">emb-form adds validation summaries and submission state without replacing the native form element your app already uses.</p>
+            <emb-form description="Try submitting with empty fields to see the orchestration layer wire into emb-form-field messaging.">
+              <form onsubmit="event.preventDefault()">
+                <emb-form-row>
+                  <emb-form-field label="Workspace name" required>
+                    <emb-input name="workspaceName" required></emb-input>
+                  </emb-form-field>
+                  <emb-form-field label="Billing email" required>
+                    <emb-email-input name="billingEmail" required></emb-email-input>
+                  </emb-form-field>
+                </emb-form-row>
+                <emb-button type="submit">Validate form</emb-button>
+              </form>
+            </emb-form>
           </div>
         </div>
       </section>
@@ -1072,6 +1127,8 @@ function getUsageCode(doc: ComponentDoc): string {
       return `<emb-checkbox>Enable email updates</emb-checkbox>`;
     case "chip":
       return `<emb-chip>UI System</emb-chip>`;
+    case "tag":
+      return `<emb-tag tone="accent" dismissible>Critical</emb-tag>`;
     case "code-block":
       return `<emb-code-block code="const ready = true;" language="ts"></emb-code-block>`;
     case "color-input":
@@ -1175,10 +1232,33 @@ function getUsageCode(doc: ComponentDoc): string {
   builder.fields = ${JSON.stringify(filterBuilderDemoFields, null, 2)};
   builder.value = ${JSON.stringify(filterBuilderPreviewValue)};
 </script>`;
+    case "form":
+      return `<emb-form description="Create a workspace with shared field and validation wiring.">
+  <form onsubmit="event.preventDefault()">
+    <emb-form-row>
+      <emb-form-field label="Project name" required>
+        <emb-input name="projectName" required></emb-input>
+      </emb-form-field>
+      <emb-form-field label="Owner email" required>
+        <emb-email-input name="ownerEmail" required></emb-email-input>
+      </emb-form-field>
+    </emb-form-row>
+    <emb-button type="submit">Create project</emb-button>
+  </form>
+</emb-form>`;
     case "form-field":
       return `<emb-form-field label="Project name" description="Shown to your teammates.">
   <emb-input></emb-input>
 </emb-form-field>`;
+    case "form-row":
+      return `<emb-form-row>
+  <emb-form-field label="First name">
+    <emb-input></emb-input>
+  </emb-form-field>
+  <emb-form-field label="Last name">
+    <emb-input></emb-input>
+  </emb-form-field>
+</emb-form-row>`;
     case "helper-text":
       return `<emb-helper-text>Used for keyboard shortcuts and system labels.</emb-helper-text>`;
     case "icon":
@@ -1189,6 +1269,31 @@ function getUsageCode(doc: ComponentDoc): string {
       return `<emb-input placeholder="Project name"></emb-input>`;
     case "inline-edit":
       return `<emb-inline-edit value="Quarterly roadmap"></emb-inline-edit>`;
+    case "layout":
+      return `<emb-layout>
+  <emb-layout-header>
+    <h2>Release overview</h2>
+  </emb-layout-header>
+  <emb-layout-content>
+    <emb-card>
+      <div style="padding: var(--space-4);">Primary content</div>
+    </emb-card>
+  </emb-layout-content>
+</emb-layout>`;
+    case "layout-content":
+      return `<emb-layout-content>
+  <emb-card>
+    <div style="padding: var(--space-4);">Primary content</div>
+  </emb-card>
+</emb-layout-content>`;
+    case "layout-header":
+      return `<emb-layout-header>
+  <emb-breadcrumbs>
+    <a href="/">Home</a>
+    <a href="/releases">Releases</a>
+  </emb-breadcrumbs>
+  <h2>Release overview</h2>
+</emb-layout-header>`;
     case "link":
       return `<emb-link href="#components">Browse components</emb-link>`;
     case "listbox":
@@ -1274,6 +1379,12 @@ function getUsageCode(doc: ComponentDoc): string {
 </emb-popover>`;
     case "progress":
       return `<emb-progress max="100" value="68">68%</emb-progress>`;
+    case "provider":
+      return `<emb-provider theme="dark">
+  <emb-card>
+    <div style="padding: var(--space-4);">Scoped theme boundary</div>
+  </emb-card>
+</emb-provider>`;
     case "radio":
       return `<emb-radio name="plan">Pro</emb-radio>`;
     case "range":
@@ -1312,6 +1423,12 @@ function getUsageCode(doc: ComponentDoc): string {
       return `<emb-splitter-panel size="30">Panel content</emb-splitter-panel>`;
     case "spinner":
       return `<emb-spinner></emb-spinner>`;
+    case "stack":
+      return `<emb-stack direction="horizontal" gap="2" wrap align="center">
+  <emb-badge tone="accent">Production</emb-badge>
+  <emb-badge>12 services</emb-badge>
+  <emb-button variant="ghost">Share</emb-button>
+</emb-stack>`;
     case "stepper":
       return `<emb-stepper></emb-stepper>`;
     case "switch":
@@ -1323,7 +1440,11 @@ function getUsageCode(doc: ComponentDoc): string {
   Compared with the previous 30 days.
 </emb-stat-card>`;
     case "tabs":
-      return `<emb-tabs value="overview"></emb-tabs>`;
+      return `<emb-tabs value="overview" aria-label="Release sections">
+  <emb-tab-panel label="Overview" value="overview">Overview details</emb-tab-panel>
+  <emb-tab-panel label="Activity" value="activity">Recent changes</emb-tab-panel>
+  <emb-tab-panel label="Settings" value="settings">Configuration controls</emb-tab-panel>
+</emb-tabs>`;
     case "tel-input":
       return `<emb-tel-input value="+1 555 123 4567"></emb-tel-input>`;
     case "textarea":
@@ -1497,6 +1618,8 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName}>Enable email updates</${componentName}>`;
     case "chip":
       return `<${componentName}>UI System</${componentName}>`;
+    case "tag":
+      return `<${componentName} tone="accent" dismissible>Critical</${componentName}>`;
     case "code-block":
       return `<${componentName} code="const ready = true;" language="ts" />`;
     case "command-bar":
@@ -1526,6 +1649,29 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
     </${componentName}>`;
     case "error-text":
       return `<${componentName}>Please enter a valid email address.</${componentName}>`;
+    case "form":
+      return `<${componentName} description="Create a workspace with shared field and validation wiring.">
+      <form>
+        <emb-form-row>
+          <emb-form-field label="Project name" required>
+            <emb-input name="projectName" required />
+          </emb-form-field>
+          <emb-form-field label="Owner email" required>
+            <emb-email-input name="ownerEmail" required />
+          </emb-form-field>
+        </emb-form-row>
+        <emb-button type="submit">Create project</emb-button>
+      </form>
+    </${componentName}>`;
+    case "form-row":
+      return `<${componentName}>
+      <emb-form-field label="First name">
+        <emb-input />
+      </emb-form-field>
+      <emb-form-field label="Last name">
+        <emb-input />
+      </emb-form-field>
+    </${componentName}>`;
     case "date-picker":
       return `<${componentName} month="2026-04" value="2026-04-26" />`;
     case "date-range-picker":
@@ -1554,6 +1700,31 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName} placeholder="Project name" />`;
     case "inline-edit":
       return `<${componentName} value="Quarterly roadmap" />`;
+    case "layout":
+      return `<${componentName}>
+      <emb-layout-header>
+        <h2>Release overview</h2>
+      </emb-layout-header>
+      <emb-layout-content>
+        <emb-card>
+          <div style={{ padding: "var(--space-4)" }}>Primary content</div>
+        </emb-card>
+      </emb-layout-content>
+    </${componentName}>`;
+    case "layout-content":
+      return `<${componentName}>
+      <emb-card>
+        <div style={{ padding: "var(--space-4)" }}>Primary content</div>
+      </emb-card>
+    </${componentName}>`;
+    case "layout-header":
+      return `<${componentName}>
+      <emb-breadcrumbs>
+        <a href="/">Home</a>
+        <a href="/releases">Releases</a>
+      </emb-breadcrumbs>
+      <h2>Release overview</h2>
+    </${componentName}>`;
     case "link":
       return `<${componentName} href="#components">Browse components</${componentName}>`;
     case "context-menu":
@@ -1606,6 +1777,12 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName} value="12" />`;
     case "progress":
       return `<${componentName} max={100} value={68}>68%</${componentName}>`;
+    case "provider":
+      return `<${componentName} theme="dark">
+      <emb-card>
+        <div style={{ padding: "var(--space-4)" }}>Scoped theme boundary</div>
+      </emb-card>
+    </${componentName}>`;
     case "multi-select":
       return `<${componentName} placeholder="Choose a role">
       <emb-option selected value="designer">Designer</emb-option>
@@ -1625,6 +1802,12 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName} expanded label="Guides">
       <emb-side-nav-item href="#getting-started" label="Getting started"></emb-side-nav-item>
     </${componentName}>`;
+    case "stack":
+      return `<${componentName} direction="horizontal" gap="2" wrap align="center">
+      <emb-badge tone="accent">Production</emb-badge>
+      <emb-badge>12 services</emb-badge>
+      <emb-button variant="ghost">Share</emb-button>
+    </${componentName}>`;
     case "splitter":
       return `<${componentName} style={{ height: "18rem" }}>
       <emb-splitter-panel size="28">Navigation</emb-splitter-panel>
@@ -1636,6 +1819,11 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName}>Available for notifications</${componentName}>`;
     case "tag-input":
       return `<${componentName} values={["Bug", "Urgent"]} placeholder="Add labels" />`;
+    case "tabs":
+      return `<${componentName} value="overview" aria-label="Release sections">
+      <emb-tab-panel label="Overview" value="overview">Overview details</emb-tab-panel>
+      <emb-tab-panel label="Activity" value="activity">Recent changes</emb-tab-panel>
+    </${componentName}>`;
     case "stat-card":
       return `<${componentName} label="Monthly recurring revenue" value="$84.2k" change="+12.4%" tone="positive">
       Compared with the previous 30 days.
@@ -1720,6 +1908,8 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName}>Enable email updates</${componentName}>`;
     case "chip":
       return `<${componentName}>UI System</${componentName}>`;
+    case "tag":
+      return `<${componentName} tone="accent" dismissible>Critical</${componentName}>`;
     case "code-block":
       return `<${componentName} code="const ready = true;" language="ts" />`;
     case "command-bar":
@@ -1777,6 +1967,31 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName} placeholder="Project name" />`;
     case "inline-edit":
       return `<${componentName} value="Quarterly roadmap" />`;
+    case "layout":
+      return `<${componentName}>
+    <emb-layout-header>
+      <h2>Release overview</h2>
+    </emb-layout-header>
+    <emb-layout-content>
+      <emb-card>
+        <div style="padding: var(--space-4);">Primary content</div>
+      </emb-card>
+    </emb-layout-content>
+  </${componentName}>`;
+    case "layout-content":
+      return `<${componentName}>
+    <emb-card>
+      <div style="padding: var(--space-4);">Primary content</div>
+    </emb-card>
+  </${componentName}>`;
+    case "layout-header":
+      return `<${componentName}>
+    <emb-breadcrumbs>
+      <a href="/">Home</a>
+      <a href="/releases">Releases</a>
+    </emb-breadcrumbs>
+    <h2>Release overview</h2>
+  </${componentName}>`;
     case "link":
       return `<${componentName} href="#components">Browse components</${componentName}>`;
     case "context-menu":
@@ -1829,6 +2044,12 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName} :value="12" />`;
     case "progress":
       return `<${componentName} :max="100" :value="68">68%</${componentName}>`;
+    case "provider":
+      return `<${componentName} theme="dark">
+    <emb-card>
+      <div style="padding: var(--space-4);">Scoped theme boundary</div>
+    </emb-card>
+  </${componentName}>`;
     case "multi-select":
       return `<${componentName} placeholder="Choose a role">
     <emb-option selected value="designer">Designer</emb-option>
@@ -1848,6 +2069,12 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName} expanded label="Guides">
     <emb-side-nav-item href="#getting-started" label="Getting started"></emb-side-nav-item>
   </${componentName}>`;
+    case "stack":
+      return `<${componentName} direction="horizontal" gap="2" wrap align="center">
+    <emb-badge tone="accent">Production</emb-badge>
+    <emb-badge>12 services</emb-badge>
+    <emb-button variant="ghost">Share</emb-button>
+  </${componentName}>`;
     case "splitter":
       return `<${componentName} style="height: 18rem;">
     <emb-splitter-panel :size="28">Navigation</emb-splitter-panel>
@@ -1859,6 +2086,11 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName}>Available for notifications</${componentName}>`;
     case "tag-input":
       return `<${componentName} :model-value="['Bug', 'Urgent']" placeholder="Add labels" />`;
+    case "tabs":
+      return `<${componentName} value="overview" aria-label="Release sections">
+    <emb-tab-panel label="Overview" value="overview">Overview details</emb-tab-panel>
+    <emb-tab-panel label="Activity" value="activity">Recent changes</emb-tab-panel>
+  </${componentName}>`;
     case "stat-card":
       return `<${componentName} label="Monthly recurring revenue" value="$84.2k" change="+12.4%" tone="positive">
     Compared with the previous 30 days.
@@ -1917,6 +2149,7 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "card":
     case "checkbox":
     case "chip":
+    case "tag":
     case "code-block":
     case "color-input":
     case "combobox":
@@ -1943,6 +2176,9 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "icon-button":
     case "input":
     case "inline-edit":
+    case "layout":
+    case "layout-content":
+    case "layout-header":
     case "link":
     case "listbox":
     case "menu":
@@ -1959,6 +2195,7 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "page-header":
     case "panel-inspector":
     case "progress":
+    case "provider":
     case "radio":
     case "range":
     case "rating-input":
@@ -1970,6 +2207,7 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "splitter":
     case "splitter-panel":
     case "spinner":
+    case "stack":
     case "stat-card":
     case "switch":
     case "tag-input":
@@ -2685,9 +2923,13 @@ function getLegacyComponentApi(doc: ComponentDoc): ComponentApiSurface {
             apiItem("input", "Fires as the active tab changes.", { type: "Event" }),
             apiItem("change", "Fires when the tab change is committed.", { type: "Event" })
           ]),
-          compositionGroup([apiItem("tab children", "Compose tab triggers and panels using the documented child structure for the component.", { type: "child elements" })])
+          compositionGroup([
+            apiItem("emb-tab-panel children", "Use emb-tab-panel for explicit label and value props, or pass any light-DOM element with data-label and data-value.", {
+              type: "child elements"
+            })
+          ])
         ],
-        intro: `${doc.tag} exposes a single active value and relies on composition for the rest of the tab structure.`
+        intro: `${doc.tag} exposes a single active value and keeps panel composition framework-agnostic, with emb-tab-panel available as an ergonomic wrapper.`
       };
     case "toast":
       return overlayApi(

@@ -21,8 +21,8 @@ const meta = {
   },
   render: ({ disabled, label, required, value }: SelectStoryArgs) => `
     <div style="display:grid;gap:8px;width:min(100%, 320px);">
-      <span id="select-story-label">${label}</span>
-      <emb-select aria-labelledby="select-story-label" ${disabled ? "disabled" : ""} ${required ? "required" : ""} value="${value}">
+      <span>${label}</span>
+      <emb-select aria-label="${label}" ${disabled ? "disabled" : ""} ${required ? "required" : ""} value="${value}">
       <option value="open">Open</option>
       <option value="in-progress">In progress</option>
       <option value="closed">Closed</option>

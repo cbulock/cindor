@@ -13,12 +13,19 @@ import type {
   DataTableSortDirection,
   FilterBuilderField,
   LucideIconName,
+  ProviderColorScheme,
+  ProviderTheme,
   SegmentedControlOption,
   SkeletonVariant,
   SplitterOrientation,
+  StackAlign,
+  StackDirection,
+  StackGap,
+  StackJustify,
   StatCardTone,
   StepperOrientation,
   StepperStep,
+  TagTone,
   ToastPlacement,
   ToolbarOrientation
 } from "emberline-ui-core";
@@ -89,6 +96,33 @@ export const EmbChip = defineComponent({
             {
               ...attrs,
               tone: props.tone,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const EmbTag = defineComponent({
+  name: "EmbTag",
+  props: {
+    dismissible: { type: Boolean, default: false },
+    removeLabel: { type: String, default: "Remove tag" },
+    tone: { type: String as PropType<TagTone>, default: "accent" }
+  },
+  emits: ["remove"],
+  setup(props, { attrs, emit, slots }) {
+    const handleRemove = (event: Event) => {
+      emit("remove", event);
+    };
+    return () =>
+          h(
+            "emb-tag",
+            {
+              ...attrs,
+              dismissible: props.dismissible || undefined,
+              "remove-label": props.removeLabel,
+              tone: props.tone,
+              onRemove: handleRemove,
             },
             slots.default?.()
           );
@@ -204,6 +238,26 @@ export const EmbDivider = defineComponent({
           h("emb-divider", {
               ...attrs,
           });
+  }
+});
+
+export const EmbProvider = defineComponent({
+  name: "EmbProvider",
+  props: {
+    colorScheme: { type: String as PropType<ProviderColorScheme>, default: "inherit" },
+    theme: { type: String as PropType<ProviderTheme>, default: "inherit" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-provider",
+            {
+              ...attrs,
+              "color-scheme": props.colorScheme,
+              theme: props.theme,
+            },
+            slots.default?.()
+          );
   }
 });
 
@@ -490,6 +544,44 @@ export const EmbFieldset = defineComponent({
   }
 });
 
+export const EmbForm = defineComponent({
+  name: "EmbForm",
+  props: {
+    description: { type: String, default: "" },
+    error: { type: String, default: "" },
+    submitting: { type: Boolean, default: false },
+    submittingLabel: { type: String, default: "Submitting…" },
+    success: { type: String, default: "" },
+    validateOnSubmit: { type: Boolean, default: true }
+  },
+  emits: ["reset", "submit"],
+  setup(props, { attrs, emit, slots }) {
+    const handleReset = (event: Event) => {
+      emit("reset", event);
+    };
+
+    const handleSubmit = (event: Event) => {
+      emit("submit", event);
+    };
+    return () =>
+          h(
+            "emb-form",
+            {
+              ...attrs,
+              description: props.description || undefined,
+              error: props.error || undefined,
+              submitting: props.submitting || undefined,
+              "submitting-label": props.submittingLabel,
+              success: props.success || undefined,
+              "validate-on-submit": props.validateOnSubmit || undefined,
+              onReset: handleReset,
+              onSubmit: handleSubmit,
+            },
+            slots.default?.()
+          );
+  }
+});
+
 export const EmbFormField = defineComponent({
   name: "EmbFormField",
   props: {
@@ -510,6 +602,24 @@ export const EmbFormField = defineComponent({
               required: props.required || undefined,
             },
             slots
+          );
+  }
+});
+
+export const EmbFormRow = defineComponent({
+  name: "EmbFormRow",
+  props: {
+    columns: { type: Number, default: 2 }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-form-row",
+            {
+              ...attrs,
+              columns: props.columns,
+            },
+            slots.default?.()
           );
   }
 });
@@ -738,12 +848,20 @@ export const EmbDataTable = defineComponent({
     sortDirection: { type: String as PropType<DataTableSortDirection>, default: "ascending" },
     sortKey: { type: String, default: "" }
   },
-  emits: ["update:currentPage", "page-change", "update:searchQuery", "search-change"],
+  emits: ["cell-edit", "update:currentPage", "page-change", "row-action", "update:searchQuery", "search-change"],
   setup(props, { attrs, emit }) {
+    const handleCellEdit = (event: Event) => {
+      emit("cell-edit", event);
+    };
+
     const handlePageChange = (event: Event) => {
       const target = event.currentTarget as PageHost;
       emit("update:currentPage", target.currentPage);
       emit("page-change", event);
+    };
+
+    const handleRowAction = (event: Event) => {
+      emit("row-action", event);
     };
 
     const handleSearchChange = (event: Event) => {
@@ -767,7 +885,9 @@ export const EmbDataTable = defineComponent({
               searchQuery: props.searchQuery || undefined,
               sortDirection: props.sortDirection,
               sortKey: props.sortKey || undefined,
+              onCellEdit: handleCellEdit,
               onPageChange: handlePageChange,
+              onRowAction: handleRowAction,
               onSearchChange: handleSearchChange,
           });
   }
@@ -1894,6 +2014,48 @@ export const EmbInlineEdit = defineComponent({
   }
 });
 
+export const EmbLayout = defineComponent({
+  name: "EmbLayout",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-layout",
+            {
+              ...attrs,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const EmbLayoutContent = defineComponent({
+  name: "EmbLayoutContent",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-layout-content",
+            {
+              ...attrs,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const EmbLayoutHeader = defineComponent({
+  name: "EmbLayoutHeader",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-layout-header",
+            {
+              ...attrs,
+            },
+            slots.default?.()
+          );
+  }
+});
+
 export const EmbEmailInput = defineComponent({
   name: "EmbEmailInput",
   props: {
@@ -2260,6 +2422,32 @@ export const EmbSelect = defineComponent({
   }
 });
 
+export const EmbStack = defineComponent({
+  name: "EmbStack",
+  props: {
+    align: { type: String as PropType<StackAlign>, default: "stretch" },
+    direction: { type: String as PropType<StackDirection>, default: "vertical" },
+    gap: { type: String as PropType<StackGap>, default: "3" },
+    justify: { type: String as PropType<StackJustify>, default: "start" },
+    wrap: { type: Boolean, default: false }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-stack",
+            {
+              ...attrs,
+              align: props.align,
+              direction: props.direction,
+              gap: props.gap,
+              justify: props.justify,
+              wrap: props.wrap || undefined,
+            },
+            slots.default?.()
+          );
+  }
+});
+
 export const EmbRadio = defineComponent({
   name: "EmbRadio",
   props: {
@@ -2406,6 +2594,26 @@ export const EmbSwitch = defineComponent({
               value: props.value,
               onInput: handleInput,
               onChange: handleChange,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const EmbTabPanel = defineComponent({
+  name: "EmbTabPanel",
+  props: {
+    label: { type: String, default: "" },
+    value: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "emb-tab-panel",
+            {
+              ...attrs,
+              label: props.label || undefined,
+              value: props.value || undefined,
             },
             slots.default?.()
           );

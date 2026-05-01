@@ -3,6 +3,10 @@ import "../../register.js";
 import { EmbCombobox } from "./emb-combobox.js";
 
 describe("emb-combobox", () => {
+  afterEach(() => {
+    document.body.innerHTML = "";
+  });
+
   it("filters options from typed input and commits with keyboard selection", async () => {
     const element = document.createElement("emb-combobox") as EmbCombobox;
     element.innerHTML = '<emb-option value="Alpha">Alpha</emb-option><emb-option value="Beta">Beta</emb-option><emb-option value="Gamma">Gamma</emb-option>';
@@ -121,5 +125,58 @@ describe("emb-combobox", () => {
 
     const options = element.renderRoot.querySelectorAll("emb-option");
     expect(options[2]?.hasAttribute("active")).toBe(true);
+  });
+
+  it("closes the popup and clears the active descendant on blur", async () => {
+    const element = document.createElement("emb-combobox") as EmbCombobox;
+    element.innerHTML = '<emb-option value="Alpha">Alpha</emb-option><emb-option value="Beta">Beta</emb-option>';
+    document.body.append(element);
+    await element.updateComplete;
+
+    const input = element.renderRoot.querySelector("input") as HTMLInputElement;
+    input.dispatchEvent(new FocusEvent("focus"));
+    await element.updateComplete;
+
+    expect(element.renderRoot.querySelector('[role="listbox"]')).not.toBeNull();
+
+    input.dispatchEvent(new FocusEvent("blur"));
+    await Promise.resolve();
+    await element.updateComplete;
+
+    expect(element.renderRoot.querySelector('[role="listbox"]')).toBeNull();
+    expect(input.getAttribute("aria-activedescendant")).toBeNull();
+  });
+
+  it("supports freeform changes and refreshes options after slot updates", async () => {
+    const element = document.createElement("emb-combobox") as EmbCombobox;
+    const onChange = vi.fn();
+    element.addEventListener("change", onChange);
+    element.innerHTML = '<emb-option value="Alpha">Alpha</emb-option><emb-option value="Beta">Beta</emb-option>';
+    document.body.append(element);
+    await element.updateComplete;
+
+    const input = element.renderRoot.querySelector("input") as HTMLInputElement;
+    input.value = "Delta";
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+    await element.updateComplete;
+
+    expect(element.value).toBe("Delta");
+    expect(onChange).toHaveBeenCalledTimes(1);
+
+    const option = document.createElement("emb-option");
+    option.setAttribute("value", "Delta");
+    option.textContent = "Delta";
+    element.append(option);
+
+    const slot = element.renderRoot.querySelector("slot") as HTMLSlotElement;
+    slot.dispatchEvent(new Event("slotchange"));
+    await element.updateComplete;
+
+    input.dispatchEvent(new FocusEvent("focus"));
+    await element.updateComplete;
+
+    const options = element.renderRoot.querySelectorAll('[role="option"]');
+    expect(options).toHaveLength(1);
+    expect(options[0]?.textContent?.trim()).toBe("Delta");
   });
 });

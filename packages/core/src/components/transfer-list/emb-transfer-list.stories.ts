@@ -18,7 +18,7 @@ const meta = {
     }
   },
   render: ({ disabled, required }: TransferListStoryArgs) => `
-    <emb-transfer-list ${disabled ? "disabled" : ""} ${required ? "required" : ""}>
+    <emb-transfer-list available-label="Available teams" selected-label="Assigned teams" ${disabled ? "disabled" : ""} ${required ? "required" : ""}>
       <option value="design">Design</option>
       <option value="engineering" selected>Engineering</option>
       <option value="product">Product</option>

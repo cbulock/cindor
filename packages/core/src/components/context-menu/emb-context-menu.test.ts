@@ -43,4 +43,14 @@ describe("emb-context-menu", () => {
 
     expect(element.open).toBe(false);
   });
+
+  it("forwards host accessible naming to the internal menu", async () => {
+    const element = document.createElement("emb-context-menu") as EmbContextMenu;
+    element.setAttribute("aria-label", "Context actions");
+    element.innerHTML = '<button slot="trigger">Open</button><emb-menu-item>Rename</emb-menu-item>';
+    document.body.append(element);
+    await element.updateComplete;
+
+    expect(element.renderRoot.querySelector('[role="menu"]')?.getAttribute("aria-label")).toBe("Context actions");
+  });
 });

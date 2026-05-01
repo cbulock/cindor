@@ -38,12 +38,12 @@ const meta = {
     value
   }: ComboboxStoryArgs) => `
     <div style="display:grid;gap:8px;width:min(100%, 320px);">
-      <span id="combobox-story-label">${label}</span>
+      <span>${label}</span>
       <emb-combobox
-       aria-labelledby="combobox-story-label"
+       aria-label="${label}"
        ${autocomplete ? `autocomplete="${autocomplete}"` : ""}
-      ${disabled ? "disabled" : ""}
-      ${readonly ? "readonly" : ""}
+       ${disabled ? "disabled" : ""}
+       ${readonly ? "readonly" : ""}
       ${required ? "required" : ""}
        placeholder="${placeholder}"
        value="${value}"

@@ -19,11 +19,11 @@ const meta = {
     <div style="display:grid;gap:8px;width:min(100%, 420px);">
       <span id="file-input-story-label">${label}</span>
       <emb-file-input
-      aria-labelledby="file-input-story-label"
-      ${accept ? `accept="${accept}"` : ""}
-      ${disabled ? "disabled" : ""}
-      ${multiple ? "multiple" : ""}
-      ${required ? "required" : ""}
+        aria-label="${label}"
+        ${accept ? `accept="${accept}"` : ""}
+        ${disabled ? "disabled" : ""}
+        ${multiple ? "multiple" : ""}
+        ${required ? "required" : ""}
       ></emb-file-input>
     </div>
   `

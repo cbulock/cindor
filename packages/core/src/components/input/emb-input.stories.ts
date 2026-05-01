@@ -32,7 +32,7 @@ const meta = {
     }
   },
   render: ({ autocomplete, disabled, endIcon, label, placeholder, readonly, required, startIcon, type, value }: InputStoryArgs) =>
-    `<div style="display:grid;gap:8px;width:min(100%, 320px);"><span id="input-story-label">${label}</span><emb-input aria-labelledby="input-story-label" ${autocomplete ? `autocomplete="${autocomplete}"` : ""} ${disabled ? "disabled" : ""} ${endIcon ? `end-icon="${endIcon}"` : ""} placeholder="${placeholder}" ${readonly ? "readonly" : ""} ${required ? "required" : ""} ${startIcon ? `start-icon="${startIcon}"` : ""} type="${type}" value="${value}"></emb-input></div>`
+    `<div style="display:grid;gap:8px;width:min(100%, 320px);"><span>${label}</span><emb-input aria-label="${label}" ${autocomplete ? `autocomplete="${autocomplete}"` : ""} ${disabled ? "disabled" : ""} ${endIcon ? `end-icon="${endIcon}"` : ""} placeholder="${placeholder}" ${readonly ? "readonly" : ""} ${required ? "required" : ""} ${startIcon ? `start-icon="${startIcon}"` : ""} type="${type}" value="${value}"></emb-input></div>`
 };
 
 export default meta;

@@ -144,6 +144,11 @@ export const componentDefinitions = [
     slots: slots.default,
     vueProps: [typed("tone", "ChipTone", "neutral")]
   }),
+  component("EmbTag", "emb-tag", {
+    slots: slots.default,
+    vueHandlers: [handler("remove")],
+    vueProps: [bool("dismissible"), str("removeLabel", "Remove tag", { attr: "remove-label", alwaysPass: true }), typed("tone", "TagTone", "accent")]
+  }),
   component("EmbIconButton", "emb-icon-button", {
     vueProps: [
       bool("disabled"),
@@ -176,6 +181,13 @@ export const componentDefinitions = [
     vueProps: [typed("tone", '"neutral" | "accent" | "success"', "neutral")]
   }),
   component("EmbDivider", "emb-divider"),
+  component("EmbProvider", "emb-provider", {
+    slots: slots.default,
+    vueProps: [
+      typed("colorScheme", "ProviderColorScheme", "inherit", { attr: "color-scheme" }),
+      typed("theme", "ProviderTheme", "inherit")
+    ]
+  }),
   component("EmbSpinner", "emb-spinner"),
   component("EmbAlert", "emb-alert", {
     slots: slots.default,
@@ -237,9 +249,19 @@ export const componentDefinitions = [
     slots: slots.all,
     vueProps: [bool("disabled"), str("legend")]
   }),
+  component("EmbForm", "emb-form", {
+    reactEvents: ["reset", "submit"],
+    slots: slots.default,
+    vueHandlers: [handler("reset"), handler("submit")],
+    vueProps: [str("description"), str("error"), bool("submitting"), str("submittingLabel", "Submitting…", { attr: "submitting-label", alwaysPass: true }), str("success"), bool("validateOnSubmit", true, { attr: "validate-on-submit" })]
+  }),
   component("EmbFormField", "emb-form-field", {
     slots: slots.all,
     vueProps: [str("description"), str("error"), str("label"), bool("required")]
+  }),
+  component("EmbFormRow", "emb-form-row", {
+    slots: slots.default,
+    vueProps: [num("columns", 2)]
   }),
   component("EmbHelperText", "emb-helper-text", { slots: slots.default }),
   component("EmbErrorText", "emb-error-text", { slots: slots.default }),
@@ -291,14 +313,16 @@ export const componentDefinitions = [
     vueProps: [str("description"), bool("sticky"), str("title")]
   }),
   component("EmbDataTable", "emb-data-table", {
-    reactEvents: ["page-change", "search-change", "sort-change"],
+    reactEvents: ["cell-edit", "page-change", "row-action", "search-change", "sort-change"],
     vueHandlers: [
+      handler("cell-edit"),
       handler("page-change", {
         emitName: "page-change",
         modelEmit: "update:currentPage",
         modelHostProperty: "currentPage",
         modelHostType: "PageHost"
       }),
+      handler("row-action"),
       handler("search-change", {
         emitName: "search-change",
         modelEmit: "update:searchQuery",
@@ -633,6 +657,15 @@ export const componentDefinitions = [
     ],
     vueProps: [bool("disabled"), bool("editing"), str("modelValue", "", { attr: "value", alwaysPass: true }), str("placeholder", "Click edit", { alwaysPass: true })]
   }),
+  component("EmbLayout", "emb-layout", {
+    slots: slots.default
+  }),
+  component("EmbLayoutContent", "emb-layout-content", {
+    slots: slots.default
+  }),
+  component("EmbLayoutHeader", "emb-layout-header", {
+    slots: slots.default
+  }),
   component("EmbEmailInput", "emb-email-input", {
     vueHandlers: textModelHandlers,
     vueProps: inputStringProps({ autocompleteDefault: "email", includeIcons: true })
@@ -690,6 +723,16 @@ export const componentDefinitions = [
     ],
     vueProps: [bool("disabled"), str("modelValue", "", { attr: "value", alwaysPass: true }), str("name"), bool("required")]
   }),
+  component("EmbStack", "emb-stack", {
+    slots: slots.default,
+    vueProps: [
+      typed("align", "StackAlign", "stretch"),
+      typed("direction", "StackDirection", "vertical"),
+      typed("gap", "StackGap", "3"),
+      typed("justify", "StackJustify", "start"),
+      bool("wrap")
+    ]
+  }),
   component("EmbRadio", "emb-radio", {
     slots: slots.default,
     vueHandlers: [
@@ -732,6 +775,10 @@ export const componentDefinitions = [
     slots: slots.default,
     vueHandlers: checkedModelHandlers,
     vueProps: [bool("disabled"), bool("modelValue", false, { attr: "checked" }), str("name"), bool("required"), str("value", "on", { alwaysPass: true })]
+  }),
+  component("EmbTabPanel", "emb-tab-panel", {
+    slots: slots.default,
+    vueProps: [str("label"), str("value")]
   }),
   component("EmbTabs", "emb-tabs", {
     slots: slots.default,

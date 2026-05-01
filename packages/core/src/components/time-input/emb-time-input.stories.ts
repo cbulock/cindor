@@ -23,9 +23,9 @@ const meta = {
   },
   render: ({ disabled, label, max, min, readonly, required, step, value }: TimeInputStoryArgs) => `
     <div style="display:grid;gap:8px;width:min(100%, 320px);">
-      <span id="time-input-story-label">${label}</span>
+      <span>${label}</span>
       <emb-time-input
-      aria-labelledby="time-input-story-label"
+      aria-label="${label}"
       ${disabled ? "disabled" : ""}
       ${max ? `max="${max}"` : ""}
       ${min ? `min="${min}"` : ""}

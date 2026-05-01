@@ -40,6 +40,7 @@ export { EmbErrorText } from "./components/error-text/emb-error-text.js";
 export { EmbEmptyState } from "./components/empty-state/emb-empty-state.js";
 export { EmbEmptySearchResults } from "./components/empty-search-results/emb-empty-search-results.js";
 export { EmbFieldset } from "./components/fieldset/emb-fieldset.js";
+export { EmbForm } from "./components/form/emb-form.js";
 export { EmbFileInput } from "./components/file-input/emb-file-input.js";
 export {
   EmbFilterBuilder,
@@ -53,11 +54,15 @@ export {
   type FilterBuilderRule
 } from "./components/filter-builder/emb-filter-builder.js";
 export { EmbFormField } from "./components/form-field/emb-form-field.js";
+export { EmbFormRow } from "./components/form-row/emb-form-row.js";
 export { EmbHelperText } from "./components/helper-text/emb-helper-text.js";
 export { EmbIcon, type LucideIconName } from "./components/icon/emb-icon.js";
 export { EmbIconButton } from "./components/icon-button/emb-icon-button.js";
 export { EmbInput } from "./components/input/emb-input.js";
 export { EmbInlineEdit } from "./components/inline-edit/emb-inline-edit.js";
+export { EmbLayout } from "./components/layout/emb-layout.js";
+export { EmbLayoutContent } from "./components/layout-content/emb-layout-content.js";
+export { EmbLayoutHeader } from "./components/layout-header/emb-layout-header.js";
 export { EmbListbox } from "./components/listbox/emb-listbox.js";
 export { EmbLink } from "./components/link/emb-link.js";
 export { EmbMeter } from "./components/meter/emb-meter.js";
@@ -75,6 +80,7 @@ export { EmbPageHeader } from "./components/page-header/emb-page-header.js";
 export { EmbPanelInspector } from "./components/panel-inspector/emb-panel-inspector.js";
 export { EmbPopover } from "./components/popover/emb-popover.js";
 export { EmbProgress } from "./components/progress/emb-progress.js";
+export { EmbProvider, type ProviderColorScheme, type ProviderTheme } from "./components/provider/emb-provider.js";
 export { EmbRadio } from "./components/radio/emb-radio.js";
 export { EmbRange } from "./components/range/emb-range.js";
 export { EmbRatingInput } from "./components/rating-input/emb-rating-input.js";
@@ -87,10 +93,13 @@ export { EmbSideNav } from "./components/side-nav/emb-side-nav.js";
 export { EmbSideNavItem } from "./components/side-nav-item/emb-side-nav-item.js";
 export { EmbSplitter, type SplitterOrientation } from "./components/splitter/emb-splitter.js";
 export { EmbSplitterPanel } from "./components/splitter-panel/emb-splitter-panel.js";
+export { EmbStack, type StackAlign, type StackDirection, type StackGap, type StackJustify } from "./components/stack/emb-stack.js";
 export { EmbStatCard, type StatCardTone } from "./components/stat-card/emb-stat-card.js";
 export { EmbStepper, type StepperOrientation, type StepperStatus, type StepperStep } from "./components/stepper/emb-stepper.js";
 export { EmbSwitch } from "./components/switch/emb-switch.js";
 export { EmbTagInput } from "./components/tag-input/emb-tag-input.js";
+export { EmbTag, type TagTone } from "./components/tag/emb-tag.js";
+export { EmbTabPanel } from "./components/tab-panel/emb-tab-panel.js";
 export { EmbTabs } from "./components/tabs/emb-tabs.js";
 export { EmbTelInput } from "./components/tel-input/emb-tel-input.js";
 export { EmbTextarea } from "./components/textarea/emb-textarea.js";

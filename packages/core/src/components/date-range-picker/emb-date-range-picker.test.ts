@@ -3,6 +3,10 @@ import "../../register.js";
 import { EmbDateRangePicker } from "./emb-date-range-picker.js";
 
 describe("emb-date-range-picker", () => {
+  afterEach(() => {
+    document.body.innerHTML = "";
+  });
+
   it("stores the selected start and end values", async () => {
     const element = document.createElement("emb-date-range-picker") as EmbDateRangePicker;
     element.month = "2026-04";
@@ -12,13 +16,19 @@ describe("emb-date-range-picker", () => {
     element.show();
     await element.updateComplete;
 
-    const calendar = element.renderRoot.querySelector("emb-calendar") as HTMLElement & {
-      startValue: string;
-      endValue: string;
+    const getDayButton = (value: string): HTMLButtonElement => {
+      const calendar = element.renderRoot.querySelector("emb-calendar") as (HTMLElement & { renderRoot: ShadowRoot }) | null;
+      const button = Array.from(calendar?.renderRoot.querySelectorAll(".day") ?? []).find(
+        (candidate) => (candidate as HTMLButtonElement).value === value
+      ) as HTMLButtonElement | undefined;
+
+      expect(button).toBeDefined();
+      return button as HTMLButtonElement;
     };
-    calendar.startValue = "2026-04-10";
-    calendar.endValue = "2026-04-14";
-    calendar.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
+
+    getDayButton("2026-04-10").click();
+    await element.updateComplete;
+    getDayButton("2026-04-14").click();
     await element.updateComplete;
 
     expect(element.startValue).toBe("2026-04-10");

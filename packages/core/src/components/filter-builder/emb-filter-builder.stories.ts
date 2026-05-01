@@ -76,6 +76,7 @@ const meta = {
   title: "Forms/Filter Builder",
   render: () => html`
     <emb-filter-builder
+      aria-label="Issue filters"
       .fields=${fields}
       value=${initialValue}
     ></emb-filter-builder>

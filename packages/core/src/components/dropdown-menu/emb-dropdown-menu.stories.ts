@@ -21,7 +21,7 @@ const meta = {
     }
   },
   render: ({ firstItem, open, secondItem, thirdItem, triggerLabel }: DropdownMenuStoryArgs) => `
-    <emb-dropdown-menu ${open ? "open" : ""}>
+    <emb-dropdown-menu aria-label="${triggerLabel}" ${open ? "open" : ""}>
       <span slot="trigger">${triggerLabel}</span>
       <emb-menu-item>${firstItem}</emb-menu-item>
       <emb-menu-item>${secondItem}</emb-menu-item>

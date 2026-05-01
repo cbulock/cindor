@@ -29,6 +29,7 @@ const meta = {
   },
   render: ({ activityLabel, activityText, overviewLabel, overviewText, settingsLabel, settingsText, value }: TabsStoryArgs) => {
     const element = document.createElement("emb-tabs") as EmbTabs;
+    element.setAttribute("aria-label", "Project sections");
     element.value = value;
     element.addEventListener("change", (event) => {
       event.stopPropagation();
@@ -41,9 +42,9 @@ const meta = {
     ];
 
     for (const panel of panels) {
-      const section = document.createElement("section");
-      section.dataset.label = panel.label;
-      section.dataset.value = panel.value;
+      const section = document.createElement("emb-tab-panel");
+      section.setAttribute("label", panel.label);
+      section.setAttribute("value", panel.value);
       section.textContent = panel.text;
       element.append(section);
     }

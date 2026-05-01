@@ -31,4 +31,18 @@ describe("emb-form-field", () => {
 
     expect(label?.getAttribute("for")).toBe(input?.id);
   });
+
+  it("renders managed validation errors alongside authored wiring", async () => {
+    const element = document.createElement("emb-form-field") as EmbFormField;
+    element.label = "Email";
+    element.validationError = "Email is required";
+    element.innerHTML = `<emb-input></emb-input>`;
+    document.body.append(element);
+    await element.updateComplete;
+
+    const control = element.querySelector("emb-input");
+
+    expect(element.shadowRoot?.textContent).toContain("Email is required");
+    expect(control?.getAttribute("aria-describedby")).toContain("-error");
+  });
 });

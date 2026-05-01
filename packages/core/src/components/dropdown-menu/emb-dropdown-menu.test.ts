@@ -15,6 +15,17 @@ describe("emb-dropdown-menu", () => {
     expect(element.renderRoot.querySelector('[role="menu"]')).not.toBeNull();
   });
 
+  it("forwards host accessible naming to the internal menu", async () => {
+    const element = document.createElement("emb-dropdown-menu") as EmbDropdownMenu;
+    element.open = true;
+    element.setAttribute("aria-label", "Project actions");
+    element.innerHTML = '<button slot="trigger">Menu</button><emb-menu-item>Item</emb-menu-item>';
+    document.body.append(element);
+    await element.updateComplete;
+
+    expect(element.renderRoot.querySelector('[role="menu"]')?.getAttribute("aria-label")).toBe("Project actions");
+  });
+
   it("closes when a menu item is selected", async () => {
     const element = document.createElement("emb-dropdown-menu") as EmbDropdownMenu;
     element.open = true;

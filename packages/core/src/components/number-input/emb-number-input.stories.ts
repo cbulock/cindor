@@ -25,9 +25,9 @@ const meta = {
   },
   render: ({ disabled, label, max, min, placeholder, readonly, required, step, value }: NumberInputStoryArgs) => `
     <div style="display:grid;gap:8px;width:min(100%, 320px);">
-      <span id="number-input-story-label">${label}</span>
+      <span>${label}</span>
       <emb-number-input
-      aria-labelledby="number-input-story-label"
+      aria-label="${label}"
       ${disabled ? "disabled" : ""}
       ${max ? `max="${max}"` : ""}
       ${min ? `min="${min}"` : ""}

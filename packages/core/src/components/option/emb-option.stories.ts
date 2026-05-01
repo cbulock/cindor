@@ -16,7 +16,7 @@ const meta = {
     value: "alpha"
   },
   render: ({ active, disabled, label, selected, value }: OptionStoryArgs) => `
-    <emb-listbox style="width:min(100%, 320px);">
+    <emb-listbox aria-label="Greek letter selection" style="width:min(100%, 320px);">
       <emb-option
         value="${value}"
         ${active ? "active" : ""}

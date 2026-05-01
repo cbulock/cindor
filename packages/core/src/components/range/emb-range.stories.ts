@@ -21,9 +21,9 @@ const meta = {
   },
   render: ({ disabled, label, max, min, required, step, value }: RangeStoryArgs) => `
     <div style="display:grid;gap:8px;width:min(100%, 320px);">
-      <span id="range-story-label">${label}</span>
+      <span>${label}</span>
       <emb-range
-      aria-labelledby="range-story-label"
+      aria-label="${label}"
       ${disabled ? "disabled" : ""}
       max="${max}"
       min="${min}"

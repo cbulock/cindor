@@ -18,19 +18,71 @@ const columns: DataTableColumn[] = [
 ];
 
 const rows: DataTableRow[] = [
-  { name: "Avery Smith", role: "Support", tickets: 12 },
-  { name: "Jordan Lee", role: "Operations", tickets: 4 },
-  { name: "Morgan Diaz", role: "Design", tickets: 7 },
-  { name: "Taylor Chen", role: "Success", tickets: 9 },
-  { name: "Riley Patel", role: "Engineering", tickets: 2 },
-  { name: "Parker Nguyen", role: "Finance", tickets: 6 },
-  { name: "Jamie Torres", role: "Support", tickets: 5 }
+  { id: "avery", name: "Avery Smith", role: "Support", tickets: 12 },
+  { id: "jordan", name: "Jordan Lee", role: "Operations", tickets: 4 },
+  { id: "morgan", name: "Morgan Diaz", role: "Design", tickets: 7 },
+  { id: "taylor", name: "Taylor Chen", role: "Success", tickets: 9 },
+  { id: "riley", name: "Riley Patel", role: "Engineering", tickets: 2 },
+  { id: "parker", name: "Parker Nguyen", role: "Finance", tickets: 6 },
+  { id: "jamie", name: "Jamie Torres", role: "Support", tickets: 5 }
+];
+
+const parityColumns: DataTableColumn[] = [
+  {
+    key: "name",
+    label: "Owner",
+    sortable: true,
+    tooltip: true,
+    truncate: true,
+    width: "12rem"
+  },
+  {
+    key: "status",
+    label: "Status",
+    sortable: true,
+    cellRenderer: ({ value }) =>
+      html`<emb-badge tone=${value === "Escalated" ? "warning" : "info"}>${String(value)}</emb-badge>`
+  },
+  {
+    key: "priority",
+    label: "Priority",
+    sortable: true,
+    sortComparator: (left, right) => String(left).localeCompare(String(right)),
+    editor: {
+      type: "select",
+      options: [
+        { label: "Low", value: "Low" },
+        { label: "Medium", value: "Medium" },
+        { label: "High", value: "High" }
+      ]
+    }
+  },
+  {
+    key: "active",
+    label: "Active",
+    align: "center",
+    editor: { type: "switch" }
+  },
+  {
+    key: "actions",
+    label: "Actions",
+    actions: [
+      { key: "open", label: "Open" },
+      { key: "assign", label: "Assign", variant: "solid" }
+    ]
+  }
+];
+
+const parityRows: DataTableRow[] = [
+  { id: "ticket-101", name: "Jordan Lee", status: "Open", priority: "High", active: true },
+  { id: "ticket-102", name: "Avery Smith", status: "Escalated", priority: "Medium", active: true },
+  { id: "ticket-103", name: "Morgan Diaz", status: "Pending", priority: "Low", active: false }
 ];
 
 const meta = {
   title: "Composites/Data Table",
   args: {
-     caption: "Team workload",
+    caption: "Team workload",
     currentPage: 1,
     loading: false,
     pageSize: 4,
@@ -40,7 +92,7 @@ const meta = {
   render: ({ caption, currentPage, loading, pageSize, searchable, searchQuery }: DataTableStoryArgs) => html`
     <emb-data-table
       .columns=${columns}
-      .rows=${rows}
+      .rows=${rows.map((row) => ({ ...row }))}
       caption=${caption}
       current-page=${String(currentPage)}
       page-size=${String(pageSize)}
@@ -66,4 +118,38 @@ export const Filtered = {
   args: {
     searchQuery: "support"
   }
+};
+
+export const CustomCellsAndEditors = {
+  render: () => html`
+    <emb-data-table
+      caption="Interactive admin table"
+      .columns=${parityColumns}
+      .rows=${parityRows.map((row) => ({ ...row }))}
+      page-size="0"
+      searchable
+      sort-key="name"
+    ></emb-data-table>
+  `
+};
+
+export const SlotBackedCells = {
+  render: () => html`
+    <emb-data-table
+      caption="Slot-backed escalation badges"
+      .columns=${[
+        { key: "name", label: "Owner" },
+        { key: "status", label: "Status", cellSlot: "status-cell" }
+      ]}
+      .rows=${[
+        { id: "ticket-201", name: "Riley Patel", status: "Open" },
+        { id: "ticket-202", name: "Jamie Torres", status: "Escalated" }
+      ]}
+      page-size="0"
+      row-id-key="id"
+    >
+      <emb-chip slot="status-cell-ticket-201" tone="info">Open</emb-chip>
+      <emb-chip slot="status-cell-ticket-202" tone="warning">Escalated</emb-chip>
+    </emb-data-table>
+  `
 };

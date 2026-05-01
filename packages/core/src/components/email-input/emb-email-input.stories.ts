@@ -21,9 +21,9 @@ const meta = {
   },
   render: ({ autocomplete, disabled, label, placeholder, readonly, required, value }: EmailInputStoryArgs) => `
     <div style="display:grid;gap:8px;width:min(100%, 320px);">
-      <span id="email-input-story-label">${label}</span>
+      <span>${label}</span>
       <emb-email-input
-      aria-labelledby="email-input-story-label"
+      aria-label="${label}"
       autocomplete="${autocomplete}"
       ${disabled ? "disabled" : ""}
       placeholder="${placeholder}"

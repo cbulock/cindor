@@ -1,14 +1,8 @@
-import { css, html, LitElement, type PropertyValues } from "lit";
-
-export type DataTableColumn = {
-  key: string;
-  label: string;
-  numeric?: boolean;
-  sortable?: boolean;
-};
+import { css, html, LitElement, nothing, type PropertyValues } from "lit";
 
 export type DataTableRow = Record<string, unknown>;
 export type DataTableSortDirection = "ascending" | "descending";
+export type DataTableCellAlign = "center" | "end" | "start";
 export type DataTablePageChangeDetail = {
   currentPage: number;
   totalPages: number;
@@ -18,15 +12,122 @@ export type DataTableSearchChangeDetail = {
   searchQuery: string;
 };
 
+export type DataTableCellRenderDetail = {
+  column: DataTableColumn;
+  row: DataTableRow;
+  rowId: string;
+  rowIndex: number;
+  table: EmbDataTable;
+  value: unknown;
+};
+
+export type DataTableCellEditDetail = {
+  column: DataTableColumn;
+  columnKey: string;
+  row: DataTableRow;
+  rowId: string;
+  rowIndex: number;
+  value: unknown;
+};
+
+export type DataTableRowActionDetail = {
+  action: DataTableRowAction;
+  actionKey: string;
+  column: DataTableColumn;
+  columnKey: string;
+  row: DataTableRow;
+  rowId: string;
+  rowIndex: number;
+};
+
+export type DataTableSortComparator = (
+  leftValue: unknown,
+  rightValue: unknown,
+  detail: {
+    column: DataTableColumn;
+    leftRow: DataTableRow;
+    rightRow: DataTableRow;
+    table: EmbDataTable;
+  }
+) => number;
+
+export type DataTableSortValueAccessor = (
+  row: DataTableRow,
+  detail: {
+    column: DataTableColumn;
+    rowIndex: number;
+    table: EmbDataTable;
+  }
+) => unknown;
+
+export type DataTableTooltipText =
+  | boolean
+  | string
+  | ((detail: DataTableCellRenderDetail) => string | null | undefined);
+
+export type DataTableEditorOption = {
+  label: string;
+  value: string;
+};
+
+export type DataTableEditorDisablePredicate = boolean | ((detail: DataTableCellRenderDetail) => boolean);
+
+export type DataTableCellEditor =
+  | {
+      autocomplete?: string;
+      disabled?: DataTableEditorDisablePredicate;
+      placeholder?: string;
+      type: "input";
+    }
+  | {
+      disabled?: DataTableEditorDisablePredicate;
+      options: DataTableEditorOption[] | ((detail: DataTableCellRenderDetail) => DataTableEditorOption[]);
+      type: "select";
+    }
+  | {
+      disabled?: DataTableEditorDisablePredicate;
+      type: "switch";
+    };
+
+export type DataTableRowAction = {
+  disabled?: boolean | ((detail: DataTableCellRenderDetail) => boolean);
+  icon?: string;
+  key: string;
+  label: string;
+  variant?: "ghost" | "solid";
+};
+
+export type DataTableColumn = {
+  actions?: DataTableRowAction[];
+  align?: DataTableCellAlign;
+  cellRenderer?: (detail: DataTableCellRenderDetail) => unknown;
+  cellSlot?: string;
+  editor?: DataTableCellEditor;
+  key: string;
+  label: string;
+  numeric?: boolean;
+  sortable?: boolean;
+  sortComparator?: DataTableSortComparator;
+  sortValue?: DataTableSortValueAccessor;
+  tooltip?: DataTableTooltipText;
+  truncate?: boolean;
+  width?: string;
+};
+
 type SearchHost = HTMLElement & { value: string };
 type PaginationHost = HTMLElement & { currentPage: number };
+type SelectHost = HTMLElement & { value: string };
+type TextInputHost = HTMLElement & { value: string };
+type SwitchHost = HTMLElement & { checked: boolean };
 
 /**
  * Searchable, sortable application data table built from native table semantics.
  *
  * @summary Searchable, sortable data table for application records.
  * @tag emb-data-table
+ * @fires {CustomEvent<DataTableCellEditDetail>} cell-edit - Fired when an inline editor updates a row value.
  * @fires {CustomEvent<DataTablePageChangeDetail>} page-change - Fired when the current page changes through pagination.
+ * @fires {CustomEvent<DataTableRowActionDetail>} row-action - Fired when a row action button is pressed.
  * @fires {CustomEvent<DataTableSearchChangeDetail>} search-change - Fired when the search query changes and the matching row count updates.
  * @fires {CustomEvent<{ sortDirection: DataTableSortDirection; sortKey: string }>} sort-change - Fired when the active sort column or direction changes.
  */
@@ -72,8 +173,13 @@ export class EmbDataTable extends LitElement {
       font-weight: 600;
     }
 
-    th[data-numeric="true"],
-    td[data-numeric="true"] {
+    th[data-align="center"],
+    td[data-align="center"] {
+      text-align: center;
+    }
+
+    th[data-align="end"],
+    td[data-align="end"] {
       text-align: right;
     }
 
@@ -98,7 +204,7 @@ export class EmbDataTable extends LitElement {
     .message {
       color: var(--fg-muted);
     }
-    
+
     .toolbar,
     .footer {
       display: flex;
@@ -121,6 +227,34 @@ export class EmbDataTable extends LitElement {
       overflow-x: auto;
     }
 
+    .cell {
+      min-width: 0;
+    }
+
+    .cell-content {
+      display: block;
+      min-width: 0;
+    }
+
+    .cell-content[data-truncate="true"] {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .cell-actions {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .cell-editor {
+      --emb-field-inline-size: 100%;
+      display: block;
+      min-width: 0;
+    }
+
     emb-search {
       --emb-field-inline-size: min(100%, 18rem);
     }
@@ -139,6 +273,7 @@ export class EmbDataTable extends LitElement {
     emptyMessage: { reflect: true, attribute: "empty-message" },
     loading: { type: Boolean, reflect: true },
     pageSize: { type: Number, reflect: true, attribute: "page-size" },
+    rowIdKey: { reflect: true, attribute: "row-id-key" },
     rows: { attribute: false },
     searchable: { type: Boolean, reflect: true },
     searchLabel: { reflect: true, attribute: "search-label" },
@@ -148,43 +283,19 @@ export class EmbDataTable extends LitElement {
     sortKey: { reflect: true, attribute: "sort-key" }
   };
 
-  /** Caption rendered above the table when provided. */
   caption = "";
-
-  /** Column definitions assigned as a property from JavaScript. */
   columns: DataTableColumn[] = [];
-
-  /** Current 1-based page index. */
   currentPage = 1;
-
-  /** Message shown when no visible rows remain after filtering or loading completes. */
   emptyMessage = "No rows to display.";
-
-  /** Shows the loading state instead of row data. */
   loading = false;
-
-  /** Maximum number of rows shown per page. Set to 0 to disable pagination. */
   pageSize = 10;
-
-  /** Row data assigned as a property from JavaScript. */
+  rowIdKey = "id";
   rows: DataTableRow[] = [];
-
-  /** Enables the built-in search toolbar and filtering behavior. */
   searchable = false;
-
-  /** Accessible label applied to the internal search control. */
   searchLabel = "Search rows";
-
-  /** Placeholder text shown in the internal search control. */
   searchPlaceholder = "Search rows";
-
-  /** Current search query used to filter visible rows. */
   searchQuery = "";
-
-  /** Active sort direction for the current sort key. */
   sortDirection: DataTableSortDirection = "ascending";
-
-  /** Column key currently used for sorting. */
   sortKey = "";
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -225,10 +336,15 @@ export class EmbDataTable extends LitElement {
                 <p class="summary" part="summary" aria-live="polite">${this.summaryText(filteredRows.length, visibleRows.length)}</p>
               </div>
             `
-          : null}
+          : nothing}
         <div class="table-region" part="table-region">
           <table part="table">
-            ${this.caption ? html`<caption part="caption">${this.caption}</caption>` : null}
+            <colgroup>
+              ${this.columns.map(
+                (column) => html`<col style=${this.columnWidthStyle(column)} />`
+              )}
+            </colgroup>
+            ${this.caption ? html`<caption part="caption">${this.caption}</caption>` : nothing}
             <thead part="head">
               <tr part="head-row">
                 ${this.columns.map((column) => {
@@ -238,8 +354,9 @@ export class EmbDataTable extends LitElement {
                     <th
                       part="head-cell"
                       scope="col"
-                      data-numeric=${String(Boolean(column.numeric))}
-                      aria-sort=${column.sortable ? (active ? this.sortDirection : "none") : null}
+                      data-align=${this.columnAlign(column)}
+                      aria-sort=${column.sortable ? (active ? this.sortDirection : "none") : nothing}
+                      style=${this.columnWidthStyle(column)}
                     >
                       ${column.sortable
                         ? html`
@@ -267,24 +384,36 @@ export class EmbDataTable extends LitElement {
                         <td class="message" part="cell message" colspan=${String(Math.max(this.columns.length, 1))}>${this.emptyMessage}</td>
                       </tr>
                     `
-                  : visibleRows.map(
-                      (row) => html`
-                        <tr part="row">
-                          ${this.columns.map(
-                            (column) => html`
-                              <td part="cell" data-numeric=${String(Boolean(column.numeric))}>${this.formatCellValue(row[column.key])}</td>
-                            `
-                          )}
+                  : visibleRows.map((row, visibleIndex) => {
+                      const rowIndex = this.getRowIndex(row, visibleIndex);
+                      const rowId = this.getRowId(row, rowIndex);
+
+                      return html`
+                        <tr part="row" data-row-id=${rowId}>
+                          ${this.columns.map((column) => {
+                            const detail = this.createCellDetail(column, row, rowId, rowIndex);
+
+                            return html`
+                              <td
+                                part="cell"
+                                class="cell"
+                                data-align=${this.columnAlign(column)}
+                                style=${this.columnWidthStyle(column)}
+                              >
+                                ${this.renderCell(detail)}
+                              </td>
+                            `;
+                          })}
                         </tr>
-                      `
-                    )}
+                      `;
+                    })}
             </tbody>
           </table>
         </div>
         ${showPagination
           ? html`
               <div class="footer" part="footer">
-                ${this.searchable ? null : html`<p class="summary" part="summary" aria-live="polite">${this.summaryText(filteredRows.length, visibleRows.length)}</p>`}
+                ${this.searchable ? nothing : html`<p class="summary" part="summary" aria-live="polite">${this.summaryText(filteredRows.length, visibleRows.length)}</p>`}
                 <emb-pagination
                   part="pagination"
                   aria-label="Table pagination"
@@ -295,9 +424,255 @@ export class EmbDataTable extends LitElement {
                 ></emb-pagination>
               </div>
             `
-          : null}
+          : nothing}
       </div>
     `;
+  }
+
+  private renderCell(detail: DataTableCellRenderDetail) {
+    const slotName = this.getCellSlotName(detail);
+    const content = this.renderCellContent(detail);
+
+    if (slotName) {
+      return html`<slot name=${slotName}>${content}</slot>`;
+    }
+
+    return content;
+  }
+
+  private renderCellContent(detail: DataTableCellRenderDetail) {
+    if (detail.column.actions && detail.column.actions.length > 0) {
+      return html`
+        <div class="cell-actions" part="cell-actions">
+          ${detail.column.actions.map((action) => this.renderActionButton(detail, action))}
+        </div>
+      `;
+    }
+
+    if (detail.column.editor) {
+      return this.renderCellEditor(detail);
+    }
+
+    const renderOutput = detail.column.cellRenderer ? detail.column.cellRenderer(detail) : this.formatCellValue(detail.value);
+    const tooltipText = this.getTooltipText(detail);
+
+    const content = html`
+      <span
+        class="cell-content"
+        part="cell-content"
+        data-truncate=${String(Boolean(detail.column.truncate))}
+        style=${this.cellContentStyle(detail.column)}
+      >
+        ${renderOutput}
+      </span>
+    `;
+
+    if (!tooltipText) {
+      return content;
+    }
+
+    return html`<emb-tooltip text=${tooltipText}>${content}</emb-tooltip>`;
+  }
+
+  private renderActionButton(detail: DataTableCellRenderDetail, action: DataTableRowAction) {
+    const disabled = this.resolveActionDisabled(action, detail);
+
+    if (action.icon && action.label === "") {
+      return html`
+        <emb-icon-button
+          ?disabled=${disabled}
+          label=${action.key}
+          name=${action.icon}
+          @click=${() => this.handleRowAction(detail, action)}
+        ></emb-icon-button>
+      `;
+    }
+
+    return html`
+      <emb-button
+        ?disabled=${disabled}
+        type="button"
+        variant=${action.variant ?? "ghost"}
+        @click=${() => this.handleRowAction(detail, action)}
+      >
+        ${action.icon ? html`<emb-icon slot="start-icon" name=${action.icon}></emb-icon>` : nothing}
+        ${action.label}
+      </emb-button>
+    `;
+  }
+
+  private renderCellEditor(detail: DataTableCellRenderDetail) {
+    const editor = detail.column.editor;
+    if (!editor) {
+      return nothing;
+    }
+
+    const disabled = this.resolveEditorDisabled(editor, detail);
+    const ariaLabel = `${detail.column.label} for row ${detail.rowId}`;
+
+    if (editor.type === "input") {
+      return html`
+        <emb-input
+          class="cell-editor"
+          aria-label=${ariaLabel}
+          autocomplete=${editor.autocomplete ?? ""}
+          ?disabled=${disabled}
+          placeholder=${editor.placeholder ?? ""}
+          .value=${this.normalizeTextValue(detail.value)}
+          @change=${(event: Event) => this.handleTextEditorChange(detail, event)}
+        ></emb-input>
+      `;
+    }
+
+    if (editor.type === "select") {
+      const options = typeof editor.options === "function" ? editor.options(detail) : editor.options;
+
+      return html`
+        <emb-select
+          class="cell-editor"
+          aria-label=${ariaLabel}
+          ?disabled=${disabled}
+          .value=${this.normalizeTextValue(detail.value)}
+          @change=${(event: Event) => this.handleSelectEditorChange(detail, event)}
+        >
+          ${options.map((option) => html`<option value=${option.value}>${option.label}</option>`)}
+        </emb-select>
+      `;
+    }
+
+    return html`
+      <emb-switch
+        aria-label=${ariaLabel}
+        ?checked=${Boolean(detail.value)}
+        ?disabled=${disabled}
+        @change=${(event: Event) => this.handleSwitchEditorChange(detail, event)}
+      ></emb-switch>
+    `;
+  }
+
+  private handleTextEditorChange(detail: DataTableCellRenderDetail, event: Event): void {
+    const input = event.currentTarget as TextInputHost;
+    this.commitCellEdit(detail, input.value);
+  }
+
+  private handleSelectEditorChange(detail: DataTableCellRenderDetail, event: Event): void {
+    const select = event.currentTarget as SelectHost;
+    this.commitCellEdit(detail, select.value);
+  }
+
+  private handleSwitchEditorChange(detail: DataTableCellRenderDetail, event: Event): void {
+    const control = event.currentTarget as SwitchHost;
+    this.commitCellEdit(detail, control.checked);
+  }
+
+  private commitCellEdit(detail: DataTableCellRenderDetail, nextValue: unknown): void {
+    const targetIndex = this.rows.indexOf(detail.row);
+    if (targetIndex < 0) {
+      return;
+    }
+
+    const nextRow: DataTableRow = {
+      ...detail.row,
+      [detail.column.key]: nextValue
+    };
+    const nextRows = [...this.rows];
+    nextRows[targetIndex] = nextRow;
+    this.rows = nextRows;
+
+    this.dispatchEvent(
+      new CustomEvent<DataTableCellEditDetail>("cell-edit", {
+        bubbles: true,
+        composed: true,
+        detail: {
+          column: detail.column,
+          columnKey: detail.column.key,
+          row: nextRow,
+          rowId: detail.rowId,
+          rowIndex: detail.rowIndex,
+          value: nextValue
+        }
+      })
+    );
+  }
+
+  private handleRowAction(detail: DataTableCellRenderDetail, action: DataTableRowAction): void {
+    this.dispatchEvent(
+      new CustomEvent<DataTableRowActionDetail>("row-action", {
+        bubbles: true,
+        composed: true,
+        detail: {
+          action,
+          actionKey: action.key,
+          column: detail.column,
+          columnKey: detail.column.key,
+          row: detail.row,
+          rowId: detail.rowId,
+          rowIndex: detail.rowIndex
+        }
+      })
+    );
+  }
+
+  private createCellDetail(column: DataTableColumn, row: DataTableRow, rowId: string, rowIndex: number): DataTableCellRenderDetail {
+    return {
+      column,
+      row,
+      rowId,
+      rowIndex,
+      table: this,
+      value: row[column.key]
+    };
+  }
+
+  private getCellSlotName(detail: DataTableCellRenderDetail): string | null {
+    if (!detail.column.cellSlot) {
+      return null;
+    }
+
+    return `${detail.column.cellSlot}-${detail.rowId}`;
+  }
+
+  private getTooltipText(detail: DataTableCellRenderDetail): string | null {
+    const tooltip = detail.column.tooltip;
+
+    if (!tooltip) {
+      return null;
+    }
+
+    if (tooltip === true) {
+      const text = this.formatCellValue(detail.value);
+      return text === "" ? null : text;
+    }
+
+    if (typeof tooltip === "string") {
+      return tooltip;
+    }
+
+    return tooltip(detail) ?? null;
+  }
+
+  private resolveEditorDisabled(editor: DataTableCellEditor, detail: DataTableCellRenderDetail): boolean {
+    if (typeof editor.disabled === "function") {
+      return editor.disabled(detail);
+    }
+
+    return Boolean(editor.disabled);
+  }
+
+  private resolveActionDisabled(action: DataTableRowAction, detail: DataTableCellRenderDetail): boolean {
+    if (typeof action.disabled === "function") {
+      return action.disabled(detail);
+    }
+
+    return Boolean(action.disabled);
+  }
+
+  private normalizeTextValue(value: unknown): string {
+    if (value === null || value === undefined) {
+      return "";
+    }
+
+    return String(value);
   }
 
   private formatCellValue(value: unknown): string {
@@ -400,9 +775,14 @@ export class EmbDataTable extends LitElement {
       return rows;
     }
 
-    return rows.filter((row) =>
-      this.columns.some((column) => this.formatCellValue(row[column.key]).toLocaleLowerCase().includes(query))
+    return rows.filter((row, rowIndex) =>
+      this.columns.some((column) => this.getSearchValue(column, row, rowIndex).toLocaleLowerCase().includes(query))
     );
+  }
+
+  private getSearchValue(column: DataTableColumn, row: DataTableRow, rowIndex: number): string {
+    const value = column.sortValue ? column.sortValue(row, { column, rowIndex, table: this }) : row[column.key];
+    return this.formatCellValue(value);
   }
 
   private get sortedRows(): DataTableRow[] {
@@ -414,14 +794,27 @@ export class EmbDataTable extends LitElement {
     }
 
     return rows.sort((left, right) => {
-      const leftValue = left[column.key];
-      const rightValue = right[column.key];
-      const leftString = leftValue === null || leftValue === undefined ? "" : String(leftValue);
-      const rightString = rightValue === null || rightValue === undefined ? "" : String(rightValue);
-      const comparison = leftString.localeCompare(rightString, undefined, { numeric: true, sensitivity: "base" });
+      const leftIndex = this.getRowIndex(left, 0);
+      const rightIndex = this.getRowIndex(right, 0);
+      const leftValue = column.sortValue ? column.sortValue(left, { column, rowIndex: leftIndex, table: this }) : left[column.key];
+      const rightValue = column.sortValue ? column.sortValue(right, { column, rowIndex: rightIndex, table: this }) : right[column.key];
+      const comparison = column.sortComparator
+        ? column.sortComparator(leftValue, rightValue, {
+            column,
+            leftRow: left,
+            rightRow: right,
+            table: this
+          })
+        : this.defaultSortComparison(leftValue, rightValue);
 
       return this.sortDirection === "ascending" ? comparison : -comparison;
     });
+  }
+
+  private defaultSortComparison(leftValue: unknown, rightValue: unknown): number {
+    const leftString = leftValue === null || leftValue === undefined ? "" : String(leftValue);
+    const rightString = rightValue === null || rightValue === undefined ? "" : String(rightValue);
+    return leftString.localeCompare(rightString, undefined, { numeric: true, sensitivity: "base" });
   }
 
   private get visibleRows(): DataTableRow[] {
@@ -429,27 +822,61 @@ export class EmbDataTable extends LitElement {
       return this.sortedRows;
     }
 
-    const startIndex = (this.currentPage - 1) * this.normalizedPageSize;
-    return this.sortedRows.slice(startIndex, startIndex + this.normalizedPageSize);
-  }
-
-  private get totalPages(): number {
-    if (!this.paginationEnabled) {
-      return 1;
-    }
-
-    return Math.max(Math.ceil(this.sortedRows.length / this.normalizedPageSize), 1);
-  }
-
-  private get paginationEnabled(): boolean {
-    return this.normalizedPageSize > 0;
+    const start = (this.currentPage - 1) * this.normalizedPageSize;
+    return this.sortedRows.slice(start, start + this.normalizedPageSize);
   }
 
   private get normalizedPageSize(): number {
-    return Math.max(Math.floor(this.pageSize) || 0, 0);
+    return this.pageSize > 0 ? this.pageSize : this.rows.length || 1;
+  }
+
+  private get paginationEnabled(): boolean {
+    return this.pageSize > 0;
+  }
+
+  private get totalPages(): number {
+    return Math.max(1, Math.ceil(this.filteredRows.length / this.normalizedPageSize));
   }
 
   private get clampedCurrentPage(): number {
-    return Math.min(Math.max(Math.floor(this.currentPage) || 1, 1), this.totalPages);
+    return Math.min(Math.max(this.currentPage, 1), this.totalPages);
+  }
+
+  private getRowIndex(row: DataTableRow, fallbackIndex: number): number {
+    const sourceIndex = this.rows.indexOf(row);
+    return sourceIndex >= 0 ? sourceIndex : fallbackIndex;
+  }
+
+  private getRowId(row: DataTableRow, rowIndex: number): string {
+    const candidate = row[this.rowIdKey];
+    if (typeof candidate === "string" || typeof candidate === "number") {
+      return String(candidate);
+    }
+
+    return String(rowIndex);
+  }
+
+  private columnAlign(column: DataTableColumn): DataTableCellAlign {
+    if (column.align) {
+      return column.align;
+    }
+
+    return column.numeric ? "end" : "start";
+  }
+
+  private columnWidthStyle(column: DataTableColumn): string {
+    if (!column.width) {
+      return "";
+    }
+
+    return `width:${column.width};max-width:${column.width};`;
+  }
+
+  private cellContentStyle(column: DataTableColumn): string {
+    if (!column.width) {
+      return "";
+    }
+
+    return `max-width:${column.width};`;
   }
 }

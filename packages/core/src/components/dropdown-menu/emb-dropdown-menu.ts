@@ -69,6 +69,7 @@ export class EmbDropdownMenu extends LitElement {
   }
 
   protected override updated(): void {
+    this.syncMenuA11y();
     this.syncFloatingPosition();
   }
 
@@ -124,6 +125,17 @@ export class EmbDropdownMenu extends LitElement {
     this.floatingMenu = null;
   }
 
+  private syncMenuA11y(): void {
+    const menu = this.menuElement;
+    if (!menu) {
+      return;
+    }
+
+    syncA11yAttribute(this, menu, "aria-label");
+    syncA11yAttribute(this, menu, "aria-labelledby");
+    syncA11yAttribute(this, menu, "aria-describedby");
+  }
+
   private get menuElement(): HTMLElement | null {
     return this.renderRoot.querySelector("emb-menu");
   }
@@ -140,4 +152,14 @@ export class EmbDropdownMenu extends LitElement {
   private get detailsElement(): HTMLDetailsElement | null {
     return this.renderRoot.querySelector("details");
   }
+}
+
+function syncA11yAttribute(source: Element, target: Element, attribute: "aria-describedby" | "aria-label" | "aria-labelledby"): void {
+  const value = source.getAttribute(attribute);
+  if (value === null || value === "") {
+    target.removeAttribute(attribute);
+    return;
+  }
+
+  target.setAttribute(attribute, value);
 }

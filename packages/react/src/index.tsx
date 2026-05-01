@@ -6,11 +6,13 @@ import {
   EmbButton as EmbButtonElement,
   EmbButtonGroup as EmbButtonGroupElement,
   EmbChip as EmbChipElement,
+  EmbTag as EmbTagElement,
   EmbIconButton as EmbIconButtonElement,
   EmbCard as EmbCardElement,
   EmbCalendar as EmbCalendarElement,
   EmbBadge as EmbBadgeElement,
   EmbDivider as EmbDividerElement,
+  EmbProvider as EmbProviderElement,
   EmbSpinner as EmbSpinnerElement,
   EmbAlert as EmbAlertElement,
   EmbActivityFeed as EmbActivityFeedElement,
@@ -24,7 +26,9 @@ import {
   EmbStepper as EmbStepperElement,
   EmbLink as EmbLinkElement,
   EmbFieldset as EmbFieldsetElement,
+  EmbForm as EmbFormElement,
   EmbFormField as EmbFormFieldElement,
+  EmbFormRow as EmbFormRowElement,
   EmbHelperText as EmbHelperTextElement,
   EmbErrorText as EmbErrorTextElement,
   EmbRange as EmbRangeElement,
@@ -70,6 +74,9 @@ import {
   EmbDrawer as EmbDrawerElement,
   EmbInput as EmbInputElement,
   EmbInlineEdit as EmbInlineEditElement,
+  EmbLayout as EmbLayoutElement,
+  EmbLayoutContent as EmbLayoutContentElement,
+  EmbLayoutHeader as EmbLayoutHeaderElement,
   EmbEmailInput as EmbEmailInputElement,
   EmbPasswordInput as EmbPasswordInputElement,
   EmbOption as EmbOptionElement,
@@ -81,10 +88,12 @@ import {
   EmbColorInput as EmbColorInputElement,
   EmbCheckbox as EmbCheckboxElement,
   EmbSelect as EmbSelectElement,
+  EmbStack as EmbStackElement,
   EmbRadio as EmbRadioElement,
   EmbDialog as EmbDialogElement,
   EmbTextarea as EmbTextareaElement,
   EmbSwitch as EmbSwitchElement,
+  EmbTabPanel as EmbTabPanelElement,
   EmbTabs as EmbTabsElement,
   EmbAccordion as EmbAccordionElement,
   EmbTreeItem as EmbTreeItemElement,
@@ -115,6 +124,15 @@ export const EmbChip = createComponent({
   react: React,
   tagName: "emb-chip",
   elementClass: EmbChipElement
+});
+
+export const EmbTag = createComponent({
+  react: React,
+  tagName: "emb-tag",
+  elementClass: EmbTagElement,
+  events: {
+    onRemove: "remove"
+  }
 });
 
 export const EmbIconButton = createComponent({
@@ -149,6 +167,12 @@ export const EmbDivider = createComponent({
   react: React,
   tagName: "emb-divider",
   elementClass: EmbDividerElement
+});
+
+export const EmbProvider = createComponent({
+  react: React,
+  tagName: "emb-provider",
+  elementClass: EmbProviderElement
 });
 
 export const EmbSpinner = createComponent({
@@ -238,10 +262,26 @@ export const EmbFieldset = createComponent({
   elementClass: EmbFieldsetElement
 });
 
+export const EmbForm = createComponent({
+  react: React,
+  tagName: "emb-form",
+  elementClass: EmbFormElement,
+  events: {
+    onReset: "reset",
+    onSubmit: "submit"
+  }
+});
+
 export const EmbFormField = createComponent({
   react: React,
   tagName: "emb-form-field",
   elementClass: EmbFormFieldElement
+});
+
+export const EmbFormRow = createComponent({
+  react: React,
+  tagName: "emb-form-row",
+  elementClass: EmbFormRowElement
 });
 
 export const EmbHelperText = createComponent({
@@ -312,7 +352,9 @@ export const EmbDataTable = createComponent({
   tagName: "emb-data-table",
   elementClass: EmbDataTableElement,
   events: {
+    onCellEdit: "cell-edit",
     onPageChange: "page-change",
+    onRowAction: "row-action",
     onSearchChange: "search-change",
     onSortChange: "sort-change"
   }
@@ -627,6 +669,24 @@ export const EmbInlineEdit = createComponent({
   }
 });
 
+export const EmbLayout = createComponent({
+  react: React,
+  tagName: "emb-layout",
+  elementClass: EmbLayoutElement
+});
+
+export const EmbLayoutContent = createComponent({
+  react: React,
+  tagName: "emb-layout-content",
+  elementClass: EmbLayoutContentElement
+});
+
+export const EmbLayoutHeader = createComponent({
+  react: React,
+  tagName: "emb-layout-header",
+  elementClass: EmbLayoutHeaderElement
+});
+
 export const EmbEmailInput = createComponent({
   react: React,
   tagName: "emb-email-input",
@@ -721,6 +781,12 @@ export const EmbSelect = createComponent({
   }
 });
 
+export const EmbStack = createComponent({
+  react: React,
+  tagName: "emb-stack",
+  elementClass: EmbStackElement
+});
+
 export const EmbRadio = createComponent({
   react: React,
   tagName: "emb-radio",
@@ -759,6 +825,12 @@ export const EmbSwitch = createComponent({
     onInput: "input",
     onChange: "change"
   }
+});
+
+export const EmbTabPanel = createComponent({
+  react: React,
+  tagName: "emb-tab-panel",
+  elementClass: EmbTabPanelElement
 });
 
 export const EmbTabs = createComponent({
