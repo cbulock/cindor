@@ -24,6 +24,9 @@ export class CindorPagination extends LitElement {
     }
 
     button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       min-width: 2.25rem;
       min-height: 2.25rem;
       padding: 0 var(--space-3);
