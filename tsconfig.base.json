@@ -15,10 +15,10 @@
     "types": ["vitest/globals", "node"],
     "baseUrl": ".",
     "paths": {
-      "emberline-ui-core": ["packages/core/src/index.ts"],
-      "emberline-ui-core/register": ["packages/core/src/register.ts"],
-      "emberline-ui-react": ["packages/react/src/index.tsx"],
-      "emberline-ui-vue": ["packages/vue/src/index.ts"]
+      "cindor-ui-core": ["packages/core/src/index.ts"],
+      "cindor-ui-core/register": ["packages/core/src/register.ts"],
+      "cindor-ui-react": ["packages/react/src/index.tsx"],
+      "cindor-ui-vue": ["packages/vue/src/index.ts"]
     }
   }
 }

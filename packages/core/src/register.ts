@@ -1,142 +1,210 @@
-import { EmbAccordion } from "./components/accordion/emb-accordion.js";
-import { EmbAlert } from "./components/alert/emb-alert.js";
-import { EmbAvatar } from "./components/avatar/emb-avatar.js";
-import { EmbBadge } from "./components/badge/emb-badge.js";
-import { EmbBreadcrumbs } from "./components/breadcrumbs/emb-breadcrumbs.js";
-import { EmbButton } from "./components/button/emb-button.js";
-import { EmbButtonGroup } from "./components/button-group/emb-button-group.js";
-import { EmbCalendar } from "./components/calendar/emb-calendar.js";
-import { EmbCard } from "./components/card/emb-card.js";
-import { EmbCheckbox } from "./components/checkbox/emb-checkbox.js";
-import { EmbChip } from "./components/chip/emb-chip.js";
-import { EmbCodeBlock } from "./components/code-block/emb-code-block.js";
-import { EmbColorInput } from "./components/color-input/emb-color-input.js";
-import { EmbCombobox } from "./components/combobox/emb-combobox.js";
-import { EmbCommandPalette } from "./components/command-palette/emb-command-palette.js";
-import { EmbContextMenu } from "./components/context-menu/emb-context-menu.js";
-import { EmbDataTable } from "./components/data-table/emb-data-table.js";
-import { EmbDateInput } from "./components/date-input/emb-date-input.js";
-import { EmbEmailInput } from "./components/email-input/emb-email-input.js";
-import { EmbErrorText } from "./components/error-text/emb-error-text.js";
-import { EmbDivider } from "./components/divider/emb-divider.js";
-import { EmbDialog } from "./components/dialog/emb-dialog.js";
-import { EmbDrawer } from "./components/drawer/emb-drawer.js";
-import { EmbDropdownMenu } from "./components/dropdown-menu/emb-dropdown-menu.js";
-import { EmbDropzone } from "./components/dropzone/emb-dropzone.js";
-import { EmbEmptyState } from "./components/empty-state/emb-empty-state.js";
-import { EmbFieldset } from "./components/fieldset/emb-fieldset.js";
-import { EmbFileInput } from "./components/file-input/emb-file-input.js";
-import { EmbFormField } from "./components/form-field/emb-form-field.js";
-import { EmbHelperText } from "./components/helper-text/emb-helper-text.js";
-import { EmbIcon } from "./components/icon/emb-icon.js";
-import { EmbIconButton } from "./components/icon-button/emb-icon-button.js";
-import { EmbInput } from "./components/input/emb-input.js";
-import { EmbListbox } from "./components/listbox/emb-listbox.js";
-import { EmbLink } from "./components/link/emb-link.js";
-import { EmbMenu } from "./components/menu/emb-menu.js";
-import { EmbMenuItem } from "./components/menu-item/emb-menu-item.js";
-import { EmbMeter } from "./components/meter/emb-meter.js";
-import { EmbNumberInput } from "./components/number-input/emb-number-input.js";
-import { EmbOption } from "./components/option/emb-option.js";
-import { EmbPagination } from "./components/pagination/emb-pagination.js";
-import { EmbPasswordInput } from "./components/password-input/emb-password-input.js";
-import { EmbPopover } from "./components/popover/emb-popover.js";
-import { EmbProgress } from "./components/progress/emb-progress.js";
-import { EmbRange } from "./components/range/emb-range.js";
-import { EmbRatingInput } from "./components/rating-input/emb-rating-input.js";
-import { EmbRadio } from "./components/radio/emb-radio.js";
-import { EmbSearch } from "./components/search/emb-search.js";
-import { EmbSegmentedControl } from "./components/segmented-control/emb-segmented-control.js";
-import { EmbSkeleton } from "./components/skeleton/emb-skeleton.js";
-import { EmbSelect } from "./components/select/emb-select.js";
-import { EmbSpinner } from "./components/spinner/emb-spinner.js";
-import { EmbSplitter } from "./components/splitter/emb-splitter.js";
-import { EmbSplitterPanel } from "./components/splitter-panel/emb-splitter-panel.js";
-import { EmbStepper } from "./components/stepper/emb-stepper.js";
-import { EmbSwitch } from "./components/switch/emb-switch.js";
-import { EmbTabs } from "./components/tabs/emb-tabs.js";
-import { EmbTelInput } from "./components/tel-input/emb-tel-input.js";
-import { EmbTextarea } from "./components/textarea/emb-textarea.js";
-import { EmbTreeItem } from "./components/tree-item/emb-tree-item.js";
-import { EmbTreeView } from "./components/tree-view/emb-tree-view.js";
-import { EmbTimeInput } from "./components/time-input/emb-time-input.js";
-import { EmbToast } from "./components/toast/emb-toast.js";
-import { EmbToastRegion } from "./components/toast/emb-toast-region.js";
-import { EmbTooltip } from "./components/tooltip/emb-tooltip.js";
-import { EmbToolbar } from "./components/toolbar/emb-toolbar.js";
-import { EmbUrlInput } from "./components/url-input/emb-url-input.js";
+import { CindorAccordion } from "./components/accordion/cindor-accordion.js";
+import { CindorAlert } from "./components/alert/cindor-alert.js";
+import { CindorActivityFeed } from "./components/activity-feed/cindor-activity-feed.js";
+import { CindorActivityItem } from "./components/activity-item/cindor-activity-item.js";
+import { CindorAutocomplete } from "./components/autocomplete/cindor-autocomplete.js";
+import { CindorAvatar } from "./components/avatar/cindor-avatar.js";
+import { CindorBadge } from "./components/badge/cindor-badge.js";
+import { CindorBreadcrumbs } from "./components/breadcrumbs/cindor-breadcrumbs.js";
+import { CindorButton } from "./components/button/cindor-button.js";
+import { CindorButtonGroup } from "./components/button-group/cindor-button-group.js";
+import { CindorCalendar } from "./components/calendar/cindor-calendar.js";
+import { CindorCard } from "./components/card/cindor-card.js";
+import { CindorCheckbox } from "./components/checkbox/cindor-checkbox.js";
+import { CindorChip } from "./components/chip/cindor-chip.js";
+import { CindorCodeBlock } from "./components/code-block/cindor-code-block.js";
+import { CindorColorInput } from "./components/color-input/cindor-color-input.js";
+import { CindorCombobox } from "./components/combobox/cindor-combobox.js";
+import { CindorCommandBar } from "./components/command-bar/cindor-command-bar.js";
+import { CindorCommandPalette } from "./components/command-palette/cindor-command-palette.js";
+import { CindorContextMenu } from "./components/context-menu/cindor-context-menu.js";
+import { CindorDataTable } from "./components/data-table/cindor-data-table.js";
+import { CindorDatePicker } from "./components/date-picker/cindor-date-picker.js";
+import { CindorDateRangePicker } from "./components/date-range-picker/cindor-date-range-picker.js";
+import { CindorDateTimePicker } from "./components/date-time-picker/cindor-date-time-picker.js";
+import { CindorDateInput } from "./components/date-input/cindor-date-input.js";
+import { CindorDescriptionItem } from "./components/description-item/cindor-description-item.js";
+import { CindorDescriptionList } from "./components/description-list/cindor-description-list.js";
+import { CindorEmailInput } from "./components/email-input/cindor-email-input.js";
+import { CindorErrorText } from "./components/error-text/cindor-error-text.js";
+import { CindorDivider } from "./components/divider/cindor-divider.js";
+import { CindorDialog } from "./components/dialog/cindor-dialog.js";
+import { CindorDrawer } from "./components/drawer/cindor-drawer.js";
+import { CindorDropdownMenu } from "./components/dropdown-menu/cindor-dropdown-menu.js";
+import { CindorDropzone } from "./components/dropzone/cindor-dropzone.js";
+import { CindorEmptyState } from "./components/empty-state/cindor-empty-state.js";
+import { CindorEmptySearchResults } from "./components/empty-search-results/cindor-empty-search-results.js";
+import { CindorFieldset } from "./components/fieldset/cindor-fieldset.js";
+import { CindorForm } from "./components/form/cindor-form.js";
+import { CindorFileInput } from "./components/file-input/cindor-file-input.js";
+import { CindorFilterBuilder } from "./components/filter-builder/cindor-filter-builder.js";
+import { CindorFormField } from "./components/form-field/cindor-form-field.js";
+import { CindorFormRow } from "./components/form-row/cindor-form-row.js";
+import { CindorHelperText } from "./components/helper-text/cindor-helper-text.js";
+import { CindorIcon } from "./components/icon/cindor-icon.js";
+import { CindorIconButton } from "./components/icon-button/cindor-icon-button.js";
+import { CindorInput } from "./components/input/cindor-input.js";
+import { CindorInlineEdit } from "./components/inline-edit/cindor-inline-edit.js";
+import { CindorLayout } from "./components/layout/cindor-layout.js";
+import { CindorLayoutContent } from "./components/layout-content/cindor-layout-content.js";
+import { CindorLayoutHeader } from "./components/layout-header/cindor-layout-header.js";
+import { CindorListbox } from "./components/listbox/cindor-listbox.js";
+import { CindorLink } from "./components/link/cindor-link.js";
+import { CindorMenu } from "./components/menu/cindor-menu.js";
+import { CindorMenuItem } from "./components/menu-item/cindor-menu-item.js";
+import { CindorMenubar } from "./components/menubar/cindor-menubar.js";
+import { CindorMeter } from "./components/meter/cindor-meter.js";
+import { CindorMultiSelect } from "./components/multi-select/cindor-multi-select.js";
+import { CindorNumberInput } from "./components/number-input/cindor-number-input.js";
+import { CindorNavigationRail } from "./components/navigation-rail/cindor-navigation-rail.js";
+import { CindorNavigationRailItem } from "./components/navigation-rail-item/cindor-navigation-rail-item.js";
+import { CindorOption } from "./components/option/cindor-option.js";
+import { CindorPagination } from "./components/pagination/cindor-pagination.js";
+import { CindorPasswordInput } from "./components/password-input/cindor-password-input.js";
+import { CindorPageHeader } from "./components/page-header/cindor-page-header.js";
+import { CindorPanelInspector } from "./components/panel-inspector/cindor-panel-inspector.js";
+import { CindorPopover } from "./components/popover/cindor-popover.js";
+import { CindorProgress } from "./components/progress/cindor-progress.js";
+import { CindorProvider } from "./components/provider/cindor-provider.js";
+import { CindorRange } from "./components/range/cindor-range.js";
+import { CindorRatingInput } from "./components/rating-input/cindor-rating-input.js";
+import { CindorRadio } from "./components/radio/cindor-radio.js";
+import { CindorSearch } from "./components/search/cindor-search.js";
+import { CindorSegmentedControl } from "./components/segmented-control/cindor-segmented-control.js";
+import { CindorSkeleton } from "./components/skeleton/cindor-skeleton.js";
+import { CindorSelect } from "./components/select/cindor-select.js";
+import { CindorSideNav } from "./components/side-nav/cindor-side-nav.js";
+import { CindorSideNavItem } from "./components/side-nav-item/cindor-side-nav-item.js";
+import { CindorSpinner } from "./components/spinner/cindor-spinner.js";
+import { CindorSplitter } from "./components/splitter/cindor-splitter.js";
+import { CindorSplitterPanel } from "./components/splitter-panel/cindor-splitter-panel.js";
+import { CindorStack } from "./components/stack/cindor-stack.js";
+import { CindorStatCard } from "./components/stat-card/cindor-stat-card.js";
+import { CindorStepper } from "./components/stepper/cindor-stepper.js";
+import { CindorSwitch } from "./components/switch/cindor-switch.js";
+import { CindorTagInput } from "./components/tag-input/cindor-tag-input.js";
+import { CindorTag } from "./components/tag/cindor-tag.js";
+import { CindorTabPanel } from "./components/tab-panel/cindor-tab-panel.js";
+import { CindorTabs } from "./components/tabs/cindor-tabs.js";
+import { CindorTelInput } from "./components/tel-input/cindor-tel-input.js";
+import { CindorTextarea } from "./components/textarea/cindor-textarea.js";
+import { CindorTimeline } from "./components/timeline/cindor-timeline.js";
+import { CindorTimelineItem } from "./components/timeline-item/cindor-timeline-item.js";
+import { CindorTreeItem } from "./components/tree-item/cindor-tree-item.js";
+import { CindorTreeView } from "./components/tree-view/cindor-tree-view.js";
+import { CindorTimeInput } from "./components/time-input/cindor-time-input.js";
+import { CindorToast } from "./components/toast/cindor-toast.js";
+import { CindorToastRegion } from "./components/toast/cindor-toast-region.js";
+import { CindorTransferList } from "./components/transfer-list/cindor-transfer-list.js";
+import { CindorTooltip } from "./components/tooltip/cindor-tooltip.js";
+import { CindorToolbar } from "./components/toolbar/cindor-toolbar.js";
+import { CindorUrlInput } from "./components/url-input/cindor-url-input.js";
 
 const definitions = [
-  ["emb-alert", EmbAlert],
-  ["emb-toast", EmbToast],
-  ["emb-toast-region", EmbToastRegion],
-  ["emb-tooltip", EmbTooltip],
-  ["emb-popover", EmbPopover],
-  ["emb-dropdown-menu", EmbDropdownMenu],
-  ["emb-drawer", EmbDrawer],
-  ["emb-avatar", EmbAvatar],
-  ["emb-progress", EmbProgress],
-  ["emb-meter", EmbMeter],
-  ["emb-breadcrumbs", EmbBreadcrumbs],
-  ["emb-skeleton", EmbSkeleton],
-  ["emb-link", EmbLink],
-  ["emb-rating-input", EmbRatingInput],
-  ["emb-fieldset", EmbFieldset],
-  ["emb-range", EmbRange],
-  ["emb-file-input", EmbFileInput],
-  ["emb-form-field", EmbFormField],
-  ["emb-helper-text", EmbHelperText],
-  ["emb-icon", EmbIcon],
-  ["emb-icon-button", EmbIconButton],
-  ["emb-pagination", EmbPagination],
-  ["emb-empty-state", EmbEmptyState],
-  ["emb-code-block", EmbCodeBlock],
-  ["emb-command-palette", EmbCommandPalette],
-  ["emb-context-menu", EmbContextMenu],
-  ["emb-color-input", EmbColorInput],
-  ["emb-number-input", EmbNumberInput],
-  ["emb-search", EmbSearch],
-  ["emb-combobox", EmbCombobox],
-  ["emb-data-table", EmbDataTable],
-  ["emb-date-input", EmbDateInput],
-  ["emb-email-input", EmbEmailInput],
-  ["emb-error-text", EmbErrorText],
-  ["emb-password-input", EmbPasswordInput],
-  ["emb-tel-input", EmbTelInput],
-  ["emb-time-input", EmbTimeInput],
-  ["emb-url-input", EmbUrlInput],
-  ["emb-card", EmbCard],
-  ["emb-calendar", EmbCalendar],
-  ["emb-badge", EmbBadge],
-  ["emb-divider", EmbDivider],
-  ["emb-spinner", EmbSpinner],
-  ["emb-dropzone", EmbDropzone],
-  ["emb-button", EmbButton],
-  ["emb-button-group", EmbButtonGroup],
-  ["emb-chip", EmbChip],
-  ["emb-input", EmbInput],
-  ["emb-listbox", EmbListbox],
-  ["emb-menu", EmbMenu],
-  ["emb-menu-item", EmbMenuItem],
-  ["emb-option", EmbOption],
-  ["emb-checkbox", EmbCheckbox],
-  ["emb-segmented-control", EmbSegmentedControl],
-  ["emb-select", EmbSelect],
-  ["emb-splitter", EmbSplitter],
-  ["emb-splitter-panel", EmbSplitterPanel],
-  ["emb-radio", EmbRadio],
-  ["emb-dialog", EmbDialog],
-  ["emb-textarea", EmbTextarea],
-  ["emb-switch", EmbSwitch],
-  ["emb-tabs", EmbTabs],
-  ["emb-tree-item", EmbTreeItem],
-  ["emb-tree-view", EmbTreeView],
-  ["emb-stepper", EmbStepper],
-  ["emb-toolbar", EmbToolbar],
-  ["emb-accordion", EmbAccordion]
+  ["cindor-alert", CindorAlert],
+  ["cindor-activity-feed", CindorActivityFeed],
+  ["cindor-activity-item", CindorActivityItem],
+  ["cindor-autocomplete", CindorAutocomplete],
+  ["cindor-toast", CindorToast],
+  ["cindor-toast-region", CindorToastRegion],
+  ["cindor-tooltip", CindorTooltip],
+  ["cindor-popover", CindorPopover],
+  ["cindor-dropdown-menu", CindorDropdownMenu],
+  ["cindor-drawer", CindorDrawer],
+  ["cindor-avatar", CindorAvatar],
+  ["cindor-progress", CindorProgress],
+  ["cindor-meter", CindorMeter],
+  ["cindor-breadcrumbs", CindorBreadcrumbs],
+  ["cindor-skeleton", CindorSkeleton],
+  ["cindor-link", CindorLink],
+  ["cindor-rating-input", CindorRatingInput],
+  ["cindor-fieldset", CindorFieldset],
+  ["cindor-form", CindorForm],
+  ["cindor-range", CindorRange],
+  ["cindor-file-input", CindorFileInput],
+  ["cindor-filter-builder", CindorFilterBuilder],
+  ["cindor-form-field", CindorFormField],
+  ["cindor-form-row", CindorFormRow],
+  ["cindor-helper-text", CindorHelperText],
+  ["cindor-icon", CindorIcon],
+  ["cindor-icon-button", CindorIconButton],
+  ["cindor-pagination", CindorPagination],
+  ["cindor-empty-state", CindorEmptyState],
+  ["cindor-code-block", CindorCodeBlock],
+  ["cindor-command-bar", CindorCommandBar],
+  ["cindor-command-palette", CindorCommandPalette],
+  ["cindor-context-menu", CindorContextMenu],
+  ["cindor-color-input", CindorColorInput],
+  ["cindor-date-picker", CindorDatePicker],
+  ["cindor-date-range-picker", CindorDateRangePicker],
+  ["cindor-date-time-picker", CindorDateTimePicker],
+  ["cindor-number-input", CindorNumberInput],
+  ["cindor-search", CindorSearch],
+  ["cindor-combobox", CindorCombobox],
+  ["cindor-data-table", CindorDataTable],
+  ["cindor-date-input", CindorDateInput],
+  ["cindor-description-item", CindorDescriptionItem],
+  ["cindor-description-list", CindorDescriptionList],
+  ["cindor-email-input", CindorEmailInput],
+  ["cindor-error-text", CindorErrorText],
+  ["cindor-empty-search-results", CindorEmptySearchResults],
+  ["cindor-password-input", CindorPasswordInput],
+  ["cindor-tel-input", CindorTelInput],
+  ["cindor-time-input", CindorTimeInput],
+  ["cindor-url-input", CindorUrlInput],
+  ["cindor-card", CindorCard],
+  ["cindor-calendar", CindorCalendar],
+  ["cindor-badge", CindorBadge],
+  ["cindor-divider", CindorDivider],
+  ["cindor-spinner", CindorSpinner],
+  ["cindor-dropzone", CindorDropzone],
+  ["cindor-button", CindorButton],
+  ["cindor-button-group", CindorButtonGroup],
+  ["cindor-chip", CindorChip],
+  ["cindor-input", CindorInput],
+  ["cindor-inline-edit", CindorInlineEdit],
+  ["cindor-layout", CindorLayout],
+  ["cindor-layout-content", CindorLayoutContent],
+  ["cindor-layout-header", CindorLayoutHeader],
+  ["cindor-listbox", CindorListbox],
+  ["cindor-menu", CindorMenu],
+  ["cindor-menu-item", CindorMenuItem],
+  ["cindor-menubar", CindorMenubar],
+  ["cindor-multi-select", CindorMultiSelect],
+  ["cindor-navigation-rail", CindorNavigationRail],
+  ["cindor-navigation-rail-item", CindorNavigationRailItem],
+  ["cindor-option", CindorOption],
+  ["cindor-checkbox", CindorCheckbox],
+  ["cindor-page-header", CindorPageHeader],
+  ["cindor-panel-inspector", CindorPanelInspector],
+  ["cindor-provider", CindorProvider],
+  ["cindor-segmented-control", CindorSegmentedControl],
+  ["cindor-select", CindorSelect],
+  ["cindor-side-nav", CindorSideNav],
+  ["cindor-side-nav-item", CindorSideNavItem],
+  ["cindor-splitter", CindorSplitter],
+  ["cindor-splitter-panel", CindorSplitterPanel],
+  ["cindor-stack", CindorStack],
+  ["cindor-radio", CindorRadio],
+  ["cindor-dialog", CindorDialog],
+  ["cindor-stat-card", CindorStatCard],
+  ["cindor-textarea", CindorTextarea],
+  ["cindor-switch", CindorSwitch],
+  ["cindor-tag-input", CindorTagInput],
+  ["cindor-tag", CindorTag],
+  ["cindor-tab-panel", CindorTabPanel],
+  ["cindor-tabs", CindorTabs],
+  ["cindor-timeline", CindorTimeline],
+  ["cindor-timeline-item", CindorTimelineItem],
+  ["cindor-transfer-list", CindorTransferList],
+  ["cindor-tree-item", CindorTreeItem],
+  ["cindor-tree-view", CindorTreeView],
+  ["cindor-stepper", CindorStepper],
+  ["cindor-toolbar", CindorToolbar],
+  ["cindor-accordion", CindorAccordion]
 ] as const;
 
-export function registerEmberlineUi(): void {
+export function registerCindorUi(): void {
   for (const [tagName, elementClass] of definitions) {
     if (!customElements.get(tagName)) {
       customElements.define(tagName, elementClass);
@@ -144,4 +212,4 @@ export function registerEmberlineUi(): void {
   }
 }
 
-registerEmberlineUi();
+registerCindorUi();

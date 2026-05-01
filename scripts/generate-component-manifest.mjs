@@ -14,7 +14,7 @@ const cemCommand = process.platform === "win32"
   ? resolve(repoRoot, "node_modules", ".bin", "cem.cmd")
   : resolve(repoRoot, "node_modules", ".bin", "cem");
 
-execSync(`"${cemCommand}" analyze --litelement --globs "packages/core/src/components/**/emb-*.ts" --outdir "packages/core"`, {
+execSync(`"${cemCommand}" analyze --litelement --globs "packages/core/src/components/**/cindor-*.ts" --outdir "packages/core"`, {
   cwd: repoRoot,
   shell: process.platform === "win32",
   stdio: "inherit"

@@ -2,6 +2,7 @@
 import { defineComponent, h, type PropType } from "vue";
 
 import type {
+  AutocompleteSuggestion,
   ButtonGroupOrientation,
   ButtonType,
   ButtonVariant,
@@ -10,17 +11,26 @@ import type {
   DataTableColumn,
   DataTableRow,
   DataTableSortDirection,
+  FilterBuilderField,
   LucideIconName,
+  ProviderColorScheme,
+  ProviderTheme,
   SegmentedControlOption,
   SkeletonVariant,
   SplitterOrientation,
+  StackAlign,
+  StackDirection,
+  StackGap,
+  StackJustify,
+  StatCardTone,
   StepperOrientation,
   StepperStep,
+  TagTone,
   ToastPlacement,
   ToolbarOrientation
-} from "emberline-ui-core";
-export { clearToasts, dismissToast, ensureToastRegion, showToast } from "emberline-ui-core";
-import "emberline-ui-core/register";
+} from "cindor-ui-core";
+export { clearToasts, dismissToast, ensureToastRegion, showToast } from "cindor-ui-core";
+import "cindor-ui-core/register";
 
 type InputHost = HTMLElement & { value: string };
 type CheckboxHost = HTMLElement & { checked: boolean };
@@ -30,8 +40,8 @@ type FileInputHost = HTMLElement & { files: FileList | null };
 type PageHost = HTMLElement & { currentPage: number };
 type SearchQueryHost = HTMLElement & { searchQuery: string };
 
-export const EmbButton = defineComponent({
-  name: "EmbButton",
+export const CindorButton = defineComponent({
+  name: "CindorButton",
   props: {
     disabled: { type: Boolean, default: false },
     iconOnly: { type: Boolean, default: false },
@@ -41,7 +51,7 @@ export const EmbButton = defineComponent({
   setup(props, { attrs, slots }) {
     return () =>
           h(
-            "emb-button",
+            "cindor-button",
             {
               ...attrs,
               disabled: props.disabled || undefined,
@@ -54,8 +64,8 @@ export const EmbButton = defineComponent({
   }
 });
 
-export const EmbButtonGroup = defineComponent({
-  name: "EmbButtonGroup",
+export const CindorButtonGroup = defineComponent({
+  name: "CindorButtonGroup",
   props: {
     attached: { type: Boolean, default: false },
     orientation: { type: String as PropType<ButtonGroupOrientation>, default: "horizontal" }
@@ -63,7 +73,7 @@ export const EmbButtonGroup = defineComponent({
   setup(props, { attrs, slots }) {
     return () =>
           h(
-            "emb-button-group",
+            "cindor-button-group",
             {
               ...attrs,
               attached: props.attached || undefined,
@@ -74,15 +84,15 @@ export const EmbButtonGroup = defineComponent({
   }
 });
 
-export const EmbChip = defineComponent({
-  name: "EmbChip",
+export const CindorChip = defineComponent({
+  name: "CindorChip",
   props: {
     tone: { type: String as PropType<ChipTone>, default: "neutral" }
   },
   setup(props, { attrs, slots }) {
     return () =>
           h(
-            "emb-chip",
+            "cindor-chip",
             {
               ...attrs,
               tone: props.tone,
@@ -92,8 +102,35 @@ export const EmbChip = defineComponent({
   }
 });
 
-export const EmbIconButton = defineComponent({
-  name: "EmbIconButton",
+export const CindorTag = defineComponent({
+  name: "CindorTag",
+  props: {
+    dismissible: { type: Boolean, default: false },
+    removeLabel: { type: String, default: "Remove tag" },
+    tone: { type: String as PropType<TagTone>, default: "accent" }
+  },
+  emits: ["remove"],
+  setup(props, { attrs, emit, slots }) {
+    const handleRemove = (event: Event) => {
+      emit("remove", event);
+    };
+    return () =>
+          h(
+            "cindor-tag",
+            {
+              ...attrs,
+              dismissible: props.dismissible || undefined,
+              "remove-label": props.removeLabel,
+              tone: props.tone,
+              onRemove: handleRemove,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorIconButton = defineComponent({
+  name: "CindorIconButton",
   props: {
     disabled: { type: Boolean, default: false },
     label: { type: String, default: "" },
@@ -104,7 +141,7 @@ export const EmbIconButton = defineComponent({
   },
   setup(props, { attrs }) {
     return () =>
-          h("emb-icon-button", {
+          h("cindor-icon-button", {
               ...attrs,
               disabled: props.disabled || undefined,
               label: props.label || undefined,
@@ -116,12 +153,12 @@ export const EmbIconButton = defineComponent({
   }
 });
 
-export const EmbCard = defineComponent({
-  name: "EmbCard",
+export const CindorCard = defineComponent({
+  name: "CindorCard",
   setup(_, { attrs, slots }) {
     return () =>
           h(
-            "emb-card",
+            "cindor-card",
             {
               ...attrs,
             },
@@ -130,8 +167,8 @@ export const EmbCard = defineComponent({
   }
 });
 
-export const EmbCalendar = defineComponent({
-  name: "EmbCalendar",
+export const CindorCalendar = defineComponent({
+  name: "CindorCalendar",
   props: {
     disabled: { type: Boolean, default: false },
     endValue: { type: String, default: "" },
@@ -158,7 +195,7 @@ export const EmbCalendar = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-calendar", {
+          h("cindor-calendar", {
               ...attrs,
               disabled: props.disabled || undefined,
               "end-value": props.endValue || undefined,
@@ -176,15 +213,15 @@ export const EmbCalendar = defineComponent({
   }
 });
 
-export const EmbBadge = defineComponent({
-  name: "EmbBadge",
+export const CindorBadge = defineComponent({
+  name: "CindorBadge",
   props: {
     tone: { type: String as PropType<"neutral" | "accent" | "success">, default: "neutral" }
   },
   setup(props, { attrs, slots }) {
     return () =>
           h(
-            "emb-badge",
+            "cindor-badge",
             {
               ...attrs,
               tone: props.tone,
@@ -194,35 +231,55 @@ export const EmbBadge = defineComponent({
   }
 });
 
-export const EmbDivider = defineComponent({
-  name: "EmbDivider",
+export const CindorDivider = defineComponent({
+  name: "CindorDivider",
   setup(_, { attrs }) {
     return () =>
-          h("emb-divider", {
+          h("cindor-divider", {
               ...attrs,
           });
   }
 });
 
-export const EmbSpinner = defineComponent({
-  name: "EmbSpinner",
+export const CindorProvider = defineComponent({
+  name: "CindorProvider",
+  props: {
+    colorScheme: { type: String as PropType<ProviderColorScheme>, default: "inherit" },
+    theme: { type: String as PropType<ProviderTheme>, default: "inherit" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-provider",
+            {
+              ...attrs,
+              "color-scheme": props.colorScheme,
+              theme: props.theme,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorSpinner = defineComponent({
+  name: "CindorSpinner",
   setup(_, { attrs }) {
     return () =>
-          h("emb-spinner", {
+          h("cindor-spinner", {
               ...attrs,
           });
   }
 });
 
-export const EmbAlert = defineComponent({
-  name: "EmbAlert",
+export const CindorAlert = defineComponent({
+  name: "CindorAlert",
   props: {
     tone: { type: String as PropType<"info" | "success" | "warning" | "danger">, default: "info" }
   },
   setup(props, { attrs, slots }) {
     return () =>
           h(
-            "emb-alert",
+            "cindor-alert",
             {
               ...attrs,
               tone: props.tone,
@@ -232,8 +289,89 @@ export const EmbAlert = defineComponent({
   }
 });
 
-export const EmbAvatar = defineComponent({
-  name: "EmbAvatar",
+export const CindorActivityFeed = defineComponent({
+  name: "CindorActivityFeed",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-activity-feed",
+            {
+              ...attrs,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorActivityItem = defineComponent({
+  name: "CindorActivityItem",
+  props: {
+    unread: { type: Boolean, default: false }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-activity-item",
+            {
+              ...attrs,
+              unread: props.unread || undefined,
+            },
+            slots
+          );
+  }
+});
+
+export const CindorAutocomplete = defineComponent({
+  name: "CindorAutocomplete",
+  props: {
+    disabled: { type: Boolean, default: false },
+    emptyMessage: { type: String, default: "No matching suggestions." },
+    loading: { type: Boolean, default: false },
+    modelValue: { type: String, default: "" },
+    name: { type: String, default: "" },
+    open: { type: Boolean, default: false },
+    placeholder: { type: String, default: "" },
+    required: { type: Boolean, default: false },
+    suggestions: { type: Array as PropType<AutocompleteSuggestion[]>, default: () => [] }
+  },
+  emits: ["update:modelValue", "input", "change", "suggestion-select"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("change", event);
+    };
+
+    const handleSuggestionSelect = (event: Event) => {
+      emit("suggestion-select", event);
+    };
+    return () =>
+          h("cindor-autocomplete", {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              "empty-message": props.emptyMessage,
+              loading: props.loading || undefined,
+              value: props.modelValue,
+              name: props.name || undefined,
+              open: props.open || undefined,
+              placeholder: props.placeholder || undefined,
+              required: props.required || undefined,
+              suggestions: props.suggestions,
+              onInput: handleInput,
+              onChange: handleChange,
+              onSuggestionSelect: handleSuggestionSelect,
+          });
+  }
+});
+
+export const CindorAvatar = defineComponent({
+  name: "CindorAvatar",
   props: {
     alt: { type: String, default: "" },
     name: { type: String, default: "" },
@@ -241,7 +379,7 @@ export const EmbAvatar = defineComponent({
   },
   setup(props, { attrs }) {
     return () =>
-          h("emb-avatar", {
+          h("cindor-avatar", {
               ...attrs,
               alt: props.alt || undefined,
               name: props.name || undefined,
@@ -250,8 +388,8 @@ export const EmbAvatar = defineComponent({
   }
 });
 
-export const EmbProgress = defineComponent({
-  name: "EmbProgress",
+export const CindorProgress = defineComponent({
+  name: "CindorProgress",
   props: {
     max: { type: Number, default: 100 },
     value: { type: Number, default: 0 }
@@ -259,7 +397,7 @@ export const EmbProgress = defineComponent({
   setup(props, { attrs, slots }) {
     return () =>
           h(
-            "emb-progress",
+            "cindor-progress",
             {
               ...attrs,
               max: props.max,
@@ -270,8 +408,8 @@ export const EmbProgress = defineComponent({
   }
 });
 
-export const EmbMeter = defineComponent({
-  name: "EmbMeter",
+export const CindorMeter = defineComponent({
+  name: "CindorMeter",
   props: {
     high: { type: Number, default: 100 },
     low: { type: Number, default: 0 },
@@ -283,7 +421,7 @@ export const EmbMeter = defineComponent({
   setup(props, { attrs, slots }) {
     return () =>
           h(
-            "emb-meter",
+            "cindor-meter",
             {
               ...attrs,
               high: props.high,
@@ -298,12 +436,12 @@ export const EmbMeter = defineComponent({
   }
 });
 
-export const EmbBreadcrumbs = defineComponent({
-  name: "EmbBreadcrumbs",
+export const CindorBreadcrumbs = defineComponent({
+  name: "CindorBreadcrumbs",
   setup(_, { attrs, slots }) {
     return () =>
           h(
-            "emb-breadcrumbs",
+            "cindor-breadcrumbs",
             {
               ...attrs,
             },
@@ -312,22 +450,22 @@ export const EmbBreadcrumbs = defineComponent({
   }
 });
 
-export const EmbSkeleton = defineComponent({
-  name: "EmbSkeleton",
+export const CindorSkeleton = defineComponent({
+  name: "CindorSkeleton",
   props: {
     variant: { type: String as PropType<SkeletonVariant>, default: "line" }
   },
   setup(props, { attrs }) {
     return () =>
-          h("emb-skeleton", {
+          h("cindor-skeleton", {
               ...attrs,
               variant: props.variant,
           });
   }
 });
 
-export const EmbStepper = defineComponent({
-  name: "EmbStepper",
+export const CindorStepper = defineComponent({
+  name: "CindorStepper",
   props: {
     disabled: { type: Boolean, default: false },
     interactive: { type: Boolean, default: false },
@@ -349,7 +487,7 @@ export const EmbStepper = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-stepper", {
+          h("cindor-stepper", {
               ...attrs,
               disabled: props.disabled || undefined,
               interactive: props.interactive || undefined,
@@ -362,8 +500,8 @@ export const EmbStepper = defineComponent({
   }
 });
 
-export const EmbLink = defineComponent({
-  name: "EmbLink",
+export const CindorLink = defineComponent({
+  name: "CindorLink",
   props: {
     download: { type: String, default: "" },
     href: { type: String, default: "" },
@@ -373,7 +511,7 @@ export const EmbLink = defineComponent({
   setup(props, { attrs, slots }) {
     return () =>
           h(
-            "emb-link",
+            "cindor-link",
             {
               ...attrs,
               download: props.download || undefined,
@@ -386,8 +524,8 @@ export const EmbLink = defineComponent({
   }
 });
 
-export const EmbFieldset = defineComponent({
-  name: "EmbFieldset",
+export const CindorFieldset = defineComponent({
+  name: "CindorFieldset",
   props: {
     disabled: { type: Boolean, default: false },
     legend: { type: String, default: "" }
@@ -395,7 +533,7 @@ export const EmbFieldset = defineComponent({
   setup(props, { attrs, slots }) {
     return () =>
           h(
-            "emb-fieldset",
+            "cindor-fieldset",
             {
               ...attrs,
               disabled: props.disabled || undefined,
@@ -406,8 +544,46 @@ export const EmbFieldset = defineComponent({
   }
 });
 
-export const EmbFormField = defineComponent({
-  name: "EmbFormField",
+export const CindorForm = defineComponent({
+  name: "CindorForm",
+  props: {
+    description: { type: String, default: "" },
+    error: { type: String, default: "" },
+    submitting: { type: Boolean, default: false },
+    submittingLabel: { type: String, default: "Submitting…" },
+    success: { type: String, default: "" },
+    validateOnSubmit: { type: Boolean, default: true }
+  },
+  emits: ["reset", "submit"],
+  setup(props, { attrs, emit, slots }) {
+    const handleReset = (event: Event) => {
+      emit("reset", event);
+    };
+
+    const handleSubmit = (event: Event) => {
+      emit("submit", event);
+    };
+    return () =>
+          h(
+            "cindor-form",
+            {
+              ...attrs,
+              description: props.description || undefined,
+              error: props.error || undefined,
+              submitting: props.submitting || undefined,
+              "submitting-label": props.submittingLabel,
+              success: props.success || undefined,
+              "validate-on-submit": props.validateOnSubmit || undefined,
+              onReset: handleReset,
+              onSubmit: handleSubmit,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorFormField = defineComponent({
+  name: "CindorFormField",
   props: {
     description: { type: String, default: "" },
     error: { type: String, default: "" },
@@ -417,7 +593,7 @@ export const EmbFormField = defineComponent({
   setup(props, { attrs, slots }) {
     return () =>
           h(
-            "emb-form-field",
+            "cindor-form-field",
             {
               ...attrs,
               description: props.description || undefined,
@@ -430,12 +606,30 @@ export const EmbFormField = defineComponent({
   }
 });
 
-export const EmbHelperText = defineComponent({
-  name: "EmbHelperText",
+export const CindorFormRow = defineComponent({
+  name: "CindorFormRow",
+  props: {
+    columns: { type: Number, default: 2 }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-form-row",
+            {
+              ...attrs,
+              columns: props.columns,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorHelperText = defineComponent({
+  name: "CindorHelperText",
   setup(_, { attrs, slots }) {
     return () =>
           h(
-            "emb-helper-text",
+            "cindor-helper-text",
             {
               ...attrs,
             },
@@ -444,12 +638,12 @@ export const EmbHelperText = defineComponent({
   }
 });
 
-export const EmbErrorText = defineComponent({
-  name: "EmbErrorText",
+export const CindorErrorText = defineComponent({
+  name: "CindorErrorText",
   setup(_, { attrs, slots }) {
     return () =>
           h(
-            "emb-error-text",
+            "cindor-error-text",
             {
               ...attrs,
             },
@@ -458,8 +652,8 @@ export const EmbErrorText = defineComponent({
   }
 });
 
-export const EmbRange = defineComponent({
-  name: "EmbRange",
+export const CindorRange = defineComponent({
+  name: "CindorRange",
   props: {
     disabled: { type: Boolean, default: false },
     max: { type: Number, default: 100 },
@@ -483,7 +677,7 @@ export const EmbRange = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-range", {
+          h("cindor-range", {
               ...attrs,
               disabled: props.disabled || undefined,
               max: props.max,
@@ -498,8 +692,8 @@ export const EmbRange = defineComponent({
   }
 });
 
-export const EmbFileInput = defineComponent({
-  name: "EmbFileInput",
+export const CindorFileInput = defineComponent({
+  name: "CindorFileInput",
   props: {
     accept: { type: String, default: "" },
     disabled: { type: Boolean, default: false },
@@ -521,7 +715,7 @@ export const EmbFileInput = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-file-input", {
+          h("cindor-file-input", {
               ...attrs,
               accept: props.accept || undefined,
               disabled: props.disabled || undefined,
@@ -534,8 +728,42 @@ export const EmbFileInput = defineComponent({
   }
 });
 
-export const EmbPagination = defineComponent({
-  name: "EmbPagination",
+export const CindorFilterBuilder = defineComponent({
+  name: "CindorFilterBuilder",
+  props: {
+    disabled: { type: Boolean, default: false },
+    fields: { type: Array as PropType<FilterBuilderField[]>, default: () => [] },
+    name: { type: String, default: "" },
+    modelValue: { type: String, default: "" }
+  },
+  emits: ["update:modelValue", "input", "change"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("change", event);
+    };
+    return () =>
+          h("cindor-filter-builder", {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              fields: props.fields,
+              name: props.name || undefined,
+              value: props.modelValue,
+              onInput: handleInput,
+              onChange: handleChange,
+          });
+  }
+});
+
+export const CindorPagination = defineComponent({
+  name: "CindorPagination",
   props: {
     currentPage: { type: Number, default: 1 },
     maxVisiblePages: { type: Number, default: 5 },
@@ -549,7 +777,7 @@ export const EmbPagination = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-pagination", {
+          h("cindor-pagination", {
               ...attrs,
               currentPage: props.currentPage,
               maxVisiblePages: props.maxVisiblePages,
@@ -559,8 +787,52 @@ export const EmbPagination = defineComponent({
   }
 });
 
-export const EmbDataTable = defineComponent({
-  name: "EmbDataTable",
+export const CindorPageHeader = defineComponent({
+  name: "CindorPageHeader",
+  props: {
+    description: { type: String, default: "" },
+    eyebrow: { type: String, default: "" },
+    title: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-page-header",
+            {
+              ...attrs,
+              description: props.description || undefined,
+              eyebrow: props.eyebrow || undefined,
+              title: props.title || undefined,
+            },
+            slots
+          );
+  }
+});
+
+export const CindorPanelInspector = defineComponent({
+  name: "CindorPanelInspector",
+  props: {
+    description: { type: String, default: "" },
+    sticky: { type: Boolean, default: false },
+    title: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-panel-inspector",
+            {
+              ...attrs,
+              description: props.description || undefined,
+              sticky: props.sticky || undefined,
+              title: props.title || undefined,
+            },
+            slots
+          );
+  }
+});
+
+export const CindorDataTable = defineComponent({
+  name: "CindorDataTable",
   props: {
     caption: { type: String, default: "" },
     columns: { type: Array as PropType<DataTableColumn[]>, default: () => [] },
@@ -576,12 +848,20 @@ export const EmbDataTable = defineComponent({
     sortDirection: { type: String as PropType<DataTableSortDirection>, default: "ascending" },
     sortKey: { type: String, default: "" }
   },
-  emits: ["update:currentPage", "page-change", "update:searchQuery", "search-change"],
+  emits: ["cell-edit", "update:currentPage", "page-change", "row-action", "update:searchQuery", "search-change"],
   setup(props, { attrs, emit }) {
+    const handleCellEdit = (event: Event) => {
+      emit("cell-edit", event);
+    };
+
     const handlePageChange = (event: Event) => {
       const target = event.currentTarget as PageHost;
       emit("update:currentPage", target.currentPage);
       emit("page-change", event);
+    };
+
+    const handleRowAction = (event: Event) => {
+      emit("row-action", event);
     };
 
     const handleSearchChange = (event: Event) => {
@@ -590,7 +870,7 @@ export const EmbDataTable = defineComponent({
       emit("search-change", event);
     };
     return () =>
-          h("emb-data-table", {
+          h("cindor-data-table", {
               ...attrs,
               caption: props.caption || undefined,
               columns: props.columns,
@@ -605,18 +885,20 @@ export const EmbDataTable = defineComponent({
               searchQuery: props.searchQuery || undefined,
               sortDirection: props.sortDirection,
               sortKey: props.sortKey || undefined,
+              onCellEdit: handleCellEdit,
               onPageChange: handlePageChange,
+              onRowAction: handleRowAction,
               onSearchChange: handleSearchChange,
           });
   }
 });
 
-export const EmbEmptyState = defineComponent({
-  name: "EmbEmptyState",
+export const CindorEmptyState = defineComponent({
+  name: "CindorEmptyState",
   setup(_, { attrs, slots }) {
     return () =>
           h(
-            "emb-empty-state",
+            "cindor-empty-state",
             {
               ...attrs,
             },
@@ -625,8 +907,30 @@ export const EmbEmptyState = defineComponent({
   }
 });
 
-export const EmbIcon = defineComponent({
-  name: "EmbIcon",
+export const CindorEmptySearchResults = defineComponent({
+  name: "CindorEmptySearchResults",
+  props: {
+    description: { type: String, default: "" },
+    heading: { type: String, default: "No matching results" },
+    query: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-empty-search-results",
+            {
+              ...attrs,
+              description: props.description || undefined,
+              heading: props.heading,
+              query: props.query || undefined,
+            },
+            slots
+          );
+  }
+});
+
+export const CindorIcon = defineComponent({
+  name: "CindorIcon",
   props: {
     label: { type: String, default: "" },
     name: { type: String, default: "" },
@@ -635,7 +939,7 @@ export const EmbIcon = defineComponent({
   },
   setup(props, { attrs }) {
     return () =>
-          h("emb-icon", {
+          h("cindor-icon", {
               ...attrs,
               label: props.label || undefined,
               name: props.name || undefined,
@@ -645,8 +949,8 @@ export const EmbIcon = defineComponent({
   }
 });
 
-export const EmbCodeBlock = defineComponent({
-  name: "EmbCodeBlock",
+export const CindorCodeBlock = defineComponent({
+  name: "CindorCodeBlock",
   props: {
     code: { type: String, default: "" },
     language: { type: String, default: "" }
@@ -654,7 +958,7 @@ export const EmbCodeBlock = defineComponent({
   setup(props, { attrs, slots }) {
     return () =>
           h(
-            "emb-code-block",
+            "cindor-code-block",
             {
               ...attrs,
               code: props.code || undefined,
@@ -665,8 +969,34 @@ export const EmbCodeBlock = defineComponent({
   }
 });
 
-export const EmbCommandPalette = defineComponent({
-  name: "EmbCommandPalette",
+export const CindorCommandBar = defineComponent({
+  name: "CindorCommandBar",
+  props: {
+    count: { type: Number, default: 0 },
+    countLabel: { type: String, default: "selected" },
+    description: { type: String, default: "" },
+    label: { type: String, default: "" },
+    sticky: { type: Boolean, default: false }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-command-bar",
+            {
+              ...attrs,
+              count: props.count,
+              "count-label": props.countLabel,
+              description: props.description || undefined,
+              label: props.label || undefined,
+              sticky: props.sticky || undefined,
+            },
+            slots
+          );
+  }
+});
+
+export const CindorCommandPalette = defineComponent({
+  name: "CindorCommandPalette",
   props: {
     commands: { type: Array as PropType<CommandPaletteCommand[]>, default: () => [] },
     emptyMessage: { type: String, default: "No matching commands." },
@@ -704,7 +1034,7 @@ export const EmbCommandPalette = defineComponent({
       emit("command-select", event);
     };
     return () =>
-          h("emb-command-palette", {
+          h("cindor-command-palette", {
               ...attrs,
               commands: props.commands,
               "empty-message": props.emptyMessage,
@@ -722,8 +1052,8 @@ export const EmbCommandPalette = defineComponent({
   }
 });
 
-export const EmbContextMenu = defineComponent({
-  name: "EmbContextMenu",
+export const CindorContextMenu = defineComponent({
+  name: "CindorContextMenu",
   props: {
     open: { type: Boolean, default: false }
   },
@@ -736,7 +1066,7 @@ export const EmbContextMenu = defineComponent({
     };
     return () =>
           h(
-            "emb-context-menu",
+            "cindor-context-menu",
             {
               ...attrs,
               open: props.open || undefined,
@@ -747,8 +1077,140 @@ export const EmbContextMenu = defineComponent({
   }
 });
 
-export const EmbListbox = defineComponent({
-  name: "EmbListbox",
+export const CindorDatePicker = defineComponent({
+  name: "CindorDatePicker",
+  props: {
+    disabled: { type: Boolean, default: false },
+    max: { type: String, default: "" },
+    min: { type: String, default: "" },
+    month: { type: String, default: "" },
+    modelValue: { type: String, default: "" },
+    name: { type: String, default: "" },
+    open: { type: Boolean, default: false },
+    placeholder: { type: String, default: "Select a date" },
+    required: { type: Boolean, default: false }
+  },
+  emits: ["update:modelValue", "input", "change", "update:open", "toggle"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("change", event);
+    };
+
+    const handleToggle = (event: Event) => {
+      const target = event.currentTarget as OpenHost;
+      emit("update:open", target.open);
+      emit("toggle", event);
+    };
+    return () =>
+          h("cindor-date-picker", {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              max: props.max || undefined,
+              min: props.min || undefined,
+              month: props.month || undefined,
+              value: props.modelValue,
+              name: props.name || undefined,
+              open: props.open || undefined,
+              placeholder: props.placeholder,
+              required: props.required || undefined,
+              onInput: handleInput,
+              onChange: handleChange,
+              onToggle: handleToggle,
+          });
+  }
+});
+
+export const CindorDateRangePicker = defineComponent({
+  name: "CindorDateRangePicker",
+  props: {
+    endValue: { type: String, default: "" },
+    max: { type: String, default: "" },
+    min: { type: String, default: "" },
+    month: { type: String, default: "" },
+    open: { type: Boolean, default: false },
+    placeholder: { type: String, default: "Select a date range" },
+    startValue: { type: String, default: "" }
+  },
+  emits: ["input", "change", "update:open", "toggle"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      emit("change", event);
+    };
+
+    const handleToggle = (event: Event) => {
+      const target = event.currentTarget as OpenHost;
+      emit("update:open", target.open);
+      emit("toggle", event);
+    };
+    return () =>
+          h("cindor-date-range-picker", {
+              ...attrs,
+              "end-value": props.endValue || undefined,
+              max: props.max || undefined,
+              min: props.min || undefined,
+              month: props.month || undefined,
+              open: props.open || undefined,
+              placeholder: props.placeholder,
+              "start-value": props.startValue || undefined,
+              onInput: handleInput,
+              onChange: handleChange,
+              onToggle: handleToggle,
+          });
+  }
+});
+
+export const CindorDateTimePicker = defineComponent({
+  name: "CindorDateTimePicker",
+  props: {
+    dateValue: { type: String, default: "" },
+    disabled: { type: Boolean, default: false },
+    modelValue: { type: String, default: "" },
+    name: { type: String, default: "" },
+    required: { type: Boolean, default: false },
+    timeValue: { type: String, default: "" }
+  },
+  emits: ["update:modelValue", "input", "change"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("change", event);
+    };
+    return () =>
+          h("cindor-date-time-picker", {
+              ...attrs,
+              "date-value": props.dateValue || undefined,
+              disabled: props.disabled || undefined,
+              value: props.modelValue,
+              name: props.name || undefined,
+              required: props.required || undefined,
+              "time-value": props.timeValue || undefined,
+              onInput: handleInput,
+              onChange: handleChange,
+          });
+  }
+});
+
+export const CindorListbox = defineComponent({
+  name: "CindorListbox",
   props: {
     activeIndex: { type: Number, default: -1 },
     multiselectable: { type: Boolean, default: false },
@@ -757,7 +1219,7 @@ export const EmbListbox = defineComponent({
   setup(props, { attrs, slots }) {
     return () =>
           h(
-            "emb-listbox",
+            "cindor-listbox",
             {
               ...attrs,
               activeIndex: props.activeIndex,
@@ -769,12 +1231,26 @@ export const EmbListbox = defineComponent({
   }
 });
 
-export const EmbMenu = defineComponent({
-  name: "EmbMenu",
+export const CindorDescriptionItem = defineComponent({
+  name: "CindorDescriptionItem",
   setup(_, { attrs, slots }) {
     return () =>
           h(
-            "emb-menu",
+            "cindor-description-item",
+            {
+              ...attrs,
+            },
+            slots
+          );
+  }
+});
+
+export const CindorDescriptionList = defineComponent({
+  name: "CindorDescriptionList",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-description-list",
             {
               ...attrs,
             },
@@ -783,15 +1259,29 @@ export const EmbMenu = defineComponent({
   }
 });
 
-export const EmbMenuItem = defineComponent({
-  name: "EmbMenuItem",
+export const CindorMenu = defineComponent({
+  name: "CindorMenu",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-menu",
+            {
+              ...attrs,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorMenuItem = defineComponent({
+  name: "CindorMenuItem",
   props: {
     disabled: { type: Boolean, default: false }
   },
   setup(props, { attrs, slots }) {
     return () =>
           h(
-            "emb-menu-item",
+            "cindor-menu-item",
             {
               ...attrs,
               disabled: props.disabled || undefined,
@@ -801,8 +1291,86 @@ export const EmbMenuItem = defineComponent({
   }
 });
 
-export const EmbNumberInput = defineComponent({
-  name: "EmbNumberInput",
+export const CindorMultiSelect = defineComponent({
+  name: "CindorMultiSelect",
+  props: {
+    disabled: { type: Boolean, default: false },
+    name: { type: String, default: "" },
+    open: { type: Boolean, default: false },
+    placeholder: { type: String, default: "Select options" },
+    required: { type: Boolean, default: false },
+    modelValue: { type: Array as PropType<string[]>, default: () => [] }
+  },
+  emits: ["update:modelValue", "input", "change"],
+  setup(props, { attrs, emit, slots }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as HTMLElement & { values: string[] };
+      emit("update:modelValue", target.values);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as HTMLElement & { values: string[] };
+      emit("update:modelValue", target.values);
+      emit("change", event);
+    };
+    return () =>
+          h(
+            "cindor-multi-select",
+            {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              name: props.name || undefined,
+              open: props.open || undefined,
+              placeholder: props.placeholder,
+              required: props.required || undefined,
+              values: props.modelValue,
+              onInput: handleInput,
+              onChange: handleChange,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorTagInput = defineComponent({
+  name: "CindorTagInput",
+  props: {
+    disabled: { type: Boolean, default: false },
+    name: { type: String, default: "" },
+    placeholder: { type: String, default: "Add a tag" },
+    required: { type: Boolean, default: false },
+    modelValue: { type: Array as PropType<string[]>, default: () => [] }
+  },
+  emits: ["update:modelValue", "input", "change"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as HTMLElement & { values: string[] };
+      emit("update:modelValue", target.values);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as HTMLElement & { values: string[] };
+      emit("update:modelValue", target.values);
+      emit("change", event);
+    };
+    return () =>
+          h("cindor-tag-input", {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              name: props.name || undefined,
+              placeholder: props.placeholder,
+              required: props.required || undefined,
+              values: props.modelValue,
+              onInput: handleInput,
+              onChange: handleChange,
+          });
+  }
+});
+
+export const CindorNumberInput = defineComponent({
+  name: "CindorNumberInput",
   props: {
     disabled: { type: Boolean, default: false },
     modelValue: { type: String, default: "" },
@@ -830,7 +1398,7 @@ export const EmbNumberInput = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-number-input", {
+          h("cindor-number-input", {
               ...attrs,
               disabled: props.disabled || undefined,
               value: props.modelValue,
@@ -849,8 +1417,8 @@ export const EmbNumberInput = defineComponent({
   }
 });
 
-export const EmbSearch = defineComponent({
-  name: "EmbSearch",
+export const CindorSearch = defineComponent({
+  name: "CindorSearch",
   props: {
     autocomplete: { type: String, default: "" },
     disabled: { type: Boolean, default: false },
@@ -876,7 +1444,7 @@ export const EmbSearch = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-search", {
+          h("cindor-search", {
               ...attrs,
               autocomplete: props.autocomplete || undefined,
               disabled: props.disabled || undefined,
@@ -893,8 +1461,8 @@ export const EmbSearch = defineComponent({
   }
 });
 
-export const EmbSplitter = defineComponent({
-  name: "EmbSplitter",
+export const CindorSplitter = defineComponent({
+  name: "CindorSplitter",
   props: {
     orientation: { type: String as PropType<SplitterOrientation>, default: "horizontal" }
   },
@@ -905,7 +1473,7 @@ export const EmbSplitter = defineComponent({
     };
     return () =>
           h(
-            "emb-splitter",
+            "cindor-splitter",
             {
               ...attrs,
               orientation: props.orientation,
@@ -916,8 +1484,8 @@ export const EmbSplitter = defineComponent({
   }
 });
 
-export const EmbSplitterPanel = defineComponent({
-  name: "EmbSplitterPanel",
+export const CindorSplitterPanel = defineComponent({
+  name: "CindorSplitterPanel",
   props: {
     minSize: { type: Number, default: 10 },
     size: { type: Number, default: 0 }
@@ -925,7 +1493,7 @@ export const EmbSplitterPanel = defineComponent({
   setup(props, { attrs, slots }) {
     return () =>
           h(
-            "emb-splitter-panel",
+            "cindor-splitter-panel",
             {
               ...attrs,
               "min-size": props.minSize,
@@ -936,8 +1504,8 @@ export const EmbSplitterPanel = defineComponent({
   }
 });
 
-export const EmbSegmentedControl = defineComponent({
-  name: "EmbSegmentedControl",
+export const CindorSegmentedControl = defineComponent({
+  name: "CindorSegmentedControl",
   props: {
     disabled: { type: Boolean, default: false },
     modelValue: { type: String, default: "" },
@@ -959,7 +1527,7 @@ export const EmbSegmentedControl = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-segmented-control", {
+          h("cindor-segmented-control", {
               ...attrs,
               disabled: props.disabled || undefined,
               value: props.modelValue,
@@ -972,8 +1540,8 @@ export const EmbSegmentedControl = defineComponent({
   }
 });
 
-export const EmbCombobox = defineComponent({
-  name: "EmbCombobox",
+export const CindorCombobox = defineComponent({
+  name: "CindorCombobox",
   props: {
     autocomplete: { type: String, default: "" },
     disabled: { type: Boolean, default: false },
@@ -998,7 +1566,7 @@ export const EmbCombobox = defineComponent({
     };
     return () =>
           h(
-            "emb-combobox",
+            "cindor-combobox",
             {
               ...attrs,
               autocomplete: props.autocomplete || undefined,
@@ -1016,8 +1584,8 @@ export const EmbCombobox = defineComponent({
   }
 });
 
-export const EmbDateInput = defineComponent({
-  name: "EmbDateInput",
+export const CindorDateInput = defineComponent({
+  name: "CindorDateInput",
   props: {
     disabled: { type: Boolean, default: false },
     max: { type: String, default: "" },
@@ -1043,7 +1611,7 @@ export const EmbDateInput = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-date-input", {
+          h("cindor-date-input", {
               ...attrs,
               disabled: props.disabled || undefined,
               max: props.max || undefined,
@@ -1060,8 +1628,8 @@ export const EmbDateInput = defineComponent({
   }
 });
 
-export const EmbTimeInput = defineComponent({
-  name: "EmbTimeInput",
+export const CindorTimeInput = defineComponent({
+  name: "CindorTimeInput",
   props: {
     disabled: { type: Boolean, default: false },
     max: { type: String, default: "" },
@@ -1088,7 +1656,7 @@ export const EmbTimeInput = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-time-input", {
+          h("cindor-time-input", {
               ...attrs,
               disabled: props.disabled || undefined,
               max: props.max || undefined,
@@ -1106,8 +1674,8 @@ export const EmbTimeInput = defineComponent({
   }
 });
 
-export const EmbRatingInput = defineComponent({
-  name: "EmbRatingInput",
+export const CindorRatingInput = defineComponent({
+  name: "CindorRatingInput",
   props: {
     clearable: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
@@ -1130,7 +1698,7 @@ export const EmbRatingInput = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-rating-input", {
+          h("cindor-rating-input", {
               ...attrs,
               clearable: props.clearable || undefined,
               disabled: props.disabled || undefined,
@@ -1144,8 +1712,8 @@ export const EmbRatingInput = defineComponent({
   }
 });
 
-export const EmbToast = defineComponent({
-  name: "EmbToast",
+export const CindorToast = defineComponent({
+  name: "CindorToast",
   props: {
     dismissible: { type: Boolean, default: false },
     open: { type: Boolean, default: true },
@@ -1159,7 +1727,7 @@ export const EmbToast = defineComponent({
     };
     return () =>
           h(
-            "emb-toast",
+            "cindor-toast",
             {
               ...attrs,
               dismissible: props.dismissible || undefined,
@@ -1172,8 +1740,8 @@ export const EmbToast = defineComponent({
   }
 });
 
-export const EmbToastRegion = defineComponent({
-  name: "EmbToastRegion",
+export const CindorToastRegion = defineComponent({
+  name: "CindorToastRegion",
   props: {
     maxVisible: { type: Number, default: 5 },
     placement: { type: String as PropType<ToastPlacement>, default: "top-end" }
@@ -1189,7 +1757,7 @@ export const EmbToastRegion = defineComponent({
     };
     return () =>
           h(
-            "emb-toast-region",
+            "cindor-toast-region",
             {
               ...attrs,
               maxVisible: props.maxVisible,
@@ -1202,8 +1770,8 @@ export const EmbToastRegion = defineComponent({
   }
 });
 
-export const EmbTooltip = defineComponent({
-  name: "EmbTooltip",
+export const CindorTooltip = defineComponent({
+  name: "CindorTooltip",
   props: {
     open: { type: Boolean, default: false },
     text: { type: String, default: "" }
@@ -1211,7 +1779,7 @@ export const EmbTooltip = defineComponent({
   setup(props, { attrs, slots }) {
     return () =>
           h(
-            "emb-tooltip",
+            "cindor-tooltip",
             {
               ...attrs,
               open: props.open || undefined,
@@ -1222,8 +1790,8 @@ export const EmbTooltip = defineComponent({
   }
 });
 
-export const EmbToolbar = defineComponent({
-  name: "EmbToolbar",
+export const CindorToolbar = defineComponent({
+  name: "CindorToolbar",
   props: {
     orientation: { type: String as PropType<ToolbarOrientation>, default: "horizontal" },
     wrap: { type: Boolean, default: false }
@@ -1231,7 +1799,7 @@ export const EmbToolbar = defineComponent({
   setup(props, { attrs, slots }) {
     return () =>
           h(
-            "emb-toolbar",
+            "cindor-toolbar",
             {
               ...attrs,
               orientation: props.orientation,
@@ -1242,8 +1810,8 @@ export const EmbToolbar = defineComponent({
   }
 });
 
-export const EmbPopover = defineComponent({
-  name: "EmbPopover",
+export const CindorPopover = defineComponent({
+  name: "CindorPopover",
   props: {
     open: { type: Boolean, default: false }
   },
@@ -1256,7 +1824,7 @@ export const EmbPopover = defineComponent({
     };
     return () =>
           h(
-            "emb-popover",
+            "cindor-popover",
             {
               ...attrs,
               open: props.open || undefined,
@@ -1267,8 +1835,8 @@ export const EmbPopover = defineComponent({
   }
 });
 
-export const EmbDropdownMenu = defineComponent({
-  name: "EmbDropdownMenu",
+export const CindorDropdownMenu = defineComponent({
+  name: "CindorDropdownMenu",
   props: {
     open: { type: Boolean, default: false }
   },
@@ -1281,7 +1849,7 @@ export const EmbDropdownMenu = defineComponent({
     };
     return () =>
           h(
-            "emb-dropdown-menu",
+            "cindor-dropdown-menu",
             {
               ...attrs,
               open: props.open || undefined,
@@ -1292,8 +1860,8 @@ export const EmbDropdownMenu = defineComponent({
   }
 });
 
-export const EmbDropzone = defineComponent({
-  name: "EmbDropzone",
+export const CindorDropzone = defineComponent({
+  name: "CindorDropzone",
   props: {
     accept: { type: String, default: "" },
     disabled: { type: Boolean, default: false },
@@ -1315,7 +1883,7 @@ export const EmbDropzone = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-dropzone", {
+          h("cindor-dropzone", {
               ...attrs,
               accept: props.accept || undefined,
               disabled: props.disabled || undefined,
@@ -1328,8 +1896,8 @@ export const EmbDropzone = defineComponent({
   }
 });
 
-export const EmbDrawer = defineComponent({
-  name: "EmbDrawer",
+export const CindorDrawer = defineComponent({
+  name: "CindorDrawer",
   props: {
     open: { type: Boolean, default: false },
     side: { type: String as PropType<"start" | "end">, default: "end" }
@@ -1342,7 +1910,7 @@ export const EmbDrawer = defineComponent({
     };
     return () =>
           h(
-            "emb-drawer",
+            "cindor-drawer",
             {
               ...attrs,
               open: props.open || undefined,
@@ -1354,8 +1922,8 @@ export const EmbDrawer = defineComponent({
   }
 });
 
-export const EmbInput = defineComponent({
-  name: "EmbInput",
+export const CindorInput = defineComponent({
+  name: "CindorInput",
   props: {
     autocomplete: { type: String, default: "" },
     disabled: { type: Boolean, default: false },
@@ -1382,7 +1950,7 @@ export const EmbInput = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-input", {
+          h("cindor-input", {
               ...attrs,
               autocomplete: props.autocomplete || undefined,
               disabled: props.disabled || undefined,
@@ -1400,8 +1968,96 @@ export const EmbInput = defineComponent({
   }
 });
 
-export const EmbEmailInput = defineComponent({
-  name: "EmbEmailInput",
+export const CindorInlineEdit = defineComponent({
+  name: "CindorInlineEdit",
+  props: {
+    disabled: { type: Boolean, default: false },
+    editing: { type: Boolean, default: false },
+    modelValue: { type: String, default: "" },
+    placeholder: { type: String, default: "Click edit" }
+  },
+  emits: ["update:modelValue", "input", "change", "cancel", "update:editing", "toggle"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("change", event);
+    };
+
+    const handleCancel = (event: Event) => {
+      emit("cancel", event);
+    };
+
+    const handleToggle = (event: Event) => {
+      const target = event.currentTarget as HTMLElement & { editing: boolean };
+      emit("update:editing", target.editing);
+      emit("toggle", event);
+    };
+    return () =>
+          h("cindor-inline-edit", {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              editing: props.editing || undefined,
+              value: props.modelValue,
+              placeholder: props.placeholder,
+              onInput: handleInput,
+              onChange: handleChange,
+              onCancel: handleCancel,
+              onToggle: handleToggle,
+          });
+  }
+});
+
+export const CindorLayout = defineComponent({
+  name: "CindorLayout",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-layout",
+            {
+              ...attrs,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorLayoutContent = defineComponent({
+  name: "CindorLayoutContent",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-layout-content",
+            {
+              ...attrs,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorLayoutHeader = defineComponent({
+  name: "CindorLayoutHeader",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-layout-header",
+            {
+              ...attrs,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorEmailInput = defineComponent({
+  name: "CindorEmailInput",
   props: {
     autocomplete: { type: String, default: "email" },
     disabled: { type: Boolean, default: false },
@@ -1427,7 +2083,7 @@ export const EmbEmailInput = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-email-input", {
+          h("cindor-email-input", {
               ...attrs,
               autocomplete: props.autocomplete,
               disabled: props.disabled || undefined,
@@ -1444,8 +2100,8 @@ export const EmbEmailInput = defineComponent({
   }
 });
 
-export const EmbPasswordInput = defineComponent({
-  name: "EmbPasswordInput",
+export const CindorPasswordInput = defineComponent({
+  name: "CindorPasswordInput",
   props: {
     autocomplete: { type: String, default: "current-password" },
     disabled: { type: Boolean, default: false },
@@ -1469,7 +2125,7 @@ export const EmbPasswordInput = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-password-input", {
+          h("cindor-password-input", {
               ...attrs,
               autocomplete: props.autocomplete,
               disabled: props.disabled || undefined,
@@ -1484,8 +2140,8 @@ export const EmbPasswordInput = defineComponent({
   }
 });
 
-export const EmbOption = defineComponent({
-  name: "EmbOption",
+export const CindorOption = defineComponent({
+  name: "CindorOption",
   props: {
     active: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
@@ -1496,7 +2152,7 @@ export const EmbOption = defineComponent({
   setup(props, { attrs, slots }) {
     return () =>
           h(
-            "emb-option",
+            "cindor-option",
             {
               ...attrs,
               active: props.active || undefined,
@@ -1510,8 +2166,66 @@ export const EmbOption = defineComponent({
   }
 });
 
-export const EmbTelInput = defineComponent({
-  name: "EmbTelInput",
+export const CindorMenubar = defineComponent({
+  name: "CindorMenubar",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-menubar",
+            {
+              ...attrs,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorNavigationRail = defineComponent({
+  name: "CindorNavigationRail",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-navigation-rail",
+            {
+              ...attrs,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorNavigationRailItem = defineComponent({
+  name: "CindorNavigationRailItem",
+  props: {
+    current: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    href: { type: String, default: "" },
+    label: { type: String, default: "" },
+    rel: { type: String, default: "" },
+    target: { type: String, default: "" },
+    value: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-navigation-rail-item",
+            {
+              ...attrs,
+              current: props.current || undefined,
+              disabled: props.disabled || undefined,
+              href: props.href || undefined,
+              label: props.label || undefined,
+              rel: props.rel || undefined,
+              target: props.target || undefined,
+              value: props.value || undefined,
+            },
+            slots
+          );
+  }
+});
+
+export const CindorTelInput = defineComponent({
+  name: "CindorTelInput",
   props: {
     autocomplete: { type: String, default: "tel" },
     disabled: { type: Boolean, default: false },
@@ -1537,7 +2251,7 @@ export const EmbTelInput = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-tel-input", {
+          h("cindor-tel-input", {
               ...attrs,
               autocomplete: props.autocomplete,
               disabled: props.disabled || undefined,
@@ -1554,8 +2268,8 @@ export const EmbTelInput = defineComponent({
   }
 });
 
-export const EmbUrlInput = defineComponent({
-  name: "EmbUrlInput",
+export const CindorUrlInput = defineComponent({
+  name: "CindorUrlInput",
   props: {
     autocomplete: { type: String, default: "url" },
     disabled: { type: Boolean, default: false },
@@ -1581,7 +2295,7 @@ export const EmbUrlInput = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-url-input", {
+          h("cindor-url-input", {
               ...attrs,
               autocomplete: props.autocomplete,
               disabled: props.disabled || undefined,
@@ -1598,8 +2312,8 @@ export const EmbUrlInput = defineComponent({
   }
 });
 
-export const EmbColorInput = defineComponent({
-  name: "EmbColorInput",
+export const CindorColorInput = defineComponent({
+  name: "CindorColorInput",
   props: {
     disabled: { type: Boolean, default: false },
     modelValue: { type: String, default: "#4f46e5" },
@@ -1619,7 +2333,7 @@ export const EmbColorInput = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-color-input", {
+          h("cindor-color-input", {
               ...attrs,
               disabled: props.disabled || undefined,
               value: props.modelValue,
@@ -1630,8 +2344,8 @@ export const EmbColorInput = defineComponent({
   }
 });
 
-export const EmbCheckbox = defineComponent({
-  name: "EmbCheckbox",
+export const CindorCheckbox = defineComponent({
+  name: "CindorCheckbox",
   props: {
     modelValue: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
@@ -1654,7 +2368,7 @@ export const EmbCheckbox = defineComponent({
     };
     return () =>
           h(
-            "emb-checkbox",
+            "cindor-checkbox",
             {
               ...attrs,
               checked: props.modelValue || undefined,
@@ -1670,8 +2384,8 @@ export const EmbCheckbox = defineComponent({
   }
 });
 
-export const EmbSelect = defineComponent({
-  name: "EmbSelect",
+export const CindorSelect = defineComponent({
+  name: "CindorSelect",
   props: {
     disabled: { type: Boolean, default: false },
     modelValue: { type: String, default: "" },
@@ -1693,7 +2407,7 @@ export const EmbSelect = defineComponent({
     };
     return () =>
           h(
-            "emb-select",
+            "cindor-select",
             {
               ...attrs,
               disabled: props.disabled || undefined,
@@ -1708,8 +2422,34 @@ export const EmbSelect = defineComponent({
   }
 });
 
-export const EmbRadio = defineComponent({
-  name: "EmbRadio",
+export const CindorStack = defineComponent({
+  name: "CindorStack",
+  props: {
+    align: { type: String as PropType<StackAlign>, default: "stretch" },
+    direction: { type: String as PropType<StackDirection>, default: "vertical" },
+    gap: { type: String as PropType<StackGap>, default: "3" },
+    justify: { type: String as PropType<StackJustify>, default: "start" },
+    wrap: { type: Boolean, default: false }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-stack",
+            {
+              ...attrs,
+              align: props.align,
+              direction: props.direction,
+              gap: props.gap,
+              justify: props.justify,
+              wrap: props.wrap || undefined,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorRadio = defineComponent({
+  name: "CindorRadio",
   props: {
     checked: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
@@ -1732,7 +2472,7 @@ export const EmbRadio = defineComponent({
     };
     return () =>
           h(
-            "emb-radio",
+            "cindor-radio",
             {
               ...attrs,
               checked: props.checked || undefined,
@@ -1748,8 +2488,8 @@ export const EmbRadio = defineComponent({
   }
 });
 
-export const EmbDialog = defineComponent({
-  name: "EmbDialog",
+export const CindorDialog = defineComponent({
+  name: "CindorDialog",
   props: {
     modal: { type: Boolean, default: true },
     open: { type: Boolean, default: false }
@@ -1767,7 +2507,7 @@ export const EmbDialog = defineComponent({
     };
     return () =>
           h(
-            "emb-dialog",
+            "cindor-dialog",
             {
               ...attrs,
               modal: props.modal || undefined,
@@ -1780,8 +2520,8 @@ export const EmbDialog = defineComponent({
   }
 });
 
-export const EmbTextarea = defineComponent({
-  name: "EmbTextarea",
+export const CindorTextarea = defineComponent({
+  name: "CindorTextarea",
   props: {
     disabled: { type: Boolean, default: false },
     modelValue: { type: String, default: "" },
@@ -1805,7 +2545,7 @@ export const EmbTextarea = defineComponent({
       emit("change", event);
     };
     return () =>
-          h("emb-textarea", {
+          h("cindor-textarea", {
               ...attrs,
               disabled: props.disabled || undefined,
               value: props.modelValue,
@@ -1820,8 +2560,8 @@ export const EmbTextarea = defineComponent({
   }
 });
 
-export const EmbSwitch = defineComponent({
-  name: "EmbSwitch",
+export const CindorSwitch = defineComponent({
+  name: "CindorSwitch",
   props: {
     disabled: { type: Boolean, default: false },
     modelValue: { type: Boolean, default: false },
@@ -1844,7 +2584,7 @@ export const EmbSwitch = defineComponent({
     };
     return () =>
           h(
-            "emb-switch",
+            "cindor-switch",
             {
               ...attrs,
               disabled: props.disabled || undefined,
@@ -1860,8 +2600,28 @@ export const EmbSwitch = defineComponent({
   }
 });
 
-export const EmbTabs = defineComponent({
-  name: "EmbTabs",
+export const CindorTabPanel = defineComponent({
+  name: "CindorTabPanel",
+  props: {
+    label: { type: String, default: "" },
+    value: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-tab-panel",
+            {
+              ...attrs,
+              label: props.label || undefined,
+              value: props.value || undefined,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorTabs = defineComponent({
+  name: "CindorTabs",
   props: {
     value: { type: String, default: "" }
   },
@@ -1874,7 +2634,7 @@ export const EmbTabs = defineComponent({
     };
     return () =>
           h(
-            "emb-tabs",
+            "cindor-tabs",
             {
               ...attrs,
               value: props.value || undefined,
@@ -1885,8 +2645,8 @@ export const EmbTabs = defineComponent({
   }
 });
 
-export const EmbAccordion = defineComponent({
-  name: "EmbAccordion",
+export const CindorAccordion = defineComponent({
+  name: "CindorAccordion",
   props: {
     open: { type: Boolean, default: false }
   },
@@ -1899,7 +2659,7 @@ export const EmbAccordion = defineComponent({
     };
     return () =>
           h(
-            "emb-accordion",
+            "cindor-accordion",
             {
               ...attrs,
               open: props.open || undefined,
@@ -1910,8 +2670,8 @@ export const EmbAccordion = defineComponent({
   }
 });
 
-export const EmbTreeItem = defineComponent({
-  name: "EmbTreeItem",
+export const CindorTreeItem = defineComponent({
+  name: "CindorTreeItem",
   props: {
     disabled: { type: Boolean, default: false },
     expanded: { type: Boolean, default: false },
@@ -1922,7 +2682,7 @@ export const EmbTreeItem = defineComponent({
   setup(props, { attrs, slots }) {
     return () =>
           h(
-            "emb-tree-item",
+            "cindor-tree-item",
             {
               ...attrs,
               disabled: props.disabled || undefined,
@@ -1936,8 +2696,8 @@ export const EmbTreeItem = defineComponent({
   }
 });
 
-export const EmbTreeView = defineComponent({
-  name: "EmbTreeView",
+export const CindorTreeView = defineComponent({
+  name: "CindorTreeView",
   props: {
     modelValue: { type: String, default: "" }
   },
@@ -1956,7 +2716,7 @@ export const EmbTreeView = defineComponent({
     };
     return () =>
           h(
-            "emb-tree-view",
+            "cindor-tree-view",
             {
               ...attrs,
               value: props.modelValue,
@@ -1964,6 +2724,148 @@ export const EmbTreeView = defineComponent({
               onChange: handleChange,
             },
             slots.default?.()
+          );
+  }
+});
+
+export const CindorStatCard = defineComponent({
+  name: "CindorStatCard",
+  props: {
+    change: { type: String, default: "" },
+    label: { type: String, default: "" },
+    tone: { type: String as PropType<StatCardTone>, default: "neutral" },
+    value: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-stat-card",
+            {
+              ...attrs,
+              change: props.change || undefined,
+              label: props.label || undefined,
+              tone: props.tone,
+              value: props.value || undefined,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorTimeline = defineComponent({
+  name: "CindorTimeline",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-timeline",
+            {
+              ...attrs,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorTimelineItem = defineComponent({
+  name: "CindorTimelineItem",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-timeline-item",
+            {
+              ...attrs,
+            },
+            slots
+          );
+  }
+});
+
+export const CindorTransferList = defineComponent({
+  name: "CindorTransferList",
+  props: {
+    availableLabel: { type: String, default: "Available" },
+    disabled: { type: Boolean, default: false },
+    name: { type: String, default: "" },
+    required: { type: Boolean, default: false },
+    selectedLabel: { type: String, default: "Selected" },
+    modelValue: { type: Array as PropType<string[]>, default: () => [] },
+    size: { type: Number, default: 8 }
+  },
+  emits: ["update:modelValue", "input", "change"],
+  setup(props, { attrs, emit, slots }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as HTMLElement & { selectedValues: string[] };
+      emit("update:modelValue", target.selectedValues);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as HTMLElement & { selectedValues: string[] };
+      emit("update:modelValue", target.selectedValues);
+      emit("change", event);
+    };
+    return () =>
+          h(
+            "cindor-transfer-list",
+            {
+              ...attrs,
+              "available-label": props.availableLabel,
+              disabled: props.disabled || undefined,
+              name: props.name || undefined,
+              required: props.required || undefined,
+              "selected-label": props.selectedLabel,
+              "selected-values": props.modelValue,
+              size: props.size,
+              onInput: handleInput,
+              onChange: handleChange,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorSideNav = defineComponent({
+  name: "CindorSideNav",
+  setup(_, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-side-nav",
+            {
+              ...attrs,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorSideNavItem = defineComponent({
+  name: "CindorSideNavItem",
+  props: {
+    current: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    expanded: { type: Boolean, default: false },
+    href: { type: String, default: "" },
+    label: { type: String, default: "" },
+    rel: { type: String, default: "" },
+    target: { type: String, default: "" },
+    value: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-side-nav-item",
+            {
+              ...attrs,
+              current: props.current || undefined,
+              disabled: props.disabled || undefined,
+              expanded: props.expanded || undefined,
+              href: props.href || undefined,
+              label: props.label || undefined,
+              rel: props.rel || undefined,
+              target: props.target || undefined,
+              value: props.value || undefined,
+            },
+            slots
           );
   }
 });

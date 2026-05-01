@@ -15,15 +15,15 @@ export default defineConfig({
   resolve: {
     alias: [
       {
-        find: "emberline-ui-core/register",
+        find: "cindor-ui-core/register",
         replacement: resolve(__dirname, "../../packages/core/src/register.ts")
       },
       {
-        find: "emberline-ui-core/styles.css",
+        find: "cindor-ui-core/styles.css",
         replacement: resolve(__dirname, "../../packages/core/src/styles.css")
       },
       {
-        find: "emberline-ui-core",
+        find: "cindor-ui-core",
         replacement: resolve(__dirname, "../../packages/core/src/index.ts")
       }
     ]

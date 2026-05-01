@@ -1,5 +1,5 @@
-import type { ToastTone } from "./emb-toast.js";
-import type { EmbToastRegion } from "./emb-toast-region.js";
+import type { ToastTone } from "./cindor-toast.js";
+import type { CindorToastRegion } from "./cindor-toast-region.js";
 
 export type ToastContent = Node | string;
 export type ToastPlacement = "top-start" | "top-end" | "bottom-start" | "bottom-end";
@@ -12,30 +12,30 @@ export type ShowToastOptions = {
   tone?: ToastTone;
 };
 
-const DEFAULT_REGION_ID = "emberline-toast-region";
+const DEFAULT_REGION_ID = "cindor-toast-region";
 
-export function clearToasts(region: EmbToastRegion = ensureToastRegion()): void {
+export function clearToasts(region: CindorToastRegion = ensureToastRegion()): void {
   region.clear();
 }
 
-export function dismissToast(id: string, region: EmbToastRegion = ensureToastRegion()): boolean {
+export function dismissToast(id: string, region: CindorToastRegion = ensureToastRegion()): boolean {
   return region.dismissToast(id);
 }
 
-export function ensureToastRegion(root: Document = document): EmbToastRegion {
-  let region = root.getElementById(DEFAULT_REGION_ID) as EmbToastRegion | null;
+export function ensureToastRegion(root: Document = document): CindorToastRegion {
+  let region = root.getElementById(DEFAULT_REGION_ID) as CindorToastRegion | null;
 
   if (region) {
     return region;
   }
 
-  region = root.createElement("emb-toast-region") as EmbToastRegion;
+  region = root.createElement("cindor-toast-region") as CindorToastRegion;
   region.id = DEFAULT_REGION_ID;
   root.body.append(region);
 
   return region;
 }
 
-export function showToast(options: ShowToastOptions, region: EmbToastRegion = ensureToastRegion()): string {
+export function showToast(options: ShowToastOptions, region: CindorToastRegion = ensureToastRegion()): string {
   return region.showToast(options);
 }

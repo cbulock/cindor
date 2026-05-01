@@ -3,273 +3,397 @@ import * as React from "react";
 import { createComponent } from "@lit/react";
 
 import {
-  EmbButton as EmbButtonElement,
-  EmbButtonGroup as EmbButtonGroupElement,
-  EmbChip as EmbChipElement,
-  EmbIconButton as EmbIconButtonElement,
-  EmbCard as EmbCardElement,
-  EmbCalendar as EmbCalendarElement,
-  EmbBadge as EmbBadgeElement,
-  EmbDivider as EmbDividerElement,
-  EmbSpinner as EmbSpinnerElement,
-  EmbAlert as EmbAlertElement,
-  EmbAvatar as EmbAvatarElement,
-  EmbProgress as EmbProgressElement,
-  EmbMeter as EmbMeterElement,
-  EmbBreadcrumbs as EmbBreadcrumbsElement,
-  EmbSkeleton as EmbSkeletonElement,
-  EmbStepper as EmbStepperElement,
-  EmbLink as EmbLinkElement,
-  EmbFieldset as EmbFieldsetElement,
-  EmbFormField as EmbFormFieldElement,
-  EmbHelperText as EmbHelperTextElement,
-  EmbErrorText as EmbErrorTextElement,
-  EmbRange as EmbRangeElement,
-  EmbFileInput as EmbFileInputElement,
-  EmbPagination as EmbPaginationElement,
-  EmbDataTable as EmbDataTableElement,
-  EmbEmptyState as EmbEmptyStateElement,
-  EmbIcon as EmbIconElement,
-  EmbCodeBlock as EmbCodeBlockElement,
-  EmbCommandPalette as EmbCommandPaletteElement,
-  EmbContextMenu as EmbContextMenuElement,
-  EmbListbox as EmbListboxElement,
-  EmbMenu as EmbMenuElement,
-  EmbMenuItem as EmbMenuItemElement,
-  EmbNumberInput as EmbNumberInputElement,
-  EmbSearch as EmbSearchElement,
-  EmbSplitter as EmbSplitterElement,
-  EmbSplitterPanel as EmbSplitterPanelElement,
-  EmbSegmentedControl as EmbSegmentedControlElement,
-  EmbCombobox as EmbComboboxElement,
-  EmbDateInput as EmbDateInputElement,
-  EmbTimeInput as EmbTimeInputElement,
-  EmbRatingInput as EmbRatingInputElement,
-  EmbToast as EmbToastElement,
-  EmbToastRegion as EmbToastRegionElement,
-  EmbTooltip as EmbTooltipElement,
-  EmbToolbar as EmbToolbarElement,
-  EmbPopover as EmbPopoverElement,
-  EmbDropdownMenu as EmbDropdownMenuElement,
-  EmbDropzone as EmbDropzoneElement,
-  EmbDrawer as EmbDrawerElement,
-  EmbInput as EmbInputElement,
-  EmbEmailInput as EmbEmailInputElement,
-  EmbPasswordInput as EmbPasswordInputElement,
-  EmbOption as EmbOptionElement,
-  EmbTelInput as EmbTelInputElement,
-  EmbUrlInput as EmbUrlInputElement,
-  EmbColorInput as EmbColorInputElement,
-  EmbCheckbox as EmbCheckboxElement,
-  EmbSelect as EmbSelectElement,
-  EmbRadio as EmbRadioElement,
-  EmbDialog as EmbDialogElement,
-  EmbTextarea as EmbTextareaElement,
-  EmbSwitch as EmbSwitchElement,
-  EmbTabs as EmbTabsElement,
-  EmbAccordion as EmbAccordionElement,
-  EmbTreeItem as EmbTreeItemElement,
-  EmbTreeView as EmbTreeViewElement,
-} from "emberline-ui-core";
-export { clearToasts, dismissToast, ensureToastRegion, showToast } from "emberline-ui-core";
-import "emberline-ui-core/register";
+  CindorButton as CindorButtonElement,
+  CindorButtonGroup as CindorButtonGroupElement,
+  CindorChip as CindorChipElement,
+  CindorTag as CindorTagElement,
+  CindorIconButton as CindorIconButtonElement,
+  CindorCard as CindorCardElement,
+  CindorCalendar as CindorCalendarElement,
+  CindorBadge as CindorBadgeElement,
+  CindorDivider as CindorDividerElement,
+  CindorProvider as CindorProviderElement,
+  CindorSpinner as CindorSpinnerElement,
+  CindorAlert as CindorAlertElement,
+  CindorActivityFeed as CindorActivityFeedElement,
+  CindorActivityItem as CindorActivityItemElement,
+  CindorAutocomplete as CindorAutocompleteElement,
+  CindorAvatar as CindorAvatarElement,
+  CindorProgress as CindorProgressElement,
+  CindorMeter as CindorMeterElement,
+  CindorBreadcrumbs as CindorBreadcrumbsElement,
+  CindorSkeleton as CindorSkeletonElement,
+  CindorStepper as CindorStepperElement,
+  CindorLink as CindorLinkElement,
+  CindorFieldset as CindorFieldsetElement,
+  CindorForm as CindorFormElement,
+  CindorFormField as CindorFormFieldElement,
+  CindorFormRow as CindorFormRowElement,
+  CindorHelperText as CindorHelperTextElement,
+  CindorErrorText as CindorErrorTextElement,
+  CindorRange as CindorRangeElement,
+  CindorFileInput as CindorFileInputElement,
+  CindorFilterBuilder as CindorFilterBuilderElement,
+  CindorPagination as CindorPaginationElement,
+  CindorPageHeader as CindorPageHeaderElement,
+  CindorPanelInspector as CindorPanelInspectorElement,
+  CindorDataTable as CindorDataTableElement,
+  CindorEmptyState as CindorEmptyStateElement,
+  CindorEmptySearchResults as CindorEmptySearchResultsElement,
+  CindorIcon as CindorIconElement,
+  CindorCodeBlock as CindorCodeBlockElement,
+  CindorCommandBar as CindorCommandBarElement,
+  CindorCommandPalette as CindorCommandPaletteElement,
+  CindorContextMenu as CindorContextMenuElement,
+  CindorDatePicker as CindorDatePickerElement,
+  CindorDateRangePicker as CindorDateRangePickerElement,
+  CindorDateTimePicker as CindorDateTimePickerElement,
+  CindorListbox as CindorListboxElement,
+  CindorDescriptionItem as CindorDescriptionItemElement,
+  CindorDescriptionList as CindorDescriptionListElement,
+  CindorMenu as CindorMenuElement,
+  CindorMenuItem as CindorMenuItemElement,
+  CindorMultiSelect as CindorMultiSelectElement,
+  CindorTagInput as CindorTagInputElement,
+  CindorNumberInput as CindorNumberInputElement,
+  CindorSearch as CindorSearchElement,
+  CindorSplitter as CindorSplitterElement,
+  CindorSplitterPanel as CindorSplitterPanelElement,
+  CindorSegmentedControl as CindorSegmentedControlElement,
+  CindorCombobox as CindorComboboxElement,
+  CindorDateInput as CindorDateInputElement,
+  CindorTimeInput as CindorTimeInputElement,
+  CindorRatingInput as CindorRatingInputElement,
+  CindorToast as CindorToastElement,
+  CindorToastRegion as CindorToastRegionElement,
+  CindorTooltip as CindorTooltipElement,
+  CindorToolbar as CindorToolbarElement,
+  CindorPopover as CindorPopoverElement,
+  CindorDropdownMenu as CindorDropdownMenuElement,
+  CindorDropzone as CindorDropzoneElement,
+  CindorDrawer as CindorDrawerElement,
+  CindorInput as CindorInputElement,
+  CindorInlineEdit as CindorInlineEditElement,
+  CindorLayout as CindorLayoutElement,
+  CindorLayoutContent as CindorLayoutContentElement,
+  CindorLayoutHeader as CindorLayoutHeaderElement,
+  CindorEmailInput as CindorEmailInputElement,
+  CindorPasswordInput as CindorPasswordInputElement,
+  CindorOption as CindorOptionElement,
+  CindorMenubar as CindorMenubarElement,
+  CindorNavigationRail as CindorNavigationRailElement,
+  CindorNavigationRailItem as CindorNavigationRailItemElement,
+  CindorTelInput as CindorTelInputElement,
+  CindorUrlInput as CindorUrlInputElement,
+  CindorColorInput as CindorColorInputElement,
+  CindorCheckbox as CindorCheckboxElement,
+  CindorSelect as CindorSelectElement,
+  CindorStack as CindorStackElement,
+  CindorRadio as CindorRadioElement,
+  CindorDialog as CindorDialogElement,
+  CindorTextarea as CindorTextareaElement,
+  CindorSwitch as CindorSwitchElement,
+  CindorTabPanel as CindorTabPanelElement,
+  CindorTabs as CindorTabsElement,
+  CindorAccordion as CindorAccordionElement,
+  CindorTreeItem as CindorTreeItemElement,
+  CindorTreeView as CindorTreeViewElement,
+  CindorStatCard as CindorStatCardElement,
+  CindorTimeline as CindorTimelineElement,
+  CindorTimelineItem as CindorTimelineItemElement,
+  CindorTransferList as CindorTransferListElement,
+  CindorSideNav as CindorSideNavElement,
+  CindorSideNavItem as CindorSideNavItemElement,
+} from "cindor-ui-core";
+export { clearToasts, dismissToast, ensureToastRegion, showToast } from "cindor-ui-core";
+import "cindor-ui-core/register";
 
-export const EmbButton = createComponent({
+export const CindorButton = createComponent({
   react: React,
-  tagName: "emb-button",
-  elementClass: EmbButtonElement
+  tagName: "cindor-button",
+  elementClass: CindorButtonElement
 });
 
-export const EmbButtonGroup = createComponent({
+export const CindorButtonGroup = createComponent({
   react: React,
-  tagName: "emb-button-group",
-  elementClass: EmbButtonGroupElement
+  tagName: "cindor-button-group",
+  elementClass: CindorButtonGroupElement
 });
 
-export const EmbChip = createComponent({
+export const CindorChip = createComponent({
   react: React,
-  tagName: "emb-chip",
-  elementClass: EmbChipElement
+  tagName: "cindor-chip",
+  elementClass: CindorChipElement
 });
 
-export const EmbIconButton = createComponent({
+export const CindorTag = createComponent({
   react: React,
-  tagName: "emb-icon-button",
-  elementClass: EmbIconButtonElement
+  tagName: "cindor-tag",
+  elementClass: CindorTagElement,
+  events: {
+    onRemove: "remove"
+  }
 });
 
-export const EmbCard = createComponent({
+export const CindorIconButton = createComponent({
   react: React,
-  tagName: "emb-card",
-  elementClass: EmbCardElement
+  tagName: "cindor-icon-button",
+  elementClass: CindorIconButtonElement
 });
 
-export const EmbCalendar = createComponent({
+export const CindorCard = createComponent({
   react: React,
-  tagName: "emb-calendar",
-  elementClass: EmbCalendarElement,
+  tagName: "cindor-card",
+  elementClass: CindorCardElement
+});
+
+export const CindorCalendar = createComponent({
+  react: React,
+  tagName: "cindor-calendar",
+  elementClass: CindorCalendarElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbBadge = createComponent({
+export const CindorBadge = createComponent({
   react: React,
-  tagName: "emb-badge",
-  elementClass: EmbBadgeElement
+  tagName: "cindor-badge",
+  elementClass: CindorBadgeElement
 });
 
-export const EmbDivider = createComponent({
+export const CindorDivider = createComponent({
   react: React,
-  tagName: "emb-divider",
-  elementClass: EmbDividerElement
+  tagName: "cindor-divider",
+  elementClass: CindorDividerElement
 });
 
-export const EmbSpinner = createComponent({
+export const CindorProvider = createComponent({
   react: React,
-  tagName: "emb-spinner",
-  elementClass: EmbSpinnerElement
+  tagName: "cindor-provider",
+  elementClass: CindorProviderElement
 });
 
-export const EmbAlert = createComponent({
+export const CindorSpinner = createComponent({
   react: React,
-  tagName: "emb-alert",
-  elementClass: EmbAlertElement
+  tagName: "cindor-spinner",
+  elementClass: CindorSpinnerElement
 });
 
-export const EmbAvatar = createComponent({
+export const CindorAlert = createComponent({
   react: React,
-  tagName: "emb-avatar",
-  elementClass: EmbAvatarElement
+  tagName: "cindor-alert",
+  elementClass: CindorAlertElement
 });
 
-export const EmbProgress = createComponent({
+export const CindorActivityFeed = createComponent({
   react: React,
-  tagName: "emb-progress",
-  elementClass: EmbProgressElement
+  tagName: "cindor-activity-feed",
+  elementClass: CindorActivityFeedElement
 });
 
-export const EmbMeter = createComponent({
+export const CindorActivityItem = createComponent({
   react: React,
-  tagName: "emb-meter",
-  elementClass: EmbMeterElement
+  tagName: "cindor-activity-item",
+  elementClass: CindorActivityItemElement
 });
 
-export const EmbBreadcrumbs = createComponent({
+export const CindorAutocomplete = createComponent({
   react: React,
-  tagName: "emb-breadcrumbs",
-  elementClass: EmbBreadcrumbsElement
+  tagName: "cindor-autocomplete",
+  elementClass: CindorAutocompleteElement,
+  events: {
+    onChange: "change",
+    onInput: "input",
+    onSuggestionSelect: "suggestion-select"
+  }
 });
 
-export const EmbSkeleton = createComponent({
+export const CindorAvatar = createComponent({
   react: React,
-  tagName: "emb-skeleton",
-  elementClass: EmbSkeletonElement
+  tagName: "cindor-avatar",
+  elementClass: CindorAvatarElement
 });
 
-export const EmbStepper = createComponent({
+export const CindorProgress = createComponent({
   react: React,
-  tagName: "emb-stepper",
-  elementClass: EmbStepperElement,
+  tagName: "cindor-progress",
+  elementClass: CindorProgressElement
+});
+
+export const CindorMeter = createComponent({
+  react: React,
+  tagName: "cindor-meter",
+  elementClass: CindorMeterElement
+});
+
+export const CindorBreadcrumbs = createComponent({
+  react: React,
+  tagName: "cindor-breadcrumbs",
+  elementClass: CindorBreadcrumbsElement
+});
+
+export const CindorSkeleton = createComponent({
+  react: React,
+  tagName: "cindor-skeleton",
+  elementClass: CindorSkeletonElement
+});
+
+export const CindorStepper = createComponent({
+  react: React,
+  tagName: "cindor-stepper",
+  elementClass: CindorStepperElement,
   events: {
     onChange: "change",
     onInput: "input"
   }
 });
 
-export const EmbLink = createComponent({
+export const CindorLink = createComponent({
   react: React,
-  tagName: "emb-link",
-  elementClass: EmbLinkElement
+  tagName: "cindor-link",
+  elementClass: CindorLinkElement
 });
 
-export const EmbFieldset = createComponent({
+export const CindorFieldset = createComponent({
   react: React,
-  tagName: "emb-fieldset",
-  elementClass: EmbFieldsetElement
+  tagName: "cindor-fieldset",
+  elementClass: CindorFieldsetElement
 });
 
-export const EmbFormField = createComponent({
+export const CindorForm = createComponent({
   react: React,
-  tagName: "emb-form-field",
-  elementClass: EmbFormFieldElement
+  tagName: "cindor-form",
+  elementClass: CindorFormElement,
+  events: {
+    onReset: "reset",
+    onSubmit: "submit"
+  }
 });
 
-export const EmbHelperText = createComponent({
+export const CindorFormField = createComponent({
   react: React,
-  tagName: "emb-helper-text",
-  elementClass: EmbHelperTextElement
+  tagName: "cindor-form-field",
+  elementClass: CindorFormFieldElement
 });
 
-export const EmbErrorText = createComponent({
+export const CindorFormRow = createComponent({
   react: React,
-  tagName: "emb-error-text",
-  elementClass: EmbErrorTextElement
+  tagName: "cindor-form-row",
+  elementClass: CindorFormRowElement
 });
 
-export const EmbRange = createComponent({
+export const CindorHelperText = createComponent({
   react: React,
-  tagName: "emb-range",
-  elementClass: EmbRangeElement,
+  tagName: "cindor-helper-text",
+  elementClass: CindorHelperTextElement
+});
+
+export const CindorErrorText = createComponent({
+  react: React,
+  tagName: "cindor-error-text",
+  elementClass: CindorErrorTextElement
+});
+
+export const CindorRange = createComponent({
+  react: React,
+  tagName: "cindor-range",
+  elementClass: CindorRangeElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbFileInput = createComponent({
+export const CindorFileInput = createComponent({
   react: React,
-  tagName: "emb-file-input",
-  elementClass: EmbFileInputElement,
+  tagName: "cindor-file-input",
+  elementClass: CindorFileInputElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbPagination = createComponent({
+export const CindorFilterBuilder = createComponent({
   react: React,
-  tagName: "emb-pagination",
-  elementClass: EmbPaginationElement,
+  tagName: "cindor-filter-builder",
+  elementClass: CindorFilterBuilderElement,
+  events: {
+    onChange: "change",
+    onInput: "input"
+  }
+});
+
+export const CindorPagination = createComponent({
+  react: React,
+  tagName: "cindor-pagination",
+  elementClass: CindorPaginationElement,
   events: {
     onChange: "change"
   }
 });
 
-export const EmbDataTable = createComponent({
+export const CindorPageHeader = createComponent({
   react: React,
-  tagName: "emb-data-table",
-  elementClass: EmbDataTableElement,
+  tagName: "cindor-page-header",
+  elementClass: CindorPageHeaderElement
+});
+
+export const CindorPanelInspector = createComponent({
+  react: React,
+  tagName: "cindor-panel-inspector",
+  elementClass: CindorPanelInspectorElement
+});
+
+export const CindorDataTable = createComponent({
+  react: React,
+  tagName: "cindor-data-table",
+  elementClass: CindorDataTableElement,
   events: {
+    onCellEdit: "cell-edit",
     onPageChange: "page-change",
+    onRowAction: "row-action",
     onSearchChange: "search-change",
     onSortChange: "sort-change"
   }
 });
 
-export const EmbEmptyState = createComponent({
+export const CindorEmptyState = createComponent({
   react: React,
-  tagName: "emb-empty-state",
-  elementClass: EmbEmptyStateElement
+  tagName: "cindor-empty-state",
+  elementClass: CindorEmptyStateElement
 });
 
-export const EmbIcon = createComponent({
+export const CindorEmptySearchResults = createComponent({
   react: React,
-  tagName: "emb-icon",
-  elementClass: EmbIconElement
+  tagName: "cindor-empty-search-results",
+  elementClass: CindorEmptySearchResultsElement
 });
 
-export const EmbCodeBlock = createComponent({
+export const CindorIcon = createComponent({
   react: React,
-  tagName: "emb-code-block",
-  elementClass: EmbCodeBlockElement
+  tagName: "cindor-icon",
+  elementClass: CindorIconElement
 });
 
-export const EmbCommandPalette = createComponent({
+export const CindorCodeBlock = createComponent({
   react: React,
-  tagName: "emb-command-palette",
-  elementClass: EmbCommandPaletteElement,
+  tagName: "cindor-code-block",
+  elementClass: CindorCodeBlockElement
+});
+
+export const CindorCommandBar = createComponent({
+  react: React,
+  tagName: "cindor-command-bar",
+  elementClass: CindorCommandBarElement
+});
+
+export const CindorCommandPalette = createComponent({
+  react: React,
+  tagName: "cindor-command-palette",
+  elementClass: CindorCommandPaletteElement,
   events: {
     onCancel: "cancel",
     onChange: "change",
@@ -279,342 +403,506 @@ export const EmbCommandPalette = createComponent({
   }
 });
 
-export const EmbContextMenu = createComponent({
+export const CindorContextMenu = createComponent({
   react: React,
-  tagName: "emb-context-menu",
-  elementClass: EmbContextMenuElement,
+  tagName: "cindor-context-menu",
+  elementClass: CindorContextMenuElement,
   events: {
     onToggle: "toggle"
   }
 });
 
-export const EmbListbox = createComponent({
+export const CindorDatePicker = createComponent({
   react: React,
-  tagName: "emb-listbox",
-  elementClass: EmbListboxElement
-});
-
-export const EmbMenu = createComponent({
-  react: React,
-  tagName: "emb-menu",
-  elementClass: EmbMenuElement
-});
-
-export const EmbMenuItem = createComponent({
-  react: React,
-  tagName: "emb-menu-item",
-  elementClass: EmbMenuItemElement
-});
-
-export const EmbNumberInput = createComponent({
-  react: React,
-  tagName: "emb-number-input",
-  elementClass: EmbNumberInputElement,
+  tagName: "cindor-date-picker",
+  elementClass: CindorDatePickerElement,
   events: {
+    onChange: "change",
     onInput: "input",
-    onChange: "change"
+    onToggle: "toggle"
   }
 });
 
-export const EmbSearch = createComponent({
+export const CindorDateRangePicker = createComponent({
   react: React,
-  tagName: "emb-search",
-  elementClass: EmbSearchElement,
+  tagName: "cindor-date-range-picker",
+  elementClass: CindorDateRangePickerElement,
+  events: {
+    onChange: "change",
+    onInput: "input",
+    onToggle: "toggle"
+  }
+});
+
+export const CindorDateTimePicker = createComponent({
+  react: React,
+  tagName: "cindor-date-time-picker",
+  elementClass: CindorDateTimePickerElement,
   events: {
     onChange: "change",
     onInput: "input"
   }
 });
 
-export const EmbSplitter = createComponent({
+export const CindorListbox = createComponent({
   react: React,
-  tagName: "emb-splitter",
-  elementClass: EmbSplitterElement,
+  tagName: "cindor-listbox",
+  elementClass: CindorListboxElement
+});
+
+export const CindorDescriptionItem = createComponent({
+  react: React,
+  tagName: "cindor-description-item",
+  elementClass: CindorDescriptionItemElement
+});
+
+export const CindorDescriptionList = createComponent({
+  react: React,
+  tagName: "cindor-description-list",
+  elementClass: CindorDescriptionListElement
+});
+
+export const CindorMenu = createComponent({
+  react: React,
+  tagName: "cindor-menu",
+  elementClass: CindorMenuElement
+});
+
+export const CindorMenuItem = createComponent({
+  react: React,
+  tagName: "cindor-menu-item",
+  elementClass: CindorMenuItemElement
+});
+
+export const CindorMultiSelect = createComponent({
+  react: React,
+  tagName: "cindor-multi-select",
+  elementClass: CindorMultiSelectElement,
+  events: {
+    onChange: "change",
+    onInput: "input"
+  }
+});
+
+export const CindorTagInput = createComponent({
+  react: React,
+  tagName: "cindor-tag-input",
+  elementClass: CindorTagInputElement,
+  events: {
+    onChange: "change",
+    onInput: "input"
+  }
+});
+
+export const CindorNumberInput = createComponent({
+  react: React,
+  tagName: "cindor-number-input",
+  elementClass: CindorNumberInputElement,
+  events: {
+    onInput: "input",
+    onChange: "change"
+  }
+});
+
+export const CindorSearch = createComponent({
+  react: React,
+  tagName: "cindor-search",
+  elementClass: CindorSearchElement,
+  events: {
+    onChange: "change",
+    onInput: "input"
+  }
+});
+
+export const CindorSplitter = createComponent({
+  react: React,
+  tagName: "cindor-splitter",
+  elementClass: CindorSplitterElement,
   events: {
     onPanelResize: "panel-resize"
   }
 });
 
-export const EmbSplitterPanel = createComponent({
+export const CindorSplitterPanel = createComponent({
   react: React,
-  tagName: "emb-splitter-panel",
-  elementClass: EmbSplitterPanelElement
+  tagName: "cindor-splitter-panel",
+  elementClass: CindorSplitterPanelElement
 });
 
-export const EmbSegmentedControl = createComponent({
+export const CindorSegmentedControl = createComponent({
   react: React,
-  tagName: "emb-segmented-control",
-  elementClass: EmbSegmentedControlElement,
+  tagName: "cindor-segmented-control",
+  elementClass: CindorSegmentedControlElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbCombobox = createComponent({
+export const CindorCombobox = createComponent({
   react: React,
-  tagName: "emb-combobox",
-  elementClass: EmbComboboxElement,
+  tagName: "cindor-combobox",
+  elementClass: CindorComboboxElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbDateInput = createComponent({
+export const CindorDateInput = createComponent({
   react: React,
-  tagName: "emb-date-input",
-  elementClass: EmbDateInputElement,
+  tagName: "cindor-date-input",
+  elementClass: CindorDateInputElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbTimeInput = createComponent({
+export const CindorTimeInput = createComponent({
   react: React,
-  tagName: "emb-time-input",
-  elementClass: EmbTimeInputElement,
+  tagName: "cindor-time-input",
+  elementClass: CindorTimeInputElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbRatingInput = createComponent({
+export const CindorRatingInput = createComponent({
   react: React,
-  tagName: "emb-rating-input",
-  elementClass: EmbRatingInputElement,
+  tagName: "cindor-rating-input",
+  elementClass: CindorRatingInputElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbToast = createComponent({
+export const CindorToast = createComponent({
   react: React,
-  tagName: "emb-toast",
-  elementClass: EmbToastElement,
+  tagName: "cindor-toast",
+  elementClass: CindorToastElement,
   events: {
     onClose: "close"
   }
 });
 
-export const EmbToastRegion = createComponent({
+export const CindorToastRegion = createComponent({
   react: React,
-  tagName: "emb-toast-region",
-  elementClass: EmbToastRegionElement,
+  tagName: "cindor-toast-region",
+  elementClass: CindorToastRegionElement,
   events: {
     onToastShow: "toast-show",
     onToastRemove: "toast-remove"
   }
 });
 
-export const EmbTooltip = createComponent({
+export const CindorTooltip = createComponent({
   react: React,
-  tagName: "emb-tooltip",
-  elementClass: EmbTooltipElement
+  tagName: "cindor-tooltip",
+  elementClass: CindorTooltipElement
 });
 
-export const EmbToolbar = createComponent({
+export const CindorToolbar = createComponent({
   react: React,
-  tagName: "emb-toolbar",
-  elementClass: EmbToolbarElement
+  tagName: "cindor-toolbar",
+  elementClass: CindorToolbarElement
 });
 
-export const EmbPopover = createComponent({
+export const CindorPopover = createComponent({
   react: React,
-  tagName: "emb-popover",
-  elementClass: EmbPopoverElement,
+  tagName: "cindor-popover",
+  elementClass: CindorPopoverElement,
   events: {
     onToggle: "toggle"
   }
 });
 
-export const EmbDropdownMenu = createComponent({
+export const CindorDropdownMenu = createComponent({
   react: React,
-  tagName: "emb-dropdown-menu",
-  elementClass: EmbDropdownMenuElement,
+  tagName: "cindor-dropdown-menu",
+  elementClass: CindorDropdownMenuElement,
   events: {
     onToggle: "toggle"
   }
 });
 
-export const EmbDropzone = createComponent({
+export const CindorDropzone = createComponent({
   react: React,
-  tagName: "emb-dropzone",
-  elementClass: EmbDropzoneElement,
+  tagName: "cindor-dropzone",
+  elementClass: CindorDropzoneElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbDrawer = createComponent({
+export const CindorDrawer = createComponent({
   react: React,
-  tagName: "emb-drawer",
-  elementClass: EmbDrawerElement,
+  tagName: "cindor-drawer",
+  elementClass: CindorDrawerElement,
   events: {
     onClose: "close"
   }
 });
 
-export const EmbInput = createComponent({
+export const CindorInput = createComponent({
   react: React,
-  tagName: "emb-input",
-  elementClass: EmbInputElement,
+  tagName: "cindor-input",
+  elementClass: CindorInputElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbEmailInput = createComponent({
+export const CindorInlineEdit = createComponent({
   react: React,
-  tagName: "emb-email-input",
-  elementClass: EmbEmailInputElement,
+  tagName: "cindor-inline-edit",
+  elementClass: CindorInlineEditElement,
+  events: {
+    onCancel: "cancel",
+    onChange: "change",
+    onInput: "input",
+    onToggle: "toggle"
+  }
+});
+
+export const CindorLayout = createComponent({
+  react: React,
+  tagName: "cindor-layout",
+  elementClass: CindorLayoutElement
+});
+
+export const CindorLayoutContent = createComponent({
+  react: React,
+  tagName: "cindor-layout-content",
+  elementClass: CindorLayoutContentElement
+});
+
+export const CindorLayoutHeader = createComponent({
+  react: React,
+  tagName: "cindor-layout-header",
+  elementClass: CindorLayoutHeaderElement
+});
+
+export const CindorEmailInput = createComponent({
+  react: React,
+  tagName: "cindor-email-input",
+  elementClass: CindorEmailInputElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbPasswordInput = createComponent({
+export const CindorPasswordInput = createComponent({
   react: React,
-  tagName: "emb-password-input",
-  elementClass: EmbPasswordInputElement,
+  tagName: "cindor-password-input",
+  elementClass: CindorPasswordInputElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbOption = createComponent({
+export const CindorOption = createComponent({
   react: React,
-  tagName: "emb-option",
-  elementClass: EmbOptionElement
+  tagName: "cindor-option",
+  elementClass: CindorOptionElement
 });
 
-export const EmbTelInput = createComponent({
+export const CindorMenubar = createComponent({
   react: React,
-  tagName: "emb-tel-input",
-  elementClass: EmbTelInputElement,
+  tagName: "cindor-menubar",
+  elementClass: CindorMenubarElement
+});
+
+export const CindorNavigationRail = createComponent({
+  react: React,
+  tagName: "cindor-navigation-rail",
+  elementClass: CindorNavigationRailElement
+});
+
+export const CindorNavigationRailItem = createComponent({
+  react: React,
+  tagName: "cindor-navigation-rail-item",
+  elementClass: CindorNavigationRailItemElement
+});
+
+export const CindorTelInput = createComponent({
+  react: React,
+  tagName: "cindor-tel-input",
+  elementClass: CindorTelInputElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbUrlInput = createComponent({
+export const CindorUrlInput = createComponent({
   react: React,
-  tagName: "emb-url-input",
-  elementClass: EmbUrlInputElement,
+  tagName: "cindor-url-input",
+  elementClass: CindorUrlInputElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbColorInput = createComponent({
+export const CindorColorInput = createComponent({
   react: React,
-  tagName: "emb-color-input",
-  elementClass: EmbColorInputElement,
+  tagName: "cindor-color-input",
+  elementClass: CindorColorInputElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbCheckbox = createComponent({
+export const CindorCheckbox = createComponent({
   react: React,
-  tagName: "emb-checkbox",
-  elementClass: EmbCheckboxElement,
+  tagName: "cindor-checkbox",
+  elementClass: CindorCheckboxElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbSelect = createComponent({
+export const CindorSelect = createComponent({
   react: React,
-  tagName: "emb-select",
-  elementClass: EmbSelectElement,
+  tagName: "cindor-select",
+  elementClass: CindorSelectElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbRadio = createComponent({
+export const CindorStack = createComponent({
   react: React,
-  tagName: "emb-radio",
-  elementClass: EmbRadioElement,
+  tagName: "cindor-stack",
+  elementClass: CindorStackElement
+});
+
+export const CindorRadio = createComponent({
+  react: React,
+  tagName: "cindor-radio",
+  elementClass: CindorRadioElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbDialog = createComponent({
+export const CindorDialog = createComponent({
   react: React,
-  tagName: "emb-dialog",
-  elementClass: EmbDialogElement,
+  tagName: "cindor-dialog",
+  elementClass: CindorDialogElement,
   events: {
     onClose: "close",
     onCancel: "cancel"
   }
 });
 
-export const EmbTextarea = createComponent({
+export const CindorTextarea = createComponent({
   react: React,
-  tagName: "emb-textarea",
-  elementClass: EmbTextareaElement,
+  tagName: "cindor-textarea",
+  elementClass: CindorTextareaElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbSwitch = createComponent({
+export const CindorSwitch = createComponent({
   react: React,
-  tagName: "emb-switch",
-  elementClass: EmbSwitchElement,
+  tagName: "cindor-switch",
+  elementClass: CindorSwitchElement,
   events: {
     onInput: "input",
     onChange: "change"
   }
 });
 
-export const EmbTabs = createComponent({
+export const CindorTabPanel = createComponent({
   react: React,
-  tagName: "emb-tabs",
-  elementClass: EmbTabsElement,
+  tagName: "cindor-tab-panel",
+  elementClass: CindorTabPanelElement
+});
+
+export const CindorTabs = createComponent({
+  react: React,
+  tagName: "cindor-tabs",
+  elementClass: CindorTabsElement,
   events: {
     onChange: "change"
   }
 });
 
-export const EmbAccordion = createComponent({
+export const CindorAccordion = createComponent({
   react: React,
-  tagName: "emb-accordion",
-  elementClass: EmbAccordionElement,
+  tagName: "cindor-accordion",
+  elementClass: CindorAccordionElement,
   events: {
     onToggle: "toggle"
   }
 });
 
-export const EmbTreeItem = createComponent({
+export const CindorTreeItem = createComponent({
   react: React,
-  tagName: "emb-tree-item",
-  elementClass: EmbTreeItemElement
+  tagName: "cindor-tree-item",
+  elementClass: CindorTreeItemElement
 });
 
-export const EmbTreeView = createComponent({
+export const CindorTreeView = createComponent({
   react: React,
-  tagName: "emb-tree-view",
-  elementClass: EmbTreeViewElement,
+  tagName: "cindor-tree-view",
+  elementClass: CindorTreeViewElement,
   events: {
     onChange: "change",
     onInput: "input"
   }
+});
+
+export const CindorStatCard = createComponent({
+  react: React,
+  tagName: "cindor-stat-card",
+  elementClass: CindorStatCardElement
+});
+
+export const CindorTimeline = createComponent({
+  react: React,
+  tagName: "cindor-timeline",
+  elementClass: CindorTimelineElement
+});
+
+export const CindorTimelineItem = createComponent({
+  react: React,
+  tagName: "cindor-timeline-item",
+  elementClass: CindorTimelineItemElement
+});
+
+export const CindorTransferList = createComponent({
+  react: React,
+  tagName: "cindor-transfer-list",
+  elementClass: CindorTransferListElement,
+  events: {
+    onChange: "change",
+    onInput: "input"
+  }
+});
+
+export const CindorSideNav = createComponent({
+  react: React,
+  tagName: "cindor-side-nav",
+  elementClass: CindorSideNavElement
+});
+
+export const CindorSideNavItem = createComponent({
+  react: React,
+  tagName: "cindor-side-nav-item",
+  elementClass: CindorSideNavItemElement
 });

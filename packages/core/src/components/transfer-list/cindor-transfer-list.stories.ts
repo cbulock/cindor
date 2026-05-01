@@ -1,0 +1,32 @@
+type TransferListStoryArgs = {
+  disabled: boolean;
+  required: boolean;
+};
+
+const meta = {
+  title: "Selection/Transfer List",
+  args: {
+    disabled: false,
+    required: false
+  },
+  argTypes: {
+    disabled: {
+      control: "boolean"
+    },
+    required: {
+      control: "boolean"
+    }
+  },
+  render: ({ disabled, required }: TransferListStoryArgs) => `
+    <cindor-transfer-list available-label="Available teams" selected-label="Assigned teams" ${disabled ? "disabled" : ""} ${required ? "required" : ""}>
+      <option value="design">Design</option>
+      <option value="engineering" selected>Engineering</option>
+      <option value="product">Product</option>
+      <option value="support">Support</option>
+    </cindor-transfer-list>
+  `
+};
+
+export default meta;
+
+export const Default = {};

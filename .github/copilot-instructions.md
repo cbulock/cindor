@@ -15,7 +15,7 @@ Use the root workspace scripts:
 
 To run a single test file, use:
 
-- `npx vitest run packages/core/src/components/button/emb-button.test.ts`
+- `npx vitest run packages/core/src/components/button/cindor-button.test.ts`
 
 Replace the file path as needed for the specific test you are working on.
 
@@ -23,11 +23,11 @@ Replace the file path as needed for the specific test you are working on.
 
 The target is a **web component library** that should stay compatible with both **React** and **Vue**.
 
-This library should use the upstream design system at <https://github.com/cbulock/emberline-design> as its visual and stylistic foundation. Treat that repository as a **living upstream system**, not a one-time reference snapshot.
+This library should use the upstream design system at <https://github.com/cbulock/cindor-design> as its visual and stylistic foundation. Treat that repository as a **living upstream system**, not a one-time reference snapshot.
 
 Favor this shape unless the repository later establishes a different one:
 
-1. A framework-agnostic core package (`emberline-ui-core`) built from standards-based web components / custom elements
+1. A framework-agnostic core package (`cindor-ui-core`) built from standards-based web components / custom elements
 2. Thin React bindings that adapt the custom elements to React ergonomics without re-implementing component logic
 3. Thin Vue bindings that do the same for Vue
 4. Shared styling, tokens, events, and accessibility behavior owned by the core layer, not duplicated in framework wrappers or framework adapters
@@ -40,7 +40,7 @@ When styling components, prefer consuming or aligning to the upstream design sys
 
 The current styling split is:
 
-1. `emberline-ui-core/styles.css` for the shared global Emberline surface (fonts, tokens, base styles)
+1. `cindor-ui-core/styles.css` for the shared global Cindor surface (fonts, tokens, base styles)
 2. Component visuals defined inside each Lit component's shadow root
 
 ## Intended package and workspace structure
@@ -74,7 +74,7 @@ The workspace uses npm workspaces, TypeScript, tsup, Vitest, ESLint, and Storybo
 - The repeatable validation flow for a new component is: `npm run generate:manifest`, `npm run generate:wrappers`, `npm run test`, `npm run typecheck`, `npm run lint`, and `npm run build`.
 - Treat **DOM events, attributes/properties, slots, CSS custom properties, and accessibility semantics** as the primary integration surface for the core components.
 - Keep **component-specific styles inside shadow DOM**. Do not export per-component CSS files unless there is a concrete non-shadow use case.
-- Keep the exported `emberline-ui-core/styles.css` focused on the shared global Emberline layer: fonts, tokens, base styles, and theme hooks.
+- Keep the exported `cindor-ui-core/styles.css` focused on the shared global Cindor layer: fonts, tokens, base styles, and theme hooks.
 - Keep the core components usable from **any standard web-component consumer**, not just React or Vue. Do not require framework runtime helpers inside the custom elements themselves.
 - Prefer **standards-based integration points** that work in generic apps: custom elements registration, attributes/properties, slots, CSS custom properties/parts, and composed DOM events.
 - Prefer theme and styling integration that remains compatible with the upstream design system's conventions, including token-driven styling and root theme switching patterns such as `data-theme`.

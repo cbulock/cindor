@@ -1,9 +1,9 @@
 {
   "components": [
     {
-      "className": "EmbAccordion",
+      "className": "CindorAccordion",
       "description": "",
-      "modulePath": "packages/core/src/components/accordion/emb-accordion.ts",
+      "modulePath": "packages/core/src/components/accordion/cindor-accordion.ts",
       "properties": [
         {
           "attributeName": "open",
@@ -41,12 +41,74 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-accordion"
+      "tagName": "cindor-accordion"
     },
     {
-      "className": "EmbAlert",
+      "className": "CindorActivityFeed",
+      "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
+      "modulePath": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "`cindor-activity-item` children.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-activity-feed"
+    },
+    {
+      "className": "CindorActivityItem",
+      "description": "Single event row used inside CindorActivityFeed.",
+      "modulePath": "packages/core/src/components/activity-item/cindor-activity-item.ts",
+      "properties": [
+        {
+          "attributeName": "unread",
+          "defaultValue": "false",
+          "description": "",
+          "name": "unread",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Leading avatar, icon, or status mark.",
+          "name": "leading"
+        },
+        {
+          "description": "Main activity title.",
+          "name": "title"
+        },
+        {
+          "description": "Time or date associated with the event.",
+          "name": "timestamp"
+        },
+        {
+          "description": "Supplemental metadata such as actor, environment, or destination.",
+          "name": "meta"
+        },
+        {
+          "description": "Optional trailing actions for the activity.",
+          "name": "actions"
+        },
+        {
+          "description": "Main event description.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-activity-item"
+    },
+    {
+      "className": "CindorAlert",
       "description": "",
-      "modulePath": "packages/core/src/components/alert/emb-alert.ts",
+      "modulePath": "packages/core/src/components/alert/cindor-alert.ts",
       "properties": [
         {
           "attributeName": "tone",
@@ -72,12 +134,176 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-alert"
+      "tagName": "cindor-alert"
     },
     {
-      "className": "EmbAvatar",
+      "className": "CindorAutocomplete",
+      "description": "Suggestion-first autocomplete input for search and remote result flows.",
+      "modulePath": "packages/core/src/components/autocomplete/cindor-autocomplete.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "empty-message",
+          "defaultValue": "\"No matching suggestions.\"",
+          "description": "",
+          "name": "emptyMessage",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "loading",
+          "defaultValue": "false",
+          "description": "",
+          "name": "loading",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "query",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "query",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "suggestions",
+          "reflects": false,
+          "type": "AutocompleteSuggestion[]",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when a suggestion is committed.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when a suggestion is committed.",
+          "name": "suggestion-select",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "Fired as the query changes.",
+          "name": "input",
+          "type": null,
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "cindor-autocomplete"
+    },
+    {
+      "className": "CindorAvatar",
       "description": "",
-      "modulePath": "packages/core/src/components/avatar/emb-avatar.ts",
+      "modulePath": "packages/core/src/components/avatar/cindor-avatar.ts",
       "properties": [
         {
           "attributeName": "alt",
@@ -111,12 +337,12 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-avatar"
+      "tagName": "cindor-avatar"
     },
     {
-      "className": "EmbBadge",
+      "className": "CindorBadge",
       "description": "",
-      "modulePath": "packages/core/src/components/badge/emb-badge.ts",
+      "modulePath": "packages/core/src/components/badge/cindor-badge.ts",
       "properties": [
         {
           "attributeName": "tone",
@@ -141,12 +367,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-badge"
+      "tagName": "cindor-badge"
     },
     {
-      "className": "EmbBreadcrumbs",
+      "className": "CindorBreadcrumbs",
       "description": "",
-      "modulePath": "packages/core/src/components/breadcrumbs/emb-breadcrumbs.ts",
+      "modulePath": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.ts",
       "properties": [],
       "methods": [],
       "events": [],
@@ -157,12 +383,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-breadcrumbs"
+      "tagName": "cindor-breadcrumbs"
     },
     {
-      "className": "EmbButton",
+      "className": "CindorButton",
       "description": "",
-      "modulePath": "packages/core/src/components/button/emb-button.ts",
+      "modulePath": "packages/core/src/components/button/cindor-button.ts",
       "properties": [
         {
           "attributeName": "disabled",
@@ -244,12 +470,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-button"
+      "tagName": "cindor-button"
     },
     {
-      "className": "EmbButtonGroup",
+      "className": "CindorButtonGroup",
       "description": "",
-      "modulePath": "packages/core/src/components/button-group/emb-button-group.ts",
+      "modulePath": "packages/core/src/components/button-group/cindor-button-group.ts",
       "properties": [
         {
           "attributeName": "attached",
@@ -282,12 +508,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-button-group"
+      "tagName": "cindor-button-group"
     },
     {
-      "className": "EmbCalendar",
+      "className": "CindorCalendar",
       "description": "",
-      "modulePath": "packages/core/src/components/calendar/emb-calendar.ts",
+      "modulePath": "packages/core/src/components/calendar/cindor-calendar.ts",
       "properties": [
         {
           "attributeName": "disabled",
@@ -427,12 +653,12 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-calendar"
+      "tagName": "cindor-calendar"
     },
     {
-      "className": "EmbCard",
+      "className": "CindorCard",
       "description": "",
-      "modulePath": "packages/core/src/components/card/emb-card.ts",
+      "modulePath": "packages/core/src/components/card/cindor-card.ts",
       "properties": [],
       "methods": [],
       "events": [],
@@ -443,12 +669,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-card"
+      "tagName": "cindor-card"
     },
     {
-      "className": "EmbCheckbox",
+      "className": "CindorCheckbox",
       "description": "",
-      "modulePath": "packages/core/src/components/checkbox/emb-checkbox.ts",
+      "modulePath": "packages/core/src/components/checkbox/cindor-checkbox.ts",
       "properties": [
         {
           "attributeName": "checked",
@@ -548,12 +774,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-checkbox"
+      "tagName": "cindor-checkbox"
     },
     {
-      "className": "EmbChip",
+      "className": "CindorChip",
       "description": "",
-      "modulePath": "packages/core/src/components/chip/emb-chip.ts",
+      "modulePath": "packages/core/src/components/chip/cindor-chip.ts",
       "properties": [
         {
           "attributeName": "tone",
@@ -578,12 +804,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-chip"
+      "tagName": "cindor-chip"
     },
     {
-      "className": "EmbCodeBlock",
+      "className": "CindorCodeBlock",
       "description": "",
-      "modulePath": "packages/core/src/components/code-block/emb-code-block.ts",
+      "modulePath": "packages/core/src/components/code-block/cindor-code-block.ts",
       "properties": [
         {
           "attributeName": "code",
@@ -613,12 +839,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-code-block"
+      "tagName": "cindor-code-block"
     },
     {
-      "className": "EmbColorInput",
+      "className": "CindorColorInput",
       "description": "",
-      "modulePath": "packages/core/src/components/color-input/emb-color-input.ts",
+      "modulePath": "packages/core/src/components/color-input/cindor-color-input.ts",
       "properties": [
         {
           "attributeName": "disabled",
@@ -695,12 +921,12 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-color-input"
+      "tagName": "cindor-color-input"
     },
     {
-      "className": "EmbCombobox",
+      "className": "CindorCombobox",
       "description": "",
-      "modulePath": "packages/core/src/components/combobox/emb-combobox.ts",
+      "modulePath": "packages/core/src/components/combobox/cindor-combobox.ts",
       "properties": [
         {
           "attributeName": "autocomplete",
@@ -840,12 +1066,78 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-combobox"
+      "tagName": "cindor-combobox"
     },
     {
-      "className": "EmbCommandPalette",
+      "className": "CindorCommandBar",
+      "description": "Persistent contextual action bar for bulk actions and page-level commands.",
+      "modulePath": "packages/core/src/components/command-bar/cindor-command-bar.ts",
+      "properties": [
+        {
+          "attributeName": "count",
+          "defaultValue": "0",
+          "description": "",
+          "name": "count",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "count-label",
+          "defaultValue": "\"selected\"",
+          "description": "",
+          "name": "countLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "description",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "description",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "label",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "label",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "sticky",
+          "defaultValue": "false",
+          "description": "",
+          "name": "sticky",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Optional supporting content shown with the summary copy.",
+          "name": "default"
+        },
+        {
+          "description": "Action controls rendered on the trailing edge.",
+          "name": "actions"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-command-bar"
+    },
+    {
+      "className": "CindorCommandPalette",
       "description": "",
-      "modulePath": "packages/core/src/components/command-palette/emb-command-palette.ts",
+      "modulePath": "packages/core/src/components/command-palette/cindor-command-palette.ts",
       "properties": [
         {
           "attributeName": null,
@@ -947,12 +1239,12 @@
       ],
       "slots": [],
       "summary": "",
-      "tagName": "emb-command-palette"
+      "tagName": "cindor-command-palette"
     },
     {
-      "className": "EmbContextMenu",
-      "description": "Right-click menu surface that composes Emberline menu primitives.",
-      "modulePath": "packages/core/src/components/context-menu/emb-context-menu.ts",
+      "className": "CindorContextMenu",
+      "description": "Right-click menu surface that composes Cindor menu primitives.",
+      "modulePath": "packages/core/src/components/context-menu/cindor-context-menu.ts",
       "properties": [
         {
           "attributeName": "open",
@@ -1003,22 +1295,22 @@
           "name": "trigger"
         },
         {
-          "description": "`emb-menu-item` children rendered inside the menu.",
+          "description": "`cindor-menu-item` children rendered inside the menu.",
           "name": "default"
         }
       ],
       "summary": "",
-      "tagName": "emb-context-menu"
+      "tagName": "cindor-context-menu"
     },
     {
-      "className": "EmbDataTable",
+      "className": "CindorDataTable",
       "description": "Searchable, sortable application data table built from native table semantics.",
-      "modulePath": "packages/core/src/components/data-table/emb-data-table.ts",
+      "modulePath": "packages/core/src/components/data-table/cindor-data-table.ts",
       "properties": [
         {
           "attributeName": "caption",
           "defaultValue": "\"\"",
-          "description": "Caption rendered above the table when provided.",
+          "description": "",
           "name": "caption",
           "reflects": true,
           "type": "string",
@@ -1027,7 +1319,7 @@
         {
           "attributeName": null,
           "defaultValue": "[]",
-          "description": "Column definitions assigned as a property from JavaScript.",
+          "description": "",
           "name": "columns",
           "reflects": false,
           "type": "DataTableColumn[]",
@@ -1036,7 +1328,7 @@
         {
           "attributeName": "current-page",
           "defaultValue": "1",
-          "description": "Current 1-based page index.",
+          "description": "",
           "name": "currentPage",
           "reflects": true,
           "type": "number",
@@ -1045,7 +1337,7 @@
         {
           "attributeName": "empty-message",
           "defaultValue": "\"No rows to display.\"",
-          "description": "Message shown when no visible rows remain after filtering or loading completes.",
+          "description": "",
           "name": "emptyMessage",
           "reflects": true,
           "type": "string",
@@ -1054,7 +1346,7 @@
         {
           "attributeName": "loading",
           "defaultValue": "false",
-          "description": "Shows the loading state instead of row data.",
+          "description": "",
           "name": "loading",
           "reflects": true,
           "type": "boolean",
@@ -1063,16 +1355,25 @@
         {
           "attributeName": "page-size",
           "defaultValue": "10",
-          "description": "Maximum number of rows shown per page. Set to 0 to disable pagination.",
+          "description": "",
           "name": "pageSize",
           "reflects": true,
           "type": "number",
           "values": null
         },
         {
+          "attributeName": "row-id-key",
+          "defaultValue": "\"id\"",
+          "description": "",
+          "name": "rowIdKey",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
           "attributeName": null,
           "defaultValue": "[]",
-          "description": "Row data assigned as a property from JavaScript.",
+          "description": "",
           "name": "rows",
           "reflects": false,
           "type": "DataTableRow[]",
@@ -1081,7 +1382,7 @@
         {
           "attributeName": "searchable",
           "defaultValue": "false",
-          "description": "Enables the built-in search toolbar and filtering behavior.",
+          "description": "",
           "name": "searchable",
           "reflects": true,
           "type": "boolean",
@@ -1090,7 +1391,7 @@
         {
           "attributeName": "search-label",
           "defaultValue": "\"Search rows\"",
-          "description": "Accessible label applied to the internal search control.",
+          "description": "",
           "name": "searchLabel",
           "reflects": true,
           "type": "string",
@@ -1099,7 +1400,7 @@
         {
           "attributeName": "search-placeholder",
           "defaultValue": "\"Search rows\"",
-          "description": "Placeholder text shown in the internal search control.",
+          "description": "",
           "name": "searchPlaceholder",
           "reflects": true,
           "type": "string",
@@ -1108,7 +1409,7 @@
         {
           "attributeName": "search-query",
           "defaultValue": "\"\"",
-          "description": "Current search query used to filter visible rows.",
+          "description": "",
           "name": "searchQuery",
           "reflects": true,
           "type": "string",
@@ -1117,7 +1418,7 @@
         {
           "attributeName": "sort-direction",
           "defaultValue": "\"ascending\"",
-          "description": "Active sort direction for the current sort key.",
+          "description": "",
           "name": "sortDirection",
           "reflects": true,
           "type": "\"ascending\" | \"descending\"",
@@ -1129,7 +1430,7 @@
         {
           "attributeName": "sort-key",
           "defaultValue": "\"\"",
-          "description": "Column key currently used for sorting.",
+          "description": "",
           "name": "sortKey",
           "reflects": true,
           "type": "string",
@@ -1138,6 +1439,18 @@
       ],
       "methods": [],
       "events": [
+        {
+          "description": "Fired when an inline editor updates a row value.",
+          "name": "cell-edit",
+          "type": "CustomEvent<DataTableCellEditDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when a row action button is pressed.",
+          "name": "row-action",
+          "type": "CustomEvent<DataTableRowActionDetail>",
+          "values": null
+        },
         {
           "description": "Fired when the active sort column or direction changes.",
           "name": "sort-change",
@@ -1157,14 +1470,19 @@
           "values": null
         }
       ],
-      "slots": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
       "summary": "Searchable, sortable data table for application records.",
-      "tagName": "emb-data-table"
+      "tagName": "cindor-data-table"
     },
     {
-      "className": "EmbDateInput",
+      "className": "CindorDateInput",
       "description": "",
-      "modulePath": "packages/core/src/components/date-input/emb-date-input.ts",
+      "modulePath": "packages/core/src/components/date-input/cindor-date-input.ts",
       "properties": [
         {
           "attributeName": "autocomplete",
@@ -1322,12 +1640,444 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-date-input"
+      "tagName": "cindor-date-input"
     },
     {
-      "className": "EmbDialog",
+      "className": "CindorDatePicker",
+      "description": "Popup date picker that reuses the Cindor calendar surface.",
+      "modulePath": "packages/core/src/components/date-picker/cindor-date-picker.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "max",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "min",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "min",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "month",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "month",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"Select a date\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "show",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "close",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the popup opens or closes.",
+          "name": "toggle",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "Fired when the selected date changes.",
+          "name": "input",
+          "type": null,
+          "values": null
+        },
+        {
+          "description": "Fired when the selected date changes.",
+          "name": "change",
+          "type": null,
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "cindor-date-picker"
+    },
+    {
+      "className": "CindorDateRangePicker",
+      "description": "Popup date range picker powered by the Cindor range calendar.",
+      "modulePath": "packages/core/src/components/date-range-picker/cindor-date-range-picker.ts",
+      "properties": [
+        {
+          "attributeName": "end-value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "endValue",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "max",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "min",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "min",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "month",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "month",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"Select a date range\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "start-value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "startValue",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "show",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "close",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the popup opens or closes.",
+          "name": "toggle",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "Fired as the selected range changes.",
+          "name": "input",
+          "type": null,
+          "values": null
+        },
+        {
+          "description": "Fired when a range selection completes.",
+          "name": "change",
+          "type": null,
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "cindor-date-range-picker"
+    },
+    {
+      "className": "CindorDateTimePicker",
+      "description": "Combined date and time picker built from Cindor date and time fields.",
+      "modulePath": "packages/core/src/components/date-time-picker/cindor-date-time-picker.ts",
+      "properties": [
+        {
+          "attributeName": "date-value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "dateValue",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "time-value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "timeValue",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when either the date or time value changes.",
+          "name": "input",
+          "type": null,
+          "values": null
+        },
+        {
+          "description": "Fired when the combined value changes.",
+          "name": "change",
+          "type": null,
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "cindor-date-time-picker"
+    },
+    {
+      "className": "CindorDescriptionItem",
+      "description": "Term-and-value pair used inside CindorDescriptionList.",
+      "modulePath": "packages/core/src/components/description-item/cindor-description-item.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Label for the value.",
+          "name": "term"
+        },
+        {
+          "description": "Value content.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-description-item"
+    },
+    {
+      "className": "CindorDescriptionList",
+      "description": "Key-value description list for metadata and detail pages.",
+      "modulePath": "packages/core/src/components/description-list/cindor-description-list.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "`cindor-description-item` children.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-description-list"
+    },
+    {
+      "className": "CindorDialog",
       "description": "",
-      "modulePath": "packages/core/src/components/dialog/emb-dialog.ts",
+      "modulePath": "packages/core/src/components/dialog/cindor-dialog.ts",
       "properties": [
         {
           "attributeName": "modal",
@@ -1394,23 +2144,23 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-dialog"
+      "tagName": "cindor-dialog"
     },
     {
-      "className": "EmbDivider",
+      "className": "CindorDivider",
       "description": "",
-      "modulePath": "packages/core/src/components/divider/emb-divider.ts",
+      "modulePath": "packages/core/src/components/divider/cindor-divider.ts",
       "properties": [],
       "methods": [],
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-divider"
+      "tagName": "cindor-divider"
     },
     {
-      "className": "EmbDrawer",
+      "className": "CindorDrawer",
       "description": "",
-      "modulePath": "packages/core/src/components/drawer/emb-drawer.ts",
+      "modulePath": "packages/core/src/components/drawer/cindor-drawer.ts",
       "properties": [
         {
           "attributeName": "open",
@@ -1452,12 +2202,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-drawer"
+      "tagName": "cindor-drawer"
     },
     {
-      "className": "EmbDropdownMenu",
+      "className": "CindorDropdownMenu",
       "description": "",
-      "modulePath": "packages/core/src/components/dropdown-menu/emb-dropdown-menu.ts",
+      "modulePath": "packages/core/src/components/dropdown-menu/cindor-dropdown-menu.ts",
       "properties": [
         {
           "attributeName": "open",
@@ -1482,12 +2232,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-dropdown-menu"
+      "tagName": "cindor-dropdown-menu"
     },
     {
-      "className": "EmbDropzone",
+      "className": "CindorDropzone",
       "description": "",
-      "modulePath": "packages/core/src/components/dropzone/emb-dropzone.ts",
+      "modulePath": "packages/core/src/components/dropzone/cindor-dropzone.ts",
       "properties": [
         {
           "attributeName": "accept",
@@ -1591,12 +2341,12 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-dropzone"
+      "tagName": "cindor-dropzone"
     },
     {
-      "className": "EmbEmailInput",
+      "className": "CindorEmailInput",
       "description": "",
-      "modulePath": "packages/core/src/components/email-input/emb-email-input.ts",
+      "modulePath": "packages/core/src/components/email-input/cindor-email-input.ts",
       "properties": [
         {
           "attributeName": "autocomplete",
@@ -1754,12 +2504,64 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-email-input"
+      "tagName": "cindor-email-input"
     },
     {
-      "className": "EmbEmptyState",
+      "className": "CindorEmptySearchResults",
+      "description": "Search-specific zero-state messaging with optional suggestions and actions.",
+      "modulePath": "packages/core/src/components/empty-search-results/cindor-empty-search-results.ts",
+      "properties": [
+        {
+          "attributeName": "description",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "description",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "heading",
+          "defaultValue": "\"No matching results\"",
+          "description": "",
+          "name": "heading",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "query",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "query",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Optional guidance or search tips shown below the main copy.",
+          "name": "default"
+        },
+        {
+          "description": "Optional custom leading media.",
+          "name": "media"
+        },
+        {
+          "description": "Action controls for retry or broaden-search flows.",
+          "name": "actions"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-empty-search-results"
+    },
+    {
+      "className": "CindorEmptyState",
       "description": "",
-      "modulePath": "packages/core/src/components/empty-state/emb-empty-state.ts",
+      "modulePath": "packages/core/src/components/empty-state/cindor-empty-state.ts",
       "properties": [],
       "methods": [],
       "events": [],
@@ -1778,12 +2580,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-empty-state"
+      "tagName": "cindor-empty-state"
     },
     {
-      "className": "EmbErrorText",
+      "className": "CindorErrorText",
       "description": "",
-      "modulePath": "packages/core/src/components/error-text/emb-error-text.ts",
+      "modulePath": "packages/core/src/components/error-text/cindor-error-text.ts",
       "properties": [],
       "methods": [],
       "events": [],
@@ -1794,12 +2596,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-error-text"
+      "tagName": "cindor-error-text"
     },
     {
-      "className": "EmbFieldset",
+      "className": "CindorFieldset",
       "description": "",
-      "modulePath": "packages/core/src/components/fieldset/emb-fieldset.ts",
+      "modulePath": "packages/core/src/components/fieldset/cindor-fieldset.ts",
       "properties": [
         {
           "attributeName": "disabled",
@@ -1833,12 +2635,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-fieldset"
+      "tagName": "cindor-fieldset"
     },
     {
-      "className": "EmbFileInput",
+      "className": "CindorFileInput",
       "description": "",
-      "modulePath": "packages/core/src/components/file-input/emb-file-input.ts",
+      "modulePath": "packages/core/src/components/file-input/cindor-file-input.ts",
       "properties": [
         {
           "attributeName": "accept",
@@ -1942,12 +2744,188 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-file-input"
+      "tagName": "cindor-file-input"
     },
     {
-      "className": "EmbFormField",
+      "className": "CindorFilterBuilder",
+      "description": "Rule and group based filtering UI built from native fieldset, select, and input controls.\r\n\r\nThe serialized `value` property stores the current filter group as JSON.",
+      "modulePath": "packages/core/src/components/filter-builder/cindor-filter-builder.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "fields",
+          "reflects": false,
+          "type": "FilterBuilderField[]",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": false,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the serialized filter value changes.",
+          "name": "input",
+          "type": "CustomEvent<FilterBuilderChangeDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the serialized filter value changes.",
+          "name": "change",
+          "type": "CustomEvent<FilterBuilderChangeDetail>",
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "cindor-filter-builder"
+    },
+    {
+      "className": "CindorForm",
       "description": "",
-      "modulePath": "packages/core/src/components/form-field/emb-form-field.ts",
+      "modulePath": "packages/core/src/components/form/cindor-form.ts",
+      "properties": [
+        {
+          "attributeName": "description",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "description",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "error",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "error",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "submitting",
+          "defaultValue": "false",
+          "description": "",
+          "name": "submitting",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "submitting-label",
+          "defaultValue": "\"Submitting…\"",
+          "description": "",
+          "name": "submittingLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "success",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "success",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "validate-on-submit",
+          "defaultValue": "true",
+          "description": "",
+          "name": "validateOnSubmit",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "requestSubmit",
+          "parameters": [
+            {
+              "name": "submitter",
+              "optional": true,
+              "type": "HTMLElement"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reset",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-form"
+    },
+    {
+      "className": "CindorFormField",
+      "description": "",
+      "modulePath": "packages/core/src/components/form-field/cindor-form-field.ts",
       "properties": [
         {
           "attributeName": "description",
@@ -1984,6 +2962,15 @@
           "reflects": true,
           "type": "boolean",
           "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "validationError",
+          "reflects": false,
+          "type": "string",
+          "values": null
         }
       ],
       "methods": [],
@@ -2007,12 +2994,38 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-form-field"
+      "tagName": "cindor-form-field"
     },
     {
-      "className": "EmbHelperText",
+      "className": "CindorFormRow",
       "description": "",
-      "modulePath": "packages/core/src/components/helper-text/emb-helper-text.ts",
+      "modulePath": "packages/core/src/components/form-row/cindor-form-row.ts",
+      "properties": [
+        {
+          "attributeName": "columns",
+          "defaultValue": "2",
+          "description": "",
+          "name": "columns",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-form-row"
+    },
+    {
+      "className": "CindorHelperText",
+      "description": "",
+      "modulePath": "packages/core/src/components/helper-text/cindor-helper-text.ts",
       "properties": [],
       "methods": [],
       "events": [],
@@ -2023,12 +3036,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-helper-text"
+      "tagName": "cindor-helper-text"
     },
     {
-      "className": "EmbIcon",
+      "className": "CindorIcon",
       "description": "",
-      "modulePath": "packages/core/src/components/icon/emb-icon.ts",
+      "modulePath": "packages/core/src/components/icon/cindor-icon.ts",
       "properties": [
         {
           "attributeName": "label",
@@ -2071,12 +3084,12 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-icon"
+      "tagName": "cindor-icon"
     },
     {
-      "className": "EmbIconButton",
+      "className": "CindorIconButton",
       "description": "",
-      "modulePath": "packages/core/src/components/icon-button/emb-icon-button.ts",
+      "modulePath": "packages/core/src/components/icon-button/cindor-icon-button.ts",
       "properties": [
         {
           "attributeName": "disabled",
@@ -2156,12 +3169,116 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-icon-button"
+      "tagName": "cindor-icon-button"
     },
     {
-      "className": "EmbInput",
+      "className": "CindorInlineEdit",
+      "description": "Inline text editing surface for titles, labels, and small editable values.",
+      "modulePath": "packages/core/src/components/inline-edit/cindor-inline-edit.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "editing",
+          "defaultValue": "false",
+          "description": "",
+          "name": "editing",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"Click edit\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "beginEdit",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "cancelEdit",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "save",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when editing is cancelled.",
+          "name": "cancel",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the saved value changes.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when editing starts or stops.",
+          "name": "toggle",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "Fired while the draft value changes.",
+          "name": "input",
+          "type": null,
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "cindor-inline-edit"
+    },
+    {
+      "className": "CindorInput",
       "description": "",
-      "modulePath": "packages/core/src/components/input/emb-input.ts",
+      "modulePath": "packages/core/src/components/input/cindor-input.ts",
       "properties": [
         {
           "attributeName": "type",
@@ -2328,12 +3445,60 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-input"
+      "tagName": "cindor-input"
     },
     {
-      "className": "EmbLink",
+      "className": "CindorLayout",
+      "description": "Vertical layout container for page and workflow composition.",
+      "modulePath": "packages/core/src/components/layout/cindor-layout.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Layout regions such as `cindor-layout-header`, `cindor-layout-content`, or adjacent primitives.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-layout"
+    },
+    {
+      "className": "CindorLayoutContent",
+      "description": "Main content region for page sections, forms, and data views.",
+      "modulePath": "packages/core/src/components/layout-content/cindor-layout-content.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Primary content for the current layout section.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-layout-content"
+    },
+    {
+      "className": "CindorLayoutHeader",
+      "description": "Header region for page-level titles, controls, and supporting metadata.",
+      "modulePath": "packages/core/src/components/layout-header/cindor-layout-header.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Header copy, actions, or composition primitives.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-layout-header"
+    },
+    {
+      "className": "CindorLink",
       "description": "",
-      "modulePath": "packages/core/src/components/link/emb-link.ts",
+      "modulePath": "packages/core/src/components/link/cindor-link.ts",
       "properties": [
         {
           "attributeName": "download",
@@ -2400,12 +3565,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-link"
+      "tagName": "cindor-link"
     },
     {
-      "className": "EmbListbox",
+      "className": "CindorListbox",
       "description": "",
-      "modulePath": "packages/core/src/components/listbox/emb-listbox.ts",
+      "modulePath": "packages/core/src/components/listbox/cindor-listbox.ts",
       "properties": [
         {
           "attributeName": "active-index",
@@ -2444,12 +3609,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-listbox"
+      "tagName": "cindor-listbox"
     },
     {
-      "className": "EmbMenu",
+      "className": "CindorMenu",
       "description": "",
-      "modulePath": "packages/core/src/components/menu/emb-menu.ts",
+      "modulePath": "packages/core/src/components/menu/cindor-menu.ts",
       "properties": [],
       "methods": [],
       "events": [],
@@ -2460,12 +3625,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-menu"
+      "tagName": "cindor-menu"
     },
     {
-      "className": "EmbMenuItem",
+      "className": "CindorMenuItem",
       "description": "",
-      "modulePath": "packages/core/src/components/menu-item/emb-menu-item.ts",
+      "modulePath": "packages/core/src/components/menu-item/cindor-menu-item.ts",
       "properties": [
         {
           "attributeName": "disabled",
@@ -2505,12 +3670,28 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-menu-item"
+      "tagName": "cindor-menu-item"
     },
     {
-      "className": "EmbMeter",
+      "className": "CindorMenubar",
+      "description": "Horizontal application menubar with roving keyboard focus.",
+      "modulePath": "packages/core/src/components/menubar/cindor-menubar.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Menubar commands or links.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-menubar"
+    },
+    {
+      "className": "CindorMeter",
       "description": "",
-      "modulePath": "packages/core/src/components/meter/emb-meter.ts",
+      "modulePath": "packages/core/src/components/meter/cindor-meter.ts",
       "properties": [
         {
           "attributeName": "high",
@@ -2576,12 +3757,258 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-meter"
+      "tagName": "cindor-meter"
     },
     {
-      "className": "EmbNumberInput",
+      "className": "CindorMultiSelect",
+      "description": "Searchable multi-select built from Cindor listbox and option primitives.\r\n\r\nUse light-DOM `option` or `cindor-option` children as the source option set.",
+      "modulePath": "packages/core/src/components/multi-select/cindor-multi-select.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"Select options\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "values",
+          "reflects": false,
+          "type": "string[]",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the selected values change.",
+          "name": "input",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "Fired when the selected values change.",
+          "name": "change",
+          "type": "CustomEvent",
+          "values": null
+        }
+      ],
+      "slots": [
+        {
+          "description": "`option` or `cindor-option` children that define the available choices.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-multi-select"
+    },
+    {
+      "className": "CindorNavigationRail",
+      "description": "Vertical navigation rail for compact app-shell layouts.",
+      "modulePath": "packages/core/src/components/navigation-rail/cindor-navigation-rail.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "`cindor-navigation-rail-item` children.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-navigation-rail"
+    },
+    {
+      "className": "CindorNavigationRailItem",
+      "description": "Compact icon-and-label row used inside CindorNavigationRail.",
+      "modulePath": "packages/core/src/components/navigation-rail-item/cindor-navigation-rail-item.ts",
+      "properties": [
+        {
+          "attributeName": "current",
+          "defaultValue": "false",
+          "description": "",
+          "name": "current",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "href",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "href",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "label",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "label",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "rel",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "rel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "target",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "target",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "click",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        }
+      ],
+      "events": [],
+      "slots": [
+        {
+          "description": "Leading icon or badge.",
+          "name": "start"
+        },
+        {
+          "description": "Optional label content.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-navigation-rail-item"
+    },
+    {
+      "className": "CindorNumberInput",
       "description": "",
-      "modulePath": "packages/core/src/components/number-input/emb-number-input.ts",
+      "modulePath": "packages/core/src/components/number-input/cindor-number-input.ts",
       "properties": [
         {
           "attributeName": "autocomplete",
@@ -2739,12 +4166,12 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-number-input"
+      "tagName": "cindor-number-input"
     },
     {
-      "className": "EmbOption",
+      "className": "CindorOption",
       "description": "",
-      "modulePath": "packages/core/src/components/option/emb-option.ts",
+      "modulePath": "packages/core/src/components/option/cindor-option.ts",
       "properties": [
         {
           "attributeName": "active",
@@ -2808,12 +4235,68 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-option"
+      "tagName": "cindor-option"
     },
     {
-      "className": "EmbPagination",
+      "className": "CindorPageHeader",
+      "description": "Reusable page header with breadcrumbs, metadata, and page-level actions.",
+      "modulePath": "packages/core/src/components/page-header/cindor-page-header.ts",
+      "properties": [
+        {
+          "attributeName": "description",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "description",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "eyebrow",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "eyebrow",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "title",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "title",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Optional supporting content rendered below the main heading row.",
+          "name": "default"
+        },
+        {
+          "description": "Optional breadcrumb or parent-navigation content.",
+          "name": "breadcrumbs"
+        },
+        {
+          "description": "Optional metadata such as badges or supporting facts.",
+          "name": "meta"
+        },
+        {
+          "description": "Optional trailing actions such as buttons or segmented controls.",
+          "name": "actions"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-page-header"
+    },
+    {
+      "className": "CindorPagination",
       "description": "",
-      "modulePath": "packages/core/src/components/pagination/emb-pagination.ts",
+      "modulePath": "packages/core/src/components/pagination/cindor-pagination.ts",
       "properties": [
         {
           "attributeName": "current-page",
@@ -2854,12 +4337,68 @@
       ],
       "slots": [],
       "summary": "",
-      "tagName": "emb-pagination"
+      "tagName": "cindor-pagination"
     },
     {
-      "className": "EmbPasswordInput",
+      "className": "CindorPanelInspector",
+      "description": "Reusable details panel surface for inspector, properties, and supplemental context.",
+      "modulePath": "packages/core/src/components/panel-inspector/cindor-panel-inspector.ts",
+      "properties": [
+        {
+          "attributeName": "description",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "description",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "sticky",
+          "defaultValue": "false",
+          "description": "",
+          "name": "sticky",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "title",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "title",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Main panel body content.",
+          "name": "default"
+        },
+        {
+          "description": "Optional trailing header actions.",
+          "name": "actions"
+        },
+        {
+          "description": "Optional footer content such as buttons or summaries.",
+          "name": "footer"
+        },
+        {
+          "description": "Optional metadata shown below the title copy.",
+          "name": "meta"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-panel-inspector"
+    },
+    {
+      "className": "CindorPasswordInput",
       "description": "",
-      "modulePath": "packages/core/src/components/password-input/emb-password-input.ts",
+      "modulePath": "packages/core/src/components/password-input/cindor-password-input.ts",
       "properties": [
         {
           "attributeName": "autocomplete",
@@ -3017,12 +4556,12 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-password-input"
+      "tagName": "cindor-password-input"
     },
     {
-      "className": "EmbPopover",
+      "className": "CindorPopover",
       "description": "",
-      "modulePath": "packages/core/src/components/popover/emb-popover.ts",
+      "modulePath": "packages/core/src/components/popover/cindor-popover.ts",
       "properties": [
         {
           "attributeName": "open",
@@ -3047,12 +4586,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-popover"
+      "tagName": "cindor-popover"
     },
     {
-      "className": "EmbProgress",
+      "className": "CindorProgress",
       "description": "",
-      "modulePath": "packages/core/src/components/progress/emb-progress.ts",
+      "modulePath": "packages/core/src/components/progress/cindor-progress.ts",
       "properties": [
         {
           "attributeName": "max",
@@ -3082,12 +4621,55 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-progress"
+      "tagName": "cindor-progress"
     },
     {
-      "className": "EmbRadio",
+      "className": "CindorProvider",
+      "description": "Lightweight theme scope for Cindor tokens and descendant components.",
+      "modulePath": "packages/core/src/components/provider/cindor-provider.ts",
+      "properties": [
+        {
+          "attributeName": "color-scheme",
+          "defaultValue": "\"inherit\"",
+          "description": "",
+          "name": "colorScheme",
+          "reflects": true,
+          "type": "\"inherit\" | \"light\" | \"dark\"",
+          "values": [
+            "inherit",
+            "light",
+            "dark"
+          ]
+        },
+        {
+          "attributeName": "theme",
+          "defaultValue": "\"inherit\"",
+          "description": "",
+          "name": "theme",
+          "reflects": true,
+          "type": "\"inherit\" | \"light\" | \"dark\"",
+          "values": [
+            "inherit",
+            "light",
+            "dark"
+          ]
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Descendant application or component content.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-provider"
+    },
+    {
+      "className": "CindorRadio",
       "description": "",
-      "modulePath": "packages/core/src/components/radio/emb-radio.ts",
+      "modulePath": "packages/core/src/components/radio/cindor-radio.ts",
       "properties": [
         {
           "attributeName": "checked",
@@ -3187,12 +4769,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-radio"
+      "tagName": "cindor-radio"
     },
     {
-      "className": "EmbRange",
+      "className": "CindorRange",
       "description": "",
-      "modulePath": "packages/core/src/components/range/emb-range.ts",
+      "modulePath": "packages/core/src/components/range/cindor-range.ts",
       "properties": [
         {
           "attributeName": "disabled",
@@ -3305,12 +4887,12 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-range"
+      "tagName": "cindor-range"
     },
     {
-      "className": "EmbRatingInput",
+      "className": "CindorRatingInput",
       "description": "",
-      "modulePath": "packages/core/src/components/rating-input/emb-rating-input.ts",
+      "modulePath": "packages/core/src/components/rating-input/cindor-rating-input.ts",
       "properties": [
         {
           "attributeName": "clearable",
@@ -3414,12 +4996,12 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-rating-input"
+      "tagName": "cindor-rating-input"
     },
     {
-      "className": "EmbSearch",
+      "className": "CindorSearch",
       "description": "",
-      "modulePath": "packages/core/src/components/search/emb-search.ts",
+      "modulePath": "packages/core/src/components/search/cindor-search.ts",
       "properties": [
         {
           "attributeName": "start-icon",
@@ -3577,12 +5159,12 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-search"
+      "tagName": "cindor-search"
     },
     {
-      "className": "EmbSegmentedControl",
+      "className": "CindorSegmentedControl",
       "description": "",
-      "modulePath": "packages/core/src/components/segmented-control/emb-segmented-control.ts",
+      "modulePath": "packages/core/src/components/segmented-control/cindor-segmented-control.ts",
       "properties": [
         {
           "attributeName": "disabled",
@@ -3677,12 +5259,12 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-segmented-control"
+      "tagName": "cindor-segmented-control"
     },
     {
-      "className": "EmbSelect",
+      "className": "CindorSelect",
       "description": "",
-      "modulePath": "packages/core/src/components/select/emb-select.ts",
+      "modulePath": "packages/core/src/components/select/cindor-select.ts",
       "properties": [
         {
           "attributeName": "disabled",
@@ -3773,12 +5355,165 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-select"
+      "tagName": "cindor-select"
     },
     {
-      "className": "EmbSkeleton",
+      "className": "CindorSideNav",
+      "description": "Keyboard-accessible side navigation landmark with nested sections.\r\n\r\nUse direct child `cindor-side-nav-item` elements, optionally nesting them to\r\ncreate collapsible sections.",
+      "modulePath": "packages/core/src/components/side-nav/cindor-side-nav.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Direct child `cindor-side-nav-item` elements.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-side-nav"
+    },
+    {
+      "className": "CindorSideNavItem",
+      "description": "Navigable row used inside CindorSideNav.\r\n\r\nSet `href` to render the row as a link, or omit it to render a button-like\r\nitem that can toggle its nested children.",
+      "modulePath": "packages/core/src/components/side-nav-item/cindor-side-nav-item.ts",
+      "properties": [
+        {
+          "attributeName": "current",
+          "defaultValue": "false",
+          "description": "",
+          "name": "current",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "expanded",
+          "defaultValue": "false",
+          "description": "",
+          "name": "expanded",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "href",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "href",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "label",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "label",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "rel",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "rel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "target",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "target",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "click",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "toggle",
+          "parameters": [
+            {
+              "name": "expanded",
+              "optional": true,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the expanded branch state changes.",
+          "name": "toggle",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "Fired when a non-link leaf item is activated.",
+          "name": "side-nav-select",
+          "type": null,
+          "values": null
+        }
+      ],
+      "slots": [
+        {
+          "description": "Optional leading decoration such as an icon.",
+          "name": "start"
+        },
+        {
+          "description": "Nested child `cindor-side-nav-item` elements.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-side-nav-item"
+    },
+    {
+      "className": "CindorSkeleton",
       "description": "",
-      "modulePath": "packages/core/src/components/skeleton/emb-skeleton.ts",
+      "modulePath": "packages/core/src/components/skeleton/cindor-skeleton.ts",
       "properties": [
         {
           "attributeName": "variant",
@@ -3798,23 +5533,23 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-skeleton"
+      "tagName": "cindor-skeleton"
     },
     {
-      "className": "EmbSpinner",
+      "className": "CindorSpinner",
       "description": "",
-      "modulePath": "packages/core/src/components/spinner/emb-spinner.ts",
+      "modulePath": "packages/core/src/components/spinner/cindor-spinner.ts",
       "properties": [],
       "methods": [],
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-spinner"
+      "tagName": "cindor-spinner"
     },
     {
-      "className": "EmbSplitter",
+      "className": "CindorSplitter",
       "description": "Resizable panel group for workbench-style layouts.",
-      "modulePath": "packages/core/src/components/splitter/emb-splitter.ts",
+      "modulePath": "packages/core/src/components/splitter/cindor-splitter.ts",
       "properties": [
         {
           "attributeName": "orientation",
@@ -3840,17 +5575,17 @@
       ],
       "slots": [
         {
-          "description": "Direct child `emb-splitter-panel` elements.",
+          "description": "Direct child `cindor-splitter-panel` elements.",
           "name": "default"
         }
       ],
       "summary": "",
-      "tagName": "emb-splitter"
+      "tagName": "cindor-splitter"
     },
     {
-      "className": "EmbSplitterPanel",
-      "description": "Panel surface used inside EmbSplitter.",
-      "modulePath": "packages/core/src/components/splitter-panel/emb-splitter-panel.ts",
+      "className": "CindorSplitterPanel",
+      "description": "Panel surface used inside CindorSplitter.",
+      "modulePath": "packages/core/src/components/splitter-panel/cindor-splitter-panel.ts",
       "properties": [
         {
           "attributeName": "min-size",
@@ -3880,12 +5615,153 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-splitter-panel"
+      "tagName": "cindor-splitter-panel"
     },
     {
-      "className": "EmbStepper",
+      "className": "CindorStack",
+      "description": "Flexible spacing primitive for stacking, clustering, and wrapped inline layouts.",
+      "modulePath": "packages/core/src/components/stack/cindor-stack.ts",
+      "properties": [
+        {
+          "attributeName": "align",
+          "defaultValue": "\"stretch\"",
+          "description": "",
+          "name": "align",
+          "reflects": true,
+          "type": "\"start\" | \"center\" | \"end\" | \"stretch\" | \"baseline\"",
+          "values": [
+            "start",
+            "center",
+            "end",
+            "stretch",
+            "baseline"
+          ]
+        },
+        {
+          "attributeName": "direction",
+          "defaultValue": "\"vertical\"",
+          "description": "",
+          "name": "direction",
+          "reflects": true,
+          "type": "\"vertical\" | \"horizontal\"",
+          "values": [
+            "vertical",
+            "horizontal"
+          ]
+        },
+        {
+          "attributeName": "gap",
+          "defaultValue": "\"3\"",
+          "description": "",
+          "name": "gap",
+          "reflects": true,
+          "type": "\"0\" | \"1\" | \"2\" | \"3\" | \"4\" | \"5\" | \"6\"",
+          "values": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ]
+        },
+        {
+          "attributeName": "justify",
+          "defaultValue": "\"start\"",
+          "description": "",
+          "name": "justify",
+          "reflects": true,
+          "type": "\"start\" | \"center\" | \"end\" | \"between\"",
+          "values": [
+            "start",
+            "center",
+            "end",
+            "between"
+          ]
+        },
+        {
+          "attributeName": "wrap",
+          "defaultValue": "false",
+          "description": "",
+          "name": "wrap",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Child elements arranged by the configured flex settings.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-stack"
+    },
+    {
+      "className": "CindorStatCard",
+      "description": "Summary metric card for dashboards and KPI surfaces.",
+      "modulePath": "packages/core/src/components/stat-card/cindor-stat-card.ts",
+      "properties": [
+        {
+          "attributeName": "change",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "change",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "label",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "label",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "tone",
+          "defaultValue": "\"neutral\"",
+          "description": "",
+          "name": "tone",
+          "reflects": true,
+          "type": "\"neutral\" | \"positive\" | \"negative\"",
+          "values": [
+            "neutral",
+            "positive",
+            "negative"
+          ]
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Optional supporting description or actions.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-stat-card"
+    },
+    {
+      "className": "CindorStepper",
       "description": "",
-      "modulePath": "packages/core/src/components/stepper/emb-stepper.ts",
+      "modulePath": "packages/core/src/components/stepper/cindor-stepper.ts",
       "properties": [
         {
           "attributeName": "disabled",
@@ -3966,12 +5842,12 @@
       ],
       "slots": [],
       "summary": "",
-      "tagName": "emb-stepper"
+      "tagName": "cindor-stepper"
     },
     {
-      "className": "EmbSwitch",
+      "className": "CindorSwitch",
       "description": "",
-      "modulePath": "packages/core/src/components/switch/emb-switch.ts",
+      "modulePath": "packages/core/src/components/switch/cindor-switch.ts",
       "properties": [
         {
           "attributeName": "checked",
@@ -4071,12 +5947,47 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-switch"
+      "tagName": "cindor-switch"
     },
     {
-      "className": "EmbTabs",
+      "className": "CindorTabPanel",
+      "description": "Optional tab panel wrapper for CindorTabs.",
+      "modulePath": "packages/core/src/components/tab-panel/cindor-tab-panel.ts",
+      "properties": [
+        {
+          "attributeName": "label",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "label",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Panel content.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-tab-panel"
+    },
+    {
+      "className": "CindorTabs",
       "description": "",
-      "modulePath": "packages/core/src/components/tabs/emb-tabs.ts",
+      "modulePath": "packages/core/src/components/tabs/cindor-tabs.ts",
       "properties": [
         {
           "attributeName": "value",
@@ -4104,12 +6015,180 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-tabs"
+      "tagName": "cindor-tabs"
     },
     {
-      "className": "EmbTelInput",
+      "className": "CindorTag",
+      "description": "Compact tag surface for labels, filters, and removable metadata.",
+      "modulePath": "packages/core/src/components/tag/cindor-tag.ts",
+      "properties": [
+        {
+          "attributeName": "dismissible",
+          "defaultValue": "false",
+          "description": "",
+          "name": "dismissible",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "remove-label",
+          "defaultValue": "\"Remove tag\"",
+          "description": "",
+          "name": "removeLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "tone",
+          "defaultValue": "\"accent\"",
+          "description": "",
+          "name": "tone",
+          "reflects": true,
+          "type": "\"neutral\" | \"accent\" | \"success\"",
+          "values": [
+            "neutral",
+            "accent",
+            "success"
+          ]
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "description": "Fired when the dismiss button is activated.",
+          "name": "remove",
+          "type": "Event",
+          "values": null
+        }
+      ],
+      "slots": [
+        {
+          "description": "Tag label.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-tag"
+    },
+    {
+      "className": "CindorTagInput",
+      "description": "Freeform tag entry with removable tokens.",
+      "modulePath": "packages/core/src/components/tag-input/cindor-tag-input.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"Add a tag\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "values",
+          "reflects": false,
+          "type": "string[]",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the committed tag values change.",
+          "name": "input",
+          "type": "CustomEvent<TagInputChangeDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the committed tag values change.",
+          "name": "change",
+          "type": "CustomEvent<TagInputChangeDetail>",
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "cindor-tag-input"
+    },
+    {
+      "className": "CindorTelInput",
       "description": "",
-      "modulePath": "packages/core/src/components/tel-input/emb-tel-input.ts",
+      "modulePath": "packages/core/src/components/tel-input/cindor-tel-input.ts",
       "properties": [
         {
           "attributeName": "autocomplete",
@@ -4267,12 +6346,12 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-tel-input"
+      "tagName": "cindor-tel-input"
     },
     {
-      "className": "EmbTextarea",
+      "className": "CindorTextarea",
       "description": "",
-      "modulePath": "packages/core/src/components/textarea/emb-textarea.ts",
+      "modulePath": "packages/core/src/components/textarea/cindor-textarea.ts",
       "properties": [
         {
           "attributeName": "disabled",
@@ -4385,12 +6464,12 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-textarea"
+      "tagName": "cindor-textarea"
     },
     {
-      "className": "EmbTimeInput",
+      "className": "CindorTimeInput",
       "description": "",
-      "modulePath": "packages/core/src/components/time-input/emb-time-input.ts",
+      "modulePath": "packages/core/src/components/time-input/cindor-time-input.ts",
       "properties": [
         {
           "attributeName": "autocomplete",
@@ -4548,12 +6627,52 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-time-input"
+      "tagName": "cindor-time-input"
     },
     {
-      "className": "EmbToast",
+      "className": "CindorTimeline",
+      "description": "Ordered event timeline for status history and activity summaries.",
+      "modulePath": "packages/core/src/components/timeline/cindor-timeline.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "`cindor-timeline-item` children.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-timeline"
+    },
+    {
+      "className": "CindorTimelineItem",
+      "description": "Single event row used inside CindorTimeline.",
+      "modulePath": "packages/core/src/components/timeline-item/cindor-timeline-item.ts",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Main event title.",
+          "name": "title"
+        },
+        {
+          "description": "Secondary event time or date.",
+          "name": "timestamp"
+        },
+        {
+          "description": "Event body content.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-timeline-item"
+    },
+    {
+      "className": "CindorToast",
       "description": "",
-      "modulePath": "packages/core/src/components/toast/emb-toast.ts",
+      "modulePath": "packages/core/src/components/toast/cindor-toast.ts",
       "properties": [
         {
           "attributeName": "dismissible",
@@ -4606,12 +6725,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-toast"
+      "tagName": "cindor-toast"
     },
     {
-      "className": "EmbToastRegion",
+      "className": "CindorToastRegion",
       "description": "",
-      "modulePath": "packages/core/src/components/toast/emb-toast-region.ts",
+      "modulePath": "packages/core/src/components/toast/cindor-toast-region.ts",
       "properties": [
         {
           "attributeName": "max-visible",
@@ -4685,12 +6804,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-toast-region"
+      "tagName": "cindor-toast-region"
     },
     {
-      "className": "EmbToolbar",
+      "className": "CindorToolbar",
       "description": "",
-      "modulePath": "packages/core/src/components/toolbar/emb-toolbar.ts",
+      "modulePath": "packages/core/src/components/toolbar/cindor-toolbar.ts",
       "properties": [
         {
           "attributeName": "orientation",
@@ -4723,12 +6842,12 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-toolbar"
+      "tagName": "cindor-toolbar"
     },
     {
-      "className": "EmbTooltip",
+      "className": "CindorTooltip",
       "description": "",
-      "modulePath": "packages/core/src/components/tooltip/emb-tooltip.ts",
+      "modulePath": "packages/core/src/components/tooltip/cindor-tooltip.ts",
       "properties": [
         {
           "attributeName": "open",
@@ -4758,12 +6877,148 @@
         }
       ],
       "summary": "",
-      "tagName": "emb-tooltip"
+      "tagName": "cindor-tooltip"
     },
     {
-      "className": "EmbTreeItem",
-      "description": "Hierarchical item used inside EmbTreeView.\r\n\r\nSet `label` for the visible row text and nest additional `emb-tree-item`\r\nelements in the default slot to create branches.",
-      "modulePath": "packages/core/src/components/tree-item/emb-tree-item.ts",
+      "className": "CindorTransferList",
+      "description": "Dual-list selector for moving items between available and selected collections.\r\n\r\nUse light-DOM `option` or `cindor-option` children as the source option set.",
+      "modulePath": "packages/core/src/components/transfer-list/cindor-transfer-list.ts",
+      "properties": [
+        {
+          "attributeName": "available-label",
+          "defaultValue": "\"Available\"",
+          "description": "",
+          "name": "availableLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "selected-label",
+          "defaultValue": "\"Selected\"",
+          "description": "",
+          "name": "selectedLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "selectedValues",
+          "reflects": false,
+          "type": "string[]",
+          "values": null
+        },
+        {
+          "attributeName": "size",
+          "defaultValue": "8",
+          "description": "",
+          "name": "size",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the selected values change.",
+          "name": "input",
+          "type": "CustomEvent<TransferListChangeDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the selected values change.",
+          "name": "change",
+          "type": "CustomEvent<TransferListChangeDetail>",
+          "values": null
+        }
+      ],
+      "slots": [
+        {
+          "description": "`option` or `cindor-option` children that define the available choices.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-transfer-list"
+    },
+    {
+      "className": "CindorTreeItem",
+      "description": "Hierarchical item used inside CindorTreeView.\r\n\r\nSet `label` for the visible row text and nest additional `cindor-tree-item`\r\nelements in the default slot to create branches.",
+      "modulePath": "packages/core/src/components/tree-item/cindor-tree-item.ts",
       "properties": [
         {
           "attributeName": "disabled",
@@ -4863,17 +7118,17 @@
           "name": "start"
         },
         {
-          "description": "Nested child `emb-tree-item` elements for branch content.",
+          "description": "Nested child `cindor-tree-item` elements for branch content.",
           "name": "default"
         }
       ],
       "summary": "",
-      "tagName": "emb-tree-item"
+      "tagName": "cindor-tree-item"
     },
     {
-      "className": "EmbTreeView",
-      "description": "Keyboard-accessible single-selection tree view.\r\n\r\nUse nested `emb-tree-item` elements to create branches and leaves.",
-      "modulePath": "packages/core/src/components/tree-view/emb-tree-view.ts",
+      "className": "CindorTreeView",
+      "description": "Keyboard-accessible single-selection tree view.\r\n\r\nUse nested `cindor-tree-item` elements to create branches and leaves.",
+      "modulePath": "packages/core/src/components/tree-view/cindor-tree-view.ts",
       "properties": [
         {
           "attributeName": "value",
@@ -4902,17 +7157,17 @@
       ],
       "slots": [
         {
-          "description": "Direct child `emb-tree-item` elements.",
+          "description": "Direct child `cindor-tree-item` elements.",
           "name": "default"
         }
       ],
       "summary": "",
-      "tagName": "emb-tree-view"
+      "tagName": "cindor-tree-view"
     },
     {
-      "className": "EmbUrlInput",
+      "className": "CindorUrlInput",
       "description": "",
-      "modulePath": "packages/core/src/components/url-input/emb-url-input.ts",
+      "modulePath": "packages/core/src/components/url-input/cindor-url-input.ts",
       "properties": [
         {
           "attributeName": "autocomplete",
@@ -5070,7 +7325,7 @@
       "events": [],
       "slots": [],
       "summary": "",
-      "tagName": "emb-url-input"
+      "tagName": "cindor-url-input"
     }
   ]
 }

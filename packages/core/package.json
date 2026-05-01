@@ -1,5 +1,5 @@
 {
-  "name": "emberline-ui-core",
+  "name": "cindor-ui-core",
   "version": "0.1.0",
   "type": "module",
   "customElements": "./custom-elements.json",
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@floating-ui/dom": "^1.7.6",
-    "emberline-design": "github:cbulock/emberline-design",
+    "cindor-design": "github:cbulock/cindor-design",
     "highlight.js": "^11.11.1",
     "lit": "^3.2.1",
     "lucide": "^1.11.0"

@@ -1,0 +1,9 @@
+const meta = {
+  title: "Forms/Date Range Picker",
+  render: () =>
+    `<cindor-date-range-picker aria-label="Vacation range" month="2026-04" start-value="2026-04-12" end-value="2026-04-18"></cindor-date-range-picker>`
+};
+
+export default meta;
+
+export const Default = {};

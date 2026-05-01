@@ -1,5 +1,5 @@
 {
-  "name": "emberline-ui-docs",
+  "name": "cindor-ui-docs",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -9,6 +9,6 @@
     "preview": "vite preview --host"
   },
   "dependencies": {
-    "emberline-ui-core": "0.1.0"
+    "cindor-ui-core": "0.1.0"
   }
 }

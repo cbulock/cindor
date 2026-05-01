@@ -1,0 +1,165 @@
+import { css, html, LitElement } from "lit";
+
+import { attachFloatingPosition } from "../shared/floating-position.js";
+
+export class CindorDropdownMenu extends LitElement {
+  static styles = css`
+    :host {
+      display: inline-block;
+    }
+
+    details {
+      position: relative;
+    }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    cindor-menu.menu {
+      position: fixed;
+      z-index: 20;
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+
+    details[open] cindor-menu.menu {
+      animation: cindor-dropdown-menu-enter var(--duration-base) var(--ease-out) forwards;
+    }
+
+    @keyframes cindor-dropdown-menu-enter {
+      from {
+        opacity: 0;
+        transform: translateY(-4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  `;
+
+  static properties = {
+    open: { type: Boolean, reflect: true }
+  };
+
+  open = false;
+
+  private floatingCleanup?: () => void;
+  private floatingMenu: HTMLElement | null = null;
+  private updateFloatingPosition?: () => void;
+
+  protected override render() {
+    return html`
+      <details ?open=${this.open} @toggle=${this.handleToggle}>
+        <summary part="trigger">
+          <slot name="trigger"></slot>
+        </summary>
+        <cindor-menu class="menu" part="menu" @menu-item-select=${this.handleItemSelect}>
+          <slot></slot>
+        </cindor-menu>
+      </details>
+    `;
+  }
+
+  protected override updated(): void {
+    this.syncMenuA11y();
+    this.syncFloatingPosition();
+  }
+
+  override disconnectedCallback(): void {
+    this.destroyFloatingPosition();
+    super.disconnectedCallback();
+  }
+
+  private handleToggle = (event: Event): void => {
+    event.stopPropagation();
+    const details = event.currentTarget as HTMLDetailsElement;
+    this.open = details.open;
+    this.dispatchEvent(new Event("toggle", { bubbles: true, composed: true }));
+  };
+
+  private syncFloatingPosition(): void {
+    const trigger = this.triggerElement;
+    const menu = this.menuElement;
+
+    if (!this.open || !trigger || !menu) {
+      this.destroyFloatingPosition();
+      return;
+    }
+
+    if (this.floatingMenu !== menu) {
+      this.destroyFloatingPosition();
+      const handle = attachFloatingPosition({
+        floating: menu,
+        placement: "bottom-start",
+        reference: trigger
+      });
+
+      this.floatingCleanup = handle.cleanup;
+      this.updateFloatingPosition = handle.update;
+      this.floatingMenu = menu;
+      return;
+    }
+
+    this.updateFloatingPosition?.();
+  }
+
+  private destroyFloatingPosition(): void {
+    this.floatingCleanup?.();
+    this.floatingCleanup = undefined;
+    this.updateFloatingPosition = undefined;
+
+    if (this.floatingMenu) {
+      this.floatingMenu.style.position = "";
+      this.floatingMenu.style.left = "";
+      this.floatingMenu.style.top = "";
+    }
+
+    this.floatingMenu = null;
+  }
+
+  private syncMenuA11y(): void {
+    const menu = this.menuElement;
+    if (!menu) {
+      return;
+    }
+
+    syncA11yAttribute(this, menu, "aria-label");
+    syncA11yAttribute(this, menu, "aria-labelledby");
+    syncA11yAttribute(this, menu, "aria-describedby");
+  }
+
+  private get menuElement(): HTMLElement | null {
+    return this.renderRoot.querySelector("cindor-menu");
+  }
+
+  private get triggerElement(): HTMLElement | null {
+    return this.renderRoot.querySelector("summary");
+  }
+
+  private handleItemSelect = (): void => {
+    this.detailsElement?.removeAttribute("open");
+    this.open = false;
+  };
+
+  private get detailsElement(): HTMLDetailsElement | null {
+    return this.renderRoot.querySelector("details");
+  }
+}
+
+function syncA11yAttribute(source: Element, target: Element, attribute: "aria-describedby" | "aria-label" | "aria-labelledby"): void {
+  const value = source.getAttribute(attribute);
+  if (value === null || value === "") {
+    target.removeAttribute(attribute);
+    return;
+  }
+
+  target.setAttribute(attribute, value);
+}

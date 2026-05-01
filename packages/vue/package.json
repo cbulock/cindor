@@ -1,5 +1,5 @@
 {
-  "name": "emberline-ui-vue",
+  "name": "cindor-ui-vue",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -16,10 +16,10 @@
     }
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --external vue --external emberline-ui-core --external emberline-ui-core/register"
+    "build": "tsup src/index.ts --format esm,cjs --dts --external vue --external cindor-ui-core --external cindor-ui-core/register"
   },
   "dependencies": {
-    "emberline-ui-core": "0.1.0"
+    "cindor-ui-core": "0.1.0"
   },
   "peerDependencies": {
     "vue": "^3.5.0"

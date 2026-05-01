@@ -1,5 +1,5 @@
 {
-  "name": "emberline-ui-workspace",
+  "name": "cindor-ui-workspace",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -11,10 +11,10 @@
     "apps/*"
   ],
   "scripts": {
-    "build": "npm run generate:manifest && npm run generate:wrappers && npm run build --workspace emberline-ui-core && npm run build --workspace emberline-ui-react && npm run build --workspace emberline-ui-vue && npm run build --workspace emberline-ui-docs",
-    "build:docs": "npm run generate:manifest && npm run build --workspace emberline-ui-docs",
-    "docs": "npm run generate:manifest && npm run dev --workspace emberline-ui-docs",
-    "docs:preview": "npm run preview --workspace emberline-ui-docs",
+    "build": "npm run generate:manifest && npm run generate:wrappers && npm run build --workspace cindor-ui-core && npm run build --workspace cindor-ui-react && npm run build --workspace cindor-ui-vue && npm run build --workspace cindor-ui-docs",
+    "build:docs": "npm run generate:manifest && npm run build --workspace cindor-ui-docs",
+    "docs": "npm run generate:manifest && npm run dev --workspace cindor-ui-docs",
+    "docs:preview": "npm run preview --workspace cindor-ui-docs",
     "generate:manifest": "node scripts/generate-component-manifest.mjs",
     "generate:wrappers": "node scripts/generate-framework-wrappers.mjs",
     "lint": "eslint .",

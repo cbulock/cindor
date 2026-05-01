@@ -243,7 +243,7 @@ a {
   text-decoration: none;
 }
 
-.catalog-card emb-card {
+.catalog-card cindor-card {
   display: block;
   block-size: 100%;
 }
@@ -280,7 +280,7 @@ a {
   background: var(--surface);
 }
 
-.preview-block emb-code-block,
+.preview-block cindor-code-block,
 .install-grid > *,
 .demo-grid > *,
 .usage-grid > *,

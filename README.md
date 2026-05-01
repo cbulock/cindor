@@ -1,18 +1,18 @@
-# Emberline Components
+# Cindor Components
 
-Emberline Components is a standards-based component library built around a framework-agnostic **web component core** with thin **React** and **Vue** wrappers.
+Cindor Components is a standards-based component library built around a framework-agnostic **web component core** with thin **React** and **Vue** wrappers.
 
-The visual foundation comes from the upstream [emberline-design](https://github.com/cbulock/emberline-design) package. Treat that design system as a living upstream dependency rather than local copied styling.
+The visual foundation comes from the upstream [cindor-design](https://github.com/cbulock/cindor-design) package. Treat that design system as a living upstream dependency rather than local copied styling.
 
 ## Packages
 
-- `packages/core` — Lit-based custom elements in `emberline-ui-core`
-- `packages/react` — React wrappers in `emberline-ui-react`
-- `packages/vue` — Vue wrappers in `emberline-ui-vue`
+- `packages/core` — Lit-based custom elements in `cindor-ui-core`
+- `packages/react` — React wrappers in `cindor-ui-react`
+- `packages/vue` — Vue wrappers in `cindor-ui-vue`
 
 ## Apps
 
-- `apps/docs` — living documentation site built with the Emberline web components themselves
+- `apps/docs` — living documentation site built with the Cindor web components themselves
 
 The core package is the source of truth for behavior, events, accessibility, and styling hooks. React and Vue packages adapt those elements for framework ergonomics without re-implementing component logic.
 
@@ -44,7 +44,7 @@ npm run docs:preview
 Run a single test file with Vitest:
 
 ```bash
-npx vitest run packages/core/src/components/button/emb-button.test.ts
+npx vitest run packages/core/src/components/button/cindor-button.test.ts
 ```
 
 Replace the file path as needed for the specific component you are working on.
@@ -58,9 +58,9 @@ The docs API reference is generated from the core component source. Run `npm run
 Use this workflow when adding a component so it is wired through the full library surface instead of existing only in the core package.
 
 1. Create the component in `packages/core/src/components/<component-name>/` with:
-   - `emb-<component-name>.ts`
-   - `emb-<component-name>.test.ts`
-   - `emb-<component-name>.stories.ts`
+   - `cindor-<component-name>.ts`
+   - `cindor-<component-name>.test.ts`
+   - `cindor-<component-name>.stories.ts`
 2. Export the component from `packages/core/src/index.ts`.
 3. Register the custom element in `packages/core/src/register.ts`.
 4. If the component should be available in React and Vue, add it to `scripts/wrapper-manifest.mjs`, then run `npm run generate:wrappers`. Do not hand-edit `packages/react/src/index.tsx` or `packages/vue/src/index.ts`.
@@ -81,7 +81,7 @@ npm run build
 For faster iteration during development, it is also normal to run a targeted test file first, for example:
 
 ```bash
-npx vitest run packages/core/src/components/button/emb-button.test.ts
+npx vitest run packages/core/src/components/button/cindor-button.test.ts
 ```
 
 ## Architecture
@@ -92,24 +92,24 @@ This repository is designed around a few core rules:
 2. **Framework-agnostic core** — custom elements should work in any app that supports standard web components, not only React or Vue.
 3. **Thin wrappers** — framework packages should only handle prop/event adaptation and typing.
 4. **Shadow DOM component styling** — component-specific visuals live inside each Lit component.
-5. **Shared global design layer** — `emberline-ui-core/styles.css` imports the upstream Emberline fonts, tokens, base styles, and theme hooks.
+5. **Shared global design layer** — `cindor-ui-core/styles.css` imports the upstream design-system fonts, tokens, base styles, and theme hooks.
 
 ## Styling and theming
 
 The core package exports a shared stylesheet:
 
 ```ts
-import "emberline-ui-core/styles.css";
+import "cindor-ui-core/styles.css";
 ```
 
-That stylesheet pulls in the upstream `emberline-design` global layer. Component internals are styled inside shadow DOM, while the shared global CSS covers:
+That stylesheet pulls in the upstream `cindor-design` global layer. Component internals are styled inside shadow DOM, while the shared global CSS covers:
 
 - fonts
 - design tokens
 - base element styling
 - theme hooks
 
-Theme switching is intended to stay compatible with Emberline’s root-level `data-theme` pattern.
+Theme switching is intended to stay compatible with the upstream design system's root-level `data-theme` pattern.
 
 ## Usage direction
 
@@ -123,9 +123,9 @@ The core integration surface should remain standards-based:
 
 This keeps the components portable across generic web-component consumers as well as React and Vue applications.
 
-Lucide is the preferred icon source for the library. The core package exposes `emb-icon` for common UI glyphs, and built-in component affordances such as search, upload, and close actions use that same Lucide-backed icon path.
+Lucide is the preferred icon source for the library. The core package exposes `cindor-icon` for common UI glyphs, and built-in component affordances such as search, upload, and close actions use that same Lucide-backed icon path.
 
-Toasts can also be managed imperatively through the shared toast manager system. Use `emb-toast-region` for fixed-position stacking, or call `showToast()` from `emberline-ui-core` to target the default region in a standard web-component app.
+Toasts can also be managed imperatively through the shared toast manager system. Use `cindor-toast-region` for fixed-position stacking, or call `showToast()` from `cindor-ui-core` to target the default region in a standard web-component app.
 
 ## Storybook
 
@@ -139,7 +139,7 @@ Storybook accessibility checks are part of the expected component workflow. Stor
 
 ## Living docs
 
-The repository also includes a docs app at `apps/docs` that uses the published Emberline component APIs directly inside the site itself. It is intended to stay in the same repo so examples, package APIs, and docs content evolve together.
+The repository also includes a docs app at `apps/docs` that uses the published Cindor component APIs directly inside the site itself. It is intended to stay in the same repo so examples, package APIs, and docs content evolve together.
 
 GitHub Pages deployment is wired through `.github/workflows/docs-pages.yml`. The workflow builds `apps/docs` with a repo-aware `DOCS_BASE_PATH` so project-site deployments serve assets correctly from `https://<owner>.github.io/<repo>/`.
 

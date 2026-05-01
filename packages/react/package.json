@@ -1,5 +1,5 @@
 {
-  "name": "emberline-ui-react",
+  "name": "cindor-ui-react",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -16,11 +16,11 @@
     }
   },
   "scripts": {
-    "build": "tsup src/index.tsx --format esm,cjs --dts --external react --external react/jsx-runtime --external emberline-ui-core --external emberline-ui-core/register"
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react --external react/jsx-runtime --external cindor-ui-core --external cindor-ui-core/register"
   },
   "dependencies": {
     "@lit/react": "^1.0.7",
-    "emberline-ui-core": "0.1.0"
+    "cindor-ui-core": "0.1.0"
   },
   "peerDependencies": {
     "react": "^19.0.0",
