@@ -1,6 +1,16 @@
 name: Publish packages
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - package.json
+      - package-lock.json
+      - apps/docs/package.json
+      - packages/core/package.json
+      - packages/react/package.json
+      - packages/vue/package.json
   release:
     types:
       - published
