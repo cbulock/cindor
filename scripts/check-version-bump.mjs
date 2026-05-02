@@ -12,6 +12,7 @@ const versionFiles = [
 ];
 
 const exemptNonVersionFiles = [
+  ".github/workflows/create-release.yml",
   ".github/workflows/publish-packages.yml",
   ".github/workflows/version-bump.yml",
   "scripts/check-version-bump.mjs"
