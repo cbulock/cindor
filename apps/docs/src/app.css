@@ -499,8 +499,10 @@ a {
   font-size: var(--text-sm);
 }
 
-body.nav-open {
-  overflow: hidden;
+@media (max-width: 960px) {
+  body.nav-open {
+    overflow: hidden;
+  }
 }
 
 .mobile-header {
