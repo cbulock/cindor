@@ -90,18 +90,22 @@ describe("cindor-select", () => {
     expect(select.value).toBe("open");
   });
 
-  it("forwards host labelling attributes to the internal select", async () => {
+  it("maps host labelling attributes to internal shadow-safe accessibility references", async () => {
     const element = document.createElement("cindor-select") as CindorSelect;
     element.setAttribute("aria-label", "Status");
     element.setAttribute("aria-describedby", "status-help");
+    document.body.innerHTML = `<div id="status-help">Choose the current status</div>`;
     element.innerHTML = `<option value="open">Open</option>`;
     document.body.append(element);
     await element.updateComplete;
 
     const select = element.renderRoot.querySelector("select");
+    const describedById = select?.getAttribute("aria-describedby");
+    const descriptionMirror = describedById ? element.renderRoot.querySelector(`#${describedById}`) : null;
 
     expect(select?.getAttribute("aria-label")).toBe("Status");
-    expect(select?.getAttribute("aria-describedby")).toBe("status-help");
+    expect(describedById).toMatch(/-description$/);
+    expect(descriptionMirror?.textContent).toBe("Choose the current status");
   });
 
   it("redispatches input events and refreshes options when light DOM changes", async () => {

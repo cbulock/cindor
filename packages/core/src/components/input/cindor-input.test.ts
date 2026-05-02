@@ -27,19 +27,39 @@ describe("cindor-input", () => {
     expect(onInput).toHaveBeenCalledTimes(1);
   });
 
-  it("forwards host labelling attributes to the internal input", async () => {
+  it("maps host labelling attributes to internal shadow-safe accessibility references", async () => {
     const element = document.createElement("cindor-input") as CindorInput;
     element.setAttribute("aria-label", "Project name");
     element.setAttribute("aria-describedby", "project-help");
     element.setAttribute("aria-labelledby", "project-label");
+    document.body.innerHTML = `
+      <div id="project-label">Project name from label</div>
+      <div id="project-help">Used in URLs</div>
+    `;
+    document.body.append(element);
+    await element.updateComplete;
+
+    const input = element.renderRoot.querySelector("input");
+    const labelledById = input?.getAttribute("aria-labelledby");
+    const describedById = input?.getAttribute("aria-describedby");
+    const labelMirror = labelledById ? element.renderRoot.querySelector(`#${labelledById}`) : null;
+    const descriptionMirror = describedById ? element.renderRoot.querySelector(`#${describedById}`) : null;
+
+    expect(input?.hasAttribute("aria-label")).toBe(false);
+    expect(labelledById).toMatch(/-label$/);
+    expect(describedById).toMatch(/-description$/);
+    expect(labelMirror?.textContent).toBe("Project name from label");
+    expect(descriptionMirror?.textContent).toBe("Used in URLs");
+  });
+
+  it("assigns a stable native control id even when no name is provided", async () => {
+    const element = document.createElement("cindor-input") as CindorInput;
     document.body.append(element);
     await element.updateComplete;
 
     const input = element.renderRoot.querySelector("input");
 
-    expect(input?.getAttribute("aria-label")).toBe("Project name");
-    expect(input?.getAttribute("aria-describedby")).toBe("project-help");
-    expect(input?.getAttribute("aria-labelledby")).toBe("project-label");
+    expect(input?.id).toMatch(/native-control$/);
   });
 
   it("renders configured start and end icons", async () => {

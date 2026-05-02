@@ -117,8 +117,8 @@ export class BaseInputElement extends FormAssociatedElement {
           ?disabled=${this.disabled}
           max=${ifDefined(this.max || undefined)}
           min=${ifDefined(this.min || undefined)}
-          name=${this.name}
-          placeholder=${this.placeholder}
+          name=${ifDefined(this.name || undefined)}
+          placeholder=${ifDefined(this.placeholder || undefined)}
           ?readonly=${this.readonly}
           ?required=${this.required}
           step=${ifDefined(this.step || undefined)}

@@ -3,17 +3,21 @@ import "../../register.js";
 import { CindorPasswordInput } from "./cindor-password-input.js";
 
 describe("cindor-password-input", () => {
-  it("forwards accessible naming attributes to the internal input", async () => {
+  it("maps accessible naming attributes to internal shadow-safe references", async () => {
     const element = document.createElement("cindor-password-input") as CindorPasswordInput;
     element.setAttribute("aria-label", "Account password");
     element.setAttribute("aria-describedby", "password-help");
+    document.body.innerHTML = `<div id="password-help">At least 12 characters</div>`;
     document.body.append(element);
     await element.updateComplete;
 
     const input = element.renderRoot.querySelector("input");
+    const describedById = input?.getAttribute("aria-describedby");
+    const descriptionMirror = describedById ? element.renderRoot.querySelector(`#${describedById}`) : null;
 
     expect(input?.getAttribute("aria-label")).toBe("Account password");
-    expect(input?.getAttribute("aria-describedby")).toBe("password-help");
+    expect(describedById).toMatch(/-description$/);
+    expect(descriptionMirror?.textContent).toBe("At least 12 characters");
   });
 
   it("renders a native password input", async () => {
