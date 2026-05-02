@@ -15,6 +15,8 @@ const exemptNonVersionFiles = [
   ".github/workflows/create-release.yml",
   ".github/workflows/publish-packages.yml",
   ".github/workflows/version-bump.yml",
+  "packages/core/component-docs.json",
+  "packages/core/custom-elements.json",
   "scripts/check-version-bump.mjs"
 ];
 
