@@ -178,24 +178,59 @@ form?.addEventListener("submit", (event) => {
 const installCode = `npm install cindor-ui-core`;
 const reactInstallCode = `npm install cindor-ui-core cindor-ui-react`;
 const vueInstallCode = `npm install cindor-ui-core cindor-ui-vue`;
-const reactQuickStartCode = `import "cindor-ui-core/styles.css";
-import { CindorButton, CindorProvider } from "cindor-ui-react";
+const reactQuickStartCode = `import { useState } from "react";
+import "cindor-ui-core/styles.css";
+import {
+  CindorButton,
+  CindorFormField,
+  CindorInput,
+  CindorProvider
+} from "cindor-ui-react";
 
 export function App() {
+  const [projectName, setProjectName] = useState("Q2 launch");
+
   return (
     <CindorProvider theme="dark">
-      <CindorButton>Save changes</CindorButton>
+      <main style={{ padding: "var(--space-6)" }}>
+        <CindorFormField label="Project name" description="Shown in the workspace switcher.">
+          <CindorInput
+            value={projectName}
+            onInput={(event) => setProjectName((event.currentTarget as HTMLInputElement).value)}
+          />
+        </CindorFormField>
+
+        <CindorButton style={{ marginTop: "var(--space-4)" }}>
+          Save {projectName}
+        </CindorButton>
+      </main>
     </CindorProvider>
   );
 }`;
 const vueQuickStartCode = `<script setup lang="ts">
+import { ref } from "vue";
 import "cindor-ui-core/styles.css";
-import { CindorButton, CindorProvider } from "cindor-ui-vue";
+import {
+  CindorButton,
+  CindorFormField,
+  CindorInput,
+  CindorProvider
+} from "cindor-ui-vue";
+
+const projectName = ref("Q2 launch");
 </script>
 
 <template>
   <CindorProvider theme="dark">
-    <CindorButton>Save changes</CindorButton>
+    <main style="padding: var(--space-6);">
+      <CindorFormField label="Project name" description="Shown in the workspace switcher.">
+        <CindorInput v-model="projectName" />
+      </CindorFormField>
+
+      <CindorButton style="margin-top: var(--space-4);">
+        Save {{ projectName }}
+      </CindorButton>
+    </main>
   </CindorProvider>
 </template>`;
 
@@ -1560,6 +1595,46 @@ export function Example() {
 }`;
   }
 
+  if (doc.slug === "data-table") {
+    return `import { useMemo } from "react";
+import "cindor-ui-core/styles.css";
+import { CindorDataTable } from "cindor-ui-react";
+import type { DataTableColumn, DataTableRow } from "cindor-ui-core";
+
+const rows: DataTableRow[] = [
+  { id: "1", component: "cindor-button", layer: "Primitive", use: "Actions" },
+  { id: "2", component: "cindor-form-field", layer: "Composite", use: "Forms" }
+];
+
+export function Example() {
+  const columns = useMemo<DataTableColumn[]>(() => [
+    { key: "component", label: "Component", sortable: true },
+    { key: "layer", label: "Layer" },
+    { key: "use", label: "Use" },
+    {
+      key: "actions",
+      label: "Actions",
+      actions: [
+        { key: "open", label: "", icon: "arrow-up-right" },
+        { key: "edit", label: "Edit", icon: "pencil" }
+      ]
+    }
+  ], []);
+
+  return (
+    <CindorDataTable
+      caption="Components"
+      columns={columns}
+      rows={rows}
+      onRowAction={(event) => {
+        const detail = (event as CustomEvent<{ actionKey: string; row: DataTableRow }>).detail;
+        console.log(detail.actionKey, detail.row);
+      }}
+    />
+  );
+}`;
+  }
+
   return `import "cindor-ui-core/styles.css";
 import { ${componentName} } from "cindor-ui-react";
 
@@ -1576,7 +1651,7 @@ function getVueUsageCode(doc: ComponentDoc): string {
   if (doc.slug === "filter-builder") {
     return `<script setup lang="ts">
  import "cindor-ui-core/styles.css";
- import { CindorFilterBuilder } from "cindor-ui-vue";
+  import { CindorFilterBuilder } from "cindor-ui-vue";
  import type { FilterBuilderField } from "cindor-ui-core";
 
 const fields: FilterBuilderField[] = ${JSON.stringify(filterBuilderDemoFields, null, 2)};
@@ -1585,6 +1660,47 @@ const initialValue = ${JSON.stringify(filterBuilderPreviewValue)};
 
 <template>
   <CindorFilterBuilder :fields="fields" :model-value="initialValue" />
+</template>`;
+  }
+
+  if (doc.slug === "data-table") {
+    return `<script setup lang="ts">
+import "cindor-ui-core/styles.css";
+import { CindorDataTable } from "cindor-ui-vue";
+import type { DataTableColumn, DataTableRow } from "cindor-ui-core";
+
+const columns: DataTableColumn[] = [
+  { key: "component", label: "Component", sortable: true },
+  { key: "layer", label: "Layer" },
+  { key: "use", label: "Use" },
+  {
+    key: "actions",
+    label: "Actions",
+    actions: [
+      { key: "open", label: "", icon: "arrow-up-right" },
+      { key: "edit", label: "Edit", icon: "pencil" }
+    ]
+  }
+];
+
+const rows: DataTableRow[] = [
+  { id: "1", component: "cindor-button", layer: "Primitive", use: "Actions" },
+  { id: "2", component: "cindor-form-field", layer: "Composite", use: "Forms" }
+];
+
+const handleRowAction = (event: Event) => {
+  const detail = (event as CustomEvent<{ actionKey: string; row: DataTableRow }>).detail;
+  console.log(detail.actionKey, detail.row);
+};
+</script>
+
+<template>
+  <CindorDataTable
+    caption="Components"
+    :columns="columns"
+    :rows="rows"
+    @row-action="handleRowAction"
+  />
 </template>`;
   }
 
