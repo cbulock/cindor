@@ -200,9 +200,9 @@ import { CindorButton, CindorProvider } from "cindor-ui-vue";
 </template>`;
 
 const dataTableSampleRows = [
-  { id: "1", component: "cindor-button", layer: "Primitive", use: "Actions" },
-  { id: "2", component: "cindor-form-field", layer: "Composite", use: "Forms" },
-  { id: "3", component: "cindor-command-palette", layer: "Component", use: "Workflows" }
+  { id: "1", component: "cindor-button", layer: "Primitive", use: "Actions", actions: "Edit, Open" },
+  { id: "2", component: "cindor-form-field", layer: "Composite", use: "Forms", actions: "Inspect, Duplicate" },
+  { id: "3", component: "cindor-command-palette", layer: "Component", use: "Workflows", actions: "Launch" }
 ];
 
 const stepperDetailSteps: StepperStep[] = [
@@ -1154,7 +1154,34 @@ function getUsageCode(doc: ComponentDoc): string {
   <cindor-menu-item>Duplicate</cindor-menu-item>
 </cindor-context-menu>`;
     case "data-table":
-      return `<cindor-data-table caption="Team members"></cindor-data-table>`;
+      return `<cindor-data-table id="component-table" caption="Components"></cindor-data-table>
+
+<script type="module">
+  const table = document.querySelector("#component-table");
+
+  table.columns = [
+    { key: "component", label: "Component", sortable: true },
+    { key: "layer", label: "Layer" },
+    { key: "use", label: "Use" },
+    {
+      key: "actions",
+      label: "Actions",
+      actions: [
+        { key: "open", label: "", icon: "arrow-up-right" },
+        { key: "edit", label: "Edit", icon: "pencil" }
+      ]
+    }
+  ];
+
+  table.rows = [
+    { id: "1", component: "cindor-button", layer: "Primitive", use: "Actions" },
+    { id: "2", component: "cindor-form-field", layer: "Composite", use: "Forms" }
+  ];
+
+  table.addEventListener("row-action", (event) => {
+    console.log(event.detail.actionKey, event.detail.row);
+  });
+</script>`;
     case "date-picker":
       return `<cindor-date-picker month="2026-04" value="2026-04-26"></cindor-date-picker>`;
     case "date-range-picker":
@@ -2226,13 +2253,13 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "data-table":
       return `<div class="preview-block">
         <strong>Small data set preview</strong>
-        <p class="muted">The richer table behavior appears once the docs app hydrates sample row data.</p>
+        <p class="muted">Columns can define row actions that render icon buttons or labeled action buttons.</p>
         <table class="plain-preview-table">
           <thead>
-            <tr><th>Component</th><th>Layer</th><th>Use</th></tr>
+            <tr><th>Component</th><th>Layer</th><th>Use</th><th>Row actions</th></tr>
           </thead>
           <tbody>
-            ${dataTableSampleRows.map((row) => `<tr><td>${row.component}</td><td>${row.layer}</td><td>${row.use}</td></tr>`).join("")}
+            ${dataTableSampleRows.map((row) => `<tr><td>${row.component}</td><td>${row.layer}</td><td>${row.use}</td><td>${row.actions}</td></tr>`).join("")}
           </tbody>
         </table>
       </div>`;
@@ -2655,12 +2682,20 @@ function getLegacyComponentApi(doc: ComponentDoc): ComponentApiSurface {
         groups: [
           propertyGroup([
             apiItem("caption", "Caption text for the table.", { defaultValue: `""`, type: "string" }),
-            apiItem("columns / rows", "Columns and rows are typically assigned as JavaScript properties.", { type: "assigned data objects" })
+            apiItem("columns / rows", "Columns and rows are typically assigned as JavaScript properties.", { type: "assigned data objects" }),
+            apiItem("columns[].actions", "Per-row action definitions for an actions column. Each action can render as icon-only or as a labeled button.", {
+              type: "DataTableRowAction[]"
+            })
           ]),
-          eventGroup([apiItem("change", "Sorting, searching, and pagination interactions generally surface through value-like change events in the component.", { type: "Event" })], "Data table behavior is primarily configured through assigned properties and child state."),
+          eventGroup([
+            apiItem("row-action", "Fired when a row action button is activated. The detail includes the action key, row data, and column context.", {
+              type: "CustomEvent<DataTableRowActionDetail>"
+            }),
+            apiItem("change", "Sorting, searching, and pagination interactions generally surface through value-like change events in the component.", { type: "Event" })
+          ], "Data table behavior is primarily configured through assigned properties and child state."),
           compositionGroup([])
         ],
-        intro: `${doc.tag} is one of the more stateful components in the library. In practice it is driven by assigned data and table configuration rather than slot content.`
+        intro: `${doc.tag} is one of the more stateful components in the library. In practice it is driven by assigned data and table configuration rather than slot content, including per-row action buttons defined on a column's actions array.`
       };
     case "dialog":
       return overlayApi(
