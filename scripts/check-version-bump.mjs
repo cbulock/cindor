@@ -11,6 +11,12 @@ const versionFiles = [
   "packages/vue/package.json"
 ];
 
+const exemptNonVersionFiles = [
+  ".github/workflows/publish-packages.yml",
+  ".github/workflows/version-bump.yml",
+  "scripts/check-version-bump.mjs"
+];
+
 const workspacePackageFiles = [
   "package.json",
   "apps/docs/package.json",
@@ -27,7 +33,9 @@ if (!baseRef) {
 }
 
 const changedFiles = getChangedFiles(baseRef, headRef);
-const changedNonVersionFiles = changedFiles.filter((file) => !versionFiles.includes(file));
+const changedNonVersionFiles = changedFiles.filter(
+  (file) => !versionFiles.includes(file) && !exemptNonVersionFiles.includes(file)
+);
 
 if (changedNonVersionFiles.length === 0) {
   console.log("No non-version files changed; skipping version bump enforcement.");
