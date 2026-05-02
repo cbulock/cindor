@@ -343,16 +343,38 @@ document.addEventListener("keydown", (event) => {
     event.preventDefault();
     openPalette();
   }
+
+  if (event.key === "Escape") {
+    const shell = root.querySelector<HTMLElement>(".app-shell");
+    if (shell?.classList.contains("sidebar-open")) {
+      event.preventDefault();
+      closeMobileNav();
+      root.querySelector<HTMLElement>("[data-action='toggle-nav']")?.focus();
+    }
+  }
 });
 
 function render(): void {
+  document.body.classList.remove("nav-open");
+
   const route = getRoute();
   const activeSectionId = route.kind === "component" ? "components" : route.sectionId;
   const content = route.kind === "component" ? renderComponentDetail(route.slug) : renderHome(route.sectionId);
 
   root.innerHTML = `
     <div class="app-shell">
-      <aside class="sidebar">
+      <header class="mobile-header">
+        <strong>Cindor UI docs</strong>
+        <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="docs-sidebar" data-action="toggle-nav">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </header>
+
+      <div class="sidebar-overlay" aria-hidden="true" data-action="close-nav"></div>
+
+      <aside class="sidebar" id="docs-sidebar">
         ${renderSidebar(activeSectionId, route)}
       </aside>
 
@@ -922,6 +944,45 @@ function renderApiEntryValues(item: ApiItem): string {
   `;
 }
 
+const mobileMediaQuery = window.matchMedia("(max-width: 960px)");
+
+mobileMediaQuery.addEventListener("change", (event) => {
+  if (!event.matches) {
+    closeMobileNav();
+  }
+});
+
+function closeMobileNav(): void {
+  const shell = root.querySelector<HTMLElement>(".app-shell");
+  if (!shell) {
+    return;
+  }
+  shell.classList.remove("sidebar-open");
+  document.body.classList.remove("nav-open");
+
+  const toggle = root.querySelector<HTMLElement>("[data-action='toggle-nav']");
+  if (toggle) {
+    toggle.setAttribute("aria-label", "Open navigation");
+    toggle.setAttribute("aria-expanded", "false");
+  }
+
+  updateSidebarInert(shell);
+}
+
+function updateSidebarInert(shell: HTMLElement): void {
+  const sidebar = shell.querySelector<HTMLElement>("#docs-sidebar");
+  if (!sidebar) {
+    return;
+  }
+  const isMobile = mobileMediaQuery.matches;
+  const isOpen = shell.classList.contains("sidebar-open");
+  if (isMobile && !isOpen) {
+    sidebar.setAttribute("inert", "");
+  } else {
+    sidebar.removeAttribute("inert");
+  }
+}
+
 function wireNavigation(): void {
   root.querySelectorAll<HTMLElement>("[data-target-section]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -937,6 +998,31 @@ function wireNavigation(): void {
       openPalette();
     });
   });
+
+  root.querySelectorAll<HTMLElement>("[data-action='toggle-nav']").forEach((button) => {
+    button.addEventListener("click", () => {
+      const shell = root.querySelector<HTMLElement>(".app-shell");
+      if (!shell) {
+        return;
+      }
+      const isOpen = shell.classList.toggle("sidebar-open");
+      button.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+      button.setAttribute("aria-expanded", String(isOpen));
+      document.body.classList.toggle("nav-open", isOpen);
+      updateSidebarInert(shell);
+    });
+  });
+
+  root.querySelectorAll<HTMLElement>("[data-action='close-nav']").forEach((overlay) => {
+    overlay.addEventListener("click", () => {
+      closeMobileNav();
+    });
+  });
+
+  const shell = root.querySelector<HTMLElement>(".app-shell");
+  if (shell) {
+    updateSidebarInert(shell);
+  }
 }
 
 function hydrateLivingExamples(route: Route): void {
