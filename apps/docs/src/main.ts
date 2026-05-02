@@ -343,6 +343,15 @@ document.addEventListener("keydown", (event) => {
     event.preventDefault();
     openPalette();
   }
+
+  if (event.key === "Escape") {
+    const shell = root.querySelector<HTMLElement>(".app-shell");
+    if (shell?.classList.contains("sidebar-open")) {
+      event.preventDefault();
+      closeMobileNav();
+      root.querySelector<HTMLElement>("[data-action='toggle-nav']")?.focus();
+    }
+  }
 });
 
 function render(): void {
@@ -937,6 +946,29 @@ function renderApiEntryValues(item: ApiItem): string {
 
 const mobileMediaQuery = window.matchMedia("(max-width: 960px)");
 
+mobileMediaQuery.addEventListener("change", (event) => {
+  if (!event.matches) {
+    closeMobileNav();
+  }
+});
+
+function closeMobileNav(): void {
+  const shell = root.querySelector<HTMLElement>(".app-shell");
+  if (!shell) {
+    return;
+  }
+  shell.classList.remove("sidebar-open");
+  document.body.classList.remove("nav-open");
+
+  const toggle = root.querySelector<HTMLElement>("[data-action='toggle-nav']");
+  if (toggle) {
+    toggle.setAttribute("aria-label", "Open navigation");
+    toggle.setAttribute("aria-expanded", "false");
+  }
+
+  updateSidebarInert(shell);
+}
+
 function updateSidebarInert(shell: HTMLElement): void {
   const sidebar = shell.querySelector<HTMLElement>("#docs-sidebar");
   if (!sidebar) {
@@ -983,13 +1015,7 @@ function wireNavigation(): void {
 
   root.querySelectorAll<HTMLElement>("[data-action='close-nav']").forEach((overlay) => {
     overlay.addEventListener("click", () => {
-      const shell = root.querySelector<HTMLElement>(".app-shell");
-      if (!shell) {
-        return;
-      }
-      shell.classList.remove("sidebar-open");
-      document.body.classList.remove("nav-open");
-      updateSidebarInert(shell);
+      closeMobileNav();
     });
   });
 
