@@ -139,6 +139,90 @@ describe("cindor-input", () => {
     expect(input.getAttribute("form")).toBe(form.id);
   });
 
+  it("requests form submission when Enter is pressed in the native input", async () => {
+    document.body.innerHTML = `<form><cindor-input name="username" aria-label="Username"></cindor-input></form>`;
+
+    const form = document.querySelector("form") as HTMLFormElement;
+    const requestSubmit = vi.fn();
+    form.requestSubmit = requestSubmit;
+
+    const element = document.querySelector("cindor-input") as CindorInput;
+    await element.updateComplete;
+
+    const input = element.renderRoot.querySelector("input") as HTMLInputElement;
+
+    input.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, composed: true, key: "Enter" }));
+
+    expect(requestSubmit).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not request form submission on Enter when disabled", async () => {
+    document.body.innerHTML = `<form><cindor-input disabled name="username" aria-label="Username"></cindor-input></form>`;
+
+    const form = document.querySelector("form") as HTMLFormElement;
+    const requestSubmit = vi.fn();
+    form.requestSubmit = requestSubmit;
+
+    const element = document.querySelector("cindor-input") as CindorInput;
+    await element.updateComplete;
+
+    const input = element.renderRoot.querySelector("input") as HTMLInputElement;
+
+    input.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, composed: true, key: "Enter" }));
+
+    expect(requestSubmit).not.toHaveBeenCalled();
+  });
+
+  it("does not request form submission on Enter when readonly", async () => {
+    document.body.innerHTML = `<form><cindor-input readonly name="username" aria-label="Username"></cindor-input></form>`;
+
+    const form = document.querySelector("form") as HTMLFormElement;
+    const requestSubmit = vi.fn();
+    form.requestSubmit = requestSubmit;
+
+    const element = document.querySelector("cindor-input") as CindorInput;
+    await element.updateComplete;
+
+    const input = element.renderRoot.querySelector("input") as HTMLInputElement;
+
+    input.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, composed: true, key: "Enter" }));
+
+    expect(requestSubmit).not.toHaveBeenCalled();
+  });
+
+  it("does not request form submission during IME composition", async () => {
+    document.body.innerHTML = `<form><cindor-input name="username" aria-label="Username"></cindor-input></form>`;
+
+    const form = document.querySelector("form") as HTMLFormElement;
+    const requestSubmit = vi.fn();
+    form.requestSubmit = requestSubmit;
+
+    const element = document.querySelector("cindor-input") as CindorInput;
+    await element.updateComplete;
+
+    const input = element.renderRoot.querySelector("input") as HTMLInputElement;
+    const event = new KeyboardEvent("keydown", { bubbles: true, composed: true, key: "Enter" });
+    Object.defineProperty(event, "isComposing", { value: true });
+
+    input.dispatchEvent(event);
+
+    expect(requestSubmit).not.toHaveBeenCalled();
+  });
+
+  it("does not crash or submit on Enter when not associated with a form", async () => {
+    const element = document.createElement("cindor-input") as CindorInput;
+    element.name = "username";
+    element.setAttribute("aria-label", "Username");
+    document.body.append(element);
+    await element.updateComplete;
+
+    const input = element.renderRoot.querySelector("input") as HTMLInputElement;
+
+    expect(() => {
+      input.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, composed: true, key: "Enter" }));
+    }).not.toThrow();
+  });
+
   it("only applies username autocomplete when explicitly configured", async () => {
     const element = document.createElement("cindor-input") as CindorInput;
     element.name = "username";

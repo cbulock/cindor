@@ -147,6 +147,7 @@ export class BaseInputElement extends FormAssociatedElement {
           ?required=${this.required}
           step=${ifDefined(this.step || undefined)}
           type=${this.inputType}
+          @keydown=${this.handleKeyDown}
           @input=${this.handleInput}
           @change=${this.handleChange}
         />
@@ -180,6 +181,22 @@ export class BaseInputElement extends FormAssociatedElement {
     this.value = input.value;
     this.syncFormState();
     this.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+  };
+
+  protected handleKeyDown = (event: KeyboardEvent): void => {
+    if (
+      event.key !== "Enter" ||
+      event.defaultPrevented ||
+      event.isComposing ||
+      this.disabled ||
+      this.readonly ||
+      !this.associatedForm
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    this.associatedForm.requestSubmit();
   };
 
   protected syncFormState(): void {

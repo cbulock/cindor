@@ -413,7 +413,7 @@
           "defaultValue": "\"button\"",
           "description": "",
           "name": "type",
-          "reflects": true,
+          "reflects": false,
           "type": "\"button\" | \"submit\" | \"reset\"",
           "values": [
             "button",

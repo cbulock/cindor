@@ -4,79 +4,6 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Activity Feed\", render: () => ` <cindor-activity-feed> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Cindor Team\"></cindor-avatar> <span slot=\"title\">New deployment completed</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">Production environment</span> Traffic is now flowing through the latest release. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"QA\"></cindor-avatar> <span slot=\"title\">Regression suite passed</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Build #1284</span> All smoke tests completed without failures. </cindor-activity-item> </cindor-activity-feed> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
-          "name": "CindorActivityFeed",
-          "slots": [
-            {
-              "description": "`cindor-activity-item` children.",
-              "name": ""
-            }
-          ],
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorActivityFeed",
-          "declaration": {
-            "name": "CindorActivityFeed",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/accordion/cindor-accordion.stories.ts",
       "declarations": [
         {
@@ -314,6 +241,168 @@
           "declaration": {
             "name": "CindorActivityItem",
             "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Activity Feed\", render: () => ` <cindor-activity-feed> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Cindor Team\"></cindor-avatar> <span slot=\"title\">New deployment completed</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">Production environment</span> Traffic is now flowing through the latest release. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"QA\"></cindor-avatar> <span slot=\"title\">Regression suite passed</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Build #1284</span> All smoke tests completed without failures. </cindor-activity-item> </cindor-activity-feed> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
+          "name": "CindorActivityFeed",
+          "slots": [
+            {
+              "description": "`cindor-activity-item` children.",
+              "name": ""
+            }
+          ],
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorActivityFeed",
+          "declaration": {
+            "name": "CindorActivityFeed",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Components/Alert\", args: { message: \"The upstream Cindor tokens loaded successfully.\", title: \"Heads up\", tone: \"info\" }, argTypes: { tone: { control: \"radio\", options: [\"info\", \"success\", \"warning\", \"danger\"] } }, render: ({ message, title, tone }: AlertStoryArgs) => ` <cindor-alert tone=\"${tone}\"> <strong>${title}</strong> <span>${message}</span> </cindor-alert> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/alert/cindor-alert.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorAlert",
+          "members": [
+            {
+              "kind": "field",
+              "name": "tone",
+              "privacy": "public",
+              "type": {
+                "text": "AlertTone"
+              },
+              "default": "\"info\"",
+              "attribute": "tone",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "tone",
+              "type": {
+                "text": "AlertTone"
+              },
+              "default": "\"info\"",
+              "fieldName": "tone"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorAlert",
+          "declaration": {
+            "name": "CindorAlert",
+            "module": "packages/core/src/components/alert/cindor-alert.ts"
           }
         }
       ]
@@ -897,95 +986,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Components/Alert\", args: { message: \"The upstream Cindor tokens loaded successfully.\", title: \"Heads up\", tone: \"info\" }, argTypes: { tone: { control: \"radio\", options: [\"info\", \"success\", \"warning\", \"danger\"] } }, render: ({ message, title, tone }: AlertStoryArgs) => ` <cindor-alert tone=\"${tone}\"> <strong>${title}</strong> <span>${message}</span> </cindor-alert> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/alert/cindor-alert.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorAlert",
-          "members": [
-            {
-              "kind": "field",
-              "name": "tone",
-              "privacy": "public",
-              "type": {
-                "text": "AlertTone"
-              },
-              "default": "\"info\"",
-              "attribute": "tone",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "tone",
-              "type": {
-                "text": "AlertTone"
-              },
-              "default": "\"info\"",
-              "fieldName": "tone"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorAlert",
-          "declaration": {
-            "name": "CindorAlert",
-            "module": "packages/core/src/components/alert/cindor-alert.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/avatar/cindor-avatar.stories.ts",
       "declarations": [
         {
@@ -1122,6 +1122,73 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Components/Breadcrumbs\", args: { currentLabel: \"Breadcrumbs\", homeHref: \"/\", homeLabel: \"Home\", sectionHref: \"/components\", sectionLabel: \"Components\" }, render: ({ currentLabel, homeHref, homeLabel, sectionHref, sectionLabel }: BreadcrumbsStoryArgs) => ` <cindor-breadcrumbs> <li><cindor-link href=\"${homeHref}\">${homeLabel}</cindor-link></li> <li><cindor-link href=\"${sectionHref}\">${sectionLabel}</cindor-link></li> <li aria-current=\"page\">${currentLabel}</li> </cindor-breadcrumbs> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorBreadcrumbs",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorBreadcrumbs",
+          "declaration": {
+            "name": "CindorBreadcrumbs",
+            "module": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/badge/cindor-badge.stories.ts",
       "declarations": [
         {
@@ -1227,73 +1294,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Components/Breadcrumbs\", args: { currentLabel: \"Breadcrumbs\", homeHref: \"/\", homeLabel: \"Home\", sectionHref: \"/components\", sectionLabel: \"Components\" }, render: ({ currentLabel, homeHref, homeLabel, sectionHref, sectionLabel }: BreadcrumbsStoryArgs) => ` <cindor-breadcrumbs> <li><cindor-link href=\"${homeHref}\">${homeLabel}</cindor-link></li> <li><cindor-link href=\"${sectionHref}\">${sectionLabel}</cindor-link></li> <li aria-current=\"page\">${currentLabel}</li> </cindor-breadcrumbs> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorBreadcrumbs",
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorBreadcrumbs",
-          "declaration": {
-            "name": "CindorBreadcrumbs",
-            "module": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/button/cindor-button.stories.ts",
       "declarations": [
         {
@@ -1391,6 +1391,16 @@
           "members": [
             {
               "kind": "field",
+              "name": "nextFormId",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "static": true,
+              "default": "0"
+            },
+            {
+              "kind": "field",
               "name": "disabled",
               "privacy": "public",
               "type": {
@@ -1419,8 +1429,7 @@
                 "text": "ButtonType"
               },
               "default": "\"button\"",
-              "attribute": "type",
-              "reflects": true
+              "attribute": "type"
             },
             {
               "kind": "field",
@@ -1432,6 +1441,13 @@
               "default": "\"solid\"",
               "attribute": "variant",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "generatedFormId",
+              "privacy": "private",
+              "readonly": true,
+              "default": "`cindor-form-${CindorButton.nextFormId++}`"
             },
             {
               "kind": "method",
@@ -1483,6 +1499,38 @@
               "name": "hostAriaLabelledBy",
               "type": {
                 "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "handleButtonClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "associatedForm",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "associatedFormId",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "resolvedType",
+              "type": {
+                "text": "ButtonType"
               },
               "privacy": "private",
               "readonly": true
@@ -1545,191 +1593,6 @@
           "declaration": {
             "name": "CindorButton",
             "module": "packages/core/src/components/button/cindor-button.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/button-group/cindor-button-group.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Primitives/Button Group\", args: { attached: false, orientation: \"horizontal\" }, argTypes: { orientation: { control: { type: \"inline-radio\" }, options: [\"horizontal\", \"vertical\"] } }, render: ({ attached, orientation }: ButtonGroupStoryArgs) => ` <cindor-button-group aria-label=\"Example actions\" ${attached ? \"attached\" : \"\"} orientation=\"${orientation}\" > <cindor-button variant=\"ghost\">Back</cindor-button> <cindor-button>Save</cindor-button> <cindor-icon-button label=\"More actions\" name=\"ellipsis\"></cindor-icon-button> </cindor-button-group> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        },
-        {
-          "kind": "variable",
-          "name": "Attached",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ args: { attached: true } }"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/button-group/cindor-button-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/button-group/cindor-button-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Attached",
-          "declaration": {
-            "name": "Attached",
-            "module": "packages/core/src/components/button-group/cindor-button-group.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/button-group/cindor-button-group.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorButtonGroup",
-          "members": [
-            {
-              "kind": "field",
-              "name": "attached",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "attached",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "orientation",
-              "privacy": "public",
-              "type": {
-                "text": "ButtonGroupOrientation"
-              },
-              "default": "\"horizontal\"",
-              "attribute": "orientation",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "handleSlotChange",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "syncGroupA11y",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "syncItems",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "resetItemStyles",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "item",
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "groupElement",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "itemElements",
-              "type": {
-                "text": "HTMLElement[]"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "attached",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "attached"
-            },
-            {
-              "name": "orientation",
-              "type": {
-                "text": "ButtonGroupOrientation"
-              },
-              "default": "\"horizontal\"",
-              "fieldName": "orientation"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorButtonGroup",
-          "declaration": {
-            "name": "CindorButtonGroup",
-            "module": "packages/core/src/components/button-group/cindor-button-group.ts"
           }
         }
       ]
@@ -2321,6 +2184,191 @@
           "declaration": {
             "name": "CindorCalendar",
             "module": "packages/core/src/components/calendar/cindor-calendar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/button-group/cindor-button-group.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Primitives/Button Group\", args: { attached: false, orientation: \"horizontal\" }, argTypes: { orientation: { control: { type: \"inline-radio\" }, options: [\"horizontal\", \"vertical\"] } }, render: ({ attached, orientation }: ButtonGroupStoryArgs) => ` <cindor-button-group aria-label=\"Example actions\" ${attached ? \"attached\" : \"\"} orientation=\"${orientation}\" > <cindor-button variant=\"ghost\">Back</cindor-button> <cindor-button>Save</cindor-button> <cindor-icon-button label=\"More actions\" name=\"ellipsis\"></cindor-icon-button> </cindor-button-group> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        },
+        {
+          "kind": "variable",
+          "name": "Attached",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ args: { attached: true } }"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/button-group/cindor-button-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/button-group/cindor-button-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Attached",
+          "declaration": {
+            "name": "Attached",
+            "module": "packages/core/src/components/button-group/cindor-button-group.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/button-group/cindor-button-group.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorButtonGroup",
+          "members": [
+            {
+              "kind": "field",
+              "name": "attached",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "attached",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "orientation",
+              "privacy": "public",
+              "type": {
+                "text": "ButtonGroupOrientation"
+              },
+              "default": "\"horizontal\"",
+              "attribute": "orientation",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "handleSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "syncGroupA11y",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncItems",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "resetItemStyles",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "groupElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "itemElements",
+              "type": {
+                "text": "HTMLElement[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "attached",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "attached"
+            },
+            {
+              "name": "orientation",
+              "type": {
+                "text": "ButtonGroupOrientation"
+              },
+              "default": "\"horizontal\"",
+              "fieldName": "orientation"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorButtonGroup",
+          "declaration": {
+            "name": "CindorButtonGroup",
+            "module": "packages/core/src/components/button-group/cindor-button-group.ts"
           }
         }
       ]
@@ -5892,6 +5940,15 @@
               }
             },
             {
+              "kind": "field",
+              "name": "handleKeyDown",
+              "privacy": "protected",
+              "inheritedFrom": {
+                "name": "BaseInputElement",
+                "module": "packages/core/src/components/input/cindor-input.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "syncFormState",
               "privacy": "protected",
@@ -8913,6 +8970,15 @@
             {
               "kind": "field",
               "name": "handleInput",
+              "privacy": "protected",
+              "inheritedFrom": {
+                "name": "BaseInputElement",
+                "module": "packages/core/src/components/input/cindor-input.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleKeyDown",
               "privacy": "protected",
               "inheritedFrom": {
                 "name": "BaseInputElement",
@@ -12793,6 +12859,11 @@
               "privacy": "protected"
             },
             {
+              "kind": "field",
+              "name": "handleKeyDown",
+              "privacy": "protected"
+            },
+            {
               "kind": "method",
               "name": "syncFormState",
               "privacy": "protected",
@@ -13324,6 +13395,15 @@
             {
               "kind": "field",
               "name": "handleInput",
+              "privacy": "protected",
+              "inheritedFrom": {
+                "name": "BaseInputElement",
+                "module": "packages/core/src/components/input/cindor-input.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleKeyDown",
               "privacy": "protected",
               "inheritedFrom": {
                 "name": "BaseInputElement",
@@ -14752,6 +14832,118 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/navigation-rail/cindor-navigation-rail.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Navigation/Navigation Rail\", render: () => ` <cindor-navigation-rail aria-label=\"Workspace sections\"> <cindor-navigation-rail-item href=\"#home\" label=\"Home\" current> <cindor-icon slot=\"start\" name=\"house\"></cindor-icon> </cindor-navigation-rail-item> <cindor-navigation-rail-item href=\"#projects\" label=\"Projects\"> <cindor-icon slot=\"start\" name=\"folder-kanban\"></cindor-icon> </cindor-navigation-rail-item> <cindor-navigation-rail-item href=\"#settings\" label=\"Settings\"> <cindor-icon slot=\"start\" name=\"settings\"></cindor-icon> </cindor-navigation-rail-item> </cindor-navigation-rail> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/navigation-rail/cindor-navigation-rail.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/navigation-rail/cindor-navigation-rail.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/navigation-rail/cindor-navigation-rail.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Vertical navigation rail for compact app-shell layouts.",
+          "name": "CindorNavigationRail",
+          "slots": [
+            {
+              "description": "`cindor-navigation-rail-item` children.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "handleKeyDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "syncA11y",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "railElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "railItems",
+              "type": {
+                "text": "CindorNavigationRailItem[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorNavigationRail",
+          "declaration": {
+            "name": "CindorNavigationRail",
+            "module": "packages/core/src/components/navigation-rail/cindor-navigation-rail.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/multi-select/cindor-multi-select.stories.ts",
       "declarations": [
         {
@@ -15413,118 +15605,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/navigation-rail/cindor-navigation-rail.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Navigation/Navigation Rail\", render: () => ` <cindor-navigation-rail aria-label=\"Workspace sections\"> <cindor-navigation-rail-item href=\"#home\" label=\"Home\" current> <cindor-icon slot=\"start\" name=\"house\"></cindor-icon> </cindor-navigation-rail-item> <cindor-navigation-rail-item href=\"#projects\" label=\"Projects\"> <cindor-icon slot=\"start\" name=\"folder-kanban\"></cindor-icon> </cindor-navigation-rail-item> <cindor-navigation-rail-item href=\"#settings\" label=\"Settings\"> <cindor-icon slot=\"start\" name=\"settings\"></cindor-icon> </cindor-navigation-rail-item> </cindor-navigation-rail> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/navigation-rail/cindor-navigation-rail.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/navigation-rail/cindor-navigation-rail.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/navigation-rail/cindor-navigation-rail.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Vertical navigation rail for compact app-shell layouts.",
-          "name": "CindorNavigationRail",
-          "slots": [
-            {
-              "description": "`cindor-navigation-rail-item` children.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "handleKeyDown",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleSlotChange",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "syncA11y",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "railElement",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "railItems",
-              "type": {
-                "text": "CindorNavigationRailItem[]"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorNavigationRail",
-          "declaration": {
-            "name": "CindorNavigationRail",
-            "module": "packages/core/src/components/navigation-rail/cindor-navigation-rail.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/navigation-rail-item/cindor-navigation-rail-item.stories.ts",
       "declarations": [
         {
@@ -16142,6 +16222,15 @@
             {
               "kind": "field",
               "name": "handleInput",
+              "privacy": "protected",
+              "inheritedFrom": {
+                "name": "BaseInputElement",
+                "module": "packages/core/src/components/input/cindor-input.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleKeyDown",
               "privacy": "protected",
               "inheritedFrom": {
                 "name": "BaseInputElement",
@@ -17530,6 +17619,15 @@
               }
             },
             {
+              "kind": "field",
+              "name": "handleKeyDown",
+              "privacy": "protected",
+              "inheritedFrom": {
+                "name": "BaseInputElement",
+                "module": "packages/core/src/components/input/cindor-input.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "syncFormState",
               "privacy": "protected",
@@ -17974,6 +18072,130 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/provider/cindor-provider.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Layout/Provider\", args: { colorScheme: \"inherit\", theme: \"dark\" }, argTypes: { colorScheme: { control: \"select\", options: [\"inherit\", \"light\", \"dark\"] }, theme: { control: \"select\", options: [\"inherit\", \"light\", \"dark\"] } }, render: ({ colorScheme, theme }: ProviderStoryArgs) => ` <cindor-provider theme=\"${theme}\" color-scheme=\"${colorScheme}\"> <cindor-card> <div style=\"padding: var(--space-4); display: grid; gap: var(--space-3);\"> <h3 style=\"margin: 0;\">Scoped theme boundary</h3> <p style=\"margin: 0;\">Wrap any standard web component consumer and keep token-driven theming local to that subtree.</p> <cindor-stack direction=\"horizontal\" gap=\"2\" wrap> <cindor-badge tone=\"accent\">Provider</cindor-badge> <cindor-badge>Theme aware</cindor-badge> </cindor-stack> </div> </cindor-card> </cindor-provider> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/provider/cindor-provider.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/provider/cindor-provider.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/provider/cindor-provider.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Lightweight theme scope for Cindor tokens and descendant components.",
+          "name": "CindorProvider",
+          "slots": [
+            {
+              "description": "Descendant application or component content.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "colorScheme",
+              "privacy": "public",
+              "type": {
+                "text": "ProviderColorScheme"
+              },
+              "default": "\"inherit\"",
+              "attribute": "color-scheme",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "theme",
+              "privacy": "public",
+              "type": {
+                "text": "ProviderTheme"
+              },
+              "default": "\"inherit\"",
+              "attribute": "theme",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "syncPresentation",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "color-scheme",
+              "type": {
+                "text": "ProviderColorScheme"
+              },
+              "default": "\"inherit\"",
+              "fieldName": "colorScheme"
+            },
+            {
+              "name": "theme",
+              "type": {
+                "text": "ProviderTheme"
+              },
+              "default": "\"inherit\"",
+              "fieldName": "theme"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorProvider",
+          "declaration": {
+            "name": "CindorProvider",
+            "module": "packages/core/src/components/provider/cindor-provider.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/progress/cindor-progress.stories.ts",
       "declarations": [
         {
@@ -18094,130 +18316,6 @@
           "declaration": {
             "name": "CindorProgress",
             "module": "packages/core/src/components/progress/cindor-progress.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/provider/cindor-provider.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Layout/Provider\", args: { colorScheme: \"inherit\", theme: \"dark\" }, argTypes: { colorScheme: { control: \"select\", options: [\"inherit\", \"light\", \"dark\"] }, theme: { control: \"select\", options: [\"inherit\", \"light\", \"dark\"] } }, render: ({ colorScheme, theme }: ProviderStoryArgs) => ` <cindor-provider theme=\"${theme}\" color-scheme=\"${colorScheme}\"> <cindor-card> <div style=\"padding: var(--space-4); display: grid; gap: var(--space-3);\"> <h3 style=\"margin: 0;\">Scoped theme boundary</h3> <p style=\"margin: 0;\">Wrap any standard web component consumer and keep token-driven theming local to that subtree.</p> <cindor-stack direction=\"horizontal\" gap=\"2\" wrap> <cindor-badge tone=\"accent\">Provider</cindor-badge> <cindor-badge>Theme aware</cindor-badge> </cindor-stack> </div> </cindor-card> </cindor-provider> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/provider/cindor-provider.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/provider/cindor-provider.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/provider/cindor-provider.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Lightweight theme scope for Cindor tokens and descendant components.",
-          "name": "CindorProvider",
-          "slots": [
-            {
-              "description": "Descendant application or component content.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "colorScheme",
-              "privacy": "public",
-              "type": {
-                "text": "ProviderColorScheme"
-              },
-              "default": "\"inherit\"",
-              "attribute": "color-scheme",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "theme",
-              "privacy": "public",
-              "type": {
-                "text": "ProviderTheme"
-              },
-              "default": "\"inherit\"",
-              "attribute": "theme",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "syncPresentation",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "color-scheme",
-              "type": {
-                "text": "ProviderColorScheme"
-              },
-              "default": "\"inherit\"",
-              "fieldName": "colorScheme"
-            },
-            {
-              "name": "theme",
-              "type": {
-                "text": "ProviderTheme"
-              },
-              "default": "\"inherit\"",
-              "fieldName": "theme"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorProvider",
-          "declaration": {
-            "name": "CindorProvider",
-            "module": "packages/core/src/components/provider/cindor-provider.ts"
           }
         }
       ]
@@ -19487,6 +19585,15 @@
             {
               "kind": "field",
               "name": "handleInput",
+              "privacy": "protected",
+              "inheritedFrom": {
+                "name": "BaseInputElement",
+                "module": "packages/core/src/components/input/cindor-input.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleKeyDown",
               "privacy": "protected",
               "inheritedFrom": {
                 "name": "BaseInputElement",
@@ -23837,6 +23944,15 @@
               }
             },
             {
+              "kind": "field",
+              "name": "handleKeyDown",
+              "privacy": "protected",
+              "inheritedFrom": {
+                "name": "BaseInputElement",
+                "module": "packages/core/src/components/input/cindor-input.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "syncFormState",
               "privacy": "protected",
@@ -24814,6 +24930,15 @@
             {
               "kind": "field",
               "name": "handleInput",
+              "privacy": "protected",
+              "inheritedFrom": {
+                "name": "BaseInputElement",
+                "module": "packages/core/src/components/input/cindor-input.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleKeyDown",
               "privacy": "protected",
               "inheritedFrom": {
                 "name": "BaseInputElement",
@@ -27594,6 +27719,15 @@
             {
               "kind": "field",
               "name": "handleInput",
+              "privacy": "protected",
+              "inheritedFrom": {
+                "name": "BaseInputElement",
+                "module": "packages/core/src/components/input/cindor-input.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleKeyDown",
               "privacy": "protected",
               "inheritedFrom": {
                 "name": "BaseInputElement",

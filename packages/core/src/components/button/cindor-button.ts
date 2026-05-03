@@ -5,6 +5,7 @@ export type ButtonVariant = "solid" | "ghost";
 export type ButtonType = "button" | "submit" | "reset";
 
 export class CindorButton extends LitElement {
+  private static nextFormId = 0;
   static styles = css`
     :host {
       display: inline-block;
@@ -101,7 +102,7 @@ export class CindorButton extends LitElement {
   static properties = {
     disabled: { type: Boolean, reflect: true },
     iconOnly: { type: Boolean, reflect: true, attribute: "icon-only" },
-    type: { reflect: true },
+    type: {},
     variant: { reflect: true }
   };
 
@@ -109,6 +110,7 @@ export class CindorButton extends LitElement {
   iconOnly = false;
   type: ButtonType = "button";
   variant: ButtonVariant = "solid";
+  private readonly generatedFormId = `cindor-form-${CindorButton.nextFormId++}`;
 
   override focus(options?: FocusOptions): void {
     this.buttonElement?.focus(options);
@@ -127,7 +129,9 @@ export class CindorButton extends LitElement {
         aria-label=${ifDefined(this.hostAriaLabel)}
         aria-labelledby=${ifDefined(this.hostAriaLabelledBy)}
         ?disabled=${this.disabled}
-        type=${this.type}
+        form=${ifDefined(this.associatedFormId)}
+        type=${this.resolvedType}
+        @click=${this.handleButtonClick}
       >
         <slot class="icon-slot" name="start-icon" part="start-icon"></slot>
         <span class="label" part="label"><slot></slot></span>
@@ -146,6 +150,55 @@ export class CindorButton extends LitElement {
 
   private get hostAriaLabelledBy(): string | undefined {
     return this.getAttribute("aria-labelledby") ?? undefined;
+  }
+
+  private handleButtonClick = (event: MouseEvent): void => {
+    if (event.defaultPrevented || this.disabled || !this.associatedForm) {
+      return;
+    }
+
+    if (this.resolvedType === "submit") {
+      event.preventDefault();
+      this.associatedForm.requestSubmit();
+      return;
+    }
+
+    if (this.resolvedType === "reset") {
+      event.preventDefault();
+      this.associatedForm.reset();
+    }
+  };
+
+  private get associatedForm(): HTMLFormElement | null {
+    const explicitFormId = this.getAttribute("form");
+    if (explicitFormId) {
+      const explicitForm = this.ownerDocument.getElementById(explicitFormId);
+      return explicitForm instanceof HTMLFormElement ? explicitForm : null;
+    }
+
+    return this.closest("form");
+  }
+
+  private get associatedFormId(): string | undefined {
+    const form = this.associatedForm;
+    if (!form) {
+      return undefined;
+    }
+
+    form.id ||= this.generatedFormId;
+    return form.id;
+  }
+
+  private get resolvedType(): ButtonType {
+    if (this.type === "submit" || this.type === "reset") {
+      return this.type;
+    }
+
+    if (this.hasAttribute("type")) {
+      return "button";
+    }
+
+    return this.associatedForm ? "submit" : "button";
   }
 
   private get buttonElement(): HTMLButtonElement | null {
