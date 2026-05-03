@@ -10,6 +10,7 @@ Use the root workspace scripts:
 - `npm run test`
 - `npm run test:watch`
 - `npm run typecheck`
+- `npm run version:auto-bump`
 - `npm run storybook`
 - `npm run build-storybook`
 
@@ -18,6 +19,24 @@ To run a single test file, use:
 - `npx vitest run packages/core/src/components/button/cindor-button.test.ts`
 
 Replace the file path as needed for the specific test you are working on.
+
+## Versioning workflow
+
+This repository enforces a synchronized workspace version across:
+
+- `package.json`
+- `package-lock.json`
+- `apps/docs/package.json`
+- `packages/core/package.json`
+- `packages/react/package.json`
+- `packages/vue/package.json`
+
+The repo installs a `pre-push` hook through `simple-git-hooks` that runs `npm run version:auto-bump`.
+
+- If you changed non-exempt source files and did not already update the version files, the hook applies a default patch bump, refreshes `package-lock.json`, and **aborts the push on purpose**.
+- After that happens, review the version-file changes, commit them, and push again.
+- Do **not** expect the hook to create the commit for you or to continue the current push with a newly created commit.
+- If you intentionally need a larger version bump, update the version files yourself before pushing so the hook detects the explicit version change and skips the automatic patch bump.
 
 ## Intended architecture
 

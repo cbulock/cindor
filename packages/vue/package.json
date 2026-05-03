@@ -1,6 +1,6 @@
 {
   "name": "cindor-ui-vue",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Thin Vue wrappers for the Cindor web component library.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -38,7 +38,7 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --external vue --external cindor-ui-core --external cindor-ui-core/register"
   },
   "dependencies": {
-    "cindor-ui-core": "0.1.2"
+    "cindor-ui-core": "0.1.4"
   },
   "peerDependencies": {
     "vue": "^3.5.0"
