@@ -1,6 +1,6 @@
 {
   "name": "cindor-ui-core",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Framework-agnostic Cindor web components built on standard custom elements.",
   "type": "module",
   "customElements": "./custom-elements.json",
