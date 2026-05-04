@@ -95,16 +95,40 @@ describe("cindor-dialog", () => {
   it("forwards accessible name and description to the dialog element", async () => {
     const element = document.createElement("cindor-dialog") as CindorDialog;
     element.setAttribute("aria-label", "Project settings");
-    element.setAttribute("aria-labelledby", "dialog-title");
-    element.setAttribute("aria-describedby", "dialog-description");
+    element.setAttribute("aria-description", "Review the consequences before continuing.");
     document.body.append(element);
     await element.updateComplete;
 
     const dialog = element.renderRoot.querySelector("dialog");
 
     expect(dialog?.getAttribute("aria-label")).toBe("Project settings");
-    expect(dialog?.getAttribute("aria-labelledby")).toBe("dialog-title");
-    expect(dialog?.getAttribute("aria-describedby")).toBe("dialog-description");
+    expect(dialog?.getAttribute("aria-describedby")).toMatch(/-description$/);
+    expect(element.hasAttribute("aria-label")).toBe(false);
+    expect(element.hasAttribute("aria-description")).toBe(false);
+  });
+
+  it("mirrors host aria-labelledby and aria-describedby into shadow-safe dialog references", async () => {
+    document.body.innerHTML = `
+      <h2 id="dialog-title">Delete project</h2>
+      <p id="dialog-description">This action cannot be undone.</p>
+    `;
+
+    const element = document.createElement("cindor-dialog") as CindorDialog;
+    element.setAttribute("aria-labelledby", "dialog-title");
+    element.setAttribute("aria-describedby", "dialog-description");
+    document.body.append(element);
+    await element.updateComplete;
+
+    const dialog = element.renderRoot.querySelector("dialog");
+    const labelledById = dialog?.getAttribute("aria-labelledby");
+    const describedById = dialog?.getAttribute("aria-describedby");
+
+    expect(labelledById).toMatch(/-label$/);
+    expect(describedById).toMatch(/-description$/);
+    expect(element.renderRoot.querySelector(`#${labelledById ?? ""}`)?.textContent).toBe("Delete project");
+    expect(element.renderRoot.querySelector(`#${describedById ?? ""}`)?.textContent).toBe("This action cannot be undone.");
+    expect(element.hasAttribute("aria-labelledby")).toBe(false);
+    expect(element.hasAttribute("aria-describedby")).toBe(false);
   });
 
   it("dispatches cancel events from the native dialog surface", async () => {

@@ -81,6 +81,11 @@ describe("cindor-drawer", () => {
   });
 
   it("forwards aria-labelledby and aria-describedby to the dialog surface", async () => {
+    document.body.innerHTML = `
+      <h2 id="drawer-title">Filters</h2>
+      <p id="drawer-description">Refine the current results.</p>
+    `;
+
     const element = document.createElement("cindor-drawer") as CindorDrawer;
     element.open = true;
     element.setAttribute("aria-labelledby", "drawer-title");
@@ -90,8 +95,15 @@ describe("cindor-drawer", () => {
 
     const panel = element.renderRoot.querySelector('[part="panel"]');
 
-    expect(panel?.getAttribute("aria-labelledby")).toBe("drawer-title");
-    expect(panel?.getAttribute("aria-describedby")).toBe("drawer-description");
+    const labelledById = panel?.getAttribute("aria-labelledby");
+    const describedById = panel?.getAttribute("aria-describedby");
+
+    expect(labelledById).toMatch(/-label$/);
+    expect(describedById).toMatch(/-description$/);
+    expect(element.renderRoot.querySelector(`#${labelledById ?? ""}`)?.textContent).toBe("Filters");
+    expect(element.renderRoot.querySelector(`#${describedById ?? ""}`)?.textContent).toBe("Refine the current results.");
+    expect(element.hasAttribute("aria-labelledby")).toBe(false);
+    expect(element.hasAttribute("aria-describedby")).toBe(false);
   });
 
   it("moves focus to the panel when opening and emits a close event", async () => {

@@ -1,7 +1,17 @@
 import { css, html, LitElement } from "lit";
-import { ifDefined } from "lit/directives/if-defined.js";
+
+import { normalizeA11yText, resolveReferencedText, syncA11yMirror } from "../shared/a11y-mirror.js";
+
+const managedA11yAttributes = ["aria-describedby", "aria-description", "aria-label", "aria-labelledby"] as const;
+type ManagedA11yAttribute = (typeof managedA11yAttributes)[number];
 
 export class CindorDialog extends LitElement {
+  private static nextDialogId = 0;
+
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, ...managedA11yAttributes];
+  }
+
   static styles = css`
     :host {
       display: contents;
@@ -54,8 +64,32 @@ export class CindorDialog extends LitElement {
   modal = true;
   open = false;
 
+  private readonly generatedDialogId = `${this.localName}-${CindorDialog.nextDialogId++}`;
   private ignoreDialogClose = false;
+  private hostAriaDescription = "";
+  private hostAriaDescribedBy = "";
+  private hostAriaLabel = "";
+  private hostAriaLabelledBy = "";
+  private managedA11yDirty = false;
   private presentedModal: boolean | null = null;
+  private suppressManagedAttributeRemoval = false;
+
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
+    if (this.suppressManagedAttributeRemoval && managedA11yAttributes.includes(name as ManagedA11yAttribute) && newValue === null) {
+      return;
+    }
+
+    if (managedA11yAttributes.includes(name as ManagedA11yAttribute)) {
+      this.syncManagedA11yState(name as ManagedA11yAttribute, newValue);
+    }
+
+    super.attributeChangedCallback(name, oldValue, newValue);
+  }
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+    this.stripHostA11yAttributes();
+  }
 
   override focus(options?: FocusOptions): void {
     this.dialogElement?.focus(options);
@@ -87,6 +121,7 @@ export class CindorDialog extends LitElement {
   }
 
   protected override firstUpdated(): void {
+    this.syncDialogA11y();
     this.syncOpenState();
   }
 
@@ -94,9 +129,6 @@ export class CindorDialog extends LitElement {
     return html`
       <dialog
         part="dialog"
-        aria-describedby=${ifDefined(this.hostAriaDescribedBy)}
-        aria-label=${ifDefined(this.hostAriaLabel)}
-        aria-labelledby=${ifDefined(this.hostAriaLabelledBy)}
         @close=${this.handleClose}
         @cancel=${this.handleCancel}
       >
@@ -109,8 +141,14 @@ export class CindorDialog extends LitElement {
   }
 
   protected override updated(changedProperties: Map<PropertyKey, unknown>): void {
+    this.syncDialogA11y();
     if (changedProperties.has("open") || changedProperties.has("modal")) {
       this.syncOpenState();
+    }
+
+    if (this.managedA11yDirty) {
+      this.stripHostA11yAttributes();
+      this.managedA11yDirty = false;
     }
   }
 
@@ -185,15 +223,74 @@ export class CindorDialog extends LitElement {
     return this.renderRoot.querySelector("dialog");
   }
 
-  private get hostAriaDescribedBy(): string | undefined {
-    return this.getAttribute("aria-describedby") ?? undefined;
+  private syncDialogA11y(): void {
+    const dialog = this.dialogElement;
+    if (!dialog) {
+      return;
+    }
+
+    const labelledByText = resolveReferencedText(this, this.hostAriaLabelledBy);
+    const ariaLabel = normalizeA11yText(this.hostAriaLabel);
+    if (labelledByText) {
+      const labelId = syncA11yMirror(this.renderRoot, this.dialogA11yIdBase, "label", labelledByText);
+      if (labelId) {
+        dialog.setAttribute("aria-labelledby", labelId);
+      }
+      dialog.removeAttribute("aria-label");
+    } else {
+      syncA11yMirror(this.renderRoot, this.dialogA11yIdBase, "label", "");
+      dialog.removeAttribute("aria-labelledby");
+      if (ariaLabel) {
+        dialog.setAttribute("aria-label", ariaLabel);
+      } else {
+        dialog.removeAttribute("aria-label");
+      }
+    }
+
+    const describedByText = resolveReferencedText(this, this.hostAriaDescribedBy);
+    const descriptionText = normalizeA11yText([this.hostAriaDescription, describedByText].filter((value) => value).join(" "));
+    const descriptionId = syncA11yMirror(this.renderRoot, this.dialogA11yIdBase, "description", descriptionText);
+    if (descriptionId) {
+      dialog.setAttribute("aria-describedby", descriptionId);
+    } else {
+      dialog.removeAttribute("aria-describedby");
+    }
   }
 
-  private get hostAriaLabel(): string | undefined {
-    return this.getAttribute("aria-label") ?? undefined;
+  private stripHostA11yAttributes(): void {
+    if (!this.isConnected) {
+      return;
+    }
+
+    this.suppressManagedAttributeRemoval = true;
+    for (const attributeName of managedA11yAttributes) {
+      this.removeAttribute(attributeName);
+    }
+    this.suppressManagedAttributeRemoval = false;
   }
 
-  private get hostAriaLabelledBy(): string | undefined {
-    return this.getAttribute("aria-labelledby") ?? undefined;
+  private get dialogA11yIdBase(): string {
+    return `${this.id || this.generatedDialogId}-native-dialog`;
+  }
+
+  private syncManagedA11yState(name: ManagedA11yAttribute, value: string | null): void {
+    const nextValue = value ?? "";
+    switch (name) {
+      case "aria-description":
+        this.hostAriaDescription = nextValue;
+        break;
+      case "aria-describedby":
+        this.hostAriaDescribedBy = nextValue;
+        break;
+      case "aria-label":
+        this.hostAriaLabel = nextValue;
+        break;
+      case "aria-labelledby":
+        this.hostAriaLabelledBy = nextValue;
+        break;
+    }
+
+    this.managedA11yDirty = true;
+    this.requestUpdate();
   }
 }

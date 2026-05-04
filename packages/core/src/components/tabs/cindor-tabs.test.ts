@@ -117,6 +117,24 @@ describe("cindor-tabs", () => {
     expect(element.renderRoot.querySelector('[role="tablist"]')?.getAttribute("aria-label")).toBe("Project sections");
   });
 
+  it("keeps tab-to-panel relationships inside shadow-safe wrappers", async () => {
+    const element = document.createElement("cindor-tabs") as CindorTabs;
+    element.innerHTML = `
+      <section id="overview-panel" data-label="Overview" data-value="overview">Overview body</section>
+      <section id="activity-panel" data-label="Activity" data-value="activity">Activity body</section>
+    `;
+
+    document.body.append(element);
+    await element.updateComplete;
+
+    const tabs = Array.from(element.renderRoot.querySelectorAll('button[role="tab"]')) as HTMLButtonElement[];
+    const tabPanels = Array.from(element.renderRoot.querySelectorAll('[role="tabpanel"]')) as HTMLElement[];
+
+    expect(tabs[0]?.getAttribute("aria-controls")).toBe(tabPanels[0]?.id);
+    expect(tabPanels[0]?.getAttribute("aria-labelledby")).toBe(tabs[0]?.id);
+    expect((element.children[0] as HTMLElement).getAttribute("aria-labelledby")).toBeNull();
+  });
+
   it("supports cindor-tab-panel children for explicit wrapper ergonomics", async () => {
     const element = document.createElement("cindor-tabs") as CindorTabs;
     element.innerHTML = `

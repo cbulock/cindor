@@ -6,6 +6,14 @@ export class CindorPasswordInput extends BaseInputElement {
   static override styles: CSSResultGroup = [
     BaseInputElement.styles,
     css`
+    :host {
+      --cindor-password-toggle-size: 44px;
+    }
+
+    .surface[data-has-end-adornment="true"] input {
+      padding-inline-end: calc(var(--cindor-password-toggle-size) + var(--space-2));
+    }
+
     .toggle {
       position: absolute;
       inset-block-start: 50%;
@@ -13,11 +21,11 @@ export class CindorPasswordInput extends BaseInputElement {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      inline-size: calc(1rem + var(--space-2));
-      block-size: calc(1rem + var(--space-2));
+      inline-size: var(--cindor-password-toggle-size);
+      block-size: var(--cindor-password-toggle-size);
       padding: 0;
       border: 0;
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-md);
       background: transparent;
       color: var(--fg-muted);
       cursor: pointer;

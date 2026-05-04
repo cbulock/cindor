@@ -3,8 +3,10 @@ import { css, html, LitElement } from "lit";
 import { handleLinearKeyboardNavigation } from "../shared/linear-navigation.js";
 
 type TabPanel = {
-  id: string;
+  buttonId: string;
   label: string;
+  panelId: string;
+  slotName: string;
   value: string;
 };
 
@@ -99,10 +101,10 @@ export class CindorTabs extends LitElement {
           (panel) => html`
             <button
               part="tab"
-              id=${`${panel.id}-tab`}
+              id=${panel.buttonId}
               role="tab"
               type="button"
-              aria-controls=${panel.id}
+              aria-controls=${panel.panelId}
               aria-selected=${String(this.value === panel.value)}
               tabindex=${this.value === panel.value ? "0" : "-1"}
               @keydown=${this.handleTabKeydown}
@@ -114,7 +116,20 @@ export class CindorTabs extends LitElement {
         )}
       </div>
       <div class="panels" part="panels">
-        <slot @slotchange=${this.handleSlotChange}></slot>
+        ${this.panels.map(
+          (panel) => html`
+            <div
+              part="panel"
+              id=${panel.panelId}
+              role="tabpanel"
+              aria-labelledby=${panel.buttonId}
+              ?hidden=${this.value !== panel.value}
+              tabindex="0"
+            >
+              <slot name=${panel.slotName} @slotchange=${this.handleSlotChange}></slot>
+            </div>
+          `
+        )}
       </div>
     `;
   }
@@ -138,8 +153,10 @@ export class CindorTabs extends LitElement {
       }
 
       return {
-        id: child.id,
+        buttonId: `${child.id}-tab`,
         label: child.dataset.label ?? child.getAttribute("label") ?? `Tab ${index + 1}`,
+        panelId: `${child.id}-panel`,
+        slotName: `${child.id}-content`,
         value: child.dataset.value ?? child.getAttribute("value") ?? child.id
       };
     });
@@ -197,13 +214,21 @@ export class CindorTabs extends LitElement {
     const children = Array.from(this.children).filter((child): child is HTMLElement => child instanceof HTMLElement);
 
     for (const child of children) {
-      const panel = this.panels.find((entry) => entry.id === child.id);
+      const panel = this.panels.find((entry) => entry.buttonId === `${child.id}-tab`);
       const selected = panel?.value === this.value;
       child.hidden = !selected;
-      child.setAttribute("role", "tabpanel");
-      child.setAttribute("tabindex", "0");
       if (panel) {
-        child.setAttribute("aria-labelledby", `${panel.id}-tab`);
+        child.slot = panel.slotName;
+      }
+
+      if (child.getAttribute("role") === "tabpanel") {
+        child.removeAttribute("role");
+      }
+      if (child.getAttribute("tabindex") === "0") {
+        child.removeAttribute("tabindex");
+      }
+      if (child.getAttribute("aria-labelledby") === `${child.id}-tab`) {
+        child.removeAttribute("aria-labelledby");
       }
     }
   }

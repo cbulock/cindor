@@ -1,9 +1,19 @@
 import { css, html, LitElement, nothing } from "lit";
-import { ifDefined } from "lit/directives/if-defined.js";
+
+import { normalizeA11yText, resolveReferencedText, syncA11yMirror } from "../shared/a11y-mirror.js";
+
+const managedA11yAttributes = ["aria-describedby", "aria-description", "aria-label", "aria-labelledby"] as const;
+type ManagedA11yAttribute = (typeof managedA11yAttributes)[number];
 
 export type DrawerSide = "start" | "end";
 
 export class CindorDrawer extends LitElement {
+  private static nextDrawerId = 0;
+
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, ...managedA11yAttributes];
+  }
+
   static styles = css`
     :host {
       display: contents;
@@ -103,7 +113,31 @@ export class CindorDrawer extends LitElement {
   open = false;
   side: DrawerSide = "end";
 
+  private readonly generatedDrawerId = `${this.localName}-${CindorDrawer.nextDrawerId++}`;
+  private hostAriaDescription = "";
+  private hostAriaDescribedBy = "";
+  private hostAriaLabel = "";
+  private hostAriaLabelledBy = "";
+  private managedA11yDirty = false;
   private previousFocusedElement: HTMLElement | null = null;
+  private suppressManagedAttributeRemoval = false;
+
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
+    if (this.suppressManagedAttributeRemoval && managedA11yAttributes.includes(name as ManagedA11yAttribute) && newValue === null) {
+      return;
+    }
+
+    if (managedA11yAttributes.includes(name as ManagedA11yAttribute)) {
+      this.syncManagedA11yState(name as ManagedA11yAttribute, newValue);
+    }
+
+    super.attributeChangedCallback(name, oldValue, newValue);
+  }
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+    this.stripHostA11yAttributes();
+  }
 
   close = (): void => {
     this.open = false;
@@ -111,6 +145,13 @@ export class CindorDrawer extends LitElement {
   };
 
   protected override updated(changedProperties: Map<PropertyKey, unknown>): void {
+    this.syncPanelA11y();
+
+    if (this.managedA11yDirty) {
+      this.stripHostA11yAttributes();
+      this.managedA11yDirty = false;
+    }
+
     if (changedProperties.has("open")) {
       if (this.open) {
         this.previousFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
@@ -134,9 +175,6 @@ export class CindorDrawer extends LitElement {
       <div class="backdrop" part="backdrop" @click=${this.close}></div>
       <div
         part="panel"
-        aria-describedby=${ifDefined(this.hostAriaDescribedBy)}
-        aria-label=${ifDefined(this.hostAriaLabel)}
-        aria-labelledby=${ifDefined(this.hostAriaLabelledBy)}
         aria-modal="true"
         role="dialog"
         tabindex="-1"
@@ -184,16 +222,75 @@ export class CindorDrawer extends LitElement {
     }
   };
 
-  private get hostAriaDescribedBy(): string | undefined {
-    return this.getAttribute("aria-describedby") ?? undefined;
+  private syncPanelA11y(): void {
+    const panel = this.panelElement;
+    if (!panel) {
+      return;
+    }
+
+    const labelledByText = resolveReferencedText(this, this.hostAriaLabelledBy);
+    const ariaLabel = normalizeA11yText(this.hostAriaLabel);
+    if (labelledByText) {
+      const labelId = syncA11yMirror(this.renderRoot, this.panelA11yIdBase, "label", labelledByText);
+      if (labelId) {
+        panel.setAttribute("aria-labelledby", labelId);
+      }
+      panel.removeAttribute("aria-label");
+    } else {
+      syncA11yMirror(this.renderRoot, this.panelA11yIdBase, "label", "");
+      panel.removeAttribute("aria-labelledby");
+      if (ariaLabel) {
+        panel.setAttribute("aria-label", ariaLabel);
+      } else {
+        panel.removeAttribute("aria-label");
+      }
+    }
+
+    const describedByText = resolveReferencedText(this, this.hostAriaDescribedBy);
+    const descriptionText = normalizeA11yText([this.hostAriaDescription, describedByText].filter((value) => value).join(" "));
+    const descriptionId = syncA11yMirror(this.renderRoot, this.panelA11yIdBase, "description", descriptionText);
+    if (descriptionId) {
+      panel.setAttribute("aria-describedby", descriptionId);
+    } else {
+      panel.removeAttribute("aria-describedby");
+    }
   }
 
-  private get hostAriaLabel(): string | undefined {
-    return this.getAttribute("aria-label") ?? undefined;
+  private stripHostA11yAttributes(): void {
+    if (!this.isConnected) {
+      return;
+    }
+
+    this.suppressManagedAttributeRemoval = true;
+    for (const attributeName of managedA11yAttributes) {
+      this.removeAttribute(attributeName);
+    }
+    this.suppressManagedAttributeRemoval = false;
   }
 
-  private get hostAriaLabelledBy(): string | undefined {
-    return this.getAttribute("aria-labelledby") ?? undefined;
+  private get panelA11yIdBase(): string {
+    return `${this.id || this.generatedDrawerId}-panel`;
+  }
+
+  private syncManagedA11yState(name: ManagedA11yAttribute, value: string | null): void {
+    const nextValue = value ?? "";
+    switch (name) {
+      case "aria-description":
+        this.hostAriaDescription = nextValue;
+        break;
+      case "aria-describedby":
+        this.hostAriaDescribedBy = nextValue;
+        break;
+      case "aria-label":
+        this.hostAriaLabel = nextValue;
+        break;
+      case "aria-labelledby":
+        this.hostAriaLabelledBy = nextValue;
+        break;
+    }
+
+    this.managedA11yDirty = true;
+    this.requestUpdate();
   }
 
   private get focusableElements(): HTMLElement[] {
