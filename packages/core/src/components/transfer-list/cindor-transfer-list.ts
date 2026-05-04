@@ -319,8 +319,8 @@ export class CindorTransferList extends FormAssociatedElement {
     }
 
     this.syncFormState();
-    this.syncControlA11y(this.availableSelect);
-    this.syncControlA11y(this.selectedSelect);
+    this.syncControlA11y(this.availableSelect, { skipLabel: true });
+    this.syncControlA11y(this.selectedSelect, { skipLabel: true });
   }
 
   private handleSlotChange = (): void => {

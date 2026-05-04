@@ -1,9 +1,10 @@
 import { css, html, LitElement, nothing } from "lit";
 
-import { normalizeA11yText, resolveReferencedText, syncA11yMirror } from "../shared/a11y-mirror.js";
+import { normalizeA11yText, ReferencedTextObserver, resolveReferencedText, syncA11yMirror } from "../shared/a11y-mirror.js";
 
 const managedA11yAttributes = ["aria-describedby", "aria-description", "aria-label", "aria-labelledby"] as const;
 type ManagedA11yAttribute = (typeof managedA11yAttributes)[number];
+const focusableSelector = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export type DrawerSide = "start" | "end";
 
@@ -120,6 +121,9 @@ export class CindorDrawer extends LitElement {
   private hostAriaLabelledBy = "";
   private managedA11yDirty = false;
   private previousFocusedElement: HTMLElement | null = null;
+  private readonly referencedTextObserver = new ReferencedTextObserver(this, () => {
+    this.requestUpdate();
+  });
   private suppressManagedAttributeRemoval = false;
 
   override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
@@ -137,6 +141,12 @@ export class CindorDrawer extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
     this.stripHostA11yAttributes();
+    this.syncReferencedTextObserver();
+  }
+
+  override disconnectedCallback(): void {
+    this.referencedTextObserver.disconnect();
+    super.disconnectedCallback();
   }
 
   close = (): void => {
@@ -154,7 +164,7 @@ export class CindorDrawer extends LitElement {
 
     if (changedProperties.has("open")) {
       if (this.open) {
-        this.previousFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+        this.previousFocusedElement = getDeepestActiveElement(this.ownerDocument);
         queueMicrotask(() => {
           this.panelElement?.focus();
         });
@@ -173,7 +183,7 @@ export class CindorDrawer extends LitElement {
 
     return html`
       <div class="backdrop" part="backdrop" @click=${this.close}></div>
-      <div
+      <aside
         part="panel"
         aria-modal="true"
         role="dialog"
@@ -182,7 +192,7 @@ export class CindorDrawer extends LitElement {
       >
         <cindor-icon-button label="Close drawer" name="x" part="close-button" @click=${this.close}></cindor-icon-button>
         <slot></slot>
-      </div>
+      </aside>
     `;
   }
 
@@ -204,9 +214,8 @@ export class CindorDrawer extends LitElement {
       return;
     }
 
-    const shadowRoot = this.shadowRoot;
-    const currentIndex = focusableElements.indexOf(shadowRoot?.activeElement as HTMLElement);
-    const activeIndex = currentIndex >= 0 ? currentIndex : focusableElements.indexOf(document.activeElement as HTMLElement);
+    const activeElement = getDeepestActiveElement(this.ownerDocument);
+    const activeIndex = activeElement ? focusableElements.indexOf(activeElement) : -1;
 
     if (event.shiftKey) {
       if (activeIndex <= 0) {
@@ -290,6 +299,7 @@ export class CindorDrawer extends LitElement {
     }
 
     this.managedA11yDirty = true;
+    this.syncReferencedTextObserver();
     this.requestUpdate();
   }
 
@@ -299,14 +309,60 @@ export class CindorDrawer extends LitElement {
       return [];
     }
 
-    return Array.from(
-      panel.querySelectorAll<HTMLElement>(
-        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      )
-    );
+    return collectFocusableElements(panel);
   }
 
   private get panelElement(): HTMLElement | null {
     return this.renderRoot.querySelector('[part="panel"]');
   }
+
+  private syncReferencedTextObserver(): void {
+    this.referencedTextObserver.observe(this.hostAriaLabelledBy, this.hostAriaDescribedBy);
+  }
+}
+
+function collectFocusableElements(root: Element | ShadowRoot): HTMLElement[] {
+  const focusableElements: HTMLElement[] = [];
+  const seenElements = new Set<HTMLElement>();
+
+  const visitNode = (node: Element | ShadowRoot): void => {
+    if (node instanceof HTMLElement && node.matches(focusableSelector) && !seenElements.has(node)) {
+      seenElements.add(node);
+      focusableElements.push(node);
+    }
+
+    const children = node instanceof ShadowRoot ? Array.from(node.children) : Array.from(node.children);
+    for (const child of children) {
+      if (!(child instanceof HTMLElement)) {
+        continue;
+      }
+
+      if (child instanceof HTMLSlotElement) {
+        for (const assignedElement of child.assignedElements({ flatten: true })) {
+          if (assignedElement instanceof HTMLElement) {
+            visitNode(assignedElement);
+          }
+        }
+        continue;
+      }
+
+      if (child.shadowRoot) {
+        visitNode(child.shadowRoot);
+      }
+
+      visitNode(child);
+    }
+  };
+
+  visitNode(root);
+  return focusableElements;
+}
+
+function getDeepestActiveElement(root: Document | ShadowRoot): HTMLElement | null {
+  let activeElement = root.activeElement instanceof HTMLElement ? root.activeElement : null;
+  while (activeElement?.shadowRoot?.activeElement instanceof HTMLElement) {
+    activeElement = activeElement.shadowRoot.activeElement;
+  }
+
+  return activeElement;
 }

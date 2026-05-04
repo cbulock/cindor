@@ -38,6 +38,28 @@ describe("cindor-button", () => {
     expect(endSlot).not.toBeNull();
   });
 
+  it("mirrors external aria references into shadow-safe button nodes", async () => {
+    document.body.innerHTML = `
+      <span id="button-label">Upload file</span>
+      <span id="button-help">Creates a new upload job</span>
+    `;
+
+    const element = document.createElement("cindor-button") as CindorButton;
+    element.setAttribute("aria-labelledby", "button-label");
+    element.setAttribute("aria-describedby", "button-help");
+    document.body.append(element);
+    await element.updateComplete;
+
+    const button = element.renderRoot.querySelector("button") as HTMLButtonElement;
+    const labelledById = button.getAttribute("aria-labelledby");
+    const describedById = button.getAttribute("aria-describedby");
+
+    expect(labelledById).toMatch(/-label$/);
+    expect(describedById).toMatch(/-description$/);
+    expect(element.renderRoot.querySelector(`#${labelledById ?? ""}`)?.textContent).toBe("Upload file");
+    expect(element.renderRoot.querySelector(`#${describedById ?? ""}`)?.textContent).toBe("Creates a new upload job");
+  });
+
   it("submits its owning form when clicked without an explicit type", async () => {
     document.body.innerHTML = `<form><cindor-button>Save</cindor-button></form>`;
 

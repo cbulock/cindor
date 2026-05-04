@@ -1,6 +1,10 @@
 import { LitElement } from "lit";
 
-import { normalizeA11yText, resolveReferencedText, syncA11yMirror } from "./a11y-mirror.js";
+import { normalizeA11yText, ReferencedTextObserver, resolveReferencedText, syncA11yMirror } from "./a11y-mirror.js";
+
+type SyncControlA11yOptions = {
+  skipLabel?: boolean;
+};
 
 export abstract class FormAssociatedElement extends LitElement {
   static readonly formAssociated = true;
@@ -11,6 +15,10 @@ export abstract class FormAssociatedElement extends LitElement {
   private readonly generatedControlIdBase = `${this.localName}-${FormAssociatedElement.nextControlId++}`;
   private readonly generatedFormId = `cindor-form-${FormAssociatedElement.nextFormId++}`;
   private readonly hostAttributeObserver = new MutationObserver(() => {
+    this.syncReferencedTextObserver();
+    this.requestUpdate();
+  });
+  private readonly referencedTextObserver = new ReferencedTextObserver(this, () => {
     this.requestUpdate();
   });
 
@@ -39,29 +47,33 @@ export abstract class FormAssociatedElement extends LitElement {
       attributeFilter: ["aria-describedby", "aria-description", "aria-label", "aria-labelledby", "id"],
       attributes: true
     });
+    this.syncReferencedTextObserver();
   }
 
   override disconnectedCallback(): void {
     this.hostAttributeObserver.disconnect();
+    this.referencedTextObserver.disconnect();
     super.disconnectedCallback();
   }
 
-  protected syncControlA11y(control: HTMLElement | null): void {
+  protected syncControlA11y(control: HTMLElement | null, options: SyncControlA11yOptions = {}): void {
     if (!control) {
       return;
     }
 
     control.id ||= this.controlId;
 
-    const ariaLabelledBy = this.resolveReferencedText(this.getAttribute("aria-labelledby"));
-    const ariaLabel = this.normalizeA11yText(this.getAttribute("aria-label"));
-    const resolvedLabel = ariaLabelledBy || ariaLabel;
-    if (resolvedLabel) {
-      control.setAttribute("aria-label", resolvedLabel);
-      control.removeAttribute("aria-labelledby");
-    } else {
-      control.removeAttribute("aria-label");
-      control.removeAttribute("aria-labelledby");
+    if (!options.skipLabel) {
+      const ariaLabelledBy = this.resolveReferencedText(this.getAttribute("aria-labelledby"));
+      const ariaLabel = this.normalizeA11yText(this.getAttribute("aria-label"));
+      const resolvedLabel = ariaLabelledBy || ariaLabel;
+      if (resolvedLabel) {
+        control.setAttribute("aria-label", resolvedLabel);
+        control.removeAttribute("aria-labelledby");
+      } else {
+        control.removeAttribute("aria-label");
+        control.removeAttribute("aria-labelledby");
+      }
     }
 
     const describedByText = this.resolveReferencedText(this.getAttribute("aria-describedby"));
@@ -87,6 +99,10 @@ export abstract class FormAssociatedElement extends LitElement {
 
   private syncA11yMirror(control: HTMLElement, kind: "description" | "label", text: string): string | null {
     return syncA11yMirror(this.renderRoot, control.id, kind, text);
+  }
+
+  private syncReferencedTextObserver(): void {
+    this.referencedTextObserver.observe(this.getAttribute("aria-labelledby"), this.getAttribute("aria-describedby"));
   }
 
   protected get controlId(): string {

@@ -10,6 +10,8 @@ const visuallyHiddenStyles = [
   "border:0"
 ].join(";");
 
+type ReferenceValue = string | null | undefined;
+
 export function normalizeA11yText(value: string | null | undefined): string {
   return (value ?? "").replace(/\s+/g, " ").trim();
 }
@@ -59,6 +61,56 @@ export function syncA11yMirror(
   return mirrorId;
 }
 
+export class ReferencedTextObserver {
+  private readonly mutationObserver: MutationObserver;
+  private readonly observedNodes = new Set<Node>();
+
+  constructor(
+    private readonly host: HTMLElement,
+    private readonly onChange: () => void
+  ) {
+    this.mutationObserver = new MutationObserver(() => {
+      this.onChange();
+    });
+  }
+
+  observe(...attributeValues: ReferenceValue[]): void {
+    this.disconnect();
+
+    const roots = getReferenceRoots(this.host);
+    const referencedElements = attributeValues.flatMap((attributeValue) => getReferenceElements(this.host, attributeValue));
+    if (referencedElements.length === 0) {
+      return;
+    }
+
+    for (const root of roots) {
+      this.observeNode(root, { childList: true, subtree: true });
+    }
+
+    for (const element of referencedElements) {
+      this.observeNode(element, {
+        characterData: true,
+        childList: true,
+        subtree: true
+      });
+    }
+  }
+
+  disconnect(): void {
+    this.mutationObserver.disconnect();
+    this.observedNodes.clear();
+  }
+
+  private observeNode(node: Node, options: MutationObserverInit): void {
+    if (this.observedNodes.has(node)) {
+      return;
+    }
+
+    this.observedNodes.add(node);
+    this.mutationObserver.observe(node, options);
+  }
+}
+
 function findReferenceText(id: string, roots: Array<Document | ShadowRoot>): string {
   for (const root of roots) {
     const element = root.getElementById(id);
@@ -68,6 +120,30 @@ function findReferenceText(id: string, roots: Array<Document | ShadowRoot>): str
   }
 
   return "";
+}
+
+function getReferenceElements(host: HTMLElement, attributeValue: ReferenceValue): HTMLElement[] {
+  if (!attributeValue) {
+    return [];
+  }
+
+  const roots = getReferenceRoots(host);
+  const elements: HTMLElement[] = [];
+  const seenElements = new Set<HTMLElement>();
+
+  for (const token of attributeValue.split(/\s+/).map((value) => value.trim()).filter((value) => value !== "")) {
+    for (const root of roots) {
+      const element = root.getElementById(token);
+      if (!(element instanceof HTMLElement) || seenElements.has(element)) {
+        continue;
+      }
+
+      seenElements.add(element);
+      elements.push(element);
+    }
+  }
+
+  return elements;
 }
 
 function getReferenceRoots(host: HTMLElement): Array<Document | ShadowRoot> {

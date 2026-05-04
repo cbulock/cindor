@@ -42,6 +42,22 @@ export class CindorIconButton extends LitElement {
   size = 16;
   strokeWidth = 2;
   type: ButtonType = "button";
+  private readonly hostA11yObserver = new MutationObserver(() => {
+    this.requestUpdate();
+  });
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+    this.hostA11yObserver.observe(this, {
+      attributeFilter: ["aria-description", "aria-describedby", "aria-label", "aria-labelledby", "id"],
+      attributes: true
+    });
+  }
+
+  override disconnectedCallback(): void {
+    this.hostA11yObserver.disconnect();
+    super.disconnectedCallback();
+  }
 
   override focus(options?: FocusOptions): void {
     this.buttonElement?.focus(options);
@@ -55,6 +71,7 @@ export class CindorIconButton extends LitElement {
     return html`
       <cindor-button
         part="control"
+        aria-description=${ifDefined(this.hostAriaDescription)}
         aria-describedby=${ifDefined(this.hostAriaDescribedBy)}
         aria-label=${ifDefined(this.label || this.hostAriaLabel)}
         aria-labelledby=${ifDefined(this.hostAriaLabelledBy)}
@@ -74,6 +91,10 @@ export class CindorIconButton extends LitElement {
 
   private get hostAriaDescribedBy(): string | undefined {
     return this.getAttribute("aria-describedby") ?? undefined;
+  }
+
+  private get hostAriaDescription(): string | undefined {
+    return this.getAttribute("aria-description") ?? undefined;
   }
 
   private get hostAriaLabel(): string | undefined {

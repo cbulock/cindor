@@ -38,6 +38,40 @@ describe("cindor-drawer", () => {
     expect(document.activeElement).toBe(trigger);
   });
 
+  it("restores focus to the deepest opener inside nested shadow DOM", async () => {
+    const tagName = "test-shadow-opener";
+    if (!customElements.get(tagName)) {
+      customElements.define(
+        tagName,
+        class extends HTMLElement {
+          constructor() {
+            super();
+            const shadowRoot = this.attachShadow({ mode: "open" });
+            const button = document.createElement("button");
+            button.textContent = "Open drawer";
+            shadowRoot.append(button);
+          }
+        }
+      );
+    }
+
+    const opener = document.createElement(tagName);
+    document.body.append(opener);
+    const button = opener.shadowRoot?.querySelector("button") as HTMLButtonElement;
+    button.focus();
+
+    const element = document.createElement("cindor-drawer") as CindorDrawer;
+    element.open = true;
+    document.body.append(element);
+    await element.updateComplete;
+    await Promise.resolve();
+
+    element.close();
+    await element.updateComplete;
+
+    expect(opener.shadowRoot?.activeElement).toBe(button);
+  });
+
   it("closes when the backdrop is clicked", async () => {
     const element = document.createElement("cindor-drawer") as CindorDrawer;
     element.open = true;
@@ -78,6 +112,7 @@ describe("cindor-drawer", () => {
     expect(panel?.getAttribute("role")).toBe("dialog");
     expect(panel?.getAttribute("aria-modal")).toBe("true");
     expect(panel?.getAttribute("aria-label")).toBe("Filters");
+    expect(panel?.tagName).toBe("ASIDE");
   });
 
   it("forwards aria-labelledby and aria-describedby to the dialog surface", async () => {
@@ -134,5 +169,26 @@ describe("cindor-drawer", () => {
     await element.updateComplete;
 
     expect(element.open).toBe(true);
+  });
+
+  it("traps tab navigation across slotted interactive content", async () => {
+    const element = document.createElement("cindor-drawer") as CindorDrawer;
+    element.open = true;
+    element.innerHTML = `<button id="slotted-action">Apply</button>`;
+    document.body.append(element);
+    await element.updateComplete;
+
+    const panel = element.renderRoot.querySelector('[part="panel"]') as HTMLElement;
+    const closeButton = element.renderRoot.querySelector('[part="close-button"]') as HTMLElement;
+    const slottedButton = element.querySelector("#slotted-action") as HTMLButtonElement;
+
+    slottedButton.focus();
+    const tabEvent = new KeyboardEvent("keydown", { bubbles: true, cancelable: true, key: "Tab" });
+    const dispatchResult = panel.dispatchEvent(tabEvent);
+    await element.updateComplete;
+
+    expect(closeButton).not.toBeNull();
+    expect(dispatchResult).toBe(false);
+    expect(tabEvent.defaultPrevented).toBe(true);
   });
 });

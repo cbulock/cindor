@@ -52,6 +52,32 @@ describe("cindor-input", () => {
     expect(descriptionMirror?.textContent?.trim()).toBe("Used in URLs");
   });
 
+  it("refreshes mirrored accessibility text when referenced content changes", async () => {
+    const element = document.createElement("cindor-input") as CindorInput;
+    element.setAttribute("aria-labelledby", "project-label");
+    element.setAttribute("aria-describedby", "project-help");
+    document.body.innerHTML = `
+      <div id="project-label">Project name</div>
+      <div id="project-help">Used in URLs</div>
+    `;
+    document.body.append(element);
+    await element.updateComplete;
+
+    const label = document.getElementById("project-label") as HTMLElement;
+    const help = document.getElementById("project-help") as HTMLElement;
+    label.textContent = "Archived project name";
+    help.textContent = "Shown to collaborators";
+    await Promise.resolve();
+    await element.updateComplete;
+
+    const input = element.renderRoot.querySelector("input") as HTMLInputElement;
+    const labelElement = element.renderRoot.querySelector(`label[for="${input.id}"]`) as HTMLLabelElement;
+    const descriptionMirror = element.renderRoot.querySelector(`#${input.getAttribute("aria-describedby") ?? ""}`) as HTMLSpanElement;
+
+    expect(labelElement.textContent?.trim()).toBe("Archived project name");
+    expect(descriptionMirror.textContent?.trim()).toBe("Shown to collaborators");
+  });
+
   it("assigns a stable native control id even when no name is provided", async () => {
     const element = document.createElement("cindor-input") as CindorInput;
     document.body.append(element);

@@ -131,6 +131,33 @@ describe("cindor-dialog", () => {
     expect(element.hasAttribute("aria-describedby")).toBe(false);
   });
 
+  it("updates mirrored label and description text when referenced content changes", async () => {
+    document.body.innerHTML = `
+      <h2 id="dialog-title">Delete project</h2>
+      <p id="dialog-description">This action cannot be undone.</p>
+    `;
+
+    const element = document.createElement("cindor-dialog") as CindorDialog;
+    element.setAttribute("aria-labelledby", "dialog-title");
+    element.setAttribute("aria-describedby", "dialog-description");
+    document.body.append(element);
+    await element.updateComplete;
+
+    const title = document.getElementById("dialog-title") as HTMLElement;
+    const description = document.getElementById("dialog-description") as HTMLElement;
+    title.textContent = "Archive project";
+    description.textContent = "You can restore it later.";
+    await Promise.resolve();
+    await element.updateComplete;
+
+    const dialog = element.renderRoot.querySelector("dialog") as HTMLDialogElement;
+    const labelledById = dialog.getAttribute("aria-labelledby");
+    const describedById = dialog.getAttribute("aria-describedby");
+
+    expect(element.renderRoot.querySelector(`#${labelledById ?? ""}`)?.textContent).toBe("Archive project");
+    expect(element.renderRoot.querySelector(`#${describedById ?? ""}`)?.textContent).toBe("You can restore it later.");
+  });
+
   it("dispatches cancel events from the native dialog surface", async () => {
     const element = document.createElement("cindor-dialog") as CindorDialog;
     const cancelled = vi.fn();

@@ -153,7 +153,7 @@ export class CindorTooltip extends LitElement {
     this.triggerNode.removeEventListener("focusin", this.show);
     this.triggerNode.removeEventListener("focusout", this.hide);
     this.triggerNode.removeEventListener("keydown", this.handleTriggerKeyDown);
-    this.triggerNode.removeAttribute("aria-describedby");
+    this.removeTooltipDescription(this.triggerNode);
     this.triggerNode = null;
   }
 
@@ -163,11 +163,11 @@ export class CindorTooltip extends LitElement {
     }
 
     if (this.open && this.text) {
-      this.triggerNode.setAttribute("aria-describedby", this.tooltipId);
+      this.writeTriggerDescriptionTokens([...this.getTriggerDescriptionTokens(this.triggerNode), this.tooltipId]);
       return;
     }
 
-    this.triggerNode.removeAttribute("aria-describedby");
+    this.removeTooltipDescription(this.triggerNode);
   }
 
   private syncTriggerNode(): void {
@@ -191,5 +191,30 @@ export class CindorTooltip extends LitElement {
     this.triggerNode.addEventListener("focusout", this.hide);
     this.triggerNode.addEventListener("keydown", this.handleTriggerKeyDown);
     this.syncTriggerDescription();
+  }
+
+  private getTriggerDescriptionTokens(trigger: HTMLElement): string[] {
+    return (trigger.getAttribute("aria-describedby") ?? "")
+      .split(/\s+/)
+      .map((token) => token.trim())
+      .filter((token) => token !== "" && token !== this.tooltipId);
+  }
+
+  private removeTooltipDescription(trigger: HTMLElement): void {
+    this.writeTriggerDescriptionTokens(this.getTriggerDescriptionTokens(trigger));
+  }
+
+  private writeTriggerDescriptionTokens(tokens: string[]): void {
+    if (!this.triggerNode) {
+      return;
+    }
+
+    const uniqueTokens = Array.from(new Set(tokens));
+    if (uniqueTokens.length === 0) {
+      this.triggerNode.removeAttribute("aria-describedby");
+      return;
+    }
+
+    this.triggerNode.setAttribute("aria-describedby", uniqueTokens.join(" "));
   }
 }

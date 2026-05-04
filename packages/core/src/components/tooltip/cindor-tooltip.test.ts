@@ -62,4 +62,25 @@ describe("cindor-tooltip", () => {
     expect(element.open).toBe(false);
     expect(trigger.hasAttribute("aria-describedby")).toBe(false);
   });
+
+  it("preserves existing aria-describedby tokens on the trigger", async () => {
+    document.body.innerHTML = `<div id="existing-help">Existing help</div>`;
+
+    const element = document.createElement("cindor-tooltip") as CindorTooltip;
+    element.text = "Helpful hint";
+    element.innerHTML = '<button aria-describedby="existing-help">Trigger</button>';
+    document.body.append(element);
+    await element.updateComplete;
+
+    const trigger = element.querySelector("button") as HTMLButtonElement;
+    trigger.dispatchEvent(new Event("mouseenter"));
+    await element.updateComplete;
+
+    expect(trigger.getAttribute("aria-describedby")).toMatch(/^existing-help /);
+
+    trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+    await element.updateComplete;
+
+    expect(trigger.getAttribute("aria-describedby")).toBe("existing-help");
+  });
 });

@@ -1,6 +1,6 @@
 import { css, html, LitElement } from "lit";
 
-import { normalizeA11yText, resolveReferencedText, syncA11yMirror } from "../shared/a11y-mirror.js";
+import { normalizeA11yText, ReferencedTextObserver, resolveReferencedText, syncA11yMirror } from "../shared/a11y-mirror.js";
 
 const managedA11yAttributes = ["aria-describedby", "aria-description", "aria-label", "aria-labelledby"] as const;
 type ManagedA11yAttribute = (typeof managedA11yAttributes)[number];
@@ -72,6 +72,9 @@ export class CindorDialog extends LitElement {
   private hostAriaLabelledBy = "";
   private managedA11yDirty = false;
   private presentedModal: boolean | null = null;
+  private readonly referencedTextObserver = new ReferencedTextObserver(this, () => {
+    this.requestUpdate();
+  });
   private suppressManagedAttributeRemoval = false;
 
   override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
@@ -89,6 +92,12 @@ export class CindorDialog extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
     this.stripHostA11yAttributes();
+    this.syncReferencedTextObserver();
+  }
+
+  override disconnectedCallback(): void {
+    this.referencedTextObserver.disconnect();
+    super.disconnectedCallback();
   }
 
   override focus(options?: FocusOptions): void {
@@ -291,6 +300,11 @@ export class CindorDialog extends LitElement {
     }
 
     this.managedA11yDirty = true;
+    this.syncReferencedTextObserver();
     this.requestUpdate();
+  }
+
+  private syncReferencedTextObserver(): void {
+    this.referencedTextObserver.observe(this.hostAriaLabelledBy, this.hostAriaDescribedBy);
   }
 }

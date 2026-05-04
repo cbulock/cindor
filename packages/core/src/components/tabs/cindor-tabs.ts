@@ -1,5 +1,6 @@
 import { css, html, LitElement } from "lit";
 
+import { normalizeA11yText, ReferencedTextObserver, resolveReferencedText, syncA11yMirror } from "../shared/a11y-mirror.js";
 import { handleLinearKeyboardNavigation } from "../shared/linear-navigation.js";
 
 type TabPanel = {
@@ -11,6 +12,8 @@ type TabPanel = {
 };
 
 export class CindorTabs extends LitElement {
+  private static nextA11yId = 0;
+
   static styles = css`
     :host {
       display: grid;
@@ -75,6 +78,13 @@ export class CindorTabs extends LitElement {
   private readonly panelObserver = new MutationObserver(() => {
     this.refreshPanels();
   });
+  private readonly hostA11yObserver = new MutationObserver(() => {
+    this.requestUpdate();
+  });
+  private readonly referencedTextObserver = new ReferencedTextObserver(this, () => {
+    this.requestUpdate();
+  });
+  private readonly generatedA11yId = `${this.localName}-${CindorTabs.nextA11yId++}-tablist`;
   private panels: TabPanel[] = [];
   private panelIndex = 0;
 
@@ -86,11 +96,17 @@ export class CindorTabs extends LitElement {
       childList: true,
       subtree: true
     });
+    this.hostA11yObserver.observe(this, {
+      attributeFilter: ["aria-describedby", "aria-description", "aria-label", "aria-labelledby", "id"],
+      attributes: true
+    });
     this.refreshPanels();
   }
 
   override disconnectedCallback(): void {
     this.panelObserver.disconnect();
+    this.hostA11yObserver.disconnect();
+    this.referencedTextObserver.disconnect();
     super.disconnectedCallback();
   }
 
@@ -239,13 +255,33 @@ export class CindorTabs extends LitElement {
       return;
     }
 
-    for (const attributeName of ["aria-label", "aria-labelledby", "aria-describedby"]) {
-      const attributeValue = this.getAttribute(attributeName);
-      if (attributeValue === null || attributeValue === "") {
-        list.removeAttribute(attributeName);
-      } else {
-        list.setAttribute(attributeName, attributeValue);
+    this.referencedTextObserver.observe(this.getAttribute("aria-labelledby"), this.getAttribute("aria-describedby"));
+
+    const labelledByText = resolveReferencedText(this, this.getAttribute("aria-labelledby"));
+    const ariaLabel = normalizeA11yText(this.getAttribute("aria-label"));
+    if (labelledByText) {
+      const labelId = syncA11yMirror(this.renderRoot, this.tabListA11yIdBase, "label", labelledByText);
+      if (labelId) {
+        list.setAttribute("aria-labelledby", labelId);
       }
+      list.removeAttribute("aria-label");
+    } else {
+      syncA11yMirror(this.renderRoot, this.tabListA11yIdBase, "label", "");
+      list.removeAttribute("aria-labelledby");
+      if (ariaLabel) {
+        list.setAttribute("aria-label", ariaLabel);
+      } else {
+        list.removeAttribute("aria-label");
+      }
+    }
+
+    const describedByText = resolveReferencedText(this, this.getAttribute("aria-describedby"));
+    const descriptionText = normalizeA11yText([this.getAttribute("aria-description"), describedByText].filter((value) => value).join(" "));
+    const descriptionId = syncA11yMirror(this.renderRoot, this.tabListA11yIdBase, "description", descriptionText);
+    if (descriptionId) {
+      list.setAttribute("aria-describedby", descriptionId);
+    } else {
+      list.removeAttribute("aria-describedby");
     }
   }
 
@@ -255,5 +291,9 @@ export class CindorTabs extends LitElement {
 
   private get tabListElement(): HTMLElement | null {
     return this.renderRoot.querySelector('[part="list"]');
+  }
+
+  private get tabListA11yIdBase(): string {
+    return `${this.id || this.generatedA11yId}`;
   }
 }

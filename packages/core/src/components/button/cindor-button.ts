@@ -1,11 +1,15 @@
 import { css, html, LitElement } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 
+import { normalizeA11yText, ReferencedTextObserver, resolveReferencedText, syncA11yMirror } from "../shared/a11y-mirror.js";
+
 export type ButtonVariant = "solid" | "ghost";
 export type ButtonType = "button" | "submit" | "reset";
 
 export class CindorButton extends LitElement {
   private static nextFormId = 0;
+  private static nextA11yId = 0;
+
   static styles = css`
     :host {
       display: inline-block;
@@ -110,7 +114,28 @@ export class CindorButton extends LitElement {
   iconOnly = false;
   type: ButtonType = "button";
   variant: ButtonVariant = "solid";
+  private readonly generatedA11yId = `${this.localName}-${CindorButton.nextA11yId++}-control`;
   private readonly generatedFormId = `cindor-form-${CindorButton.nextFormId++}`;
+  private readonly hostA11yObserver = new MutationObserver(() => {
+    this.requestUpdate();
+  });
+  private readonly referencedTextObserver = new ReferencedTextObserver(this, () => {
+    this.requestUpdate();
+  });
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+    this.hostA11yObserver.observe(this, {
+      attributeFilter: ["aria-describedby", "aria-description", "aria-label", "aria-labelledby", "id"],
+      attributes: true
+    });
+  }
+
+  override disconnectedCallback(): void {
+    this.hostA11yObserver.disconnect();
+    this.referencedTextObserver.disconnect();
+    super.disconnectedCallback();
+  }
 
   override focus(options?: FocusOptions): void {
     this.buttonElement?.focus(options);
@@ -125,9 +150,6 @@ export class CindorButton extends LitElement {
       <button
         class="cindor-button__control"
         part="control"
-        aria-describedby=${ifDefined(this.hostAriaDescribedBy)}
-        aria-label=${ifDefined(this.hostAriaLabel)}
-        aria-labelledby=${ifDefined(this.hostAriaLabelledBy)}
         ?disabled=${this.disabled}
         form=${ifDefined(this.associatedFormId)}
         type=${this.resolvedType}
@@ -140,16 +162,8 @@ export class CindorButton extends LitElement {
     `;
   }
 
-  private get hostAriaDescribedBy(): string | undefined {
-    return this.getAttribute("aria-describedby") ?? undefined;
-  }
-
-  private get hostAriaLabel(): string | undefined {
-    return this.getAttribute("aria-label") ?? undefined;
-  }
-
-  private get hostAriaLabelledBy(): string | undefined {
-    return this.getAttribute("aria-labelledby") ?? undefined;
+  protected override updated(): void {
+    this.syncButtonA11y();
   }
 
   private handleButtonClick = (event: MouseEvent): void => {
@@ -203,5 +217,45 @@ export class CindorButton extends LitElement {
 
   private get buttonElement(): HTMLButtonElement | null {
     return this.renderRoot.querySelector("button");
+  }
+
+  private syncButtonA11y(): void {
+    const button = this.buttonElement;
+    if (!button) {
+      return;
+    }
+
+    this.referencedTextObserver.observe(this.getAttribute("aria-labelledby"), this.getAttribute("aria-describedby"));
+
+    const labelledByText = resolveReferencedText(this, this.getAttribute("aria-labelledby"));
+    const ariaLabel = normalizeA11yText(this.getAttribute("aria-label"));
+    if (labelledByText) {
+      const labelId = syncA11yMirror(this.renderRoot, this.buttonA11yIdBase, "label", labelledByText);
+      if (labelId) {
+        button.setAttribute("aria-labelledby", labelId);
+      }
+      button.removeAttribute("aria-label");
+    } else {
+      syncA11yMirror(this.renderRoot, this.buttonA11yIdBase, "label", "");
+      button.removeAttribute("aria-labelledby");
+      if (ariaLabel) {
+        button.setAttribute("aria-label", ariaLabel);
+      } else {
+        button.removeAttribute("aria-label");
+      }
+    }
+
+    const describedByText = resolveReferencedText(this, this.getAttribute("aria-describedby"));
+    const descriptionText = normalizeA11yText([this.getAttribute("aria-description"), describedByText].filter((value) => value).join(" "));
+    const descriptionId = syncA11yMirror(this.renderRoot, this.buttonA11yIdBase, "description", descriptionText);
+    if (descriptionId) {
+      button.setAttribute("aria-describedby", descriptionId);
+    } else {
+      button.removeAttribute("aria-describedby");
+    }
+  }
+
+  private get buttonA11yIdBase(): string {
+    return `${this.id || this.generatedA11yId}`;
   }
 }

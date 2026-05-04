@@ -26,6 +26,20 @@ describe("cindor-transfer-list", () => {
     expect(selectedDescription?.textContent).toBe("Use the buttons to move items.");
   });
 
+  it("keeps explicit list labels instead of overwriting both with one host label", async () => {
+    const element = document.createElement("cindor-transfer-list") as CindorTransferList;
+    element.setAttribute("aria-label", "Team assignment");
+    element.innerHTML = '<option value="design">Design</option><option value="engineering">Engineering</option>';
+    document.body.append(element);
+    await element.updateComplete;
+
+    const availableSelect = element.renderRoot.querySelector('[part="available-select"]') as HTMLSelectElement;
+    const selectedSelect = element.renderRoot.querySelector('[part="selected-select"]') as HTMLSelectElement;
+
+    expect(availableSelect.hasAttribute("aria-label")).toBe(false);
+    expect(selectedSelect.hasAttribute("aria-label")).toBe(false);
+  });
+
   it("moves selected available options into the chosen list", async () => {
     const element = document.createElement("cindor-transfer-list") as CindorTransferList;
     element.innerHTML =

@@ -117,6 +117,33 @@ describe("cindor-tabs", () => {
     expect(element.renderRoot.querySelector('[role="tablist"]')?.getAttribute("aria-label")).toBe("Project sections");
   });
 
+  it("mirrors external tablist labels and descriptions into shadow-safe references", async () => {
+    document.body.innerHTML = `
+      <span id="tabs-label">Project sections</span>
+      <span id="tabs-help">Use arrow keys to switch sections</span>
+    `;
+
+    const element = document.createElement("cindor-tabs") as CindorTabs;
+    element.setAttribute("aria-labelledby", "tabs-label");
+    element.setAttribute("aria-describedby", "tabs-help");
+    element.innerHTML = `
+      <section data-label="Overview" data-value="overview">Overview body</section>
+      <section data-label="Activity" data-value="activity">Activity body</section>
+    `;
+
+    document.body.append(element);
+    await element.updateComplete;
+
+    const tablist = element.renderRoot.querySelector('[role="tablist"]') as HTMLElement;
+    const labelledById = tablist.getAttribute("aria-labelledby");
+    const describedById = tablist.getAttribute("aria-describedby");
+
+    expect(labelledById).toMatch(/-label$/);
+    expect(describedById).toMatch(/-description$/);
+    expect(element.renderRoot.querySelector(`#${labelledById ?? ""}`)?.textContent).toBe("Project sections");
+    expect(element.renderRoot.querySelector(`#${describedById ?? ""}`)?.textContent).toBe("Use arrow keys to switch sections");
+  });
+
   it("keeps tab-to-panel relationships inside shadow-safe wrappers", async () => {
     const element = document.createElement("cindor-tabs") as CindorTabs;
     element.innerHTML = `
