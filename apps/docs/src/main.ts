@@ -332,6 +332,8 @@ let activeAlertTone: AlertTone = "info";
 let catalogQuery = "";
 let catalogLayer: ComponentLayerFilter = "all";
 
+const mobileMediaQuery = window.matchMedia("(max-width: 960px)");
+
 render();
 
 window.addEventListener("hashchange", () => {
@@ -943,8 +945,6 @@ function renderApiEntryValues(item: ApiItem): string {
     </div>
   `;
 }
-
-const mobileMediaQuery = window.matchMedia("(max-width: 960px)");
 
 mobileMediaQuery.addEventListener("change", (event) => {
   if (!event.matches) {
