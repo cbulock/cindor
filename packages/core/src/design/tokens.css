@@ -100,8 +100,8 @@
   --text-caption-leading: var(--leading-normal);
   --text-eyebrow-size: var(--text-sm);
   --text-eyebrow-weight: var(--weight-medium);
-  --text-eyebrow-leading: var(--leading-snug);
-  --text-eyebrow-tracking: 0.04em;
+  --text-eyebrow-leading: var(--leading-normal);
+  --text-eyebrow-tracking: 0.02em;
   --text-code-inline-size: 0.92em;
   --text-code-block-size: var(--text-sm);
   --text-data-value-size: var(--text-sm);

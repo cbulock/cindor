@@ -41,10 +41,12 @@ export class CindorPageHeader extends LitElement {
     }
 
     .eyebrow {
-      color: var(--accent);
+      display: inline-block;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      color: color-mix(in srgb, var(--accent) 32%, var(--fg-muted));
       font-size: var(--text-eyebrow-size);
       font-weight: var(--text-eyebrow-weight);
-      text-transform: uppercase;
       letter-spacing: var(--text-eyebrow-tracking);
       line-height: var(--text-eyebrow-leading);
     }

@@ -485,9 +485,6 @@ function render(): void {
 
         <main class="main">
           ${content}
-          <footer class="footer">
-            Kept in-repo so docs, stories, and package APIs stay aligned.
-          </footer>
         </main>
       </div>
 
@@ -702,26 +699,32 @@ function renderDocsHome(activeSectionId: string): string {
           <p>Start with the core web components directly or consume the same surface through the thin React and Vue adapters.</p>
         </div>
 
-        <div class="install-grid">
-          <div class="preview-block">
-            <strong>Web components</strong>
-            <p class="muted">Use the core package when you want the standards-based custom elements directly in any app that supports them.</p>
-            <cindor-code-block code="${escapeAttribute(installCode)}" language="bash"></cindor-code-block>
-            <cindor-code-block code="${escapeAttribute(quickStartCode)}" language="ts"></cindor-code-block>
-          </div>
-          <div class="preview-block">
-            <strong>React</strong>
-            <p class="muted">The React package wraps the same core elements and registers them for you, so usage stays close to standard JSX patterns.</p>
-            <cindor-code-block code="${escapeAttribute(reactInstallCode)}" language="bash"></cindor-code-block>
-            <cindor-code-block code="${escapeAttribute(reactQuickStartCode)}" language="tsx"></cindor-code-block>
-          </div>
-          <div class="preview-block">
-            <strong>Vue</strong>
-            <p class="muted">The Vue package exposes thin component wrappers over the same custom element implementation and shared styles.</p>
-            <cindor-code-block code="${escapeAttribute(vueInstallCode)}" language="bash"></cindor-code-block>
-            <cindor-code-block code="${escapeAttribute(vueQuickStartCode)}" language="vue"></cindor-code-block>
-          </div>
-        </div>
+        <cindor-tabs class="docs-subtabs" value="web-components" aria-label="Getting started tabs">
+          <section class="section" data-label="Web components" data-value="web-components">
+            <div class="preview-block">
+              <strong>Web components</strong>
+              <p class="muted">Use the core package when you want the standards-based custom elements directly in any app that supports them.</p>
+              <cindor-code-block code="${escapeAttribute(installCode)}" language="bash"></cindor-code-block>
+              <cindor-code-block code="${escapeAttribute(quickStartCode)}" language="ts"></cindor-code-block>
+            </div>
+          </section>
+          <section class="section" data-label="React" data-value="react">
+            <div class="preview-block">
+              <strong>React</strong>
+              <p class="muted">The React package wraps the same core elements and registers them for you, so usage stays close to standard JSX patterns.</p>
+              <cindor-code-block code="${escapeAttribute(reactInstallCode)}" language="bash"></cindor-code-block>
+              <cindor-code-block code="${escapeAttribute(reactQuickStartCode)}" language="tsx"></cindor-code-block>
+            </div>
+          </section>
+          <section class="section" data-label="Vue" data-value="vue">
+            <div class="preview-block">
+              <strong>Vue</strong>
+              <p class="muted">The Vue package exposes thin component wrappers over the same custom element implementation and shared styles.</p>
+              <cindor-code-block code="${escapeAttribute(vueInstallCode)}" language="bash"></cindor-code-block>
+              <cindor-code-block code="${escapeAttribute(vueQuickStartCode)}" language="vue"></cindor-code-block>
+            </div>
+          </section>
+        </cindor-tabs>
 
         <div class="section-heading">
           <h3>Theming</h3>
@@ -729,55 +732,71 @@ function renderDocsHome(activeSectionId: string): string {
           <p class="muted">Use <code>theme</code> for light, dark, inherit, or system mode. Use <code>theme-family</code> when you want to opt into retro explicitly. The provider mirrors the resolved light/dark mode to native CSS <code>color-scheme</code> for browser surfaces inside the boundary.</p>
         </div>
 
-        <div class="demo-grid">
-          <div class="preview-block">
-            <strong>Preset theme</strong>
-            <p class="muted">Start from a named preset when you want a reusable alternate look without assembling token overrides by hand. <code>theme="system"</code> lets the browser preference choose light vs dark by default.</p>
-            <cindor-code-block code="${escapeAttribute(themingPresetCode)}" language="ts"></cindor-code-block>
-          </div>
-          <div class="preview-block">
-            <strong>Primary color</strong>
-            <p class="muted">Use <code>primary-color</code> when the rest of the system should stay close to default and only the accent family needs to change.</p>
-            <cindor-code-block code="${escapeAttribute(themingPrimaryColorCode)}" language="html"></cindor-code-block>
-          </div>
-          <div class="preview-block">
-            <strong>Explicit retro family</strong>
-            <p class="muted">Retro stays app-selected. <code>theme-family="retro"</code> opts into the retro visual family, and <code>theme="system"</code> still lets the browser choose its light or dark branch.</p>
-            <cindor-code-block code="${escapeAttribute(themingRetroCode)}" language="html"></cindor-code-block>
-          </div>
+        <cindor-tabs class="docs-subtabs" value="preset-theme" aria-label="Theming options">
+          <section class="section" data-label="Preset theme" data-value="preset-theme">
+            <div class="preview-block">
+              <strong>Preset theme</strong>
+              <p class="muted">Start from a named preset when you want a reusable alternate look without assembling token overrides by hand. <code>theme="system"</code> lets the browser preference choose light vs dark by default.</p>
+              <cindor-code-block code="${escapeAttribute(themingPresetCode)}" language="ts"></cindor-code-block>
+            </div>
+          </section>
+          <section class="section" data-label="Primary color" data-value="primary-color">
+            <div class="preview-block">
+              <strong>Primary color</strong>
+              <p class="muted">Use <code>primary-color</code> when the rest of the system should stay close to default and only the accent family needs to change.</p>
+              <cindor-code-block code="${escapeAttribute(themingPrimaryColorCode)}" language="html"></cindor-code-block>
+            </div>
+          </section>
+          <section class="section" data-label="Retro family" data-value="retro-family">
+            <div class="preview-block">
+              <strong>Explicit retro family</strong>
+              <p class="muted">Retro stays app-selected. <code>theme-family="retro"</code> opts into the retro visual family, and <code>theme="system"</code> still lets the browser choose its light or dark branch.</p>
+              <cindor-code-block code="${escapeAttribute(themingRetroCode)}" language="html"></cindor-code-block>
+            </div>
+          </section>
+          <section class="section" data-label="Semantic overrides" data-value="semantic-overrides">
+            <div class="preview-block">
+              <strong>Full semantic tokens</strong>
+              <p class="muted">Use <code>themeTokens</code> for shared values, then add <code>lightThemeTokens</code> or <code>darkThemeTokens</code> when each mode needs different surfaces or contrast.</p>
+              <cindor-code-block code="${escapeAttribute(themingTokenOverrideCode)}" language="ts"></cindor-code-block>
+            </div>
+          </section>
+        </cindor-tabs>
+
+        <div class="section-heading">
+          <h3>Tokens</h3>
+          <p>Use the shared preset and semantic token layers to shape the system before reaching for one-off component overrides.</p>
         </div>
 
-        <div class="demo-grid">
-          <div class="preview-block">
-            <strong>Full semantic tokens</strong>
-            <p class="muted">Use <code>themeTokens</code> for shared values, then add <code>lightThemeTokens</code> or <code>darkThemeTokens</code> when each mode needs different surfaces or contrast.</p>
-            <cindor-code-block code="${escapeAttribute(themingTokenOverrideCode)}" language="ts"></cindor-code-block>
-          </div>
-        </div>
-
-        <div class="demo-grid">
-          <div class="preview-block">
-            <strong>Included presets</strong>
-            <p class="muted"><code>cindorAmethystTheme</code>, <code>cindorEvergreenTheme</code>, <code>cindorCobaltTheme</code>, <code>cindorRoseTheme</code>, and <code>cindorOceanTheme</code> cover violet, green, blue, pink, and teal-forward looks without hand-authoring token maps.</p>
-            <cindor-stack direction="horizontal" gap="2" wrap>
-              <cindor-badge tone="accent">cindorAmethystTheme</cindor-badge>
-              <cindor-badge tone="success">cindorEvergreenTheme</cindor-badge>
-              <cindor-badge>cindorCobaltTheme</cindor-badge>
-              <cindor-badge>cindorRoseTheme</cindor-badge>
-              <cindor-badge>cindorOceanTheme</cindor-badge>
-            </cindor-stack>
-          </div>
-          <div class="preview-block">
-            <strong>Common semantic tokens</strong>
-            <p class="muted">These are the main tokens to reach for first when shaping surfaces, text, borders, feedback colors, and focus treatment.</p>
-            <cindor-code-block code="${escapeAttribute(themingTokensReferenceCode)}" language="text"></cindor-code-block>
-          </div>
-          <div class="preview-block">
-            <strong>Migration from the old provider API</strong>
-            <p class="muted">Remove separate <code>color-scheme</code> usage, let <code>theme</code> handle color mode, and use <code>theme-family</code> only when you want an explicit retro family. Presets, <code>primaryColor</code>, and token overrides still work the same way.</p>
-            <cindor-code-block code="${escapeAttribute(themingMigrationCode)}" language="html"></cindor-code-block>
-          </div>
-        </div>
+        <cindor-tabs class="docs-subtabs" value="preset-pack" aria-label="Token references">
+          <section class="section" data-label="Preset pack" data-value="preset-pack">
+            <div class="preview-block">
+              <strong>Included presets</strong>
+              <p class="muted"><code>cindorAmethystTheme</code>, <code>cindorEvergreenTheme</code>, <code>cindorCobaltTheme</code>, <code>cindorRoseTheme</code>, and <code>cindorOceanTheme</code> cover violet, green, blue, pink, and teal-forward looks without hand-authoring token maps.</p>
+              <cindor-stack direction="horizontal" gap="2" wrap>
+                <cindor-badge tone="accent">cindorAmethystTheme</cindor-badge>
+                <cindor-badge tone="success">cindorEvergreenTheme</cindor-badge>
+                <cindor-badge>cindorCobaltTheme</cindor-badge>
+                <cindor-badge>cindorRoseTheme</cindor-badge>
+                <cindor-badge>cindorOceanTheme</cindor-badge>
+              </cindor-stack>
+            </div>
+          </section>
+          <section class="section" data-label="Semantic tokens" data-value="semantic-tokens">
+            <div class="preview-block">
+              <strong>Common semantic tokens</strong>
+              <p class="muted">These are the main tokens to reach for first when shaping surfaces, text, borders, feedback colors, and focus treatment.</p>
+              <cindor-code-block code="${escapeAttribute(themingTokensReferenceCode)}" language="text"></cindor-code-block>
+            </div>
+          </section>
+          <section class="section" data-label="Migration" data-value="migration">
+            <div class="preview-block">
+              <strong>Migration from the old provider API</strong>
+              <p class="muted">Remove separate <code>color-scheme</code> usage, let <code>theme</code> handle color mode, and use <code>theme-family</code> only when you want an explicit retro family. Presets, <code>primaryColor</code>, and token overrides still work the same way.</p>
+              <cindor-code-block code="${escapeAttribute(themingMigrationCode)}" language="html"></cindor-code-block>
+            </div>
+          </section>
+        </cindor-tabs>
 
         <div class="preview-block">
           <div class="live-toolbar">
@@ -834,25 +853,27 @@ function renderDocsHome(activeSectionId: string): string {
               <cindor-badge>New</cindor-badge>
             </div>
             <cindor-provider theme="dark" primary-color="#15803d">
-              <cindor-layout>
-                <cindor-layout-header>
-                  <cindor-stack gap="2">
-                    <strong>Release workspace</strong>
-                    <cindor-stack direction="horizontal" gap="2" wrap align="center">
-                      <cindor-badge tone="accent">Production</cindor-badge>
-                      <cindor-button>Deploy</cindor-button>
-                      <cindor-button variant="ghost">Share</cindor-button>
+              <div class="pattern-layout-preview">
+                <cindor-layout>
+                  <cindor-layout-header>
+                    <cindor-stack gap="2">
+                      <strong>Release workspace</strong>
+                      <cindor-stack direction="horizontal" gap="2" wrap align="center">
+                        <cindor-badge tone="accent">Production</cindor-badge>
+                        <cindor-button>Deploy</cindor-button>
+                        <cindor-button variant="ghost">Share</cindor-button>
+                      </cindor-stack>
                     </cindor-stack>
-                  </cindor-stack>
-                </cindor-layout-header>
-                <cindor-layout-content>
-                  <div class="callout">
-                    <cindor-alert id="pattern-alert" tone="${activeAlertTone}">
-                      Compose higher-level patterns from reusable primitives instead of duplicating behavior in each component.
-                    </cindor-alert>
-                  </div>
-                </cindor-layout-content>
-              </cindor-layout>
+                  </cindor-layout-header>
+                  <cindor-layout-content>
+                    <div class="callout">
+                      <cindor-alert id="pattern-alert" tone="${activeAlertTone}">
+                        Compose higher-level patterns from reusable primitives instead of duplicating behavior in each component.
+                      </cindor-alert>
+                    </div>
+                  </cindor-layout-content>
+                </cindor-layout>
+              </div>
             </cindor-provider>
           </div>
 

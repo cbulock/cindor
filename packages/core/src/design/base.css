@@ -85,13 +85,12 @@ small {
   font-family: var(--font-sans);
   font-size: var(--text-eyebrow-size);
   font-weight: var(--text-eyebrow-weight);
-  color: var(--fg);
+  color: color-mix(in srgb, var(--accent) 32%, var(--fg-muted));
   letter-spacing: var(--text-eyebrow-tracking);
-  padding-left: 10px;
-  border-left: 2px solid var(--accent);
   line-height: var(--text-eyebrow-leading);
   display: inline-block;
-  text-transform: uppercase;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .label {
