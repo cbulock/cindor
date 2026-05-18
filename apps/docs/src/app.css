@@ -21,6 +21,8 @@ a {
   min-height: 100vh;
   padding: var(--space-6);
   gap: var(--space-8);
+  max-width: 72rem;
+  margin: 0 auto;
   box-sizing: border-box;
 }
 
@@ -61,6 +63,7 @@ a {
 
 .landing-main {
   gap: var(--space-8);
+  align-content: start;
 }
 
 .action-link {
@@ -110,6 +113,50 @@ a {
 
 .landing-proof-grid {
   align-items: stretch;
+}
+
+.landing-proof-list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.landing-proof-list li {
+  padding-inline-start: calc(var(--space-4) + 0.75rem);
+  color: var(--fg-muted);
+  position: relative;
+}
+
+.landing-proof-list li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0.5rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.landing-stat-grid {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+}
+
+.landing-stat {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+}
+
+.landing-stat strong {
+  font-size: var(--text-2xl);
 }
 
 .landing-cta {
@@ -274,9 +321,44 @@ a {
   gap: var(--space-6);
 }
 
+.docs-section-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.docs-section-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--fg-muted);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    background var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
+}
+
+.docs-section-tab:hover,
+.docs-section-tab[data-active="true"] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  color: var(--fg);
+}
+
 .section {
   display: grid;
   gap: var(--space-4);
+}
+
+.section[data-active-section="false"] {
+  display: none;
 }
 
 .section-heading {
@@ -447,6 +529,12 @@ a {
   display: grid;
   gap: var(--space-3);
   max-width: 52rem;
+}
+
+.component-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
 }
 
 .component-page-title {
@@ -638,6 +726,12 @@ a {
   .landing-nav {
     grid-auto-flow: row;
     justify-items: start;
+  }
+
+  .docs-section-switcher {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-block-end: var(--space-1);
   }
 }
 

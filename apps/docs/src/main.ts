@@ -130,6 +130,13 @@ type GeneratedComponentDocs = {
   components: GeneratedComponentDoc[];
 };
 
+type StoryModule = Record<string, unknown> & {
+  __namedExportsOrder?: string[];
+  default?: {
+    title?: string;
+  };
+};
+
 const sections: DocsSection[] = [
   {
     id: "overview",
@@ -155,6 +162,25 @@ const sections: DocsSection[] = [
 const docsSectionIds = new Set(sections.map((section) => section.id));
 const GITHUB_REPO_URL = "https://github.com/cbulock/cindor";
 const storybookUrl = new URL("storybook/", document.baseURI).toString();
+const storyModules = import.meta.glob("../../../packages/core/src/components/**/*.stories.ts", { eager: true }) as Record<string, StoryModule>;
+const componentPlaygroundUrls = new Map(
+  Object.entries(storyModules)
+    .map(([path, module]) => {
+      const match = /components\/([^/]+)\/[^/]+\.stories\.ts$/u.exec(path.replaceAll("\\", "/"));
+      const title = module.default?.title;
+      const storyExportName = getPrimaryStoryExportName(module);
+
+      if (!match || !title || !storyExportName) {
+        return null;
+      }
+
+      const slug = match[1];
+      const storyId = `${toStorybookId(title)}--${toStorybookId(storyExportName)}`;
+
+      return [slug, new URL(`?path=/story/${storyId}`, storybookUrl).toString()] as const;
+    })
+    .filter((entry): entry is readonly [string, string] => Boolean(entry))
+);
 
 const setupSteps: StepperStep[] = [
   { description: "Install the package and import the shared global styles.", label: "Install", value: "install" },
@@ -292,6 +318,21 @@ const projectName = ref("Q2 launch");
     </main>
   </CindorProvider>
 </template>`;
+const starterFormCompositionCode = `<cindor-provider theme="system">
+  <cindor-form description="Create a workspace with shared field layout.">
+    <form onsubmit="event.preventDefault()">
+      <cindor-form-row>
+        <cindor-form-field label="Project name" required>
+          <cindor-input name="projectName" required></cindor-input>
+        </cindor-form-field>
+        <cindor-form-field label="Owner email" required>
+          <cindor-email-input name="ownerEmail" required></cindor-email-input>
+        </cindor-form-field>
+      </cindor-form-row>
+      <cindor-button type="submit">Create project</cindor-button>
+    </form>
+  </cindor-form>
+</cindor-provider>`;
 
 const dataTableSampleRows = [
   { id: "1", component: "cindor-button", layer: "Primitive", use: "Actions", actions: "Edit, Open" },
@@ -549,87 +590,37 @@ function renderLandingPage(): string {
     <section class="landing-hero">
       <div class="hero-copy">
         <span class="eyebrow">Cindor UI</span>
-        <h1 class="hero-title">A clean, standards-based component library for product teams that ship fast.</h1>
+        <h1 class="hero-title">Clean web components for product interfaces.</h1>
         <p class="muted">
-          Cindor UI keeps behavior in a web-component core, layers thin React and Vue adapters on top, and keeps its docs and stories in-repo so the product surface stays honest.
+          Standards-based primitives and higher-level workflows, shipped from one core with thin React and Vue wrappers.
         </p>
       </div>
 
       <div class="hero-actions">
-        <a class="action-link action-link-primary" href="#docs/getting-started">Read the docs</a>
+        <a class="action-link action-link-primary" href="#docs/overview">Read the docs</a>
         <a class="action-link" href="${storybookUrl}">Open playground</a>
         <a class="action-link" href="${GITHUB_REPO_URL}" target="_blank" rel="noreferrer">View on GitHub</a>
       </div>
 
-      <div class="card-grid landing-proof-grid">
-        <cindor-card>
-          <div class="card-body">
-            <h3>Core once, wrappers later</h3>
-            <p class="muted">Keep interaction and rendering behavior in one standards-based implementation, then adapt it cleanly for React and Vue.</p>
-          </div>
-        </cindor-card>
-        <cindor-card>
-          <div class="card-body">
-            <h3>Native-first by default</h3>
-            <p class="muted">Use real buttons, inputs, dialog, tables, and form semantics where the platform already gives the right behavior.</p>
-          </div>
-        </cindor-card>
-        <cindor-card>
-          <div class="card-body">
-            <h3>Docs and stories stay aligned</h3>
-            <p class="muted">The docs app and Storybook live beside the component source so examples, APIs, and shipped behavior stay synchronized.</p>
-          </div>
-        </cindor-card>
-      </div>
-    </section>
+      <ul class="landing-proof-list">
+        <li>Native-first HTML primitives and accessibility by default</li>
+        <li>One web-component core with thin React and Vue adapters</li>
+        <li>Docs and Storybook shipped from the same repository</li>
+      </ul>
 
-    <section class="landing-section">
-      <div class="section-heading">
-        <h2>Why teams reach for it</h2>
-        <p>Enough signal to understand the library quickly, without turning the front page into reference documentation.</p>
-      </div>
-
-      <div class="card-grid">
-        <cindor-card>
-          <div class="card-body">
-            <h3>Framework-agnostic foundation</h3>
-            <p class="muted">Attributes, properties, events, slots, and CSS custom properties stay at the center of the public contract.</p>
-          </div>
-        </cindor-card>
-        <cindor-card>
-          <div class="card-body">
-            <h3>Shared design layer</h3>
-            <p class="muted">Fonts, tokens, base styles, and theme hooks are owned in-repo so components inherit one visual system.</p>
-          </div>
-        </cindor-card>
-        <cindor-card>
-          <div class="card-body">
-            <h3>Fast evaluation path</h3>
-            <p class="muted">Jump from landing page to technical docs, component reference, or Storybook playground depending on how deep you need to go.</p>
-          </div>
-        </cindor-card>
-      </div>
-    </section>
-
-    <section class="landing-section landing-cta">
-      <div class="section-heading">
-        <h2>Start where it fits your workflow</h2>
-        <p>Use the docs for structure, Storybook for exploration, and GitHub for source and release history.</p>
-      </div>
-
-      <div class="landing-cta-grid">
-        <a class="landing-cta-card" href="#docs/overview">
-          <strong>Documentation</strong>
-          <span class="muted">Browse setup guidance, component reference, and usage patterns.</span>
-        </a>
-        <a class="landing-cta-card" href="${storybookUrl}">
-          <strong>Playground</strong>
-          <span class="muted">Inspect components in Storybook and explore live examples quickly.</span>
-        </a>
-        <a class="landing-cta-card" href="${GITHUB_REPO_URL}" target="_blank" rel="noreferrer">
-          <strong>GitHub repository</strong>
-          <span class="muted">Review source, releases, and the workspace that ships the library.</span>
-        </a>
+      <div class="landing-stat-grid" aria-label="Cindor UI highlights">
+        <div class="landing-stat">
+          <strong>${componentCatalog.length}</strong>
+          <span class="muted">documented components</span>
+        </div>
+        <div class="landing-stat">
+          <strong>3</strong>
+          <span class="muted">entry points: docs, playground, source</span>
+        </div>
+        <div class="landing-stat">
+          <strong>1</strong>
+          <span class="muted">shared design system in repo</span>
+        </div>
       </div>
     </section>
   `;
@@ -656,6 +647,18 @@ function renderDocsHome(activeSectionId: string): string {
         <a class="action-link" href="${storybookUrl}">Playground</a>
       </div>
 
+      <nav class="docs-section-switcher" aria-label="Documentation sections">
+        ${sections
+          .map(
+            (section) => `
+              <a class="docs-section-tab" data-active="${String(section.id === activeSectionId)}" href="#docs/${section.id}">
+                <span>${section.title}</span>
+              </a>
+            `
+          )
+          .join("")}
+      </nav>
+
       <div class="card-grid">
         <cindor-card>
           <div class="card-body">
@@ -679,6 +682,31 @@ function renderDocsHome(activeSectionId: string): string {
     </section>
 
     <div class="content-grid">
+      <section class="section" id="overview-panel" data-active-section="${String(activeSectionId === "overview")}">
+        <div class="section-heading">
+          <h2>Overview</h2>
+          <p>Use the technical docs for structure, the playground for fast visual inspection, and the component catalog for exact API and preview coverage.</p>
+        </div>
+
+        <div class="demo-grid">
+          <div class="preview-block">
+            <strong>Documentation</strong>
+            <p class="muted">Installation, theming, API reference, and usage examples that stay tied to the shipped component source.</p>
+            <a class="action-link" href="#docs/getting-started">Open getting started</a>
+          </div>
+          <div class="preview-block">
+            <strong>Playground</strong>
+            <p class="muted">Open Storybook when you want live states, controls, and visual comparison without digging through implementation files.</p>
+            <a class="action-link" href="${storybookUrl}">Open playground</a>
+          </div>
+          <div class="preview-block">
+            <strong>Component reference</strong>
+            <p class="muted">Jump into a specific component to see usage snippets, a living preview, API details, and related surfaces.</p>
+            <a class="action-link" href="#docs/components">Browse components</a>
+          </div>
+        </div>
+      </section>
+
       <section class="section" id="getting-started" data-active-section="${String(activeSectionId === "getting-started")}">
         <div class="section-heading">
           <h2>Getting started</h2>
@@ -771,36 +799,9 @@ function renderDocsHome(activeSectionId: string): string {
         </div>
 
         <div class="preview-block">
-          <strong>Quick form composition</strong>
-          <p class="muted">Scope a theme locally, start with a primary color, and layer in semantic token overrides only where you need them.</p>
-          <cindor-provider theme="dark" primary-color="#7c3aed">
-            <cindor-layout>
-              <cindor-layout-header>
-                <cindor-stack gap="2">
-                  <strong>New workspace</strong>
-                  <p class="muted">The provider and layout primitives stay close to standard web-component composition.</p>
-                </cindor-stack>
-              </cindor-layout-header>
-              <cindor-layout-content>
-                <cindor-form description="Create a workspace without leaving native form patterns.">
-                  <form onsubmit="event.preventDefault()">
-                    <cindor-form-row>
-                      <cindor-form-field label="Project name" description="Shown to workspace members." required>
-                        <cindor-input name="projectName" placeholder="Cindor Docs" required></cindor-input>
-                      </cindor-form-field>
-                      <cindor-form-field label="Owner email" description="Used for release notifications." required>
-                        <cindor-email-input name="ownerEmail" placeholder="owner@example.com" required></cindor-email-input>
-                      </cindor-form-field>
-                    </cindor-form-row>
-                    <cindor-stack direction="horizontal" gap="2" wrap>
-                      <cindor-button type="reset" variant="ghost">Cancel</cindor-button>
-                      <cindor-button type="submit">Create project</cindor-button>
-                    </cindor-stack>
-                  </form>
-                </cindor-form>
-              </cindor-layout-content>
-            </cindor-layout>
-          </cindor-provider>
+          <strong>Starter form composition</strong>
+          <p class="muted">A common setup is provider + form row + form field + native-backed inputs. Start there before layering on heavier workflow components.</p>
+          <cindor-code-block code="${escapeAttribute(starterFormCompositionCode)}" language="html"></cindor-code-block>
         </div>
       </section>
 
@@ -997,6 +998,10 @@ function renderComponentDetail(slug: string): string {
           </div>
           <h1 class="component-page-title">${doc.title}</h1>
           <p class="muted">${doc.summary}</p>
+          <div class="component-page-actions">
+            <a class="action-link action-link-primary" href="${getComponentPlaygroundUrl(doc.slug)}" target="_blank" rel="noreferrer">View in playground</a>
+            <a class="action-link" href="#docs/components">Back to catalog</a>
+          </div>
         </div>
       </div>
 
@@ -1184,6 +1189,34 @@ function renderApiEntryValues(item: ApiItem): string {
       </ul>
     </div>
   `;
+}
+
+function getComponentPlaygroundUrl(slug: string): string {
+  return componentPlaygroundUrls.get(slug) ?? storybookUrl;
+}
+
+function getPrimaryStoryExportName(module: StoryModule): string | null {
+  if ("Default" in module) {
+    return "Default";
+  }
+
+  if (Array.isArray(module.__namedExportsOrder)) {
+    const namedExport = module.__namedExportsOrder.find((key) => key !== "default");
+    if (namedExport) {
+      return namedExport;
+    }
+  }
+
+  return Object.keys(module).find((key) => key !== "default" && key !== "__esModule" && !key.startsWith("__")) ?? null;
+}
+
+function toStorybookId(value: string): string {
+  return value
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 mobileMediaQuery.addEventListener("change", (event) => {
