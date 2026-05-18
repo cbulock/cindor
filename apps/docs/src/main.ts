@@ -647,18 +647,6 @@ function renderDocsHome(activeSectionId: string): string {
         <a class="action-link" href="${storybookUrl}">Playground</a>
       </div>
 
-      <nav class="docs-section-switcher" aria-label="Documentation sections">
-        ${sections
-          .map(
-            (section) => `
-              <a class="docs-section-tab" data-active="${String(section.id === activeSectionId)}" href="#docs/${section.id}">
-                <span>${section.title}</span>
-              </a>
-            `
-          )
-          .join("")}
-      </nav>
-
       <div class="card-grid">
         <cindor-card>
           <div class="card-body">
@@ -682,7 +670,8 @@ function renderDocsHome(activeSectionId: string): string {
     </section>
 
     <div class="content-grid">
-      <section class="section" id="overview-panel" data-active-section="${String(activeSectionId === "overview")}">
+      <cindor-tabs class="docs-home-tabs" id="docs-home-tabs" value="${activeSectionId}" aria-label="Documentation sections">
+      <section class="section" id="overview-panel" data-label="Overview" data-value="overview">
         <div class="section-heading">
           <h2>Overview</h2>
           <p>Use the technical docs for structure, the playground for fast visual inspection, and the component catalog for exact API and preview coverage.</p>
@@ -707,7 +696,7 @@ function renderDocsHome(activeSectionId: string): string {
         </div>
       </section>
 
-      <section class="section" id="getting-started" data-active-section="${String(activeSectionId === "getting-started")}">
+      <section class="section" id="getting-started" data-label="Getting started" data-value="getting-started">
         <div class="section-heading">
           <h2>Getting started</h2>
           <p>Start with the core web components directly or consume the same surface through the thin React and Vue adapters.</p>
@@ -805,7 +794,7 @@ function renderDocsHome(activeSectionId: string): string {
         </div>
       </section>
 
-      <section class="section" id="components" data-active-section="${String(activeSectionId === "components")}">
+      <section class="section" id="components" data-label="Components" data-value="components">
         <div class="section-heading">
           <h2>Component reference</h2>
           <p>The catalog covers the current Cindor component surface and links directly to a dedicated docs view for each component.</p>
@@ -832,7 +821,7 @@ function renderDocsHome(activeSectionId: string): string {
         </div>
       </section>
 
-      <section class="section" id="patterns" data-active-section="${String(activeSectionId === "patterns")}">
+      <section class="section" id="patterns" data-label="Patterns" data-value="patterns">
         <div class="section-heading">
           <h2>Patterns and workflows</h2>
           <p>Higher-level surfaces are composed from smaller primitives so behavior stays reusable and easier to reason about.</p>
@@ -898,6 +887,7 @@ function renderDocsHome(activeSectionId: string): string {
           </div>
         </div>
       </section>
+      </cindor-tabs>
     </div>
   `;
 }
@@ -1320,7 +1310,7 @@ function syncRouteScroll(route: Route): void {
 
   if (route.kind === "docs") {
     requestAnimationFrame(() => {
-      root.querySelector<HTMLElement>(`#${route.sectionId}`)?.scrollIntoView({
+      root.querySelector<HTMLElement>("#docs-home-tabs, .hero")?.scrollIntoView({
         behavior: "auto",
         block: "start"
       });
@@ -1373,6 +1363,18 @@ function hydrateGlobalPalette(): void {
 }
 
 function hydrateHomeExamples(): void {
+  const docsTabs = root.querySelector<HTMLElement & { value: string }>("#docs-home-tabs");
+  if (docsTabs) {
+    docsTabs.value = window.location.hash.replace(/^#docs\//, "") || "overview";
+    docsTabs.addEventListener("change", () => {
+      const nextValue = docsTabs.value || "overview";
+      const nextHash = `#docs/${nextValue}`;
+      if (window.location.hash !== nextHash) {
+        window.location.hash = nextHash;
+      }
+    });
+  }
+
   const stepper = root.querySelector<StepperHost>("#setup-stepper");
   if (stepper) {
     stepper.steps = setupSteps;
