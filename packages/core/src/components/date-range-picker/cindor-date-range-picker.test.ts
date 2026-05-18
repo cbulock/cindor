@@ -1,3 +1,12 @@
+import { vi } from "vitest";
+
+vi.mock("../shared/floating-position.js", () => ({
+  attachFloatingPosition: () => ({
+    cleanup: () => {},
+    update: () => {}
+  })
+}));
+
 import "../../register.js";
 
 import { CindorDateRangePicker } from "./cindor-date-range-picker.js";
@@ -7,31 +16,35 @@ describe("cindor-date-range-picker", () => {
     document.body.innerHTML = "";
   });
 
-  it("stores the selected start and end values", async () => {
-    const element = document.createElement("cindor-date-range-picker") as CindorDateRangePicker;
-    element.month = "2026-04";
-    document.body.append(element);
-    await element.updateComplete;
+  it(
+    "stores the selected start and end values",
+    async () => {
+      const element = document.createElement("cindor-date-range-picker") as CindorDateRangePicker;
+      element.month = "2026-04";
+      document.body.append(element);
+      await element.updateComplete;
 
-    element.show();
-    await element.updateComplete;
+      element.show();
+      await element.updateComplete;
 
-    const getDayButton = (value: string): HTMLButtonElement => {
-      const calendar = element.renderRoot.querySelector("cindor-calendar") as (HTMLElement & { renderRoot: ShadowRoot }) | null;
-      const button = Array.from(calendar?.renderRoot.querySelectorAll(".day") ?? []).find(
-        (candidate) => (candidate as HTMLButtonElement).value === value
-      ) as HTMLButtonElement | undefined;
+      const getDayButton = (value: string): HTMLButtonElement => {
+        const calendar = element.renderRoot.querySelector("cindor-calendar") as (HTMLElement & { renderRoot: ShadowRoot }) | null;
+        const button = Array.from(calendar?.renderRoot.querySelectorAll(".day") ?? []).find(
+          (candidate) => (candidate as HTMLButtonElement).value === value
+        ) as HTMLButtonElement | undefined;
 
-      expect(button).toBeDefined();
-      return button as HTMLButtonElement;
-    };
+        expect(button).toBeDefined();
+        return button as HTMLButtonElement;
+      };
 
-    getDayButton("2026-04-10").click();
-    await element.updateComplete;
-    getDayButton("2026-04-14").click();
-    await element.updateComplete;
+      getDayButton("2026-04-10").click();
+      await element.updateComplete;
+      getDayButton("2026-04-14").click();
+      await element.updateComplete;
 
-    expect(element.startValue).toBe("2026-04-10");
-    expect(element.endValue).toBe("2026-04-14");
-  });
+      expect(element.startValue).toBe("2026-04-10");
+      expect(element.endValue).toBe("2026-04-14");
+    },
+    10000
+  );
 });

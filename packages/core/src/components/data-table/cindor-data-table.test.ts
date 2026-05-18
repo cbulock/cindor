@@ -262,8 +262,10 @@ describe("cindor-data-table", () => {
     resizeObserverController.restore();
   });
 
-  it("hides lower-priority columns on phone-sized widths", async () => {
+  it("switches to a stacked mobile layout on phone-sized widths", async () => {
     const resizeObserverController = installResizeObserverMock();
+    const originalInnerWidth = window.innerWidth;
+    Object.defineProperty(window, "innerWidth", { configurable: true, value: 600 });
     const element = await renderElement({
       columns: [
         { key: "name", label: "Name", priority: 1 },
@@ -272,17 +274,46 @@ describe("cindor-data-table", () => {
       ],
       rows: rows.map((row) => ({ ...row, role: "Support" }))
     });
-    Object.defineProperty(element, "clientWidth", { configurable: true, value: 600 });
-
-    resizeObserverController.flush();
+    window.dispatchEvent(new Event("resize"));
     await element.updateComplete;
 
-    const headCells = Array.from(element.renderRoot.querySelectorAll("thead th"));
-    expect(headCells).toHaveLength(1);
-    expect(headCells[0]?.textContent).toContain("Name");
-    expect(element.renderRoot.querySelector("tbody")?.textContent).not.toContain("Support");
+    const region = element.renderRoot.querySelector('[part="table-region"]');
+    const bodyCells = Array.from(element.renderRoot.querySelectorAll("tbody td"));
+    expect(region?.getAttribute("data-mobile-layout")).toBe("true");
+    expect(bodyCells).toHaveLength(12);
+    expect(bodyCells[0]?.getAttribute("data-column-label")).toBe("Name");
+    expect(bodyCells[1]?.getAttribute("data-column-label")).toBe("Role");
+    expect(element.renderRoot.querySelector("tbody")?.textContent).toContain("Support");
 
     resizeObserverController.restore();
+    Object.defineProperty(window, "innerWidth", { configurable: true, value: originalInnerWidth });
+  });
+
+  it("hides lower-priority columns on tablet-sized widths", async () => {
+    const resizeObserverController = installResizeObserverMock();
+    const originalInnerWidth = window.innerWidth;
+    Object.defineProperty(window, "innerWidth", { configurable: true, value: 800 });
+    const element = await renderElement({
+      columns: [
+        { key: "name", label: "Name", priority: 1 },
+        { key: "role", label: "Role", priority: 2 },
+        { key: "tickets", label: "Tickets", numeric: true, priority: 3 }
+      ],
+      rows: rows.map((row) => ({ ...row, role: "Support" }))
+    });
+    window.dispatchEvent(new Event("resize"));
+    await element.updateComplete;
+
+    const region = element.renderRoot.querySelector('[part="table-region"]');
+    const headCells = Array.from(element.renderRoot.querySelectorAll("thead th"));
+    expect(region?.getAttribute("data-mobile-layout")).toBe("false");
+    expect(headCells).toHaveLength(2);
+    expect(headCells[0]?.textContent).toContain("Name");
+    expect(headCells[1]?.textContent).toContain("Role");
+    expect(element.renderRoot.querySelector("tbody")?.textContent).not.toContain("12");
+
+    resizeObserverController.restore();
+    Object.defineProperty(window, "innerWidth", { configurable: true, value: originalInnerWidth });
   });
 
   it("supports sticky leading columns and explicit minimum widths", async () => {

@@ -211,7 +211,7 @@ export const ColumnPriority = {
   render: () => html`
     <div style="width: min(100%, 30rem);">
       <cindor-data-table
-        caption="Priority-aware mobile table"
+        caption="Priority-aware responsive table"
         .columns=${[
           { key: "name", label: "Name", sortable: true, priority: 1, width: "12rem" },
           { key: "role", label: "Role", sortable: true, priority: 2, width: "10rem" },

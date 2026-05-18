@@ -70,7 +70,7 @@ const defaultOperators: Record<FilterBuilderFieldType, FilterBuilderOperator[]> 
 };
 
 /**
- * Rule and group based filtering UI built from native fieldset, select, and input controls.
+ * Rule and group based filtering UI built from Cindor field, button, and fieldset primitives.
  *
  * The serialized `value` property stores the current filter group as JSON.
  *
@@ -90,22 +90,14 @@ export class CindorFilterBuilder extends FormAssociatedElement {
       gap: var(--space-4);
     }
 
-    .group {
+    .group-fieldset {
+      --cindor-fieldset-inline-size: 100%;
+    }
+
+    .group-surface {
       display: grid;
       gap: var(--space-3);
       min-width: 0;
-      margin: 0;
-      padding: var(--space-4);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      background: var(--surface);
-    }
-
-    .group > legend {
-      padding-inline: var(--space-2);
-      color: var(--fg-muted);
-      font-size: var(--text-sm);
-      font-weight: var(--weight-medium);
     }
 
     .group-toolbar {
@@ -128,6 +120,10 @@ export class CindorFilterBuilder extends FormAssociatedElement {
       gap: var(--space-3);
     }
 
+    .group-toolbar > .control {
+      flex: 1 1 min(16rem, 100%);
+    }
+
     .rule {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
@@ -141,61 +137,30 @@ export class CindorFilterBuilder extends FormAssociatedElement {
     }
 
     .control {
-      display: grid;
-      gap: var(--space-1);
       min-width: 0;
-      color: var(--fg-muted);
-      font-size: var(--text-sm);
     }
 
-    .control-label {
-      font-weight: var(--weight-medium);
+    .control,
+    .control cindor-form-field {
+      --cindor-field-inline-size: 100%;
     }
 
-    .field,
-    .action {
-      min-height: 2.5rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      background: var(--surface);
-      color: inherit;
-      font: inherit;
+    .control :is(cindor-select, cindor-input, cindor-date-input, cindor-number-input) {
+      --cindor-field-inline-size: 100%;
     }
 
-    .field {
-      width: 100%;
-      padding: 0 var(--space-3);
+    .action-button {
+      --cindor-button-min-height: 2.5rem;
+      --cindor-button-ghost-background: var(--surface);
+      --cindor-button-ghost-border-color: var(--border);
+      --cindor-button-ghost-color: var(--fg);
+      --cindor-button-hover-background: var(--bg-subtle);
+      --cindor-button-hover-border-color: var(--border-strong);
     }
 
-    select.field {
-      padding-inline-end: calc(var(--space-6) + var(--space-2));
-    }
-
-    .field:focus-visible,
-    .action:focus-visible {
-      outline: none;
-      box-shadow: var(--ring-focus);
-    }
-
-    .action {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 var(--space-3);
-      cursor: pointer;
-      transition:
-        background var(--duration-base) var(--ease-out),
-        border-color var(--duration-base) var(--ease-out);
-    }
-
-    .action:hover:not(:disabled) {
-      background: var(--bg-subtle);
-    }
-
-    .action:disabled,
-    .field:disabled {
-      cursor: not-allowed;
-      opacity: 0.56;
+    .group-actions .action-button,
+    .rule-actions .action-button {
+      flex: 0 0 auto;
     }
 
     .empty {
@@ -225,6 +190,10 @@ export class CindorFilterBuilder extends FormAssociatedElement {
 
       .rule-actions {
         justify-content: flex-start;
+      }
+
+      .group-actions {
+        width: 100%;
       }
     }
   `;
@@ -300,40 +269,31 @@ export class CindorFilterBuilder extends FormAssociatedElement {
     const isRoot = path.length === 0;
 
     return html`
-      <fieldset class="group" part="group">
-        <legend>${isRoot ? "Filters" : "Group"}</legend>
-        <div class="group-toolbar" part="group-toolbar">
-          <label class="control">
-            <span class="control-label">Match</span>
-            <select
-              ?disabled=${this.disabled}
-              .value=${group.logic}
-              class="field"
-              @change=${(event: Event) => this.updateGroupLogic(path, event)}
-            >
-              <option value="and">All conditions</option>
-              <option value="or">Any condition</option>
-            </select>
-          </label>
-          <div class="group-actions" part="group-actions">
-            <button ?disabled=${this.disabled} class="action" type="button" @click=${() => this.addRule(path)}>Add rule</button>
-            <button ?disabled=${this.disabled} class="action" type="button" @click=${() => this.addGroup(path)}>Add group</button>
-            ${!isRoot
-              ? html`
-                  <button ?disabled=${this.disabled} class="action" type="button" @click=${() => this.removeNode(path)}>
-                    Remove group
-                  </button>
-                `
-              : null}
+      <cindor-fieldset class="group-fieldset" part="group" ?disabled=${this.disabled} legend=${isRoot ? "Filters" : "Group"}>
+        <div class="group-surface">
+          <div class="group-toolbar" part="group-toolbar">
+            <div class="control">
+              <cindor-form-field label="Match">
+                <cindor-select ?disabled=${this.disabled} .value=${group.logic} @change=${(event: Event) => this.updateGroupLogic(path, event)}>
+                  <option value="and">All conditions</option>
+                  <option value="or">Any condition</option>
+                </cindor-select>
+              </cindor-form-field>
+            </div>
+            <div class="group-actions" part="group-actions">
+              ${this.renderActionButton("Add rule", () => this.addRule(path))}
+              ${this.renderActionButton("Add group", () => this.addGroup(path))}
+              ${!isRoot ? this.renderActionButton("Remove group", () => this.removeNode(path)) : null}
+            </div>
+          </div>
+          <div class="children" part="children">
+            ${group.children.map((child, index) => {
+              const childPath = [...path, index];
+              return child.type === "group" ? this.renderGroup(child, childPath) : this.renderRule(child, childPath);
+            })}
           </div>
         </div>
-        <div class="children" part="children">
-          ${group.children.map((child, index) => {
-            const childPath = [...path, index];
-            return child.type === "group" ? this.renderGroup(child, childPath) : this.renderRule(child, childPath);
-          })}
-        </div>
-      </fieldset>
+      </cindor-fieldset>
     `;
   }
 
@@ -343,44 +303,43 @@ export class CindorFilterBuilder extends FormAssociatedElement {
 
     return html`
       <div class="rule" part="rule">
-        <label class="control">
-          <span class="control-label">Field</span>
-          <select
-            ?disabled=${this.disabled}
-            .value=${rule.field}
-            class="field"
-            @change=${(event: Event) => this.handleRuleFieldChange(path, event)}
-          >
-            ${this.fields.map(
-              (candidate) => html`
-                <option value=${candidate.value}>${candidate.label}</option>
-              `
-            )}
-          </select>
-        </label>
-        <label class="control">
-          <span class="control-label">Operator</span>
-          <select
-            ?disabled=${this.disabled}
-            .value=${rule.operator}
-            class="field"
-            @change=${(event: Event) => this.handleRuleOperatorChange(path, event)}
-          >
-            ${operators.map(
-              (operator) => html`
-                <option value=${operator.value}>${operator.label}</option>
-              `
-            )}
-          </select>
-        </label>
-        <label class="control">
-          <span class="control-label">Value</span>
-          ${this.renderValueControl(rule, path, field)}
-        </label>
+        <div class="control">
+          <cindor-form-field label="Field">
+            <cindor-select ?disabled=${this.disabled} .value=${rule.field} @change=${(event: Event) => this.handleRuleFieldChange(path, event)}>
+              ${this.fields.map(
+                (candidate) => html`
+                  <option value=${candidate.value}>${candidate.label}</option>
+                `
+              )}
+            </cindor-select>
+          </cindor-form-field>
+        </div>
+        <div class="control">
+          <cindor-form-field label="Operator">
+            <cindor-select ?disabled=${this.disabled} .value=${rule.operator} @change=${(event: Event) => this.handleRuleOperatorChange(path, event)}>
+              ${operators.map(
+                (operator) => html`
+                  <option value=${operator.value}>${operator.label}</option>
+                `
+              )}
+            </cindor-select>
+          </cindor-form-field>
+        </div>
+        <div class="control">
+          <cindor-form-field label="Value">${this.renderValueControl(rule, path, field)}</cindor-form-field>
+        </div>
         <div class="rule-actions" part="rule-actions">
-          <button ?disabled=${this.disabled} class="action" type="button" @click=${() => this.removeNode(path)}>Remove</button>
+          ${this.renderActionButton("Remove", () => this.removeNode(path))}
         </div>
       </div>
+    `;
+  }
+
+  private renderActionButton(label: string, onClick: () => void): unknown {
+    return html`
+      <cindor-button ?disabled=${this.disabled} class="action-button" type="button" variant="ghost" @click=${onClick}>
+        ${label}
+      </cindor-button>
     `;
   }
 
@@ -389,49 +348,54 @@ export class CindorFilterBuilder extends FormAssociatedElement {
 
     if (type === "boolean") {
       return html`
-        <select
-          ?disabled=${this.disabled}
-          .value=${rule.value}
-          class="field"
-          @change=${(event: Event) => this.handleRuleValueChange(path, event)}
-        >
+        <cindor-select ?disabled=${this.disabled} .value=${rule.value} @change=${(event: Event) => this.handleRuleValueChange(path, event)}>
           <option value="true">True</option>
           <option value="false">False</option>
-        </select>
+        </cindor-select>
       `;
     }
 
     if (type === "select") {
       return html`
-        <select
-          ?disabled=${this.disabled}
-          .value=${rule.value}
-          class="field"
-          @change=${(event: Event) => this.handleRuleValueChange(path, event)}
-        >
+        <cindor-select ?disabled=${this.disabled} .value=${rule.value} @change=${(event: Event) => this.handleRuleValueChange(path, event)}>
           ${(field?.options ?? []).map(
             (option) => html`
               <option value=${option.value}>${option.label}</option>
             `
           )}
-        </select>
+        </cindor-select>
+      `;
+    }
+
+    if (type === "number") {
+      return html`
+        <cindor-number-input
+          ?disabled=${this.disabled}
+          .value=${rule.value}
+          placeholder=${field?.placeholder ?? ""}
+          @input=${(event: Event) => this.handleRuleValueChange(path, event)}
+        ></cindor-number-input>
+      `;
+    }
+
+    if (type === "date") {
+      return html`
+        <cindor-date-input ?disabled=${this.disabled} .value=${rule.value} @input=${(event: Event) => this.handleRuleValueChange(path, event)}></cindor-date-input>
       `;
     }
 
     return html`
-      <input
+      <cindor-input
         ?disabled=${this.disabled}
         .value=${rule.value}
-        class="field"
         placeholder=${field?.placeholder ?? ""}
-        type=${type === "number" ? "number" : type === "date" ? "date" : "text"}
         @input=${(event: Event) => this.handleRuleValueChange(path, event)}
-      />
+      ></cindor-input>
     `;
   }
 
   private handleRuleFieldChange(path: number[], event: Event): void {
-    const nextFieldValue = (event.currentTarget as HTMLSelectElement).value;
+    const nextFieldValue = this.getControlValue(event);
     this.commitGroup(
       this.updateRuleAtPath(this.group, path, () => {
         const nextField = this.getField(nextFieldValue);
@@ -441,7 +405,7 @@ export class CindorFilterBuilder extends FormAssociatedElement {
   }
 
   private handleRuleOperatorChange(path: number[], event: Event): void {
-    const nextOperator = (event.currentTarget as HTMLSelectElement).value;
+    const nextOperator = this.getControlValue(event);
     this.commitGroup(
       this.updateRuleAtPath(this.group, path, (rule) => {
         const field = this.getField(rule.field);
@@ -455,12 +419,12 @@ export class CindorFilterBuilder extends FormAssociatedElement {
   }
 
   private handleRuleValueChange(path: number[], event: Event): void {
-    const nextValue = (event.currentTarget as HTMLInputElement | HTMLSelectElement).value;
+    const nextValue = this.getControlValue(event);
     this.commitGroup(this.updateRuleAtPath(this.group, path, (rule) => ({ ...rule, value: nextValue })));
   }
 
   private updateGroupLogic(path: number[], event: Event): void {
-    const nextLogic = (event.currentTarget as HTMLSelectElement).value as FilterBuilderLogic;
+    const nextLogic = this.getControlValue(event) === "or" ? "or" : "and";
     this.commitGroup(this.updateGroupAtPath(this.group, path, (group) => ({ ...group, logic: nextLogic })));
   }
 
@@ -719,5 +683,15 @@ export class CindorFilterBuilder extends FormAssociatedElement {
     const value = `${prefix}-${this.idCounter}`;
     this.idCounter += 1;
     return value;
+  }
+
+  private getControlValue(event: Event): string {
+    const currentTarget = event.currentTarget;
+    if (currentTarget && typeof currentTarget === "object" && "value" in currentTarget) {
+      const value = (currentTarget as { value: unknown }).value;
+      return typeof value === "string" ? value : String(value ?? "");
+    }
+
+    return "";
   }
 }

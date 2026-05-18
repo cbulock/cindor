@@ -262,6 +262,10 @@ export class CindorDataTable extends LitElement {
       overscroll-behavior-x: contain;
     }
 
+    .table-region[data-mobile-layout="true"] {
+      overflow-x: visible;
+    }
+
     .table-region::before,
     .table-region::after {
       content: "";
@@ -291,6 +295,11 @@ export class CindorDataTable extends LitElement {
     .table-region[data-overflow-start="true"]::before,
     .table-region[data-overflow-end="true"]::after {
       opacity: 1;
+    }
+
+    .table-region[data-mobile-layout="true"]::before,
+    .table-region[data-mobile-layout="true"]::after {
+      display: none;
     }
 
     .overflow-hint {
@@ -352,6 +361,95 @@ export class CindorDataTable extends LitElement {
       color: var(--fg-muted);
       font-size: var(--text-sm);
     }
+
+    @media (max-width: 640px) {
+      table {
+        display: block;
+      }
+
+      colgroup {
+        display: none;
+      }
+
+      caption {
+        display: block;
+      }
+
+      thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      tbody {
+        display: grid;
+        gap: var(--space-3);
+        padding: var(--space-3);
+      }
+
+      tbody tr {
+        display: grid;
+        gap: 0;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        background: var(--surface);
+        overflow: hidden;
+      }
+
+      tbody td {
+        display: grid;
+        grid-template-columns: minmax(0, 8rem) minmax(0, 1fr);
+        gap: var(--space-2) var(--space-3);
+        align-items: start;
+        padding: var(--space-3) var(--space-4);
+        border-top: 1px solid var(--border);
+        text-align: left;
+      }
+
+      tbody td:first-child {
+        border-top: 0;
+      }
+
+      tbody td::before {
+        content: attr(data-column-label);
+        color: var(--fg-muted);
+        font-size: var(--text-sm);
+        font-weight: var(--weight-semibold);
+      }
+
+      th[data-sticky="start"],
+      td[data-sticky="start"] {
+        position: static;
+        left: auto;
+      }
+
+      td[data-align="center"],
+      td[data-align="end"] {
+        text-align: left;
+      }
+
+      .cell-content {
+        white-space: normal;
+      }
+
+      .cell-content[data-truncate="true"] {
+        overflow: visible;
+        text-overflow: initial;
+        white-space: normal;
+      }
+
+      .footer,
+      .toolbar {
+        align-items: stretch;
+      }
+    }
   `;
 
   static properties = {
@@ -391,7 +489,13 @@ export class CindorDataTable extends LitElement {
   private overflowStartVisible = false;
   private overflowEndVisible = false;
   private hiddenResponsiveColumnKeys: string[] = [];
+  private mobileLayoutActive = false;
   private resizeObserver?: ResizeObserver;
+  private readonly handleViewportResize = (): void => {
+    this.syncResponsiveMode();
+    this.syncResponsiveColumns();
+    this.syncResponsiveOverflow();
+  };
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (
@@ -412,13 +516,16 @@ export class CindorDataTable extends LitElement {
 
   protected override firstUpdated(): void {
     this.setupResizeObserver();
+    window.addEventListener("resize", this.handleViewportResize);
     queueMicrotask(() => {
+      this.syncResponsiveMode();
       this.syncResponsiveColumns();
       this.syncResponsiveOverflow();
     });
   }
 
   override disconnectedCallback(): void {
+    window.removeEventListener("resize", this.handleViewportResize);
     this.resizeObserver?.disconnect();
     this.resizeObserver = undefined;
     super.disconnectedCallback();
@@ -451,6 +558,7 @@ export class CindorDataTable extends LitElement {
         <div
           class="table-region"
           part="table-region"
+          data-mobile-layout=${String(this.mobileLayoutActive)}
           data-overflow-start=${String(this.overflowStartVisible)}
           data-overflow-end=${String(this.overflowEndVisible)}
           @scroll=${this.handleTableRegionScroll}
@@ -516,6 +624,7 @@ export class CindorDataTable extends LitElement {
                                 part=${stickyOffset ? "cell cell-sticky" : "cell"}
                                 class="cell"
                                 data-align=${this.columnAlign(column)}
+                                data-column-label=${column.label}
                                 data-sticky=${stickyOffset ? "start" : nothing}
                                 style=${this.columnCellStyle(column, stickyOffset)}
                               >
@@ -828,6 +937,7 @@ export class CindorDataTable extends LitElement {
 
   protected override updated(): void {
     queueMicrotask(() => {
+      this.syncResponsiveMode();
       this.syncResponsiveColumns();
       this.syncResponsiveOverflow();
     });
@@ -1034,6 +1144,11 @@ export class CindorDataTable extends LitElement {
   }
 
   private syncResponsiveOverflow(): void {
+    if (this.mobileLayoutActive) {
+      this.updateOverflowState(false, false, false);
+      return;
+    }
+
     const region = this.tableRegionElement;
     if (!region) {
       this.updateOverflowState(false, false, false);
@@ -1049,7 +1164,7 @@ export class CindorDataTable extends LitElement {
   }
 
   private syncResponsiveColumns(): void {
-    const width = this.clientWidth || this.tableRegionElement?.clientWidth || 0;
+    const width = this.viewportWidth;
     const nextHiddenColumnKeys = this.getResponsiveHiddenColumnKeys(width);
 
     if (
@@ -1064,16 +1179,26 @@ export class CindorDataTable extends LitElement {
   }
 
   private getResponsiveHiddenColumnKeys(width: number): string[] {
-    if (width <= 0) {
+    if (width <= 0 || width <= MOBILE_COLUMN_PRIORITY_BREAKPOINT) {
       return [];
     }
 
-    const priorityThreshold =
-      width <= MOBILE_COLUMN_PRIORITY_BREAKPOINT ? 1 : width <= TABLET_COLUMN_PRIORITY_BREAKPOINT ? 2 : Number.POSITIVE_INFINITY;
+    const priorityThreshold = width <= TABLET_COLUMN_PRIORITY_BREAKPOINT ? 2 : Number.POSITIVE_INFINITY;
 
     return this.columns
       .filter((column) => typeof column.priority === "number" && column.priority > priorityThreshold)
       .map((column) => column.key);
+  }
+
+  private syncResponsiveMode(): void {
+    const nextMobileLayoutActive = this.viewportWidth > 0 && this.viewportWidth <= MOBILE_COLUMN_PRIORITY_BREAKPOINT;
+
+    if (this.mobileLayoutActive === nextMobileLayoutActive) {
+      return;
+    }
+
+    this.mobileLayoutActive = nextMobileLayoutActive;
+    this.requestUpdate();
   }
 
   private updateOverflowState(hintVisible: boolean, startVisible: boolean, endVisible: boolean): void {
@@ -1093,6 +1218,14 @@ export class CindorDataTable extends LitElement {
 
   private get tableRegionElement(): HTMLElement | null {
     return this.renderRoot.querySelector('[part="table-region"]');
+  }
+
+  private get viewportWidth(): number {
+    if (typeof window !== "undefined") {
+      return window.innerWidth;
+    }
+
+    return this.clientWidth || this.tableRegionElement?.clientWidth || 0;
   }
 
   private get visibleColumns(): DataTableColumn[] {

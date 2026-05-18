@@ -11,7 +11,7 @@ type TransferListChangeDetail = {
 };
 
 /**
- * Dual-list selector for moving items between available and selected collections.
+ * Dual-list selector built from Cindor field and action primitives around native multi-select lists.
  *
  * Use light-DOM `option` or `cindor-option` children as the source option set.
  *
@@ -42,24 +42,25 @@ export class CindorTransferList extends FormAssociatedElement {
       min-width: 0;
     }
 
-    .column-header {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: var(--space-2);
-    }
-
-    .label {
-      font-weight: var(--weight-medium);
-    }
-
     .count {
       color: var(--fg-muted);
       font-size: var(--text-sm);
     }
 
-    select {
+    .column-field {
+      --cindor-field-inline-size: 100%;
+    }
+
+    .field-label {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-2);
+      width: 100%;
+    }
+
+    .column-select {
       width: 100%;
       min-height: 14rem;
       padding: var(--space-2);
@@ -70,12 +71,12 @@ export class CindorTransferList extends FormAssociatedElement {
       font: inherit;
     }
 
-    select:focus-visible {
+    .column-select:focus-visible {
       outline: none;
       box-shadow: var(--ring-focus);
     }
 
-    select:disabled {
+    .column-select:disabled {
       cursor: not-allowed;
       background: var(--bg-subtle);
       color: var(--fg-subtle);
@@ -87,33 +88,14 @@ export class CindorTransferList extends FormAssociatedElement {
       justify-items: stretch;
     }
 
-    .action {
+    .action-button {
       min-width: 9rem;
-      min-height: 2.75rem;
-      padding: 0 var(--space-3);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      background: var(--surface);
-      color: inherit;
-      font: inherit;
-      cursor: pointer;
-      transition:
-        background var(--duration-base) var(--ease-out),
-        border-color var(--duration-base) var(--ease-out);
-    }
-
-    .action:hover:not(:disabled) {
-      background: var(--bg-subtle);
-    }
-
-    .action:focus-visible {
-      outline: none;
-      box-shadow: var(--ring-focus);
-    }
-
-    .action:disabled {
-      cursor: not-allowed;
-      opacity: 0.56;
+      --cindor-button-min-height: 2.75rem;
+      --cindor-button-ghost-background: var(--surface);
+      --cindor-button-ghost-border-color: var(--border);
+      --cindor-button-ghost-color: var(--fg);
+      --cindor-button-hover-background: var(--bg-subtle);
+      --cindor-button-hover-border-color: var(--border-strong);
     }
 
     slot {
@@ -129,7 +111,7 @@ export class CindorTransferList extends FormAssociatedElement {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .action {
+      .action-button {
         min-width: 0;
       }
     }
@@ -215,90 +197,72 @@ export class CindorTransferList extends FormAssociatedElement {
         <slot @slotchange=${this.handleSlotChange}></slot>
 
         <div class="column" part="available-column">
-          <div class="column-header" part="available-header">
-            <label class="label" for="available-list">${this.availableLabel}</label>
-            <span class="count" part="available-count">${this.availableOptions.length}</span>
-          </div>
-          <select
-            id="available-list"
-            part="available-select"
-            multiple
-            size=${Math.max(4, this.size)}
-            ?disabled=${this.disabled}
-            @dblclick=${this.handleAvailableDoubleClick}
-            @input=${this.handleAvailableInput}
-          >
-            ${this.availableOptions.map(
-              (option) => html`
-                <option ?disabled=${option.disabled} value=${option.value}>${option.label}</option>
-              `
-            )}
-          </select>
+          <cindor-form-field class="column-field">
+            <span class="field-label" part="available-header" slot="label">
+              <span>${this.availableLabel}</span>
+              <span class="count" part="available-count">${this.availableOptions.length}</span>
+            </span>
+            <select
+              id="available-list"
+              class="column-select"
+              part="available-select"
+              multiple
+              size=${Math.max(4, this.size)}
+              ?disabled=${this.disabled}
+              @dblclick=${this.handleAvailableDoubleClick}
+              @input=${this.handleAvailableInput}
+            >
+              ${this.availableOptions.map(
+                (option) => html`
+                  <option ?disabled=${option.disabled} value=${option.value}>${option.label}</option>
+                `
+              )}
+            </select>
+          </cindor-form-field>
         </div>
 
         <div class="actions" part="actions">
-          <button
-            aria-label="Add selected items"
-            class="action"
-            part="add-button"
-            type="button"
-            ?disabled=${this.disabled || this.activeAvailableValues.length === 0}
-            @click=${this.moveSelectedToChosen}
-          >
-            Add selected
-          </button>
-          <button
-            aria-label="Add all available items"
-            class="action"
-            part="add-all-button"
-            type="button"
-            ?disabled=${this.disabled || this.availableMovableCount === 0}
-            @click=${this.moveAllToChosen}
-          >
-            Add all
-          </button>
-          <button
-            aria-label="Remove selected items"
-            class="action"
-            part="remove-button"
-            type="button"
-            ?disabled=${this.disabled || this.activeSelectedValues.length === 0}
-            @click=${this.moveSelectedToAvailable}
-          >
-            Remove selected
-          </button>
-          <button
-            aria-label="Remove all selected items"
-            class="action"
-            part="remove-all-button"
-            type="button"
-            ?disabled=${this.disabled || this.selectedValues.length === 0}
-            @click=${this.moveAllToAvailable}
-          >
-            Remove all
-          </button>
+          ${this.renderActionButton("Add selected", "Add selected items", "add-button", this.disabled || this.activeAvailableValues.length === 0, this.moveSelectedToChosen)}
+          ${this.renderActionButton("Add all", "Add all available items", "add-all-button", this.disabled || this.availableMovableCount === 0, this.moveAllToChosen)}
+          ${this.renderActionButton(
+            "Remove selected",
+            "Remove selected items",
+            "remove-button",
+            this.disabled || this.activeSelectedValues.length === 0,
+            this.moveSelectedToAvailable
+          )}
+          ${this.renderActionButton(
+            "Remove all",
+            "Remove all selected items",
+            "remove-all-button",
+            this.disabled || this.selectedValues.length === 0,
+            this.moveAllToAvailable
+          )}
         </div>
 
         <div class="column" part="selected-column">
-          <div class="column-header" part="selected-header">
-            <label class="label" for="selected-list">${this.selectedLabel}</label>
-            <span class="count" part="selected-count">${this.selectedValues.length}</span>
-          </div>
-          <select
-            id="selected-list"
-            part="selected-select"
-            multiple
-            size=${Math.max(4, this.size)}
-            ?disabled=${this.disabled}
-            @dblclick=${this.handleSelectedDoubleClick}
-            @input=${this.handleSelectedInput}
-          >
-            ${this.selectedOptions.map(
-              (option) => html`
-                <option ?disabled=${option.disabled} value=${option.value}>${option.label}</option>
-              `
-            )}
-          </select>
+          <cindor-form-field class="column-field">
+            <span class="field-label" part="selected-header" slot="label">
+              <span>${this.selectedLabel}</span>
+              <span class="count" part="selected-count">${this.selectedValues.length}</span>
+            </span>
+            <select
+              id="selected-list"
+              class="column-select"
+              part="selected-select"
+              multiple
+              size=${Math.max(4, this.size)}
+              ?disabled=${this.disabled}
+              @dblclick=${this.handleSelectedDoubleClick}
+              @input=${this.handleSelectedInput}
+            >
+              ${this.selectedOptions.map(
+                (option) => html`
+                  <option ?disabled=${option.disabled} value=${option.value}>${option.label}</option>
+                `
+              )}
+            </select>
+          </cindor-form-field>
         </div>
       </div>
     `;
@@ -420,6 +384,28 @@ export class CindorTransferList extends FormAssociatedElement {
     this.dispatchValueEvents();
     this.requestUpdate();
   };
+
+  private renderActionButton(
+    label: string,
+    ariaLabel: string,
+    part: string,
+    disabled: boolean,
+    onClick: () => void
+  ): unknown {
+    return html`
+      <cindor-button
+        aria-label=${ariaLabel}
+        class="action-button"
+        part=${part}
+        type="button"
+        variant="ghost"
+        ?disabled=${disabled}
+        @click=${onClick}
+      >
+        ${label}
+      </cindor-button>
+    `;
+  }
 
   private dispatchValueEvents(): void {
     const detail: TransferListChangeDetail = {

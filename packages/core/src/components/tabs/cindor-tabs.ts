@@ -24,30 +24,7 @@ export class CindorTabs extends LitElement {
     }
 
     .mobile-picker {
-      display: grid;
-      gap: var(--space-1);
-    }
-
-    .mobile-picker-label {
-      color: var(--fg-muted);
-      font-size: var(--text-sm);
-      font-weight: var(--weight-medium);
-    }
-
-    .mobile-control {
-      min-height: 44px;
-      width: 100%;
-      padding: 0 var(--space-3);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      background: var(--surface);
-      color: inherit;
-      font: inherit;
-    }
-
-    .mobile-control:focus-visible {
-      outline: none;
-      box-shadow: var(--ring-focus);
+      --cindor-field-inline-size: 100%;
     }
 
     [part="list"] {
@@ -133,7 +110,6 @@ export class CindorTabs extends LitElement {
   private readonly generatedA11yId = `${this.localName}-${CindorTabs.nextA11yId++}-tablist`;
   private panels: TabPanel[] = [];
   private panelIndex = 0;
-  private resizeObserver?: ResizeObserver;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -147,19 +123,18 @@ export class CindorTabs extends LitElement {
       attributeFilter: ["aria-describedby", "aria-description", "aria-label", "aria-labelledby", "id"],
       attributes: true
     });
+    window.addEventListener("resize", this.handleViewportResize);
     this.refreshPanels();
   }
 
   protected override firstUpdated(): void {
-    this.setupResizeObserver();
     queueMicrotask(() => {
       this.syncResponsiveMode();
     });
   }
 
   override disconnectedCallback(): void {
-    this.resizeObserver?.disconnect();
-    this.resizeObserver = undefined;
+    window.removeEventListener("resize", this.handleViewportResize);
     this.panelObserver.disconnect();
     this.hostA11yObserver.disconnect();
     this.referencedTextObserver.disconnect();
@@ -219,16 +194,15 @@ export class CindorTabs extends LitElement {
 
   private renderMobilePicker() {
     return html`
-      <label class="mobile-picker" part="mobile-picker">
-        <span class="mobile-picker-label" part="mobile-label">Section</span>
-        <select class="mobile-control" part="mobile-control" .value=${this.value} @change=${this.handleMobileChange}>
+      <cindor-form-field class="mobile-picker" label="Section" part="mobile-picker">
+        <cindor-select aria-label="Select tab" part="mobile-control" .value=${this.value} @change=${this.handleMobileChange}>
           ${this.panels.map(
             (panel) => html`
               <option value=${panel.value}>${panel.label}</option>
             `
           )}
-        </select>
-      </label>
+        </cindor-select>
+      </cindor-form-field>
     `;
   }
 
@@ -276,8 +250,11 @@ export class CindorTabs extends LitElement {
   }
 
   private handleMobileChange = (event: Event): void => {
-    const select = event.currentTarget as HTMLSelectElement;
-    this.select(select.value);
+    const currentTarget = event.currentTarget;
+    if (currentTarget && typeof currentTarget === "object" && "value" in currentTarget) {
+      const value = (currentTarget as { value: unknown }).value;
+      this.select(typeof value === "string" ? value : String(value ?? ""));
+    }
   };
 
   private focusTabAt(index: number): void {
@@ -357,19 +334,12 @@ export class CindorTabs extends LitElement {
     return `${this.id || this.generatedA11yId}`;
   }
 
-  private setupResizeObserver(): void {
-    if (this.resizeObserver || typeof ResizeObserver !== "function") {
-      return;
-    }
-
-    this.resizeObserver = new ResizeObserver(() => {
-      this.syncResponsiveMode();
-    });
-    this.resizeObserver.observe(this);
-  }
+  private handleViewportResize = (): void => {
+    this.syncResponsiveMode();
+  };
 
   private syncResponsiveMode(): void {
-    const nextCompactMode = this.clientWidth > 0 && this.clientWidth <= DEFAULT_MOBILE_BREAKPOINT;
+    const nextCompactMode = typeof window !== "undefined" && window.innerWidth <= DEFAULT_MOBILE_BREAKPOINT;
 
     if (this.compactModeActive === nextCompactMode) {
       return;

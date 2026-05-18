@@ -1,8 +1,14 @@
+import { afterEach } from "vitest";
+
 import "../../register.js";
 
 import { CindorTransferList } from "./cindor-transfer-list.js";
 
 describe("cindor-transfer-list", () => {
+  afterEach(() => {
+    document.body.innerHTML = "";
+  });
+
   it("preserves distinct native control ids when syncing accessibility metadata", async () => {
     document.body.innerHTML = `<div id="transfer-help">Use the buttons to move items.</div>`;
     const element = document.createElement("cindor-transfer-list") as CindorTransferList;
@@ -52,11 +58,13 @@ describe("cindor-transfer-list", () => {
     availableSelect.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
     await element.updateComplete;
 
-    (element.renderRoot.querySelector('[part="add-button"]') as HTMLButtonElement).click();
+    (element.renderRoot.querySelector('cindor-button[part="add-button"]') as HTMLElement).click();
     await element.updateComplete;
 
     expect(element.selectedValues).toEqual(["design"]);
     expect((element.renderRoot.querySelector('[part="selected-select"]') as HTMLSelectElement).options[0]?.textContent).toBe("Design");
+    expect(element.renderRoot.querySelector("cindor-form-field")).not.toBeNull();
+    expect(element.renderRoot.querySelector("cindor-button[part=\"add-button\"]")).not.toBeNull();
   });
 
   it("marks itself invalid when required and empty", async () => {

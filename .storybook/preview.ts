@@ -1,5 +1,5 @@
 import "../packages/core/src/styles.css";
-import { registerCindorUi } from "../packages/core/src/register.ts";
+import { registerCindorUi } from "../packages/core/src/register.js";
 import {
   cindorAmethystTheme,
   cindorCobaltTheme,
