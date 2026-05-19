@@ -1,6 +1,6 @@
 import { html } from "lit";
 
-import type { DataTableColumn, DataTableRow } from "./cindor-data-table.js";
+import type { DataTableCellRenderDetail, DataTableColumn, DataTableRow } from "./cindor-data-table.js";
 
 type DataTableStoryArgs = {
   caption: string;
@@ -221,7 +221,7 @@ export const UtilityHeaderLabels = {
             headerLabel: "Select row",
             minWidth: "4.5rem",
             width: "4.5rem",
-            cellRenderer: ({ row }) => html`
+            cellRenderer: ({ row }: DataTableCellRenderDetail) => html`
               <cindor-checkbox
                 aria-label=${`Select ${String(row.name)}`}
                 ?checked=${Boolean(row.selected)}
@@ -236,7 +236,7 @@ export const UtilityHeaderLabels = {
             headerDisplay: "sr-only",
             headerLabel: "Status",
             width: "10rem",
-            cellRenderer: ({ value }) =>
+            cellRenderer: ({ value }: DataTableCellRenderDetail) =>
               html`<cindor-badge tone=${value === "Escalated" ? "warning" : "info"}>${String(value)}</cindor-badge>`
           }
         ]}

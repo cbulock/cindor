@@ -4624,6 +4624,14 @@
         },
         {
           "kind": "variable",
+          "name": "UtilityHeaderLabels",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ render: () => html` <div style=\"width: min(100%, 34rem);\"> <cindor-data-table caption=\"Utility columns with hidden headers\" .columns=${[ { key: \"selected\", label: \"\", align: \"center\", headerDisplay: \"none\", headerLabel: \"Select row\", minWidth: \"4.5rem\", width: \"4.5rem\", cellRenderer: ({ row }: DataTableCellRenderDetail) => html` <cindor-checkbox aria-label=${`Select ${String(row.name)}`} ?checked=${Boolean(row.selected)} ></cindor-checkbox> ` }, { key: \"name\", label: \"Name\", sortable: true, width: \"12rem\" }, { key: \"role\", label: \"Role\", width: \"10rem\" }, { key: \"status\", label: \"\", headerDisplay: \"sr-only\", headerLabel: \"Status\", width: \"10rem\", cellRenderer: ({ value }: DataTableCellRenderDetail) => html`<cindor-badge tone=${value === \"Escalated\" ? \"warning\" : \"info\"}>${String(value)}</cindor-badge>` } ]} .rows=${[ { id: \"ticket-401\", selected: true, name: \"Jordan Lee\", role: \"Operations\", status: \"Open\" }, { id: \"ticket-402\", selected: false, name: \"Avery Smith\", role: \"Support\", status: \"Escalated\" } ]} page-size=\"0\" sort-key=\"name\" ></cindor-data-table> </div> ` }"
+        },
+        {
+          "kind": "variable",
           "name": "ColumnPriority",
           "type": {
             "text": "object"
@@ -4709,6 +4717,14 @@
           "name": "ResponsiveScrollHint",
           "declaration": {
             "name": "ResponsiveScrollHint",
+            "module": "packages/core/src/components/data-table/cindor-data-table.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "UtilityHeaderLabels",
+          "declaration": {
+            "name": "UtilityHeaderLabels",
             "module": "packages/core/src/components/data-table/cindor-data-table.stories.ts"
           }
         },
@@ -5027,6 +5043,38 @@
                   "name": "detail",
                   "type": {
                     "text": "DataTableCellRenderDetail"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderHeaderCell",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "DataTableColumn"
+                  }
+                },
+                {
+                  "name": "active",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderHeaderLabel",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "DataTableColumn"
                   }
                 }
               ]
@@ -5719,6 +5767,78 @@
               "return": {
                 "type": {
                   "text": "DataTableCellAlign"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "DataTableColumn"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "columnAccessibleHeaderLabel",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "DataTableColumn"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "columnHeaderDisplay",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "DataTableHeaderDisplay"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "DataTableColumn"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "columnMobileLabel",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "DataTableColumn"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "columnVisibleHeaderLabel",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
                 }
               },
               "parameters": [
