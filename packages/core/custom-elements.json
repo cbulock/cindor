@@ -205,95 +205,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Components/Alert\", args: { message: \"The upstream Cindor tokens loaded successfully.\", title: \"Heads up\", tone: \"info\" }, argTypes: { tone: { control: \"radio\", options: [\"info\", \"success\", \"warning\", \"danger\"] } }, render: ({ message, title, tone }: AlertStoryArgs) => ` <cindor-alert tone=\"${tone}\"> <strong>${title}</strong> <span>${message}</span> </cindor-alert> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/alert/cindor-alert.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorAlert",
-          "members": [
-            {
-              "kind": "field",
-              "name": "tone",
-              "privacy": "public",
-              "type": {
-                "text": "AlertTone"
-              },
-              "default": "\"info\"",
-              "attribute": "tone",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "tone",
-              "type": {
-                "text": "AlertTone"
-              },
-              "default": "\"info\"",
-              "fieldName": "tone"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorAlert",
-          "declaration": {
-            "name": "CindorAlert",
-            "module": "packages/core/src/components/alert/cindor-alert.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
       "declarations": [
         {
@@ -403,6 +314,95 @@
           "declaration": {
             "name": "CindorActivityItem",
             "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Components/Alert\", args: { message: \"The upstream Cindor tokens loaded successfully.\", title: \"Heads up\", tone: \"info\" }, argTypes: { tone: { control: \"radio\", options: [\"info\", \"success\", \"warning\", \"danger\"] } }, render: ({ message, title, tone }: AlertStoryArgs) => ` <cindor-alert tone=\"${tone}\"> <strong>${title}</strong> <span>${message}</span> </cindor-alert> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/alert/cindor-alert.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorAlert",
+          "members": [
+            {
+              "kind": "field",
+              "name": "tone",
+              "privacy": "public",
+              "type": {
+                "text": "AlertTone"
+              },
+              "default": "\"info\"",
+              "attribute": "tone",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "tone",
+              "type": {
+                "text": "AlertTone"
+              },
+              "default": "\"info\"",
+              "fieldName": "tone"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorAlert",
+          "declaration": {
+            "name": "CindorAlert",
+            "module": "packages/core/src/components/alert/cindor-alert.ts"
           }
         }
       ]
@@ -10228,73 +10228,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/error-text/cindor-error-text.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Primitives/Error Text\", render: () => `<cindor-error-text>Email address is required.</cindor-error-text>` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/error-text/cindor-error-text.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/error-text/cindor-error-text.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/error-text/cindor-error-text.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorErrorText",
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorErrorText",
-          "declaration": {
-            "name": "CindorErrorText",
-            "module": "packages/core/src/components/error-text/cindor-error-text.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/empty-state/cindor-empty-state.stories.ts",
       "declarations": [
         {
@@ -10356,6 +10289,73 @@
           "declaration": {
             "name": "CindorEmptyState",
             "module": "packages/core/src/components/empty-state/cindor-empty-state.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/error-text/cindor-error-text.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Primitives/Error Text\", render: () => `<cindor-error-text>Email address is required.</cindor-error-text>` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/error-text/cindor-error-text.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/error-text/cindor-error-text.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/error-text/cindor-error-text.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorErrorText",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorErrorText",
+          "declaration": {
+            "name": "CindorErrorText",
+            "module": "packages/core/src/components/error-text/cindor-error-text.ts"
           }
         }
       ]
@@ -17912,6 +17912,160 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/panel-inspector/cindor-panel-inspector.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Panel Inspector\", args: { sticky: false }, argTypes: { sticky: { control: \"boolean\" } }, render: ({ sticky }: PanelInspectorStoryArgs) => ` <cindor-panel-inspector title=\"Deployment details\" description=\"Review metadata, release health, and supporting actions for the selected deployment.\" ${sticky ? \"sticky\" : \"\"} > <cindor-badge slot=\"meta\" tone=\"accent\">Healthy</cindor-badge> <cindor-button slot=\"actions\" variant=\"ghost\">Open logs</cindor-button> <cindor-description-list> <cindor-description-item> <span slot=\"term\">Version</span> 2026.04.28-1 </cindor-description-item> <cindor-description-item> <span slot=\"term\">Region</span> us-east-1 </cindor-description-item> </cindor-description-list> <div slot=\"footer\">Last updated 4 minutes ago by Release Bot.</div> </cindor-panel-inspector> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/panel-inspector/cindor-panel-inspector.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/panel-inspector/cindor-panel-inspector.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/panel-inspector/cindor-panel-inspector.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Reusable details panel surface for inspector, properties, and supplemental context.",
+          "name": "CindorPanelInspector",
+          "slots": [
+            {
+              "description": "Main panel body content.",
+              "name": ""
+            },
+            {
+              "description": "Optional trailing header actions.",
+              "name": "actions"
+            },
+            {
+              "description": "Optional footer content such as buttons or summaries.",
+              "name": "footer"
+            },
+            {
+              "description": "Optional metadata shown below the title copy.",
+              "name": "meta"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "description",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "description",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "sticky",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "sticky",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "title",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "title",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "accessibleLabel",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "description",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "description"
+            },
+            {
+              "name": "sticky",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "sticky"
+            },
+            {
+              "name": "title",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "title"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorPanelInspector",
+          "declaration": {
+            "name": "CindorPanelInspector",
+            "module": "packages/core/src/components/panel-inspector/cindor-panel-inspector.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/password-input/cindor-password-input.stories.ts",
       "declarations": [
         {
@@ -18761,160 +18915,6 @@
           "declaration": {
             "name": "CindorPopover",
             "module": "packages/core/src/components/popover/cindor-popover.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/panel-inspector/cindor-panel-inspector.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Panel Inspector\", args: { sticky: false }, argTypes: { sticky: { control: \"boolean\" } }, render: ({ sticky }: PanelInspectorStoryArgs) => ` <cindor-panel-inspector title=\"Deployment details\" description=\"Review metadata, release health, and supporting actions for the selected deployment.\" ${sticky ? \"sticky\" : \"\"} > <cindor-badge slot=\"meta\" tone=\"accent\">Healthy</cindor-badge> <cindor-button slot=\"actions\" variant=\"ghost\">Open logs</cindor-button> <cindor-description-list> <cindor-description-item> <span slot=\"term\">Version</span> 2026.04.28-1 </cindor-description-item> <cindor-description-item> <span slot=\"term\">Region</span> us-east-1 </cindor-description-item> </cindor-description-list> <div slot=\"footer\">Last updated 4 minutes ago by Release Bot.</div> </cindor-panel-inspector> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/panel-inspector/cindor-panel-inspector.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/panel-inspector/cindor-panel-inspector.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/panel-inspector/cindor-panel-inspector.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Reusable details panel surface for inspector, properties, and supplemental context.",
-          "name": "CindorPanelInspector",
-          "slots": [
-            {
-              "description": "Main panel body content.",
-              "name": ""
-            },
-            {
-              "description": "Optional trailing header actions.",
-              "name": "actions"
-            },
-            {
-              "description": "Optional footer content such as buttons or summaries.",
-              "name": "footer"
-            },
-            {
-              "description": "Optional metadata shown below the title copy.",
-              "name": "meta"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "description",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "description",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "sticky",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "sticky",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "title",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "title",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "accessibleLabel",
-              "type": {
-                "text": "string | undefined"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "description",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "description"
-            },
-            {
-              "name": "sticky",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "sticky"
-            },
-            {
-              "name": "title",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "title"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorPanelInspector",
-          "declaration": {
-            "name": "CindorPanelInspector",
-            "module": "packages/core/src/components/panel-inspector/cindor-panel-inspector.ts"
           }
         }
       ]
@@ -23461,6 +23461,313 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/stepper/cindor-stepper.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Components/Stepper\", args: { interactive: true, orientation: \"horizontal\", value: \"team\" }, argTypes: { orientation: { control: { type: \"inline-radio\" }, options: [\"horizontal\", \"vertical\"] }, value: { control: { type: \"radio\" }, options: [\"details\", \"team\", \"launch\"] } }, render: ({ interactive, orientation, value }: StepperStoryArgs) => html` <cindor-stepper aria-label=\"Workspace setup progress\" .steps=${steps} ?interactive=${interactive} orientation=${orientation} value=${value} ></cindor-stepper> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/stepper/cindor-stepper.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/stepper/cindor-stepper.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/stepper/cindor-stepper.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorStepper",
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "interactive",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "interactive",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "orientation",
+              "privacy": "public",
+              "type": {
+                "text": "StepperOrientation"
+              },
+              "default": "\"horizontal\"",
+              "attribute": "orientation",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "steps",
+              "privacy": "public",
+              "type": {
+                "text": "StepperStep[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "value",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderBody",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "step",
+                  "type": {
+                    "text": "StepperStep"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderIndicator",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "status",
+                  "type": {
+                    "text": "StepperStatus"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getStepStatus",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "StepperStatus"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "step",
+                  "type": {
+                    "text": "StepperStep"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "normalizeValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "selectStep",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "currentControl",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaLabel",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaDescribedBy",
+              "type": {
+                "text": "string | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaLabelledBy",
+              "type": {
+                "text": "string | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "events": [
+            {
+              "name": "input",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "change",
+              "type": {
+                "text": "Event"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "interactive",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "interactive"
+            },
+            {
+              "name": "orientation",
+              "type": {
+                "text": "StepperOrientation"
+              },
+              "default": "\"horizontal\"",
+              "fieldName": "orientation"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "value"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorStepper",
+          "declaration": {
+            "name": "CindorStepper",
+            "module": "packages/core/src/components/stepper/cindor-stepper.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/switch/cindor-switch.stories.ts",
       "declarations": [
         {
@@ -24248,7 +24555,7 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/stepper/cindor-stepper.stories.ts",
+      "path": "packages/core/src/components/tag/cindor-tag.stories.ts",
       "declarations": [
         {
           "kind": "variable",
@@ -24256,7 +24563,7 @@
           "type": {
             "text": "object"
           },
-          "default": "{ title: \"Components/Stepper\", args: { interactive: true, orientation: \"horizontal\", value: \"team\" }, argTypes: { orientation: { control: { type: \"inline-radio\" }, options: [\"horizontal\", \"vertical\"] }, value: { control: { type: \"radio\" }, options: [\"details\", \"team\", \"launch\"] } }, render: ({ interactive, orientation, value }: StepperStoryArgs) => html` <cindor-stepper aria-label=\"Workspace setup progress\" .steps=${steps} ?interactive=${interactive} orientation=${orientation} value=${value} ></cindor-stepper> ` }"
+          "default": "{ title: \"Primitives/Tag\", args: { dismissible: false, label: \"Critical\", tone: \"accent\" }, argTypes: { dismissible: { control: \"boolean\" }, tone: { control: \"radio\", options: [\"neutral\", \"accent\", \"success\"] } }, render: ({ dismissible, label, tone }: TagStoryArgs) => `<cindor-tag tone=\"${tone}\" ${dismissible ? \"dismissible\" : \"\"}>${label}</cindor-tag>` }"
         },
         {
           "kind": "variable",
@@ -24265,6 +24572,14 @@
             "text": "object"
           },
           "default": "{}"
+        },
+        {
+          "kind": "variable",
+          "name": "Dismissible",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ args: { dismissible: true, label: \"Backend\" } }"
         }
       ],
       "exports": [
@@ -24273,7 +24588,7 @@
           "name": "default",
           "declaration": {
             "name": "meta",
-            "module": "packages/core/src/components/stepper/cindor-stepper.stories.ts"
+            "module": "packages/core/src/components/tag/cindor-tag.stories.ts"
           }
         },
         {
@@ -24281,258 +24596,106 @@
           "name": "Default",
           "declaration": {
             "name": "Default",
-            "module": "packages/core/src/components/stepper/cindor-stepper.stories.ts"
+            "module": "packages/core/src/components/tag/cindor-tag.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Dismissible",
+          "declaration": {
+            "name": "Dismissible",
+            "module": "packages/core/src/components/tag/cindor-tag.stories.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/stepper/cindor-stepper.ts",
+      "path": "packages/core/src/components/tag/cindor-tag.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "",
-          "name": "CindorStepper",
+          "description": "Compact tag surface for labels, filters, and removable metadata.",
+          "name": "CindorTag",
+          "slots": [
+            {
+              "description": "Tag label.",
+              "name": ""
+            }
+          ],
           "members": [
             {
               "kind": "field",
-              "name": "disabled",
+              "name": "dismissible",
               "privacy": "public",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "attribute": "disabled",
+              "attribute": "dismissible",
               "reflects": true
             },
             {
               "kind": "field",
-              "name": "interactive",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "interactive",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "orientation",
-              "privacy": "public",
-              "type": {
-                "text": "StepperOrientation"
-              },
-              "default": "\"horizontal\"",
-              "attribute": "orientation",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "steps",
-              "privacy": "public",
-              "type": {
-                "text": "StepperStep[]"
-              },
-              "default": "[]"
-            },
-            {
-              "kind": "field",
-              "name": "value",
+              "name": "removeLabel",
               "privacy": "public",
               "type": {
                 "text": "string"
               },
-              "default": "\"\"",
-              "attribute": "value",
+              "default": "\"Remove tag\"",
+              "attribute": "remove-label",
               "reflects": true
             },
             {
-              "kind": "method",
-              "name": "focus",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
+              "kind": "field",
+              "name": "tone",
+              "privacy": "public",
+              "type": {
+                "text": "TagTone"
               },
-              "parameters": [
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "renderBody",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "step",
-                  "type": {
-                    "text": "StepperStep"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "renderIndicator",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "status",
-                  "type": {
-                    "text": "StepperStatus"
-                  }
-                },
-                {
-                  "name": "index",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "getStepStatus",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "StepperStatus"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "step",
-                  "type": {
-                    "text": "StepperStep"
-                  }
-                },
-                {
-                  "name": "index",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "normalizeValue",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "selectStep",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
+              "default": "\"accent\"",
+              "attribute": "tone",
+              "reflects": true
             },
             {
               "kind": "field",
-              "name": "currentControl",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "hostAriaLabel",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "hostAriaDescribedBy",
-              "type": {
-                "text": "string | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "hostAriaLabelledBy",
-              "type": {
-                "text": "string | null"
-              },
-              "privacy": "private",
-              "readonly": true
+              "name": "handleRemoveClick",
+              "privacy": "private"
             }
           ],
           "events": [
             {
-              "name": "input",
               "type": {
                 "text": "Event"
-              }
-            },
-            {
-              "name": "change",
-              "type": {
-                "text": "Event"
-              }
+              },
+              "description": "Fired when the dismiss button is activated.",
+              "name": "remove"
             }
           ],
           "attributes": [
             {
-              "name": "disabled",
+              "name": "dismissible",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "fieldName": "disabled"
+              "fieldName": "dismissible"
             },
             {
-              "name": "interactive",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "interactive"
-            },
-            {
-              "name": "orientation",
-              "type": {
-                "text": "StepperOrientation"
-              },
-              "default": "\"horizontal\"",
-              "fieldName": "orientation"
-            },
-            {
-              "name": "value",
+              "name": "remove-label",
               "type": {
                 "text": "string"
               },
-              "default": "\"\"",
-              "fieldName": "value"
+              "default": "\"Remove tag\"",
+              "fieldName": "removeLabel"
+            },
+            {
+              "name": "tone",
+              "type": {
+                "text": "TagTone"
+              },
+              "default": "\"accent\"",
+              "fieldName": "tone"
             }
           ],
           "superclass": {
@@ -24545,10 +24708,10 @@
       "exports": [
         {
           "kind": "js",
-          "name": "CindorStepper",
+          "name": "CindorTag",
           "declaration": {
-            "name": "CindorStepper",
-            "module": "packages/core/src/components/stepper/cindor-stepper.ts"
+            "name": "CindorTag",
+            "module": "packages/core/src/components/tag/cindor-tag.ts"
           }
         }
       ]
@@ -25187,169 +25350,6 @@
           "declaration": {
             "name": "CindorTagInput",
             "module": "packages/core/src/components/tag-input/cindor-tag-input.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/tag/cindor-tag.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Primitives/Tag\", args: { dismissible: false, label: \"Critical\", tone: \"accent\" }, argTypes: { dismissible: { control: \"boolean\" }, tone: { control: \"radio\", options: [\"neutral\", \"accent\", \"success\"] } }, render: ({ dismissible, label, tone }: TagStoryArgs) => `<cindor-tag tone=\"${tone}\" ${dismissible ? \"dismissible\" : \"\"}>${label}</cindor-tag>` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        },
-        {
-          "kind": "variable",
-          "name": "Dismissible",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ args: { dismissible: true, label: \"Backend\" } }"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/tag/cindor-tag.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/tag/cindor-tag.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Dismissible",
-          "declaration": {
-            "name": "Dismissible",
-            "module": "packages/core/src/components/tag/cindor-tag.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/tag/cindor-tag.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Compact tag surface for labels, filters, and removable metadata.",
-          "name": "CindorTag",
-          "slots": [
-            {
-              "description": "Tag label.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "dismissible",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "dismissible",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "removeLabel",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"Remove tag\"",
-              "attribute": "remove-label",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "tone",
-              "privacy": "public",
-              "type": {
-                "text": "TagTone"
-              },
-              "default": "\"accent\"",
-              "attribute": "tone",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "handleRemoveClick",
-              "privacy": "private"
-            }
-          ],
-          "events": [
-            {
-              "type": {
-                "text": "Event"
-              },
-              "description": "Fired when the dismiss button is activated.",
-              "name": "remove"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "dismissible",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "dismissible"
-            },
-            {
-              "name": "remove-label",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"Remove tag\"",
-              "fieldName": "removeLabel"
-            },
-            {
-              "name": "tone",
-              "type": {
-                "text": "TagTone"
-              },
-              "default": "\"accent\"",
-              "fieldName": "tone"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorTag",
-          "declaration": {
-            "name": "CindorTag",
-            "module": "packages/core/src/components/tag/cindor-tag.ts"
           }
         }
       ]

@@ -3,6 +3,8 @@ import { create } from "storybook/theming";
 
 import "../packages/core/src/design/fonts.css";
 
+const brandUrl = process.env.STORYBOOK_BRAND_URL?.trim() || "https://docs.cindor.dev/";
+
 addons.setConfig({
   theme: create({
     base: "dark",
@@ -32,6 +34,6 @@ addons.setConfig({
     inputTextColor: "#f3f1ec",
     inputBorderRadius: 4,
     brandTitle: "Cindor UI",
-    brandUrl: "https://cbulock.github.io/cindor/"
+    brandUrl
   })
 });

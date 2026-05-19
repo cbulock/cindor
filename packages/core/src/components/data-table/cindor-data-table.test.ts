@@ -209,6 +209,50 @@ describe("cindor-data-table", () => {
     });
   });
 
+  it("keeps utility column headers accessible without visible header text", async () => {
+    const element = await renderElement({
+      columns: [
+        { key: "name", label: "Name" },
+        {
+          key: "selected",
+          label: "",
+          headerDisplay: "none",
+          headerLabel: "Select row",
+          width: "4rem"
+        }
+      ],
+      rows: [{ id: "row-1", name: "Jordan", selected: true }]
+    });
+
+    const headCells = Array.from(element.renderRoot.querySelectorAll("thead th"));
+    const utilityHeader = headCells[1];
+
+    expect(utilityHeader?.querySelector(".visually-hidden")?.textContent).toBe("Select row");
+    expect(utilityHeader?.querySelector(".sort-button")).toBeNull();
+  });
+
+  it("uses headerLabel for sortable header controls", async () => {
+    const element = await renderElement({
+      columns: [
+        {
+          key: "priority",
+          label: "Pri.",
+          headerLabel: "Priority",
+          sortable: true
+        }
+      ],
+      rows: [
+        { id: "row-1", priority: "High" },
+        { id: "row-2", priority: "Low" }
+      ]
+    });
+
+    const sortButton = element.renderRoot.querySelector('[part="sort-button"]') as HTMLButtonElement;
+
+    expect(sortButton.getAttribute("aria-label")).toBe("Priority");
+    expect(sortButton.textContent).toContain("Pri.");
+  });
+
   it("expands rows with renderer content and emits row-expand", async () => {
     const element = await renderElement({
       expandableRows: true,
@@ -326,6 +370,41 @@ describe("cindor-data-table", () => {
     expect(bodyCells[0]?.getAttribute("data-column-label")).toBe("Name");
     expect(bodyCells[1]?.getAttribute("data-column-label")).toBe("Role");
     expect(element.renderRoot.querySelector("tbody")?.textContent).toContain("Support");
+
+    resizeObserverController.restore();
+    Object.defineProperty(window, "innerWidth", { configurable: true, value: originalInnerWidth });
+  });
+
+  it("uses header display settings for stacked mobile labels", async () => {
+    const resizeObserverController = installResizeObserverMock();
+    const originalInnerWidth = window.innerWidth;
+    Object.defineProperty(window, "innerWidth", { configurable: true, value: 600 });
+    const element = await renderElement({
+      columns: [
+        { key: "name", label: "Name" },
+        {
+          key: "selected",
+          label: "",
+          headerDisplay: "none",
+          headerLabel: "Select row"
+        },
+        {
+          key: "status",
+          label: "",
+          headerDisplay: "sr-only",
+          headerLabel: "Status"
+        }
+      ],
+      rows: [{ id: "row-1", name: "Jordan", selected: true, status: "Open" }]
+    });
+    window.dispatchEvent(new Event("resize"));
+    await element.updateComplete;
+
+    const bodyCells = Array.from(element.renderRoot.querySelectorAll("tbody td"));
+
+    expect(bodyCells[0]?.getAttribute("data-column-label")).toBe("Name");
+    expect(bodyCells[1]?.hasAttribute("data-column-label")).toBe(false);
+    expect(bodyCells[2]?.getAttribute("data-column-label")).toBe("Status");
 
     resizeObserverController.restore();
     Object.defineProperty(window, "innerWidth", { configurable: true, value: originalInnerWidth });

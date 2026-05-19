@@ -207,6 +207,50 @@ export const ResponsiveScrollHint = {
   `
 };
 
+export const UtilityHeaderLabels = {
+  render: () => html`
+    <div style="width: min(100%, 34rem);">
+      <cindor-data-table
+        caption="Utility columns with hidden headers"
+        .columns=${[
+          {
+            key: "selected",
+            label: "",
+            align: "center",
+            headerDisplay: "none",
+            headerLabel: "Select row",
+            minWidth: "4.5rem",
+            width: "4.5rem",
+            cellRenderer: ({ row }) => html`
+              <cindor-checkbox
+                aria-label=${`Select ${String(row.name)}`}
+                ?checked=${Boolean(row.selected)}
+              ></cindor-checkbox>
+            `
+          },
+          { key: "name", label: "Name", sortable: true, width: "12rem" },
+          { key: "role", label: "Role", width: "10rem" },
+          {
+            key: "status",
+            label: "",
+            headerDisplay: "sr-only",
+            headerLabel: "Status",
+            width: "10rem",
+            cellRenderer: ({ value }) =>
+              html`<cindor-badge tone=${value === "Escalated" ? "warning" : "info"}>${String(value)}</cindor-badge>`
+          }
+        ]}
+        .rows=${[
+          { id: "ticket-401", selected: true, name: "Jordan Lee", role: "Operations", status: "Open" },
+          { id: "ticket-402", selected: false, name: "Avery Smith", role: "Support", status: "Escalated" }
+        ]}
+        page-size="0"
+        sort-key="name"
+      ></cindor-data-table>
+    </div>
+  `
+};
+
 export const ColumnPriority = {
   render: () => html`
     <div style="width: min(100%, 30rem);">

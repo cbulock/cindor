@@ -137,6 +137,8 @@ type StoryModule = Record<string, unknown> & {
   };
 };
 
+type DocsSiteMode = "docs" | "landing";
+
 const sections: DocsSection[] = [
   {
     id: "overview",
@@ -161,7 +163,12 @@ const sections: DocsSection[] = [
 ];
 const docsSectionIds = new Set(sections.map((section) => section.id));
 const GITHUB_REPO_URL = "https://github.com/cbulock/cindor";
-const storybookUrl = new URL("storybook/", document.baseURI).toString();
+const siteMode: DocsSiteMode = import.meta.env.VITE_SITE_MODE === "docs" ? "docs" : "landing";
+const primarySiteUrl = normalizeSiteUrl(import.meta.env.VITE_PRIMARY_SITE_URL) ?? new URL("/", document.baseURI).toString();
+const configuredDocsSiteUrl = normalizeSiteUrl(import.meta.env.VITE_DOCS_SITE_URL);
+const docsEntryUrl = siteMode === "landing" ? configuredDocsSiteUrl ?? "#docs/overview" : "#docs/overview";
+const landingSiteUrl = siteMode === "docs" ? primarySiteUrl : "#";
+const storybookUrl = normalizeSiteUrl(import.meta.env.VITE_PLAYGROUND_URL) ?? new URL("storybook/", document.baseURI).toString();
 const storyModules = import.meta.glob("../../../packages/core/src/components/**/*.stories.ts", { eager: true }) as Record<string, StoryModule>;
 const componentPlaygroundUrls = new Map(
   Object.entries(storyModules)
@@ -515,7 +522,7 @@ function renderLandingShell(): string {
         </div>
 
         <nav class="landing-nav" aria-label="Primary">
-          <a href="#docs/overview">Docs</a>
+          <a href="${docsEntryUrl}">Docs</a>
           <a href="${storybookUrl}">Playground</a>
           <a href="${GITHUB_REPO_URL}" target="_blank" rel="noreferrer">GitHub</a>
         </nav>
@@ -540,7 +547,7 @@ function renderSidebar(activeSectionId: string, route: Route): string {
     </div>
 
     <div class="sidebar-links">
-      <a class="nav-link" href="#">Landing page</a>
+      <a class="nav-link" href="${landingSiteUrl}">Landing page</a>
       <a class="nav-link" href="${storybookUrl}">Playground</a>
       <a class="nav-link" href="${GITHUB_REPO_URL}" target="_blank" rel="noreferrer">GitHub repository</a>
     </div>
@@ -602,7 +609,7 @@ function renderLandingPage(): string {
       </div>
 
       <div class="hero-actions">
-        <a class="action-link action-link-primary" href="#docs/overview">Read the docs</a>
+        <a class="action-link action-link-primary" href="${docsEntryUrl}">Read the docs</a>
         <a class="action-link" href="${storybookUrl}">Open playground</a>
         <a class="action-link" href="${GITHUB_REPO_URL}" target="_blank" rel="noreferrer">View on GitHub</a>
       </div>
@@ -1483,7 +1490,11 @@ function handlePaletteSelect(event: Event): void {
   }
 
   if (detail.value === "landing") {
-    window.location.hash = "";
+    if (siteMode === "docs") {
+      window.location.assign(primarySiteUrl);
+    } else {
+      window.location.hash = "";
+    }
     return;
   }
 
@@ -1494,7 +1505,7 @@ function getRoute(): Route {
   const hash = window.location.hash.replace(/^#/, "");
 
   if (!hash || hash === "landing") {
-    return { kind: "landing" };
+    return siteMode === "docs" ? { kind: "docs", sectionId: "overview" } : { kind: "landing" };
   }
 
   if (hash.startsWith("docs/components/")) {
@@ -1527,6 +1538,19 @@ function getRoute(): Route {
   }
 
   return { kind: "landing" };
+}
+
+function normalizeSiteUrl(value: string | undefined): string | null {
+  if (!value) {
+    return null;
+  }
+
+  const trimmed = value.trim();
+  if (trimmed.length === 0) {
+    return null;
+  }
+
+  return trimmed.endsWith("/") ? trimmed : `${trimmed}/`;
 }
 
 function getFilteredComponents(): ComponentDoc[] {

@@ -50,6 +50,7 @@ npm run storybook
 npm run build-storybook
 npm run docs
 npm run build:docs
+npm run build:netlify
 npm run docs:preview
 ```
 
@@ -283,7 +284,34 @@ Storybook accessibility checks are part of the expected component workflow. Stor
 
 The repository also includes a docs app at `apps/docs` that uses the published Cindor component APIs directly inside the site itself. It is intended to stay in the same repo so examples, package APIs, and docs content evolve together.
 
-GitHub Pages deployment is wired through `.github/workflows/docs-pages.yml`. The workflow builds `apps/docs` with a repo-aware `DOCS_BASE_PATH` so project-site deployments serve assets correctly from `https://<owner>.github.io/<repo>/`.
+Production deployment is wired through `.github/workflows/deploy-netlify.yml`.
+
+The repository deploys three Netlify sites from the same codebase:
+
+- `cindor.dev` for the marketing landing page
+- `docs.cindor.dev` for the technical docs experience
+- `playground.cindor.dev` for Storybook
+
+To build the production outputs locally, run:
+
+```bash
+npm run build:netlify
+```
+
+This writes:
+
+- `dist/netlify/landing`
+- `dist/netlify/docs`
+- `dist/netlify/playground`
+
+The GitHub Actions deployment expects these repository secrets:
+
+- `NETLIFY_AUTH_TOKEN`
+- `NETLIFY_SITE_ID_LANDING`
+- `NETLIFY_SITE_ID_DOCS`
+- `NETLIFY_SITE_ID_PLAYGROUND`
+
+One-time Netlify setup still requires creating or linking the three sites in your Netlify account and attaching the custom domains there.
 
 ## Publishing packages
 

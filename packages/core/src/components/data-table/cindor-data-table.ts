@@ -4,6 +4,7 @@ export type DataTableRow = Record<string, unknown>;
 export type DataTableSortDirection = "ascending" | "descending";
 export type DataTableCellAlign = "center" | "end" | "start";
 export type DataTableDensity = "comfortable" | "compact";
+export type DataTableHeaderDisplay = "visible" | "sr-only" | "none";
 
 const TABLET_COLUMN_PRIORITY_BREAKPOINT = 840;
 const MOBILE_COLUMN_PRIORITY_BREAKPOINT = 640;
@@ -121,6 +122,8 @@ export type DataTableColumn = {
   cellRenderer?: (detail: DataTableCellRenderDetail) => unknown;
   cellSlot?: string;
   editor?: DataTableCellEditor;
+  headerDisplay?: DataTableHeaderDisplay;
+  headerLabel?: string;
   key: string;
   label: string;
   minWidth?: string;
@@ -478,12 +481,19 @@ export class CindorDataTable extends LitElement {
 
       tbody td {
         display: grid;
-        grid-template-columns: minmax(0, 8rem) minmax(0, 1fr);
         gap: var(--space-2) var(--space-3);
         align-items: start;
         padding: var(--space-3) var(--space-4);
         border-top: 1px solid var(--border);
         text-align: left;
+      }
+
+      tbody td[data-column-label] {
+        grid-template-columns: minmax(0, 8rem) minmax(0, 1fr);
+      }
+
+      tbody td:not([data-column-label]) {
+        grid-template-columns: minmax(0, 1fr);
       }
 
       tbody td:first-child {
@@ -688,14 +698,7 @@ export class CindorDataTable extends LitElement {
                       aria-sort=${column.sortable ? (active ? this.sortDirection : "none") : nothing}
                       style=${this.columnCellStyle(column, stickyOffset)}
                     >
-                      ${column.sortable
-                        ? html`
-                            <button class="sort-button" type="button" part="sort-button" @click=${() => this.toggleSort(column)}>
-                              <span>${column.label}</span>
-                              <span aria-hidden="true">${active ? (this.sortDirection === "ascending" ? "↑" : "↓") : "↕"}</span>
-                            </button>
-                          `
-                        : column.label}
+                      ${this.renderHeaderCell(column, active)}
                     </th>
                   `;
                 })}
@@ -748,7 +751,7 @@ export class CindorDataTable extends LitElement {
                                   part=${stickyOffset ? "cell cell-sticky" : "cell"}
                                   class="cell"
                                   data-align=${this.columnAlign(column)}
-                                  data-column-label=${column.label}
+                                  data-column-label=${this.columnMobileLabel(column) ?? nothing}
                                   data-sticky=${stickyOffset ? "start" : nothing}
                                   style=${this.columnCellStyle(column, stickyOffset)}
                                 >
@@ -805,6 +808,41 @@ export class CindorDataTable extends LitElement {
     }
 
     return content;
+  }
+
+  private renderHeaderCell(column: DataTableColumn, active: boolean) {
+    if (!column.sortable) {
+      return this.renderHeaderLabel(column);
+    }
+
+    const ariaLabel = this.columnAccessibleHeaderLabel(column);
+
+    return html`
+      <button
+        class="sort-button"
+        type="button"
+        part="sort-button"
+        aria-label=${ariaLabel || nothing}
+        @click=${() => this.toggleSort(column)}
+      >
+        ${this.renderHeaderLabel(column)}
+        <span aria-hidden="true">${active ? (this.sortDirection === "ascending" ? "↑" : "↓") : "↕"}</span>
+      </button>
+    `;
+  }
+
+  private renderHeaderLabel(column: DataTableColumn) {
+    const headerLabel = this.columnAccessibleHeaderLabel(column);
+
+    if (!headerLabel) {
+      return nothing;
+    }
+
+    if (this.columnHeaderDisplay(column) === "visible") {
+      return html`<span>${this.columnVisibleHeaderLabel(column)}</span>`;
+    }
+
+    return html`<span class="visually-hidden">${headerLabel}</span>`;
   }
 
   private renderCellContent(detail: DataTableCellRenderDetail) {
@@ -875,7 +913,8 @@ export class CindorDataTable extends LitElement {
     }
 
     const disabled = this.resolveEditorDisabled(editor, detail);
-    const ariaLabel = `${detail.column.label} for row ${detail.rowId}`;
+    const columnLabel = this.columnAccessibleHeaderLabel(detail.column) || detail.column.key;
+    const ariaLabel = `${columnLabel} for row ${detail.rowId}`;
 
     if (editor.type === "input") {
       return html`
@@ -1301,6 +1340,29 @@ export class CindorDataTable extends LitElement {
     }
 
     return column.numeric ? "end" : "start";
+  }
+
+  private columnAccessibleHeaderLabel(column: DataTableColumn): string {
+    const headerLabel = column.headerLabel?.trim();
+    return headerLabel && headerLabel.length > 0 ? headerLabel : column.label.trim();
+  }
+
+  private columnHeaderDisplay(column: DataTableColumn): DataTableHeaderDisplay {
+    return column.headerDisplay ?? "visible";
+  }
+
+  private columnMobileLabel(column: DataTableColumn): string | null {
+    if (this.columnHeaderDisplay(column) === "none") {
+      return null;
+    }
+
+    const label = this.columnAccessibleHeaderLabel(column);
+    return label ? label : null;
+  }
+
+  private columnVisibleHeaderLabel(column: DataTableColumn): string {
+    const visibleLabel = column.label.trim();
+    return visibleLabel || this.columnAccessibleHeaderLabel(column);
   }
 
   private columnWidthStyle(column: DataTableColumn): string {

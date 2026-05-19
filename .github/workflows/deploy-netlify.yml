@@ -1,0 +1,64 @@
+name: Deploy docs surfaces
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: netlify-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate Netlify secrets
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID_DOCS: ${{ secrets.NETLIFY_SITE_ID_DOCS }}
+          NETLIFY_SITE_ID_LANDING: ${{ secrets.NETLIFY_SITE_ID_LANDING }}
+          NETLIFY_SITE_ID_PLAYGROUND: ${{ secrets.NETLIFY_SITE_ID_PLAYGROUND }}
+        run: |
+          test -n "$NETLIFY_AUTH_TOKEN"
+          test -n "$NETLIFY_SITE_ID_LANDING"
+          test -n "$NETLIFY_SITE_ID_DOCS"
+          test -n "$NETLIFY_SITE_ID_PLAYGROUND"
+
+      - name: Build landing, docs, and playground outputs
+        run: npm run build:netlify
+
+      - name: Deploy cindor.dev
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID_LANDING: ${{ secrets.NETLIFY_SITE_ID_LANDING }}
+        run: npx netlify-cli deploy --dir=dist/netlify/landing --site="$NETLIFY_SITE_ID_LANDING" --auth="$NETLIFY_AUTH_TOKEN" --prod
+
+      - name: Deploy docs.cindor.dev
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID_DOCS: ${{ secrets.NETLIFY_SITE_ID_DOCS }}
+        run: npx netlify-cli deploy --dir=dist/netlify/docs --site="$NETLIFY_SITE_ID_DOCS" --auth="$NETLIFY_AUTH_TOKEN" --prod
+
+      - name: Deploy playground.cindor.dev
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID_PLAYGROUND: ${{ secrets.NETLIFY_SITE_ID_PLAYGROUND }}
+        run: npx netlify-cli deploy --dir=dist/netlify/playground --site="$NETLIFY_SITE_ID_PLAYGROUND" --auth="$NETLIFY_AUTH_TOKEN" --prod
