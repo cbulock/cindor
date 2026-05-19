@@ -355,6 +355,7 @@ export const CindorDataTable = createComponent({
     onCellEdit: "cell-edit",
     onPageChange: "page-change",
     onRowAction: "row-action",
+    onRowExpand: "row-expand",
     onSearchChange: "search-change",
     onSortChange: "sort-change"
   }

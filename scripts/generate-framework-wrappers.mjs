@@ -70,6 +70,7 @@ function generateVueFile() {
     neededHostTypes.includes("OpenHost") ? 'type OpenHost = HTMLElement & { open: boolean };' : "",
     neededHostTypes.includes("FileInputHost") ? 'type FileInputHost = HTMLElement & { files: FileList | null };' : "",
     neededHostTypes.includes("PageHost") ? 'type PageHost = HTMLElement & { currentPage: number };' : "",
+    neededHostTypes.includes("ExpandedRowsHost") ? 'type ExpandedRowsHost = HTMLElement & { expandedRowIds: string[] };' : "",
     neededHostTypes.includes("SearchQueryHost") ? 'type SearchQueryHost = HTMLElement & { searchQuery: string };' : ""
   ]
     .filter(Boolean)

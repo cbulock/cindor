@@ -209,6 +209,48 @@ describe("cindor-data-table", () => {
     });
   });
 
+  it("expands rows with renderer content and emits row-expand", async () => {
+    const element = await renderElement({
+      expandableRows: true,
+      rowExpansionRenderer: ({ row }) => `Details for ${String(row.name)}`
+    });
+    const handler = vi.fn();
+    element.addEventListener("row-expand", handler);
+
+    const button = element.renderRoot.querySelector('[part="row-toggle-button"]') as HTMLButtonElement;
+    button.click();
+    await element.updateComplete;
+
+    const expansionRow = element.renderRoot.querySelector('[data-expansion-row="true"]');
+    expect(expansionRow?.textContent).toContain("Details for Jordan");
+    expect(element.expandedRowIds).toEqual(["jordan"]);
+    expect(handler).toHaveBeenCalledTimes(1);
+    expect(handler.mock.calls[0]?.[0].detail).toMatchObject({
+      expanded: true,
+      expandedRowIds: ["jordan"],
+      rowId: "jordan"
+    });
+  });
+
+  it("renders slot-backed expanded row content", async () => {
+    const element = await renderElement({
+      expandableRows: true
+    });
+    const details = document.createElement("div");
+    details.slot = "row-expansion-jordan";
+    details.textContent = "Jordan works the escalation queue.";
+    element.append(details);
+    await element.updateComplete;
+
+    const button = element.renderRoot.querySelector('[part="row-toggle-button"]') as HTMLButtonElement;
+    button.click();
+    await element.updateComplete;
+
+    expect(element.expandedRowIds).toEqual(["jordan"]);
+    expect(element.renderRoot.querySelector('[data-expansion-row="true"]')).not.toBeNull();
+    expect(element.querySelector('[slot="row-expansion-jordan"]')?.textContent).toContain("Jordan works the escalation queue.");
+  });
+
   it("composes the shared search and pagination components", async () => {
     const element = await renderElement({
       searchable: true,

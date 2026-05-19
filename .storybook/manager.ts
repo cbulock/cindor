@@ -32,6 +32,6 @@ addons.setConfig({
     inputTextColor: "#f3f1ec",
     inputBorderRadius: 4,
     brandTitle: "Cindor UI",
-    brandUrl: "https://github.com/cbulock/cindor"
+    brandUrl: "https://cbulock.github.io/cindor/"
   })
 });

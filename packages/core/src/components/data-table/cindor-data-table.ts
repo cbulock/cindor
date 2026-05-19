@@ -34,6 +34,18 @@ export type DataTableCellEditDetail = {
   value: unknown;
 };
 
+export type DataTableRowExpandDetail = {
+  expanded: boolean;
+  row: DataTableRow;
+  rowId: string;
+  rowIndex: number;
+  table: CindorDataTable;
+};
+
+export type DataTableRowExpandEventDetail = DataTableRowExpandDetail & {
+  expandedRowIds: string[];
+};
+
 export type DataTableRowActionDetail = {
   action: DataTableRowAction;
   actionKey: string;
@@ -43,6 +55,8 @@ export type DataTableRowActionDetail = {
   rowId: string;
   rowIndex: number;
 };
+
+export type DataTableRowExpansionRenderer = (detail: DataTableRowExpandDetail) => unknown;
 
 export type DataTableSortComparator = (
   leftValue: unknown,
@@ -139,6 +153,7 @@ type SwitchHost = HTMLElement & { checked: boolean };
  * @tag cindor-data-table
  * @fires {CustomEvent<DataTableCellEditDetail>} cell-edit - Fired when an inline editor updates a row value.
  * @fires {CustomEvent<DataTablePageChangeDetail>} page-change - Fired when the current page changes through pagination.
+ * @fires {CustomEvent<DataTableRowExpandEventDetail>} row-expand - Fired when a row's expanded state changes.
  * @fires {CustomEvent<DataTableRowActionDetail>} row-action - Fired when a row action button is pressed.
  * @fires {CustomEvent<DataTableSearchChangeDetail>} search-change - Fired when the search query changes and the matching row count updates.
  * @fires {CustomEvent<{ sortDirection: DataTableSortDirection; sortKey: string }>} sort-change - Fired when the active sort column or direction changes.
@@ -362,6 +377,64 @@ export class CindorDataTable extends LitElement {
       font-size: var(--text-sm);
     }
 
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .row-toggle-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      min-width: 2rem;
+      height: 2rem;
+      padding: 0;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      background: color-mix(in srgb, var(--bg-subtle) 70%, var(--surface));
+      color: var(--fg);
+      font: inherit;
+      line-height: 1;
+      cursor: pointer;
+      transition:
+        background var(--duration-base) var(--ease-out),
+        border-color var(--duration-base) var(--ease-out);
+    }
+
+    .row-toggle-button:hover:not(:disabled) {
+      background: color-mix(in srgb, var(--accent-muted) 35%, var(--surface));
+      border-color: color-mix(in srgb, var(--accent) 45%, var(--border-strong));
+    }
+
+    .row-toggle-button:focus-visible {
+      outline: none;
+      box-shadow: var(--ring-focus);
+    }
+
+    .row-toggle-button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .row-expansion-cell {
+      padding: var(--space-4);
+      background: color-mix(in srgb, var(--bg-subtle) 45%, var(--surface));
+    }
+
+    .row-expansion-content {
+      display: grid;
+      gap: var(--space-3);
+    }
+
     @media (max-width: 640px) {
       table {
         display: block;
@@ -417,6 +490,19 @@ export class CindorDataTable extends LitElement {
         border-top: 0;
       }
 
+      tbody tr[data-expansion-row="true"] {
+        gap: 0;
+      }
+
+      tbody tr[data-expansion-row="true"] td {
+        display: block;
+        grid-template-columns: none;
+      }
+
+      tbody tr[data-expansion-row="true"] td::before {
+        content: none;
+      }
+
       tbody td::before {
         content: attr(data-column-label);
         color: var(--fg-muted);
@@ -458,9 +544,14 @@ export class CindorDataTable extends LitElement {
     currentPage: { type: Number, reflect: true, attribute: "current-page" },
     density: { reflect: true },
     emptyMessage: { reflect: true, attribute: "empty-message" },
+    expandableRows: { type: Boolean, reflect: true, attribute: "expandable-rows" },
+    expandedRowIds: { attribute: false },
     loading: { type: Boolean, reflect: true },
     pageSize: { type: Number, reflect: true, attribute: "page-size" },
     rowIdKey: { reflect: true, attribute: "row-id-key" },
+    rowExpansionLabel: { reflect: true, attribute: "row-expansion-label" },
+    rowExpansionRenderer: { attribute: false },
+    rowExpansionSlot: { reflect: true, attribute: "row-expansion-slot" },
     rows: { attribute: false },
     searchable: { type: Boolean, reflect: true },
     searchLabel: { reflect: true, attribute: "search-label" },
@@ -475,9 +566,14 @@ export class CindorDataTable extends LitElement {
   currentPage = 1;
   density: DataTableDensity = "comfortable";
   emptyMessage = "No rows to display.";
+  expandableRows = false;
+  expandedRowIds: string[] = [];
   loading = false;
   pageSize = 10;
   rowIdKey = "id";
+  rowExpansionLabel = "Row details";
+  rowExpansionRenderer: DataTableRowExpansionRenderer | null = null;
+  rowExpansionSlot = "row-expansion";
   rows: DataTableRow[] = [];
   searchable = false;
   searchLabel = "Search rows";
@@ -538,6 +634,7 @@ export class CindorDataTable extends LitElement {
     const visibleColumns = renderedColumns.map((entry) => entry.column);
     const totalPages = this.totalPages;
     const showPagination = !this.loading && totalPages > 1;
+    const columnCount = visibleColumns.length + (this.expandableRows ? 1 : 0);
 
     return html`
       <div class="surface" part="surface">
@@ -572,6 +669,13 @@ export class CindorDataTable extends LitElement {
             ${this.caption ? html`<caption part="caption">${this.caption}</caption>` : nothing}
             <thead part="head">
               <tr part="head-row">
+                ${this.expandableRows
+                  ? html`
+                      <th part="head-cell head-cell-expansion" scope="col">
+                        <span class="visually-hidden">${this.rowExpansionLabel}</span>
+                      </th>
+                    `
+                  : nothing}
                 ${renderedColumns.map(({ column, stickyOffset }) => {
                   const active = column.key === this.sortKey;
 
@@ -601,39 +705,71 @@ export class CindorDataTable extends LitElement {
               ${this.loading
                 ? html`
                     <tr part="row">
-                      <td class="message" part="cell message" colspan=${String(Math.max(visibleColumns.length, 1))}>Loading rows...</td>
+                      <td class="message" part="cell message" colspan=${String(Math.max(columnCount, 1))}>Loading rows...</td>
                     </tr>
                   `
                 : visibleRows.length === 0
                   ? html`
                       <tr part="row">
-                        <td class="message" part="cell message" colspan=${String(Math.max(visibleColumns.length, 1))}>${this.emptyMessage}</td>
+                        <td class="message" part="cell message" colspan=${String(Math.max(columnCount, 1))}>${this.emptyMessage}</td>
                       </tr>
                     `
                   : visibleRows.map((row, visibleIndex) => {
                       const rowIndex = this.getRowIndex(row, visibleIndex);
                       const rowId = this.getRowId(row, rowIndex);
+                      const expandDetail = this.createRowExpandDetail(row, rowId, rowIndex);
+                      const expansionRowId = this.getExpansionRowId(rowId);
 
-                      return html`
-                        <tr part="row" data-row-id=${rowId}>
-                          ${renderedColumns.map(({ column, stickyOffset }) => {
-                            const detail = this.createCellDetail(column, row, rowId, rowIndex);
+                      return [
+                        html`
+                          <tr part="row" data-row-id=${rowId} data-expanded=${String(expandDetail.expanded)}>
+                            ${this.expandableRows
+                              ? html`
+                                  <td part="cell cell-expansion-toggle" class="cell" data-column-label=${this.rowExpansionLabel}>
+                                    <button
+                                      class="row-toggle-button"
+                                      type="button"
+                                      part="row-toggle-button"
+                                      aria-controls=${expansionRowId}
+                                      aria-expanded=${String(expandDetail.expanded)}
+                                      aria-label=${this.rowExpansionButtonLabel(expandDetail)}
+                                      @click=${() => this.toggleRowExpansion(expandDetail)}
+                                    >
+                                      <span aria-hidden="true">${expandDetail.expanded ? "−" : "+"}</span>
+                                    </button>
+                                  </td>
+                                `
+                              : nothing}
+                            ${renderedColumns.map(({ column, stickyOffset }) => {
+                              const detail = this.createCellDetail(column, row, rowId, rowIndex);
 
-                            return html`
-                              <td
-                                part=${stickyOffset ? "cell cell-sticky" : "cell"}
-                                class="cell"
-                                data-align=${this.columnAlign(column)}
-                                data-column-label=${column.label}
-                                data-sticky=${stickyOffset ? "start" : nothing}
-                                style=${this.columnCellStyle(column, stickyOffset)}
-                              >
-                                ${this.renderCell(detail)}
-                              </td>
-                            `;
-                          })}
-                        </tr>
-                      `;
+                              return html`
+                                <td
+                                  part=${stickyOffset ? "cell cell-sticky" : "cell"}
+                                  class="cell"
+                                  data-align=${this.columnAlign(column)}
+                                  data-column-label=${column.label}
+                                  data-sticky=${stickyOffset ? "start" : nothing}
+                                  style=${this.columnCellStyle(column, stickyOffset)}
+                                >
+                                  ${this.renderCell(detail)}
+                                </td>
+                              `;
+                            })}
+                          </tr>
+                        `,
+                        this.expandableRows && expandDetail.expanded
+                          ? html`
+                              <tr part="row expansion-row" data-expansion-row="true" id=${expansionRowId}>
+                                <td class="row-expansion-cell" part="expansion-cell" colspan=${String(Math.max(columnCount, 1))}>
+                                  <div class="row-expansion-content" part="expansion-content">
+                                    ${this.renderRowExpansion(expandDetail)}
+                                  </div>
+                                </td>
+                              </tr>
+                            `
+                          : nothing
+                      ];
                     })}
             </tbody>
           </table>
@@ -855,6 +991,16 @@ export class CindorDataTable extends LitElement {
     };
   }
 
+  private createRowExpandDetail(row: DataTableRow, rowId: string, rowIndex: number): DataTableRowExpandDetail {
+    return {
+      expanded: this.expandedRowIds.includes(rowId),
+      row,
+      rowId,
+      rowIndex,
+      table: this
+    };
+  }
+
   private getCellSlotName(detail: DataTableCellRenderDetail): string | null {
     if (!detail.column.cellSlot) {
       return null;
@@ -880,6 +1026,60 @@ export class CindorDataTable extends LitElement {
     }
 
     return tooltip(detail) ?? null;
+  }
+
+  private renderRowExpansion(detail: DataTableRowExpandDetail) {
+    const slotName = this.getRowExpansionSlotName(detail.rowId);
+    const renderedContent = this.rowExpansionRenderer ? this.rowExpansionRenderer(detail) : nothing;
+
+    if (!slotName) {
+      return renderedContent;
+    }
+
+    return html`<slot name=${slotName}>${renderedContent}</slot>`;
+  }
+
+  private canExpandRow(): boolean {
+    return this.expandableRows;
+  }
+
+  private getRowExpansionSlotName(rowId: string): string | null {
+    const baseName = this.rowExpansionSlot.trim();
+    return baseName ? `${baseName}-${rowId}` : null;
+  }
+
+  private getExpansionRowId(rowId: string): string {
+    return `row-expansion-${rowId}`;
+  }
+
+  private rowExpansionButtonLabel(detail: DataTableRowExpandDetail): string {
+    const primaryColumn = this.columns[0];
+    const primaryValue = primaryColumn ? this.formatCellValue(detail.row[primaryColumn.key]) : "";
+    const rowLabel = primaryValue || detail.rowId;
+    return `${detail.expanded ? "Collapse" : "Expand"} ${this.rowExpansionLabel.toLocaleLowerCase()} for ${rowLabel}`;
+  }
+
+  private toggleRowExpansion(detail: DataTableRowExpandDetail): void {
+    if (!this.canExpandRow()) {
+      return;
+    }
+
+    const expandedRowIds = detail.expanded
+      ? this.expandedRowIds.filter((rowId) => rowId !== detail.rowId)
+      : [...this.expandedRowIds, detail.rowId];
+
+    this.expandedRowIds = expandedRowIds;
+    const nextDetail = { ...detail, expanded: !detail.expanded };
+    this.dispatchEvent(
+      new CustomEvent<DataTableRowExpandEventDetail>("row-expand", {
+        bubbles: true,
+        composed: true,
+        detail: {
+          ...nextDetail,
+          expandedRowIds
+        }
+      })
+    );
   }
 
   private resolveEditorDisabled(editor: DataTableCellEditor, detail: DataTableCellRenderDetail): boolean {

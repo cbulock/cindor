@@ -201,11 +201,19 @@ const catalogLayerFilterOptions: SegmentedControlOption[] = componentLayerOption
 const quickStartCode = `import "cindor-ui-core/styles.css";
 import "cindor-ui-core/register";
 
-const form = document.querySelector("form");
+document.querySelector("#app")!.innerHTML = \`
+  <cindor-provider theme="system">
+    <main style="padding: var(--space-6);">
+      <cindor-form-field label="Project name" description="Shown in the workspace switcher.">
+        <cindor-input value="Q2 launch"></cindor-input>
+      </cindor-form-field>
 
-form?.addEventListener("submit", (event) => {
-  event.preventDefault();
-});`;
+      <cindor-button style="margin-top: var(--space-4);">
+        Save project
+      </cindor-button>
+    </main>
+  </cindor-provider>
+\`;`;
 
 const themingPresetCode = `import "cindor-ui-core/styles.css";
 import "cindor-ui-core/register";

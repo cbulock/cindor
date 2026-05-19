@@ -31,6 +31,9 @@ export { CindorDateTimePicker } from "./components/date-time-picker/cindor-date-
 export { CindorDateInput } from "./components/date-input/cindor-date-input.js";
 export {
   CindorDataTable,
+  type DataTableRowExpandDetail,
+  type DataTableRowExpandEventDetail,
+  type DataTableRowExpansionRenderer,
   type DataTableColumn,
   type DataTableRow,
   type DataTableSortDirection

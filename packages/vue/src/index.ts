@@ -39,6 +39,7 @@ type SelectHost = HTMLElement & { value: string };
 type OpenHost = HTMLElement & { open: boolean };
 type FileInputHost = HTMLElement & { files: FileList | null };
 type PageHost = HTMLElement & { currentPage: number };
+type ExpandedRowsHost = HTMLElement & { expandedRowIds: string[] };
 type SearchQueryHost = HTMLElement & { searchQuery: string };
 
 export const CindorButton = defineComponent({
@@ -847,8 +848,12 @@ export const CindorDataTable = defineComponent({
     columns: { type: Array as PropType<DataTableColumn[]>, default: () => [] },
     currentPage: { type: Number, default: 1 },
     emptyMessage: { type: String, default: "No rows to display." },
+    expandableRows: { type: Boolean, default: false },
+    expandedRowIds: { type: Array as PropType<string[]>, default: () => [] },
     loading: { type: Boolean, default: false },
     pageSize: { type: Number, default: 10 },
+    rowExpansionLabel: { type: String, default: "Row details" },
+    rowExpansionSlot: { type: String, default: "row-expansion" },
     rows: { type: Array as PropType<DataTableRow[]>, default: () => [] },
     searchable: { type: Boolean, default: false },
     searchLabel: { type: String, default: "Search rows" },
@@ -857,8 +862,8 @@ export const CindorDataTable = defineComponent({
     sortDirection: { type: String as PropType<DataTableSortDirection>, default: "ascending" },
     sortKey: { type: String, default: "" }
   },
-  emits: ["cell-edit", "update:currentPage", "page-change", "row-action", "update:searchQuery", "search-change"],
-  setup(props, { attrs, emit }) {
+  emits: ["cell-edit", "update:currentPage", "page-change", "update:expandedRowIds", "row-expand", "row-action", "update:searchQuery", "search-change"],
+  setup(props, { attrs, emit, slots }) {
     const handleCellEdit = (event: Event) => {
       emit("cell-edit", event);
     };
@@ -867,6 +872,12 @@ export const CindorDataTable = defineComponent({
       const target = event.currentTarget as PageHost;
       emit("update:currentPage", target.currentPage);
       emit("page-change", event);
+    };
+
+    const handleRowExpand = (event: Event) => {
+      const target = event.currentTarget as ExpandedRowsHost;
+      emit("update:expandedRowIds", target.expandedRowIds);
+      emit("row-expand", event);
     };
 
     const handleRowAction = (event: Event) => {
@@ -879,14 +890,20 @@ export const CindorDataTable = defineComponent({
       emit("search-change", event);
     };
     return () =>
-          h("cindor-data-table", {
+          h(
+            "cindor-data-table",
+            {
               ...attrs,
               caption: props.caption || undefined,
               columns: props.columns,
               currentPage: props.currentPage,
               emptyMessage: props.emptyMessage,
+              expandableRows: props.expandableRows || undefined,
+              expandedRowIds: props.expandedRowIds,
               loading: props.loading || undefined,
               pageSize: props.pageSize,
+              rowExpansionLabel: props.rowExpansionLabel,
+              rowExpansionSlot: props.rowExpansionSlot,
               rows: props.rows,
               searchable: props.searchable || undefined,
               searchLabel: props.searchLabel,
@@ -896,9 +913,12 @@ export const CindorDataTable = defineComponent({
               sortKey: props.sortKey || undefined,
               onCellEdit: handleCellEdit,
               onPageChange: handlePageChange,
+              onRowExpand: handleRowExpand,
               onRowAction: handleRowAction,
               onSearchChange: handleSearchChange,
-          });
+            },
+            slots
+          );
   }
 });
 

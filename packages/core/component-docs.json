@@ -1356,6 +1356,24 @@
           "values": null
         },
         {
+          "attributeName": "expandable-rows",
+          "defaultValue": "false",
+          "description": "",
+          "name": "expandableRows",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "expandedRowIds",
+          "reflects": false,
+          "type": "string[]",
+          "values": null
+        },
+        {
           "attributeName": "loading",
           "defaultValue": "false",
           "description": "",
@@ -1378,6 +1396,33 @@
           "defaultValue": "\"id\"",
           "description": "",
           "name": "rowIdKey",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "row-expansion-label",
+          "defaultValue": "\"Row details\"",
+          "description": "",
+          "name": "rowExpansionLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "null",
+          "description": "",
+          "name": "rowExpansionRenderer",
+          "reflects": false,
+          "type": "DataTableRowExpansionRenderer | null",
+          "values": null
+        },
+        {
+          "attributeName": "row-expansion-slot",
+          "defaultValue": "\"row-expansion\"",
+          "description": "",
+          "name": "rowExpansionSlot",
           "reflects": true,
           "type": "string",
           "values": null
@@ -1461,6 +1506,12 @@
           "description": "Fired when a row action button is pressed.",
           "name": "row-action",
           "type": "CustomEvent<DataTableRowActionDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when a row's expanded state changes.",
+          "name": "row-expand",
+          "type": "CustomEvent<DataTableRowExpandEventDetail>",
           "values": null
         },
         {

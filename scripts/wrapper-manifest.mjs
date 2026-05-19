@@ -325,7 +325,8 @@ export const componentDefinitions = [
     vueProps: [str("description"), bool("sticky"), str("title")]
   }),
   component("CindorDataTable", "cindor-data-table", {
-    reactEvents: ["cell-edit", "page-change", "row-action", "search-change", "sort-change"],
+    reactEvents: ["cell-edit", "page-change", "row-action", "row-expand", "search-change", "sort-change"],
+    slots: slots.all,
     vueHandlers: [
       handler("cell-edit"),
       handler("page-change", {
@@ -333,6 +334,12 @@ export const componentDefinitions = [
         modelEmit: "update:currentPage",
         modelHostProperty: "currentPage",
         modelHostType: "PageHost"
+      }),
+      handler("row-expand", {
+        emitName: "row-expand",
+        modelEmit: "update:expandedRowIds",
+        modelHostProperty: "expandedRowIds",
+        modelHostType: "ExpandedRowsHost"
       }),
       handler("row-action"),
       handler("search-change", {
@@ -347,8 +354,12 @@ export const componentDefinitions = [
       arr("columns", "DataTableColumn[]"),
       num("currentPage", 1),
       str("emptyMessage", "No rows to display.", { alwaysPass: true, attr: "emptyMessage" }),
+      bool("expandableRows"),
+      arr("expandedRowIds", "string[]"),
       bool("loading"),
       num("pageSize", 10),
+      str("rowExpansionLabel", "Row details", { alwaysPass: true }),
+      str("rowExpansionSlot", "row-expansion", { alwaysPass: true }),
       arr("rows", "DataTableRow[]"),
       bool("searchable"),
       str("searchLabel", "Search rows", { alwaysPass: true }),

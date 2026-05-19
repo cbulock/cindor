@@ -225,6 +225,26 @@ export const ColumnPriority = {
   `
 };
 
+export const ExpandableRows = {
+  render: () => html`
+    <cindor-data-table
+      caption="Expandable workload rows"
+      expandable-rows
+      .columns=${columns}
+      .rowExpansionRenderer=${({ row }: { row: DataTableRow }) => html`
+        <div style="display: grid; gap: var(--space-2);">
+          <strong>${String(row.name)}</strong>
+          <span>Focus area: ${String(row.role)}</span>
+          <span>Open tickets: ${String(row.tickets)}</span>
+        </div>
+      `}
+      .rows=${rows.map((row) => ({ ...row }))}
+      page-size="0"
+      sort-key="name"
+    ></cindor-data-table>
+  `
+};
+
 export const ResponsiveStyling = {
   render: () => html`
     <div style="width: min(100%, 34rem);">
