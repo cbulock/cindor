@@ -4,6 +4,79 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Activity Feed\", render: () => ` <cindor-activity-feed> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Cindor Team\"></cindor-avatar> <span slot=\"title\">New deployment completed</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">Production environment</span> Traffic is now flowing through the latest release. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"QA\"></cindor-avatar> <span slot=\"title\">Regression suite passed</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Build #1284</span> All smoke tests completed without failures. </cindor-activity-item> </cindor-activity-feed> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
+          "name": "CindorActivityFeed",
+          "slots": [
+            {
+              "description": "`cindor-activity-item` children.",
+              "name": ""
+            }
+          ],
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorActivityFeed",
+          "declaration": {
+            "name": "CindorActivityFeed",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/accordion/cindor-accordion.stories.ts",
       "declarations": [
         {
@@ -126,79 +199,6 @@
           "declaration": {
             "name": "CindorAccordion",
             "module": "packages/core/src/components/accordion/cindor-accordion.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Activity Feed\", render: () => ` <cindor-activity-feed> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Cindor Team\"></cindor-avatar> <span slot=\"title\">New deployment completed</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">Production environment</span> Traffic is now flowing through the latest release. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"QA\"></cindor-avatar> <span slot=\"title\">Regression suite passed</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Build #1284</span> All smoke tests completed without failures. </cindor-activity-item> </cindor-activity-feed> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
-          "name": "CindorActivityFeed",
-          "slots": [
-            {
-              "description": "`cindor-activity-item` children.",
-              "name": ""
-            }
-          ],
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorActivityFeed",
-          "declaration": {
-            "name": "CindorActivityFeed",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.ts"
           }
         }
       ]
@@ -16462,118 +16462,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/navigation-rail/cindor-navigation-rail.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Navigation/Navigation Rail\", render: () => ` <cindor-navigation-rail aria-label=\"Workspace sections\"> <cindor-navigation-rail-item href=\"#home\" label=\"Home\" current> <cindor-icon slot=\"start\" name=\"house\"></cindor-icon> </cindor-navigation-rail-item> <cindor-navigation-rail-item href=\"#projects\" label=\"Projects\"> <cindor-icon slot=\"start\" name=\"folder-kanban\"></cindor-icon> </cindor-navigation-rail-item> <cindor-navigation-rail-item href=\"#settings\" label=\"Settings\"> <cindor-icon slot=\"start\" name=\"settings\"></cindor-icon> </cindor-navigation-rail-item> </cindor-navigation-rail> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/navigation-rail/cindor-navigation-rail.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/navigation-rail/cindor-navigation-rail.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/navigation-rail/cindor-navigation-rail.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Vertical navigation rail for compact app-shell layouts.",
-          "name": "CindorNavigationRail",
-          "slots": [
-            {
-              "description": "`cindor-navigation-rail-item` children.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "handleKeyDown",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleSlotChange",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "syncA11y",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "railElement",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "railItems",
-              "type": {
-                "text": "CindorNavigationRailItem[]"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorNavigationRail",
-          "declaration": {
-            "name": "CindorNavigationRail",
-            "module": "packages/core/src/components/navigation-rail/cindor-navigation-rail.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/navigation-rail-item/cindor-navigation-rail-item.stories.ts",
       "declarations": [
         {
@@ -16827,6 +16715,118 @@
           "declaration": {
             "name": "CindorNavigationRailItem",
             "module": "packages/core/src/components/navigation-rail-item/cindor-navigation-rail-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/navigation-rail/cindor-navigation-rail.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Navigation/Navigation Rail\", render: () => ` <cindor-navigation-rail aria-label=\"Workspace sections\"> <cindor-navigation-rail-item href=\"#home\" label=\"Home\" current> <cindor-icon slot=\"start\" name=\"house\"></cindor-icon> </cindor-navigation-rail-item> <cindor-navigation-rail-item href=\"#projects\" label=\"Projects\"> <cindor-icon slot=\"start\" name=\"folder-kanban\"></cindor-icon> </cindor-navigation-rail-item> <cindor-navigation-rail-item href=\"#settings\" label=\"Settings\"> <cindor-icon slot=\"start\" name=\"settings\"></cindor-icon> </cindor-navigation-rail-item> </cindor-navigation-rail> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/navigation-rail/cindor-navigation-rail.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/navigation-rail/cindor-navigation-rail.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/navigation-rail/cindor-navigation-rail.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Vertical navigation rail for compact app-shell layouts.",
+          "name": "CindorNavigationRail",
+          "slots": [
+            {
+              "description": "`cindor-navigation-rail-item` children.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "handleKeyDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "syncA11y",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "railElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "railItems",
+              "type": {
+                "text": "CindorNavigationRailItem[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorNavigationRail",
+          "declaration": {
+            "name": "CindorNavigationRail",
+            "module": "packages/core/src/components/navigation-rail/cindor-navigation-rail.ts"
           }
         }
       ]
