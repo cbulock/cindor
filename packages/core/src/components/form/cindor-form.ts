@@ -21,8 +21,11 @@ type ValidatableElement = HTMLElement & {
 };
 
 const fallbackValidationMessage = "Check this field and try again.";
+const nativeFormAssociatedSelector = "button, fieldset, input, output, select, textarea";
 
 export class CindorForm extends LitElement {
+  private static nextOwnedFormId = 0;
+
   static styles = css`
     :host {
       display: grid;
@@ -74,12 +77,17 @@ export class CindorForm extends LitElement {
       color: var(--fg-subtle);
     }
 
+    form,
     ::slotted(form) {
       display: grid;
       gap: var(--cindor-form-content-gap, var(--space-4));
       width: 100%;
       max-width: 100%;
       min-width: 0;
+    }
+
+    slot {
+      display: contents;
     }
   `;
 
@@ -102,14 +110,26 @@ export class CindorForm extends LitElement {
   private autoError = "";
   private currentForm: HTMLFormElement | null = null;
   private invalidFields: InvalidField[] = [];
+  private legacyForm: HTMLFormElement | null = null;
   private readonly managedDisabledElements = new Set<DisableCapableElement>();
+  private readonly managedFormAssociations = new Set<Element>();
+  private readonly ownedFormId = `cindor-form-host-${CindorForm.nextOwnedFormId++}`;
 
   override connectedCallback(): void {
     super.connectedCallback();
-    this.attachForm();
+    this.legacyForm = this.getLegacyForm();
+    this.addEventListener("change", this.handleControlInteraction);
+    this.addEventListener("click", this.handleFormActionClick);
+    this.addEventListener("input", this.handleControlInteraction);
+    this.addEventListener("invalid", this.handleInvalid, true);
   }
 
   override disconnectedCallback(): void {
+    this.removeEventListener("change", this.handleControlInteraction);
+    this.removeEventListener("click", this.handleFormActionClick);
+    this.removeEventListener("input", this.handleControlInteraction);
+    this.removeEventListener("invalid", this.handleInvalid, true);
+    this.clearManagedFormAssociations();
     this.detachForm();
     super.disconnectedCallback();
   }
@@ -178,11 +198,31 @@ export class CindorForm extends LitElement {
             </div>
           `
         : nothing}
-      <slot @slotchange=${this.handleSlotChange}></slot>
+      ${this.legacyForm
+        ? html`<slot @slotchange=${this.handleSlotChange}></slot>`
+        : html`
+            <form
+              id=${this.ownedFormId}
+              accept-charset=${ifDefined(this.getAttribute("accept-charset") ?? undefined)}
+              action=${ifDefined(this.getAttribute("action") ?? undefined)}
+              autocomplete=${ifDefined(this.getAttribute("autocomplete") ?? undefined)}
+              enctype=${ifDefined(this.getAttribute("enctype") ?? undefined)}
+              method=${ifDefined(this.getAttribute("method") ?? undefined)}
+              name=${ifDefined(this.getAttribute("name") ?? undefined)}
+              ?novalidate=${this.hasAttribute("novalidate")}
+              part="form"
+              target=${ifDefined(this.getAttribute("target") ?? undefined)}
+            >
+              <slot @slotchange=${this.handleSlotChange}></slot>
+            </form>
+          `}
     `;
   }
 
   protected override updated(changedProperties: Map<string, unknown>): void {
+    this.syncManagedFormAssociations();
+    this.attachForm();
+
     if (changedProperties.has("submitting")) {
       this.syncSubmittingState();
     }
@@ -218,20 +258,75 @@ export class CindorForm extends LitElement {
     this.refreshValidationSummary();
   };
 
-  private handleReset = (): void => {
+  private handleFormActionClick = (event: Event): void => {
+    if (!(event instanceof MouseEvent) || event.defaultPrevented || this.submitting) {
+      return;
+    }
+
+    const actionTarget = this.getFormActionTarget(event);
+    if (!actionTarget || this.isNativeFormActionHandled(actionTarget)) {
+      return;
+    }
+
+    const action = this.getFormActionType(actionTarget);
+    if (!action) {
+      return;
+    }
+
+    event.preventDefault();
+
+    if (action === "reset") {
+      this.reset();
+      return;
+    }
+
+    this.requestSubmit(actionTarget instanceof HTMLButtonElement || actionTarget instanceof HTMLInputElement ? actionTarget : undefined);
+  };
+
+  private handleReset = (event: Event): void => {
     this.clearValidationState();
+
+    if (!this.isUsingOwnedForm || event.target !== this.currentForm) {
+      return;
+    }
+
+    this.dispatchEvent(new Event("reset", { bubbles: true, composed: true }));
   };
 
   private handleSlotChange = (): void => {
+    const nextLegacyForm = this.getLegacyForm();
+    const modeChanged = nextLegacyForm !== this.legacyForm;
+    this.legacyForm = nextLegacyForm;
+
+    if (modeChanged) {
+      this.requestUpdate();
+      return;
+    }
+
+    this.syncManagedFormAssociations();
     this.attachForm();
   };
 
-  private handleSubmit = (): void => {
+  private handleSubmit = (event: Event): void => {
     this.clearValidationState();
+
+    if (!this.isUsingOwnedForm || event.target !== this.currentForm) {
+      return;
+    }
+
+    const forwardedEvent = new Event("submit", {
+      bubbles: true,
+      cancelable: true,
+      composed: true
+    });
+
+    if (!this.dispatchEvent(forwardedEvent)) {
+      event.preventDefault();
+    }
   };
 
   private attachForm(): void {
-    const nextForm = this.formElement;
+    const nextForm = this.legacyForm ?? this.ownedFormElement;
     if (nextForm === this.currentForm) {
       this.syncSubmittingState();
       return;
@@ -246,9 +341,6 @@ export class CindorForm extends LitElement {
 
     this.currentForm.addEventListener("submit", this.handleSubmit);
     this.currentForm.addEventListener("reset", this.handleReset);
-    this.currentForm.addEventListener("invalid", this.handleInvalid, true);
-    this.currentForm.addEventListener("input", this.handleControlInteraction);
-    this.currentForm.addEventListener("change", this.handleControlInteraction);
     this.syncSubmittingState();
   }
 
@@ -256,6 +348,16 @@ export class CindorForm extends LitElement {
     for (const field of this.getManagedFields()) {
       field.validationError = "";
     }
+  }
+
+  private clearManagedFormAssociations(): void {
+    for (const element of this.managedFormAssociations) {
+      if (element.getAttribute("form") === this.ownedFormId) {
+        element.removeAttribute("form");
+      }
+    }
+
+    this.managedFormAssociations.clear();
   }
 
   private clearValidationState(): void {
@@ -300,9 +402,6 @@ export class CindorForm extends LitElement {
 
     this.currentForm.removeEventListener("submit", this.handleSubmit);
     this.currentForm.removeEventListener("reset", this.handleReset);
-    this.currentForm.removeEventListener("invalid", this.handleInvalid, true);
-    this.currentForm.removeEventListener("input", this.handleControlInteraction);
-    this.currentForm.removeEventListener("change", this.handleControlInteraction);
     this.currentForm.removeAttribute("aria-busy");
     this.releaseManagedDisabledState();
     this.currentForm = null;
@@ -328,11 +427,15 @@ export class CindorForm extends LitElement {
   }
 
   private getEventControl(event: Event): ValidatableElement | null {
-    if (!(event.target instanceof HTMLElement) || !this.currentForm?.contains(event.target)) {
-      return null;
+    for (const entry of event.composedPath()) {
+      if (!(entry instanceof HTMLElement) || !this.isManagedValidatableControl(entry)) {
+        continue;
+      }
+
+      return entry as ValidatableElement;
     }
 
-    return event.target as ValidatableElement;
+    return null;
   }
 
   private getFieldLabel(field: FormFieldElement | null): string {
@@ -348,12 +451,56 @@ export class CindorForm extends LitElement {
     return labelElement?.textContent?.trim() ?? "";
   }
 
-  private getManagedFields(): FormFieldElement[] {
-    if (!this.currentForm) {
-      return [];
+  private getFormActionTarget(event: Event): HTMLElement | null {
+    for (const entry of event.composedPath()) {
+      if (!(entry instanceof HTMLElement) || !this.isManagedElement(entry)) {
+        continue;
+      }
+
+      if (entry.localName === "cindor-button") {
+        return entry;
+      }
+
+      if (entry instanceof HTMLButtonElement || (entry instanceof HTMLInputElement && /^(reset|submit)$/i.test(entry.type))) {
+        return entry;
+      }
     }
 
-    return Array.from(this.currentForm.querySelectorAll("cindor-form-field")) as FormFieldElement[];
+    return null;
+  }
+
+  private getFormActionType(element: HTMLElement): "reset" | "submit" | null {
+    const rawType = (element.getAttribute("type") || "").toLowerCase();
+
+    if (rawType === "button") {
+      return null;
+    }
+
+    if (rawType === "reset") {
+      return "reset";
+    }
+
+    if (element instanceof HTMLInputElement && rawType !== "submit") {
+      return null;
+    }
+
+    return "submit";
+  }
+
+  private getLegacyForm(): HTMLFormElement | null {
+    return Array.from(this.children).find((element): element is HTMLFormElement => element instanceof HTMLFormElement) ?? null;
+  }
+
+  private getManagedElements(): HTMLElement[] {
+    const scope = this.legacyForm ?? this;
+    return Array.from(scope.querySelectorAll("*")).filter((element): element is HTMLElement => element instanceof HTMLElement && this.isManagedElement(element));
+  }
+
+  private getManagedFields(): FormFieldElement[] {
+    const scope = this.legacyForm ?? this;
+    return Array.from(scope.querySelectorAll("cindor-form-field")).filter(
+      (element): element is FormFieldElement => element instanceof HTMLElement && this.isManagedElement(element)
+    );
   }
 
   private getOwningField(control: ValidatableElement): FormFieldElement | null {
@@ -361,12 +508,10 @@ export class CindorForm extends LitElement {
   }
 
   private getValidatableControls(): ValidatableElement[] {
-    if (!this.currentForm) {
-      return [];
-    }
+    const scope = this.legacyForm ?? this;
 
-    return Array.from(this.currentForm.querySelectorAll("*")).filter((element): element is ValidatableElement => {
-      if (!(element instanceof HTMLElement) || element.matches("button, fieldset, form, output")) {
+    return Array.from(scope.querySelectorAll("*")).filter((element): element is ValidatableElement => {
+      if (!(element instanceof HTMLElement) || !this.isManagedValidatableControl(element) || element.matches("button, fieldset, form, output")) {
         return false;
       }
 
@@ -417,6 +562,32 @@ export class CindorForm extends LitElement {
     return control.checkValidity?.() ?? true;
   }
 
+  private isManagedElement(element: Element): boolean {
+    if (this.legacyForm) {
+      return this.legacyForm.contains(element);
+    }
+
+    if (!this.contains(element)) {
+      return false;
+    }
+
+    const parentForm = element.closest("form");
+    return !parentForm;
+  }
+
+  private isManagedValidatableControl(element: HTMLElement): element is ValidatableElement {
+    if (!this.isManagedElement(element)) {
+      return false;
+    }
+
+    if (typeof (element as ValidatableElement).checkValidity !== "function") {
+      return false;
+    }
+
+    const explicitForm = element.getAttribute("form");
+    return !explicitForm || explicitForm === this.ownedFormId || this.legacyForm !== null;
+  }
+
   private refreshValidationSummary(): void {
     if (!this.validateOnSubmit || this.submitting) {
       this.clearValidationState();
@@ -453,6 +624,44 @@ export class CindorForm extends LitElement {
     field.validationError = valid ? "" : this.getValidationMessage(control);
   }
 
+  private syncManagedFormAssociations(): void {
+    if (this.legacyForm || !this.ownedFormElement) {
+      this.clearManagedFormAssociations();
+      return;
+    }
+
+    const nextManagedElements = new Set(
+      Array.from(this.querySelectorAll("*")).filter((element) => {
+        if (!(element instanceof HTMLElement) || element.closest("form") || !this.isManagedAssociationCandidate(element)) {
+          return false;
+        }
+
+        return !element.hasAttribute("form");
+      })
+    );
+
+    for (const element of Array.from(this.managedFormAssociations)) {
+      if (nextManagedElements.has(element)) {
+        continue;
+      }
+
+      if (element.getAttribute("form") === this.ownedFormId) {
+        element.removeAttribute("form");
+      }
+
+      this.managedFormAssociations.delete(element);
+    }
+
+    for (const element of nextManagedElements) {
+      if (this.managedFormAssociations.has(element)) {
+        continue;
+      }
+
+      element.setAttribute("form", this.ownedFormId);
+      this.managedFormAssociations.add(element);
+    }
+  }
+
   private syncSubmittingState(): void {
     if (!this.currentForm) {
       return;
@@ -461,7 +670,7 @@ export class CindorForm extends LitElement {
     if (this.submitting) {
       this.currentForm.setAttribute("aria-busy", "true");
 
-      for (const element of Array.from(this.currentForm.querySelectorAll("*"))) {
+      for (const element of this.getManagedElements()) {
         if (!this.isDisableCapableElement(element) || element.disabled) {
           continue;
         }
@@ -477,19 +686,31 @@ export class CindorForm extends LitElement {
     this.releaseManagedDisabledState();
   }
 
-  private get formElement(): HTMLFormElement | null {
-    const slot = this.renderRoot.querySelector("slot");
-    if (slot instanceof HTMLSlotElement) {
-      const assignedForm = slot.assignedElements({ flatten: true }).find((element): element is HTMLFormElement => element instanceof HTMLFormElement);
-      if (assignedForm) {
-        return assignedForm;
-      }
-    }
+  private get ownedFormElement(): HTMLFormElement | null {
+    return this.renderRoot.querySelector("form");
+  }
 
-    return this.querySelector("form");
+  private isManagedAssociationCandidate(element: HTMLElement): boolean {
+    return element.matches(nativeFormAssociatedSelector) || element.localName.includes("-");
   }
 
   private isDisableCapableElement(element: Element): element is DisableCapableElement {
     return element instanceof HTMLElement && "disabled" in element;
+  }
+
+  private isNativeFormActionHandled(element: HTMLElement): boolean {
+    if (element.localName === "cindor-button") {
+      return false;
+    }
+
+    if (this.legacyForm) {
+      return element.closest("form") === this.legacyForm;
+    }
+
+    return element.closest("form") === this.ownedFormElement;
+  }
+
+  private get isUsingOwnedForm(): boolean {
+    return this.legacyForm === null;
   }
 }

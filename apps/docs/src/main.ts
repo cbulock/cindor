@@ -334,18 +334,16 @@ const projectName = ref("Q2 launch");
   </CindorProvider>
 </template>`;
 const starterFormCompositionCode = `<cindor-provider theme="system">
-  <cindor-form description="Create a workspace with shared field layout.">
-    <form onsubmit="event.preventDefault()">
-      <cindor-form-row>
-        <cindor-form-field label="Project name" required>
-          <cindor-input name="projectName" required></cindor-input>
-        </cindor-form-field>
-        <cindor-form-field label="Owner email" required>
-          <cindor-email-input name="ownerEmail" required></cindor-email-input>
-        </cindor-form-field>
-      </cindor-form-row>
-      <cindor-button type="submit">Create project</cindor-button>
-    </form>
+  <cindor-form description="Create a workspace with shared field layout." onsubmit="event.preventDefault()">
+    <cindor-form-row>
+      <cindor-form-field label="Project name" required>
+        <cindor-input name="projectName" required></cindor-input>
+      </cindor-form-field>
+      <cindor-form-field label="Owner email" required>
+        <cindor-email-input name="ownerEmail" required></cindor-email-input>
+      </cindor-form-field>
+    </cindor-form-row>
+    <cindor-button type="submit">Create project</cindor-button>
   </cindor-form>
 </cindor-provider>`;
 
@@ -906,19 +904,17 @@ function renderDocsHome(activeSectionId: string): string {
               <strong>Form orchestration</strong>
               <cindor-badge>New surface</cindor-badge>
             </div>
-            <p class="muted">cindor-form adds validation summaries and submission state without replacing the native form element your app already uses.</p>
-            <cindor-form description="Try submitting with empty fields to see the orchestration layer wire into cindor-form-field messaging.">
-              <form onsubmit="event.preventDefault()">
-                <cindor-form-row>
-                  <cindor-form-field label="Workspace name" required>
-                    <cindor-input name="workspaceName" required></cindor-input>
-                  </cindor-form-field>
-                  <cindor-form-field label="Billing email" required>
-                    <cindor-email-input name="billingEmail" required></cindor-email-input>
-                  </cindor-form-field>
-                </cindor-form-row>
-                <cindor-button type="submit">Validate form</cindor-button>
-              </form>
+            <p class="muted">cindor-form owns submission, reset, and validation wiring so direct children behave like a real form surface.</p>
+            <cindor-form description="Try submitting with empty fields to see the orchestration layer wire into cindor-form-field messaging." onsubmit="event.preventDefault()">
+              <cindor-form-row>
+                <cindor-form-field label="Workspace name" required>
+                  <cindor-input name="workspaceName" required></cindor-input>
+                </cindor-form-field>
+                <cindor-form-field label="Billing email" required>
+                  <cindor-email-input name="billingEmail" required></cindor-email-input>
+                </cindor-form-field>
+              </cindor-form-row>
+              <cindor-button type="submit">Validate form</cindor-button>
             </cindor-form>
           </div>
         </div>
@@ -1772,18 +1768,16 @@ function getUsageCode(doc: ComponentDoc): string {
   builder.value = ${JSON.stringify(filterBuilderPreviewValue)};
 </script>`;
     case "form":
-      return `<cindor-form description="Create a workspace with shared field and validation wiring.">
-  <form onsubmit="event.preventDefault()">
-    <cindor-form-row>
-      <cindor-form-field label="Project name" required>
-        <cindor-input name="projectName" required></cindor-input>
-      </cindor-form-field>
-      <cindor-form-field label="Owner email" required>
-        <cindor-email-input name="ownerEmail" required></cindor-email-input>
-      </cindor-form-field>
-    </cindor-form-row>
-    <cindor-button type="submit">Create project</cindor-button>
-  </form>
+      return `<cindor-form description="Create a workspace with shared field and validation wiring." onsubmit="event.preventDefault()">
+  <cindor-form-row>
+    <cindor-form-field label="Project name" required>
+      <cindor-input name="projectName" required></cindor-input>
+    </cindor-form-field>
+    <cindor-form-field label="Owner email" required>
+      <cindor-email-input name="ownerEmail" required></cindor-email-input>
+    </cindor-form-field>
+  </cindor-form-row>
+  <cindor-button type="submit">Create project</cindor-button>
 </cindor-form>`;
     case "form-field":
       return `<cindor-form-field label="Project name" description="Shown to your teammates.">
@@ -2270,18 +2264,16 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
     case "error-text":
       return `<${componentName}>Please enter a valid email address.</${componentName}>`;
     case "form":
-      return `<${componentName} description="Create a workspace with shared field and validation wiring.">
-      <form>
-        <cindor-form-row>
-          <cindor-form-field label="Project name" required>
-            <cindor-input name="projectName" required />
-          </cindor-form-field>
-          <cindor-form-field label="Owner email" required>
-            <cindor-email-input name="ownerEmail" required />
-          </cindor-form-field>
-        </cindor-form-row>
-        <cindor-button type="submit">Create project</cindor-button>
-      </form>
+      return `<${componentName} description="Create a workspace with shared field and validation wiring." onsubmit="event.preventDefault()">
+      <cindor-form-row>
+        <cindor-form-field label="Project name" required>
+          <cindor-input name="projectName" required />
+        </cindor-form-field>
+        <cindor-form-field label="Owner email" required>
+          <cindor-email-input name="ownerEmail" required />
+        </cindor-form-field>
+      </cindor-form-row>
+      <cindor-button type="submit">Create project</cindor-button>
     </${componentName}>`;
     case "form-row":
       return `<${componentName}>
