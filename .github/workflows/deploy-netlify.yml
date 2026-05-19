@@ -49,16 +49,16 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID_LANDING: ${{ secrets.NETLIFY_SITE_ID_LANDING }}
-        run: npx netlify-cli deploy --filter cindor-ui-docs --dir=dist/netlify/landing --site="$NETLIFY_SITE_ID_LANDING" --auth="$NETLIFY_AUTH_TOKEN" --prod
+        run: npx netlify-cli deploy --filter cindor-ui-docs --dir=dist/netlify/landing --site="$NETLIFY_SITE_ID_LANDING" --auth="$NETLIFY_AUTH_TOKEN" --prod --no-build
 
       - name: Deploy docs.cindor.dev
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID_DOCS: ${{ secrets.NETLIFY_SITE_ID_DOCS }}
-        run: npx netlify-cli deploy --filter cindor-ui-docs --dir=dist/netlify/docs --site="$NETLIFY_SITE_ID_DOCS" --auth="$NETLIFY_AUTH_TOKEN" --prod
+        run: npx netlify-cli deploy --filter cindor-ui-docs --dir=dist/netlify/docs --site="$NETLIFY_SITE_ID_DOCS" --auth="$NETLIFY_AUTH_TOKEN" --prod --no-build
 
       - name: Deploy playground.cindor.dev
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID_PLAYGROUND: ${{ secrets.NETLIFY_SITE_ID_PLAYGROUND }}
-        run: npx netlify-cli deploy --filter cindor-ui-docs --dir=dist/netlify/playground --site="$NETLIFY_SITE_ID_PLAYGROUND" --auth="$NETLIFY_AUTH_TOKEN" --prod
+        run: npx netlify-cli deploy --filter cindor-ui-docs --dir=dist/netlify/playground --site="$NETLIFY_SITE_ID_PLAYGROUND" --auth="$NETLIFY_AUTH_TOKEN" --prod --no-build
