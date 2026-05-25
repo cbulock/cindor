@@ -680,7 +680,7 @@ function renderDocsHome(activeSectionId: string): string {
     </section>
 
     <div class="content-grid">
-      <cindor-tabs class="docs-home-tabs" id="docs-home-tabs" value="${activeSectionId}" aria-label="Documentation sections">
+      <cindor-tabs class="docs-home-tabs" id="docs-home-tabs" value="${escapeAttribute(activeSectionId)}" aria-label="Documentation sections">
       <section class="section" id="overview-panel" data-label="Overview" data-value="overview">
         <div class="section-heading">
           <h2>Overview</h2>
@@ -880,7 +880,7 @@ function renderDocsHome(activeSectionId: string): string {
                   </cindor-layout-header>
                   <cindor-layout-content>
                     <div class="callout">
-                      <cindor-alert id="pattern-alert" tone="${activeAlertTone}">
+                      <cindor-alert id="pattern-alert" tone="${escapeAttribute(activeAlertTone)}">
                         Compose higher-level patterns from reusable primitives instead of duplicating behavior in each component.
                       </cindor-alert>
                     </div>
@@ -1418,7 +1418,11 @@ function hydrateHomeExamples(): void {
     toneSelector.options = alertToneOptions;
     toneSelector.value = activeAlertTone;
     toneSelector.addEventListener("change", () => {
-      activeAlertTone = (toneSelector.value as AlertTone) || "info";
+      const nextTone = toneSelector.value;
+      activeAlertTone =
+        nextTone === "info" || nextTone === "success" || nextTone === "warning" || nextTone === "danger"
+          ? nextTone
+          : "info";
       render();
     });
   }
@@ -1437,7 +1441,11 @@ function hydrateHomeExamples(): void {
     layerFilter.options = catalogLayerFilterOptions;
     layerFilter.value = catalogLayer;
     layerFilter.addEventListener("change", () => {
-      catalogLayer = (layerFilter.value as ComponentLayerFilter) || "all";
+      const nextLayer = layerFilter.value;
+      catalogLayer =
+        nextLayer === "all" || nextLayer === "Primitive" || nextLayer === "Composite" || nextLayer === "Component"
+          ? nextLayer
+          : "all";
       render();
     });
   }
