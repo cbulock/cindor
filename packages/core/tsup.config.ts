@@ -13,7 +13,7 @@ export default defineConfig({
     register: join(srcRoot, "register.ts"),
     ...getComponentEntries(componentRoot)
   },
-  format: ["esm", "cjs"],
+  format: ["esm"],
   target: "es2022"
 });
 

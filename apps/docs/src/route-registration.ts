@@ -64,6 +64,10 @@ async function registerComponent(slug: string): Promise<void> {
     return;
   }
 
+  if (!/^[a-z][a-z0-9-]*$/.test(slug)) {
+    throw new Error(`Invalid component slug format: "${slug}".`);
+  }
+
   const modulePath = `../../../packages/core/src/components/${slug}/cindor-${slug}.ts`;
   const loadModule = componentModules[modulePath];
 
