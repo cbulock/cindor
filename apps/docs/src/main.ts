@@ -1447,7 +1447,7 @@ function hydrateHomeExamples(): void {
     layerFilter.addEventListener("change", () => {
       const nextLayer = layerFilter.value;
       catalogLayer =
-        nextLayer === "all" || nextLayer === "primitives" || nextLayer === "composites" || nextLayer === "workflows"
+        nextLayer === "all" || nextLayer === "Primitive" || nextLayer === "Composite" || nextLayer === "Component"
           ? nextLayer
           : "all";
       render();
