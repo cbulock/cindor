@@ -1,5 +1,6 @@
 import { css, html, nothing } from "lit";
 import { live } from "lit/directives/live.js";
+import Star from "lucide/dist/esm/icons/star.mjs";
 
 import { renderLucideIcon } from "../icon/lucide.js";
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
@@ -159,7 +160,7 @@ export class CindorRatingInput extends FormAssociatedElement {
               />
               <span class="star" part=${checked ? "star star-filled" : "star"} data-disabled=${String(this.disabled)} data-filled=${String(ratingValue <= this.value)}>
                 ${renderLucideIcon({
-                  name: "star",
+                  iconNode: Star,
                   size: 18,
                   attributes: {
                     part: "star-icon",

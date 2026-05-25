@@ -1,7 +1,5 @@
-import "cindor-ui-core/register";
 import "cindor-ui-core/styles.css";
 import "./app.css";
-import componentDocsData from "../../../packages/core/component-docs.json";
 
 import type { CommandPaletteCommand, FilterBuilderField, SegmentedControlOption, StepperStep } from "cindor-ui-core";
 
@@ -13,6 +11,12 @@ import {
   type ComponentDoc,
   type ComponentLayerFilter
 } from "./catalog.js";
+import {
+  ensureComponentPreviewRegistered,
+  ensureDocsRouteRegistered,
+  isComponentPreviewRegistered,
+  isDocsRouteRegistered
+} from "./route-registration.js";
 
 type AlertTone = "info" | "success" | "warning" | "danger";
 
@@ -79,6 +83,11 @@ type ComponentApiSurface = {
   intro: string;
 };
 
+type ComponentApiResult = {
+  loading: boolean;
+  surface: ComponentApiSurface;
+};
+
 type ApiItemOptions = Omit<ApiItem, "detail" | "name">;
 
 type GeneratedComponentProperty = {
@@ -130,13 +139,6 @@ type GeneratedComponentDocs = {
   components: GeneratedComponentDoc[];
 };
 
-type StoryModule = Record<string, unknown> & {
-  __namedExportsOrder?: string[];
-  default?: {
-    title?: string;
-  };
-};
-
 type DocsSiteMode = "docs" | "landing";
 
 const sections: DocsSection[] = [
@@ -169,24 +171,11 @@ const configuredDocsSiteUrl = normalizeSiteUrl(import.meta.env.VITE_DOCS_SITE_UR
 const docsEntryUrl = siteMode === "landing" ? configuredDocsSiteUrl ?? "#docs/overview" : "#docs/overview";
 const landingSiteUrl = siteMode === "docs" ? primarySiteUrl : "#";
 const storybookUrl = normalizeSiteUrl(import.meta.env.VITE_PLAYGROUND_URL) ?? new URL("storybook/", document.baseURI).toString();
-const storyModules = import.meta.glob("../../../packages/core/src/components/**/*.stories.ts", { eager: true }) as Record<string, StoryModule>;
 const componentPlaygroundUrls = new Map(
-  Object.entries(storyModules)
-    .map(([path, module]) => {
-      const match = /components\/([^/]+)\/[^/]+\.stories\.ts$/u.exec(path.replaceAll("\\", "/"));
-      const title = module.default?.title;
-      const storyExportName = getPrimaryStoryExportName(module);
-
-      if (!match || !title || !storyExportName) {
-        return null;
-      }
-
-      const slug = match[1];
-      const storyId = `${toStorybookId(title)}--${toStorybookId(storyExportName)}`;
-
-      return [slug, new URL(`?path=/story/${storyId}`, storybookUrl).toString()] as const;
-    })
-    .filter((entry): entry is readonly [string, string] => Boolean(entry))
+  componentCatalog.map((component) => [
+    component.slug,
+    new URL(`?path=/story/components-${toStorybookId(component.title)}--default`, storybookUrl).toString()
+  ] as const)
 );
 
 const setupSteps: StepperStep[] = [
@@ -430,8 +419,8 @@ const filterBuilderPreviewValue = JSON.stringify({
   type: "group"
 });
 
-const generatedComponentDocs = componentDocsData as GeneratedComponentDocs;
-const componentDocsByTag = new Map(generatedComponentDocs.components.map((component) => [component.tagName, component] as const));
+let componentDocsByTag: Map<string, GeneratedComponentDoc> | null = null;
+let componentDocsLoadPromise: Promise<void> | null = null;
 
 const rootElement = document.querySelector<HTMLDivElement>("#app");
 
@@ -473,11 +462,27 @@ function render(): void {
   document.body.classList.remove("nav-open");
 
   const route = getRoute();
+  const docsRouteReady = route.kind === "landing" ? true : isDocsRouteRegistered();
+  const componentPreviewReady = route.kind === "component" ? isComponentPreviewRegistered(route.slug) : true;
+
+  if (!docsRouteReady) {
+    void ensureDocsRouteRegistration(route);
+  }
+
+  if (route.kind === "component" && !componentPreviewReady) {
+    void ensureComponentPreviewRegistration(route.slug);
+  }
+
+  if (route.kind === "component" && !componentDocsByTag) {
+    void ensureComponentDocsLoaded(route.slug);
+  }
   if (route.kind === "landing") {
     root.innerHTML = renderLandingShell();
   } else {
     const activeSectionId = route.kind === "component" ? "components" : route.sectionId;
-    const content = route.kind === "component" ? renderComponentDetail(route.slug) : renderDocsHome(route.sectionId);
+    const content = route.kind === "component"
+      ? renderComponentDetail(route.slug, componentPreviewReady)
+      : renderDocsHome(route.sectionId);
 
     root.innerHTML = `
       <div class="app-shell">
@@ -506,7 +511,7 @@ function render(): void {
   }
 
   wireNavigation();
-  hydrateLivingExamples(route);
+  hydrateLivingExamples(route, { componentPreviewReady, docsRouteReady });
   syncRouteScroll(route);
 }
 
@@ -985,7 +990,7 @@ function renderCatalogCard(doc: ComponentDoc): string {
   `;
 }
 
-function renderComponentDetail(slug: string): string {
+function renderComponentDetail(slug: string, componentPreviewReady: boolean): string {
   const doc = getComponentDoc(slug);
   if (!doc) {
     return `
@@ -1066,19 +1071,33 @@ function renderComponentDetail(slug: string): string {
             <p>${getPreviewDescription(doc)}</p>
           </div>
 
-          ${renderComponentPreview(doc)}
+          ${renderComponentPreview(doc, componentPreviewReady)}
         </section>
       </div>
 
       <section class="section">
         <div class="section-heading">
           <h2>API surface</h2>
-          <p>${api.intro} Types, defaults, and allowed values are included where the public contract defines them.</p>
+          <p>${api.surface.intro} Types, defaults, and allowed values are included where the public contract defines them.</p>
         </div>
 
-        <div class="api-reference">
-          ${api.groups.map((group) => renderApiGroup(group)).join("")}
-        </div>
+        ${
+          api.loading
+            ? `
+              <div class="api-loading-state" role="status" aria-live="polite">
+                <cindor-spinner aria-hidden="true"></cindor-spinner>
+                <div class="api-loading-copy">
+                  <strong>Loading generated API metadata</strong>
+                  <p class="muted">The reference for ${doc.tag} is being loaded on demand so component routes do not pay that cost up front.</p>
+                </div>
+              </div>
+            `
+            : `
+              <div class="api-reference">
+                ${api.surface.groups.map((group) => renderApiGroup(group)).join("")}
+              </div>
+            `
+        }
       </section>
 
       ${
@@ -1111,13 +1130,25 @@ function renderFactCard(label: string, value: string): string {
   `;
 }
 
-function renderComponentPreview(doc: ComponentDoc): string {
+function renderComponentPreview(doc: ComponentDoc, componentPreviewReady: boolean): string {
   const previewMarkup = getPreviewMarkup(doc);
   if (!previewMarkup) {
     return `
       <cindor-alert tone="info">
         ${getPreviewFallbackText(doc)}
       </cindor-alert>
+    `;
+  }
+
+  if (!componentPreviewReady) {
+    return `
+      <div class="api-loading-state" role="status" aria-live="polite">
+        <cindor-spinner aria-hidden="true"></cindor-spinner>
+        <div class="api-loading-copy">
+          <strong>Loading live preview</strong>
+          <p class="muted">This component preview is registered on demand so the docs shell does not eagerly load the full component surface.</p>
+        </div>
+      </div>
     `;
   }
 
@@ -1217,21 +1248,6 @@ function getComponentPlaygroundUrl(slug: string): string {
   return componentPlaygroundUrls.get(slug) ?? storybookUrl;
 }
 
-function getPrimaryStoryExportName(module: StoryModule): string | null {
-  if ("Default" in module) {
-    return "Default";
-  }
-
-  if (Array.isArray(module.__namedExportsOrder)) {
-    const namedExport = module.__namedExportsOrder.find((key) => key !== "default");
-    if (namedExport) {
-      return namedExport;
-    }
-  }
-
-  return Object.keys(module).find((key) => key !== "default" && key !== "__esModule" && !key.startsWith("__")) ?? null;
-}
-
 function toStorybookId(value: string): string {
   return value
     .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
@@ -1320,7 +1336,11 @@ function wireNavigation(): void {
   }
 }
 
-function hydrateLivingExamples(route: Route): void {
+function hydrateLivingExamples(route: Route, readiness: { componentPreviewReady: boolean; docsRouteReady: boolean }): void {
+  if (!readiness.docsRouteReady) {
+    return;
+  }
+
   hydrateGlobalPalette();
 
   if (route.kind === "docs") {
@@ -1329,6 +1349,10 @@ function hydrateLivingExamples(route: Route): void {
   }
 
   if (route.kind === "landing") {
+    return;
+  }
+
+  if (!readiness.componentPreviewReady) {
     return;
   }
 
@@ -1568,6 +1592,43 @@ function getFilteredComponents(): ComponentDoc[] {
 
     return haystack.includes(normalizedQuery);
   });
+}
+
+async function ensureDocsRouteRegistration(route: Route): Promise<void> {
+  await ensureDocsRouteRegistered();
+
+  if (routesMatch(route, getRoute())) {
+    render();
+  }
+}
+
+async function ensureComponentPreviewRegistration(slug: string): Promise<void> {
+  await ensureComponentPreviewRegistered(slug);
+
+  const currentRoute = getRoute();
+  if (currentRoute.kind === "component" && currentRoute.slug === slug) {
+    render();
+  }
+}
+
+function routesMatch(left: Route, right: Route): boolean {
+  if (left.kind !== right.kind) {
+    return false;
+  }
+
+  if (left.kind === "landing" && right.kind === "landing") {
+    return true;
+  }
+
+  if (left.kind === "docs" && right.kind === "docs") {
+    return left.sectionId === right.sectionId;
+  }
+
+  if (left.kind === "component" && right.kind === "component") {
+    return left.slug === right.slug;
+  }
+
+  return false;
 }
 
 function groupComponentsByCategory(components: ComponentDoc[]): Map<ComponentCategory, ComponentDoc[]> {
@@ -2898,11 +2959,28 @@ function getPreviewFallbackText(doc: ComponentDoc): string {
   }
 }
 
-function getComponentApi(doc: ComponentDoc): ComponentApiSurface {
-  return getGeneratedComponentApi(doc) ?? getLegacyComponentApi(doc);
+function getComponentApi(doc: ComponentDoc): ComponentApiResult {
+  if (!componentDocsByTag) {
+    return {
+      loading: true,
+      surface: {
+        groups: [],
+        intro: "Generated API metadata loads when the component route is opened."
+      }
+    };
+  }
+
+  return {
+    loading: false,
+    surface: getGeneratedComponentApi(doc) ?? getLegacyComponentApi(doc)
+  };
 }
 
 function getGeneratedComponentApi(doc: ComponentDoc): ComponentApiSurface | null {
+  if (!componentDocsByTag) {
+    return null;
+  }
+
   const component = componentDocsByTag.get(doc.tag);
   if (!component) {
     return null;
@@ -2936,6 +3014,23 @@ function getGeneratedComponentApi(doc: ComponentDoc): ComponentApiSurface | null
       component.description ||
       `${doc.tag} API details are generated from the core component source so the docs stay aligned with the actual custom element contract.`
   };
+}
+
+async function ensureComponentDocsLoaded(expectedSlug?: string): Promise<void> {
+  if (!componentDocsLoadPromise) {
+    componentDocsLoadPromise = import("../../../packages/core/component-docs.json")
+      .then((module) => {
+        const generatedComponentDocs = module.default as GeneratedComponentDocs;
+        componentDocsByTag = new Map(generatedComponentDocs.components.map((component) => [component.tagName, component] as const));
+      });
+  }
+
+  await componentDocsLoadPromise;
+
+  const currentRoute = getRoute();
+  if (currentRoute.kind === "component" && (!expectedSlug || currentRoute.slug === expectedSlug)) {
+    render();
+  }
 }
 
 function generatedEventToApiItem(event: GeneratedComponentEvent): ApiItem {

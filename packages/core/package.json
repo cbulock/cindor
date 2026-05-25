@@ -50,12 +50,17 @@
       "import": "./dist/register.js",
       "require": "./dist/register.cjs"
     },
+    "./components/*": {
+      "types": "./dist/components/*.d.ts",
+      "import": "./dist/components/*.js",
+      "require": "./dist/components/*.cjs"
+    },
     "./styles.css": "./src/styles.css",
     "./custom-elements.json": "./custom-elements.json",
     "./component-docs.json": "./component-docs.json"
   },
   "scripts": {
-    "build": "tsup src/index.ts src/register.ts --format esm,cjs --dts"
+    "build": "tsup --config tsup.config.ts && tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.7.6",

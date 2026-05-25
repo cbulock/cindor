@@ -1,6 +1,7 @@
 import { css, html } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { live } from "lit/directives/live.js";
+import ChevronDown from "lucide/dist/esm/icons/chevron-down.mjs";
 
 import { renderLucideIcon } from "../icon/lucide.js";
 import { CindorOption } from "../option/cindor-option.js";
@@ -120,7 +121,7 @@ export class CindorSelect extends FormAssociatedElement {
         </select>
         <span class="icon" part="icon" aria-hidden="true">
           ${renderLucideIcon({
-            name: "chevron-down",
+            iconNode: ChevronDown,
             size: 16,
             attributes: {
               class: "select-icon"

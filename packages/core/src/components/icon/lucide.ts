@@ -1,6 +1,5 @@
 import { html, nothing } from "lit";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
-import * as Lucide from "lucide";
 
 import type { IconNode } from "lucide";
 
@@ -8,37 +7,26 @@ type SvgAttributeValue = boolean | number | string | undefined;
 type IconAttributes = Record<string, SvgAttributeValue>;
 type LucideIconNode = IconNode;
 
-export const lucideIcons = Object.freeze(
-  Object.entries(Lucide).reduce<Record<string, LucideIconNode>>((icons, [exportName, value]) => {
-    if (isLucideIconNode(value)) {
-      icons[normalizeIconName(exportName)] = value;
-    }
+const lucideIconCache = new Map<string, LucideIconNode | null>();
+const lucideIconRequestCache = new Map<string, Promise<LucideIconNode | null>>();
 
-    return icons;
-  }, {})
-);
-
-export const lucideIconNames = Object.freeze(Object.keys(lucideIcons));
-
-export type LucideIconName = keyof typeof lucideIcons;
+export type LucideIconName = string;
 
 export type RenderLucideIconOptions = {
   attributes?: Record<string, SvgAttributeValue>;
+  iconNode: LucideIconNode | null;
   label?: string;
-  name: LucideIconName | string;
   size?: number;
   strokeWidth?: number;
 };
 
 export function renderLucideIcon({
   attributes = {},
+  iconNode,
   label = "",
-  name,
   size = 24,
   strokeWidth = 2.25
 }: RenderLucideIconOptions) {
-  const iconNode = lucideIcons[normalizeIconName(name)];
-
   if (!iconNode) {
     return nothing;
   }
@@ -77,6 +65,40 @@ export function renderLucideIcon({
   )}`;
 }
 
+export async function loadLucideIcon(name: LucideIconName | string): Promise<LucideIconNode | null> {
+  const normalizedName = normalizeIconName(name);
+
+  if (!normalizedName) {
+    return null;
+  }
+
+  const cachedIcon = lucideIconCache.get(normalizedName);
+  if (cachedIcon !== undefined) {
+    return cachedIcon;
+  }
+
+  const pendingRequest = lucideIconRequestCache.get(normalizedName);
+  if (pendingRequest) {
+    return pendingRequest;
+  }
+
+  const request = import(`lucide/dist/esm/icons/${normalizedName}.mjs`)
+    .then((module) => {
+      const iconNode = isLucideIconNode(module.default) ? module.default : null;
+      lucideIconCache.set(normalizedName, iconNode);
+      lucideIconRequestCache.delete(normalizedName);
+      return iconNode;
+    })
+    .catch(() => {
+      lucideIconCache.set(normalizedName, null);
+      lucideIconRequestCache.delete(normalizedName);
+      return null;
+    });
+
+  lucideIconRequestCache.set(normalizedName, request);
+  return request;
+}
+
 function escapeAttribute(value: string): string {
   return value
     .replaceAll("&", "&amp;")
@@ -85,7 +107,7 @@ function escapeAttribute(value: string): string {
     .replaceAll(">", "&gt;");
 }
 
-function normalizeIconName(name: string): string {
+export function normalizeIconName(name: string): string {
   return name
     .trim()
     .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
