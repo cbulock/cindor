@@ -17,6 +17,7 @@
     "paths": {
       "cindor-ui-core": ["packages/core/src/index.ts"],
       "cindor-ui-core/register": ["packages/core/src/register.ts"],
+      "cindor-ui-core/components/*": ["packages/core/src/components/*"],
       "cindor-ui-react": ["packages/react/src/index.tsx"],
       "cindor-ui-vue": ["packages/vue/src/index.ts"]
     }

@@ -1,4 +1,6 @@
 import { css, html, LitElement } from "lit";
+import ChevronLeft from "lucide/dist/esm/icons/chevron-left.mjs";
+import ChevronRight from "lucide/dist/esm/icons/chevron-right.mjs";
 
 import { renderLucideIcon } from "../icon/lucide.js";
 import { getPaginationItems, type PaginationItem } from "../shared/pagination-items.js";
@@ -105,7 +107,7 @@ export class CindorPagination extends LitElement {
               @click=${this.goToPreviousPage}
             >
               ${renderLucideIcon({
-                name: "chevron-left",
+                iconNode: ChevronLeft,
                 size: 16,
                 attributes: {
                   class: "nav-icon",
@@ -147,7 +149,7 @@ export class CindorPagination extends LitElement {
               @click=${this.goToNextPage}
             >
               ${renderLucideIcon({
-                name: "chevron-right",
+                iconNode: ChevronRight,
                 size: 16,
                 attributes: {
                   class: "nav-icon",
