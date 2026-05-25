@@ -3568,6 +3568,15 @@
       "modulePath": "packages/core/src/components/link/cindor-link.ts",
       "properties": [
         {
+          "attributeName": null,
+          "defaultValue": "{ ...LitElement.shadowRootOptions, delegatesFocus: true }",
+          "description": "",
+          "name": "shadowRootOptions",
+          "reflects": false,
+          "type": "object",
+          "values": null
+        },
+        {
           "attributeName": "download",
           "defaultValue": "\"\"",
           "description": "",

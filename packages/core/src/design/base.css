@@ -154,13 +154,17 @@ code {
 
 a {
   color: var(--accent);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--duration-base) var(--ease-out);
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+  transition:
+    color var(--duration-base) var(--ease-out),
+    text-decoration-color var(--duration-base) var(--ease-out);
 }
 
 a:hover {
-  border-bottom-color: var(--accent);
+  text-decoration-color: currentColor;
 }
 
 *,
