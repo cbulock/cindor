@@ -10,6 +10,7 @@ const registeredComponentSlugs = new Set<string>();
 const previewRegisteredSlugs = new Set<string>();
 const componentRegistrationPromises = new Map<string, Promise<void>>();
 let docsRouteRegistrationPromise: Promise<void> | null = null;
+const componentSlugPattern = /^[a-z][a-z0-9-]*$/u;
 
 export function isDocsRouteRegistered(): boolean {
   return docsRouteRegistrationPromise !== null && docsRouteComponentSlugs.every((slug) => registeredComponentSlugs.has(slug));
@@ -24,7 +25,12 @@ export async function ensureDocsRouteRegistered(): Promise<void> {
     return;
   }
 
-  docsRouteRegistrationPromise ??= Promise.all(docsRouteComponentSlugs.map((slug) => ensureComponentRegistered(slug))).then(() => undefined);
+  docsRouteRegistrationPromise ??= Promise.all(docsRouteComponentSlugs.map((slug) => ensureComponentRegistered(slug)))
+    .then(() => undefined)
+    .catch((error) => {
+      docsRouteRegistrationPromise = null;
+      throw error;
+    });
   await docsRouteRegistrationPromise;
 }
 
@@ -50,15 +56,24 @@ function ensureComponentRegistered(slug: string): Promise<void> {
     return existingPromise;
   }
 
-  const registrationPromise = registerComponent(slug).then(() => {
-    registeredComponentSlugs.add(slug);
-  });
+  const registrationPromise = registerComponent(slug)
+    .then(() => {
+      registeredComponentSlugs.add(slug);
+    })
+    .catch((error) => {
+      componentRegistrationPromises.delete(slug);
+      throw error;
+    });
 
   componentRegistrationPromises.set(slug, registrationPromise);
   return registrationPromise;
 }
 
 async function registerComponent(slug: string): Promise<void> {
+  if (!componentSlugPattern.test(slug)) {
+    throw new Error(`Invalid component slug "${slug}".`);
+  }
+
   const tagName = `cindor-${slug}`;
   if (customElements.get(tagName)) {
     return;

@@ -171,11 +171,24 @@ const configuredDocsSiteUrl = normalizeSiteUrl(import.meta.env.VITE_DOCS_SITE_UR
 const docsEntryUrl = siteMode === "landing" ? configuredDocsSiteUrl ?? "#docs/overview" : "#docs/overview";
 const landingSiteUrl = siteMode === "docs" ? primarySiteUrl : "#";
 const storybookUrl = normalizeSiteUrl(import.meta.env.VITE_PLAYGROUND_URL) ?? new URL("storybook/", document.baseURI).toString();
+const storySourceModules = import.meta.glob<string>("../../../packages/core/src/components/*/*.stories.ts", {
+  eager: true,
+  import: "default",
+  query: "?raw"
+});
 const componentPlaygroundUrls = new Map(
-  componentCatalog.map((component) => [
-    component.slug,
-    new URL(`?path=/story/components-${toStorybookId(component.title)}--default`, storybookUrl).toString()
-  ] as const)
+  Object.entries(storySourceModules)
+    .map(([path, source]) => {
+      const match = /components\/([^/]+)\/[^/]+\.stories\.ts$/u.exec(path.replaceAll("\\", "/"));
+      const title = /title:\s*["']([^"'`]+)["']/u.exec(source)?.[1];
+
+      if (!match || !title) {
+        return null;
+      }
+
+      return [match[1], new URL(`?path=/story/${toStorybookId(title)}--default`, storybookUrl).toString()] as const;
+    })
+    .filter((entry): entry is readonly [string, string] => Boolean(entry))
 );
 
 const setupSteps: StepperStep[] = [
