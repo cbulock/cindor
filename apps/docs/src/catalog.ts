@@ -109,7 +109,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("radio", "Radio", "Primitive", "Forms", "input type=radio", "Single-choice radio control with shared labeling support."),
   defineComponent("range", "Range", "Primitive", "Forms", "input type=range", "Native slider wrapped in the Cindor form model."),
   defineComponent("rating-input", "Rating Input", "Composite", "Forms", "radio-backed rating", "Multi-step rating control built from native selection mechanics."),
-  defineComponent("search", "Search", "Primitive", "Forms", "input type=search", "Search field with a built-in leading icon affordance."),
+  defineComponent("search", "Search", "Primitive", "Forms", "input type=search", "Search field with a built-in trailing icon affordance."),
   defineComponent("segmented-control", "Segmented Control", "Composite", "Selection", "radio-backed grouped choices", "Single-selection segmented choices using native radio inputs."),
   defineComponent("select", "Select", "Primitive", "Forms", "select", "Styled native select wrapper that preserves platform behavior."),
   defineComponent("skeleton", "Skeleton", "Primitive", "Display", "placeholder block", "Loading placeholder for deferred content."),

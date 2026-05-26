@@ -1,6 +1,7 @@
 import { html, nothing } from "lit";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 
+import * as lucideIcons from "lucide";
 import type { IconNode } from "lucide";
 
 type SvgAttributeValue = boolean | number | string | undefined;
@@ -8,7 +9,6 @@ type IconAttributes = Record<string, SvgAttributeValue>;
 type LucideIconNode = IconNode;
 
 const lucideIconCache = new Map<string, LucideIconNode | null>();
-const lucideIconRequestCache = new Map<string, Promise<LucideIconNode | null>>();
 
 export type LucideIconName = string;
 
@@ -77,26 +77,9 @@ export async function loadLucideIcon(name: LucideIconName | string): Promise<Luc
     return cachedIcon;
   }
 
-  const pendingRequest = lucideIconRequestCache.get(normalizedName);
-  if (pendingRequest) {
-    return pendingRequest;
-  }
-
-  const request = import(`lucide/dist/esm/icons/${normalizedName}.mjs`)
-    .then((module) => {
-      const iconNode = isLucideIconNode(module.default) ? module.default : null;
-      lucideIconCache.set(normalizedName, iconNode);
-      lucideIconRequestCache.delete(normalizedName);
-      return iconNode;
-    })
-    .catch(() => {
-      lucideIconCache.set(normalizedName, null);
-      lucideIconRequestCache.delete(normalizedName);
-      return null;
-    });
-
-  lucideIconRequestCache.set(normalizedName, request);
-  return request;
+  const iconNode = readLucideIcon(normalizedName);
+  lucideIconCache.set(normalizedName, iconNode);
+  return iconNode;
 }
 
 function escapeAttribute(value: string): string {
@@ -114,6 +97,17 @@ export function normalizeIconName(name: string): string {
     .replace(/[\s_]+/g, "-")
     .replace(/-+/g, "-")
     .toLowerCase();
+}
+
+function readLucideIcon(normalizedName: string): LucideIconNode | null {
+  const exportName = normalizedName
+    .split("-")
+    .filter((part) => part.length > 0)
+    .map((part) => `${part[0].toUpperCase()}${part.slice(1)}`)
+    .join("");
+
+  const iconNode = lucideIcons[exportName as keyof typeof lucideIcons];
+  return isLucideIconNode(iconNode) ? iconNode : null;
 }
 
 function isLucideIconNode(value: unknown): value is LucideIconNode {

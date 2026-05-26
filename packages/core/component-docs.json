@@ -2811,7 +2811,7 @@
     },
     {
       "className": "CindorFilterBuilder",
-      "description": "Rule and group based filtering UI built from Cindor field, button, and fieldset primitives.\n\nThe serialized `value` property stores the current filter group as JSON.",
+      "description": "Rule and group based filtering UI built from Cindor field, button, and fieldset primitives.\r\n\r\nThe serialized `value` property stores the current filter group as JSON.",
       "modulePath": "packages/core/src/components/filter-builder/cindor-filter-builder.ts",
       "properties": [
         {
@@ -4701,7 +4701,7 @@
     },
     {
       "className": "CindorProvider",
-      "description": "Lightweight theme scope for Cindor tokens and descendant components.\n\n`theme` controls color mode (`inherit`, `system`, `light`, `dark`) and\n`themeFamily` controls the visual family (`inherit`, `default`, `retro`).\nThe provider resolves those inputs to the shared root-level `data-theme`\nvalues and mirrors the resolved color mode to CSS `color-scheme` for native\nbrowser surfaces inside the scope.",
+      "description": "Lightweight theme scope for Cindor tokens and descendant components.\r\n\r\n`theme` controls color mode (`inherit`, `system`, `light`, `dark`) and\r\n`themeFamily` controls the visual family (`inherit`, `default`, `retro`).\r\nThe provider resolves those inputs to the shared root-level `data-theme`\r\nvalues and mirrors the resolved color mode to CSS `color-scheme` for native\r\nbrowser surfaces inside the scope.",
       "modulePath": "packages/core/src/components/provider/cindor-provider.ts",
       "properties": [
         {
@@ -5117,10 +5117,10 @@
       "modulePath": "packages/core/src/components/search/cindor-search.ts",
       "properties": [
         {
-          "attributeName": "start-icon",
+          "attributeName": "end-icon",
           "defaultValue": "\"search\"",
           "description": "",
-          "name": "startIcon",
+          "name": "endIcon",
           "reflects": true,
           "type": "string",
           "values": null
@@ -5141,15 +5141,6 @@
           "name": "disabled",
           "reflects": true,
           "type": "boolean",
-          "values": null
-        },
-        {
-          "attributeName": "end-icon",
-          "defaultValue": "\"\"",
-          "description": "",
-          "name": "endIcon",
-          "reflects": true,
-          "type": "string",
           "values": null
         },
         {
@@ -5204,6 +5195,15 @@
           "name": "required",
           "reflects": true,
           "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "start-icon",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "startIcon",
+          "reflects": true,
+          "type": "string",
           "values": null
         },
         {
@@ -5472,7 +5472,7 @@
     },
     {
       "className": "CindorSideNav",
-      "description": "Keyboard-accessible side navigation landmark with nested sections.\n\nUse direct child `cindor-side-nav-item` elements, optionally nesting them to\ncreate collapsible sections.",
+      "description": "Keyboard-accessible side navigation landmark with nested sections.\r\n\r\nUse direct child `cindor-side-nav-item` elements, optionally nesting them to\r\ncreate collapsible sections.",
       "modulePath": "packages/core/src/components/side-nav/cindor-side-nav.ts",
       "properties": [],
       "methods": [],
@@ -7012,7 +7012,7 @@
     },
     {
       "className": "CindorTransferList",
-      "description": "Dual-list selector built from Cindor field and action primitives around native multi-select lists.\n\nUse light-DOM `option` or `cindor-option` children as the source option set.",
+      "description": "Dual-list selector built from Cindor field and action primitives around native multi-select lists.\r\n\r\nUse light-DOM `option` or `cindor-option` children as the source option set.",
       "modulePath": "packages/core/src/components/transfer-list/cindor-transfer-list.ts",
       "properties": [
         {
@@ -7258,7 +7258,7 @@
     },
     {
       "className": "CindorTreeView",
-      "description": "Keyboard-accessible single-selection tree view.\n\nUse nested `cindor-tree-item` elements to create branches and leaves.",
+      "description": "Keyboard-accessible single-selection tree view.\r\n\r\nUse nested `cindor-tree-item` elements to create branches and leaves.",
       "modulePath": "packages/core/src/components/tree-view/cindor-tree-view.ts",
       "properties": [
         {
