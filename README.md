@@ -304,6 +304,8 @@ This writes:
 - `dist/netlify/docs`
 - `dist/netlify/playground`
 
+The docs build now emits Netlify redirects for path-based docs routes so deep links such as `/overview` and `/components/button` resolve back to the SPA entry point on `docs.cindor.dev`.
+
 The GitHub Actions deployment expects these repository secrets:
 
 - `NETLIFY_AUTH_TOKEN`

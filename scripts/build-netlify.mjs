@@ -1,4 +1,4 @@
-import { mkdirSync, rmSync } from "node:fs";
+import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import process from "node:process";
@@ -69,11 +69,25 @@ for (const requestedTarget of requestedTargets) {
       VITE_SITE_MODE: configuration.siteMode
     }
   );
+
+  writeNetlifyRedirects(requestedTarget, configuration.outDir);
 }
 
 function resetOutputDirectory(path) {
   rmSync(path, { force: true, recursive: true });
   mkdirSync(path, { recursive: true });
+}
+
+function writeNetlifyRedirects(requestedTarget, outDir) {
+  if (requestedTarget !== "docs") {
+    return;
+  }
+
+  writeFileSync(
+    join(outDir, "_redirects"),
+    ["/ /overview 302", "/* /index.html 200"].join("\n"),
+    "utf8"
+  );
 }
 
 function runCommand(command, args, env = process.env) {

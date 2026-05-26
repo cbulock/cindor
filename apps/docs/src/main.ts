@@ -140,6 +140,12 @@ type GeneratedComponentDocs = {
 };
 
 type DocsSiteMode = "docs" | "landing";
+type PageMetadata = {
+  canonicalUrl: string;
+  description: string;
+  robots: string;
+  title: string;
+};
 
 const sections: DocsSection[] = [
   {
@@ -165,11 +171,20 @@ const sections: DocsSection[] = [
 ];
 const docsSectionIds = new Set(sections.map((section) => section.id));
 const GITHUB_REPO_URL = "https://github.com/cbulock/cindor";
+const SITE_NAME = "Cindor UI";
+const DOCS_SITE_NAME = "Cindor UI Docs";
+const DEFAULT_ROBOTS_CONTENT = "index,follow";
+const DEFAULT_DOCS_DESCRIPTION =
+  "Cindor UI documentation for standards-based web components, component APIs, usage examples, and thin React and Vue wrappers.";
+const DEFAULT_LANDING_DESCRIPTION =
+  "Cindor UI is a design-forward web component library with standards-based primitives, complete documentation, and thin React and Vue wrappers.";
 const siteMode: DocsSiteMode = import.meta.env.VITE_SITE_MODE === "docs" ? "docs" : "landing";
+const appBasePath = normalizeAppBasePath(import.meta.env.BASE_URL);
 const primarySiteUrl = normalizeSiteUrl(import.meta.env.VITE_PRIMARY_SITE_URL) ?? new URL("/", document.baseURI).toString();
 const configuredDocsSiteUrl = normalizeSiteUrl(import.meta.env.VITE_DOCS_SITE_URL);
-const docsEntryUrl = siteMode === "landing" ? configuredDocsSiteUrl ?? "#docs/overview" : "#docs/overview";
-const landingSiteUrl = siteMode === "docs" ? primarySiteUrl : "#";
+const docsSiteUrl = configuredDocsSiteUrl ?? new URL("./", document.baseURI).toString();
+const docsEntryUrl = siteMode === "landing" ? getDocsSectionUrl("overview") : getDocsSectionHref("overview");
+const landingSiteUrl = siteMode === "docs" ? primarySiteUrl : toAppHref("/");
 const storybookUrl = normalizeSiteUrl(import.meta.env.VITE_PLAYGROUND_URL) ?? new URL("storybook/", document.baseURI).toString();
 const storySourceModules = import.meta.glob<string>("../../../packages/core/src/components/*/*.stories.ts", {
   eager: true,
@@ -449,9 +464,11 @@ let catalogLayer: ComponentLayerFilter = "all";
 
 const mobileMediaQuery = window.matchMedia("(max-width: 960px)");
 
+history.scrollRestoration = "manual";
+
 render();
 
-window.addEventListener("hashchange", () => {
+window.addEventListener("popstate", () => {
   render();
 });
 
@@ -489,6 +506,8 @@ function render(): void {
   if (route.kind === "component" && !componentDocsByTag) {
     void ensureComponentDocsLoaded(route.slug);
   }
+  syncCanonicalRoute(route);
+  syncPageMetadata(route);
   if (route.kind === "landing") {
     root.innerHTML = renderLandingShell();
   } else {
@@ -572,7 +591,7 @@ function renderSidebar(activeSectionId: string, route: Route): string {
       ${sections
         .map(
           (section) => `
-            <a class="nav-link" data-active="${String(section.id === activeSectionId)}" href="#docs/${section.id}">
+            <a class="nav-link" data-active="${String(section.id === activeSectionId)}" href="${getDocsSectionHref(section.id)}">
               <span class="nav-title">${section.title}</span>
               <span class="nav-summary">${section.summary}</span>
             </a>
@@ -595,7 +614,7 @@ function renderSidebar(activeSectionId: string, route: Route): string {
         ? `
           <div class="sidebar-current">
             <div class="sidebar-section-label">Current component</div>
-            <a class="nav-link" data-active="true" href="#components/${currentComponent.slug}">
+            <a class="nav-link" data-active="true" href="${getComponentHref(currentComponent.slug)}">
               <span class="nav-title">${currentComponent.title}</span>
               <span class="nav-summary">${currentComponent.summary}</span>
             </a>
@@ -659,8 +678,8 @@ function renderDocsHome(activeSectionId: string): string {
     <section class="hero" id="overview">
       <div class="hero-copy">
         <cindor-breadcrumbs>
-          <a href="#">Cindor UI</a>
-          <a href="#docs/getting-started">Documentation</a>
+          <a href="${landingSiteUrl}">Cindor UI</a>
+          <a href="${getDocsSectionHref("overview")}">Documentation</a>
         </cindor-breadcrumbs>
         <h1 class="hero-title">Cindor UI technical reference.</h1>
         <p class="muted">
@@ -669,9 +688,9 @@ function renderDocsHome(activeSectionId: string): string {
       </div>
 
       <div class="hero-actions">
-        <cindor-button data-target-hash="docs/getting-started">Installation</cindor-button>
-        <cindor-button variant="ghost" data-target-hash="docs/components">Component catalog</cindor-button>
-        <cindor-button variant="ghost" data-target-hash="docs/patterns">Composition patterns</cindor-button>
+        <cindor-button data-target-path="${getDocsSectionPath("getting-started")}">Installation</cindor-button>
+        <cindor-button variant="ghost" data-target-path="${getDocsSectionPath("components")}">Component catalog</cindor-button>
+        <cindor-button variant="ghost" data-target-path="${getDocsSectionPath("patterns")}">Composition patterns</cindor-button>
         <a class="action-link" href="${storybookUrl}">Playground</a>
       </div>
 
@@ -709,7 +728,7 @@ function renderDocsHome(activeSectionId: string): string {
           <div class="preview-block">
             <strong>Documentation</strong>
             <p class="muted">Installation, theming, API reference, and usage examples that stay tied to the shipped component source.</p>
-            <a class="action-link" href="#docs/getting-started">Open getting started</a>
+            <a class="action-link" href="${getDocsSectionHref("getting-started")}">Open getting started</a>
           </div>
           <div class="preview-block">
             <strong>Playground</strong>
@@ -719,7 +738,7 @@ function renderDocsHome(activeSectionId: string): string {
           <div class="preview-block">
             <strong>Component reference</strong>
             <p class="muted">Jump into a specific component to see usage snippets, a living preview, API details, and related surfaces.</p>
-            <a class="action-link" href="#docs/components">Browse components</a>
+            <a class="action-link" href="${getDocsSectionHref("components")}">Browse components</a>
           </div>
         </div>
       </section>
@@ -984,7 +1003,7 @@ function renderCatalogContent(): string {
 
 function renderCatalogCard(doc: ComponentDoc): string {
   return `
-    <a class="catalog-card" href="#components/${doc.slug}">
+    <a class="catalog-card" href="${getComponentHref(doc.slug)}">
       <cindor-card>
         <div class="card-body">
           <div class="component-meta">
@@ -1012,7 +1031,7 @@ function renderComponentDetail(slug: string, componentPreviewReady: boolean): st
           <div class="card-body">
             <h2>Component not found</h2>
             <p class="muted">That docs route does not match the current Cindor component catalog.</p>
-            <cindor-button data-target-hash="docs/components">Back to component catalog</cindor-button>
+            <cindor-button data-target-path="${getDocsSectionPath("components")}">Back to component catalog</cindor-button>
           </div>
         </cindor-empty-state>
       </section>
@@ -1026,9 +1045,9 @@ function renderComponentDetail(slug: string, componentPreviewReady: boolean): st
     <section class="component-page">
       <div class="component-page-header">
         <cindor-breadcrumbs>
-          <a href="#">Cindor UI</a>
-          <a href="#docs/components">Components</a>
-          <a href="#components/${doc.slug}">${doc.title}</a>
+          <a href="${landingSiteUrl}">Cindor UI</a>
+          <a href="${getDocsSectionHref("components")}">Components</a>
+          <a href="${getComponentHref(doc.slug)}">${doc.title}</a>
         </cindor-breadcrumbs>
 
         <div class="component-page-copy">
@@ -1040,7 +1059,7 @@ function renderComponentDetail(slug: string, componentPreviewReady: boolean): st
           <p class="muted">${doc.summary}</p>
           <div class="component-page-actions">
             <a class="action-link action-link-primary" href="${getComponentPlaygroundUrl(doc.slug)}" target="_blank" rel="noreferrer">View in playground</a>
-            <a class="action-link" href="#docs/components">Back to catalog</a>
+            <a class="action-link" href="${getDocsSectionHref("components")}">Back to catalog</a>
           </div>
         </div>
       </div>
@@ -1308,11 +1327,25 @@ function updateSidebarInert(shell: HTMLElement): void {
 }
 
 function wireNavigation(): void {
-  root.querySelectorAll<HTMLElement>("[data-target-hash]").forEach((button) => {
+  root.querySelectorAll<HTMLElement>("[data-target-path]").forEach((button) => {
     button.addEventListener("click", () => {
-      const nextHash = button.dataset.targetHash;
-      if (nextHash) {
-        window.location.hash = nextHash;
+      const nextPath = button.dataset.targetPath;
+      if (nextPath && getCurrentAppPath() !== nextPath) {
+        navigate(nextPath);
+      }
+    });
+  });
+
+  root.querySelectorAll<HTMLAnchorElement>("a[href]").forEach((anchor) => {
+    if (!isInternalRouteLink(anchor)) {
+      return;
+    }
+
+    anchor.addEventListener("click", (event) => {
+      event.preventDefault();
+      const nextPath = getInternalRoutePath(anchor);
+      if (nextPath && getCurrentAppPath() !== nextPath) {
+        navigate(nextPath);
       }
     });
   });
@@ -1357,7 +1390,7 @@ function hydrateLivingExamples(route: Route, readiness: { componentPreviewReady:
   hydrateGlobalPalette();
 
   if (route.kind === "docs") {
-    hydrateHomeExamples();
+    hydrateHomeExamples(route.sectionId);
     return;
   }
 
@@ -1412,7 +1445,7 @@ function hydrateGlobalPalette(): void {
       description: section.summary,
       keywords: [section.id, section.title.toLowerCase(), "docs"],
       label: `Go to ${section.title}`,
-      value: `docs/${section.id}`
+      value: getDocsSectionPath(section.id)
     })),
     {
       description: "Open the deployed Storybook playground.",
@@ -1424,22 +1457,22 @@ function hydrateGlobalPalette(): void {
       description: `${component.layer} ${component.category.toLowerCase()} surface`,
       keywords: [component.slug, component.category.toLowerCase(), component.layer.toLowerCase(), component.tag],
       label: `Open ${component.title}`,
-      value: `components/${component.slug}`
+      value: getComponentPath(component.slug)
     }))
   ];
 
   palette.addEventListener("command-select", handlePaletteSelect);
 }
 
-function hydrateHomeExamples(): void {
+function hydrateHomeExamples(activeSectionId: string): void {
   const docsTabs = root.querySelector<HTMLElement & { value: string }>("#docs-home-tabs");
   if (docsTabs) {
-    docsTabs.value = window.location.hash.replace(/^#docs\//, "") || "overview";
+    docsTabs.value = activeSectionId;
     docsTabs.addEventListener("change", () => {
       const nextValue = docsTabs.value || "overview";
-      const nextHash = `#docs/${nextValue}`;
-      if (window.location.hash !== nextHash) {
-        window.location.hash = nextHash;
+      const nextPath = getDocsSectionPath(nextValue);
+      if (getCurrentAppPath() !== nextPath) {
+        navigate(nextPath);
       }
     });
   }
@@ -1534,51 +1567,59 @@ function handlePaletteSelect(event: Event): void {
     if (siteMode === "docs") {
       window.location.assign(primarySiteUrl);
     } else {
-      window.location.hash = "";
+      navigate("/", { replace: true });
     }
     return;
   }
 
-  window.location.hash = detail.value;
+  navigate(detail.value);
 }
 
 function getRoute(): Route {
-  const hash = window.location.hash.replace(/^#/, "");
-
-  if (!hash || hash === "landing") {
-    return siteMode === "docs" ? { kind: "docs", sectionId: "overview" } : { kind: "landing" };
+  if (siteMode === "landing") {
+    return { kind: "landing" };
   }
 
-  if (hash.startsWith("docs/components/")) {
-    const slug = hash.replace(/^docs\/components\//, "");
-    if (getComponentDoc(slug)) {
-      return { kind: "component", slug };
-    }
-  }
+  const appPath = getCurrentAppPath();
 
-  if (hash.startsWith("components/")) {
-    const slug = hash.replace(/^components\//, "");
-    if (getComponentDoc(slug)) {
-      return { kind: "component", slug };
-    }
-  }
-
-  if (hash === "docs") {
+  if (appPath === "/") {
     return { kind: "docs", sectionId: "overview" };
   }
 
-  if (hash.startsWith("docs/")) {
-    const sectionId = hash.replace(/^docs\//, "");
-    if (docsSectionIds.has(sectionId)) {
-      return { kind: "docs", sectionId };
-    }
+  if (appPath.startsWith("/components/")) {
+    return { kind: "component", slug: decodeURIComponent(appPath.replace(/^\/components\//, "")) };
   }
 
-  if (docsSectionIds.has(hash)) {
-    return { kind: "docs", sectionId: hash };
+  if (appPath === "/components") {
+    return { kind: "docs", sectionId: "components" };
   }
 
-  return { kind: "landing" };
+  const sectionId = appPath.replace(/^\/+/, "");
+  if (docsSectionIds.has(sectionId)) {
+    return { kind: "docs", sectionId };
+  }
+
+  return { kind: "docs", sectionId: "overview" };
+}
+
+function syncCanonicalRoute(route: Route): void {
+  const canonicalPath = getRoutePath(route);
+  if (getCurrentAppPath() === canonicalPath) {
+    return;
+  }
+
+  history.replaceState(null, "", toAppHref(canonicalPath));
+}
+
+function navigate(path: string, options?: { replace?: boolean }): void {
+  const normalizedPath = normalizeRoutePath(path);
+  if (getCurrentAppPath() === normalizedPath) {
+    return;
+  }
+
+  const method = options?.replace ? "replaceState" : "pushState";
+  history[method](null, "", toAppHref(normalizedPath));
+  render();
 }
 
 function normalizeSiteUrl(value: string | undefined): string | null {
@@ -1592,6 +1633,222 @@ function normalizeSiteUrl(value: string | undefined): string | null {
   }
 
   return trimmed.endsWith("/") ? trimmed : `${trimmed}/`;
+}
+
+function normalizeAppBasePath(value: string): string {
+  return value.endsWith("/") ? value : `${value}/`;
+}
+
+function getCurrentAppPath(): string {
+  return getAppPathFromPathname(window.location.pathname);
+}
+
+function getRoutePath(route: Route): string {
+  if (route.kind === "landing") {
+    return "/";
+  }
+
+  if (route.kind === "component") {
+    return getComponentPath(route.slug);
+  }
+
+  return getDocsSectionPath(route.sectionId);
+}
+
+function getDocsSectionPath(sectionId: string): string {
+  return normalizeRoutePath(sectionId);
+}
+
+function getComponentPath(slug: string): string {
+  return normalizeRoutePath(`components/${slug}`);
+}
+
+function getDocsSectionHref(sectionId: string): string {
+  return toAppHref(getDocsSectionPath(sectionId));
+}
+
+function getComponentHref(slug: string): string {
+  return toAppHref(getComponentPath(slug));
+}
+
+function getDocsSectionUrl(sectionId: string): string {
+  return new URL(sectionId, docsSiteUrl).toString();
+}
+
+function toAppHref(path: string): string {
+  const normalizedPath = normalizeRoutePath(path);
+  const basePath = trimTrailingSlash(appBasePath);
+
+  if (!basePath) {
+    return normalizedPath;
+  }
+
+  return normalizedPath === "/" ? appBasePath : `${basePath}${normalizedPath}`;
+}
+
+function normalizeRoutePath(path: string): string {
+  const trimmed = path.trim();
+  if (!trimmed || trimmed === "/") {
+    return "/";
+  }
+
+  return `/${trimmed.replace(/^\/+|\/+$/g, "")}`;
+}
+
+function trimTrailingSlash(path: string): string {
+  return path === "/" ? "" : path.replace(/\/$/, "");
+}
+
+function isInternalRouteLink(anchor: HTMLAnchorElement): boolean {
+  if (anchor.target || anchor.hasAttribute("download")) {
+    return false;
+  }
+
+  const href = anchor.getAttribute("href");
+  if (!href || href.startsWith("#")) {
+    return false;
+  }
+
+  const url = new URL(anchor.href, window.location.href);
+  return url.origin === window.location.origin && isKnownAppPath(getAppPathFromPathname(url.pathname));
+}
+
+function getInternalRoutePath(anchor: HTMLAnchorElement): string | null {
+  const url = new URL(anchor.href, window.location.href);
+  const appPath = getAppPathFromPathname(url.pathname);
+  return isKnownAppPath(appPath) ? appPath : null;
+}
+
+function getAppPathFromPathname(pathname: string): string {
+  const basePath = trimTrailingSlash(appBasePath);
+
+  if (!basePath) {
+    return normalizeRoutePath(pathname);
+  }
+
+  if (pathname === basePath) {
+    return "/";
+  }
+
+  if (pathname.startsWith(`${basePath}/`)) {
+    return normalizeRoutePath(pathname.slice(basePath.length));
+  }
+
+  return normalizeRoutePath(pathname);
+}
+
+function isKnownAppPath(path: string): boolean {
+  if (siteMode === "landing") {
+    return path === "/";
+  }
+
+  if (path === "/" || path === "/components" || path.startsWith("/components/")) {
+    return true;
+  }
+
+  return docsSectionIds.has(path.replace(/^\/+/, ""));
+}
+
+function syncPageMetadata(route: Route): void {
+  const metadata = getPageMetadata(route);
+
+  document.title = metadata.title;
+  setMetaTag("description", metadata.description);
+  setMetaTag("robots", metadata.robots);
+  setMetaTag("application-name", DOCS_SITE_NAME);
+  setMetaProperty("og:site_name", SITE_NAME);
+  setMetaProperty("og:type", "website");
+  setMetaProperty("og:title", metadata.title);
+  setMetaProperty("og:description", metadata.description);
+  setMetaProperty("og:url", metadata.canonicalUrl);
+  setMetaTag("twitter:card", "summary");
+  setMetaTag("twitter:title", metadata.title);
+  setMetaTag("twitter:description", metadata.description);
+  setCanonicalUrl(metadata.canonicalUrl);
+}
+
+function getPageMetadata(route: Route): PageMetadata {
+  if (route.kind === "landing") {
+    return {
+      canonicalUrl: primarySiteUrl,
+      description: DEFAULT_LANDING_DESCRIPTION,
+      robots: DEFAULT_ROBOTS_CONTENT,
+      title: `${SITE_NAME} | Design-forward web components for modern product surfaces`
+    };
+  }
+
+  if (route.kind === "component") {
+    const component = getComponentDoc(route.slug);
+
+    if (!component) {
+      return getDocsSectionMetadata("components");
+    }
+
+    return {
+      canonicalUrl: resolveDocsRouteUrl(getComponentPath(component.slug)),
+      description: `${component.summary} Explore usage snippets, living previews, and API details for ${component.tag} in the Cindor UI docs.`,
+      robots: DEFAULT_ROBOTS_CONTENT,
+      title: `${component.title} | ${DOCS_SITE_NAME}`
+    };
+  }
+
+  return getDocsSectionMetadata(route.sectionId);
+}
+
+function getDocsSectionMetadata(sectionId: string): PageMetadata {
+  const section = sections.find((entry) => entry.id === sectionId);
+
+  return {
+    canonicalUrl: resolveDocsRouteUrl(getDocsSectionPath(section?.id ?? "overview")),
+    description: section?.summary ?? DEFAULT_DOCS_DESCRIPTION,
+    robots: DEFAULT_ROBOTS_CONTENT,
+    title: section ? `${section.title} | ${DOCS_SITE_NAME}` : DOCS_SITE_NAME
+  };
+}
+
+function resolveDocsRouteUrl(path: string): string {
+  return new URL(path.replace(/^\/+/, ""), docsSiteUrl).toString();
+}
+
+function setMetaTag(name: string, content: string): void {
+  const element = getOrCreateHeadElement(`meta[name="${name}"]`, () => {
+    const meta = document.createElement("meta");
+    meta.setAttribute("name", name);
+    return meta;
+  });
+
+  element.setAttribute("content", content);
+}
+
+function setMetaProperty(property: string, content: string): void {
+  const element = getOrCreateHeadElement(`meta[property="${property}"]`, () => {
+    const meta = document.createElement("meta");
+    meta.setAttribute("property", property);
+    return meta;
+  });
+
+  element.setAttribute("content", content);
+}
+
+function setCanonicalUrl(href: string): void {
+  const element = getOrCreateHeadElement('link[rel="canonical"]', () => {
+    const link = document.createElement("link");
+    link.setAttribute("rel", "canonical");
+    return link;
+  });
+
+  element.setAttribute("href", href);
+}
+
+function getOrCreateHeadElement<T extends HTMLElement>(selector: string, createElement: () => T): T {
+  const existingElement = document.head.querySelector<T>(selector);
+  if (existingElement) {
+    return existingElement;
+  }
+
+  const element = createElement();
+  document.head.append(element);
+  return element;
 }
 
 function getFilteredComponents(): ComponentDoc[] {
@@ -1910,7 +2167,7 @@ function getUsageCode(doc: ComponentDoc): string {
   <h2>Release overview</h2>
 </cindor-layout-header>`;
     case "link":
-      return `<cindor-link href="#docs/components">Browse components</cindor-link>`;
+      return `<cindor-link href="/components">Browse components</cindor-link>`;
     case "listbox":
       return `<cindor-listbox selected-value="design">
   <cindor-option value="design">Designer</cindor-option>
@@ -2019,15 +2276,15 @@ function getUsageCode(doc: ComponentDoc): string {
       return `<cindor-skeleton></cindor-skeleton>`;
     case "side-nav":
       return `<cindor-side-nav aria-label="Documentation">
-  <cindor-side-nav-item href="#docs/overview" label="Overview"></cindor-side-nav-item>
+  <cindor-side-nav-item href="/overview" label="Overview"></cindor-side-nav-item>
   <cindor-side-nav-item expanded label="Guides">
-    <cindor-side-nav-item href="#docs/getting-started" label="Getting started" current></cindor-side-nav-item>
+    <cindor-side-nav-item href="/getting-started" label="Getting started" current></cindor-side-nav-item>
     <cindor-side-nav-item href="#theming" label="Theming"></cindor-side-nav-item>
   </cindor-side-nav-item>
 </cindor-side-nav>`;
     case "side-nav-item":
       return `<cindor-side-nav-item expanded label="Guides">
-  <cindor-side-nav-item href="#docs/getting-started" label="Getting started"></cindor-side-nav-item>
+  <cindor-side-nav-item href="/getting-started" label="Getting started"></cindor-side-nav-item>
 </cindor-side-nav-item>`;
     case "splitter":
       return `<cindor-splitter style="height: 18rem;">
@@ -2420,7 +2677,7 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
       <h2>Release overview</h2>
     </${componentName}>`;
     case "link":
-      return `<${componentName} href="#docs/components">Browse components</${componentName}>`;
+      return `<${componentName} href="/components">Browse components</${componentName}>`;
     case "context-menu":
       return `<${componentName}>
       <div slot="trigger">Right click for actions</div>
@@ -2487,14 +2744,14 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName} placeholder="Search docs" />`;
     case "side-nav":
       return `<${componentName} aria-label="Documentation">
-      <cindor-side-nav-item href="#docs/overview" label="Overview"></cindor-side-nav-item>
+      <cindor-side-nav-item href="/overview" label="Overview"></cindor-side-nav-item>
       <cindor-side-nav-item expanded label="Guides">
-        <cindor-side-nav-item href="#docs/getting-started" label="Getting started" current></cindor-side-nav-item>
+        <cindor-side-nav-item href="/getting-started" label="Getting started" current></cindor-side-nav-item>
       </cindor-side-nav-item>
     </${componentName}>`;
     case "side-nav-item":
       return `<${componentName} expanded label="Guides">
-      <cindor-side-nav-item href="#docs/getting-started" label="Getting started"></cindor-side-nav-item>
+      <cindor-side-nav-item href="/getting-started" label="Getting started"></cindor-side-nav-item>
     </${componentName}>`;
     case "stack":
       return `<${componentName} direction="horizontal" gap="2" wrap align="center">
@@ -2687,7 +2944,7 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
     <h2>Release overview</h2>
   </${componentName}>`;
     case "link":
-      return `<${componentName} href="#docs/components">Browse components</${componentName}>`;
+      return `<${componentName} href="/components">Browse components</${componentName}>`;
     case "context-menu":
       return `<${componentName}>
     <div slot="trigger">Right click for actions</div>
@@ -2754,14 +3011,14 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName} placeholder="Search docs" />`;
     case "side-nav":
       return `<${componentName} aria-label="Documentation">
-    <cindor-side-nav-item href="#docs/overview" label="Overview"></cindor-side-nav-item>
+    <cindor-side-nav-item href="/overview" label="Overview"></cindor-side-nav-item>
     <cindor-side-nav-item expanded label="Guides">
-      <cindor-side-nav-item href="#docs/getting-started" label="Getting started" current></cindor-side-nav-item>
+      <cindor-side-nav-item href="/getting-started" label="Getting started" current></cindor-side-nav-item>
     </cindor-side-nav-item>
   </${componentName}>`;
     case "side-nav-item":
       return `<${componentName} expanded label="Guides">
-    <cindor-side-nav-item href="#docs/getting-started" label="Getting started"></cindor-side-nav-item>
+    <cindor-side-nav-item href="/getting-started" label="Getting started"></cindor-side-nav-item>
   </${componentName}>`;
     case "stack":
       return `<${componentName} direction="horizontal" gap="2" wrap align="center">
