@@ -22,6 +22,16 @@ export const exemptNonVersionFiles = [
   "scripts/versioning.mjs"
 ];
 
+export const docsOnlyFilePrefixes = [
+  "apps/docs/",
+  "docs/"
+];
+
+export const docsOnlyFiles = [
+  ".github/copilot-instructions.md",
+  "README.md"
+];
+
 export const workspacePackageFiles = [
   "package.json",
   "apps/docs/package.json",
@@ -52,6 +62,22 @@ export function getChangedFiles(base, head) {
 
 export function getChangedNonVersionFiles(changedFiles) {
   return changedFiles.filter((file) => !versionFiles.includes(file) && !exemptNonVersionFiles.includes(file));
+}
+
+export function isDocsOnlyFile(file) {
+  if (docsOnlyFiles.includes(file)) {
+    return true;
+  }
+
+  if (file.endsWith(".md") || file.endsWith(".mdx")) {
+    return true;
+  }
+
+  return docsOnlyFilePrefixes.some((prefix) => file.startsWith(prefix));
+}
+
+export function getChangedReleaseRelevantFiles(changedFiles) {
+  return getChangedNonVersionFiles(changedFiles).filter((file) => !isDocsOnlyFile(file));
 }
 
 export function readJson(filePath) {

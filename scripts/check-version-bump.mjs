@@ -2,7 +2,7 @@ import {
   compareVersions,
   fail,
   getChangedFiles,
-  getChangedNonVersionFiles,
+  getChangedReleaseRelevantFiles,
   readGitJson,
   readJson,
   versionFiles,
@@ -18,10 +18,10 @@ if (!baseRef) {
 }
 
 const changedFiles = getChangedFiles(baseRef, headRef);
-const changedNonVersionFiles = getChangedNonVersionFiles(changedFiles);
+const changedReleaseRelevantFiles = getChangedReleaseRelevantFiles(changedFiles);
 
-if (changedNonVersionFiles.length === 0) {
-  console.log("No non-version files changed; skipping version bump enforcement.");
+if (changedReleaseRelevantFiles.length === 0) {
+  console.log("No release-relevant files changed; skipping version bump enforcement.");
   process.exit(0);
 }
 
@@ -31,8 +31,8 @@ const missingVersionFiles = versionFiles.filter((file) => !changedVersionFiles.i
 if (missingVersionFiles.length > 0) {
   fail(
     [
-      "Detected non-version changes without a full version bump.",
-      `Changed non-version files: ${changedNonVersionFiles.join(", ")}`,
+      "Detected release-relevant changes without a full version bump.",
+      `Changed release-relevant files: ${changedReleaseRelevantFiles.join(", ")}`,
       `Missing version updates: ${missingVersionFiles.join(", ")}`
     ].join("\n")
   );

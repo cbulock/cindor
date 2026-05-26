@@ -4,7 +4,7 @@ import process from "node:process";
 import {
   compareVersions,
   getChangedFiles,
-  getChangedNonVersionFiles,
+  getChangedReleaseRelevantFiles,
   getHighestWorkspaceVersion,
   incrementVersion,
   readGitJson,
@@ -22,10 +22,10 @@ if (!comparisonBase) {
 }
 
 const changedFiles = getChangedFiles(comparisonBase, "HEAD");
-const changedNonVersionFiles = getChangedNonVersionFiles(changedFiles);
+const changedReleaseRelevantFiles = getChangedReleaseRelevantFiles(changedFiles);
 
-if (changedNonVersionFiles.length === 0) {
-  console.log("No non-version changes detected; skipping automatic version bump.");
+if (changedReleaseRelevantFiles.length === 0) {
+  console.log("No release-relevant changes detected; skipping automatic version bump.");
   process.exit(0);
 }
 
@@ -43,7 +43,7 @@ execFileSync("npm", ["install", "--package-lock-only"], { stdio: "inherit", shel
 console.error(
   [
     `Applied ${level} version bump to ${nextVersion}.`,
-    `Changed source files: ${changedNonVersionFiles.join(", ")}`,
+    `Changed release-relevant files: ${changedReleaseRelevantFiles.join(", ")}`,
     "Review the updated manifests and package-lock.json, commit them, and push again."
   ].join("\n")
 );
