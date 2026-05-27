@@ -715,7 +715,7 @@ function renderDocsHome(activeSectionId: string): string {
     components: "Browse the component catalog with less friction.",
     patterns: "Study the composed workflows, not just the primitives."
   };
-  const headerBodyBySection: Record<DocsSectionId, string> = {
+  const headerBodyBySection: Record<string, string> = {
     overview:
       "Cindor UI keeps behavior in a standards-based custom element core and exposes thin React and Vue adapters. This docs app uses the web-component layer directly so examples stay close to the primary integration surface.",
     "getting-started":
