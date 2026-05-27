@@ -4,6 +4,7 @@ import { CindorActivityFeed } from "./components/activity-feed/cindor-activity-f
 import { CindorActivityItem } from "./components/activity-item/cindor-activity-item.js";
 import { CindorAutocomplete } from "./components/autocomplete/cindor-autocomplete.js";
 import { CindorAvatar } from "./components/avatar/cindor-avatar.js";
+import { CindorBanner } from "./components/banner/cindor-banner.js";
 import { CindorBadge } from "./components/badge/cindor-badge.js";
 import { CindorBreadcrumbs } from "./components/breadcrumbs/cindor-breadcrumbs.js";
 import { CindorButton } from "./components/button/cindor-button.js";
@@ -102,6 +103,7 @@ import { CindorUrlInput } from "./components/url-input/cindor-url-input.js";
 
 const definitions = [
   ["cindor-alert", CindorAlert],
+  ["cindor-banner", CindorBanner],
   ["cindor-activity-feed", CindorActivityFeed],
   ["cindor-activity-item", CindorActivityItem],
   ["cindor-autocomplete", CindorAutocomplete],

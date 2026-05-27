@@ -43,6 +43,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("activity-item", "Activity Item", "Primitive", "Display", "event row", "Single feed event with leading media, metadata, and optional actions."),
   defineComponent("autocomplete", "Autocomplete", "Component", "Forms", "text input with suggestions", "Suggestion-first text entry for search and remote result flows."),
   defineComponent("avatar", "Avatar", "Primitive", "Display", "img fallback", "Identity thumbnail with image or name-based fallback."),
+  defineComponent("banner", "Banner", "Component", "Feedback", "persistent status region", "Persistent page or app-level messaging with optional actions and dismiss control."),
   defineComponent("badge", "Badge", "Primitive", "Display", "inline label", "Compact label for status, category, and emphasis."),
   defineComponent("breadcrumbs", "Breadcrumbs", "Composite", "Navigation", "anchor trail", "Hierarchical path navigation for pages and app structure."),
   defineComponent("button", "Button", "Primitive", "Actions", "button", "Primary action surface with slot-based icon support."),

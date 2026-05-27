@@ -1925,6 +1925,13 @@ function getUsageCode(doc: ComponentDoc): string {
   switch (doc.slug) {
     case "alert":
       return `<cindor-alert tone="info">Update complete.</cindor-alert>`;
+    case "banner":
+      return `<cindor-banner tone="warning" title="Scheduled maintenance" dismissible>
+  <cindor-icon slot="icon" name="triangle-alert"></cindor-icon>
+  API deploys are paused from 8:00 PM to 9:00 PM Eastern while the database cluster is upgraded.
+  <cindor-button slot="actions" variant="ghost">View status</cindor-button>
+  <cindor-button slot="actions">Notify team</cindor-button>
+</cindor-banner>`;
     case "activity-feed":
       return `<cindor-activity-feed>
   <cindor-activity-item unread>
@@ -2535,6 +2542,13 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
   switch (doc.slug) {
     case "alert":
       return `<${componentName} tone="info">Update complete.</${componentName}>`;
+    case "banner":
+      return `<${componentName} tone="warning" title="Scheduled maintenance" dismissible>
+      <cindor-icon slot="icon" name="triangle-alert"></cindor-icon>
+      API deploys are paused from 8:00 PM to 9:00 PM Eastern while the database cluster is upgraded.
+      <cindor-button slot="actions" variant="ghost">View status</cindor-button>
+      <cindor-button slot="actions">Notify team</cindor-button>
+    </${componentName}>`;
     case "activity-feed":
       return `<${componentName}>
       <cindor-activity-item unread>
@@ -2823,6 +2837,13 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
   switch (doc.slug) {
     case "alert":
       return `<${componentName} tone="info">Update complete.</${componentName}>`;
+    case "banner":
+      return `<${componentName} tone="warning" title="Scheduled maintenance" dismissible>
+    <cindor-icon slot="icon" name="triangle-alert"></cindor-icon>
+    API deploys are paused from 8:00 PM to 9:00 PM Eastern while the database cluster is upgraded.
+    <cindor-button slot="actions" variant="ghost">View status</cindor-button>
+    <cindor-button slot="actions">Notify team</cindor-button>
+  </${componentName}>`;
     case "activity-feed":
       return `<${componentName}>
     <cindor-activity-item unread>
@@ -3089,6 +3110,7 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
 function getPreviewMarkup(doc: ComponentDoc): string | null {
   switch (doc.slug) {
     case "alert":
+    case "banner":
     case "activity-feed":
     case "activity-item":
     case "avatar":
@@ -3470,6 +3492,37 @@ function getLegacyComponentApi(doc: ComponentDoc): ComponentApiSurface {
           compositionGroup([apiItem("default slot", "Default slot content becomes the alert message body.", { type: "slot" })])
         ],
         intro: `${doc.tag} is a presentational feedback primitive. In practice the public API is its tone plus the slotted message content.`
+      };
+    case "banner":
+      return {
+        groups: [
+          propertyGroup([
+            apiItem("tone", "Visual tone for informational, success, warning, or danger messaging.", {
+              defaultValue: `"info"`,
+              type: `"info" | "success" | "warning" | "danger"`,
+              values: `"info", "success", "warning", "danger"`
+            }),
+            apiItem("title", "Optional title shown above the banner body copy.", { defaultValue: `""`, type: "string" }),
+            apiItem("dismissible", "Adds a trailing dismiss control and enables the close() method.", { defaultValue: "false", type: "boolean" }),
+            apiItem("open", "Controls whether the banner is currently rendered.", { defaultValue: "true", type: "boolean" }),
+            apiItem("sticky", "Pins the banner near the top edge while scrolling.", { defaultValue: "false", type: "boolean" }),
+            apiItem("role-type", "Overrides the derived live region role when status or alert behavior must be forced.", {
+              defaultValue: `derived from tone`,
+              type: `"status" | "alert"`,
+              values: `"status", "alert"`
+            })
+          ]),
+          eventGroup([
+            apiItem("dismiss", "Fires when the dismiss control closes the banner.", { type: "CustomEvent" }),
+            apiItem("open-change", "Fires when the banner open state changes.", { type: "CustomEvent<{ open: boolean }>" })
+          ]),
+          compositionGroup([
+            apiItem("default slot", "Default slot content becomes the banner body.", { type: "slot" }),
+            apiItem("icon", "Optional leading icon or media.", { type: "named slot" }),
+            apiItem("actions", "Optional trailing actions such as buttons or links.", { type: "named slot" })
+          ])
+        ],
+        intro: `${doc.tag} covers persistent page or app-level messaging. Its API adds optional dismissal, action slots, and live-region semantics on top of a standard feedback surface.`
       };
     case "avatar":
       return {
