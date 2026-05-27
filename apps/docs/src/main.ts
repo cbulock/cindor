@@ -1964,6 +1964,14 @@ function getUsageCode(doc: ComponentDoc): string {
   <cindor-button variant="ghost">Back</cindor-button>
   <cindor-button>Continue</cindor-button>
 </cindor-button-group>`;
+    case "split-button":
+      return `<cindor-split-button menu-label="More publish actions">
+  <cindor-icon slot="start-icon" name="rocket" size="16"></cindor-icon>
+  Publish
+  <cindor-menu-item slot="menu">Schedule for later</cindor-menu-item>
+  <cindor-menu-item slot="menu">Save draft</cindor-menu-item>
+  <cindor-menu-item slot="menu">Duplicate</cindor-menu-item>
+</cindor-split-button>`;
     case "calendar":
       return `<cindor-calendar month="2026-04" value="2026-04-26"></cindor-calendar>`;
     case "card":
@@ -3096,6 +3104,7 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "breadcrumbs":
     case "button":
     case "button-group":
+    case "split-button":
     case "calendar":
     case "card":
     case "checkbox":
@@ -3547,6 +3556,40 @@ function getLegacyComponentApi(doc: ComponentDoc): ComponentApiSurface {
           compositionGroup([apiItem("default slot", "Provide one or more cindor-button children.", { type: "slot" })])
         ],
         intro: `${doc.tag} is a layout primitive for related buttons. Its API is mostly about grouping behavior rather than new interaction events.`
+      };
+    case "split-button":
+      return {
+        groups: [
+          propertyGroup([
+            apiItem("variant", "Shares the button treatment across the primary action and menu trigger.", {
+              defaultValue: `"solid"`,
+              type: `"solid" | "ghost"`,
+              values: `"solid", "ghost"`
+            }),
+            apiItem("type", "Maps through to the primary action button type.", {
+              defaultValue: `"button"`,
+              type: `"button" | "submit" | "reset"`,
+              values: `"button", "submit", "reset"`
+            }),
+            apiItem("disabled", "Disables the primary action and the secondary action trigger.", { defaultValue: "false", type: "boolean" }),
+            apiItem("open", "Controls whether the secondary action menu is expanded.", { defaultValue: "false", type: "boolean" }),
+            apiItem("menu-label", "Accessible label for the icon-only secondary action trigger.", { defaultValue: `"More actions"`, type: "string" })
+          ]),
+          eventGroup([
+            apiItem("click", "Uses the native click event from the primary action button.", { type: "MouseEvent" }),
+            apiItem("toggle", "Fires when the secondary action menu opens or closes.", { type: "Event" }),
+            apiItem("menu-item-select", "Secondary actions bubble their menu-item-select event from the chosen cindor-menu-item child.", {
+              type: "CustomEvent<{ item }>"
+            })
+          ]),
+          compositionGroup([
+            apiItem("default slot", "Primary button label content.", { type: "slot" }),
+            apiItem("start-icon / end-icon", "Optional icon slots forwarded to the primary action button.", { type: "named slots" }),
+            apiItem("menu", "Provide one or more cindor-menu-item children for secondary actions.", { type: "named slot" }),
+            apiItem("menu-icon", "Optional replacement icon for the secondary action trigger.", { type: "named slot" })
+          ])
+        ],
+        intro: `${doc.tag} combines a primary action button with an anchored menu so the main workflow stays one click away while related actions remain nearby.`
       };
     case "calendar":
       return {

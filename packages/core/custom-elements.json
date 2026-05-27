@@ -4,79 +4,6 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Activity Feed\", render: () => ` <cindor-activity-feed> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Cindor Team\"></cindor-avatar> <span slot=\"title\">New deployment completed</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">Production environment</span> Traffic is now flowing through the latest release. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"QA\"></cindor-avatar> <span slot=\"title\">Regression suite passed</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Build #1284</span> All smoke tests completed without failures. </cindor-activity-item> </cindor-activity-feed> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
-          "name": "CindorActivityFeed",
-          "slots": [
-            {
-              "description": "`cindor-activity-item` children.",
-              "name": ""
-            }
-          ],
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorActivityFeed",
-          "declaration": {
-            "name": "CindorActivityFeed",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/accordion/cindor-accordion.stories.ts",
       "declarations": [
         {
@@ -205,6 +132,79 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Activity Feed\", render: () => ` <cindor-activity-feed> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Cindor Team\"></cindor-avatar> <span slot=\"title\">New deployment completed</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">Production environment</span> Traffic is now flowing through the latest release. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"QA\"></cindor-avatar> <span slot=\"title\">Regression suite passed</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Build #1284</span> All smoke tests completed without failures. </cindor-activity-item> </cindor-activity-feed> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
+          "name": "CindorActivityFeed",
+          "slots": [
+            {
+              "description": "`cindor-activity-item` children.",
+              "name": ""
+            }
+          ],
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorActivityFeed",
+          "declaration": {
+            "name": "CindorActivityFeed",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
       "declarations": [
         {
@@ -314,6 +314,95 @@
           "declaration": {
             "name": "CindorActivityItem",
             "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Components/Alert\", args: { message: \"The upstream Cindor tokens loaded successfully.\", title: \"Heads up\", tone: \"info\" }, argTypes: { tone: { control: \"radio\", options: [\"info\", \"success\", \"warning\", \"danger\"] } }, render: ({ message, title, tone }: AlertStoryArgs) => ` <cindor-alert tone=\"${tone}\"> <strong>${title}</strong> <span>${message}</span> </cindor-alert> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/alert/cindor-alert.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorAlert",
+          "members": [
+            {
+              "kind": "field",
+              "name": "tone",
+              "privacy": "public",
+              "type": {
+                "text": "AlertTone"
+              },
+              "default": "\"info\"",
+              "attribute": "tone",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "tone",
+              "type": {
+                "text": "AlertTone"
+              },
+              "default": "\"info\"",
+              "fieldName": "tone"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorAlert",
+          "declaration": {
+            "name": "CindorAlert",
+            "module": "packages/core/src/components/alert/cindor-alert.ts"
           }
         }
       ]
@@ -2303,95 +2392,6 @@
           "declaration": {
             "name": "CindorCalendar",
             "module": "packages/core/src/components/calendar/cindor-calendar.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Components/Alert\", args: { message: \"The upstream Cindor tokens loaded successfully.\", title: \"Heads up\", tone: \"info\" }, argTypes: { tone: { control: \"radio\", options: [\"info\", \"success\", \"warning\", \"danger\"] } }, render: ({ message, title, tone }: AlertStoryArgs) => ` <cindor-alert tone=\"${tone}\"> <strong>${title}</strong> <span>${message}</span> </cindor-alert> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/alert/cindor-alert.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorAlert",
-          "members": [
-            {
-              "kind": "field",
-              "name": "tone",
-              "privacy": "public",
-              "type": {
-                "text": "AlertTone"
-              },
-              "default": "\"info\"",
-              "attribute": "tone",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "tone",
-              "type": {
-                "text": "AlertTone"
-              },
-              "default": "\"info\"",
-              "fieldName": "tone"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorAlert",
-          "declaration": {
-            "name": "CindorAlert",
-            "module": "packages/core/src/components/alert/cindor-alert.ts"
           }
         }
       ]
@@ -8084,6 +8084,79 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/description-list/cindor-description-list.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Description List\", render: () => ` <cindor-description-list> <cindor-description-item> <span slot=\"term\">Status</span> Healthy </cindor-description-item> <cindor-description-item> <span slot=\"term\">Region</span> us-east-1 </cindor-description-item> <cindor-description-item> <span slot=\"term\">Updated</span> 2 minutes ago </cindor-description-item> </cindor-description-list> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/description-list/cindor-description-list.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/description-list/cindor-description-list.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/description-list/cindor-description-list.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Key-value description list for metadata and detail pages.",
+          "name": "CindorDescriptionList",
+          "slots": [
+            {
+              "description": "`cindor-description-item` children.",
+              "name": ""
+            }
+          ],
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorDescriptionList",
+          "declaration": {
+            "name": "CindorDescriptionList",
+            "module": "packages/core/src/components/description-list/cindor-description-list.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/description-item/cindor-description-item.stories.ts",
       "declarations": [
         {
@@ -8155,79 +8228,6 @@
           "declaration": {
             "name": "CindorDescriptionItem",
             "module": "packages/core/src/components/description-item/cindor-description-item.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/description-list/cindor-description-list.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Description List\", render: () => ` <cindor-description-list> <cindor-description-item> <span slot=\"term\">Status</span> Healthy </cindor-description-item> <cindor-description-item> <span slot=\"term\">Region</span> us-east-1 </cindor-description-item> <cindor-description-item> <span slot=\"term\">Updated</span> 2 minutes ago </cindor-description-item> </cindor-description-list> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/description-list/cindor-description-list.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/description-list/cindor-description-list.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/description-list/cindor-description-list.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Key-value description list for metadata and detail pages.",
-          "name": "CindorDescriptionList",
-          "slots": [
-            {
-              "description": "`cindor-description-item` children.",
-              "name": ""
-            }
-          ],
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorDescriptionList",
-          "declaration": {
-            "name": "CindorDescriptionList",
-            "module": "packages/core/src/components/description-list/cindor-description-list.ts"
           }
         }
       ]
@@ -10902,7 +10902,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Rule and group based filtering UI built from Cindor field, button, and fieldset primitives.\r\n\r\nThe serialized `value` property stores the current filter group as JSON.",
+          "description": "Rule and group based filtering UI built from Cindor field, button, and fieldset primitives.\n\nThe serialized `value` property stores the current filter group as JSON.",
           "name": "CindorFilterBuilder",
           "members": [
             {
@@ -14993,79 +14993,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/layout-header/cindor-layout-header.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Layout/Layout Header\", render: () => ` <cindor-layout-header> <cindor-stack gap=\"2\"> <cindor-breadcrumbs> <a href=\"#overview\">Home</a> <a href=\"#releases\">Releases</a> </cindor-breadcrumbs> <h2 style=\"margin: 0;\">Release overview</h2> <cindor-stack direction=\"horizontal\" gap=\"2\" wrap align=\"center\"> <cindor-badge tone=\"accent\">Production</cindor-badge> <cindor-button>Deploy</cindor-button> <cindor-button variant=\"ghost\">Share</cindor-button> </cindor-stack> </cindor-stack> </cindor-layout-header> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/layout-header/cindor-layout-header.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/layout-header/cindor-layout-header.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/layout-header/cindor-layout-header.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Header region for page-level titles, controls, and supporting metadata.",
-          "name": "CindorLayoutHeader",
-          "slots": [
-            {
-              "description": "Header copy, actions, or composition primitives.",
-              "name": ""
-            }
-          ],
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorLayoutHeader",
-          "declaration": {
-            "name": "CindorLayoutHeader",
-            "module": "packages/core/src/components/layout-header/cindor-layout-header.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/layout-content/cindor-layout-content.stories.ts",
       "declarations": [
         {
@@ -15133,6 +15060,79 @@
           "declaration": {
             "name": "CindorLayoutContent",
             "module": "packages/core/src/components/layout-content/cindor-layout-content.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/layout-header/cindor-layout-header.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Layout/Layout Header\", render: () => ` <cindor-layout-header> <cindor-stack gap=\"2\"> <cindor-breadcrumbs> <a href=\"#overview\">Home</a> <a href=\"#releases\">Releases</a> </cindor-breadcrumbs> <h2 style=\"margin: 0;\">Release overview</h2> <cindor-stack direction=\"horizontal\" gap=\"2\" wrap align=\"center\"> <cindor-badge tone=\"accent\">Production</cindor-badge> <cindor-button>Deploy</cindor-button> <cindor-button variant=\"ghost\">Share</cindor-button> </cindor-stack> </cindor-stack> </cindor-layout-header> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/layout-header/cindor-layout-header.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/layout-header/cindor-layout-header.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/layout-header/cindor-layout-header.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Header region for page-level titles, controls, and supporting metadata.",
+          "name": "CindorLayoutHeader",
+          "slots": [
+            {
+              "description": "Header copy, actions, or composition primitives.",
+              "name": ""
+            }
+          ],
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorLayoutHeader",
+          "declaration": {
+            "name": "CindorLayoutHeader",
+            "module": "packages/core/src/components/layout-header/cindor-layout-header.ts"
           }
         }
       ]
@@ -19614,7 +19614,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Lightweight theme scope for Cindor tokens and descendant components.\r\n\r\n`theme` controls color mode (`inherit`, `system`, `light`, `dark`) and\r\n`themeFamily` controls the visual family (`inherit`, `default`, `retro`).\r\nThe provider resolves those inputs to the shared root-level `data-theme`\r\nvalues and mirrors the resolved color mode to CSS `color-scheme` for native\r\nbrowser surfaces inside the scope.",
+          "description": "Lightweight theme scope for Cindor tokens and descendant components.\n\n`theme` controls color mode (`inherit`, `system`, `light`, `dark`) and\n`themeFamily` controls the visual family (`inherit`, `default`, `retro`).\nThe provider resolves those inputs to the shared root-level `data-theme`\nvalues and mirrors the resolved color mode to CSS `color-scheme` for native\nbrowser surfaces inside the scope.",
           "name": "CindorProvider",
           "slots": [
             {
@@ -19766,7 +19766,7 @@
               "privacy": "private",
               "return": {
                 "type": {
-                  "text": "{\r\n    family: ProviderResolvedThemeFamily;\r\n    theme: ProviderResolvedTheme;\r\n    themeName: ProviderResolvedThemeName;\r\n  }"
+                  "text": "{\n    family: ProviderResolvedThemeFamily;\n    theme: ProviderResolvedTheme;\n    themeName: ProviderResolvedThemeName;\n  }"
                 }
               }
             },
@@ -19776,7 +19776,7 @@
               "privacy": "private",
               "return": {
                 "type": {
-                  "text": "{\r\n    family: ProviderResolvedThemeFamily;\r\n    scope: Element | null;\r\n    theme: ProviderResolvedTheme;\r\n  }"
+                  "text": "{\n    family: ProviderResolvedThemeFamily;\n    scope: Element | null;\n    theme: ProviderResolvedTheme;\n  }"
                 }
               }
             },
@@ -22234,7 +22234,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Keyboard-accessible side navigation landmark with nested sections.\r\n\r\nUse direct child `cindor-side-nav-item` elements, optionally nesting them to\r\ncreate collapsible sections.",
+          "description": "Keyboard-accessible side navigation landmark with nested sections.\n\nUse direct child `cindor-side-nav-item` elements, optionally nesting them to\ncreate collapsible sections.",
           "name": "CindorSideNav",
           "slots": [
             {
@@ -23055,6 +23055,408 @@
           "declaration": {
             "name": "CindorSpinner",
             "module": "packages/core/src/components/spinner/cindor-spinner.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/split-button/cindor-split-button.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Actions/Split Button\", args: { disabled: false, menuLabel: \"More publishing actions\", variant: \"solid\" }, argTypes: { variant: { control: \"radio\", options: [\"solid\", \"ghost\"] } }, render: ({ disabled, menuLabel, variant }: SplitButtonStoryArgs) => ` <cindor-split-button ${disabled ? \"disabled\" : \"\"} menu-label=\"${menuLabel}\" variant=\"${variant}\"> <cindor-icon slot=\"start-icon\" name=\"rocket\" size=\"16\"></cindor-icon> Publish <cindor-menu-item slot=\"menu\">Schedule for later</cindor-menu-item> <cindor-menu-item slot=\"menu\">Save draft</cindor-menu-item> <cindor-menu-item slot=\"menu\">Duplicate</cindor-menu-item> </cindor-split-button> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        },
+        {
+          "kind": "variable",
+          "name": "Ghost",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ args: { variant: \"ghost\" } }"
+        },
+        {
+          "kind": "variable",
+          "name": "Disabled",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ args: { disabled: true } }"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/split-button/cindor-split-button.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/split-button/cindor-split-button.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Ghost",
+          "declaration": {
+            "name": "Ghost",
+            "module": "packages/core/src/components/split-button/cindor-split-button.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Disabled",
+          "declaration": {
+            "name": "Disabled",
+            "module": "packages/core/src/components/split-button/cindor-split-button.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/split-button/cindor-split-button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Split button for a primary action plus related secondary menu actions.",
+          "name": "CindorSplitButton",
+          "slots": [
+            {
+              "description": "Primary button label content.",
+              "name": ""
+            },
+            {
+              "description": "Leading icon content for the primary action.",
+              "name": "start-icon"
+            },
+            {
+              "description": "Trailing icon content for the primary action.",
+              "name": "end-icon"
+            },
+            {
+              "description": "One or more `cindor-menu-item` elements for secondary actions.",
+              "name": "menu"
+            },
+            {
+              "description": "Optional icon content for the menu trigger. Defaults to a chevron-down icon.",
+              "name": "menu-icon"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the primary action and secondary action menu trigger.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "menuLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"More actions\"",
+              "description": "Accessible label applied to the secondary action menu trigger.",
+              "attribute": "menu-label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Controls whether the secondary action menu is open.",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "privacy": "public",
+              "type": {
+                "text": "ButtonType"
+              },
+              "default": "\"button\"",
+              "description": "Maps through to the primary native button type.",
+              "attribute": "type",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "privacy": "public",
+              "type": {
+                "text": "ButtonVariant"
+              },
+              "default": "\"solid\"",
+              "description": "Visual treatment shared by the primary action and menu trigger.",
+              "attribute": "variant",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "floatingCleanup",
+              "type": {
+                "text": "() => void | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "floatingMenu",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "updateFloatingPosition",
+              "type": {
+                "text": "() => void | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "click",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "showMenu",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Opens the secondary action menu."
+            },
+            {
+              "kind": "method",
+              "name": "hideMenu",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Closes the secondary action menu."
+            },
+            {
+              "kind": "method",
+              "name": "toggleMenu",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Toggles the secondary action menu."
+            },
+            {
+              "kind": "field",
+              "name": "handleItemSelect",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleSummaryClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleToggle",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "syncFloatingPosition",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "destroyFloatingPosition",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncMenuA11y",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "menuElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "primaryButton",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "summaryElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "detailsElement",
+              "type": {
+                "text": "HTMLDetailsElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "events": [
+            {
+              "description": "Fired when the secondary action menu opens or closes.",
+              "name": "toggle"
+            },
+            {
+              "description": "Uses the native click event from the primary action button.",
+              "name": "click"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the primary action and secondary action menu trigger.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "menu-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"More actions\"",
+              "description": "Accessible label applied to the secondary action menu trigger.",
+              "fieldName": "menuLabel"
+            },
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Controls whether the secondary action menu is open.",
+              "fieldName": "open"
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "ButtonType"
+              },
+              "default": "\"button\"",
+              "description": "Maps through to the primary native button type.",
+              "fieldName": "type"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "ButtonVariant"
+              },
+              "default": "\"solid\"",
+              "description": "Visual treatment shared by the primary action and menu trigger.",
+              "fieldName": "variant"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorSplitButton",
+          "declaration": {
+            "name": "CindorSplitButton",
+            "module": "packages/core/src/components/split-button/cindor-split-button.ts"
           }
         }
       ]
@@ -24163,130 +24565,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/tab-panel/cindor-tab-panel.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Primitives/Tab Panel\", args: { activityText: \"Recent release activity and notes.\", label: \"Overview\", text: \"Overview details for the current release.\", value: \"overview\" }, render: ({ activityText, label, text, value }: TabPanelStoryArgs) => ` <cindor-tabs value=\"${value}\" aria-label=\"Release sections\" style=\"max-width: 32rem;\"> <cindor-tab-panel label=\"${label}\" value=\"${value}\">${text}</cindor-tab-panel> <cindor-tab-panel label=\"Activity\" value=\"activity\">${activityText}</cindor-tab-panel> </cindor-tabs> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/tab-panel/cindor-tab-panel.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/tab-panel/cindor-tab-panel.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/tab-panel/cindor-tab-panel.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Optional tab panel wrapper for CindorTabs.",
-          "name": "CindorTabPanel",
-          "slots": [
-            {
-              "description": "Panel content.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "label",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "label",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "value",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "syncPanelData",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "label",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "label"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "value"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorTabPanel",
-          "declaration": {
-            "name": "CindorTabPanel",
-            "module": "packages/core/src/components/tab-panel/cindor-tab-panel.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/switch/cindor-switch.stories.ts",
       "declarations": [
         {
@@ -24577,6 +24855,130 @@
           "declaration": {
             "name": "CindorSwitch",
             "module": "packages/core/src/components/switch/cindor-switch.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/tab-panel/cindor-tab-panel.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Primitives/Tab Panel\", args: { activityText: \"Recent release activity and notes.\", label: \"Overview\", text: \"Overview details for the current release.\", value: \"overview\" }, render: ({ activityText, label, text, value }: TabPanelStoryArgs) => ` <cindor-tabs value=\"${value}\" aria-label=\"Release sections\" style=\"max-width: 32rem;\"> <cindor-tab-panel label=\"${label}\" value=\"${value}\">${text}</cindor-tab-panel> <cindor-tab-panel label=\"Activity\" value=\"activity\">${activityText}</cindor-tab-panel> </cindor-tabs> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/tab-panel/cindor-tab-panel.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/tab-panel/cindor-tab-panel.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/tab-panel/cindor-tab-panel.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Optional tab panel wrapper for CindorTabs.",
+          "name": "CindorTabPanel",
+          "slots": [
+            {
+              "description": "Panel content.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "value",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "syncPanelData",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "label"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "value"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorTabPanel",
+          "declaration": {
+            "name": "CindorTabPanel",
+            "module": "packages/core/src/components/tab-panel/cindor-tab-panel.ts"
           }
         }
       ]
@@ -28481,7 +28883,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Dual-list selector built from Cindor field and action primitives around native multi-select lists.\r\n\r\nUse light-DOM `option` or `cindor-option` children as the source option set.",
+          "description": "Dual-list selector built from Cindor field and action primitives around native multi-select lists.\n\nUse light-DOM `option` or `cindor-option` children as the source option set.",
           "name": "CindorTransferList",
           "slots": [
             {
@@ -29316,7 +29718,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Keyboard-accessible single-selection tree view.\r\n\r\nUse nested `cindor-tree-item` elements to create branches and leaves.",
+          "description": "Keyboard-accessible single-selection tree view.\n\nUse nested `cindor-tree-item` elements to create branches and leaves.",
           "name": "CindorTreeView",
           "slots": [
             {
