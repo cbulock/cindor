@@ -725,7 +725,7 @@ function renderDocsHome(activeSectionId: string): string {
     patterns:
       "Higher-level product surfaces matter more than isolated widgets. These examples show how Cindor primitives compose into usable interface workflows."
   };
-  const primaryActionBySection: Record<DocsSectionId, { href: string; label: string }> = {
+  const primaryActionBySection: Record<string, { href: string; label: string }> = {
     overview: { href: getDocsSectionHref("getting-started"), label: "Start with installation" },
     "getting-started": { href: storybookUrl, label: "Open playground" },
     components: { href: getComponentHref(componentCatalog[0]?.slug ?? "alert"), label: "Open a component page" },
