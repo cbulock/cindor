@@ -1,0 +1,8 @@
+{
+  "browser": {
+    "launchOptions": {
+      "channel": "chrome",
+      "chromiumSandbox": false
+    }
+  }
+}
