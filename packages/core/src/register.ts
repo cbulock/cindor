@@ -19,6 +19,7 @@ import { CindorCommandBar } from "./components/command-bar/cindor-command-bar.js
 import { CindorCommandPalette } from "./components/command-palette/cindor-command-palette.js";
 import { CindorContextMenu } from "./components/context-menu/cindor-context-menu.js";
 import { CindorDataTable } from "./components/data-table/cindor-data-table.js";
+import { CindorDataViewToolbar } from "./components/data-view-toolbar/cindor-data-view-toolbar.js";
 import { CindorDatePicker } from "./components/date-picker/cindor-date-picker.js";
 import { CindorDateRangePicker } from "./components/date-range-picker/cindor-date-range-picker.js";
 import { CindorDateTimePicker } from "./components/date-time-picker/cindor-date-time-picker.js";
@@ -142,6 +143,7 @@ const definitions = [
   ["cindor-search", CindorSearch],
   ["cindor-combobox", CindorCombobox],
   ["cindor-data-table", CindorDataTable],
+  ["cindor-data-view-toolbar", CindorDataViewToolbar],
   ["cindor-date-input", CindorDateInput],
   ["cindor-description-item", CindorDescriptionItem],
   ["cindor-description-list", CindorDescriptionList],

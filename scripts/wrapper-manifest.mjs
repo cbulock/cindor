@@ -369,6 +369,17 @@ export const componentDefinitions = [
       str("sortKey")
     ]
   }),
+  component("CindorDataViewToolbar", "cindor-data-view-toolbar", {
+    slots: slots.all,
+    vueProps: [
+      str("description"),
+      num("itemCount", 0, { attr: "item-count" }),
+      str("itemLabel", "items", { attr: "item-label", alwaysPass: true }),
+      num("selectionCount", 0, { attr: "selection-count" }),
+      str("selectionLabel", "selected", { attr: "selection-label", alwaysPass: true }),
+      str("title")
+    ]
+  }),
   component("CindorEmptyState", "cindor-empty-state", { slots: slots.all }),
   component("CindorEmptySearchResults", "cindor-empty-search-results", {
     slots: slots.all,

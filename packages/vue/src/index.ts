@@ -922,6 +922,34 @@ export const CindorDataTable = defineComponent({
   }
 });
 
+export const CindorDataViewToolbar = defineComponent({
+  name: "CindorDataViewToolbar",
+  props: {
+    description: { type: String, default: "" },
+    itemCount: { type: Number, default: 0 },
+    itemLabel: { type: String, default: "items" },
+    selectionCount: { type: Number, default: 0 },
+    selectionLabel: { type: String, default: "selected" },
+    title: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-data-view-toolbar",
+            {
+              ...attrs,
+              description: props.description || undefined,
+              "item-count": props.itemCount,
+              "item-label": props.itemLabel,
+              "selection-count": props.selectionCount,
+              "selection-label": props.selectionLabel,
+              title: props.title || undefined,
+            },
+            slots
+          );
+  }
+});
+
 export const CindorEmptyState = defineComponent({
   name: "CindorEmptyState",
   setup(_, { attrs, slots }) {

@@ -59,6 +59,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("command-palette", "Command Palette", "Component", "Overlays", "dialog plus search and listbox", "Search-first action launcher for keyboard-driven workflows."),
   defineComponent("context-menu", "Context Menu", "Component", "Overlays", "right-click menu surface", "Pointer- and keyboard-opened contextual actions anchored to a trigger region."),
   defineComponent("data-table", "Data Table", "Component", "Data", "table", "Sortable, searchable, paginated table for application data."),
+  defineComponent("data-view-toolbar", "Data View Toolbar", "Composite", "Data", "collection controls shell", "Summary and action toolbar for tables, grids, and collection pages."),
   defineComponent("date-picker", "Date Picker", "Component", "Forms", "field plus popup calendar", "Popup date field that reuses the shared calendar selection surface."),
   defineComponent("date-range-picker", "Date Range Picker", "Component", "Forms", "field plus popup range calendar", "Popup date range field for filters, reporting, and booking flows."),
   defineComponent("date-time-picker", "Date Time Picker", "Component", "Forms", "date field plus time field", "Combined date and time entry surface built from Cindor date and time inputs."),

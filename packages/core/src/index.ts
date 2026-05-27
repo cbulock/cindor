@@ -38,6 +38,7 @@ export {
   type DataTableRow,
   type DataTableSortDirection
 } from "./components/data-table/cindor-data-table.js";
+export { CindorDataViewToolbar } from "./components/data-view-toolbar/cindor-data-view-toolbar.js";
 export { CindorEmailInput } from "./components/email-input/cindor-email-input.js";
 export { CindorErrorText } from "./components/error-text/cindor-error-text.js";
 export { CindorEmptyState } from "./components/empty-state/cindor-empty-state.js";
