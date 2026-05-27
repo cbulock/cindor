@@ -76,6 +76,7 @@ import { CindorSkeleton } from "./components/skeleton/cindor-skeleton.js";
 import { CindorSelect } from "./components/select/cindor-select.js";
 import { CindorSideNav } from "./components/side-nav/cindor-side-nav.js";
 import { CindorSideNavItem } from "./components/side-nav-item/cindor-side-nav-item.js";
+import { CindorSplitButton } from "./components/split-button/cindor-split-button.js";
 import { CindorSpinner } from "./components/spinner/cindor-spinner.js";
 import { CindorSplitter } from "./components/splitter/cindor-splitter.js";
 import { CindorSplitterPanel } from "./components/splitter-panel/cindor-splitter-panel.js";
@@ -184,6 +185,7 @@ const definitions = [
   ["cindor-select", CindorSelect],
   ["cindor-side-nav", CindorSideNav],
   ["cindor-side-nav-item", CindorSideNavItem],
+  ["cindor-split-button", CindorSplitButton],
   ["cindor-splitter", CindorSplitter],
   ["cindor-splitter-panel", CindorSplitterPanel],
   ["cindor-stack", CindorStack],

@@ -121,6 +121,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("spinner", "Spinner", "Primitive", "Feedback", "indeterminate loader", "Compact loading indicator for pending work."),
   defineComponent("stack", "Stack", "Primitive", "Display", "flex stack", "Spacing primitive for vertical, horizontal, and wrapped alignment patterns."),
   defineComponent("stepper", "Stepper", "Component", "Navigation", "step list and buttons", "Progress and workflow navigation for multi-step flows."),
+  defineComponent("split-button", "Split Button", "Composite", "Actions", "primary button plus anchored menu", "Primary action button paired with a secondary action dropdown."),
   defineComponent("switch", "Switch", "Primitive", "Forms", "checkbox-based toggle", "Boolean toggle styled as a switch."),
   defineComponent("tag-input", "Tag Input", "Component", "Forms", "text input with tokenized values", "Freeform tag entry surface for labels, filters, and lightweight categorization."),
   defineComponent("stat-card", "Stat Card", "Component", "Data", "summary metric card", "Dashboard metric card for KPI, trend, and supporting context."),

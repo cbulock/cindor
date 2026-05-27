@@ -148,6 +148,17 @@ export const componentDefinitions = [
     slots: slots.default,
     vueProps: [bool("attached"), typed("orientation", "ButtonGroupOrientation", "horizontal")]
   }),
+  component("CindorSplitButton", "cindor-split-button", {
+    slots: slots.all,
+    vueHandlers: [currentOpen],
+    vueProps: [
+      bool("disabled"),
+      str("menuLabel", "More actions", { attr: "menu-label", alwaysPass: true }),
+      bool("open"),
+      typed("type", "ButtonType", "button"),
+      typed("variant", "ButtonVariant", "solid")
+    ]
+  }),
   component("CindorChip", "cindor-chip", {
     slots: slots.default,
     vueProps: [typed("tone", "ChipTone", "neutral")]
