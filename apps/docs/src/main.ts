@@ -709,7 +709,7 @@ function renderLandingPage(): string {
 
 function renderDocsHome(activeSectionId: string): string {
   const activeSection = sections.find((section) => section.id === activeSectionId) ?? sections[0];
-  const headerTitleBySection: Record<DocsSectionId, string> = {
+  const headerTitleBySection: Record<string, string> = {
     overview: "Cindor UI technical reference.",
     "getting-started": "Get a Cindor UI app running quickly.",
     components: "Browse the component catalog with less friction.",
