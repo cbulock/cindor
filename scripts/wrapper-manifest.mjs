@@ -216,6 +216,28 @@ export const componentDefinitions = [
     slots: slots.default,
     vueProps: [typed("tone", '"info" | "success" | "warning" | "danger"', "info")]
   }),
+  component("CindorBanner", "cindor-banner", {
+    reactEvents: ["dismiss", "open-change"],
+    slots: slots.all,
+    vueHandlers: [
+      handler("dismiss"),
+      handler("open-change", {
+        emitName: "open-change",
+        modelEmit: "update:open",
+        modelHostProperty: "open",
+        modelHostType: "OpenHost",
+        modelValueExpression: "Boolean((event as CustomEvent<{ open?: boolean }>).detail?.open)"
+      })
+    ],
+    vueProps: [
+      bool("dismissible"),
+      bool("open", true),
+      typed("roleType", '"status" | "alert"', "", { attr: "role-type", alwaysPass: false }),
+      bool("sticky"),
+      str("title"),
+      typed("tone", '"info" | "success" | "warning" | "danger"', "info")
+    ]
+  }),
   component("CindorActivityFeed", "cindor-activity-feed", {
     slots: slots.default
   }),

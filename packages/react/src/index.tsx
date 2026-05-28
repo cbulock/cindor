@@ -16,6 +16,7 @@ import {
   CindorProvider as CindorProviderElement,
   CindorSpinner as CindorSpinnerElement,
   CindorAlert as CindorAlertElement,
+  CindorBanner as CindorBannerElement,
   CindorActivityFeed as CindorActivityFeedElement,
   CindorActivityItem as CindorActivityItemElement,
   CindorAutocomplete as CindorAutocompleteElement,
@@ -196,6 +197,16 @@ export const CindorAlert = createComponent({
   react: React,
   tagName: "cindor-alert",
   elementClass: CindorAlertElement
+});
+
+export const CindorBanner = createComponent({
+  react: React,
+  tagName: "cindor-banner",
+  elementClass: CindorBannerElement,
+  events: {
+    onDismiss: "dismiss",
+    onOpenChange: "open-change"
+  }
 });
 
 export const CindorActivityFeed = createComponent({

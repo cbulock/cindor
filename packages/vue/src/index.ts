@@ -332,6 +332,45 @@ export const CindorAlert = defineComponent({
   }
 });
 
+export const CindorBanner = defineComponent({
+  name: "CindorBanner",
+  props: {
+    dismissible: { type: Boolean, default: false },
+    open: { type: Boolean, default: true },
+    roleType: { type: String as PropType<"status" | "alert">, default: "" },
+    sticky: { type: Boolean, default: false },
+    title: { type: String, default: "" },
+    tone: { type: String as PropType<"info" | "success" | "warning" | "danger">, default: "info" }
+  },
+  emits: ["dismiss", "update:open", "open-change"],
+  setup(props, { attrs, emit, slots }) {
+    const handleDismiss = (event: Event) => {
+      emit("dismiss", event);
+    };
+
+    const handleOpenChange = (event: Event) => {
+      emit("update:open", Boolean((event as CustomEvent<{ open?: boolean }>).detail?.open));
+      emit("open-change", event);
+    };
+    return () =>
+          h(
+            "cindor-banner",
+            {
+              ...attrs,
+              dismissible: props.dismissible || undefined,
+              open: props.open,
+              "role-type": props.roleType || undefined,
+              sticky: props.sticky || undefined,
+              title: props.title || undefined,
+              tone: props.tone,
+              onDismiss: handleDismiss,
+              onOpenChange: handleOpenChange,
+            },
+            slots
+          );
+  }
+});
+
 export const CindorActivityFeed = defineComponent({
   name: "CindorActivityFeed",
   setup(_, { attrs, slots }) {
