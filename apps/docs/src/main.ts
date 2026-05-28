@@ -178,12 +178,14 @@ const DEFAULT_DOCS_DESCRIPTION =
   "Cindor UI documentation for standards-based web components, component APIs, usage examples, and thin React and Vue wrappers.";
 const DEFAULT_LANDING_DESCRIPTION =
   "Cindor UI is a design-forward web component library with standards-based primitives, complete documentation, and thin React and Vue wrappers.";
-const siteMode: DocsSiteMode = import.meta.env.VITE_SITE_MODE === "docs" ? "docs" : "landing";
+const siteMode: DocsSiteMode = import.meta.env.VITE_SITE_MODE === "landing" ? "landing" : "docs";
 const appBasePath = normalizeAppBasePath(import.meta.env.BASE_URL);
 const primarySiteUrl = normalizeSiteUrl(import.meta.env.VITE_PRIMARY_SITE_URL) ?? new URL("/", document.baseURI).toString();
 const configuredDocsSiteUrl = normalizeSiteUrl(import.meta.env.VITE_DOCS_SITE_URL);
+const hasDedicatedDocsSite = Boolean(configuredDocsSiteUrl);
 const docsSiteUrl = configuredDocsSiteUrl ?? new URL("./", document.baseURI).toString();
-const docsEntryUrl = siteMode === "landing" ? getDocsSectionUrl("overview") : getDocsSectionHref("overview");
+const supportsDocsRoutesInCurrentBuild = siteMode === "docs" || !hasDedicatedDocsSite;
+const docsEntryUrl = siteMode === "landing" && hasDedicatedDocsSite ? docsSiteUrl : getDocsSectionHref("overview");
 const landingSiteUrl = siteMode === "docs" ? primarySiteUrl : toAppHref("/");
 const storybookUrl = normalizeSiteUrl(import.meta.env.VITE_PLAYGROUND_URL) ?? new URL("storybook/", document.baseURI).toString();
 const storySourceModules = import.meta.glob<string>("../../../packages/core/src/components/*/*.stories.ts", {
@@ -518,14 +520,7 @@ function render(): void {
 
     root.innerHTML = `
       <div class="app-shell">
-        <header class="mobile-header">
-          <strong>Cindor UI docs</strong>
-          <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="docs-sidebar" data-action="toggle-nav">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </button>
-        </header>
+        ${renderMobileHeader(route)}
 
         <div class="sidebar-overlay" aria-hidden="true" data-action="close-nav"></div>
 
@@ -581,6 +576,14 @@ function renderSidebar(activeSectionId: string, route: Route): string {
       </div>
     </div>
 
+    <div class="sidebar-palette-callout">
+      <div>
+        <strong>Search docs fast</strong>
+        <p class="muted">Use Ctrl/Cmd+K to jump between sections, components, playground, and the landing page.</p>
+      </div>
+      <cindor-button data-action="open-palette">Open search</cindor-button>
+    </div>
+
     <div class="sidebar-links">
       <a class="nav-link" href="${landingSiteUrl}">Landing page</a>
       <a class="nav-link" href="${storybookUrl}">Playground</a>
@@ -600,13 +603,15 @@ function renderSidebar(activeSectionId: string, route: Route): string {
         .join("")}
     </nav>
 
-    <div class="sidebar-stats">
-      <cindor-card>
-        <div class="card-body">
-          <strong>${componentCatalog.length} documented components</strong>
-          <p class="muted">The docs catalog mirrors the current registered Cindor component surface.</p>
-        </div>
-      </cindor-card>
+    <div class="sidebar-meta">
+      <div class="sidebar-meta-item">
+        <strong>${componentCatalog.length}</strong>
+        <span class="muted">documented components</span>
+      </div>
+      <div class="sidebar-meta-item">
+        <strong>${sections.length}</strong>
+        <span class="muted">core docs tracks</span>
+      </div>
     </div>
 
     ${
@@ -622,13 +627,37 @@ function renderSidebar(activeSectionId: string, route: Route): string {
         `
         : ""
     }
+  `;
+}
 
-    <div class="sidebar-footer">
-      <cindor-button data-action="open-palette" variant="ghost">Open command palette</cindor-button>
-      <cindor-alert tone="info">
-        This site imports the same cindor-ui-core source surfaces consumers use.
-      </cindor-alert>
-    </div>
+function renderMobileHeader(route: Route): string {
+  const currentLabel =
+    route.kind === "component"
+      ? getComponentDoc(route.slug)?.title ?? "Component docs"
+      : route.kind === "docs"
+        ? sections.find((section) => section.id === route.sectionId)?.title ?? "Documentation"
+        : "Documentation";
+
+  return `
+    <header class="mobile-header">
+      <div class="mobile-header-copy">
+        <strong>Cindor UI docs</strong>
+        <span class="mobile-header-label">${currentLabel}</span>
+      </div>
+
+      <div class="mobile-header-actions">
+        <button class="nav-toggle" type="button" aria-label="Open search" data-action="open-palette">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M14 14l3 3M9 15a6 6 0 1 1 0-12 6 6 0 0 1 0 12z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="docs-sidebar" data-action="toggle-nav">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </header>
   `;
 }
 
@@ -646,8 +675,12 @@ function renderLandingPage(): string {
       <div class="hero-actions">
         <a class="action-link action-link-primary" href="${docsEntryUrl}">Read the docs</a>
         <a class="action-link" href="${storybookUrl}">Open playground</a>
-        <a class="action-link" href="${GITHUB_REPO_URL}" target="_blank" rel="noreferrer">View on GitHub</a>
       </div>
+
+      <nav class="hero-utility-links" aria-label="More Cindor UI destinations">
+        <span class="hero-utility-label">Also available</span>
+        <a class="hero-utility-link" href="${GITHUB_REPO_URL}" target="_blank" rel="noreferrer">GitHub source</a>
+      </nav>
 
       <ul class="landing-proof-list">
         <li>Native-first HTML primitives and accessibility by default</li>
@@ -674,25 +707,53 @@ function renderLandingPage(): string {
 }
 
 function renderDocsHome(activeSectionId: string): string {
+  const activeSection = sections.find((section) => section.id === activeSectionId) ?? sections[0];
+  const headerTitleBySection: Record<string, string> = {
+    overview: "Cindor UI technical reference.",
+    "getting-started": "Get a Cindor UI app running quickly.",
+    components: "Browse the component catalog with less friction.",
+    patterns: "Study the composed workflows, not just the primitives."
+  };
+  const headerBodyBySection: Record<string, string> = {
+    overview:
+      "Cindor UI keeps behavior in a standards-based custom element core and exposes thin React and Vue adapters. This docs app uses the web-component layer directly so examples stay close to the primary integration surface.",
+    "getting-started":
+      "Start with installation and registration, then move into theming and first composition patterns. This page is meant to get a new consumer productive fast.",
+    components:
+      "Use the catalog when you need exact APIs, previews, and dedicated docs routes for each registered component. Search should be the default path here, not a buried extra.",
+    patterns:
+      "Higher-level product surfaces matter more than isolated widgets. These examples show how Cindor primitives compose into usable interface workflows."
+  };
+  const primaryActionBySection: Record<string, { href: string; label: string }> = {
+    overview: { href: getDocsSectionHref("getting-started"), label: "Start with installation" },
+    "getting-started": { href: storybookUrl, label: "Open playground" },
+    components: { href: getComponentHref(componentCatalog[0]?.slug ?? "alert"), label: "Open a component page" },
+    patterns: { href: getDocsSectionHref("components"), label: "See underlying components" }
+  };
+
   return `
     <section class="hero" id="overview">
       <div class="hero-copy">
         <cindor-breadcrumbs>
           <a href="${landingSiteUrl}">Cindor UI</a>
-          <a href="${getDocsSectionHref("overview")}">Documentation</a>
+          <a href="${getDocsSectionHref(activeSection.id)}">${activeSection.title}</a>
         </cindor-breadcrumbs>
-        <h1 class="hero-title">Cindor UI technical reference.</h1>
+        <h1 class="hero-title">${headerTitleBySection[activeSection.id]}</h1>
         <p class="muted">
-          Cindor UI keeps behavior in a standards-based custom element core and exposes thin React and Vue adapters. This docs app uses the web-component layer directly so examples stay close to the primary integration surface.
+          ${headerBodyBySection[activeSection.id]}
         </p>
       </div>
 
       <div class="hero-actions">
-        <cindor-button data-target-path="${getDocsSectionPath("getting-started")}">Installation</cindor-button>
-        <cindor-button variant="ghost" data-target-path="${getDocsSectionPath("components")}">Component catalog</cindor-button>
-        <cindor-button variant="ghost" data-target-path="${getDocsSectionPath("patterns")}">Composition patterns</cindor-button>
-        <a class="action-link" href="${storybookUrl}">Playground</a>
+        <a class="action-link action-link-primary" href="${primaryActionBySection[activeSection.id].href}">${primaryActionBySection[activeSection.id].label}</a>
+        <cindor-button variant="ghost" data-action="open-palette">Search docs</cindor-button>
       </div>
+
+      <nav class="hero-utility-links" aria-label="More documentation shortcuts">
+        <span class="hero-utility-label">More paths</span>
+        <button class="hero-utility-button" type="button" data-target-path="${getDocsSectionPath("components")}">Component catalog</button>
+        <a class="hero-utility-link" href="${storybookUrl}">Playground</a>
+      </nav>
 
       <div class="card-grid">
         <cindor-card>
@@ -717,7 +778,21 @@ function renderDocsHome(activeSectionId: string): string {
     </section>
 
     <div class="content-grid">
-      <cindor-tabs class="docs-home-tabs" id="docs-home-tabs" value="${escapeAttribute(activeSectionId)}" aria-label="Documentation sections">
+      <nav class="section-switcher" aria-label="Documentation sections">
+        ${sections
+          .map(
+            (section) => `
+              <a class="section-switcher-link" data-active="${String(section.id === activeSection.id)}" aria-current="${section.id === activeSection.id ? "page" : "false"}" href="${getDocsSectionHref(section.id)}">
+                ${section.title}
+              </a>
+            `
+          )
+          .join("")}
+      </nav>
+
+      ${
+        activeSectionId === "overview"
+          ? `
       <section class="section" id="overview-panel" data-label="Overview" data-value="overview">
         <div class="section-heading">
           <h2>Overview</h2>
@@ -742,7 +817,13 @@ function renderDocsHome(activeSectionId: string): string {
           </div>
         </div>
       </section>
+      `
+          : ""
+      }
 
+      ${
+        activeSectionId === "getting-started"
+          ? `
       <section class="section" id="getting-started" data-label="Getting started" data-value="getting-started">
         <div class="section-heading">
           <h2>Getting started</h2>
@@ -862,11 +943,25 @@ function renderDocsHome(activeSectionId: string): string {
           <cindor-code-block code="${escapeAttribute(starterFormCompositionCode)}" language="html"></cindor-code-block>
         </div>
       </section>
+      `
+          : ""
+      }
 
+      ${
+        activeSectionId === "components"
+          ? `
       <section class="section" id="components" data-label="Components" data-value="components">
         <div class="section-heading">
           <h2>Component reference</h2>
           <p>The catalog covers the current Cindor component surface and links directly to a dedicated docs view for each component.</p>
+        </div>
+
+        <div class="catalog-search-callout">
+          <div>
+            <strong>Search before scanning</strong>
+            <p class="muted">The command palette can jump straight to any component route without making you scroll the full catalog.</p>
+          </div>
+          <cindor-button data-action="open-palette" variant="ghost">Open search</cindor-button>
         </div>
 
         <div class="catalog-controls">
@@ -889,74 +984,137 @@ function renderDocsHome(activeSectionId: string): string {
           </div>
         </div>
       </section>
+      `
+          : ""
+      }
 
+      ${
+        activeSectionId === "patterns"
+          ? `
       <section class="section" id="patterns" data-label="Patterns" data-value="patterns">
         <div class="section-heading">
           <h2>Patterns and workflows</h2>
-          <p>Higher-level surfaces are composed from smaller primitives so behavior stays reusable and easier to reason about.</p>
+          <p>These examples show how collection views, action hierarchies, and notifications come together from reusable Cindor building blocks.</p>
         </div>
 
         <div class="demo-grid">
           <div class="preview-block">
             <div class="live-toolbar">
-              <strong>Layout primitives</strong>
-              <cindor-badge>New</cindor-badge>
+              <strong>Collection/list page pattern</strong>
+              <cindor-badge tone="accent">Collections</cindor-badge>
             </div>
-            <cindor-provider theme="dark" primary-color="#15803d">
-              <div class="pattern-layout-preview">
-                <cindor-layout>
-                  <cindor-layout-header>
-                    <cindor-stack gap="2">
-                      <strong>Release workspace</strong>
-                      <cindor-stack direction="horizontal" gap="2" wrap align="center">
-                        <cindor-badge tone="accent">Production</cindor-badge>
-                        <cindor-button>Deploy</cindor-button>
-                        <cindor-button variant="ghost">Share</cindor-button>
-                      </cindor-stack>
-                    </cindor-stack>
-                  </cindor-layout-header>
-                  <cindor-layout-content>
-                    <div class="callout">
-                      <cindor-alert id="pattern-alert" tone="${escapeAttribute(activeAlertTone)}">
-                        Compose higher-level patterns from reusable primitives instead of duplicating behavior in each component.
-                      </cindor-alert>
-                    </div>
-                  </cindor-layout-content>
-                </cindor-layout>
+            <p class="muted">Use a summary toolbar, a count badge, and a table surface to keep list pages focused without inventing a one-off page shell.</p>
+            <div class="pattern-stack">
+              <cindor-data-view-toolbar
+                title="Projects"
+                description="Track active work, review ownership, and narrow the current scope without leaving the collection view."
+                item-count="128"
+                selection-count="3"
+              >
+                <cindor-badge slot="meta" tone="accent">Quarterly planning</cindor-badge>
+                <cindor-search slot="filters" placeholder="Search projects"></cindor-search>
+                <cindor-segmented-control slot="view-controls" aria-label="Project scope"></cindor-segmented-control>
+                <cindor-button slot="actions" variant="ghost">Export</cindor-button>
+                <cindor-button slot="actions">Create project</cindor-button>
+                <span>Pair the toolbar with a table, cards, or any other collection body.</span>
+              </cindor-data-view-toolbar>
+              <table class="plain-preview-table">
+                <thead>
+                  <tr>
+                    <th>Project</th>
+                    <th>Owner</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Summer launch</td>
+                    <td>Design systems</td>
+                    <td>In review</td>
+                  </tr>
+                  <tr>
+                    <td>Partner migration</td>
+                    <td>Platform</td>
+                    <td>Active</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="preview-block">
+            <div class="live-toolbar">
+              <strong>Admin table toolbar pattern</strong>
+              <cindor-badge>Operations</cindor-badge>
+            </div>
+            <p class="muted">Admin views usually need filter controls, bulk-selection state, and a primary management action in the same row.</p>
+            <div class="pattern-stack">
+              <cindor-data-view-toolbar
+                title="Team members"
+                description="Review access, filter by role, and act on selected accounts from the same toolbar."
+                item-count="42"
+                selection-count="6"
+              >
+                <cindor-badge slot="meta">SSO enforced</cindor-badge>
+                <cindor-search slot="filters" placeholder="Search people"></cindor-search>
+                <cindor-button-group slot="view-controls" attached>
+                  <cindor-button variant="ghost">All roles</cindor-button>
+                  <cindor-button variant="ghost">Owners</cindor-button>
+                  <cindor-button variant="ghost">Guests</cindor-button>
+                </cindor-button-group>
+                <cindor-button slot="actions" variant="ghost">Bulk deactivate</cindor-button>
+                <cindor-button slot="actions">Invite teammate</cindor-button>
+                <span>Keep high-frequency filters close to the title and push destructive bulk actions to secondary emphasis.</span>
+              </cindor-data-view-toolbar>
+              <div class="pattern-inline-notes">
+                <cindor-badge tone="accent">6 selected</cindor-badge>
+                <span class="muted">Bulk actions can target the current selection without leaving the table context.</span>
               </div>
-            </cindor-provider>
+            </div>
           </div>
 
           <div class="preview-block">
             <div class="live-toolbar">
-              <strong>Search-first navigation</strong>
-              <cindor-badge>Dogfooded</cindor-badge>
+              <strong>Notification/alert pattern</strong>
+              <cindor-badge tone="accent">Feedback</cindor-badge>
             </div>
-            <p class="muted">The docs command palette is built from Cindor's dialog, search, listbox, and option components.</p>
-            <cindor-button data-action="open-palette">Jump with command palette</cindor-button>
+            <p class="muted">Use banners for broad page-level status and alerts for the current task or result. They should complement each other, not compete.</p>
+            <div class="pattern-stack">
+              <cindor-banner tone="warning" title="Scheduled maintenance tonight">
+                Expect brief interruptions from 11:00 PM to 11:30 PM Eastern while the billing cluster rolls forward.
+                <cindor-button slot="actions" variant="ghost">Review checklist</cindor-button>
+              </cindor-banner>
+              <cindor-alert tone="${escapeAttribute(activeAlertTone)}">
+                Changes are autosaved for this workspace. Surface task feedback closer to the content area than global banners.
+              </cindor-alert>
+            </div>
           </div>
 
           <div class="preview-block">
             <div class="live-toolbar">
-              <strong>Form orchestration</strong>
-              <cindor-badge>New surface</cindor-badge>
+              <strong>Action hierarchy pattern</strong>
+              <cindor-badge>Buttons</cindor-badge>
             </div>
-            <p class="muted">cindor-form owns submission, reset, and validation wiring so direct children behave like a real form surface.</p>
-            <cindor-form description="Try submitting with empty fields to see the orchestration layer wire into cindor-form-field messaging." onsubmit="event.preventDefault()">
-              <cindor-form-row>
-                <cindor-form-field label="Workspace name" required>
-                  <cindor-input name="workspaceName" required></cindor-input>
-                </cindor-form-field>
-                <cindor-form-field label="Billing email" required>
-                  <cindor-email-input name="billingEmail" required></cindor-email-input>
-                </cindor-form-field>
-              </cindor-form-row>
-              <cindor-button type="submit">Validate form</cindor-button>
-            </cindor-form>
+            <p class="muted">Keep the primary path obvious with a standard button, then put lower-frequency alternatives behind a split button.</p>
+            <div class="pattern-stack">
+              <div class="pattern-inline-actions">
+                <cindor-button>Publish changes</cindor-button>
+                <cindor-split-button menu-label="More save actions">
+                  Save draft
+                  <cindor-menu-item slot="menu">Save draft</cindor-menu-item>
+                  <cindor-menu-item slot="menu">Duplicate draft</cindor-menu-item>
+                  <cindor-menu-item slot="menu">Schedule publish</cindor-menu-item>
+                </cindor-split-button>
+                <cindor-button variant="ghost">Preview</cindor-button>
+              </div>
+              <p class="muted">Reserve the split button for adjacent alternatives to the main action, not as a replacement for every action group.</p>
+            </div>
           </div>
         </div>
       </section>
-      </cindor-tabs>
+      `
+          : ""
+      }
     </div>
   `;
 }
@@ -1390,7 +1548,7 @@ function hydrateLivingExamples(route: Route, readiness: { componentPreviewReady:
   hydrateGlobalPalette();
 
   if (route.kind === "docs") {
-    hydrateHomeExamples(route.sectionId);
+    hydrateHomeExamples();
     return;
   }
 
@@ -1412,7 +1570,7 @@ function syncRouteScroll(route: Route): void {
 
   if (route.kind === "docs") {
     requestAnimationFrame(() => {
-      root.querySelector<HTMLElement>("#docs-home-tabs, .hero")?.scrollIntoView({
+      root.querySelector<HTMLElement>(".section-switcher, .hero")?.scrollIntoView({
         behavior: "auto",
         block: "start"
       });
@@ -1464,19 +1622,7 @@ function hydrateGlobalPalette(): void {
   palette.addEventListener("command-select", handlePaletteSelect);
 }
 
-function hydrateHomeExamples(activeSectionId: string): void {
-  const docsTabs = root.querySelector<HTMLElement & { value: string }>("#docs-home-tabs");
-  if (docsTabs) {
-    docsTabs.value = activeSectionId;
-    docsTabs.addEventListener("change", () => {
-      const nextValue = docsTabs.value || "overview";
-      const nextPath = getDocsSectionPath(nextValue);
-      if (getCurrentAppPath() !== nextPath) {
-        navigate(nextPath);
-      }
-    });
-  }
-
+function hydrateHomeExamples(): void {
   const stepper = root.querySelector<StepperHost>("#setup-stepper");
   if (stepper) {
     stepper.steps = setupSteps;
@@ -1576,11 +1722,15 @@ function handlePaletteSelect(event: Event): void {
 }
 
 function getRoute(): Route {
-  if (siteMode === "landing") {
+  const appPath = getCurrentAppPath();
+
+  if (siteMode === "landing" && appPath === "/") {
     return { kind: "landing" };
   }
 
-  const appPath = getCurrentAppPath();
+  if (!supportsDocsRoutesInCurrentBuild) {
+    return { kind: "landing" };
+  }
 
   if (appPath === "/") {
     return { kind: "docs", sectionId: "overview" };
@@ -1671,10 +1821,6 @@ function getComponentHref(slug: string): string {
   return toAppHref(getComponentPath(slug));
 }
 
-function getDocsSectionUrl(sectionId: string): string {
-  return new URL(sectionId, docsSiteUrl).toString();
-}
-
 function toAppHref(path: string): string {
   const normalizedPath = normalizeRoutePath(path);
   const basePath = trimTrailingSlash(appBasePath);
@@ -1738,7 +1884,7 @@ function getAppPathFromPathname(pathname: string): string {
 }
 
 function isKnownAppPath(path: string): boolean {
-  if (siteMode === "landing") {
+  if (!supportsDocsRoutesInCurrentBuild) {
     return path === "/";
   }
 
@@ -1925,6 +2071,13 @@ function getUsageCode(doc: ComponentDoc): string {
   switch (doc.slug) {
     case "alert":
       return `<cindor-alert tone="info">Update complete.</cindor-alert>`;
+    case "banner":
+      return `<cindor-banner tone="warning" title="Scheduled maintenance" dismissible>
+  <cindor-icon slot="icon" name="triangle-alert"></cindor-icon>
+  API deploys are paused from 8:00 PM to 9:00 PM Eastern while the database cluster is upgraded.
+  <cindor-button slot="actions" variant="ghost">View status</cindor-button>
+  <cindor-button slot="actions">Notify team</cindor-button>
+</cindor-banner>`;
     case "activity-feed":
       return `<cindor-activity-feed>
   <cindor-activity-item unread>
@@ -1964,6 +2117,14 @@ function getUsageCode(doc: ComponentDoc): string {
   <cindor-button variant="ghost">Back</cindor-button>
   <cindor-button>Continue</cindor-button>
 </cindor-button-group>`;
+    case "split-button":
+      return `<cindor-split-button menu-label="More publish actions">
+  <cindor-icon slot="start-icon" name="rocket" size="16"></cindor-icon>
+  Publish
+  <cindor-menu-item slot="menu">Schedule for later</cindor-menu-item>
+  <cindor-menu-item slot="menu">Save draft</cindor-menu-item>
+  <cindor-menu-item slot="menu">Duplicate</cindor-menu-item>
+</cindor-split-button>`;
     case "calendar":
       return `<cindor-calendar month="2026-04" value="2026-04-26"></cindor-calendar>`;
     case "card":
@@ -2554,6 +2715,13 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
   switch (doc.slug) {
     case "alert":
       return `<${componentName} tone="info">Update complete.</${componentName}>`;
+    case "banner":
+      return `<${componentName} tone="warning" title="Scheduled maintenance" dismissible>
+      <cindor-icon slot="icon" name="triangle-alert"></cindor-icon>
+      API deploys are paused from 8:00 PM to 9:00 PM Eastern while the database cluster is upgraded.
+      <cindor-button slot="actions" variant="ghost">View status</cindor-button>
+      <cindor-button slot="actions">Notify team</cindor-button>
+    </${componentName}>`;
     case "activity-feed":
       return `<${componentName}>
       <cindor-activity-item unread>
@@ -2842,6 +3010,13 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
   switch (doc.slug) {
     case "alert":
       return `<${componentName} tone="info">Update complete.</${componentName}>`;
+    case "banner":
+      return `<${componentName} tone="warning" title="Scheduled maintenance" dismissible>
+    <cindor-icon slot="icon" name="triangle-alert"></cindor-icon>
+    API deploys are paused from 8:00 PM to 9:00 PM Eastern while the database cluster is upgraded.
+    <cindor-button slot="actions" variant="ghost">View status</cindor-button>
+    <cindor-button slot="actions">Notify team</cindor-button>
+  </${componentName}>`;
     case "activity-feed":
       return `<${componentName}>
     <cindor-activity-item unread>
@@ -3108,6 +3283,7 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
 function getPreviewMarkup(doc: ComponentDoc): string | null {
   switch (doc.slug) {
     case "alert":
+    case "banner":
     case "activity-feed":
     case "activity-item":
     case "avatar":
@@ -3115,6 +3291,7 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "breadcrumbs":
     case "button":
     case "button-group":
+    case "split-button":
     case "calendar":
     case "card":
     case "checkbox":
@@ -3491,6 +3668,37 @@ function getLegacyComponentApi(doc: ComponentDoc): ComponentApiSurface {
         ],
         intro: `${doc.tag} is a presentational feedback primitive. In practice the public API is its tone plus the slotted message content.`
       };
+    case "banner":
+      return {
+        groups: [
+          propertyGroup([
+            apiItem("tone", "Visual tone for informational, success, warning, or danger messaging.", {
+              defaultValue: `"info"`,
+              type: `"info" | "success" | "warning" | "danger"`,
+              values: `"info", "success", "warning", "danger"`
+            }),
+            apiItem("title", "Optional title shown above the banner body copy.", { defaultValue: `""`, type: "string" }),
+            apiItem("dismissible", "Adds a trailing dismiss control and enables the close() method.", { defaultValue: "false", type: "boolean" }),
+            apiItem("open", "Controls whether the banner is currently rendered.", { defaultValue: "true", type: "boolean" }),
+            apiItem("sticky", "Pins the banner near the top edge while scrolling.", { defaultValue: "false", type: "boolean" }),
+            apiItem("role-type", "Overrides the derived live region role when status or alert behavior must be forced.", {
+              defaultValue: `derived from tone`,
+              type: `"status" | "alert"`,
+              values: `"status", "alert"`
+            })
+          ]),
+          eventGroup([
+            apiItem("dismiss", "Fires when the dismiss control closes the banner.", { type: "CustomEvent" }),
+            apiItem("open-change", "Fires when the banner open state changes.", { type: "CustomEvent<{ open: boolean }>" })
+          ]),
+          compositionGroup([
+            apiItem("default slot", "Default slot content becomes the banner body.", { type: "slot" }),
+            apiItem("icon", "Optional leading icon or media.", { type: "named slot" }),
+            apiItem("actions", "Optional trailing actions such as buttons or links.", { type: "named slot" })
+          ])
+        ],
+        intro: `${doc.tag} covers persistent page or app-level messaging. Its API adds optional dismissal, action slots, and live-region semantics on top of a standard feedback surface.`
+      };
     case "avatar":
       return {
         groups: [
@@ -3567,6 +3775,40 @@ function getLegacyComponentApi(doc: ComponentDoc): ComponentApiSurface {
           compositionGroup([apiItem("default slot", "Provide one or more cindor-button children.", { type: "slot" })])
         ],
         intro: `${doc.tag} is a layout primitive for related buttons. Its API is mostly about grouping behavior rather than new interaction events.`
+      };
+    case "split-button":
+      return {
+        groups: [
+          propertyGroup([
+            apiItem("variant", "Shares the button treatment across the primary action and menu trigger.", {
+              defaultValue: `"solid"`,
+              type: `"solid" | "ghost"`,
+              values: `"solid", "ghost"`
+            }),
+            apiItem("type", "Maps through to the primary action button type.", {
+              defaultValue: `"button"`,
+              type: `"button" | "submit" | "reset"`,
+              values: `"button", "submit", "reset"`
+            }),
+            apiItem("disabled", "Disables the primary action and the secondary action trigger.", { defaultValue: "false", type: "boolean" }),
+            apiItem("open", "Controls whether the secondary action menu is expanded.", { defaultValue: "false", type: "boolean" }),
+            apiItem("menu-label", "Accessible label for the icon-only secondary action trigger.", { defaultValue: `"More actions"`, type: "string" })
+          ]),
+          eventGroup([
+            apiItem("click", "Uses the native click event from the primary action button.", { type: "MouseEvent" }),
+            apiItem("toggle", "Fires when the secondary action menu opens or closes.", { type: "Event" }),
+            apiItem("menu-item-select", "Secondary actions bubble their menu-item-select event from the chosen cindor-menu-item child.", {
+              type: "CustomEvent<{ item }>"
+            })
+          ]),
+          compositionGroup([
+            apiItem("default slot", "Primary button label content.", { type: "slot" }),
+            apiItem("start-icon / end-icon", "Optional icon slots forwarded to the primary action button.", { type: "named slots" }),
+            apiItem("menu", "Provide one or more cindor-menu-item children for secondary actions.", { type: "named slot" }),
+            apiItem("menu-icon", "Optional replacement icon for the secondary action trigger.", { type: "named slot" })
+          ])
+        ],
+        intro: `${doc.tag} combines a primary action button with an anchored menu so the main workflow stays one click away while related actions remain nearby.`
       };
     case "calendar":
       return {
@@ -4007,6 +4249,11 @@ function getLegacyComponentApi(doc: ComponentDoc): ComponentApiSurface {
 }
 
 function openPalette(): void {
+  const shell = root.querySelector<HTMLElement>(".app-shell");
+  if (mobileMediaQuery.matches && shell?.classList.contains("sidebar-open")) {
+    closeMobileNav();
+  }
+
   root.querySelector<CommandPaletteHost>("#docs-command-palette")?.show();
 }
 

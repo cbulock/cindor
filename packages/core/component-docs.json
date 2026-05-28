@@ -370,6 +370,99 @@
       "tagName": "cindor-badge"
     },
     {
+      "className": "CindorBanner",
+      "description": "Persistent page or app-level feedback surface with optional actions and dismiss control.",
+      "modulePath": "packages/core/src/components/banner/cindor-banner.ts",
+      "properties": [
+        {
+          "attributeName": "dismissible",
+          "defaultValue": "false",
+          "description": "",
+          "name": "dismissible",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "open",
+          "defaultValue": "true",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "role-type",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "roleType",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "sticky",
+          "defaultValue": "false",
+          "description": "",
+          "name": "sticky",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "title",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "title",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "tone",
+          "defaultValue": "\"info\"",
+          "description": "",
+          "name": "tone",
+          "reflects": true,
+          "type": "\"info\" | \"success\" | \"warning\" | \"danger\"",
+          "values": [
+            "info",
+            "success",
+            "warning",
+            "danger"
+          ]
+        },
+        {
+          "attributeName": null,
+          "defaultValue": null,
+          "description": "",
+          "name": "close",
+          "reflects": false,
+          "type": null,
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Default banner body content.",
+          "name": "default"
+        },
+        {
+          "description": "Optional leading icon or media.",
+          "name": "icon"
+        },
+        {
+          "description": "Optional trailing actions such as buttons or links.",
+          "name": "actions"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-banner"
+    },
+    {
       "className": "CindorBreadcrumbs",
       "description": "",
       "modulePath": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.ts",
@@ -5745,6 +5838,134 @@
       "slots": [],
       "summary": "",
       "tagName": "cindor-spinner"
+    },
+    {
+      "className": "CindorSplitButton",
+      "description": "Split button for a primary action plus related secondary menu actions.",
+      "modulePath": "packages/core/src/components/split-button/cindor-split-button.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "Disables the primary action and secondary action menu trigger.",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "menu-label",
+          "defaultValue": "\"More actions\"",
+          "description": "Accessible label applied to the secondary action menu trigger.",
+          "name": "menuLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "Controls whether the secondary action menu is open.",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "type",
+          "defaultValue": "\"button\"",
+          "description": "Maps through to the primary native button type.",
+          "name": "type",
+          "reflects": true,
+          "type": "ButtonType",
+          "values": null
+        },
+        {
+          "attributeName": "variant",
+          "defaultValue": "\"solid\"",
+          "description": "Visual treatment shared by the primary action and menu trigger.",
+          "name": "variant",
+          "reflects": true,
+          "type": "ButtonVariant",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "click",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "Opens the secondary action menu.",
+          "name": "showMenu",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "Closes the secondary action menu.",
+          "name": "hideMenu",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "Toggles the secondary action menu.",
+          "name": "toggleMenu",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the secondary action menu opens or closes.",
+          "name": "toggle",
+          "type": null,
+          "values": null
+        },
+        {
+          "description": "Uses the native click event from the primary action button.",
+          "name": "click",
+          "type": null,
+          "values": null
+        }
+      ],
+      "slots": [
+        {
+          "description": "Primary button label content.",
+          "name": "default"
+        },
+        {
+          "description": "Leading icon content for the primary action.",
+          "name": "start-icon"
+        },
+        {
+          "description": "Trailing icon content for the primary action.",
+          "name": "end-icon"
+        },
+        {
+          "description": "One or more `cindor-menu-item` elements for secondary actions.",
+          "name": "menu"
+        },
+        {
+          "description": "Optional icon content for the menu trigger. Defaults to a chevron-down icon.",
+          "name": "menu-icon"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-split-button"
     },
     {
       "className": "CindorSplitter",

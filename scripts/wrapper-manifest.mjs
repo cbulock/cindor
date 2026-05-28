@@ -148,6 +148,17 @@ export const componentDefinitions = [
     slots: slots.default,
     vueProps: [bool("attached"), typed("orientation", "ButtonGroupOrientation", "horizontal")]
   }),
+  component("CindorSplitButton", "cindor-split-button", {
+    slots: slots.all,
+    vueHandlers: [currentOpen],
+    vueProps: [
+      bool("disabled"),
+      str("menuLabel", "More actions", { attr: "menu-label", alwaysPass: true }),
+      bool("open"),
+      typed("type", "ButtonType", "button"),
+      typed("variant", "ButtonVariant", "solid")
+    ]
+  }),
   component("CindorChip", "cindor-chip", {
     slots: slots.default,
     vueProps: [typed("tone", "ChipTone", "neutral")]
@@ -204,6 +215,28 @@ export const componentDefinitions = [
   component("CindorAlert", "cindor-alert", {
     slots: slots.default,
     vueProps: [typed("tone", '"info" | "success" | "warning" | "danger"', "info")]
+  }),
+  component("CindorBanner", "cindor-banner", {
+    reactEvents: ["dismiss", "open-change"],
+    slots: slots.all,
+    vueHandlers: [
+      handler("dismiss"),
+      handler("open-change", {
+        emitName: "open-change",
+        modelEmit: "update:open",
+        modelHostProperty: "open",
+        modelHostType: "OpenHost",
+        modelValueExpression: "Boolean((event as CustomEvent<{ open?: boolean }>).detail?.open)"
+      })
+    ],
+    vueProps: [
+      bool("dismissible"),
+      bool("open", true),
+      typed("roleType", '"status" | "alert"', "", { attr: "role-type", alwaysPass: false }),
+      bool("sticky"),
+      str("title"),
+      typed("tone", '"info" | "success" | "warning" | "danger"', "info")
+    ]
   }),
   component("CindorActivityFeed", "cindor-activity-feed", {
     slots: slots.default
