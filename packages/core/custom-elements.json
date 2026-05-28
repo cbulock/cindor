@@ -8084,79 +8084,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/description-list/cindor-description-list.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Description List\", render: () => ` <cindor-description-list> <cindor-description-item> <span slot=\"term\">Status</span> Healthy </cindor-description-item> <cindor-description-item> <span slot=\"term\">Region</span> us-east-1 </cindor-description-item> <cindor-description-item> <span slot=\"term\">Updated</span> 2 minutes ago </cindor-description-item> </cindor-description-list> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/description-list/cindor-description-list.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/description-list/cindor-description-list.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/description-list/cindor-description-list.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Key-value description list for metadata and detail pages.",
-          "name": "CindorDescriptionList",
-          "slots": [
-            {
-              "description": "`cindor-description-item` children.",
-              "name": ""
-            }
-          ],
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorDescriptionList",
-          "declaration": {
-            "name": "CindorDescriptionList",
-            "module": "packages/core/src/components/description-list/cindor-description-list.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/description-item/cindor-description-item.stories.ts",
       "declarations": [
         {
@@ -8228,6 +8155,79 @@
           "declaration": {
             "name": "CindorDescriptionItem",
             "module": "packages/core/src/components/description-item/cindor-description-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/description-list/cindor-description-list.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Description List\", render: () => ` <cindor-description-list> <cindor-description-item> <span slot=\"term\">Status</span> Healthy </cindor-description-item> <cindor-description-item> <span slot=\"term\">Region</span> us-east-1 </cindor-description-item> <cindor-description-item> <span slot=\"term\">Updated</span> 2 minutes ago </cindor-description-item> </cindor-description-list> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/description-list/cindor-description-list.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/description-list/cindor-description-list.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/description-list/cindor-description-list.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Key-value description list for metadata and detail pages.",
+          "name": "CindorDescriptionList",
+          "slots": [
+            {
+              "description": "`cindor-description-item` children.",
+              "name": ""
+            }
+          ],
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorDescriptionList",
+          "declaration": {
+            "name": "CindorDescriptionList",
+            "module": "packages/core/src/components/description-list/cindor-description-list.ts"
           }
         }
       ]
@@ -23221,6 +23221,13 @@
               "description": "Visual treatment shared by the primary action and menu trigger.",
               "attribute": "variant",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "generatedFormId",
+              "privacy": "private",
+              "readonly": true,
+              "default": "`cindor-form-${CindorSplitButton.nextFormId++}`"
             },
             {
               "kind": "field",
