@@ -782,7 +782,7 @@ function renderDocsHome(activeSectionId: string): string {
         ${sections
           .map(
             (section) => `
-              <a class="section-switcher-link" data-active="${String(section.id === activeSection.id)}" href="${getDocsSectionHref(section.id)}">
+              <a class="section-switcher-link" data-active="${String(section.id === activeSection.id)}" aria-current="${section.id === activeSection.id ? "page" : "false"}" href="${getDocsSectionHref(section.id)}">
                 ${section.title}
               </a>
             `
