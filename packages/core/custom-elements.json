@@ -9776,15 +9776,6 @@
             },
             {
               "kind": "field",
-              "name": "dragActive",
-              "privacy": "private",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false"
-            },
-            {
-              "kind": "field",
               "name": "selectedFiles",
               "type": {
                 "text": "File[]"
