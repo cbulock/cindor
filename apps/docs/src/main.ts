@@ -677,11 +677,10 @@ function renderLandingPage(): string {
         <a class="action-link" href="${storybookUrl}">Open playground</a>
       </div>
 
-      <div class="hero-utility-links" aria-label="More Cindor UI destinations">
+      <nav class="hero-utility-links" aria-label="More Cindor UI destinations">
         <span class="hero-utility-label">Also available</span>
         <a class="hero-utility-link" href="${GITHUB_REPO_URL}" target="_blank" rel="noreferrer">GitHub source</a>
-        <a class="hero-utility-link" href="${storybookUrl}">Playground</a>
-      </div>
+      </nav>
 
       <ul class="landing-proof-list">
         <li>Native-first HTML primitives and accessibility by default</li>
