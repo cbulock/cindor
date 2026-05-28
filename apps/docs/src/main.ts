@@ -2498,8 +2498,21 @@ function getUsageCode(doc: ComponentDoc): string {
   }
 }
 
+const wrapperlessFrameworkUsageSlugs = new Set(["banner"]);
+
 function getReactUsageCode(doc: ComponentDoc): string {
   const componentName = getWrapperComponentName(doc.tag);
+
+  if (wrapperlessFrameworkUsageSlugs.has(doc.slug)) {
+    return `import "cindor-ui-core/styles.css";
+import "cindor-ui-core/register";
+
+export function Example() {
+  return (
+    ${getReactUsageMarkup(doc, doc.tag)}
+  );
+}`;
+  }
 
   if (doc.slug === "filter-builder") {
     return `import "cindor-ui-core/styles.css";
@@ -2567,6 +2580,17 @@ export function Example() {
 
 function getVueUsageCode(doc: ComponentDoc): string {
   const componentName = getWrapperComponentName(doc.tag);
+
+  if (wrapperlessFrameworkUsageSlugs.has(doc.slug)) {
+    return `<script setup lang="ts">
+import "cindor-ui-core/styles.css";
+import "cindor-ui-core/register";
+</script>
+
+<template>
+  ${getVueUsageMarkup(doc, doc.tag)}
+</template>`;
+  }
 
   if (doc.slug === "filter-builder") {
     return `<script setup lang="ts">
