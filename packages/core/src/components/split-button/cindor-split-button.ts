@@ -110,6 +110,7 @@ export class CindorSplitButton extends LitElement {
   /** Visual treatment shared by the primary action and menu trigger. */
   variant: ButtonVariant = "solid";
 
+  private readonly generatedFormId = `cindor-form-${CindorSplitButton.nextFormId++}`;
   private floatingCleanup?: () => void;
   private floatingMenu: HTMLElement | null = null;
   private updateFloatingPosition?: () => void;
