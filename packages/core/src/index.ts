@@ -39,6 +39,7 @@ export {
   type DataTableRow,
   type DataTableSortDirection
 } from "./components/data-table/cindor-data-table.js";
+export { CindorDataViewToolbar } from "./components/data-view-toolbar/cindor-data-view-toolbar.js";
 export { CindorEmailInput } from "./components/email-input/cindor-email-input.js";
 export { CindorErrorText } from "./components/error-text/cindor-error-text.js";
 export { CindorEmptyState } from "./components/empty-state/cindor-empty-state.js";
@@ -109,6 +110,7 @@ export { CindorSelect } from "./components/select/cindor-select.js";
 export { CindorSpinner } from "./components/spinner/cindor-spinner.js";
 export { CindorSideNav } from "./components/side-nav/cindor-side-nav.js";
 export { CindorSideNavItem } from "./components/side-nav-item/cindor-side-nav-item.js";
+export { CindorSplitButton } from "./components/split-button/cindor-split-button.js";
 export { CindorSplitter, type SplitterOrientation } from "./components/splitter/cindor-splitter.js";
 export { CindorSplitterPanel } from "./components/splitter-panel/cindor-splitter-panel.js";
 export { CindorStack, type StackAlign, type StackDirection, type StackGap, type StackJustify } from "./components/stack/cindor-stack.js";

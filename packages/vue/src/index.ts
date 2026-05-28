@@ -86,6 +86,39 @@ export const CindorButtonGroup = defineComponent({
   }
 });
 
+export const CindorSplitButton = defineComponent({
+  name: "CindorSplitButton",
+  props: {
+    disabled: { type: Boolean, default: false },
+    menuLabel: { type: String, default: "More actions" },
+    open: { type: Boolean, default: false },
+    type: { type: String as PropType<ButtonType>, default: "button" },
+    variant: { type: String as PropType<ButtonVariant>, default: "solid" }
+  },
+  emits: ["update:open", "toggle"],
+  setup(props, { attrs, emit, slots }) {
+    const handleToggle = (event: Event) => {
+      const target = event.currentTarget as OpenHost;
+      emit("update:open", target.open);
+      emit("toggle", event);
+    };
+    return () =>
+          h(
+            "cindor-split-button",
+            {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              "menu-label": props.menuLabel,
+              open: props.open || undefined,
+              type: props.type,
+              variant: props.variant,
+              onToggle: handleToggle,
+            },
+            slots
+          );
+  }
+});
+
 export const CindorChip = defineComponent({
   name: "CindorChip",
   props: {
@@ -295,6 +328,45 @@ export const CindorAlert = defineComponent({
               tone: props.tone,
             },
             slots.default?.()
+          );
+  }
+});
+
+export const CindorBanner = defineComponent({
+  name: "CindorBanner",
+  props: {
+    dismissible: { type: Boolean, default: false },
+    open: { type: Boolean, default: true },
+    roleType: { type: String as PropType<"status" | "alert">, default: "" },
+    sticky: { type: Boolean, default: false },
+    title: { type: String, default: "" },
+    tone: { type: String as PropType<"info" | "success" | "warning" | "danger">, default: "info" }
+  },
+  emits: ["dismiss", "update:open", "open-change"],
+  setup(props, { attrs, emit, slots }) {
+    const handleDismiss = (event: Event) => {
+      emit("dismiss", event);
+    };
+
+    const handleOpenChange = (event: Event) => {
+      emit("update:open", Boolean((event as CustomEvent<{ open?: boolean }>).detail?.open));
+      emit("open-change", event);
+    };
+    return () =>
+          h(
+            "cindor-banner",
+            {
+              ...attrs,
+              dismissible: props.dismissible || undefined,
+              open: props.open || undefined,
+              "role-type": props.roleType || undefined,
+              sticky: props.sticky || undefined,
+              title: props.title || undefined,
+              tone: props.tone,
+              onDismiss: handleDismiss,
+              onOpenChange: handleOpenChange,
+            },
+            slots
           );
   }
 });
@@ -916,6 +988,34 @@ export const CindorDataTable = defineComponent({
               onRowExpand: handleRowExpand,
               onRowAction: handleRowAction,
               onSearchChange: handleSearchChange,
+            },
+            slots
+          );
+  }
+});
+
+export const CindorDataViewToolbar = defineComponent({
+  name: "CindorDataViewToolbar",
+  props: {
+    description: { type: String, default: "" },
+    itemCount: { type: Number, default: 0 },
+    itemLabel: { type: String, default: "items" },
+    selectionCount: { type: Number, default: 0 },
+    selectionLabel: { type: String, default: "selected" },
+    title: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-data-view-toolbar",
+            {
+              ...attrs,
+              description: props.description || undefined,
+              "item-count": props.itemCount,
+              "item-label": props.itemLabel,
+              "selection-count": props.selectionCount,
+              "selection-label": props.selectionLabel,
+              title: props.title || undefined,
             },
             slots
           );

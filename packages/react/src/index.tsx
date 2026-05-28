@@ -5,6 +5,7 @@ import { createComponent } from "@lit/react";
 import {
   CindorButton as CindorButtonElement,
   CindorButtonGroup as CindorButtonGroupElement,
+  CindorSplitButton as CindorSplitButtonElement,
   CindorChip as CindorChipElement,
   CindorTag as CindorTagElement,
   CindorIconButton as CindorIconButtonElement,
@@ -15,6 +16,7 @@ import {
   CindorProvider as CindorProviderElement,
   CindorSpinner as CindorSpinnerElement,
   CindorAlert as CindorAlertElement,
+  CindorBanner as CindorBannerElement,
   CindorActivityFeed as CindorActivityFeedElement,
   CindorActivityItem as CindorActivityItemElement,
   CindorAutocomplete as CindorAutocompleteElement,
@@ -38,6 +40,7 @@ import {
   CindorPageHeader as CindorPageHeaderElement,
   CindorPanelInspector as CindorPanelInspectorElement,
   CindorDataTable as CindorDataTableElement,
+  CindorDataViewToolbar as CindorDataViewToolbarElement,
   CindorEmptyState as CindorEmptyStateElement,
   CindorEmptySearchResults as CindorEmptySearchResultsElement,
   CindorIcon as CindorIconElement,
@@ -120,6 +123,15 @@ export const CindorButtonGroup = createComponent({
   elementClass: CindorButtonGroupElement
 });
 
+export const CindorSplitButton = createComponent({
+  react: React,
+  tagName: "cindor-split-button",
+  elementClass: CindorSplitButtonElement,
+  events: {
+    onToggle: "toggle"
+  }
+});
+
 export const CindorChip = createComponent({
   react: React,
   tagName: "cindor-chip",
@@ -185,6 +197,16 @@ export const CindorAlert = createComponent({
   react: React,
   tagName: "cindor-alert",
   elementClass: CindorAlertElement
+});
+
+export const CindorBanner = createComponent({
+  react: React,
+  tagName: "cindor-banner",
+  elementClass: CindorBannerElement,
+  events: {
+    onDismiss: "dismiss",
+    onOpenChange: "open-change"
+  }
 });
 
 export const CindorActivityFeed = createComponent({
@@ -359,6 +381,12 @@ export const CindorDataTable = createComponent({
     onSearchChange: "search-change",
     onSortChange: "sort-change"
   }
+});
+
+export const CindorDataViewToolbar = createComponent({
+  react: React,
+  tagName: "cindor-data-view-toolbar",
+  elementClass: CindorDataViewToolbarElement
 });
 
 export const CindorEmptyState = createComponent({

@@ -36,6 +36,7 @@ export const previewDependencySlugs: Record<string, string[]> = {
   "button-group": ["button"],
   "command-bar": ["button"],
   "combobox": ["option"],
+  "data-view-toolbar": ["badge", "button", "button-group", "search", "segmented-control"],
   "description-item": ["description-list"],
   "description-list": ["description-item"],
   "fieldset": ["checkbox"],
