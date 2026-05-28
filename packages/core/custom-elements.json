@@ -4456,6 +4456,11 @@
             },
             {
               "kind": "field",
+              "name": "handleDismiss",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
               "name": "handleInput",
               "privacy": "private"
             },
@@ -9016,6 +9021,11 @@
             {
               "kind": "field",
               "name": "handleDismiss",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleBackdropClick",
               "privacy": "private"
             },
             {

@@ -27,6 +27,13 @@ export class CindorCommandPalette extends LitElement {
       gap: var(--space-1);
     }
 
+    .header-row {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+
     .title {
       margin: 0;
       font-size: var(--text-lg);
@@ -85,6 +92,10 @@ export class CindorCommandPalette extends LitElement {
       border-radius: var(--radius-lg);
       text-align: center;
     }
+
+    cindor-dialog::part(close-button) {
+      display: none;
+    }
   `;
 
   static properties = {
@@ -120,7 +131,6 @@ export class CindorCommandPalette extends LitElement {
 
   protected override render() {
     const commands = this.filteredCommands;
-    const activeCommand = commands[this.activeIndex];
 
     return html`
       <cindor-dialog
@@ -131,7 +141,15 @@ export class CindorCommandPalette extends LitElement {
       >
         <div class="surface" @keydown=${this.handleKeyDown}>
           <div class="header">
-            <h2 class="title" part="title">${this.title}</h2>
+            <div class="header-row">
+              <h2 class="title" part="title">${this.title}</h2>
+              <cindor-icon-button
+                label="Close command palette"
+                name="x"
+                part="dismiss-button"
+                @click=${this.handleDismiss}
+              ></cindor-icon-button>
+            </div>
             <span class="caption" part="caption">Search, filter, and launch actions without leaving the keyboard.</span>
           </div>
 
@@ -165,8 +183,6 @@ export class CindorCommandPalette extends LitElement {
                 </cindor-listbox>
               `
             : html`<p class="empty" part="empty">${this.emptyMessage}</p>`}
-
-          ${activeCommand?.description ? html`<span class="caption" part="active-description">${activeCommand.description}</span>` : null}
         </div>
       </cindor-dialog>
     `;
@@ -204,6 +220,10 @@ export class CindorCommandPalette extends LitElement {
     event.stopPropagation();
     this.open = false;
     this.dispatchEvent(new Event("close", { bubbles: true, composed: true }));
+  };
+
+  private handleDismiss = (): void => {
+    this.open = false;
   };
 
   private handleInput = (event: Event): void => {
