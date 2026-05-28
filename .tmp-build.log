@@ -1,0 +1,250 @@
+
+> cindor-ui-workspace@0.1.49 build
+> npm run generate:manifest && npm run generate:wrappers && npm run build --workspace cindor-ui-core && npm run build --workspace cindor-ui-react && npm run build --workspace cindor-ui-vue && npm run build --workspace cindor-ui-docs
+
+
+> cindor-ui-workspace@0.1.49 generate:manifest
+> node scripts/generate-component-manifest.mjs
+
+[3:02:19 AM] @custom-elements-manifest/analyzer: Created new manifest.
+
+> cindor-ui-workspace@0.1.49 generate:wrappers
+> node scripts/generate-framework-wrappers.mjs
+
+
+> cindor-ui-core@0.1.49 build
+> tsup --config tsup.config.ts && tsc -p tsconfig.build.json
+
+[34mCLI[39m Building entry: {"index":"/tmp/workspace/cbulock/cindor/packages/core/src/index.ts","register":"/tmp/workspace/cbulock/cindor/packages/core/src/register.ts","components/accordion/cindor-accordion":"/tmp/workspace/cbulock/cindor/packages/core/src/components/accordion/cindor-accordion.ts","components/activity-feed/cindor-activity-feed":"/tmp/workspace/cbulock/cindor/packages/core/src/components/activity-feed/cindor-activity-feed.ts","components/activity-item/cindor-activity-item":"/tmp/workspace/cbulock/cindor/packages/core/src/components/activity-item/cindor-activity-item.ts","components/alert/cindor-alert":"/tmp/workspace/cbulock/cindor/packages/core/src/components/alert/cindor-alert.ts","components/autocomplete/cindor-autocomplete":"/tmp/workspace/cbulock/cindor/packages/core/src/components/autocomplete/cindor-autocomplete.ts","components/avatar/cindor-avatar":"/tmp/workspace/cbulock/cindor/packages/core/src/components/avatar/cindor-avatar.ts","components/badge/cindor-badge":"/tmp/workspace/cbulock/cindor/packages/core/src/components/badge/cindor-badge.ts","components/breadcrumbs/cindor-breadcrumbs":"/tmp/workspace/cbulock/cindor/packages/core/src/components/breadcrumbs/cindor-breadcrumbs.ts","components/button/cindor-button":"/tmp/workspace/cbulock/cindor/packages/core/src/components/button/cindor-button.ts","components/button-group/cindor-button-group":"/tmp/workspace/cbulock/cindor/packages/core/src/components/button-group/cindor-button-group.ts","components/calendar/cindor-calendar":"/tmp/workspace/cbulock/cindor/packages/core/src/components/calendar/cindor-calendar.ts","components/card/cindor-card":"/tmp/workspace/cbulock/cindor/packages/core/src/components/card/cindor-card.ts","components/checkbox/cindor-checkbox":"/tmp/workspace/cbulock/cindor/packages/core/src/components/checkbox/cindor-checkbox.ts","components/chip/cindor-chip":"/tmp/workspace/cbulock/cindor/packages/core/src/components/chip/cindor-chip.ts","components/code-block/cindor-code-block":"/tmp/workspace/cbulock/cindor/packages/core/src/components/code-block/cindor-code-block.ts","components/color-input/cindor-color-input":"/tmp/workspace/cbulock/cindor/packages/core/src/components/color-input/cindor-color-input.ts","components/combobox/cindor-combobox":"/tmp/workspace/cbulock/cindor/packages/core/src/components/combobox/cindor-combobox.ts","components/command-bar/cindor-command-bar":"/tmp/workspace/cbulock/cindor/packages/core/src/components/command-bar/cindor-command-bar.ts","components/command-palette/cindor-command-palette":"/tmp/workspace/cbulock/cindor/packages/core/src/components/command-palette/cindor-command-palette.ts","components/context-menu/cindor-context-menu":"/tmp/workspace/cbulock/cindor/packages/core/src/components/context-menu/cindor-context-menu.ts","components/data-table/cindor-data-table":"/tmp/workspace/cbulock/cindor/packages/core/src/components/data-table/cindor-data-table.ts","components/date-input/cindor-date-input":"/tmp/workspace/cbulock/cindor/packages/core/src/components/date-input/cindor-date-input.ts","components/date-picker/cindor-date-picker":"/tmp/workspace/cbulock/cindor/packages/core/src/components/date-picker/cindor-date-picker.ts","components/date-range-picker/cindor-date-range-picker":"/tmp/workspace/cbulock/cindor/packages/core/src/components/date-range-picker/cindor-date-range-picker.ts","components/date-time-picker/cindor-date-time-picker":"/tmp/workspace/cbulock/cindor/packages/core/src/components/date-time-picker/cindor-date-time-picker.ts","components/description-item/cindor-description-item":"/tmp/workspace/cbulock/cindor/packages/core/src/components/description-item/cindor-description-item.ts","components/description-list/cindor-description-list":"/tmp/workspace/cbulock/cindor/packages/core/src/components/description-list/cindor-description-list.ts","components/dialog/cindor-dialog":"/tmp/workspace/cbulock/cindor/packages/core/src/components/dialog/cindor-dialog.ts","components/divider/cindor-divider":"/tmp/workspace/cbulock/cindor/packages/core/src/components/divider/cindor-divider.ts","components/drawer/cindor-drawer":"/tmp/workspace/cbulock/cindor/packages/core/src/components/drawer/cindor-drawer.ts","components/dropdown-menu/cindor-dropdown-menu":"/tmp/workspace/cbulock/cindor/packages/core/src/components/dropdown-menu/cindor-dropdown-menu.ts","components/dropzone/cindor-dropzone":"/tmp/workspace/cbulock/cindor/packages/core/src/components/dropzone/cindor-dropzone.ts","components/email-input/cindor-email-input":"/tmp/workspace/cbulock/cindor/packages/core/src/components/email-input/cindor-email-input.ts","components/empty-search-results/cindor-empty-search-results":"/tmp/workspace/cbulock/cindor/packages/core/src/components/empty-search-results/cindor-empty-search-results.ts","components/empty-state/cindor-empty-state":"/tmp/workspace/cbulock/cindor/packages/core/src/components/empty-state/cindor-empty-state.ts","components/error-text/cindor-error-text":"/tmp/workspace/cbulock/cindor/packages/core/src/components/error-text/cindor-error-text.ts","components/fieldset/cindor-fieldset":"/tmp/workspace/cbulock/cindor/packages/core/src/components/fieldset/cindor-fieldset.ts","components/file-input/cindor-file-input":"/tmp/workspace/cbulock/cindor/packages/core/src/components/file-input/cindor-file-input.ts","components/filter-builder/cindor-filter-builder":"/tmp/workspace/cbulock/cindor/packages/core/src/components/filter-builder/cindor-filter-builder.ts","components/form/cindor-form":"/tmp/workspace/cbulock/cindor/packages/core/src/components/form/cindor-form.ts","components/form-field/cindor-form-field":"/tmp/workspace/cbulock/cindor/packages/core/src/components/form-field/cindor-form-field.ts","components/form-row/cindor-form-row":"/tmp/workspace/cbulock/cindor/packages/core/src/components/form-row/cindor-form-row.ts","components/helper-text/cindor-helper-text":"/tmp/workspace/cbulock/cindor/packages/core/src/components/helper-text/cindor-helper-text.ts","components/icon/cindor-icon":"/tmp/workspace/cbulock/cindor/packages/core/src/components/icon/cindor-icon.ts","components/icon-button/cindor-icon-button":"/tmp/workspace/cbulock/cindor/packages/core/src/components/icon-button/cindor-icon-button.ts","components/inline-edit/cindor-inline-edit":"/tmp/workspace/cbulock/cindor/packages/core/src/components/inline-edit/cindor-inline-edit.ts","components/input/cindor-input":"/tmp/workspace/cbulock/cindor/packages/core/src/components/input/cindor-input.ts","components/layout/cindor-layout":"/tmp/workspace/cbulock/cindor/packages/core/src/components/layout/cindor-layout.ts","components/layout-content/cindor-layout-content":"/tmp/workspace/cbulock/cindor/packages/core/src/components/layout-content/cindor-layout-content.ts","components/layout-header/cindor-layout-header":"/tmp/workspace/cbulock/cindor/packages/core/src/components/layout-header/cindor-layout-header.ts","components/link/cindor-link":"/tmp/workspace/cbulock/cindor/packages/core/src/components/link/cindor-link.ts","components/listbox/cindor-listbox":"/tmp/workspace/cbulock/cindor/packages/core/src/components/listbox/cindor-listbox.ts","components/menu/cindor-menu":"/tmp/workspace/cbulock/cindor/packages/core/src/components/menu/cindor-menu.ts","components/menu-item/cindor-menu-item":"/tmp/workspace/cbulock/cindor/packages/core/src/components/menu-item/cindor-menu-item.ts","components/menubar/cindor-menubar":"/tmp/workspace/cbulock/cindor/packages/core/src/components/menubar/cindor-menubar.ts","components/meter/cindor-meter":"/tmp/workspace/cbulock/cindor/packages/core/src/components/meter/cindor-meter.ts","components/multi-select/cindor-multi-select":"/tmp/workspace/cbulock/cindor/packages/core/src/components/multi-select/cindor-multi-select.ts","components/navigation-rail/cindor-navigation-rail":"/tmp/workspace/cbulock/cindor/packages/core/src/components/navigation-rail/cindor-navigation-rail.ts","components/navigation-rail-item/cindor-navigation-rail-item":"/tmp/workspace/cbulock/cindor/packages/core/src/components/navigation-rail-item/cindor-navigation-rail-item.ts","components/number-input/cindor-number-input":"/tmp/workspace/cbulock/cindor/packages/core/src/components/number-input/cindor-number-input.ts","components/option/cindor-option":"/tmp/workspace/cbulock/cindor/packages/core/src/components/option/cindor-option.ts","components/page-header/cindor-page-header":"/tmp/workspace/cbulock/cindor/packages/core/src/components/page-header/cindor-page-header.ts","components/pagination/cindor-pagination":"/tmp/workspace/cbulock/cindor/packages/core/src/components/pagination/cindor-pagination.ts","components/panel-inspector/cindor-panel-inspector":"/tmp/workspace/cbulock/cindor/packages/core/src/components/panel-inspector/cindor-panel-inspector.ts","components/password-input/cindor-password-input":"/tmp/workspace/cbulock/cindor/packages/core/src/components/password-input/cindor-password-input.ts","components/popover/cindor-popover":"/tmp/workspace/cbulock/cindor/packages/core/src/components/popover/cindor-popover.ts","components/progress/cindor-progress":"/tmp/workspace/cbulock/cindor/packages/core/src/components/progress/cindor-progress.ts","components/provider/cindor-provider":"/tmp/workspace/cbulock/cindor/packages/core/src/components/provider/cindor-provider.ts","components/provider/provider-theme":"/tmp/workspace/cbulock/cindor/packages/core/src/components/provider/provider-theme.ts","components/radio/cindor-radio":"/tmp/workspace/cbulock/cindor/packages/core/src/components/radio/cindor-radio.ts","components/range/cindor-range":"/tmp/workspace/cbulock/cindor/packages/core/src/components/range/cindor-range.ts","components/rating-input/cindor-rating-input":"/tmp/workspace/cbulock/cindor/packages/core/src/components/rating-input/cindor-rating-input.ts","components/search/cindor-search":"/tmp/workspace/cbulock/cindor/packages/core/src/components/search/cindor-search.ts","components/segmented-control/cindor-segmented-control":"/tmp/workspace/cbulock/cindor/packages/core/src/components/segmented-control/cindor-segmented-control.ts","components/select/cindor-select":"/tmp/workspace/cbulock/cindor/packages/core/src/components/select/cindor-select.ts","components/side-nav/cindor-side-nav":"/tmp/workspace/cbulock/cindor/packages/core/src/components/side-nav/cindor-side-nav.ts","components/side-nav-item/cindor-side-nav-item":"/tmp/workspace/cbulock/cindor/packages/core/src/components/side-nav-item/cindor-side-nav-item.ts","components/skeleton/cindor-skeleton":"/tmp/workspace/cbulock/cindor/packages/core/src/components/skeleton/cindor-skeleton.ts","components/spinner/cindor-spinner":"/tmp/workspace/cbulock/cindor/packages/core/src/components/spinner/cindor-spinner.ts","components/split-button/cindor-split-button":"/tmp/workspace/cbulock/cindor/packages/core/src/components/split-button/cindor-split-button.ts","components/splitter/cindor-splitter":"/tmp/workspace/cbulock/cindor/packages/core/src/components/splitter/cindor-splitter.ts","components/splitter-panel/cindor-splitter-panel":"/tmp/workspace/cbulock/cindor/packages/core/src/components/splitter-panel/cindor-splitter-panel.ts","components/stack/cindor-stack":"/tmp/workspace/cbulock/cindor/packages/core/src/components/stack/cindor-stack.ts","components/stat-card/cindor-stat-card":"/tmp/workspace/cbulock/cindor/packages/core/src/components/stat-card/cindor-stat-card.ts","components/stepper/cindor-stepper":"/tmp/workspace/cbulock/cindor/packages/core/src/components/stepper/cindor-stepper.ts","components/switch/cindor-switch":"/tmp/workspace/cbulock/cindor/packages/core/src/components/switch/cindor-switch.ts","components/tab-panel/cindor-tab-panel":"/tmp/workspace/cbulock/cindor/packages/core/src/components/tab-panel/cindor-tab-panel.ts","components/tabs/cindor-tabs":"/tmp/workspace/cbulock/cindor/packages/core/src/components/tabs/cindor-tabs.ts","components/tag/cindor-tag":"/tmp/workspace/cbulock/cindor/packages/core/src/components/tag/cindor-tag.ts","components/tag-input/cindor-tag-input":"/tmp/workspace/cbulock/cindor/packages/core/src/components/tag-input/cindor-tag-input.ts","components/tel-input/cindor-tel-input":"/tmp/workspace/cbulock/cindor/packages/core/src/components/tel-input/cindor-tel-input.ts","components/textarea/cindor-textarea":"/tmp/workspace/cbulock/cindor/packages/core/src/components/textarea/cindor-textarea.ts","components/time-input/cindor-time-input":"/tmp/workspace/cbulock/cindor/packages/core/src/components/time-input/cindor-time-input.ts","components/timeline/cindor-timeline":"/tmp/workspace/cbulock/cindor/packages/core/src/components/timeline/cindor-timeline.ts","components/timeline-item/cindor-timeline-item":"/tmp/workspace/cbulock/cindor/packages/core/src/components/timeline-item/cindor-timeline-item.ts","components/toast/cindor-toast-region":"/tmp/workspace/cbulock/cindor/packages/core/src/components/toast/cindor-toast-region.ts","components/toast/cindor-toast":"/tmp/workspace/cbulock/cindor/packages/core/src/components/toast/cindor-toast.ts","components/toast/toast-manager":"/tmp/workspace/cbulock/cindor/packages/core/src/components/toast/toast-manager.ts","components/toolbar/cindor-toolbar":"/tmp/workspace/cbulock/cindor/packages/core/src/components/toolbar/cindor-toolbar.ts","components/tooltip/cindor-tooltip":"/tmp/workspace/cbulock/cindor/packages/core/src/components/tooltip/cindor-tooltip.ts","components/transfer-list/cindor-transfer-list":"/tmp/workspace/cbulock/cindor/packages/core/src/components/transfer-list/cindor-transfer-list.ts","components/tree-item/cindor-tree-item":"/tmp/workspace/cbulock/cindor/packages/core/src/components/tree-item/cindor-tree-item.ts","components/tree-view/cindor-tree-view":"/tmp/workspace/cbulock/cindor/packages/core/src/components/tree-view/cindor-tree-view.ts","components/url-input/cindor-url-input":"/tmp/workspace/cbulock/cindor/packages/core/src/components/url-input/cindor-url-input.ts"}
+[34mCLI[39m Using tsconfig: tsconfig.json
+[34mCLI[39m tsup v8.5.1
+[34mCLI[39m Using tsup config: /tmp/workspace/cbulock/cindor/packages/core/tsup.config.ts
+[34mCLI[39m Target: es2022
+[34mCLI[39m Cleaning output folder
+[34mESM[39m Build start
+[32mESM[39m [1mdist/components/toast/cindor-toast-region.js                        [22m[32m95.00 B[39m
+[32mESM[39m [1mdist/components/tree-view/cindor-tree-view.js                       [22m[32m123.00 B[39m
+[32mESM[39m [1mdist/components/url-input/cindor-url-input.js                       [22m[32m225.00 B[39m
+[32mESM[39m [1mdist/components/toast/cindor-toast.js                               [22m[32m83.00 B[39m
+[32mESM[39m [1mdist/components/toast/toast-manager.js                              [22m[32m183.00 B[39m
+[32mESM[39m [1mdist/components/timeline-item/cindor-timeline-item.js               [22m[32m97.00 B[39m
+[32mESM[39m [1mdist/components/toolbar/cindor-toolbar.js                           [22m[32m121.00 B[39m
+[32mESM[39m [1mdist/components/tooltip/cindor-tooltip.js                           [22m[32m121.00 B[39m
+[32mESM[39m [1mdist/components/transfer-list/cindor-transfer-list.js               [22m[32m233.00 B[39m
+[32mESM[39m [1mdist/components/tree-item/cindor-tree-item.js                       [22m[32m89.00 B[39m
+[32mESM[39m [1mdist/components/tab-panel/cindor-tab-panel.js                       [22m[32m89.00 B[39m
+[32mESM[39m [1mdist/components/tabs/cindor-tabs.js                                 [22m[32m149.00 B[39m
+[32mESM[39m [1mdist/components/tag/cindor-tag.js                                   [22m[32m79.00 B[39m
+[32mESM[39m [1mdist/components/tag-input/cindor-tag-input.js                       [22m[32m259.00 B[39m
+[32mESM[39m [1mdist/components/tel-input/cindor-tel-input.js                       [22m[32m225.00 B[39m
+[32mESM[39m [1mdist/components/textarea/cindor-textarea.js                         [22m[32m191.00 B[39m
+[32mESM[39m [1mdist/components/timeline/cindor-timeline.js                         [22m[32m89.00 B[39m
+[32mESM[39m [1mdist/components/time-input/cindor-time-input.js                     [22m[32m227.00 B[39m
+[32mESM[39m [1mdist/components/spinner/cindor-spinner.js                           [22m[32m87.00 B[39m
+[32mESM[39m [1mdist/components/splitter/cindor-splitter.js                         [22m[32m123.00 B[39m
+[32mESM[39m [1mdist/components/splitter-panel/cindor-splitter-panel.js             [22m[32m99.00 B[39m
+[32mESM[39m [1mdist/components/split-button/cindor-split-button.js                 [22m[32m129.00 B[39m
+[32mESM[39m [1mdist/components/stepper/cindor-stepper.js                           [22m[32m87.00 B[39m
+[32mESM[39m [1mdist/components/stack/cindor-stack.js                               [22m[32m83.00 B[39m
+[32mESM[39m [1mdist/components/stat-card/cindor-stat-card.js                       [22m[32m89.00 B[39m
+[32mESM[39m [1mdist/components/switch/cindor-switch.js                             [22m[32m153.00 B[39m
+[32mESM[39m [1mdist/components/rating-input/cindor-rating-input.js                 [22m[32m197.00 B[39m
+[32mESM[39m [1mdist/components/range/cindor-range.js                               [22m[32m151.00 B[39m
+[32mESM[39m [1mdist/components/search/cindor-search.js                             [22m[32m221.00 B[39m
+[32mESM[39m [1mdist/components/segmented-control/cindor-segmented-control.js       [22m[32m173.00 B[39m
+[32mESM[39m [1mdist/components/side-nav/cindor-side-nav.js                         [22m[32m121.00 B[39m
+[32mESM[39m [1mdist/components/select/cindor-select.js                             [22m[32m255.00 B[39m
+[32mESM[39m [1mdist/components/side-nav-item/cindor-side-nav-item.js               [22m[32m95.00 B[39m
+[32mESM[39m [1mdist/components/skeleton/cindor-skeleton.js                         [22m[32m89.00 B[39m
+[32mESM[39m [1mdist/components/panel-inspector/cindor-panel-inspector.js           [22m[32m101.00 B[39m
+[32mESM[39m [1mdist/components/pagination/cindor-pagination.js                     [22m[32m127.00 B[39m
+[32mESM[39m [1mdist/components/progress/cindor-progress.js                         [22m[32m89.00 B[39m
+[32mESM[39m [1mdist/components/password-input/cindor-password-input.js             [22m[32m235.00 B[39m
+[32mESM[39m [1mdist/components/provider/cindor-provider.js                         [22m[32m389.00 B[39m
+[32mESM[39m [1mdist/components/popover/cindor-popover.js                           [22m[32m121.00 B[39m
+[32mESM[39m [1mdist/components/multi-select/cindor-multi-select.js                 [22m[32m299.00 B[39m
+[32mESM[39m [1mdist/components/radio/cindor-radio.js                               [22m[32m151.00 B[39m
+[32mESM[39m [1mdist/components/meter/cindor-meter.js                               [22m[32m83.00 B[39m
+[32mESM[39m [1mdist/components/provider/provider-theme.js                          [22m[32m425.00 B[39m
+[32mESM[39m [1mdist/components/navigation-rail/cindor-navigation-rail.js           [22m[32m169.00 B[39m
+[32mESM[39m [1mdist/components/navigation-rail-item/cindor-navigation-rail-item.js [22m[32m109.00 B[39m
+[32mESM[39m [1mdist/components/number-input/cindor-number-input.js                 [22m[32m231.00 B[39m
+[32mESM[39m [1mdist/components/option/cindor-option.js                             [22m[32m85.00 B[39m
+[32mESM[39m [1mdist/components/input/cindor-input.js                               [22m[32m225.00 B[39m
+[32mESM[39m [1mdist/components/page-header/cindor-page-header.js                   [22m[32m93.00 B[39m
+[32mESM[39m [1mdist/components/layout/cindor-layout.js                             [22m[32m85.00 B[39m
+[32mESM[39m [1mdist/components/layout-header/cindor-layout-header.js               [22m[32m97.00 B[39m
+[32mESM[39m [1mdist/components/link/cindor-link.js                                 [22m[32m81.00 B[39m
+[32mESM[39m [1mdist/components/layout-content/cindor-layout-content.js             [22m[32m99.00 B[39m
+[32mESM[39m [1mdist/components/menu/cindor-menu.js                                 [22m[32m149.00 B[39m
+[32mESM[39m [1mdist/components/listbox/cindor-listbox.js                           [22m[32m121.00 B[39m
+[32mESM[39m [1mdist/components/form-field/cindor-form-field.js                     [22m[32m91.00 B[39m
+[32mESM[39m [1mdist/components/filter-builder/cindor-filter-builder.js             [22m[32m167.00 B[39m
+[32mESM[39m [1mdist/components/menu-item/cindor-menu-item.js                       [22m[32m89.00 B[39m
+[32mESM[39m [1mdist/components/form/cindor-form.js                                 [22m[32m81.00 B[39m
+[32mESM[39m [1mdist/components/form-row/cindor-form-row.js                         [22m[32m87.00 B[39m
+[32mESM[39m [1mdist/components/helper-text/cindor-helper-text.js                   [22m[32m93.00 B[39m
+[32mESM[39m [1mdist/components/icon-button/cindor-icon-button.js                   [22m[32m93.00 B[39m
+[32mESM[39m [1mdist/components/icon/cindor-icon.js                                 [22m[32m115.00 B[39m
+[32mESM[39m [1mdist/components/email-input/cindor-email-input.js                   [22m[32m229.00 B[39m
+[32mESM[39m [1mdist/components/dropdown-menu/cindor-dropdown-menu.js               [22m[32m131.00 B[39m
+[32mESM[39m [1mdist/components/inline-edit/cindor-inline-edit.js                   [22m[32m93.00 B[39m
+[32mESM[39m [1mdist/components/dropzone/cindor-dropzone.js                         [22m[32m157.00 B[39m
+[32mESM[39m [1mdist/components/empty-search-results/cindor-empty-search-results.js [22m[32m109.00 B[39m
+[32mESM[39m [1mdist/components/error-text/cindor-error-text.js                     [22m[32m91.00 B[39m
+[32mESM[39m [1mdist/components/empty-state/cindor-empty-state.js                   [22m[32m93.00 B[39m
+[32mESM[39m [1mdist/components/fieldset/cindor-fieldset.js                         [22m[32m89.00 B[39m
+[32mESM[39m [1mdist/components/date-picker/cindor-date-picker.js                   [22m[32m195.00 B[39m
+[32mESM[39m [1mdist/components/date-range-picker/cindor-date-range-picker.js       [22m[32m137.00 B[39m
+[32mESM[39m [1mdist/components/date-time-picker/cindor-date-time-picker.js         [22m[32m169.00 B[39m
+[32mESM[39m [1mdist/components/file-input/cindor-file-input.js                     [22m[32m159.00 B[39m
+[32mESM[39m [1mdist/components/description-item/cindor-description-item.js         [22m[32m103.00 B[39m
+[32mESM[39m [1mdist/components/drawer/cindor-drawer.js                             [22m[32m119.00 B[39m
+[32mESM[39m [1mdist/components/dialog/cindor-dialog.js                             [22m[32m119.00 B[39m
+[32mESM[39m [1mdist/components/description-list/cindor-description-list.js         [22m[32m103.00 B[39m
+[32mESM[39m [1mdist/components/code-block/cindor-code-block.js                     [22m[32m91.00 B[39m
+[32mESM[39m [1mdist/components/divider/cindor-divider.js                           [22m[32m87.00 B[39m
+[32mESM[39m [1mdist/components/combobox/cindor-combobox.js                         [22m[32m327.00 B[39m
+[32mESM[39m [1mdist/components/color-input/cindor-color-input.js                   [22m[32m161.00 B[39m
+[32mESM[39m [1mdist/components/command-palette/cindor-command-palette.js           [22m[32m101.00 B[39m
+[32mESM[39m [1mdist/components/command-bar/cindor-command-bar.js                   [22m[32m93.00 B[39m
+[32mESM[39m [1mdist/components/date-input/cindor-date-input.js                     [22m[32m227.00 B[39m
+[32mESM[39m [1mdist/components/badge/cindor-badge.js                               [22m[32m83.00 B[39m
+[32mESM[39m [1mdist/components/data-table/cindor-data-table.js                     [22m[32m91.00 B[39m
+[32mESM[39m [1mdist/components/context-menu/cindor-context-menu.js                 [22m[32m95.00 B[39m
+[32mESM[39m [1mdist/components/breadcrumbs/cindor-breadcrumbs.js                   [22m[32m95.00 B[39m
+[32mESM[39m [1mdist/components/button/cindor-button.js                             [22m[32m119.00 B[39m
+[32mESM[39m [1mdist/components/button-group/cindor-button-group.js                 [22m[32m95.00 B[39m
+[32mESM[39m [1mdist/components/calendar/cindor-calendar.js                         [22m[32m157.00 B[39m
+[32mESM[39m [1mdist/components/card/cindor-card.js                                 [22m[32m81.00 B[39m
+[32mESM[39m [1mdist/components/checkbox/cindor-checkbox.js                         [22m[32m157.00 B[39m
+[32mESM[39m [1mdist/chunk-CCNZFI3L.js                                              [22m[32m704.00 B[39m
+[32mESM[39m [1mdist/components/chip/cindor-chip.js                                 [22m[32m81.00 B[39m
+[32mESM[39m [1mdist/index.js                                                       [22m[32m8.22 KB[39m
+[32mESM[39m [1mdist/chunk-GVYINL63.js                                              [22m[32m6.78 KB[39m
+[32mESM[39m [1mdist/chunk-HOUVFQ56.js                                              [22m[32m1.44 KB[39m
+[32mESM[39m [1mdist/register.js                                                    [22m[32m10.30 KB[39m
+[32mESM[39m [1mdist/chunk-JKFNA5CY.js                                              [22m[32m314.00 B[39m
+[32mESM[39m [1mdist/chunk-YCHAGDTM.js                                              [22m[32m3.71 KB[39m
+[32mESM[39m [1mdist/chunk-KGWUDDZA.js                                              [22m[32m2.61 KB[39m
+[32mESM[39m [1mdist/chunk-EJWSQMOY.js                                              [22m[32m5.59 KB[39m
+[32mESM[39m [1mdist/chunk-7IXNPXXB.js                                              [22m[32m3.22 KB[39m
+[32mESM[39m [1mdist/chunk-7UN5QKA4.js                                              [22m[32m13.31 KB[39m
+[32mESM[39m [1mdist/chunk-XFLNRLLU.js                                              [22m[32m6.27 KB[39m
+[32mESM[39m [1mdist/chunk-AUNFFROB.js                                              [22m[32m921.00 B[39m
+[32mESM[39m [1mdist/chunk-OQ7ADMOQ.js                                              [22m[32m10.69 KB[39m
+[32mESM[39m [1mdist/chunk-76PB53LW.js                                              [22m[32m16.33 KB[39m
+[32mESM[39m [1mdist/chunk-FRMX2VA4.js                                              [22m[32m2.82 KB[39m
+[32mESM[39m [1mdist/chunk-K3TP2JFW.js                                              [22m[32m3.13 KB[39m
+[32mESM[39m [1mdist/chunk-KH5K37RR.js                                              [22m[32m314.00 B[39m
+[32mESM[39m [1mdist/chunk-YCDVH5RW.js                                              [22m[32m241.00 B[39m
+[32mESM[39m [1mdist/chunk-M6BHU5H3.js                                              [22m[32m714.00 B[39m
+[32mESM[39m [1mdist/chunk-XVTUUDXD.js                                              [22m[32m1.73 KB[39m
+[32mESM[39m [1mdist/chunk-5IBAOK5M.js                                              [22m[32m6.98 KB[39m
+[32mESM[39m [1mdist/chunk-6RX7TD72.js                                              [22m[32m727.00 B[39m
+[32mESM[39m [1mdist/chunk-DLIATD34.js                                              [22m[32m9.26 KB[39m
+[32mESM[39m [1mdist/chunk-56QVPZ2B.js                                              [22m[32m1.85 KB[39m
+[32mESM[39m [1mdist/chunk-STZZZMEE.js                                              [22m[32m1.84 KB[39m
+[32mESM[39m [1mdist/chunk-TTDJXNRY.js                                              [22m[32m7.94 KB[39m
+[32mESM[39m [1mdist/chunk-TGHAYSY2.js                                              [22m[32m4.09 KB[39m
+[32mESM[39m [1mdist/chunk-A5I4O47J.js                                              [22m[32m6.30 KB[39m
+[32mESM[39m [1mdist/chunk-O2BNL7TN.js                                              [22m[32m6.57 KB[39m
+[32mESM[39m [1mdist/chunk-E3T3IWF5.js                                              [22m[32m5.86 KB[39m
+[32mESM[39m [1mdist/chunk-FU5LPE2B.js                                              [22m[32m6.02 KB[39m
+[32mESM[39m [1mdist/chunk-62XAQL57.js                                              [22m[32m305.00 B[39m
+[32mESM[39m [1mdist/chunk-36ESYGA4.js                                              [22m[32m5.75 KB[39m
+[32mESM[39m [1mdist/chunk-GKKVLD5P.js                                              [22m[32m7.39 KB[39m
+[32mESM[39m [1mdist/chunk-R4WS5SA2.js                                              [22m[32m6.22 KB[39m
+[32mESM[39m [1mdist/chunk-H7SIGRRC.js                                              [22m[32m1.67 KB[39m
+[32mESM[39m [1mdist/chunk-2VA7HDMB.js                                              [22m[32m3.14 KB[39m
+[32mESM[39m [1mdist/chunk-B7AWTMMU.js                                              [22m[32m2.66 KB[39m
+[32mESM[39m [1mdist/chunk-DJSS2G4Q.js                                              [22m[32m2.87 KB[39m
+[32mESM[39m [1mdist/chunk-TLQILM6Y.js                                              [22m[32m1.48 KB[39m
+[32mESM[39m [1mdist/chunk-DG3HBFFP.js                                              [22m[32m7.49 KB[39m
+[32mESM[39m [1mdist/chunk-HQY2FBCB.js                                              [22m[32m9.39 KB[39m
+[32mESM[39m [1mdist/chunk-RLLXVLAN.js                                              [22m[32m3.16 KB[39m
+[32mESM[39m [1mdist/chunk-2OZ2PHYH.js                                              [22m[32m16.23 KB[39m
+[32mESM[39m [1mdist/chunk-3NAS4NLH.js                                              [22m[32m1.19 KB[39m
+[32mESM[39m [1mdist/chunk-6YTP4OH4.js                                              [22m[32m2.71 KB[39m
+[32mESM[39m [1mdist/chunk-RLTE2THV.js                                              [22m[32m251.00 B[39m
+[32mESM[39m [1mdist/chunk-24EI5HPB.js                                              [22m[32m2.16 KB[39m
+[32mESM[39m [1mdist/chunk-VJAGVCV4.js                                              [22m[32m3.04 KB[39m
+[32mESM[39m [1mdist/chunk-MHBVHLXL.js                                              [22m[32m3.48 KB[39m
+[32mESM[39m [1mdist/chunk-QE4LJYEH.js                                              [22m[32m525.00 B[39m
+[32mESM[39m [1mdist/chunk-4NELW3PD.js                                              [22m[32m566.00 B[39m
+[32mESM[39m [1mdist/chunk-CSRBO23H.js                                              [22m[32m2.70 KB[39m
+[32mESM[39m [1mdist/chunk-MXXYGT3C.js                                              [22m[32m557.00 B[39m
+[32mESM[39m [1mdist/chunk-VW2I6NAX.js                                              [22m[32m1.61 KB[39m
+[32mESM[39m [1mdist/chunk-WJ6ZHMJ3.js                                              [22m[32m1.95 KB[39m
+[32mESM[39m [1mdist/chunk-JN7GOILT.js                                              [22m[32m17.05 KB[39m
+[32mESM[39m [1mdist/chunk-67TDCO3Q.js                                              [22m[32m1.68 KB[39m
+[32mESM[39m [1mdist/chunk-7ZHQOTIA.js                                              [22m[32m18.60 KB[39m
+[32mESM[39m [1mdist/chunk-GK7RWK5J.js                                              [22m[32m7.61 KB[39m
+[32mESM[39m [1mdist/chunk-5FLSCJQ5.js                                              [22m[32m1.36 KB[39m
+[32mESM[39m [1mdist/chunk-J2TF4CXX.js                                              [22m[32m479.00 B[39m
+[32mESM[39m [1mdist/chunk-H5CAOU6M.js                                              [22m[32m1.71 KB[39m
+[32mESM[39m [1mdist/chunk-OSJBLRGS.js                                              [22m[32m3.39 KB[39m
+[32mESM[39m [1mdist/chunk-A2RRCOZ3.js                                              [22m[32m5.08 KB[39m
+[32mESM[39m [1mdist/chunk-UV3ID3N6.js                                              [22m[32m3.06 KB[39m
+[32mESM[39m [1mdist/chunk-BGNSIPZP.js                                              [22m[32m3.69 KB[39m
+[32mESM[39m [1mdist/chunk-BRAQWUAV.js                                              [22m[32m9.27 KB[39m
+[32mESM[39m [1mdist/chunk-EOB7ICEA.js                                              [22m[32m326.00 B[39m
+[32mESM[39m [1mdist/chunk-27IHLCGL.js                                              [22m[32m2.52 KB[39m
+[32mESM[39m [1mdist/chunk-TCLZTQGN.js                                              [22m[32m962.00 B[39m
+[32mESM[39m [1mdist/chunk-GU3BND6E.js                                              [22m[32m518.00 B[39m
+[32mESM[39m [1mdist/chunk-RRNR4WED.js                                              [22m[32m5.26 KB[39m
+[32mESM[39m [1mdist/chunk-6DWCFNSL.js                                              [22m[32m8.05 KB[39m
+[32mESM[39m [1mdist/chunk-3QOYJ3ZV.js                                              [22m[32m1.70 KB[39m
+[32mESM[39m [1mdist/chunk-3AXFW7FC.js                                              [22m[32m7.00 KB[39m
+[32mESM[39m [1mdist/chunk-EKEI6AKL.js                                              [22m[32m3.94 KB[39m
+[32mESM[39m [1mdist/chunk-OU6ZTNNE.js                                              [22m[32m679.00 B[39m
+[32mESM[39m [1mdist/chunk-NCUA66SU.js                                              [22m[32m748.00 B[39m
+[32mESM[39m [1mdist/chunk-NCYIWILX.js                                              [22m[32m7.72 KB[39m
+[32mESM[39m [1mdist/chunk-6NC6VH5J.js                                              [22m[32m9.53 KB[39m
+[32mESM[39m [1mdist/chunk-U4SRDWDV.js                                              [22m[32m398.00 B[39m
+[32mESM[39m [1mdist/chunk-QBLIWPIB.js                                              [22m[32m3.78 KB[39m
+[32mESM[39m [1mdist/chunk-4YN3AAJH.js                                              [22m[32m4.96 KB[39m
+[32mESM[39m [1mdist/chunk-W3QIEQQN.js                                              [22m[32m9.77 KB[39m
+[32mESM[39m [1mdist/chunk-T3SLH7B5.js                                              [22m[32m1.11 KB[39m
+[32mESM[39m [1mdist/chunk-DRFGYKCM.js                                              [22m[32m3.29 KB[39m
+[32mESM[39m [1mdist/chunk-6IDFHMMP.js                                              [22m[32m5.72 KB[39m
+[32mESM[39m [1mdist/chunk-SDPVC2KY.js                                              [22m[32m7.53 KB[39m
+[32mESM[39m [1mdist/chunk-5NUDKZFS.js                                              [22m[32m37.22 KB[39m
+[32mESM[39m [1mdist/chunk-OE2DF6MN.js                                              [22m[32m7.63 KB[39m
+[32mESM[39m [1mdist/chunk-EUXO7EQC.js                                              [22m[32m241.00 B[39m
+[32mESM[39m [1mdist/chunk-TVN6TW2T.js                                              [22m[32m760.00 B[39m
+[32mESM[39m [1mdist/chunk-FF3IYMCN.js                                              [22m[32m1.52 KB[39m
+[32mESM[39m [1mdist/chunk-DKRJ2P3I.js                                              [22m[32m7.93 KB[39m
+[32mESM[39m [1mdist/chunk-H55RARM7.js                                              [22m[32m3.70 KB[39m
+[32mESM[39m [1mdist/chunk-HQ3G4HVA.js                                              [22m[32m622.00 B[39m
+[32mESM[39m [1mdist/components/accordion/cindor-accordion.js                       [22m[32m91.00 B[39m
+[32mESM[39m [1mdist/chunk-DORUCOPG.js                                              [22m[32m20.60 KB[39m
+[32mESM[39m [1mdist/chunk-FV3B5JB6.js                                              [22m[32m3.17 KB[39m
+[32mESM[39m [1mdist/components/activity-feed/cindor-activity-feed.js               [22m[32m97.00 B[39m
+[32mESM[39m [1mdist/chunk-DPAFZG5Z.js                                              [22m[32m1.33 KB[39m
+[32mESM[39m [1mdist/components/activity-item/cindor-activity-item.js               [22m[32m97.00 B[39m
+[32mESM[39m [1mdist/chunk-ECTEXW3N.js                                              [22m[32m1.75 KB[39m
+[32mESM[39m [1mdist/components/alert/cindor-alert.js                               [22m[32m83.00 B[39m
+[32mESM[39m [1mdist/chunk-N62JHRGW.js                                              [22m[32m3.35 KB[39m
+[32mESM[39m [1mdist/chunk-IF2ZFPKG.js                                              [22m[32m547.00 B[39m
+[32mESM[39m [1mdist/components/autocomplete/cindor-autocomplete.js                 [22m[32m301.00 B[39m
+[32mESM[39m [1mdist/chunk-KPUUO7QS.js                                              [22m[32m1.24 KB[39m
+[32mESM[39m [1mdist/chunk-WABIP6QQ.js                                              [22m[32m2.60 KB[39m
+[32mESM[39m [1mdist/chunk-HNBJJFMM.js                                              [22m[32m1.54 KB[39m
+[32mESM[39m [1mdist/chunk-OJ3KDHMH.js                                              [22m[32m10.14 KB[39m
+[32mESM[39m [1mdist/chunk-MMTWTJ4W.js                                              [22m[32m2.20 KB[39m
+[32mESM[39m [1mdist/chunk-SJH34EYP.js                                              [22m[32m1.26 KB[39m
+[32mESM[39m [1mdist/components/avatar/cindor-avatar.js                             [22m[32m85.00 B[39m
+[32mESM[39m [1mdist/chunk-FSPBMOLH.js                                              [22m[32m3.78 KB[39m
+[32mESM[39m [1mdist/chunk-3QODG4OR.js                                              [22m[32m4.55 KB[39m
+[32mESM[39m [1mdist/chunk-TAFZ57N3.js                                              [22m[32m1.72 KB[39m
+[32mESM[39m [1mdist/components/menubar/cindor-menubar.js                           [22m[32m121.00 B[39m
+[32mESM[39m ⚡️ Build success in 102ms
+src/components/split-button/cindor-split-button.ts(113,71): error TS2339: Property 'nextFormId' does not exist on type 'typeof CindorSplitButton'.
+npm error Lifecycle script `build` failed with error:
+npm error code 2
+npm error path /tmp/workspace/cbulock/cindor/packages/core
+npm error workspace cindor-ui-core@0.1.49
+npm error location /tmp/workspace/cbulock/cindor/packages/core
+npm error command failed
+npm error command sh -c tsup --config tsup.config.ts && tsc -p tsconfig.build.json

@@ -1,0 +1,428 @@
+
+> cindor-ui-workspace@0.1.49 test
+> vitest run --project unit
+
+
+[1m[46m RUN [49m[22m [36mv3.2.4 [39m[90m/tmp/workspace/cbulock/cindor[39m
+
+[90mstderr[2m | packages/core/src/components/calendar/cindor-calendar.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/data-table/cindor-data-table.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/combobox/cindor-combobox.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/data-table/cindor-data-table.test.ts [2m([22m[2m20 tests[22m[2m)[22m[33m 378[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/combobox/cindor-combobox.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 371[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/calendar/cindor-calendar.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 401[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/date-range-picker/cindor-date-range-picker.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/filter-builder/cindor-filter-builder.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/split-button/cindor-split-button.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/split-button/cindor-split-button.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 234[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/date-range-picker/cindor-date-range-picker.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 246[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/filter-builder/cindor-filter-builder.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 274[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/date-picker/cindor-date-picker.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/code-block/cindor-code-block.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/tag-input/cindor-tag-input.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/code-block/cindor-code-block.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 179[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/date-picker/cindor-date-picker.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 209[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/tag-input/cindor-tag-input.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 207[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/tabs/cindor-tabs.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/transfer-list/cindor-transfer-list.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/dropdown-menu/cindor-dropdown-menu.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/transfer-list/cindor-transfer-list.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 173[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/tabs/cindor-tabs.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 198[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/dropdown-menu/cindor-dropdown-menu.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 164[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/tooltip/cindor-tooltip.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/input/cindor-input.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/multi-select/cindor-multi-select.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/tooltip/cindor-tooltip.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 122[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/input/cindor-input.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 138[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/multi-select/cindor-multi-select.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 166[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/form/cindor-form.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/select/cindor-select.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/popover/cindor-popover.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/form/cindor-form.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 132[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/select/cindor-select.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 161[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/popover/cindor-popover.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 145[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/drawer/cindor-drawer.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/dialog/cindor-dialog.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/file-input/cindor-file-input.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/drawer/cindor-drawer.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 140[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/dialog/cindor-dialog.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 145[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/file-input/cindor-file-input.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 124[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/command-palette/cindor-command-palette.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/autocomplete/cindor-autocomplete.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/rating-input/cindor-rating-input.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/command-palette/cindor-command-palette.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 118[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/autocomplete/cindor-autocomplete.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 98[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/rating-input/cindor-rating-input.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 101[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/pagination/cindor-pagination.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/dropzone/cindor-dropzone.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/password-input/cindor-password-input.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/pagination/cindor-pagination.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 75[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/dropzone/cindor-dropzone.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 96[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/password-input/cindor-password-input.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 94[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/form-field/cindor-form-field.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/button/cindor-button.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/tree-view/cindor-tree-view.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/form-field/cindor-form-field.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 75[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/button/cindor-button.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 86[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/tree-view/cindor-tree-view.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 66[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/toast/cindor-toast-region.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/date-time-picker/cindor-date-time-picker.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/icon-button/cindor-icon-button.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/toast/cindor-toast-region.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 72[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/date-time-picker/cindor-date-time-picker.test.ts[2m > [22m[2mcindor-date-time-picker[2m > [22m[2mcombines the child date and time values
+[22m[39mElement cindor-date-picker scheduled an update (generally because a property was set) after an update completed, causing a new update to be scheduled. This is inefficient and should be avoided unless the next update can only be scheduled as a side effect of the previous update. See https://lit.dev/msg/change-in-update for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/date-time-picker/cindor-date-time-picker.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 72[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/icon-button/cindor-icon-button.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 54[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/search/cindor-search.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/stepper/cindor-stepper.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/inline-edit/cindor-inline-edit.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/search/cindor-search.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 54[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/stepper/cindor-stepper.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 58[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/inline-edit/cindor-inline-edit.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 60[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/toolbar/cindor-toolbar.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/radio/cindor-radio.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/textarea/cindor-textarea.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/toolbar/cindor-toolbar.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 58[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/radio/cindor-radio.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 58[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/textarea/cindor-textarea.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 52[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/context-menu/cindor-context-menu.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/toast/cindor-toast.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/side-nav-item/cindor-side-nav-item.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/context-menu/cindor-context-menu.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 57[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/toast/cindor-toast.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 45[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/side-nav-item/cindor-side-nav-item.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 42[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/checkbox/cindor-checkbox.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/number-input/cindor-number-input.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/segmented-control/cindor-segmented-control.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/checkbox/cindor-checkbox.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 52[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/number-input/cindor-number-input.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 45[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/segmented-control/cindor-segmented-control.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 48[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/url-input/cindor-url-input.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/page-header/cindor-page-header.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/side-nav/cindor-side-nav.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/url-input/cindor-url-input.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 49[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/page-header/cindor-page-header.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 38[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/side-nav/cindor-side-nav.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 68[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/splitter/cindor-splitter.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/command-bar/cindor-command-bar.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/time-input/cindor-time-input.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/splitter/cindor-splitter.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 60[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/command-bar/cindor-command-bar.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 43[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/time-input/cindor-time-input.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 54[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/tel-input/cindor-tel-input.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/date-input/cindor-date-input.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/toast/toast-manager.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/date-input/cindor-date-input.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 53[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/tel-input/cindor-tel-input.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 44[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/toast/toast-manager.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 39[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/switch/cindor-switch.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/email-input/cindor-email-input.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/button-group/cindor-button-group.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/switch/cindor-switch.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 45[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/email-input/cindor-email-input.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 46[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/button-group/cindor-button-group.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 44[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/menubar/cindor-menubar.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/tree-item/cindor-tree-item.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/menubar/cindor-menubar.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 46[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/link/cindor-link.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/tree-item/cindor-tree-item.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/link/cindor-link.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/color-input/cindor-color-input.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/range/cindor-range.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/panel-inspector/cindor-panel-inspector.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/color-input/cindor-color-input.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 44[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/range/cindor-range.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/panel-inspector/cindor-panel-inspector.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 32[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/icon/cindor-icon.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/tag/cindor-tag.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/provider/cindor-provider.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/icon/cindor-icon.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/tag/cindor-tag.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/provider/cindor-provider.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 44[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/activity-item/cindor-activity-item.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/empty-state/cindor-empty-state.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/activity-item/cindor-activity-item.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 32[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/navigation-rail-item/cindor-navigation-rail-item.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/empty-state/cindor-empty-state.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/navigation-rail-item/cindor-navigation-rail-item.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 28[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/menu/cindor-menu.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/empty-search-results/cindor-empty-search-results.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/meter/cindor-meter.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/empty-search-results/cindor-empty-search-results.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 35[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/menu/cindor-menu.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 34[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/meter/cindor-meter.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 23[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/stat-card/cindor-stat-card.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/timeline-item/cindor-timeline-item.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/option/cindor-option.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/stat-card/cindor-stat-card.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 28[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/timeline-item/cindor-timeline-item.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 27[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/option/cindor-option.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 28[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/fieldset/cindor-fieldset.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/listbox/cindor-listbox.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/menu-item/cindor-menu-item.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/fieldset/cindor-fieldset.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 21[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/listbox/cindor-listbox.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 25[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/menu-item/cindor-menu-item.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 21[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/accordion/cindor-accordion.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/stack/cindor-stack.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/layout-header/cindor-layout-header.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/accordion/cindor-accordion.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 26[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/stack/cindor-stack.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 24[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/layout-header/cindor-layout-header.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 24[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/layout/cindor-layout.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/progress/cindor-progress.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/layout/cindor-layout.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 21[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/form-row/cindor-form-row.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/progress/cindor-progress.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 25[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/form-row/cindor-form-row.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 25[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/description-list/cindor-description-list.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/card/cindor-card.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/description-list/cindor-description-list.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 20[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/description-item/cindor-description-item.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/card/cindor-card.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 21[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/description-item/cindor-description-item.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 28[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/navigation-rail/cindor-navigation-rail.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/activity-feed/cindor-activity-feed.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/navigation-rail/cindor-navigation-rail.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 18[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/spinner/cindor-spinner.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/activity-feed/cindor-activity-feed.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 20[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/spinner/cindor-spinner.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 20[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/error-text/cindor-error-text.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/skeleton/cindor-skeleton.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/error-text/cindor-error-text.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 22[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/avatar/cindor-avatar.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/skeleton/cindor-skeleton.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/avatar/cindor-avatar.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 22[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/breadcrumbs/cindor-breadcrumbs.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/tab-panel/cindor-tab-panel.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/breadcrumbs/cindor-breadcrumbs.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 21[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/layout-content/cindor-layout-content.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/tab-panel/cindor-tab-panel.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/layout-content/cindor-layout-content.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 24[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/splitter-panel/cindor-splitter-panel.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/splitter-panel/cindor-splitter-panel.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 13[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/chip/cindor-chip.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/badge/cindor-badge.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/chip/cindor-chip.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/badge/cindor-badge.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 16[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/alert/cindor-alert.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/alert/cindor-alert.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 22[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/helper-text/cindor-helper-text.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+[90mstderr[2m | packages/core/src/components/timeline/cindor-timeline.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/helper-text/cindor-helper-text.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/timeline/cindor-timeline.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 21[2mms[22m[39m
+[90mstderr[2m | packages/core/src/components/divider/cindor-divider.test.ts
+[22m[39mLit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.
+
+ [32m✓[39m [30m[42m unit [49m[39m packages/core/src/components/divider/cindor-divider.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 13[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m103 passed[39m[22m[90m (103)[39m
+[2m      Tests [22m [1m[32m307 passed[39m[22m[90m (307)[39m
+[2m   Start at [22m 03:01:41
+[2m   Duration [22m 30.28s[2m (transform 946ms, setup 23.62s, collect 895ms, tests 7.70s, environment 36.42s, prepare 6.63s)[22m
+

@@ -1493,7 +1493,7 @@ function hydrateLivingExamples(route: Route, readiness: { componentPreviewReady:
   hydrateGlobalPalette();
 
   if (route.kind === "docs") {
-    hydrateHomeExamples(route.sectionId);
+    hydrateHomeExamples();
     return;
   }
 
@@ -1567,7 +1567,7 @@ function hydrateGlobalPalette(): void {
   palette.addEventListener("command-select", handlePaletteSelect);
 }
 
-function hydrateHomeExamples(activeSectionId: string): void {
+function hydrateHomeExamples(): void {
   const stepper = root.querySelector<StepperHost>("#setup-stepper");
   if (stepper) {
     stepper.steps = setupSteps;
