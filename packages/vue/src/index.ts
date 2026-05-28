@@ -358,7 +358,7 @@ export const CindorBanner = defineComponent({
             {
               ...attrs,
               dismissible: props.dismissible || undefined,
-              open: props.open || undefined,
+              open: props.open,
               "role-type": props.roleType || undefined,
               sticky: props.sticky || undefined,
               title: props.title || undefined,
@@ -655,7 +655,7 @@ export const CindorForm = defineComponent({
               submitting: props.submitting || undefined,
               "submitting-label": props.submittingLabel,
               success: props.success || undefined,
-              "validate-on-submit": props.validateOnSubmit || undefined,
+              "validate-on-submit": props.validateOnSubmit,
               onReset: handleReset,
               onSubmit: handleSubmit,
             },
@@ -1860,7 +1860,7 @@ export const CindorToast = defineComponent({
             {
               ...attrs,
               dismissible: props.dismissible || undefined,
-              open: props.open || undefined,
+              open: props.open,
               tone: props.tone,
               onClose: handleClose,
             },
@@ -2639,7 +2639,7 @@ export const CindorDialog = defineComponent({
             "cindor-dialog",
             {
               ...attrs,
-              modal: props.modal || undefined,
+              modal: props.modal,
               open: props.open || undefined,
               onClose: handleClose,
               onCancel: handleCancel,

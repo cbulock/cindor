@@ -46,6 +46,38 @@ describe("cindor-dropzone", () => {
     expect(element.renderRoot.querySelector('[part="summary"]')?.textContent).toContain("gamma.txt");
   });
 
+  it("updates surface active state during drag interactions", async () => {
+    const element = document.createElement("cindor-dropzone") as CindorDropzone;
+    document.body.append(element);
+    await element.updateComplete;
+
+    const surface = element.renderRoot.querySelector('[part="surface"]') as HTMLElement;
+
+    const dragEnterEvent = new Event("dragenter", { bubbles: true, cancelable: true }) as DragEvent;
+    surface.dispatchEvent(dragEnterEvent);
+    expect(surface.getAttribute("data-active")).toBe("true");
+
+    const dragOverEvent = new Event("dragover", { bubbles: true, cancelable: true }) as DragEvent;
+    surface.dispatchEvent(dragOverEvent);
+    expect(surface.getAttribute("data-active")).toBe("true");
+
+    const dragLeaveEvent = new Event("dragleave", { bubbles: true, cancelable: true }) as DragEvent;
+    Object.defineProperty(dragLeaveEvent, "relatedTarget", { configurable: true, value: null });
+    surface.dispatchEvent(dragLeaveEvent);
+    expect(surface.getAttribute("data-active")).toBe("false");
+
+    surface.dispatchEvent(dragOverEvent);
+    expect(surface.getAttribute("data-active")).toBe("true");
+
+    const dropEvent = new Event("drop", { bubbles: true, cancelable: true }) as DragEvent;
+    Object.defineProperty(dropEvent, "dataTransfer", {
+      configurable: true,
+      value: { files: [] }
+    });
+    surface.dispatchEvent(dropEvent);
+    expect(surface.getAttribute("data-active")).toBe("false");
+  });
+
   it("does not open the picker when disabled", async () => {
     const element = document.createElement("cindor-dropzone") as CindorDropzone;
     element.disabled = true;

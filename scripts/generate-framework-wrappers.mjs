@@ -202,7 +202,7 @@ function renderVueObjectKey(key) {
 function renderVuePropValue(prop) {
   switch (prop.kind) {
     case "boolean":
-      return `props.${prop.name} || undefined`;
+      return prop.defaultValue === true ? `props.${prop.name}` : `props.${prop.name} || undefined`;
     case "number":
       return `props.${prop.name}`;
     case "string":

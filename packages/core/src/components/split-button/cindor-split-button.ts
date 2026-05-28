@@ -297,7 +297,7 @@ export class CindorSplitButton extends LitElement {
     }
 
     if (!form.id) {
-      this.candidateFormId ||= `cindor-form-${CindorSplitButton.nextFormIdCounter++}`;
+      this.candidateFormId ||= `cindor-split-button-form-${CindorSplitButton.nextFormIdCounter++}`;
       form.id = this.candidateFormId;
     }
 
