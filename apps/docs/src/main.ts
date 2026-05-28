@@ -2120,6 +2120,25 @@ function getUsageCode(doc: ComponentDoc): string {
     console.log(event.detail.actionKey, event.detail.row);
   });
 </script>`;
+    case "data-view-toolbar":
+      return `<cindor-data-view-toolbar
+  title="Projects"
+  description="Review active work, narrow the current scope, and run batch actions without leaving the collection view."
+  item-count="128"
+  selection-count="3"
+>
+  <cindor-badge slot="meta" tone="accent">Active workspace</cindor-badge>
+  <cindor-search slot="filters" placeholder="Search projects"></cindor-search>
+  <cindor-button-group slot="view-controls" attached>
+    <cindor-button variant="ghost">All</cindor-button>
+    <cindor-button variant="ghost">Owned</cindor-button>
+    <cindor-button variant="ghost">Shared</cindor-button>
+  </cindor-button-group>
+  <cindor-segmented-control slot="view-controls" aria-label="View mode"></cindor-segmented-control>
+  <cindor-button slot="actions" variant="ghost">Export</cindor-button>
+  <cindor-button slot="actions">Create project</cindor-button>
+  <span>Bulk actions apply to the selected projects immediately.</span>
+</cindor-data-view-toolbar>`;
     case "date-picker":
       return `<cindor-date-picker month="2026-04" value="2026-04-26"></cindor-date-picker>`;
     case "date-range-picker":
@@ -3197,6 +3216,7 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "combobox":
     case "command-bar":
     case "autocomplete":
+    case "data-view-toolbar":
     case "date-picker":
     case "date-range-picker":
     case "date-time-picker":
@@ -3745,6 +3765,28 @@ function getLegacyComponentApi(doc: ComponentDoc): ComponentApiSurface {
           compositionGroup([])
         ],
         intro: `${doc.tag} is one of the more stateful components in the library. In practice it is driven by assigned data and table configuration rather than slot content, including per-row action buttons defined on a column's actions array.`
+      };
+    case "data-view-toolbar":
+      return {
+        groups: [
+          propertyGroup([
+            apiItem("title", "Primary heading for the collection or view.", { defaultValue: `""`, type: "string" }),
+            apiItem("description", "Supporting copy that frames the current dataset or workflow.", { defaultValue: `""`, type: "string" }),
+            apiItem("item-count", "Count chip for the total visible items in the current view.", { defaultValue: "0", type: "number" }),
+            apiItem("item-label", "Label paired with the item count chip.", { defaultValue: `"items"`, type: "string" }),
+            apiItem("selection-count", "Optional accent count chip for the current selection.", { defaultValue: "0", type: "number" }),
+            apiItem("selection-label", "Label paired with the selection count chip.", { defaultValue: `"selected"`, type: "string" })
+          ]),
+          eventGroup([]),
+          compositionGroup([
+            apiItem("default slot", "Optional supporting copy rendered below the main toolbar row.", { type: "slot" }),
+            apiItem("meta", "Inline metadata such as badges, scope chips, or status pills.", { type: "named slot" }),
+            apiItem("filters", "Search, filter, or scope controls shown on the leading edge.", { type: "named slot" }),
+            apiItem("view-controls", "Layout, density, or sorting controls shown after filters.", { type: "named slot" }),
+            apiItem("actions", "Primary and secondary actions rendered on the trailing edge.", { type: "named slot" })
+          ])
+        ],
+        intro: `${doc.tag} is a composition-first shell for collection pages. It keeps summary counts, filtering controls, and trailing actions aligned without forcing the underlying workflow into a single rigid pattern.`
       };
     case "dialog":
       return overlayApi(

@@ -38,6 +38,7 @@ import {
   CindorPageHeader as CindorPageHeaderElement,
   CindorPanelInspector as CindorPanelInspectorElement,
   CindorDataTable as CindorDataTableElement,
+  CindorDataViewToolbar as CindorDataViewToolbarElement,
   CindorEmptyState as CindorEmptyStateElement,
   CindorEmptySearchResults as CindorEmptySearchResultsElement,
   CindorIcon as CindorIconElement,
@@ -359,6 +360,12 @@ export const CindorDataTable = createComponent({
     onSearchChange: "search-change",
     onSortChange: "sort-change"
   }
+});
+
+export const CindorDataViewToolbar = createComponent({
+  react: React,
+  tagName: "cindor-data-view-toolbar",
+  elementClass: CindorDataViewToolbarElement
 });
 
 export const CindorEmptyState = createComponent({
