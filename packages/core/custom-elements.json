@@ -1122,111 +1122,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/badge/cindor-badge.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Primitives/Badge\", args: { label: \"Active\", tone: \"neutral\" }, argTypes: { tone: { control: \"radio\", options: [\"neutral\", \"accent\", \"success\"] } }, render: ({ label, tone }: BadgeStoryArgs) => `<cindor-badge tone=\"${tone}\">${label}</cindor-badge>` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        },
-        {
-          "kind": "variable",
-          "name": "Success",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ args: { label: \"Live\", tone: \"success\" } }"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Success",
-          "declaration": {
-            "name": "Success",
-            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/badge/cindor-badge.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorBadge",
-          "members": [
-            {
-              "kind": "field",
-              "name": "tone",
-              "privacy": "public",
-              "type": {
-                "text": "BadgeTone"
-              },
-              "default": "\"neutral\"",
-              "attribute": "tone",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "tone",
-              "type": {
-                "text": "BadgeTone"
-              },
-              "default": "\"neutral\"",
-              "fieldName": "tone"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorBadge",
-          "declaration": {
-            "name": "CindorBadge",
-            "module": "packages/core/src/components/badge/cindor-badge.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/banner/cindor-banner.stories.ts",
       "declarations": [
         {
@@ -1531,6 +1426,111 @@
           "declaration": {
             "name": "CindorBanner",
             "module": "packages/core/src/components/banner/cindor-banner.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/badge/cindor-badge.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Primitives/Badge\", args: { label: \"Active\", tone: \"neutral\" }, argTypes: { tone: { control: \"radio\", options: [\"neutral\", \"accent\", \"success\"] } }, render: ({ label, tone }: BadgeStoryArgs) => `<cindor-badge tone=\"${tone}\">${label}</cindor-badge>` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        },
+        {
+          "kind": "variable",
+          "name": "Success",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ args: { label: \"Live\", tone: \"success\" } }"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Success",
+          "declaration": {
+            "name": "Success",
+            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/badge/cindor-badge.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorBadge",
+          "members": [
+            {
+              "kind": "field",
+              "name": "tone",
+              "privacy": "public",
+              "type": {
+                "text": "BadgeTone"
+              },
+              "default": "\"neutral\"",
+              "attribute": "tone",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "tone",
+              "type": {
+                "text": "BadgeTone"
+              },
+              "default": "\"neutral\"",
+              "fieldName": "tone"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorBadge",
+          "declaration": {
+            "name": "CindorBadge",
+            "module": "packages/core/src/components/badge/cindor-badge.ts"
           }
         }
       ]
