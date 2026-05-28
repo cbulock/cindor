@@ -497,20 +497,6 @@ a {
   gap: var(--space-3);
 }
 
-.pattern-layout-preview {
-  display: grid;
-  gap: var(--space-4);
-  padding: var(--space-4);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--bg);
-  color: var(--fg);
-}
-
-.pattern-layout-preview .muted {
-  color: var(--fg-muted);
-}
-
 .pattern-stack {
   display: grid;
   gap: var(--space-3);
