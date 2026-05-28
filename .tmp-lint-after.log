@@ -1,0 +1,10 @@
+
+> cindor-ui-workspace@0.1.53 lint
+> eslint .
+
+
+/tmp/workspace/cbulock/cindor/apps/docs/src/main.ts
+  1570:30  error  'activeSectionId' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 1 problem (1 error, 0 warnings)
+

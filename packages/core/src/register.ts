@@ -4,6 +4,7 @@ import { CindorActivityFeed } from "./components/activity-feed/cindor-activity-f
 import { CindorActivityItem } from "./components/activity-item/cindor-activity-item.js";
 import { CindorAutocomplete } from "./components/autocomplete/cindor-autocomplete.js";
 import { CindorAvatar } from "./components/avatar/cindor-avatar.js";
+import { CindorBanner } from "./components/banner/cindor-banner.js";
 import { CindorBadge } from "./components/badge/cindor-badge.js";
 import { CindorBreadcrumbs } from "./components/breadcrumbs/cindor-breadcrumbs.js";
 import { CindorButton } from "./components/button/cindor-button.js";
@@ -19,6 +20,7 @@ import { CindorCommandBar } from "./components/command-bar/cindor-command-bar.js
 import { CindorCommandPalette } from "./components/command-palette/cindor-command-palette.js";
 import { CindorContextMenu } from "./components/context-menu/cindor-context-menu.js";
 import { CindorDataTable } from "./components/data-table/cindor-data-table.js";
+import { CindorDataViewToolbar } from "./components/data-view-toolbar/cindor-data-view-toolbar.js";
 import { CindorDatePicker } from "./components/date-picker/cindor-date-picker.js";
 import { CindorDateRangePicker } from "./components/date-range-picker/cindor-date-range-picker.js";
 import { CindorDateTimePicker } from "./components/date-time-picker/cindor-date-time-picker.js";
@@ -103,6 +105,7 @@ import { CindorUrlInput } from "./components/url-input/cindor-url-input.js";
 
 const definitions = [
   ["cindor-alert", CindorAlert],
+  ["cindor-banner", CindorBanner],
   ["cindor-activity-feed", CindorActivityFeed],
   ["cindor-activity-item", CindorActivityItem],
   ["cindor-autocomplete", CindorAutocomplete],
@@ -143,6 +146,7 @@ const definitions = [
   ["cindor-search", CindorSearch],
   ["cindor-combobox", CindorCombobox],
   ["cindor-data-table", CindorDataTable],
+  ["cindor-data-view-toolbar", CindorDataViewToolbar],
   ["cindor-date-input", CindorDateInput],
   ["cindor-description-item", CindorDescriptionItem],
   ["cindor-description-list", CindorDescriptionList],

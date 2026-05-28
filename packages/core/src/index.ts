@@ -7,6 +7,7 @@ export { CindorCheckbox } from "./components/checkbox/cindor-checkbox.js";
 export { CindorChip, type ChipTone } from "./components/chip/cindor-chip.js";
 export { CindorAccordion } from "./components/accordion/cindor-accordion.js";
 export { CindorAlert, type AlertTone } from "./components/alert/cindor-alert.js";
+export { CindorBanner, type BannerRoleType, type BannerTone } from "./components/banner/cindor-banner.js";
 export { CindorActivityFeed } from "./components/activity-feed/cindor-activity-feed.js";
 export { CindorActivityItem } from "./components/activity-item/cindor-activity-item.js";
 export { CindorAutocomplete, type AutocompleteSuggestion } from "./components/autocomplete/cindor-autocomplete.js";
@@ -38,6 +39,7 @@ export {
   type DataTableRow,
   type DataTableSortDirection
 } from "./components/data-table/cindor-data-table.js";
+export { CindorDataViewToolbar } from "./components/data-view-toolbar/cindor-data-view-toolbar.js";
 export { CindorEmailInput } from "./components/email-input/cindor-email-input.js";
 export { CindorErrorText } from "./components/error-text/cindor-error-text.js";
 export { CindorEmptyState } from "./components/empty-state/cindor-empty-state.js";

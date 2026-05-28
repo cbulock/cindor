@@ -370,6 +370,99 @@
       "tagName": "cindor-badge"
     },
     {
+      "className": "CindorBanner",
+      "description": "Persistent page or app-level feedback surface with optional actions and dismiss control.",
+      "modulePath": "packages/core/src/components/banner/cindor-banner.ts",
+      "properties": [
+        {
+          "attributeName": "dismissible",
+          "defaultValue": "false",
+          "description": "",
+          "name": "dismissible",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "open",
+          "defaultValue": "true",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "role-type",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "roleType",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "sticky",
+          "defaultValue": "false",
+          "description": "",
+          "name": "sticky",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "title",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "title",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "tone",
+          "defaultValue": "\"info\"",
+          "description": "",
+          "name": "tone",
+          "reflects": true,
+          "type": "\"info\" | \"success\" | \"warning\" | \"danger\"",
+          "values": [
+            "info",
+            "success",
+            "warning",
+            "danger"
+          ]
+        },
+        {
+          "attributeName": null,
+          "defaultValue": null,
+          "description": "",
+          "name": "close",
+          "reflects": false,
+          "type": null,
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Default banner body content.",
+          "name": "default"
+        },
+        {
+          "description": "Optional leading icon or media.",
+          "name": "icon"
+        },
+        {
+          "description": "Optional trailing actions such as buttons or links.",
+          "name": "actions"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-banner"
+    },
+    {
       "className": "CindorBreadcrumbs",
       "description": "",
       "modulePath": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.ts",
@@ -1541,6 +1634,93 @@
       ],
       "summary": "Searchable, sortable data table for application records.",
       "tagName": "cindor-data-table"
+    },
+    {
+      "className": "CindorDataViewToolbar",
+      "description": "Composite toolbar shell for collection pages, tables, and grid views.",
+      "modulePath": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.ts",
+      "properties": [
+        {
+          "attributeName": "description",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "description",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "item-count",
+          "defaultValue": "0",
+          "description": "",
+          "name": "itemCount",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "item-label",
+          "defaultValue": "\"items\"",
+          "description": "",
+          "name": "itemLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "selection-count",
+          "defaultValue": "0",
+          "description": "",
+          "name": "selectionCount",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "selection-label",
+          "defaultValue": "\"selected\"",
+          "description": "",
+          "name": "selectionLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "title",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "title",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Optional supporting copy rendered below the main toolbar row.",
+          "name": "default"
+        },
+        {
+          "description": "Inline metadata such as badges, status chips, or scope labels.",
+          "name": "meta"
+        },
+        {
+          "description": "Search, filter, or scope controls anchored on the leading side.",
+          "name": "filters"
+        },
+        {
+          "description": "Layout, density, or sort controls rendered after filters.",
+          "name": "view-controls"
+        },
+        {
+          "description": "Primary and secondary actions rendered on the trailing edge.",
+          "name": "actions"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-data-view-toolbar"
     },
     {
       "className": "CindorDateInput",
