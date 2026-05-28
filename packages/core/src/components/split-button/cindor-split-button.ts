@@ -17,7 +17,7 @@ import { attachFloatingPosition } from "../shared/floating-position.js";
  * @fires click - Uses the native click event from the primary action button.
  */
 export class CindorSplitButton extends LitElement {
-  private static nextFormId = 0;
+  private static nextFormIdCounter = 0;
 
   static styles = css`
     :host {
@@ -112,7 +112,7 @@ export class CindorSplitButton extends LitElement {
   /** Visual treatment shared by the primary action and menu trigger. */
   variant: ButtonVariant = "solid";
 
-  private readonly generatedFormId = `cindor-form-${CindorSplitButton.nextFormId++}`;
+  private readonly candidateFormId = `cindor-form-${CindorSplitButton.nextFormIdCounter++}`;
   private floatingCleanup?: () => void;
   private floatingMenu: HTMLElement | null = null;
   private updateFloatingPosition?: () => void;
@@ -296,7 +296,7 @@ export class CindorSplitButton extends LitElement {
       return undefined;
     }
 
-    form.id ||= this.generatedFormId;
+    form.id ||= this.candidateFormId;
     return form.id;
   }
 
