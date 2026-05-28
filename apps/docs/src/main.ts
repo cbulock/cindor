@@ -646,7 +646,7 @@ function renderMobileHeader(route: Route): string {
       </div>
 
       <div class="mobile-header-actions">
-        <button class="nav-toggle" aria-label="Open search" data-action="open-palette">
+        <button class="nav-toggle" type="button" aria-label="Open search" data-action="open-palette">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
             <path d="M14 14l3 3M9 15a6 6 0 1 1 0-12 6 6 0 0 1 0 12z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
