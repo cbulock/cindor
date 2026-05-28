@@ -116,7 +116,6 @@ export class CindorDropzone extends FormAssociatedElement {
   static properties = {
     accept: { reflect: true },
     disabled: { type: Boolean, reflect: true },
-    dragActive: { state: true, attribute: false },
     multiple: { type: Boolean, reflect: true },
     name: { reflect: true },
     required: { type: Boolean, reflect: true }
@@ -128,7 +127,6 @@ export class CindorDropzone extends FormAssociatedElement {
   name = "";
   required = false;
 
-  private dragActive = false;
   private selectedFiles: File[] = [];
   private selectedFilesList: FileList | null = null;
 
@@ -172,7 +170,7 @@ export class CindorDropzone extends FormAssociatedElement {
       <div
         class="surface"
         part="surface"
-        data-active=${String(this.dragActive)}
+        data-active="false"
         data-disabled=${String(this.disabled)}
         @dragenter=${this.handleDragEnter}
         @dragover=${this.handleDragOver}
@@ -250,7 +248,7 @@ export class CindorDropzone extends FormAssociatedElement {
     }
 
     event.preventDefault();
-    this.dragActive = true;
+    setSurfaceActive(this, true);
   };
 
   private handleDragOver = (event: DragEvent): void => {
@@ -262,7 +260,7 @@ export class CindorDropzone extends FormAssociatedElement {
     if (event.dataTransfer) {
       event.dataTransfer.dropEffect = "copy";
     }
-    this.dragActive = true;
+    setSurfaceActive(this, true);
   };
 
   private handleDragLeave = (event: DragEvent): void => {
@@ -276,7 +274,7 @@ export class CindorDropzone extends FormAssociatedElement {
       return;
     }
 
-    this.dragActive = false;
+    setSurfaceActive(this, false);
   };
 
   private handleDrop = (event: DragEvent): void => {
@@ -286,7 +284,7 @@ export class CindorDropzone extends FormAssociatedElement {
 
     event.preventDefault();
     event.stopPropagation();
-    this.dragActive = false;
+    setSurfaceActive(this, false);
 
     const files = event.dataTransfer?.files;
     if (!files || files.length === 0) {
@@ -365,4 +363,8 @@ export class CindorDropzone extends FormAssociatedElement {
   private get triggerElement(): HTMLElement | null {
     return this.renderRoot.querySelector('[part="trigger"]');
   }
+}
+
+function setSurfaceActive(element: CindorDropzone, active: boolean): void {
+  element.renderRoot.querySelector<HTMLElement>('[part="surface"]')?.setAttribute("data-active", String(active));
 }
