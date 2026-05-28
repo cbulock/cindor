@@ -1,5 +1,0 @@
-
-> cindor-ui-workspace@0.1.49 typecheck
-> tsc -p tsconfig.json --noEmit
-
-packages/core/src/components/split-button/cindor-split-button.ts(113,71): error TS2339: Property 'nextFormId' does not exist on type 'typeof CindorSplitButton'.

@@ -1,4 +1,0 @@
-
-> cindor-ui-workspace@0.1.53 typecheck
-> tsc -p tsconfig.json --noEmit
-
