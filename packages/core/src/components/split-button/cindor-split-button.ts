@@ -112,7 +112,7 @@ export class CindorSplitButton extends LitElement {
   /** Visual treatment shared by the primary action and menu trigger. */
   variant: ButtonVariant = "solid";
 
-  private readonly candidateFormId = `cindor-form-${CindorSplitButton.nextFormIdCounter++}`;
+  private candidateFormId?: string;
   private floatingCleanup?: () => void;
   private floatingMenu: HTMLElement | null = null;
   private updateFloatingPosition?: () => void;
@@ -296,7 +296,11 @@ export class CindorSplitButton extends LitElement {
       return undefined;
     }
 
-    form.id ||= this.candidateFormId;
+    if (!form.id) {
+      this.candidateFormId ||= `cindor-form-${CindorSplitButton.nextFormIdCounter++}`;
+      form.id = this.candidateFormId;
+    }
+
     return form.id;
   }
 
