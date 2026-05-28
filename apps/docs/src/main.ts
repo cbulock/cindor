@@ -222,12 +222,6 @@ const alertToneOptions: SegmentedControlOption[] = [
 const catalogLayerFilterOptions: SegmentedControlOption[] = componentLayerOptions
   .map((option) => ({ label: option === "all" ? "All" : option, value: option }));
 
-const projectScopeOptions: SegmentedControlOption[] = [
-  { label: "All", value: "all" },
-  { label: "Owned", value: "owned" },
-  { label: "Shared", value: "shared" }
-];
-
 const quickStartCode = `import "cindor-ui-core/styles.css";
 import "cindor-ui-core/register";
 
@@ -918,7 +912,7 @@ function renderDocsHome(activeSectionId: string): string {
               >
                 <cindor-badge slot="meta" tone="accent">Quarterly planning</cindor-badge>
                 <cindor-search slot="filters" placeholder="Search projects"></cindor-search>
-                <cindor-segmented-control id="pattern-project-scope" slot="view-controls" aria-label="Project scope"></cindor-segmented-control>
+                <cindor-segmented-control slot="view-controls" aria-label="Project scope"></cindor-segmented-control>
                 <cindor-button slot="actions" variant="ghost">Export</cindor-button>
                 <cindor-button slot="actions">Create project</cindor-button>
                 <span>Pair the toolbar with a table, cards, or any other collection body.</span>
@@ -1000,18 +994,18 @@ function renderDocsHome(activeSectionId: string): string {
               <strong>Action hierarchy pattern</strong>
               <cindor-badge>Buttons</cindor-badge>
             </div>
-            <p class="muted">Keep the primary path obvious with a standard button, then group lower-frequency alternatives in an adjacent dropdown menu.</p>
+            <p class="muted">Keep the primary path obvious with a standard button, then put lower-frequency alternatives behind a split button.</p>
             <div class="pattern-stack">
               <div class="pattern-inline-actions">
                 <cindor-button>Publish changes</cindor-button>
-                <cindor-dropdown-menu label="Save draft" menu-label="More save actions">
+                <cindor-split-button label="Save draft" menu-label="More save actions">
                   <cindor-menu-item>Save draft</cindor-menu-item>
                   <cindor-menu-item>Duplicate draft</cindor-menu-item>
                   <cindor-menu-item>Schedule publish</cindor-menu-item>
-                </cindor-dropdown-menu>
+                </cindor-split-button>
                 <cindor-button variant="ghost">Preview</cindor-button>
               </div>
-              <p class="muted">Reserve adjacent menus for alternatives to the main action, not as a replacement for every action group.</p>
+              <p class="muted">Reserve the split button for adjacent alternatives to the main action, not as a replacement for every action group.</p>
             </div>
           </div>
         </div>
@@ -1578,12 +1572,6 @@ function hydrateHomeExamples(activeSectionId: string): void {
           : "all";
       render();
     });
-  }
-
-  const projectScopeFilter = root.querySelector<SegmentedControlHost>("#pattern-project-scope");
-  if (projectScopeFilter) {
-    projectScopeFilter.options = projectScopeOptions;
-    projectScopeFilter.value = "all";
   }
 }
 
