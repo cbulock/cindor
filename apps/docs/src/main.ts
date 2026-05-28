@@ -609,7 +609,7 @@ function renderSidebar(activeSectionId: string, route: Route): string {
         <span class="muted">documented components</span>
       </div>
       <div class="sidebar-meta-item">
-        <strong>4</strong>
+        <strong>${sections.length}</strong>
         <span class="muted">core docs tracks</span>
       </div>
     </div>
