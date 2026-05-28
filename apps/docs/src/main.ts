@@ -2661,12 +2661,12 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
     case "alert":
       return `<${componentName} tone="info">Update complete.</${componentName}>`;
     case "banner":
-      return `<cindor-banner tone="warning" title="Scheduled maintenance" dismissible>
+      return `<${componentName} tone="warning" title="Scheduled maintenance" dismissible>
       <cindor-icon slot="icon" name="triangle-alert"></cindor-icon>
       API deploys are paused from 8:00 PM to 9:00 PM Eastern while the database cluster is upgraded.
       <cindor-button slot="actions" variant="ghost">View status</cindor-button>
       <cindor-button slot="actions">Notify team</cindor-button>
-    </cindor-banner>`;
+    </${componentName}>`;
     case "activity-feed":
       return `<${componentName}>
       <cindor-activity-item unread>
