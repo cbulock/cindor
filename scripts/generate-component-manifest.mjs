@@ -21,6 +21,8 @@ execSync(`"${cemCommand}" analyze --litelement --globs "packages/core/src/compon
 });
 
 const manifest = JSON.parse(readFileSync(customElementsManifestPath, "utf8"));
+sanitizeManifest(manifest);
+writeFileSync(customElementsManifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
 const tagByClassName = parseRegisterDefinitions(readFileSync(registerPath, "utf8"));
 const typeAliasesByModule = collectTypeAliases(manifest.modules ?? []);
 
@@ -227,6 +229,25 @@ function mergeSlots(documentedSlots, parsedSlots) {
   }
 
   return Array.from(slotsByName.values());
+}
+
+function sanitizeManifest(manifest) {
+  const dropzoneModule = (manifest.modules ?? []).find((moduleDoc) => moduleDoc.path === "packages/core/src/components/dropzone/cindor-dropzone.ts");
+  const dropzoneDeclaration = (dropzoneModule?.declarations ?? []).find((declaration) => declaration.name === "CindorDropzone");
+
+  if (!dropzoneDeclaration) {
+    return;
+  }
+
+  if (Array.isArray(dropzoneDeclaration.members)) {
+    dropzoneDeclaration.members = dropzoneDeclaration.members.filter((member) => member.name !== "dragActive");
+  }
+
+  if (Array.isArray(dropzoneDeclaration.attributes)) {
+    dropzoneDeclaration.attributes = dropzoneDeclaration.attributes.filter(
+      (attribute) => attribute.fieldName !== "dragActive" && attribute.name !== "dragActive"
+    );
+  }
 }
 
 function parseSlotsFromSource(source) {
