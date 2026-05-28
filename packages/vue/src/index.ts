@@ -86,6 +86,39 @@ export const CindorButtonGroup = defineComponent({
   }
 });
 
+export const CindorSplitButton = defineComponent({
+  name: "CindorSplitButton",
+  props: {
+    disabled: { type: Boolean, default: false },
+    menuLabel: { type: String, default: "More actions" },
+    open: { type: Boolean, default: false },
+    type: { type: String as PropType<ButtonType>, default: "button" },
+    variant: { type: String as PropType<ButtonVariant>, default: "solid" }
+  },
+  emits: ["update:open", "toggle"],
+  setup(props, { attrs, emit, slots }) {
+    const handleToggle = (event: Event) => {
+      const target = event.currentTarget as OpenHost;
+      emit("update:open", target.open);
+      emit("toggle", event);
+    };
+    return () =>
+          h(
+            "cindor-split-button",
+            {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              "menu-label": props.menuLabel,
+              open: props.open || undefined,
+              type: props.type,
+              variant: props.variant,
+              onToggle: handleToggle,
+            },
+            slots
+          );
+  }
+});
+
 export const CindorChip = defineComponent({
   name: "CindorChip",
   props: {

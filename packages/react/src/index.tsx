@@ -5,6 +5,7 @@ import { createComponent } from "@lit/react";
 import {
   CindorButton as CindorButtonElement,
   CindorButtonGroup as CindorButtonGroupElement,
+  CindorSplitButton as CindorSplitButtonElement,
   CindorChip as CindorChipElement,
   CindorTag as CindorTagElement,
   CindorIconButton as CindorIconButtonElement,
@@ -119,6 +120,15 @@ export const CindorButtonGroup = createComponent({
   react: React,
   tagName: "cindor-button-group",
   elementClass: CindorButtonGroupElement
+});
+
+export const CindorSplitButton = createComponent({
+  react: React,
+  tagName: "cindor-split-button",
+  elementClass: CindorSplitButtonElement,
+  events: {
+    onToggle: "toggle"
+  }
 });
 
 export const CindorChip = createComponent({
