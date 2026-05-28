@@ -358,7 +358,7 @@ export const CindorBanner = defineComponent({
             {
               ...attrs,
               dismissible: props.dismissible || undefined,
-              open: props.open || undefined,
+              open: props.open,
               "role-type": props.roleType || undefined,
               sticky: props.sticky || undefined,
               title: props.title || undefined,
