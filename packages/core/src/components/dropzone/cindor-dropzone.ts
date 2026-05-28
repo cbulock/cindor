@@ -116,7 +116,7 @@ export class CindorDropzone extends FormAssociatedElement {
   static properties = {
     accept: { reflect: true },
     disabled: { type: Boolean, reflect: true },
-    dragActive: { state: true },
+    dragActive: { state: true, attribute: false },
     multiple: { type: Boolean, reflect: true },
     name: { reflect: true },
     required: { type: Boolean, reflect: true }

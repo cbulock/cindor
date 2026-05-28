@@ -9781,8 +9781,7 @@
               "type": {
                 "text": "boolean"
               },
-              "default": "false",
-              "attribute": "dragActive"
+              "default": "false"
             },
             {
               "kind": "field",
@@ -10004,14 +10003,6 @@
               },
               "default": "false",
               "fieldName": "disabled"
-            },
-            {
-              "name": "dragActive",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "dragActive"
             },
             {
               "name": "multiple",
