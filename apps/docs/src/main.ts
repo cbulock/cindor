@@ -749,11 +749,11 @@ function renderDocsHome(activeSectionId: string): string {
         <cindor-button variant="ghost" data-action="open-palette">Search docs</cindor-button>
       </div>
 
-      <div class="hero-utility-links" aria-label="More documentation shortcuts">
+      <nav class="hero-utility-links" aria-label="More documentation shortcuts">
         <span class="hero-utility-label">More paths</span>
         <button class="hero-utility-button" type="button" data-target-path="${getDocsSectionPath("components")}">Component catalog</button>
         <a class="hero-utility-link" href="${storybookUrl}">Playground</a>
-      </div>
+      </nav>
 
       <div class="card-grid">
         <cindor-card>
