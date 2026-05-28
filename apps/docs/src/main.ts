@@ -2516,6 +2516,17 @@ function getUsageCode(doc: ComponentDoc): string {
 function getReactUsageCode(doc: ComponentDoc): string {
   const componentName = getWrapperComponentName(doc.tag);
 
+  if (doc.slug === "tabs") {
+    return `import "cindor-ui-core/styles.css";
+import { CindorTabPanel, CindorTabs } from "cindor-ui-react";
+
+export function Example() {
+  return (
+    ${getReactUsageMarkup(doc, "CindorTabs")}
+  );
+}`;
+  }
+
   if (doc.slug === "filter-builder") {
     return `import "cindor-ui-core/styles.css";
 import { CindorFilterBuilder } from "cindor-ui-react";
@@ -2582,6 +2593,28 @@ export function Example() {
 
 function getVueUsageCode(doc: ComponentDoc): string {
   const componentName = getWrapperComponentName(doc.tag);
+
+  if (doc.slug === "tabs") {
+    return `<script setup lang="ts">
+import "cindor-ui-core/styles.css";
+import { CindorTabPanel, CindorTabs } from "cindor-ui-vue";
+</script>
+
+<template>
+  ${getVueUsageMarkup(doc, "CindorTabs")}
+</template>`;
+  }
+
+  if (wrapperlessFrameworkUsageSlugs.has(doc.slug)) {
+    return `<script setup lang="ts">
+import "cindor-ui-core/styles.css";
+import "cindor-ui-core/register";
+</script>
+
+<template>
+  ${getVueUsageMarkup(doc, doc.tag)}
+</template>`;
+  }
 
   if (doc.slug === "filter-builder") {
     return `<script setup lang="ts">
@@ -2904,8 +2937,8 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName} values={["Bug", "Urgent"]} placeholder="Add labels" />`;
     case "tabs":
       return `<${componentName} value="overview" aria-label="Release sections">
-      <cindor-tab-panel label="Overview" value="overview">Overview details</cindor-tab-panel>
-      <cindor-tab-panel label="Activity" value="activity">Recent changes</cindor-tab-panel>
+      <CindorTabPanel label="Overview" value="overview">Overview details</CindorTabPanel>
+      <CindorTabPanel label="Activity" value="activity">Recent changes</CindorTabPanel>
     </${componentName}>`;
     case "stat-card":
       return `<${componentName} label="Monthly recurring revenue" value="$84.2k" change="+12.4%" tone="positive">
@@ -3178,8 +3211,8 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName} :model-value="['Bug', 'Urgent']" placeholder="Add labels" />`;
     case "tabs":
       return `<${componentName} value="overview" aria-label="Release sections">
-    <cindor-tab-panel label="Overview" value="overview">Overview details</cindor-tab-panel>
-    <cindor-tab-panel label="Activity" value="activity">Recent changes</cindor-tab-panel>
+    <CindorTabPanel label="Overview" value="overview">Overview details</CindorTabPanel>
+    <CindorTabPanel label="Activity" value="activity">Recent changes</CindorTabPanel>
   </${componentName}>`;
     case "stat-card":
       return `<${componentName} label="Monthly recurring revenue" value="$84.2k" change="+12.4%" tone="positive">
