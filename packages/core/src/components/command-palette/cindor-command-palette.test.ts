@@ -52,4 +52,18 @@ describe("cindor-command-palette", () => {
       })
     );
   });
+
+  it("closes from the header dismiss button", async () => {
+    const element = document.createElement("cindor-command-palette") as CindorCommandPalette;
+    element.commands = commands;
+    element.open = true;
+    document.body.append(element);
+    await element.updateComplete;
+
+    const dismissButton = element.renderRoot.querySelector('[part="dismiss-button"]') as HTMLElement;
+    dismissButton.dispatchEvent(new Event("click", { bubbles: true, composed: true }));
+    await element.updateComplete;
+
+    expect(element.open).toBe(false);
+  });
 });
