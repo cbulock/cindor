@@ -138,6 +138,7 @@ export class CindorDialog extends LitElement {
     return html`
       <dialog
         part="dialog"
+        @click=${this.handleBackdropClick}
         @close=${this.handleClose}
         @cancel=${this.handleCancel}
       >
@@ -180,6 +181,24 @@ export class CindorDialog extends LitElement {
 
   private handleDismiss = (): void => {
     this.close();
+  };
+
+  private handleBackdropClick = (event: MouseEvent): void => {
+    const dialog = this.dialogElement;
+    if (!dialog || event.target !== dialog) {
+      return;
+    }
+
+    const bounds = dialog.getBoundingClientRect();
+    const clickedInsideBounds =
+      event.clientX >= bounds.left &&
+      event.clientX <= bounds.right &&
+      event.clientY >= bounds.top &&
+      event.clientY <= bounds.bottom;
+
+    if (!clickedInsideBounds) {
+      this.close();
+    }
   };
 
   private syncOpenState(): void {

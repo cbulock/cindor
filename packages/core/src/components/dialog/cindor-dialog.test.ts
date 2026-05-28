@@ -174,6 +174,31 @@ describe("cindor-dialog", () => {
     expect(cancelled).toHaveBeenCalledTimes(1);
   });
 
+  it("closes when the modal backdrop is clicked", async () => {
+    const element = document.createElement("cindor-dialog") as CindorDialog;
+    element.open = true;
+    document.body.append(element);
+    await element.updateComplete;
+
+    const dialog = element.renderRoot.querySelector("dialog") as HTMLDialogElement;
+    vi.spyOn(dialog, "getBoundingClientRect").mockReturnValue({
+      bottom: 260,
+      height: 160,
+      left: 100,
+      right: 300,
+      top: 100,
+      width: 200,
+      x: 100,
+      y: 100,
+      toJSON: () => ({})
+    } as DOMRect);
+
+    dialog.dispatchEvent(new MouseEvent("click", { bubbles: true, clientX: 20, clientY: 20 }));
+    await element.updateComplete;
+
+    expect(element.open).toBe(false);
+  });
+
   it("supports imperative show helpers and delegates focus", async () => {
     const element = document.createElement("cindor-dialog") as CindorDialog;
     document.body.append(element);

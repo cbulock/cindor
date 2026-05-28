@@ -143,12 +143,13 @@ a {
 .landing-stat-grid {
   display: grid;
   gap: var(--space-3);
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
 }
 
 .landing-stat {
   display: grid;
   gap: var(--space-1);
+  min-width: 0;
   padding: var(--space-4);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -157,6 +158,12 @@ a {
 
 .landing-stat strong {
   font-size: var(--text-2xl);
+}
+
+.landing-stat .muted {
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+  line-height: 1.35;
 }
 
 .landing-cta {
@@ -813,6 +820,12 @@ a {
   }
 
   .sidebar-meta {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .landing-stat-grid {
     grid-template-columns: 1fr;
   }
 }
