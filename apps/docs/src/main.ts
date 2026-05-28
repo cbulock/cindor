@@ -1099,10 +1099,11 @@ function renderDocsHome(activeSectionId: string): string {
             <div class="pattern-stack">
               <div class="pattern-inline-actions">
                 <cindor-button>Publish changes</cindor-button>
-                <cindor-split-button label="Save draft" menu-label="More save actions">
-                  <cindor-menu-item>Save draft</cindor-menu-item>
-                  <cindor-menu-item>Duplicate draft</cindor-menu-item>
-                  <cindor-menu-item>Schedule publish</cindor-menu-item>
+                <cindor-split-button menu-label="More save actions">
+                  Save draft
+                  <cindor-menu-item slot="menu">Save draft</cindor-menu-item>
+                  <cindor-menu-item slot="menu">Duplicate draft</cindor-menu-item>
+                  <cindor-menu-item slot="menu">Schedule publish</cindor-menu-item>
                 </cindor-split-button>
                 <cindor-button variant="ghost">Preview</cindor-button>
               </div>
