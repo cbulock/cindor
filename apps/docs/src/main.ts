@@ -467,7 +467,6 @@ const root = rootElement;
 let activeAlertTone: AlertTone = "info";
 let catalogQuery = "";
 let catalogLayer: ComponentLayerFilter = "all";
-let projectScopeFilterValue: "all" | "owned" | "shared" = "all";
 
 const mobileMediaQuery = window.matchMedia("(max-width: 960px)");
 
@@ -1005,7 +1004,7 @@ function renderDocsHome(activeSectionId: string): string {
             <div class="pattern-stack">
               <div class="pattern-inline-actions">
                 <cindor-button>Publish changes</cindor-button>
-                <cindor-dropdown-menu label="More save options" menu-label="More save actions">
+                <cindor-dropdown-menu label="Save draft" menu-label="More save actions">
                   <cindor-menu-item>Save draft</cindor-menu-item>
                   <cindor-menu-item>Duplicate draft</cindor-menu-item>
                   <cindor-menu-item>Schedule publish</cindor-menu-item>
@@ -1584,11 +1583,7 @@ function hydrateHomeExamples(activeSectionId: string): void {
   const projectScopeFilter = root.querySelector<SegmentedControlHost>("#pattern-project-scope");
   if (projectScopeFilter) {
     projectScopeFilter.options = projectScopeOptions;
-    projectScopeFilter.value = projectScopeFilterValue;
-    projectScopeFilter.addEventListener("change", () => {
-      const nextScope = projectScopeFilter.value;
-      projectScopeFilterValue = nextScope === "all" || nextScope === "owned" || nextScope === "shared" ? nextScope : "all";
-    });
+    projectScopeFilter.value = "all";
   }
 }
 
