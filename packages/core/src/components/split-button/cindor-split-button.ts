@@ -17,6 +17,8 @@ import { attachFloatingPosition } from "../shared/floating-position.js";
  * @fires click - Uses the native click event from the primary action button.
  */
 export class CindorSplitButton extends LitElement {
+  private static nextFormId = 0;
+
   static styles = css`
     :host {
       display: inline-flex;
@@ -110,6 +112,7 @@ export class CindorSplitButton extends LitElement {
   /** Visual treatment shared by the primary action and menu trigger. */
   variant: ButtonVariant = "solid";
 
+  private readonly generatedFormId = `cindor-form-${CindorSplitButton.nextFormId++}`;
   private floatingCleanup?: () => void;
   private floatingMenu: HTMLElement | null = null;
   private updateFloatingPosition?: () => void;
@@ -156,7 +159,14 @@ export class CindorSplitButton extends LitElement {
   protected override render() {
     return html`
       <div class="group" part="group">
-        <cindor-button class="primary" part="primary-button" ?disabled=${this.disabled} type=${this.type} variant=${this.variant}>
+        <cindor-button
+          class="primary"
+          part="primary-button"
+          ?disabled=${this.disabled}
+          form=${ifDefined(this.associatedFormId)}
+          type=${this.type}
+          variant=${this.variant}
+        >
           <slot name="start-icon" slot="start-icon"></slot>
           <slot></slot>
           <slot name="end-icon" slot="end-icon"></slot>
@@ -268,6 +278,26 @@ export class CindorSplitButton extends LitElement {
 
   private get menuElement(): HTMLElement | null {
     return this.renderRoot.querySelector("cindor-menu");
+  }
+
+  private get associatedForm(): HTMLFormElement | null {
+    const explicitFormId = this.getAttribute("form");
+    if (explicitFormId) {
+      const explicitForm = this.ownerDocument.getElementById(explicitFormId);
+      return explicitForm instanceof HTMLFormElement ? explicitForm : null;
+    }
+
+    return this.closest("form");
+  }
+
+  private get associatedFormId(): string | undefined {
+    const form = this.associatedForm;
+    if (!form) {
+      return undefined;
+    }
+
+    form.id ||= this.generatedFormId;
+    return form.id;
   }
 
   private get primaryButton(): HTMLElement | null {

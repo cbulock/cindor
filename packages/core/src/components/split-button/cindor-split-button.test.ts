@@ -80,4 +80,28 @@ describe("cindor-split-button", () => {
 
     expect(element.open).toBe(false);
   });
+
+  it("submits its owning form when configured as a submit button", async () => {
+    document.body.innerHTML = `
+      <form>
+        <cindor-split-button type="submit">
+          Publish
+          <cindor-menu-item slot="menu">Save draft</cindor-menu-item>
+        </cindor-split-button>
+      </form>
+    `;
+
+    const form = document.querySelector("form") as HTMLFormElement;
+    const requestSubmit = vi.fn();
+    form.requestSubmit = requestSubmit;
+
+    const element = document.querySelector("cindor-split-button") as CindorSplitButton;
+    await element.updateComplete;
+
+    const primaryButton = element.renderRoot.querySelector("cindor-button.primary") as HTMLElement;
+    primaryButton.click();
+
+    expect(primaryButton.getAttribute("form")).toBe(form.id);
+    expect(requestSubmit).toHaveBeenCalledTimes(1);
+  });
 });
