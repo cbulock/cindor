@@ -2643,19 +2643,8 @@ import "cindor-ui-core/styles.css";
 import { CindorTabPanel, CindorTabs } from "cindor-ui-vue";
 </script>
 
-<template>
+  <template>
   ${getVueUsageMarkup(doc, "CindorTabs")}
-</template>`;
-  }
-
-  if (wrapperlessFrameworkUsageSlugs.has(doc.slug)) {
-    return `<script setup lang="ts">
-import "cindor-ui-core/styles.css";
-import "cindor-ui-core/register";
-</script>
-
-<template>
-  ${getVueUsageMarkup(doc, doc.tag)}
 </template>`;
   }
 

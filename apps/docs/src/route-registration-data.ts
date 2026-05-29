@@ -18,6 +18,7 @@ export const docsRouteComponentSlugs = [
   "form-field",
   "form-row",
   "icon",
+  "icon-button",
   "input",
   "layout",
   "layout-content",
