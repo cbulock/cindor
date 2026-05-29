@@ -168,7 +168,6 @@ const sections: DocsSection[] = [
   }
 ];
 const docsSectionIds = new Set(sections.map((section) => section.id));
-const wrapperlessFrameworkUsageSlugs = new Set<string>();
 const GITHUB_REPO_URL = "https://github.com/cbulock/cindor";
 const SITE_NAME = "Cindor UI";
 const DOCS_SITE_NAME = "Cindor UI Docs";
@@ -2644,19 +2643,8 @@ import "cindor-ui-core/styles.css";
 import { CindorTabPanel, CindorTabs } from "cindor-ui-vue";
 </script>
 
-<template>
+  <template>
   ${getVueUsageMarkup(doc, "CindorTabs")}
-</template>`;
-  }
-
-  if (wrapperlessFrameworkUsageSlugs.has(doc.slug)) {
-    return `<script setup lang="ts">
-import "cindor-ui-core/styles.css";
-import "cindor-ui-core/register";
-</script>
-
-<template>
-  ${getVueUsageMarkup(doc, doc.tag)}
 </template>`;
   }
 
