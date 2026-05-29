@@ -636,10 +636,10 @@ function renderMobileHeader(route: Route): string {
 
   return `
     <header class="mobile-header">
-      <div class="mobile-header-copy">
+      <a class="mobile-header-home" href="${docsEntryUrl}" aria-label="Open docs home">
         <strong>Cindor UI docs</strong>
         <span class="mobile-header-label">${currentLabel}</span>
-      </div>
+      </a>
 
       <div class="mobile-header-actions">
         <button class="nav-toggle" type="button" aria-label="Open search" data-action="open-palette">
