@@ -53,6 +53,26 @@ describe("cindor-command-palette", () => {
     );
   });
 
+  it("updates the active command from option hover", async () => {
+    const element = document.createElement("cindor-command-palette") as CindorCommandPalette;
+    element.commands = commands;
+    element.open = true;
+    document.body.append(element);
+    await element.updateComplete;
+
+    const surface = element.renderRoot.querySelector(".surface") as HTMLElement;
+    const options = element.renderRoot.querySelectorAll("cindor-option");
+    const hoveredSurface = options[2]?.shadowRoot?.querySelector('[part="surface"]') as HTMLElement;
+
+    hoveredSurface.dispatchEvent(new MouseEvent("mousemove", { bubbles: true, composed: true }));
+    await element.updateComplete;
+
+    surface.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, composed: true, key: "Enter" }));
+    await element.updateComplete;
+
+    expect(element.value).toBe("settings");
+  });
+
   it("closes from the header dismiss button", async () => {
     const element = document.createElement("cindor-command-palette") as CindorCommandPalette;
     element.commands = commands;

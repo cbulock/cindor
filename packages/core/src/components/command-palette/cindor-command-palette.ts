@@ -1,6 +1,8 @@
 import { css, html, LitElement } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 
+import { CindorOption } from "../option/cindor-option.js";
+
 export type CommandPaletteCommand = {
   description?: string;
   disabled?: boolean;
@@ -163,7 +165,7 @@ export class CindorCommandPalette extends LitElement {
 
           ${commands.length
             ? html`
-                <cindor-listbox active-index=${String(this.activeIndex)} part="listbox">
+                <cindor-listbox active-index=${String(this.activeIndex)} part="listbox" @option-hover=${this.handleOptionHover}>
                   ${commands.map(
                     (command) => html`
                       <cindor-option
@@ -267,6 +269,14 @@ export class CindorCommandPalette extends LitElement {
     this.selectCommand(command);
   };
 
+  private handleOptionHover = (event: CustomEvent<{ option: CindorOption }>): void => {
+    const index = this.renderedOptionElements.indexOf(event.detail.option);
+
+    if (index >= 0) {
+      this.activeIndex = index;
+    }
+  };
+
   private normalizeActiveIndex(): void {
     const commands = this.filteredCommands;
     if (!commands.length) {
@@ -309,5 +319,9 @@ export class CindorCommandPalette extends LitElement {
 
   private get searchElement(): HTMLElement | null {
     return this.renderRoot.querySelector("cindor-search");
+  }
+
+  private get renderedOptionElements(): CindorOption[] {
+    return Array.from(this.renderRoot.querySelectorAll("cindor-option")) as CindorOption[];
   }
 }
