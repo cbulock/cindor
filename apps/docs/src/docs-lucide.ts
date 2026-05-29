@@ -6,6 +6,7 @@ import House from "lucide/dist/esm/icons/house.mjs";
 import Search from "lucide/dist/esm/icons/search.mjs";
 import Sparkles from "lucide/dist/esm/icons/sparkles.mjs";
 import Star from "lucide/dist/esm/icons/star.mjs";
+import X from "lucide/dist/esm/icons/x.mjs";
 
 export type SVGProps = Record<string, boolean | number | string | undefined>;
 export type IconNode = [tag: string, attrs: SVGProps][];
@@ -18,5 +19,6 @@ export {
   House,
   Search,
   Sparkles,
-  Star
+  Star,
+  X
 };
