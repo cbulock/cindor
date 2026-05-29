@@ -168,6 +168,7 @@ const sections: DocsSection[] = [
   }
 ];
 const docsSectionIds = new Set(sections.map((section) => section.id));
+const wrapperlessFrameworkUsageSlugs = new Set<string>();
 const GITHUB_REPO_URL = "https://github.com/cbulock/cindor";
 const SITE_NAME = "Cindor UI";
 const DOCS_SITE_NAME = "Cindor UI Docs";
