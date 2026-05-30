@@ -48,7 +48,8 @@ export function getChangedFiles(base, head) {
       .filter(Boolean);
   }
 
-  const args = ["diff", "--name-only", "--diff-filter=ACDMRTUXB", base];
+  const diffBase = resolveDiffBase(base, head);
+  const args = ["diff", "--name-only", "--diff-filter=ACDMRTUXB", diffBase];
 
   if (head && !isZeroSha(head)) {
     args.push(head);
@@ -58,6 +59,20 @@ export function getChangedFiles(base, head) {
     .split(/\r?\n/)
     .map((file) => file.trim())
     .filter(Boolean);
+}
+
+export function resolveDiffBase(base, head = "HEAD") {
+  if (isZeroSha(base)) {
+    return base;
+  }
+
+  const candidateHead = head && !isZeroSha(head) ? head : "HEAD";
+
+  try {
+    return execFileSync("git", ["merge-base", base, candidateHead], { encoding: "utf8" }).trim();
+  } catch {
+    return base;
+  }
 }
 
 export function getChangedNonVersionFiles(changedFiles) {
