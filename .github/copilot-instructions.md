@@ -37,6 +37,7 @@ The repo installs a `pre-push` hook through `simple-git-hooks` that runs `npm ru
 - After that happens, review the version-file changes, commit them, and push again.
 - Do **not** expect the hook to create the commit for you or to continue the current push with a newly created commit.
 - If you intentionally need a larger version bump, update the version files yourself before pushing so the hook detects the explicit version change and skips the automatic patch bump.
+- For component updates, do not wait for the pre-push hook to surprise you. Run `npm run version:auto-bump` yourself before finishing the task, review any generated version-file changes, and commit them with the component work.
 
 ## Intended architecture
 
