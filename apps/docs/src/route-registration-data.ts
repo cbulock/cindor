@@ -1,7 +1,7 @@
 export const docsRouteComponentSlugs = [
   "alert",
-  "banner",
   "badge",
+  "banner",
   "breadcrumbs",
   "button",
   "button-group",
@@ -29,8 +29,8 @@ export const docsRouteComponentSlugs = [
   "provider",
   "search",
   "segmented-control",
-  "split-button",
   "spinner",
+  "split-button",
   "stack",
   "stepper",
   "tabs"
