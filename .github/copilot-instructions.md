@@ -20,6 +20,17 @@ To run a single test file, use:
 
 Replace the file path as needed for the specific test you are working on.
 
+## Branch starting point
+
+Always create new work on top of a clean, updated `main` branch.
+
+- Run `git fetch origin`
+- Run `git checkout main`
+- Run `git pull --ff-only`
+- Create the new branch from that refreshed `main`
+
+Do not branch from a stale local `main` or from another feature branch unless the task explicitly requires a stacked branch.
+
 ## Versioning workflow
 
 This repository enforces a synchronized workspace version across:

@@ -9,6 +9,7 @@ import {
   incrementVersion,
   readGitJson,
   readJson,
+  resolveDiffBase,
   syncWorkspaceVersions,
   workspacePackageFiles
 } from "./versioning.mjs";
@@ -102,9 +103,11 @@ function gitRefExists(ref) {
 }
 
 function hasExplicitVersionEdits(base) {
+  const comparisonBase = resolveDiffBase(base, "HEAD");
+
   for (const packageFile of workspacePackageFiles) {
     const currentManifest = readJson(packageFile);
-    const baseManifest = readGitJson(base, packageFile);
+    const baseManifest = readGitJson(comparisonBase, packageFile);
 
     if (compareVersions(currentManifest.version, baseManifest.version) !== 0) {
       return true;
@@ -115,7 +118,7 @@ function hasExplicitVersionEdits(base) {
 
   for (const packageFile of dependencyFiles) {
     const currentDependencyVersion = readJson(packageFile).dependencies?.["cindor-ui-core"];
-    const baseDependencyVersion = readGitJson(base, packageFile).dependencies?.["cindor-ui-core"];
+    const baseDependencyVersion = readGitJson(comparisonBase, packageFile).dependencies?.["cindor-ui-core"];
 
     if ((currentDependencyVersion ?? "") !== (baseDependencyVersion ?? "")) {
       return true;

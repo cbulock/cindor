@@ -225,7 +225,7 @@ export class CindorCommandPalette extends LitElement {
   };
 
   private handleDismiss = (): void => {
-    this.open = false;
+    this.close();
   };
 
   private handleInput = (event: Event): void => {

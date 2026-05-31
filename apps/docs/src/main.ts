@@ -636,10 +636,10 @@ function renderMobileHeader(route: Route): string {
 
   return `
     <header class="mobile-header">
-      <div class="mobile-header-copy">
+      <a class="mobile-header-home" href="${docsEntryUrl}" aria-label="Open docs home">
         <strong>Cindor UI docs</strong>
         <span class="mobile-header-label">${currentLabel}</span>
-      </div>
+      </a>
 
       <div class="mobile-header-actions">
         <button class="nav-toggle" type="button" aria-label="Open search" data-action="open-palette">
@@ -990,10 +990,90 @@ function renderDocsHome(activeSectionId: string): string {
       <section class="section" id="patterns" data-label="Patterns" data-value="patterns">
         <div class="section-heading">
           <h2>Patterns and workflows</h2>
-          <p>These examples show how collection views, action hierarchies, and notifications come together from reusable Cindor building blocks.</p>
+          <p>These examples show how collection views, app shells, detail workspaces, action hierarchies, and notifications come together from reusable Cindor building blocks.</p>
+        </div>
+
+        <div class="card-grid">
+          <cindor-card>
+            <div class="card-body">
+              <h3>Start with the app shell</h3>
+              <p>Reach for <code>navigation-rail</code>, <code>side-nav</code>, <code>page-header</code>, and the command palette before inventing a one-off workspace frame.</p>
+            </div>
+          </cindor-card>
+          <cindor-card>
+            <div class="card-body">
+              <h3>Keep collections in one workbench</h3>
+              <p>Pair <code>data-view-toolbar</code> with cards or tables, then keep selection, filters, and primary actions visible in the same surface.</p>
+            </div>
+          </cindor-card>
+          <cindor-card>
+            <div class="card-body">
+              <h3>Split detail from supporting context</h3>
+              <p>Use <code>page-header</code> for the primary task, then move status, metadata, and low-frequency actions into a <code>panel-inspector</code>.</p>
+            </div>
+          </cindor-card>
         </div>
 
         <div class="demo-grid">
+          <div class="preview-block">
+            <div class="live-toolbar">
+              <strong>Application shell pattern</strong>
+              <cindor-badge tone="accent">Workspace</cindor-badge>
+            </div>
+            <p class="muted">Keep global wayfinding, page context, and local actions in separate layers so the shell scales from docs to admin tools without turning into a single overloaded header.</p>
+            <div class="pattern-shell-preview">
+              <cindor-navigation-rail aria-label="Workspace sections">
+                <cindor-navigation-rail-item href="#home" label="Home" current>
+                  <cindor-icon slot="start" name="house"></cindor-icon>
+                </cindor-navigation-rail-item>
+                <cindor-navigation-rail-item href="#projects" label="Projects">
+                  <cindor-icon slot="start" name="folder-kanban"></cindor-icon>
+                </cindor-navigation-rail-item>
+                <cindor-navigation-rail-item href="#settings" label="Settings">
+                  <cindor-icon slot="start" name="settings"></cindor-icon>
+                </cindor-navigation-rail-item>
+              </cindor-navigation-rail>
+              <div class="pattern-shell-main">
+                <cindor-side-nav aria-label="Projects">
+                  <cindor-side-nav-item href="#overview" label="Overview"></cindor-side-nav-item>
+                  <cindor-side-nav-item expanded label="Planning">
+                    <cindor-side-nav-item href="#active" label="Active roadmap" current></cindor-side-nav-item>
+                    <cindor-side-nav-item href="#backlog" label="Backlog"></cindor-side-nav-item>
+                  </cindor-side-nav-item>
+                </cindor-side-nav>
+                <cindor-layout>
+                  <cindor-layout-header>
+                    <cindor-page-header
+                      eyebrow="Workspace"
+                      title="Roadmap planning"
+                      description="Review priorities, keep search close at hand, and keep global navigation out of the page-specific action row."
+                    >
+                      <cindor-badge slot="meta" tone="accent">Q3 focus</cindor-badge>
+                      <cindor-button slot="actions" variant="ghost">Open search</cindor-button>
+                      <cindor-button slot="actions">New initiative</cindor-button>
+                    </cindor-page-header>
+                  </cindor-layout-header>
+                  <cindor-layout-content>
+                    <div class="pattern-shell-card-grid">
+                      <cindor-card>
+                        <div class="card-body">
+                          <strong>Keep the shell steady</strong>
+                          <p>Rail for global sections, side nav for local hierarchy, header for the current task.</p>
+                        </div>
+                      </cindor-card>
+                      <cindor-card>
+                        <div class="card-body">
+                          <strong>Let search jump layers</strong>
+                          <p>Use the command palette to move between pages, components, and docs without promoting everything into the header.</p>
+                        </div>
+                      </cindor-card>
+                    </div>
+                  </cindor-layout-content>
+                </cindor-layout>
+              </div>
+            </div>
+          </div>
+
           <div class="preview-block">
             <div class="live-toolbar">
               <strong>Collection/list page pattern</strong>
@@ -1066,6 +1146,55 @@ function renderDocsHome(activeSectionId: string): string {
                 <cindor-badge tone="accent">6 selected</cindor-badge>
                 <span class="muted">Bulk actions can target the current selection without leaving the table context.</span>
               </div>
+            </div>
+          </div>
+
+          <div class="preview-block">
+            <div class="live-toolbar">
+              <strong>Detail + inspector pattern</strong>
+              <cindor-badge>Editing</cindor-badge>
+            </div>
+            <p class="muted">Keep the primary edit flow in the main column and push metadata, audit trail, and lower-frequency actions into a sticky inspector instead of crowding the form header.</p>
+            <div class="pattern-detail-grid">
+              <div class="pattern-stack">
+                <cindor-page-header
+                  eyebrow="Project"
+                  title="Launch brief"
+                  description="Edit the core project details in the main column while keeping approvals and operational context visible nearby."
+                >
+                  <cindor-badge slot="meta" tone="accent">Needs approval</cindor-badge>
+                  <cindor-button slot="actions" variant="ghost">Preview</cindor-button>
+                  <cindor-button slot="actions">Save changes</cindor-button>
+                </cindor-page-header>
+                <cindor-alert tone="info">
+                  Keep the current task surface narrow and focused. Supporting context belongs alongside it, not above every input.
+                </cindor-alert>
+                <cindor-card>
+                  <div class="card-body">
+                    <strong>Primary form area</strong>
+                    <p>Compose form fields, helper text, and inline validation here, then leave status history and approvals in the inspector.</p>
+                  </div>
+                </cindor-card>
+              </div>
+              <cindor-panel-inspector
+                title="Review state"
+                description="Track approvals, health, and supporting actions without leaving the edit flow."
+                sticky
+              >
+                <cindor-badge slot="meta" tone="accent">2 reviewers pending</cindor-badge>
+                <cindor-button slot="actions" variant="ghost">Open audit log</cindor-button>
+                <cindor-description-list>
+                  <cindor-description-item>
+                    <span slot="term">Owner</span>
+                    Product design
+                  </cindor-description-item>
+                  <cindor-description-item>
+                    <span slot="term">Last updated</span>
+                    12 minutes ago
+                  </cindor-description-item>
+                </cindor-description-list>
+                <div slot="footer">Escalations and system status stay visible without taking over the form.</div>
+              </cindor-panel-inspector>
             </div>
           </div>
 
@@ -2643,19 +2772,8 @@ import "cindor-ui-core/styles.css";
 import { CindorTabPanel, CindorTabs } from "cindor-ui-vue";
 </script>
 
-<template>
+  <template>
   ${getVueUsageMarkup(doc, "CindorTabs")}
-</template>`;
-  }
-
-  if (wrapperlessFrameworkUsageSlugs.has(doc.slug)) {
-    return `<script setup lang="ts">
-import "cindor-ui-core/styles.css";
-import "cindor-ui-core/register";
-</script>
-
-<template>
-  ${getVueUsageMarkup(doc, doc.tag)}
 </template>`;
   }
 
