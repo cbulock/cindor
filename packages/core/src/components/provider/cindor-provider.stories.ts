@@ -1,9 +1,11 @@
 import {
   cindorAmethystTheme,
+  cindorAmberTheme,
   cindorCobaltTheme,
   cindorEvergreenTheme,
   cindorOceanTheme,
-  cindorRoseTheme
+  cindorRoseTheme,
+  cindorSlateTheme
 } from "./cindor-provider.js";
 import type { CindorProvider, ProviderThemeTokens } from "./cindor-provider.js";
 
@@ -112,6 +114,22 @@ export const AmethystPreset = {
     darkThemeTokens: cindorAmethystTheme.darkThemeTokens,
     lightThemeTokens: cindorAmethystTheme.lightThemeTokens,
     primaryColor: cindorAmethystTheme.primaryColor
+  }
+};
+
+export const AmberPreset = {
+  args: {
+    darkThemeTokens: cindorAmberTheme.darkThemeTokens,
+    lightThemeTokens: cindorAmberTheme.lightThemeTokens,
+    primaryColor: cindorAmberTheme.primaryColor
+  }
+};
+
+export const SlatePreset = {
+  args: {
+    darkThemeTokens: cindorSlateTheme.darkThemeTokens,
+    lightThemeTokens: cindorSlateTheme.lightThemeTokens,
+    primaryColor: cindorSlateTheme.primaryColor
   }
 };
 

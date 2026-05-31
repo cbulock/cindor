@@ -94,10 +94,12 @@ export {
 } from "./components/provider/cindor-provider.js";
 export {
   cindorAmethystTheme,
+  cindorAmberTheme,
   cindorCobaltTheme,
   cindorEvergreenTheme,
   cindorOceanTheme,
   cindorRoseTheme,
+  cindorSlateTheme,
   cindorThemePresets
 } from "./components/provider/provider-theme.js";
 export { CindorRadio } from "./components/radio/cindor-radio.js";
