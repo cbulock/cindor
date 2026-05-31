@@ -20,6 +20,17 @@ To run a single test file, use:
 
 Replace the file path as needed for the specific test you are working on.
 
+## Branch starting point
+
+Always create new work on top of a clean, updated `main` branch.
+
+- Run `git fetch origin`
+- Run `git checkout main`
+- Run `git pull --ff-only`
+- Create the new branch from that refreshed `main`
+
+Do not branch from a stale local `main` or from another feature branch unless the task explicitly requires a stacked branch.
+
 ## Versioning workflow
 
 This repository enforces a synchronized workspace version across:
@@ -37,6 +48,7 @@ The repo installs a `pre-push` hook through `simple-git-hooks` that runs `npm ru
 - After that happens, review the version-file changes, commit them, and push again.
 - Do **not** expect the hook to create the commit for you or to continue the current push with a newly created commit.
 - If you intentionally need a larger version bump, update the version files yourself before pushing so the hook detects the explicit version change and skips the automatic patch bump.
+- For component updates, do not wait for the pre-push hook to surprise you. Run `npm run version:auto-bump` yourself before finishing the task, review any generated version-file changes, and commit them with the component work.
 
 ## Intended architecture
 
