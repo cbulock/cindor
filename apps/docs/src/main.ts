@@ -899,9 +899,11 @@ function renderDocsHome(activeSectionId: string): string {
           <section class="section" data-label="Preset pack" data-value="preset-pack">
             <div class="preview-block">
               <strong>Included presets</strong>
-              <p class="muted"><code>cindorAmethystTheme</code>, <code>cindorEvergreenTheme</code>, <code>cindorCobaltTheme</code>, <code>cindorRoseTheme</code>, and <code>cindorOceanTheme</code> cover violet, green, blue, pink, and teal-forward looks without hand-authoring token maps.</p>
+              <p class="muted"><code>cindorAmethystTheme</code>, <code>cindorAmberTheme</code>, <code>cindorSlateTheme</code>, <code>cindorEvergreenTheme</code>, <code>cindorCobaltTheme</code>, <code>cindorRoseTheme</code>, and <code>cindorOceanTheme</code> cover violet, amber, neutral slate, green, blue, pink, and teal-forward looks without hand-authoring token maps.</p>
               <cindor-stack direction="horizontal" gap="2" wrap>
                 <cindor-badge tone="accent">cindorAmethystTheme</cindor-badge>
+                <cindor-badge>cindorAmberTheme</cindor-badge>
+                <cindor-badge>cindorSlateTheme</cindor-badge>
                 <cindor-badge tone="success">cindorEvergreenTheme</cindor-badge>
                 <cindor-badge>cindorCobaltTheme</cindor-badge>
                 <cindor-badge>cindorRoseTheme</cindor-badge>

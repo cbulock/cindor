@@ -14,10 +14,12 @@ type ProviderResolvedThemeName = "light" | "dark" | "retro" | "retro-light";
 
 export {
   cindorAmethystTheme,
+  cindorAmberTheme,
   cindorCobaltTheme,
   cindorEvergreenTheme,
   cindorOceanTheme,
   cindorRoseTheme,
+  cindorSlateTheme,
   cindorThemePresets
 } from "./provider-theme.js";
 export type { ProviderThemePreset, ProviderThemeTokens } from "./provider-theme.js";

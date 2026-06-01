@@ -132,121 +132,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Activity Item\", render: () => ` <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Ops\"></cindor-avatar> <span slot=\"title\">Database failover completed</span> <span slot=\"timestamp\">5 minutes ago</span> <span slot=\"meta\">Primary cluster</span> Connections were restored automatically after the failover. </cindor-activity-item> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-item/cindor-activity-item.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Single event row used inside CindorActivityFeed.",
-          "name": "CindorActivityItem",
-          "slots": [
-            {
-              "description": "Leading avatar, icon, or status mark.",
-              "name": "leading"
-            },
-            {
-              "description": "Main activity title.",
-              "name": "title"
-            },
-            {
-              "description": "Time or date associated with the event.",
-              "name": "timestamp"
-            },
-            {
-              "description": "Supplemental metadata such as actor, environment, or destination.",
-              "name": "meta"
-            },
-            {
-              "description": "Optional trailing actions for the activity.",
-              "name": "actions"
-            },
-            {
-              "description": "Main event description.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "unread",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "unread",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "unread",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "unread"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorActivityItem",
-          "declaration": {
-            "name": "CindorActivityItem",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
       "declarations": [
         {
@@ -986,6 +871,121 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Activity Item\", render: () => ` <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Ops\"></cindor-avatar> <span slot=\"title\">Database failover completed</span> <span slot=\"timestamp\">5 minutes ago</span> <span slot=\"meta\">Primary cluster</span> Connections were restored automatically after the failover. </cindor-activity-item> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-item/cindor-activity-item.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Single event row used inside CindorActivityFeed.",
+          "name": "CindorActivityItem",
+          "slots": [
+            {
+              "description": "Leading avatar, icon, or status mark.",
+              "name": "leading"
+            },
+            {
+              "description": "Main activity title.",
+              "name": "title"
+            },
+            {
+              "description": "Time or date associated with the event.",
+              "name": "timestamp"
+            },
+            {
+              "description": "Supplemental metadata such as actor, environment, or destination.",
+              "name": "meta"
+            },
+            {
+              "description": "Optional trailing actions for the activity.",
+              "name": "actions"
+            },
+            {
+              "description": "Main event description.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "unread",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "unread",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "unread",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "unread"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorActivityItem",
+          "declaration": {
+            "name": "CindorActivityItem",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/avatar/cindor-avatar.stories.ts",
       "declarations": [
         {
@@ -1116,6 +1116,111 @@
           "declaration": {
             "name": "CindorAvatar",
             "module": "packages/core/src/components/avatar/cindor-avatar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/badge/cindor-badge.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Primitives/Badge\", args: { label: \"Active\", tone: \"neutral\" }, argTypes: { tone: { control: \"radio\", options: [\"neutral\", \"accent\", \"success\"] } }, render: ({ label, tone }: BadgeStoryArgs) => `<cindor-badge tone=\"${tone}\">${label}</cindor-badge>` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        },
+        {
+          "kind": "variable",
+          "name": "Success",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ args: { label: \"Live\", tone: \"success\" } }"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Success",
+          "declaration": {
+            "name": "Success",
+            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/badge/cindor-badge.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorBadge",
+          "members": [
+            {
+              "kind": "field",
+              "name": "tone",
+              "privacy": "public",
+              "type": {
+                "text": "BadgeTone"
+              },
+              "default": "\"neutral\"",
+              "attribute": "tone",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "tone",
+              "type": {
+                "text": "BadgeTone"
+              },
+              "default": "\"neutral\"",
+              "fieldName": "tone"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorBadge",
+          "declaration": {
+            "name": "CindorBadge",
+            "module": "packages/core/src/components/badge/cindor-badge.ts"
           }
         }
       ]
@@ -1426,111 +1531,6 @@
           "declaration": {
             "name": "CindorBanner",
             "module": "packages/core/src/components/banner/cindor-banner.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/badge/cindor-badge.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Primitives/Badge\", args: { label: \"Active\", tone: \"neutral\" }, argTypes: { tone: { control: \"radio\", options: [\"neutral\", \"accent\", \"success\"] } }, render: ({ label, tone }: BadgeStoryArgs) => `<cindor-badge tone=\"${tone}\">${label}</cindor-badge>` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        },
-        {
-          "kind": "variable",
-          "name": "Success",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ args: { label: \"Live\", tone: \"success\" } }"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Success",
-          "declaration": {
-            "name": "Success",
-            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/badge/cindor-badge.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorBadge",
-          "members": [
-            {
-              "kind": "field",
-              "name": "tone",
-              "privacy": "public",
-              "type": {
-                "text": "BadgeTone"
-              },
-              "default": "\"neutral\"",
-              "attribute": "tone",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "tone",
-              "type": {
-                "text": "BadgeTone"
-              },
-              "default": "\"neutral\"",
-              "fieldName": "tone"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorBadge",
-          "declaration": {
-            "name": "CindorBadge",
-            "module": "packages/core/src/components/badge/cindor-badge.ts"
           }
         }
       ]
@@ -4475,6 +4475,11 @@
               "privacy": "private"
             },
             {
+              "kind": "field",
+              "name": "handleOptionHover",
+              "privacy": "private"
+            },
+            {
               "kind": "method",
               "name": "normalizeActiveIndex",
               "privacy": "private",
@@ -4516,6 +4521,15 @@
               "name": "searchElement",
               "type": {
                 "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "renderedOptionElements",
+              "type": {
+                "text": "CindorOption[]"
               },
               "privacy": "private",
               "readonly": true
@@ -8300,6 +8314,83 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/description-item/cindor-description-item.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Description Item\", render: () => ` <cindor-description-list> <cindor-description-item> <span slot=\"term\">Status</span> Healthy </cindor-description-item> </cindor-description-list> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/description-item/cindor-description-item.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/description-item/cindor-description-item.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/description-item/cindor-description-item.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Term-and-value pair used inside CindorDescriptionList.",
+          "name": "CindorDescriptionItem",
+          "slots": [
+            {
+              "description": "Label for the value.",
+              "name": "term"
+            },
+            {
+              "description": "Value content.",
+              "name": ""
+            }
+          ],
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorDescriptionItem",
+          "declaration": {
+            "name": "CindorDescriptionItem",
+            "module": "packages/core/src/components/description-item/cindor-description-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/date-time-picker/cindor-date-time-picker.stories.ts",
       "declarations": [
         {
@@ -8617,83 +8708,6 @@
           "declaration": {
             "name": "CindorDateTimePicker",
             "module": "packages/core/src/components/date-time-picker/cindor-date-time-picker.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/description-item/cindor-description-item.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Description Item\", render: () => ` <cindor-description-list> <cindor-description-item> <span slot=\"term\">Status</span> Healthy </cindor-description-item> </cindor-description-list> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/description-item/cindor-description-item.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/description-item/cindor-description-item.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/description-item/cindor-description-item.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Term-and-value pair used inside CindorDescriptionList.",
-          "name": "CindorDescriptionItem",
-          "slots": [
-            {
-              "description": "Label for the value.",
-              "name": "term"
-            },
-            {
-              "description": "Value content.",
-              "name": ""
-            }
-          ],
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorDescriptionItem",
-          "declaration": {
-            "name": "CindorDescriptionItem",
-            "module": "packages/core/src/components/description-item/cindor-description-item.ts"
           }
         }
       ]
@@ -20020,6 +20034,22 @@
         },
         {
           "kind": "variable",
+          "name": "AmberPreset",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ args: { darkThemeTokens: cindorAmberTheme.darkThemeTokens, lightThemeTokens: cindorAmberTheme.lightThemeTokens, primaryColor: cindorAmberTheme.primaryColor } }"
+        },
+        {
+          "kind": "variable",
+          "name": "SlatePreset",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ args: { darkThemeTokens: cindorSlateTheme.darkThemeTokens, lightThemeTokens: cindorSlateTheme.lightThemeTokens, primaryColor: cindorSlateTheme.primaryColor } }"
+        },
+        {
+          "kind": "variable",
           "name": "EvergreenPreset",
           "type": {
             "text": "object"
@@ -20097,6 +20127,22 @@
           "name": "AmethystPreset",
           "declaration": {
             "name": "AmethystPreset",
+            "module": "packages/core/src/components/provider/cindor-provider.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "AmberPreset",
+          "declaration": {
+            "name": "AmberPreset",
+            "module": "packages/core/src/components/provider/cindor-provider.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SlatePreset",
+          "declaration": {
+            "name": "SlatePreset",
             "module": "packages/core/src/components/provider/cindor-provider.stories.ts"
           }
         },
@@ -20459,6 +20505,14 @@
         },
         {
           "kind": "js",
+          "name": "cindorAmberTheme",
+          "declaration": {
+            "name": "cindorAmberTheme",
+            "module": "./provider-theme.js"
+          }
+        },
+        {
+          "kind": "js",
           "name": "cindorCobaltTheme",
           "declaration": {
             "name": "cindorCobaltTheme",
@@ -20486,6 +20540,14 @@
           "name": "cindorRoseTheme",
           "declaration": {
             "name": "cindorRoseTheme",
+            "module": "./provider-theme.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "cindorSlateTheme",
+          "declaration": {
+            "name": "cindorSlateTheme",
             "module": "./provider-theme.js"
           }
         },

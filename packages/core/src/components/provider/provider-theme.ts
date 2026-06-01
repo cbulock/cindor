@@ -157,8 +157,66 @@ export const cindorOceanTheme: ProviderThemePreset = {
   }
 };
 
+export const cindorAmberTheme: ProviderThemePreset = {
+  primaryColor: "#d97706",
+  lightThemeTokens: {
+    "--bg": "#fffaf2",
+    "--bg-subtle": "#fff3df",
+    "--bg-muted": "#ffe7c2",
+    "--surface": "#ffffff",
+    "--surface-raised": "#ffffff",
+    "--fg": "#78350f",
+    "--fg-muted": "#b45309",
+    "--fg-subtle": "#d97706",
+    "--border": "#fcd34d",
+    "--border-muted": "#fde68a"
+  },
+  darkThemeTokens: {
+    "--bg": "#1a1208",
+    "--bg-subtle": "#24190c",
+    "--bg-muted": "#2f2110",
+    "--surface": "#24190c",
+    "--surface-raised": "#2f2110",
+    "--fg": "#fff7ed",
+    "--fg-muted": "#fcd34d",
+    "--fg-subtle": "#fbbf24",
+    "--border": "#b45309",
+    "--border-muted": "#2f2110"
+  }
+};
+
+export const cindorSlateTheme: ProviderThemePreset = {
+  primaryColor: "#475569",
+  lightThemeTokens: {
+    "--bg": "#f8fafc",
+    "--bg-subtle": "#f1f5f9",
+    "--bg-muted": "#e2e8f0",
+    "--surface": "#ffffff",
+    "--surface-raised": "#ffffff",
+    "--fg": "#0f172a",
+    "--fg-muted": "#334155",
+    "--fg-subtle": "#475569",
+    "--border": "#cbd5e1",
+    "--border-muted": "#e2e8f0"
+  },
+  darkThemeTokens: {
+    "--bg": "#0b1120",
+    "--bg-subtle": "#111827",
+    "--bg-muted": "#1f2937",
+    "--surface": "#111827",
+    "--surface-raised": "#1f2937",
+    "--fg": "#f8fafc",
+    "--fg-muted": "#cbd5e1",
+    "--fg-subtle": "#94a3b8",
+    "--border": "#334155",
+    "--border-muted": "#1f2937"
+  }
+};
+
 export const cindorThemePresets = {
   amethyst: cindorAmethystTheme,
+  amber: cindorAmberTheme,
+  slate: cindorSlateTheme,
   evergreen: cindorEvergreenTheme,
   cobalt: cindorCobaltTheme,
   rose: cindorRoseTheme,

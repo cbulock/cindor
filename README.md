@@ -132,13 +132,13 @@ For scoped theming, `CindorProvider` now supports three practical paths:
 
 Use **`theme` for color mode** (`inherit`, `system`, `light`, `dark`) and **`themeFamily` / `theme-family`** for the visual family (`inherit`, `default`, `retro`). The provider automatically mirrors the resolved light/dark mode to CSS `color-scheme` for native browser surfaces inside the scope.
 
-Built-in presets are exported as `cindorAmethystTheme`, `cindorEvergreenTheme`, `cindorCobaltTheme`, `cindorRoseTheme`, and `cindorOceanTheme`.
+Built-in presets are exported as `cindorAmethystTheme`, `cindorAmberTheme`, `cindorSlateTheme`, `cindorEvergreenTheme`, `cindorCobaltTheme`, `cindorRoseTheme`, and `cindorOceanTheme`.
 
 ### When to use each option
 
 | Need | Recommended API |
 | --- | --- |
-| A reusable branded look with almost no setup | Any built-in preset such as `cindorAmethystTheme`, `cindorEvergreenTheme`, or `cindorCobaltTheme` |
+| A reusable branded look with almost no setup | Any built-in preset such as `cindorAmethystTheme`, `cindorAmberTheme`, or `cindorSlateTheme` |
 | A custom accent color while keeping the default neutrals | `primaryColor` |
 | Full control of surfaces, borders, text, and accent tokens | `themeTokens`, `lightThemeTokens`, `darkThemeTokens` |
 
