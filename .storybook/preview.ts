@@ -2,10 +2,12 @@ import "../packages/core/src/styles.css";
 import { registerCindorUi } from "../packages/core/src/register.js";
 import {
   cindorAmethystTheme,
+  cindorAmberTheme,
   cindorCobaltTheme,
   cindorEvergreenTheme,
   cindorOceanTheme,
   cindorRoseTheme,
+  cindorSlateTheme,
   type ProviderThemePreset
 } from "../packages/core/src/index.js";
 import { derivePrimaryColorThemeTokens } from "../packages/core/src/components/provider/provider-theme.js";
@@ -15,11 +17,13 @@ import type { Preview } from "@storybook/web-components-vite";
 registerCindorUi();
 
 type StorybookThemeMode = "light" | "dark" | "retro" | "retro-light";
-type StorybookThemePresetKey = "default" | "amethyst" | "evergreen" | "cobalt" | "rose" | "ocean";
+type StorybookThemePresetKey = "default" | "amethyst" | "amber" | "slate" | "evergreen" | "cobalt" | "rose" | "ocean";
 
 const themePresets: Record<StorybookThemePresetKey, ProviderThemePreset | null> = {
   default: null,
   amethyst: cindorAmethystTheme,
+  amber: cindorAmberTheme,
+  slate: cindorSlateTheme,
   evergreen: cindorEvergreenTheme,
   cobalt: cindorCobaltTheme,
   rose: cindorRoseTheme,
@@ -162,6 +166,8 @@ const preview = {
         items: [
           { title: "Default", value: "default" },
           { title: "Amethyst", value: "amethyst" },
+          { title: "Amber", value: "amber" },
+          { title: "Slate", value: "slate" },
           { title: "Evergreen", value: "evergreen" },
           { title: "Cobalt", value: "cobalt" },
           { title: "Rose", value: "rose" },
