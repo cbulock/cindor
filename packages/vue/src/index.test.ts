@@ -2,7 +2,7 @@ import { createApp, defineComponent, h, nextTick } from "vue";
 
 import type { App } from "vue";
 
-import { CindorAutocomplete, CindorBanner, CindorDataTable } from "./index";
+import { CindorAutocomplete, CindorBanner, CindorDataTable, CindorMultiSelect, CindorTransferList } from "./index";
 
 describe("cindor-ui-vue", () => {
   let container: HTMLDivElement | null = null;
@@ -121,6 +121,49 @@ describe("cindor-ui-vue", () => {
     expect(statusSlot).not.toBeNull();
     expect(expansionRow).not.toBeNull();
     expect(expansionSlot).not.toBeNull();
+  });
+
+  it("property-binds wrapper props to the element-facing custom element property names", async () => {
+    const multiSelectValues = ["alpha", "beta"];
+    const transferListValues = ["selected-1"];
+
+    mountStatic(() =>
+      h("div", [
+        h(
+          CindorMultiSelect,
+          {
+            modelValue: multiSelectValues
+          },
+          {
+            default: () => [
+              h("option", { value: "alpha", selected: true }, "Alpha"),
+              h("option", { value: "beta", selected: true }, "Beta"),
+              h("option", { value: "gamma" }, "Gamma")
+            ]
+          }
+        ),
+        h(
+          CindorTransferList,
+          {
+            modelValue: transferListValues
+          },
+          {
+            default: () => [
+              h("option", { value: "selected-1", selected: true }, "Selected 1"),
+              h("option", { value: "available-1" }, "Available 1")
+            ]
+          }
+        )
+      ])
+    );
+
+    const multiSelect = await queryElement<HTMLElement & { values: string[] }>("cindor-multi-select");
+    const transferList = await queryElement<HTMLElement & { selectedValues: string[] }>("cindor-transfer-list");
+
+    await nextTick();
+
+    expect(multiSelect.values).toBe(multiSelectValues);
+    expect(transferList.selectedValues).toBe(transferListValues);
   });
 
   function mount(renderWrapper: (modelValue: string) => ReturnType<typeof h>) {

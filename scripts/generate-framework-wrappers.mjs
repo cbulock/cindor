@@ -387,7 +387,7 @@ function renderVueObjectKey(key) {
 
 function renderVuePropKey(prop) {
   if (prop.forceProperty) {
-    return JSON.stringify(`.${prop.name}`);
+    return JSON.stringify(`.${toElementPropertyName(prop.attr)}`);
   }
 
   return renderVueObjectKey(prop.attr);
@@ -429,6 +429,10 @@ function toFunctionName(domEvent) {
     .split("-")
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join("")}`;
+}
+
+function toElementPropertyName(attr) {
+  return attr.replace(/-([a-z])/g, (_, character) => character.toUpperCase());
 }
 
 function toHandlerProp(domEvent) {
