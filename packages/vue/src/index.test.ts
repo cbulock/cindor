@@ -2,7 +2,7 @@ import { createApp, defineComponent, h, nextTick } from "vue";
 
 import type { App } from "vue";
 
-import { CindorAutocomplete, CindorBanner } from "./index";
+import { CindorAutocomplete, CindorBanner, CindorDataTable, CindorMultiSelect, CindorTransferList } from "./index";
 
 describe("cindor-ui-vue", () => {
   let container: HTMLDivElement | null = null;
@@ -54,6 +54,118 @@ describe("cindor-ui-vue", () => {
     expect(onOpenUpdate).toHaveBeenCalledWith(false);
   });
 
+  it("property-binds data table props and renders rows with slot-backed cells in Vue", async () => {
+    const columns = [
+      { key: "name", label: "Name", sortable: true },
+      { key: "status", label: "Status", cellSlot: "status-cell" }
+    ];
+    const rows = [
+      { uuid: "row-1", name: "Jordan", status: "Open" },
+      { uuid: "row-2", name: "Avery", status: "Closed" }
+    ];
+
+    mountStatic(() =>
+      h(
+        CindorDataTable,
+        {
+          columns,
+          currentPage: 1,
+          expandableRows: true,
+          expandedRowIds: ["row-1"],
+          pageSize: 0,
+          rowIdKey: "uuid",
+          rows,
+          sortDirection: "ascending",
+          sortKey: "name"
+        },
+        {
+          "status-cell-row-1": () => h("span", { class: "status-chip" }, "Open"),
+          "status-cell-row-2": () => h("span", { class: "status-chip" }, "Closed"),
+          "row-expansion-row-1": () => h("div", { class: "expansion-copy" }, "Jordan handles escalations.")
+        }
+      )
+    );
+
+    const element = await queryElement<
+      HTMLElement & {
+        columns: typeof columns;
+        currentPage: number;
+        expandedRowIds: string[];
+        rowIdKey: string;
+        rows: typeof rows;
+        sortDirection: string;
+        sortKey: string;
+        updateComplete?: Promise<unknown>;
+      }
+    >("cindor-data-table");
+
+    await element.updateComplete;
+    await nextTick();
+
+    expect(element.columns).toBe(columns);
+    expect(element.rows).toBe(rows);
+    expect(element.expandedRowIds).toEqual(["row-1"]);
+    expect(element.currentPage).toBe(1);
+    expect(element.rowIdKey).toBe("uuid");
+    expect(element.sortKey).toBe("name");
+    expect(element.sortDirection).toBe("ascending");
+
+    const renderedRows = element.shadowRoot?.querySelectorAll("tbody tr[data-row-id]") ?? [];
+    const statusSlot = element.shadowRoot?.querySelector('slot[name="status-cell-row-1"]');
+    const expansionRow = element.shadowRoot?.querySelector("#row-expansion-row-1");
+    const expansionSlot = element.shadowRoot?.querySelector('slot[name="row-expansion-row-1"]');
+
+    expect(renderedRows).toHaveLength(2);
+    expect(renderedRows[0]?.getAttribute("data-row-id")).toBe("row-2");
+    expect(renderedRows[1]?.getAttribute("data-row-id")).toBe("row-1");
+    expect(statusSlot).not.toBeNull();
+    expect(expansionRow).not.toBeNull();
+    expect(expansionSlot).not.toBeNull();
+  });
+
+  it("property-binds wrapper props to the element-facing custom element property names", async () => {
+    const multiSelectValues = ["alpha", "beta"];
+    const transferListValues = ["selected-1"];
+
+    mountStatic(() =>
+      h("div", [
+        h(
+          CindorMultiSelect,
+          {
+            modelValue: multiSelectValues
+          },
+          {
+            default: () => [
+              h("option", { value: "alpha", selected: true }, "Alpha"),
+              h("option", { value: "beta", selected: true }, "Beta"),
+              h("option", { value: "gamma" }, "Gamma")
+            ]
+          }
+        ),
+        h(
+          CindorTransferList,
+          {
+            modelValue: transferListValues
+          },
+          {
+            default: () => [
+              h("option", { value: "selected-1", selected: true }, "Selected 1"),
+              h("option", { value: "available-1" }, "Available 1")
+            ]
+          }
+        )
+      ])
+    );
+
+    const multiSelect = await queryElement<HTMLElement & { values: string[] }>("cindor-multi-select");
+    const transferList = await queryElement<HTMLElement & { selectedValues: string[] }>("cindor-transfer-list");
+
+    await nextTick();
+
+    expect(multiSelect.values).toBe(multiSelectValues);
+    expect(transferList.selectedValues).toBe(transferListValues);
+  });
+
   function mount(renderWrapper: (modelValue: string) => ReturnType<typeof h>) {
     container = document.createElement("div");
     document.body.append(container);
@@ -65,6 +177,21 @@ describe("cindor-ui-vue", () => {
         }),
         render() {
           return renderWrapper(this.modelValue);
+        }
+      })
+    );
+
+    app.mount(container);
+  }
+
+  function mountStatic(renderWrapper: () => ReturnType<typeof h>) {
+    container = document.createElement("div");
+    document.body.append(container);
+
+    app = createApp(
+      defineComponent({
+        render() {
+          return renderWrapper();
         }
       })
     );
