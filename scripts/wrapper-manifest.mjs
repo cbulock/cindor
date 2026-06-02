@@ -15,6 +15,7 @@ const str = (name, defaultValue = "", options = {}) => ({
   alwaysPass: options.alwaysPass ?? false,
   attr: options.attr ?? name,
   defaultValue,
+  forceProperty: options.forceProperty ?? false,
   kind: "string",
   name
 });
@@ -22,6 +23,7 @@ const str = (name, defaultValue = "", options = {}) => ({
 const num = (name, defaultValue, options = {}) => ({
   attr: options.attr ?? name,
   defaultValue,
+  forceProperty: options.forceProperty ?? false,
   kind: "number",
   name
 });
@@ -30,6 +32,7 @@ const typed = (name, typeExpression, defaultValue, options = {}) => ({
   alwaysPass: options.alwaysPass ?? true,
   attr: options.attr ?? name,
   defaultValue,
+  forceProperty: options.forceProperty ?? false,
   kind: "typed-string",
   name,
   typeExpression
@@ -38,6 +41,7 @@ const typed = (name, typeExpression, defaultValue, options = {}) => ({
 const arr = (name, typeExpression, options = {}) => ({
   attr: options.attr ?? name,
   defaultFactory: options.defaultFactory ?? "() => []",
+  forceProperty: options.forceProperty ?? true,
   kind: "array",
   name,
   typeExpression
@@ -46,6 +50,7 @@ const arr = (name, typeExpression, options = {}) => ({
 const obj = (name, typeExpression, options = {}) => ({
   attr: options.attr ?? name,
   defaultFactory: options.defaultFactory ?? "() => ({})",
+  forceProperty: options.forceProperty ?? true,
   kind: "object",
   name,
   typeExpression
@@ -65,6 +70,7 @@ const component = (exportName, tagName, options = {}) => ({
   reactEvents: options.reactEvents,
   slots: options.slots ?? slots.none,
   tagName,
+  vueDebugEmptyStateSignal: options.vueDebugEmptyStateSignal ?? false,
   vueHandlers: options.vueHandlers ?? [],
   vueProps: options.vueProps ?? []
 });
@@ -360,6 +366,7 @@ export const componentDefinitions = [
   component("CindorDataTable", "cindor-data-table", {
     reactEvents: ["cell-edit", "page-change", "row-action", "row-expand", "search-change", "sort-change"],
     slots: slots.all,
+    vueDebugEmptyStateSignal: true,
     vueHandlers: [
       handler("cell-edit"),
       handler("page-change", {
@@ -385,21 +392,22 @@ export const componentDefinitions = [
     vueProps: [
       str("caption"),
       arr("columns", "DataTableColumn[]"),
-      num("currentPage", 1),
-      str("emptyMessage", "No rows to display.", { alwaysPass: true, attr: "emptyMessage" }),
+      num("currentPage", 1, { forceProperty: true }),
+      str("emptyMessage", "No rows to display.", { alwaysPass: true, attr: "empty-message" }),
       bool("expandableRows"),
       arr("expandedRowIds", "string[]"),
       bool("loading"),
       num("pageSize", 10),
-      str("rowExpansionLabel", "Row details", { alwaysPass: true }),
-      str("rowExpansionSlot", "row-expansion", { alwaysPass: true }),
+      str("rowIdKey", "id", { alwaysPass: true, attr: "row-id-key", forceProperty: true }),
+      str("rowExpansionLabel", "Row details", { alwaysPass: true, attr: "row-expansion-label" }),
+      str("rowExpansionSlot", "row-expansion", { alwaysPass: true, attr: "row-expansion-slot" }),
       arr("rows", "DataTableRow[]"),
       bool("searchable"),
-      str("searchLabel", "Search rows", { alwaysPass: true }),
-      str("searchPlaceholder", "Search rows", { alwaysPass: true }),
+      str("searchLabel", "Search rows", { alwaysPass: true, attr: "search-label" }),
+      str("searchPlaceholder", "Search rows", { alwaysPass: true, attr: "search-placeholder" }),
       str("searchQuery", ""),
-      typed("sortDirection", "DataTableSortDirection", "ascending"),
-      str("sortKey")
+      typed("sortDirection", "DataTableSortDirection", "ascending", { attr: "sort-direction", forceProperty: true }),
+      str("sortKey", "", { forceProperty: true, attr: "sort-key" })
     ]
   }),
   component("CindorDataViewToolbar", "cindor-data-view-toolbar", {
