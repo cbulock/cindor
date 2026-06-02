@@ -7,22 +7,14 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
-  resolve: {
-    alias: [
-      {
-        find: "cindor-ui-core/register",
-        replacement: path.join(dirname, "packages", "core", "src", "register.ts")
-      },
-      {
-        find: "cindor-ui-core",
-        replacement: path.join(dirname, "packages", "core", "src", "index.ts")
-      }
-    ]
-  },
   test: {
     projects: [{
       extends: true,
       test: {
+        alias: {
+          "cindor-ui-core/register": path.join(dirname, "packages", "core", "src", "register.ts"),
+          "cindor-ui-core": path.join(dirname, "packages", "core", "src", "index.ts")
+        },
         name: "unit",
         environment: "jsdom",
         globals: true,
