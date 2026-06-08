@@ -135,6 +135,48 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
       description: "Reach for it when advanced configuration should remain nearby but hidden until the user asks for it."
     }
   ],
+  "activity-feed": [
+    {
+      title: "Recent system history",
+      description: "Use it when a page should show a stream of deployment, incident, review, or collaboration updates in one readable column."
+    },
+    {
+      title: "Entity-specific activity",
+      description: "Place it on project, customer, or release pages where recent changes matter as much as the current state."
+    },
+    {
+      title: "Audit-style storytelling",
+      description: "Reach for it when events should feel richer and more readable than a flat log table."
+    }
+  ],
+  "activity-item": [
+    {
+      title: "Readable event rows",
+      description: "Use it as the building block for event feeds that need avatars, metadata, timestamps, and supporting context together."
+    },
+    {
+      title: "Mixed-priority updates",
+      description: "Place it where some events should stand out with unread or highlighted styling without changing the whole feed pattern."
+    },
+    {
+      title: "Human-friendly operational detail",
+      description: "Reach for it when event history should feel like a narrative update instead of raw log output."
+    }
+  ],
+  avatar: [
+    {
+      title: "People and team identity",
+      description: "Use it in comments, assignments, activity feeds, and ownership metadata where a human or team identity should be instantly recognizable."
+    },
+    {
+      title: "Compact record context",
+      description: "Place it in lists and cards when a small visual cue helps users distinguish between related entities."
+    },
+    {
+      title: "Fallback-safe presence",
+      description: "Reach for it when initials should gracefully replace missing imagery without breaking layout."
+    }
+  ],
   alert: [
     {
       title: "Inline validation and warnings",
@@ -147,6 +189,76 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
     {
       title: "Recovery guidance",
       description: "Reach for it when users need short, actionable guidance after something fails or changes unexpectedly."
+    }
+  ],
+  banner: [
+    {
+      title: "App-wide announcements",
+      description: "Use it when status, maintenance, or rollout messaging should stay visible across an entire page or workspace."
+    },
+    {
+      title: "Persistent upgrade nudges",
+      description: "Place it where a message should remain available until the user acts or dismisses it."
+    },
+    {
+      title: "Global warning surfaces",
+      description: "Reach for it when the message matters more than an inline alert but does not justify blocking the page with a dialog."
+    }
+  ],
+  badge: [
+    {
+      title: "Compact status marking",
+      description: "Use it for environment labels, state chips, counts, or small categorical signals that should stay scannable."
+    },
+    {
+      title: "Metadata compression",
+      description: "Place it in headers, cards, and tables when auxiliary information should not take over the layout."
+    },
+    {
+      title: "Cross-page consistency",
+      description: "Reach for it when teams need one small visual language for state instead of inventing ad hoc text treatments."
+    }
+  ],
+  "button-group": [
+    {
+      title: "Adjacent workflow controls",
+      description: "Use it when a few related actions belong together and should read as one cluster."
+    },
+    {
+      title: "Back-and-forward navigation",
+      description: "Place it in steppers, inspectors, and setup flows where movement between states should be visually grouped."
+    },
+    {
+      title: "Density without ambiguity",
+      description: "Reach for it when actions need to stay compact without collapsing into an unlabeled toolbar."
+    }
+  ],
+  calendar: [
+    {
+      title: "Always-visible date selection",
+      description: "Use it when the calendar itself should stay on screen instead of hiding behind a field trigger."
+    },
+    {
+      title: "Scheduling and booking UIs",
+      description: "Place it in planners, reports, and booking-style workflows where adjacent dates matter to the decision."
+    },
+    {
+      title: "Embedded range exploration",
+      description: "Reach for it when users should compare dates visually before committing to a value."
+    }
+  ],
+  chip: [
+    {
+      title: "Compact filter tokens",
+      description: "Use it to represent active scopes, query fragments, or selected lightweight values near search and filtering controls."
+    },
+    {
+      title: "Inline categorization",
+      description: "Place it in cards, rows, and metadata strips where short labels should remain visible but unobtrusive."
+    },
+    {
+      title: "Small compositional state markers",
+      description: "Reach for it when a value needs a visual container but not the stronger status semantics of a badge."
     }
   ],
   autocomplete: [
@@ -175,6 +287,76 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
     {
       title: "Cross-linked detail pages",
       description: "Reach for it when detail views should expose their parent path without relying on browser back behavior."
+    }
+  ],
+  "code-block": [
+    {
+      title: "API and integration examples",
+      description: "Use it in docs and settings flows where copyable commands, markup, or snippets are part of the task."
+    },
+    {
+      title: "Operational handoff instructions",
+      description: "Place it where teams need exact commands or config fragments without formatting drift."
+    },
+    {
+      title: "Readable technical reference",
+      description: "Reach for it when raw code should stay scannable, syntax-highlighted, and visually separate from prose."
+    }
+  ],
+  "color-input": [
+    {
+      title: "Brand and theme customization",
+      description: "Use it when users need to pick an accent, label color, or token value directly."
+    },
+    {
+      title: "Visual settings panels",
+      description: "Place it in design, theming, or organization-branding flows where color is a first-class input."
+    },
+    {
+      title: "Low-friction styling controls",
+      description: "Reach for it when freeform hex entry would slow down a mostly visual choice."
+    }
+  ],
+  combobox: [
+    {
+      title: "Searchable single selection",
+      description: "Use it when a select is too long and users should narrow options by typing before picking one."
+    },
+    {
+      title: "Entity assignment with a known target",
+      description: "Place it in forms where one owner, role, or category must be chosen from a large list."
+    },
+    {
+      title: "Hybrid input and option flows",
+      description: "Reach for it when the interface should feel faster than a plain select without becoming a full search experience."
+    }
+  ],
+  "command-bar": [
+    {
+      title: "Bulk action confirmation",
+      description: "Use it when row selection or object selection should promote a clear set of next actions."
+    },
+    {
+      title: "Contextual workspace controls",
+      description: "Place it near data-heavy views where users need actions tied to the current page state."
+    },
+    {
+      title: "Action hierarchy without hidden menus",
+      description: "Reach for it when the most important commands should stay visible instead of disappearing into dropdowns."
+    }
+  ],
+  "context-menu": [
+    {
+      title: "Pointer-first contextual actions",
+      description: "Use it when right-click or long-press actions should stay close to the object they affect."
+    },
+    {
+      title: "Dense workbench interactions",
+      description: "Place it in file browsers, tables, and editors where secondary actions would clutter the primary UI."
+    },
+    {
+      title: "Advanced command discovery",
+      description: "Reach for it when expert users expect more actions than the visible surface can comfortably show."
     }
   ],
   button: [
@@ -247,6 +429,132 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
       description: "Reach for it when bulk actions, filters, and toolbar controls should all respond to the current row selection."
     }
   ],
+  "data-view-toolbar": [
+    {
+      title: "Collection-page orchestration",
+      description: "Use it above tables, boards, or galleries when filters, counts, selections, and actions all belong to one control band."
+    },
+    {
+      title: "Bulk-action workflows",
+      description: "Place it where the current selection should immediately affect visible actions and supporting copy."
+    },
+    {
+      title: "Shared admin shell patterns",
+      description: "Reach for it when multiple collection pages should feel consistent without reassembling the same header logic each time."
+    }
+  ],
+  "date-picker": [
+    {
+      title: "Single-date scheduling",
+      description: "Use it for due dates, publish dates, and appointment selection when a calendar popup is faster than raw typing."
+    },
+    {
+      title: "Human-readable date entry",
+      description: "Place it in forms where users benefit from seeing nearby dates instead of recalling exact formatting."
+    },
+    {
+      title: "Deadline-sensitive workflows",
+      description: "Reach for it when time-adjacent decisions should start with choosing the right day."
+    }
+  ],
+  "date-range-picker": [
+    {
+      title: "Reporting windows",
+      description: "Use it for analytics, billing, and audit flows where users need a clear start and end range."
+    },
+    {
+      title: "Booking and planning interfaces",
+      description: "Place it where a span matters more than a single date."
+    },
+    {
+      title: "Filterable time slices",
+      description: "Reach for it when narrowing a dataset by timeframe is central to the workflow."
+    }
+  ],
+  "date-time-picker": [
+    {
+      title: "Precise scheduling",
+      description: "Use it when users need both the day and the exact time in one flow, such as launches, meetings, or automation triggers."
+    },
+    {
+      title: "Operational coordination",
+      description: "Place it in admin tools where timing accuracy matters more than a lightweight date-only field."
+    },
+    {
+      title: "One-stop temporal input",
+      description: "Reach for it when splitting date and time across separate controls would make the task harder to review."
+    }
+  ],
+  "date-input": [
+    {
+      title: "Lightweight date fields",
+      description: "Use it when native date semantics are enough and a heavier popup picker would add unnecessary ceremony."
+    },
+    {
+      title: "Structured forms",
+      description: "Place it in admin and settings screens where the user already knows the exact date they want to enter."
+    },
+    {
+      title: "Fast browser-native entry",
+      description: "Reach for it when you want consistency with platform date controls and validation."
+    }
+  ],
+  dialog: [
+    {
+      title: "Focused confirmations and decisions",
+      description: "Use it when a risky, important, or interruptive action deserves the user's full attention before they continue."
+    },
+    {
+      title: "Contained setup and edit flows",
+      description: "Place it where a short form or configuration step should stay close to the current page instead of becoming its own route."
+    },
+    {
+      title: "Temporary high-attention context",
+      description: "Reach for it when supporting detail, approvals, or next-step choices should block background interaction until resolved."
+    }
+  ],
+  drawer: [
+    {
+      title: "Secondary workflows beside primary content",
+      description: "Use it when details, edits, or supporting actions should slide in without fully taking users away from the current page."
+    },
+    {
+      title: "Large-screen inspectors and forms",
+      description: "Place it in admin and workbench layouts where side-mounted context feels lighter than a full dialog."
+    },
+    {
+      title: "Progressive disclosure with more room",
+      description: "Reach for it when a popover is too small and a modal would feel heavier than the task requires."
+    }
+  ],
+  "dropdown-menu": [
+    {
+      title: "Compact secondary actions",
+      description: "Use it when rows, cards, or headers need a short list of less-frequent commands without promoting them all into visible buttons."
+    },
+    {
+      title: "Context-aware action bundles",
+      description: "Place it where the available commands depend on the current object, selection, or state."
+    },
+    {
+      title: "Density without toolbar sprawl",
+      description: "Reach for it when the interface should stay tidy while still exposing meaningful follow-up actions."
+    }
+  ],
+  dropzone: [
+    {
+      title: "Drag-and-drop ingestion",
+      description: "Use it for uploads, imports, and asset collection flows where dragging files in should feel like the fastest path."
+    },
+    {
+      title: "Bulk document or media intake",
+      description: "Place it in workflows that benefit from dropping several files at once instead of browsing one by one."
+    },
+    {
+      title: "Upload-first empty states",
+      description: "Reach for it when the page itself should invite contribution before any content exists yet."
+    }
+  ],
   "empty-state": [
     {
       title: "First-run product moments",
@@ -259,6 +567,62 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
     {
       title: "Feature discovery",
       description: "Reach for it when the absence of content is a chance to explain what the surface is for and how to activate it."
+    }
+  ],
+  "empty-search-results": [
+    {
+      title: "Search dead-end recovery",
+      description: "Use it when a query returns nothing and the product should guide the user toward a better next step."
+    },
+    {
+      title: "Filter-reset moments",
+      description: "Place it in collection views where the problem may be over-narrowed criteria rather than truly missing data."
+    },
+    {
+      title: "Search education",
+      description: "Reach for it when a zero-result state is also a chance to teach broader queries, saved searches, or alternate paths."
+    }
+  ],
+  "error-text": [
+    {
+      title: "Field-level validation",
+      description: "Use it directly under inputs when the user should know exactly what is wrong and how to fix it."
+    },
+    {
+      title: "Accessible form recovery",
+      description: "Place it where validation messaging must stay visually and semantically close to the offending field."
+    },
+    {
+      title: "Consistent support language",
+      description: "Reach for it when teams need one reliable treatment for errors instead of ad hoc red text."
+    }
+  ],
+  fieldset: [
+    {
+      title: "Related control grouping",
+      description: "Use it when several inputs belong to the same question or settings area and should be announced together."
+    },
+    {
+      title: "Preference clusters",
+      description: "Place it around notification, permission, or configuration options that form one conceptual unit."
+    },
+    {
+      title: "Semantics-first forms",
+      description: "Reach for it when accessibility and native grouping matter as much as layout."
+    }
+  ],
+  "file-input": [
+    {
+      title: "Direct attachment flows",
+      description: "Use it when users need a familiar upload control for forms, records, or one-off submissions."
+    },
+    {
+      title: "Low-friction document collection",
+      description: "Place it where drag-and-drop is unnecessary but explicit file picking should still feel polished."
+    },
+    {
+      title: "Fallback upload paths",
+      description: "Reach for it alongside richer upload surfaces so there is always a straightforward selection option."
     }
   ],
   "filter-builder": [
@@ -331,6 +695,104 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
       description: "Reach for it inside form-field and form-row patterns as the default starting point for text input."
     }
   ],
+  "inline-edit": [
+    {
+      title: "Quick metadata edits",
+      description: "Use it when titles, labels, or names should be editable in place without opening a full form."
+    },
+    {
+      title: "Workbench refinement",
+      description: "Place it in dashboards and admin tools where users often tweak labels while staying in context."
+    },
+    {
+      title: "Low-friction authoring",
+      description: "Reach for it when a separate edit mode would feel heavier than the change itself."
+    }
+  ],
+  layout: [
+    {
+      title: "Reusable page shells",
+      description: "Use it when a product needs a consistent arrangement for header, content, and supporting structure."
+    },
+    {
+      title: "Docs and admin foundations",
+      description: "Place it in application areas where visual rhythm matters more than bespoke page composition."
+    },
+    {
+      title: "Composable long-lived screens",
+      description: "Reach for it when many pages should share a frame before they diverge in content."
+    }
+  ],
+  "layout-content": [
+    {
+      title: "Primary content regions",
+      description: "Use it to define the main reading or working area inside a reusable shell."
+    },
+    {
+      title: "Consistent spacing boundaries",
+      description: "Place it where pages should inherit the same content rhythm without per-screen layout code."
+    },
+    {
+      title: "Shell composition",
+      description: "Reach for it when header and content should remain distinct but coordinated."
+    }
+  ],
+  "layout-header": [
+    {
+      title: "Page-level framing",
+      description: "Use it when a screen needs breadcrumbs, a title, and supporting actions in a lighter shell than page-header."
+    },
+    {
+      title: "Reusable app chrome",
+      description: "Place it in layouts where the top section should be consistent across many views."
+    },
+    {
+      title: "Content-aware headers",
+      description: "Reach for it when the page title belongs to the layout itself rather than a richer content component."
+    }
+  ],
+  "helper-text": [
+    {
+      title: "Inline guidance under fields",
+      description: "Use it when the user needs a small hint, format note, or consequence explanation before entering a value."
+    },
+    {
+      title: "Subtle instructional copy",
+      description: "Place it in forms and settings where support text should stay available without competing with the label."
+    },
+    {
+      title: "Consistency for field hints",
+      description: "Reach for it when teams need one visual treatment for non-error supporting text."
+    }
+  ],
+  icon: [
+    {
+      title: "Compact visual cues",
+      description: "Use it when labels, statuses, or controls benefit from a recognizable symbol without adding a full illustration."
+    },
+    {
+      title: "Action affordance reinforcement",
+      description: "Place it next to buttons, chips, and navigation items where a small visual hint improves scanning."
+    },
+    {
+      title: "System-wide symbolic language",
+      description: "Reach for it when many parts of the product should share a consistent icon vocabulary."
+    }
+  ],
+  "icon-button": [
+    {
+      title: "Compact utility actions",
+      description: "Use it for close, search, favorite, copy, and similar actions that are well understood from iconography alone."
+    },
+    {
+      title: "Dense row and card controls",
+      description: "Place it where space is tight but the action should remain immediately clickable."
+    },
+    {
+      title: "Secondary chrome actions",
+      description: "Reach for it when a full labeled button would visually outweigh the importance of the command."
+    }
+  ],
   link: [
     {
       title: "Inline navigation cues",
@@ -345,6 +807,20 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
       description: "Reach for it when the next step belongs inside explanatory text rather than a dedicated action bar."
     }
   ],
+  listbox: [
+    {
+      title: "Persistent option browsing",
+      description: "Use it when users should see several selectable options at once instead of opening a collapsed menu."
+    },
+    {
+      title: "Keyboard-first choice panels",
+      description: "Place it in settings, pickers, and dual-panel flows where arrow-key movement and visible focus matter."
+    },
+    {
+      title: "Selection UIs with richer context",
+      description: "Reach for it when each option needs more structure than a basic select can comfortably show."
+    }
+  ],
   "multi-select": [
     {
       title: "Team and permission assignment",
@@ -357,6 +833,48 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
     {
       title: "Selected-value review",
       description: "Reach for it when chosen items should remain visible as chips instead of disappearing into a collapsed control."
+    }
+  ],
+  menu: [
+    {
+      title: "Action lists",
+      description: "Use it when a compact set of related commands should appear together with strong keyboard semantics."
+    },
+    {
+      title: "Contextual command surfaces",
+      description: "Place it inside dropdowns, palettes, and right-click flows where users expect a stacked action list."
+    },
+    {
+      title: "Action hierarchy reuse",
+      description: "Reach for it when several components should share the same menu-row building block."
+    }
+  ],
+  "menu-item": [
+    {
+      title: "Single command rows",
+      description: "Use it as the actionable unit inside menus and dropdown patterns."
+    },
+    {
+      title: "Mixed-priority actions",
+      description: "Place it where some commands must be disabled, separated, or grouped without losing menu semantics."
+    },
+    {
+      title: "Reusable action plumbing",
+      description: "Reach for it when menu-like surfaces should share one consistent row primitive."
+    }
+  ],
+  menubar: [
+    {
+      title: "Desktop-style application chrome",
+      description: "Use it in tools where top-level command groupings like File, Edit, and View still make sense."
+    },
+    {
+      title: "Power-user environments",
+      description: "Place it in workbench-style products where keyboard and command density matter."
+    },
+    {
+      title: "Persistent high-level actions",
+      description: "Reach for it when commands should stay globally available rather than local to one panel."
     }
   ],
   "navigation-rail": [
@@ -385,6 +903,34 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
     {
       title: "Data-entry workflows",
       description: "Reach for it when validation should reinforce that a field is numeric before submission."
+    }
+  ],
+  option: [
+    {
+      title: "Structured selectable rows",
+      description: "Use it as the individual choice primitive inside listbox and select-style experiences that need consistent semantics."
+    },
+    {
+      title: "Choice sets with metadata",
+      description: "Place it where each selectable item may carry labels, descriptions, or supporting state."
+    },
+    {
+      title: "Reusable selection plumbing",
+      description: "Reach for it when multiple higher-level choice components should share one option treatment."
+    }
+  ],
+  "password-input": [
+    {
+      title: "Credential and secret entry",
+      description: "Use it wherever a sensitive text value should support masking and reveal-on-demand behavior."
+    },
+    {
+      title: "Account and setup flows",
+      description: "Place it in sign-in, invite, onboarding, and integration screens that ask for secure values."
+    },
+    {
+      title: "Less error-prone secret input",
+      description: "Reach for it when users may need to verify what they typed without abandoning secure defaults."
     }
   ],
   "page-header": [
@@ -457,6 +1003,48 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
       description: "Reach for it when teams need a clean boundary for theme state, accent colors, or family variants."
     }
   ],
+  progress: [
+    {
+      title: "Long-running task feedback",
+      description: "Use it when the product can quantify completion for uploads, imports, deploys, or generation work."
+    },
+    {
+      title: "Inline workflow reassurance",
+      description: "Place it near the task itself so users can see movement without scanning for global status."
+    },
+    {
+      title: "Deterministic completion states",
+      description: "Reach for it when a percentage or bounded total matters more than a generic spinner."
+    }
+  ],
+  radio: [
+    {
+      title: "Single-choice decisions with visible tradeoffs",
+      description: "Use it when users should compare a small number of mutually exclusive options without opening a menu."
+    },
+    {
+      title: "Settings with explanatory copy",
+      description: "Place it in billing, notification, and configuration flows where each option benefits from a short description."
+    },
+    {
+      title: "High-clarity preference selection",
+      description: "Reach for it when the wrong choice is costly enough that all options should remain visible together."
+    }
+  ],
+  range: [
+    {
+      title: "Continuous value tuning",
+      description: "Use it when users should adjust a bounded value such as volume, density, threshold, or confidence with immediate visual feedback."
+    },
+    {
+      title: "Preference sliders",
+      description: "Place it in personalization and configuration flows where the exact number matters less than the relative position."
+    },
+    {
+      title: "Fast exploratory adjustment",
+      description: "Reach for it when scrubbing through nearby values is more natural than typing a number."
+    }
+  ],
   search: [
     {
       title: "Global and local query entry",
@@ -469,6 +1057,20 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
     {
       title: "Recovery from dense screens",
       description: "Reach for it when search is the fastest way out of navigation overload or content sprawl."
+    }
+  ],
+  select: [
+    {
+      title: "Compact one-of-many selection",
+      description: "Use it when users need to choose one known value from a moderate list without dedicating much screen space."
+    },
+    {
+      title: "Form-friendly scope setting",
+      description: "Place it in create, edit, and settings flows where category, owner, or status choices should stay compact."
+    },
+    {
+      title: "Standardized input patterns",
+      description: "Reach for it when consistency and familiarity matter more than the richer discoverability of a visible listbox."
     }
   ],
   "segmented-control": [
@@ -499,6 +1101,20 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
       description: "Reach for it when users spend enough time in the product that stable navigation outweighs minimal chrome."
     }
   ],
+  "split-button": [
+    {
+      title: "Primary action with adjacent alternatives",
+      description: "Use it when one action should stay prominent but nearby variants or follow-up choices should remain one click away."
+    },
+    {
+      title: "Operational tools with a safe default",
+      description: "Place it in publish, export, create, or run flows where most users take the standard path but power users need options."
+    },
+    {
+      title: "Action density without ambiguity",
+      description: "Reach for it when a plain dropdown hides the primary action too much and separate buttons would feel noisy."
+    }
+  ],
   splitter: [
     {
       title: "Workbench interfaces",
@@ -511,6 +1127,20 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
     {
       title: "High-density desktop views",
       description: "Reach for it when fixed layouts waste space and the user should control emphasis between panes."
+    }
+  ],
+  switch: [
+    {
+      title: "Immediate binary preferences",
+      description: "Use it when a setting is naturally on or off and users expect a lightweight toggle instead of form submission ceremony."
+    },
+    {
+      title: "Live feature controls",
+      description: "Place it in settings and admin screens where changing the value should feel fast and direct."
+    },
+    {
+      title: "Scannable toggle lists",
+      description: "Reach for it when several boolean controls should be easy to compare vertically at a glance."
     }
   ],
   "stat-card": [
@@ -527,6 +1157,20 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
       description: "Reach for it when many metrics need a consistent visual structure before users drill into details."
     }
   ],
+  stepper: [
+    {
+      title: "Multi-step progress guidance",
+      description: "Use it when onboarding, setup, or checkout-style flows should show users where they are and what comes next."
+    },
+    {
+      title: "Process-heavy operational tasks",
+      description: "Place it in workflows that span several required phases so people can recover their place after interruptions."
+    },
+    {
+      title: "Confidence in longer forms",
+      description: "Reach for it when breaking a complex task into visible steps makes the work feel more manageable."
+    }
+  ],
   tabs: [
     {
       title: "Related content partitions",
@@ -539,6 +1183,20 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
     {
       title: "Reducing scroll-heavy pages",
       description: "Reach for it when a long page can become clearer by separating concerns into a few stable panels."
+    }
+  ],
+  tag: [
+    {
+      title: "Lightweight metadata labeling",
+      description: "Use it for categories, taxonomy, or short descriptors that should remain visually attached to records or content."
+    },
+    {
+      title: "Filter-friendly classification",
+      description: "Place it where labels may double as search or filtering cues across lists and detail views."
+    },
+    {
+      title: "Small compositional markers",
+      description: "Reach for it when information needs a visible wrapper but not the stronger status connotations of a badge."
     }
   ],
   textarea: [
@@ -569,6 +1227,20 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
       description: "Reach for it when changes should read as a sequence instead of isolated status labels."
     }
   ],
+  toast: [
+    {
+      title: "Transient success and warning feedback",
+      description: "Use it when saves, background actions, or quick status changes should be acknowledged without blocking the current task."
+    },
+    {
+      title: "Async workflow confirmation",
+      description: "Place it in products where uploads, automation, or background jobs often finish while the user stays on the same screen."
+    },
+    {
+      title: "Short-lived app messaging",
+      description: "Reach for it when the message matters now but should disappear once the user has seen it."
+    }
+  ],
   "toast-region": [
     {
       title: "App-level notifications",
@@ -595,6 +1267,48 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
     {
       title: "Dense but structured action surfaces",
       description: "Reach for it when several controls belong together semantically without becoming a generic button pile."
+    }
+  ],
+  tooltip: [
+    {
+      title: "Micro-explanations on demand",
+      description: "Use it when labels, icons, or dense controls need a small hint without permanently adding copy to the layout."
+    },
+    {
+      title: "Space-constrained helper text",
+      description: "Place it in toolbars, tables, and inspector chrome where support text should appear only on hover or focus."
+    },
+    {
+      title: "Low-ceremony clarification",
+      description: "Reach for it when a popover would feel too heavy for the amount of context being added."
+    }
+  ],
+  "transfer-list": [
+    {
+      title: "Move-between-groups workflows",
+      description: "Use it when users need to shift many known items between available and selected collections with clear visual accounting."
+    },
+    {
+      title: "Permission and membership management",
+      description: "Place it in role, audience, and assignment flows where both sides of the selection matter at the same time."
+    },
+    {
+      title: "Bulk curation interfaces",
+      description: "Reach for it when dual-list movement is more understandable than repeated checkbox selection in a long table."
+    }
+  ],
+  "tree-item": [
+    {
+      title: "Single hierarchical nodes",
+      description: "Use it as the row primitive inside a tree when labels, expand state, and selection behavior should stay consistent."
+    },
+    {
+      title: "Nested navigation and explorers",
+      description: "Place it where each branch or leaf may carry its own affordances while still reading as part of one hierarchy."
+    },
+    {
+      title: "Reusable hierarchy building blocks",
+      description: "Reach for it when several tree-based experiences should share one accessible item treatment."
     }
   ],
   "tree-view": [
