@@ -2698,11 +2698,21 @@ function getUsageCode(doc: ComponentDoc): string {
   <cindor-tree-item label="Getting started"></cindor-tree-item>
 </cindor-tree-item>`;
     case "tree-view":
-      return `<cindor-tree-view>
-  <cindor-tree-item label="Overview"></cindor-tree-item>
-  <cindor-tree-item label="Guides" expanded>
-    <cindor-tree-item label="Getting started"></cindor-tree-item>
-    <cindor-tree-item label="Theming"></cindor-tree-item>
+      return `<cindor-tree-view aria-label="Project navigation">
+  <cindor-tree-item label="Overview" value="overview">
+    <cindor-icon slot="start" name="layout-dashboard" size="16"></cindor-icon>
+  </cindor-tree-item>
+  <cindor-tree-item label="Guides" expanded value="guides">
+    <cindor-icon slot="start" name="book-open" size="16"></cindor-icon>
+    <cindor-tree-item label="Getting started" value="guides-getting-started">
+      <cindor-icon slot="start" name="flag" size="16"></cindor-icon>
+    </cindor-tree-item>
+    <cindor-tree-item label="Theming" value="guides-theming">
+      <cindor-icon slot="start" name="palette" size="16"></cindor-icon>
+    </cindor-tree-item>
+  </cindor-tree-item>
+  <cindor-tree-item label="Components" value="components">
+    <cindor-icon slot="start" name="blocks" size="16"></cindor-icon>
   </cindor-tree-item>
 </cindor-tree-view>`;
     case "tooltip":

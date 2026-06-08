@@ -141,10 +141,19 @@ export class CindorTreeItem extends LitElement {
     value: { reflect: true }
   };
 
+  /** Disables both the row selection button and any branch toggle control. */
   disabled = false;
+
+  /** Expands branch children when nested tree items are present. */
   expanded = false;
+
+  /** Visible row label. Falls back to value when omitted. */
   label = "";
+
+  /** Applied by the parent tree view to reflect the active selection state. */
   selected = false;
+
+  /** Stable selection value for this item. Falls back to label when omitted. */
   value = "";
 
   private hasChildren = false;
@@ -162,6 +171,7 @@ export class CindorTreeItem extends LitElement {
     this.buttonElement?.focus(options);
   }
 
+  /** Expands or collapses the branch when child tree items exist. */
   toggle(expanded?: boolean): void {
     if (!this.hasChildren) {
       return;

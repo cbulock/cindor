@@ -7559,7 +7559,7 @@
         {
           "attributeName": "disabled",
           "defaultValue": "false",
-          "description": "",
+          "description": "Disables both the row selection button and any branch toggle control.",
           "name": "disabled",
           "reflects": true,
           "type": "boolean",
@@ -7568,7 +7568,7 @@
         {
           "attributeName": "expanded",
           "defaultValue": "false",
-          "description": "",
+          "description": "Expands branch children when nested tree items are present.",
           "name": "expanded",
           "reflects": true,
           "type": "boolean",
@@ -7577,7 +7577,7 @@
         {
           "attributeName": "label",
           "defaultValue": "\"\"",
-          "description": "",
+          "description": "Visible row label. Falls back to value when omitted.",
           "name": "label",
           "reflects": true,
           "type": "string",
@@ -7586,7 +7586,7 @@
         {
           "attributeName": "selected",
           "defaultValue": "false",
-          "description": "",
+          "description": "Applied by the parent tree view to reflect the active selection state.",
           "name": "selected",
           "reflects": true,
           "type": "boolean",
@@ -7595,7 +7595,7 @@
         {
           "attributeName": "value",
           "defaultValue": "\"\"",
-          "description": "",
+          "description": "Stable selection value for this item. Falls back to label when omitted.",
           "name": "value",
           "reflects": true,
           "type": "string",
@@ -7622,7 +7622,7 @@
           "returnType": "void"
         },
         {
-          "description": "",
+          "description": "Expands or collapses the branch when child tree items exist.",
           "name": "toggle",
           "parameters": [
             {
@@ -7669,7 +7669,7 @@
         {
           "attributeName": "value",
           "defaultValue": "\"\"",
-          "description": "",
+          "description": "Value of the currently selected tree item.",
           "name": "value",
           "reflects": true,
           "type": "string",
