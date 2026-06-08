@@ -2633,7 +2633,7 @@ function getUsageCode(doc: ComponentDoc): string {
   <cindor-button variant="ghost">Share</cindor-button>
 </cindor-stack>`;
     case "stepper":
-      return `<cindor-stepper></cindor-stepper>`;
+      return `<cindor-stepper id="stepper-preview" aria-label="Workspace setup steps" interactive></cindor-stepper>`;
     case "switch":
       return `<cindor-switch>Available for notifications</cindor-switch>`;
     case "tag-input":

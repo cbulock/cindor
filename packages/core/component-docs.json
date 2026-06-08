@@ -6284,7 +6284,7 @@
         {
           "attributeName": "disabled",
           "defaultValue": "false",
-          "description": "",
+          "description": "Disables interactive step changes across the whole control.",
           "name": "disabled",
           "reflects": true,
           "type": "boolean",
@@ -6293,7 +6293,7 @@
         {
           "attributeName": "interactive",
           "defaultValue": "false",
-          "description": "",
+          "description": "Enables click and keyboard step selection.",
           "name": "interactive",
           "reflects": true,
           "type": "boolean",
@@ -6302,7 +6302,7 @@
         {
           "attributeName": "orientation",
           "defaultValue": "\"horizontal\"",
-          "description": "",
+          "description": "Switches between horizontal and vertical presentation.",
           "name": "orientation",
           "reflects": true,
           "type": "\"horizontal\" | \"vertical\"",
@@ -6314,7 +6314,7 @@
         {
           "attributeName": null,
           "defaultValue": "[]",
-          "description": "",
+          "description": "Ordered workflow steps assigned as a property.",
           "name": "steps",
           "reflects": false,
           "type": "StepperStep[]",
@@ -6323,7 +6323,7 @@
         {
           "attributeName": "value",
           "defaultValue": "\"\"",
-          "description": "",
+          "description": "Current active step value.",
           "name": "value",
           "reflects": true,
           "type": "string",

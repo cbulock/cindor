@@ -1,5 +1,7 @@
 import { css, html, LitElement, nothing } from "lit";
 
+import { findCurrentIndexFromPath, handleLinearKeyboardNavigation } from "../shared/linear-navigation.js";
+
 export type StepperOrientation = "horizontal" | "vertical";
 export type StepperStatus = "complete" | "current" | "upcoming" | "error";
 
@@ -180,10 +182,19 @@ export class CindorStepper extends LitElement {
     value: { reflect: true }
   };
 
+  /** Disables interactive step changes across the whole control. */
   disabled = false;
+
+  /** Enables click and keyboard step selection. */
   interactive = false;
+
+  /** Switches between horizontal and vertical presentation. */
   orientation: StepperOrientation = "horizontal";
+
+  /** Ordered workflow steps assigned as a property. */
   steps: StepperStep[] = [];
+
+  /** Current active step value. */
   value = "";
 
   override connectedCallback(): void {
@@ -219,9 +230,12 @@ export class CindorStepper extends LitElement {
                         class="control"
                         part=${isCurrent ? "control control-current" : "control"}
                         aria-current=${isCurrent ? "step" : nothing}
+                        data-value=${step.value}
                         ?disabled=${isDisabled}
+                        tabindex=${isCurrent && !isDisabled ? "0" : "-1"}
                         type="button"
                         @click=${() => this.selectStep(step.value)}
+                        @keydown=${this.handleInteractiveKeyDown}
                       >
                         ${this.renderIndicator(status, index)}
                         ${this.renderBody(step)}
@@ -304,6 +318,47 @@ export class CindorStepper extends LitElement {
     this.value = value;
     this.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
     this.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
+  }
+
+  private handleInteractiveKeyDown = (event: KeyboardEvent): void => {
+    const enabledControls = this.enabledControls;
+    const currentIndex = findCurrentIndexFromPath(event.composedPath(), enabledControls);
+    if (currentIndex === -1) {
+      return;
+    }
+
+    const handled = handleLinearKeyboardNavigation({
+      currentIndex,
+      event,
+      items: enabledControls,
+      nextKeys: this.orientation === "vertical" ? ["ArrowDown", "ArrowRight"] : ["ArrowRight", "ArrowDown"],
+      onNavigate: (control) => {
+        const value = control.dataset.value;
+        if (!value) {
+          return;
+        }
+
+        this.selectStep(value);
+        void this.updateComplete.then(() => this.controlForValue(value)?.focus());
+      },
+      previousKeys: this.orientation === "vertical" ? ["ArrowUp", "ArrowLeft"] : ["ArrowLeft", "ArrowUp"]
+    });
+
+    if (!handled && (event.key === "Enter" || event.key === " ")) {
+      event.preventDefault();
+      const value = enabledControls[currentIndex]?.dataset.value;
+      if (value) {
+        this.selectStep(value);
+      }
+    }
+  };
+
+  private get enabledControls(): HTMLButtonElement[] {
+    return Array.from(this.renderRoot.querySelectorAll<HTMLButtonElement>("button.control")).filter((control) => !control.disabled);
+  }
+
+  private controlForValue(value: string): HTMLButtonElement | null {
+    return this.enabledControls.find((control) => control.dataset.value === value) ?? null;
   }
 
   private get currentControl(): HTMLElement | null {
