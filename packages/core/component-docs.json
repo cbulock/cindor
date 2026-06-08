@@ -4603,16 +4603,25 @@
         {
           "attributeName": "description",
           "defaultValue": "\"\"",
-          "description": "",
+          "description": "Supporting copy shown below the title.",
           "name": "description",
           "reflects": true,
           "type": "string",
           "values": null
         },
         {
+          "attributeName": "heading-level",
+          "defaultValue": "2",
+          "description": "Heading level used for the inspector title, clamped between 1 and 6.",
+          "name": "headingLevel",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
           "attributeName": "sticky",
           "defaultValue": "false",
-          "description": "",
+          "description": "Pins the inspector near the top of the viewport while its container scrolls.",
           "name": "sticky",
           "reflects": true,
           "type": "boolean",
@@ -4621,7 +4630,7 @@
         {
           "attributeName": "title",
           "defaultValue": "\"\"",
-          "description": "",
+          "description": "Primary heading text for the inspector.",
           "name": "title",
           "reflects": true,
           "type": "string",

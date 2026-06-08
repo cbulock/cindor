@@ -2555,13 +2555,17 @@ function getUsageCode(doc: ComponentDoc): string {
   <cindor-button slot="actions">Deploy</cindor-button>
 </cindor-page-header>`;
     case "panel-inspector":
-      return `<cindor-panel-inspector title="Deployment details" description="Review metadata and release health.">
+      return `<cindor-panel-inspector title="Deployment details" description="Review metadata and release health." heading-level="3" sticky>
   <cindor-badge slot="meta" tone="accent">Healthy</cindor-badge>
   <cindor-button slot="actions" variant="ghost">Open logs</cindor-button>
   <cindor-description-list>
     <cindor-description-item>
       <span slot="term">Version</span>
       2026.04.28-1
+    </cindor-description-item>
+    <cindor-description-item>
+      <span slot="term">Region</span>
+      us-east-1
     </cindor-description-item>
   </cindor-description-list>
   <div slot="footer">Last updated 4 minutes ago by Release Bot.</div>

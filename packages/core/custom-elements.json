@@ -4,6 +4,79 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Activity Feed\", render: () => ` <cindor-activity-feed> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Cindor Team\"></cindor-avatar> <span slot=\"title\">New deployment completed</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">Production environment</span> Traffic is now flowing through the latest release. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"QA\"></cindor-avatar> <span slot=\"title\">Regression suite passed</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Build #1284</span> All smoke tests completed without failures. </cindor-activity-item> </cindor-activity-feed> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
+          "name": "CindorActivityFeed",
+          "slots": [
+            {
+              "description": "`cindor-activity-item` children.",
+              "name": ""
+            }
+          ],
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorActivityFeed",
+          "declaration": {
+            "name": "CindorActivityFeed",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/accordion/cindor-accordion.stories.ts",
       "declarations": [
         {
@@ -126,79 +199,6 @@
           "declaration": {
             "name": "CindorAccordion",
             "module": "packages/core/src/components/accordion/cindor-accordion.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Activity Feed\", render: () => ` <cindor-activity-feed> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Cindor Team\"></cindor-avatar> <span slot=\"title\">New deployment completed</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">Production environment</span> Traffic is now flowing through the latest release. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"QA\"></cindor-avatar> <span slot=\"title\">Regression suite passed</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Build #1284</span> All smoke tests completed without failures. </cindor-activity-item> </cindor-activity-feed> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
-          "name": "CindorActivityFeed",
-          "slots": [
-            {
-              "description": "`cindor-activity-item` children.",
-              "name": ""
-            }
-          ],
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorActivityFeed",
-          "declaration": {
-            "name": "CindorActivityFeed",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.ts"
           }
         }
       ]
@@ -8314,83 +8314,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/description-item/cindor-description-item.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Description Item\", render: () => ` <cindor-description-list> <cindor-description-item> <span slot=\"term\">Status</span> Healthy </cindor-description-item> </cindor-description-list> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/description-item/cindor-description-item.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/description-item/cindor-description-item.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/description-item/cindor-description-item.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Term-and-value pair used inside CindorDescriptionList.",
-          "name": "CindorDescriptionItem",
-          "slots": [
-            {
-              "description": "Label for the value.",
-              "name": "term"
-            },
-            {
-              "description": "Value content.",
-              "name": ""
-            }
-          ],
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorDescriptionItem",
-          "declaration": {
-            "name": "CindorDescriptionItem",
-            "module": "packages/core/src/components/description-item/cindor-description-item.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/date-time-picker/cindor-date-time-picker.stories.ts",
       "declarations": [
         {
@@ -8708,6 +8631,83 @@
           "declaration": {
             "name": "CindorDateTimePicker",
             "module": "packages/core/src/components/date-time-picker/cindor-date-time-picker.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/description-item/cindor-description-item.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Description Item\", render: () => ` <cindor-description-list> <cindor-description-item> <span slot=\"term\">Status</span> Healthy </cindor-description-item> </cindor-description-list> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/description-item/cindor-description-item.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/description-item/cindor-description-item.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/description-item/cindor-description-item.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Term-and-value pair used inside CindorDescriptionList.",
+          "name": "CindorDescriptionItem",
+          "slots": [
+            {
+              "description": "Label for the value.",
+              "name": "term"
+            },
+            {
+              "description": "Value content.",
+              "name": ""
+            }
+          ],
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorDescriptionItem",
+          "declaration": {
+            "name": "CindorDescriptionItem",
+            "module": "packages/core/src/components/description-item/cindor-description-item.ts"
           }
         }
       ]
@@ -10063,6 +10063,156 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/empty-search-results/cindor-empty-search-results.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Empty Search Results\", args: { query: \"access policy\" }, argTypes: { query: { control: \"text\" } }, render: ({ query }: EmptySearchResultsStoryArgs) => ` <cindor-empty-search-results query=\"${query}\"> <ul> <li>Check spelling or abbreviations.</li> <li>Remove one or more filters.</li> <li>Search a broader project or workspace scope.</li> </ul> <cindor-button slot=\"actions\" variant=\"ghost\">Reset filters</cindor-button> <cindor-button slot=\"actions\">Create saved search</cindor-button> </cindor-empty-search-results> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/empty-search-results/cindor-empty-search-results.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/empty-search-results/cindor-empty-search-results.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/empty-search-results/cindor-empty-search-results.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Search-specific zero-state messaging with optional suggestions and actions.",
+          "name": "CindorEmptySearchResults",
+          "slots": [
+            {
+              "description": "Optional guidance or search tips shown below the main copy.",
+              "name": ""
+            },
+            {
+              "description": "Optional custom leading media.",
+              "name": "media"
+            },
+            {
+              "description": "Action controls for retry or broaden-search flows.",
+              "name": "actions"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "description",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "description",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "heading",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"No matching results\"",
+              "attribute": "heading",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "query",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "query",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "message",
+              "type": {
+                "text": "unknown"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "description",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "description"
+            },
+            {
+              "name": "heading",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"No matching results\"",
+              "fieldName": "heading"
+            },
+            {
+              "name": "query",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "query"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorEmptySearchResults",
+          "declaration": {
+            "name": "CindorEmptySearchResults",
+            "module": "packages/core/src/components/empty-search-results/cindor-empty-search-results.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/email-input/cindor-email-input.stories.ts",
       "declarations": [
         {
@@ -10732,156 +10882,6 @@
           "declaration": {
             "name": "CindorEmailInput",
             "module": "packages/core/src/components/email-input/cindor-email-input.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/empty-search-results/cindor-empty-search-results.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Empty Search Results\", args: { query: \"access policy\" }, argTypes: { query: { control: \"text\" } }, render: ({ query }: EmptySearchResultsStoryArgs) => ` <cindor-empty-search-results query=\"${query}\"> <ul> <li>Check spelling or abbreviations.</li> <li>Remove one or more filters.</li> <li>Search a broader project or workspace scope.</li> </ul> <cindor-button slot=\"actions\" variant=\"ghost\">Reset filters</cindor-button> <cindor-button slot=\"actions\">Create saved search</cindor-button> </cindor-empty-search-results> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/empty-search-results/cindor-empty-search-results.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/empty-search-results/cindor-empty-search-results.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/empty-search-results/cindor-empty-search-results.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Search-specific zero-state messaging with optional suggestions and actions.",
-          "name": "CindorEmptySearchResults",
-          "slots": [
-            {
-              "description": "Optional guidance or search tips shown below the main copy.",
-              "name": ""
-            },
-            {
-              "description": "Optional custom leading media.",
-              "name": "media"
-            },
-            {
-              "description": "Action controls for retry or broaden-search flows.",
-              "name": "actions"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "description",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "description",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "heading",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"No matching results\"",
-              "attribute": "heading",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "query",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "query",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "message",
-              "type": {
-                "text": "unknown"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "description",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "description"
-            },
-            {
-              "name": "heading",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"No matching results\"",
-              "fieldName": "heading"
-            },
-            {
-              "name": "query",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "query"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorEmptySearchResults",
-          "declaration": {
-            "name": "CindorEmptySearchResults",
-            "module": "packages/core/src/components/empty-search-results/cindor-empty-search-results.ts"
           }
         }
       ]
@@ -18855,7 +18855,7 @@
           "type": {
             "text": "object"
           },
-          "default": "{ title: \"Display/Panel Inspector\", args: { sticky: false }, argTypes: { sticky: { control: \"boolean\" } }, render: ({ sticky }: PanelInspectorStoryArgs) => ` <cindor-panel-inspector title=\"Deployment details\" description=\"Review metadata, release health, and supporting actions for the selected deployment.\" ${sticky ? \"sticky\" : \"\"} > <cindor-badge slot=\"meta\" tone=\"accent\">Healthy</cindor-badge> <cindor-button slot=\"actions\" variant=\"ghost\">Open logs</cindor-button> <cindor-description-list> <cindor-description-item> <span slot=\"term\">Version</span> 2026.04.28-1 </cindor-description-item> <cindor-description-item> <span slot=\"term\">Region</span> us-east-1 </cindor-description-item> </cindor-description-list> <div slot=\"footer\">Last updated 4 minutes ago by Release Bot.</div> </cindor-panel-inspector> ` }"
+          "default": "{ title: \"Display/Panel Inspector\", args: { headingLevel: 2, sticky: false }, argTypes: { headingLevel: { control: { type: \"number\", min: 1, max: 6, step: 1 } }, sticky: { control: \"boolean\" } }, render: ({ headingLevel, sticky }: PanelInspectorStoryArgs) => ` <cindor-panel-inspector title=\"Deployment details\" description=\"Review metadata, release health, and supporting actions for the selected deployment.\" heading-level=\"${headingLevel}\" ${sticky ? \"sticky\" : \"\"} > <cindor-badge slot=\"meta\" tone=\"accent\">Healthy</cindor-badge> <cindor-button slot=\"actions\" variant=\"ghost\">Open logs</cindor-button> <cindor-description-list> <cindor-description-item> <span slot=\"term\">Version</span> 2026.04.28-1 </cindor-description-item> <cindor-description-item> <span slot=\"term\">Region</span> us-east-1 </cindor-description-item> </cindor-description-list> <div slot=\"footer\">Last updated 4 minutes ago by Release Bot.</div> </cindor-panel-inspector> ` }"
         },
         {
           "kind": "variable",
@@ -18920,8 +18920,61 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Supporting copy shown below the title.",
               "attribute": "description",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "headingLevel",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "2",
+              "description": "Heading level used for the inspector title, clamped between 1 and 6.",
+              "attribute": "heading-level",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "hasActionsContent",
+              "privacy": "protected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "hasActionsContent"
+            },
+            {
+              "kind": "field",
+              "name": "hasBodyContent",
+              "privacy": "protected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "hasBodyContent"
+            },
+            {
+              "kind": "field",
+              "name": "hasFooterContent",
+              "privacy": "protected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "hasFooterContent"
+            },
+            {
+              "kind": "field",
+              "name": "hasMetaContent",
+              "privacy": "protected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "hasMetaContent"
             },
             {
               "kind": "field",
@@ -18931,6 +18984,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Pins the inspector near the top of the viewport while its container scrolls.",
               "attribute": "sticky",
               "reflects": true
             },
@@ -18942,6 +18996,7 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Primary heading text for the inspector.",
               "attribute": "title",
               "reflects": true
             },
@@ -18953,6 +19008,109 @@
               },
               "privacy": "private",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "resolvedHeadingLevel",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "handleActionsSlotChange",
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "handleBodySlotChange",
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "handleFooterSlotChange",
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "handleMetaSlotChange",
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "syncSlotState",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "slotHasContent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "updateSlotPresence",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "key",
+                  "type": {
+                    "text": "\"hasActionsContent\" | \"hasBodyContent\" | \"hasFooterContent\" | \"hasMetaContent\""
+                  }
+                },
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "hasAssignedContent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "slot",
+                  "type": {
+                    "text": "HTMLSlotElement"
+                  }
+                }
+              ]
             }
           ],
           "attributes": [
@@ -18962,7 +19120,49 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Supporting copy shown below the title.",
               "fieldName": "description"
+            },
+            {
+              "name": "heading-level",
+              "type": {
+                "text": "number"
+              },
+              "default": "2",
+              "description": "Heading level used for the inspector title, clamped between 1 and 6.",
+              "fieldName": "headingLevel"
+            },
+            {
+              "name": "hasActionsContent",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "hasActionsContent"
+            },
+            {
+              "name": "hasBodyContent",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "hasBodyContent"
+            },
+            {
+              "name": "hasFooterContent",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "hasFooterContent"
+            },
+            {
+              "name": "hasMetaContent",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "hasMetaContent"
             },
             {
               "name": "sticky",
@@ -18970,6 +19170,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Pins the inspector near the top of the viewport while its container scrolls.",
               "fieldName": "sticky"
             },
             {
@@ -18978,6 +19179,7 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Primary heading text for the inspector.",
               "fieldName": "title"
             }
           ],
