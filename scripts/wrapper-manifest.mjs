@@ -314,6 +314,16 @@ export const componentDefinitions = [
     slots: slots.default,
     vueProps: [num("columns", 2)]
   }),
+  component("CindorGrid", "cindor-grid", {
+    slots: slots.default,
+    vueProps: [
+      typed("align", "GridAlign", "stretch"),
+      num("columns", 2),
+      typed("gap", "GridGap", "4"),
+      typed("justify", "GridAlign", "stretch"),
+      str("minColumnWidth", "", { attr: "min-column-width", alwaysPass: false })
+    ]
+  }),
   component("CindorHelperText", "cindor-helper-text", { slots: slots.default }),
   component("CindorErrorText", "cindor-error-text", { slots: slots.default }),
   component("CindorRange", "cindor-range", {

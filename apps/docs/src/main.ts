@@ -2452,6 +2452,12 @@ function getUsageCode(doc: ComponentDoc): string {
     <cindor-input></cindor-input>
   </cindor-form-field>
 </cindor-form-row>`;
+    case "grid":
+      return `<cindor-grid columns="3" gap="4" min-column-width="14rem">
+  <cindor-card><div style="padding: var(--space-4);">Overview</div></cindor-card>
+  <cindor-card><div style="padding: var(--space-4);">Approvals</div></cindor-card>
+  <cindor-card><div style="padding: var(--space-4);">Audit trail</div></cindor-card>
+</cindor-grid>`;
     case "helper-text":
       return `<cindor-helper-text>Used for keyboard shortcuts and system labels.</cindor-helper-text>`;
     case "icon":
@@ -2977,6 +2983,12 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
         <cindor-input />
       </cindor-form-field>
     </${componentName}>`;
+    case "grid":
+      return `<${componentName} columns={3} gap="4" minColumnWidth="14rem">
+      <cindor-card><div style={{ padding: "var(--space-4)" }}>Overview</div></cindor-card>
+      <cindor-card><div style={{ padding: "var(--space-4)" }}>Approvals</div></cindor-card>
+      <cindor-card><div style={{ padding: "var(--space-4)" }}>Audit trail</div></cindor-card>
+    </${componentName}>`;
     case "date-picker":
       return `<${componentName} month="2026-04" value="2026-04-26" />`;
     case "date-range-picker":
@@ -3352,6 +3364,12 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
     </cindor-description-list>
     <div slot="footer">Last updated 4 minutes ago by Release Bot.</div>
   </${componentName}>`;
+    case "grid":
+      return `<${componentName} :columns="3" gap="4" min-column-width="14rem">
+    <cindor-card><div style="padding: var(--space-4);">Overview</div></cindor-card>
+    <cindor-card><div style="padding: var(--space-4);">Approvals</div></cindor-card>
+    <cindor-card><div style="padding: var(--space-4);">Audit trail</div></cindor-card>
+  </${componentName}>`;
     case "number-input":
       return `<${componentName} :value="12" />`;
     case "progress":
@@ -3486,6 +3504,7 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "file-input":
     case "filter-builder":
     case "form-field":
+    case "grid":
     case "helper-text":
     case "icon":
     case "icon-button":
@@ -4171,6 +4190,33 @@ function getLegacyComponentApi(doc: ComponentDoc): ComponentApiSurface {
           ])
         ],
         intro: `${doc.tag} is a framing component. Its API is mostly about labeling and the slotted control it wraps.`
+      };
+    case "grid":
+      return {
+        groups: [
+          propertyGroup([
+            apiItem("columns", "Fixed column count used when min-column-width is not set.", { defaultValue: "2", type: "number" }),
+            apiItem("gap", "Spacing token between grid items.", {
+              defaultValue: `"4"`,
+              type: `"0" | "1" | "2" | "3" | "4" | "5" | "6"`
+            }),
+            apiItem("min-column-width", "Optional minimum track width that switches the grid to responsive auto-fit behavior.", {
+              defaultValue: `""`,
+              type: "string"
+            }),
+            apiItem("align", "Controls align-items for content inside each grid cell.", {
+              defaultValue: `"stretch"`,
+              type: `"start" | "center" | "end" | "stretch" | "baseline"`
+            }),
+            apiItem("justify", "Controls justify-items for content inside each grid cell.", {
+              defaultValue: `"stretch"`,
+              type: `"start" | "center" | "end" | "stretch" | "baseline"`
+            })
+          ]),
+          eventGroup([]),
+          compositionGroup([apiItem("default slot", "Provide any card, panel, or layout child content to be arranged by the grid.", { type: "slot" })])
+        ],
+        intro: `${doc.tag} is a low-ceremony layout primitive. Use fixed columns for predictable admin layouts, or add min-column-width when the grid should auto-fit cards responsively.`
       };
     case "helper-text":
     case "error-text":

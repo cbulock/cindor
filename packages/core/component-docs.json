@@ -3270,6 +3270,88 @@
       "tagName": "cindor-form-row"
     },
     {
+      "className": "CindorGrid",
+      "description": "Responsive grid primitive for cards, summaries, and multi-column layout groupings.",
+      "modulePath": "packages/core/src/components/grid/cindor-grid.ts",
+      "properties": [
+        {
+          "attributeName": "align",
+          "defaultValue": "\"stretch\"",
+          "description": "Aligns items along the block axis within each grid cell.",
+          "name": "align",
+          "reflects": true,
+          "type": "\"start\" | \"center\" | \"end\" | \"stretch\" | \"baseline\"",
+          "values": [
+            "start",
+            "center",
+            "end",
+            "stretch",
+            "baseline"
+          ]
+        },
+        {
+          "attributeName": "columns",
+          "defaultValue": "2",
+          "description": "Fixed column count used when minColumnWidth is not supplied.",
+          "name": "columns",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "gap",
+          "defaultValue": "\"4\"",
+          "description": "Gap token between grid items.",
+          "name": "gap",
+          "reflects": true,
+          "type": "\"0\" | \"1\" | \"2\" | \"3\" | \"4\" | \"5\" | \"6\"",
+          "values": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ]
+        },
+        {
+          "attributeName": "justify",
+          "defaultValue": "\"stretch\"",
+          "description": "Aligns items along the inline axis within each grid cell.",
+          "name": "justify",
+          "reflects": true,
+          "type": "\"start\" | \"center\" | \"end\" | \"stretch\" | \"baseline\"",
+          "values": [
+            "start",
+            "center",
+            "end",
+            "stretch",
+            "baseline"
+          ]
+        },
+        {
+          "attributeName": "min-column-width",
+          "defaultValue": "\"\"",
+          "description": "When present, switches to an auto-fit responsive grid using this minimum track size.",
+          "name": "minColumnWidth",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Child elements arranged by the configured grid settings.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-grid"
+    },
+    {
       "className": "CindorHelperText",
       "description": "",
       "modulePath": "packages/core/src/components/helper-text/cindor-helper-text.ts",

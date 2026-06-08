@@ -709,6 +709,20 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
       description: "Reach for it when a separate edit mode would feel heavier than the change itself."
     }
   ],
+  grid: [
+    {
+      title: "Dashboard and summary card layouts",
+      description: "Use it when cards, metrics, or supporting panels should auto-wrap into a clean multi-column arrangement."
+    },
+    {
+      title: "Responsive detail page composition",
+      description: "Place it in docs, admin screens, and workspaces where related sections should align without committing to a full app shell."
+    },
+    {
+      title: "Reusable layout scaffolding",
+      description: "Reach for it when teams need a first-class grid primitive instead of repeating one-off CSS grid wrappers across features."
+    }
+  ],
   layout: [
     {
       title: "Reusable page shells",

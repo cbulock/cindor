@@ -60,6 +60,7 @@ export {
 } from "./components/filter-builder/cindor-filter-builder.js";
 export { CindorFormField } from "./components/form-field/cindor-form-field.js";
 export { CindorFormRow } from "./components/form-row/cindor-form-row.js";
+export { CindorGrid, type GridAlign, type GridGap } from "./components/grid/cindor-grid.js";
 export { CindorHelperText } from "./components/helper-text/cindor-helper-text.js";
 export { CindorIcon, type LucideIconName } from "./components/icon/cindor-icon.js";
 export { CindorIconButton } from "./components/icon-button/cindor-icon-button.js";
