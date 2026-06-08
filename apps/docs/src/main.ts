@@ -2261,10 +2261,10 @@ function getUsageCode(doc: ComponentDoc): string {
     case "split-button":
       return `<cindor-split-button menu-label="More publish actions">
   <cindor-icon slot="start-icon" name="rocket" size="16"></cindor-icon>
-  Publish
-  <cindor-menu-item slot="menu">Schedule for later</cindor-menu-item>
+  Publish changes
+  <cindor-menu-item slot="menu">Schedule publish</cindor-menu-item>
   <cindor-menu-item slot="menu">Save draft</cindor-menu-item>
-  <cindor-menu-item slot="menu">Duplicate</cindor-menu-item>
+  <cindor-menu-item slot="menu">Duplicate draft</cindor-menu-item>
 </cindor-split-button>`;
     case "calendar":
       return `<cindor-calendar month="2026-04" value="2026-04-26"></cindor-calendar>`;

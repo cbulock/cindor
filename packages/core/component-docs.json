@@ -6009,7 +6009,13 @@
         {
           "description": "Closes the secondary action menu.",
           "name": "hideMenu",
-          "parameters": [],
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "{ restoreFocus?: boolean }"
+            }
+          ],
           "returnType": "void"
         },
         {
