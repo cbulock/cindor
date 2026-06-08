@@ -11,6 +11,7 @@ import {
   type ComponentDoc,
   type ComponentLayerFilter
 } from "./catalog.js";
+import { getComponentUseCases } from "./component-use-cases.js";
 import {
   ensureComponentPreviewRegistered,
   ensureDocsRouteRegistered,
@@ -1325,6 +1326,7 @@ function renderComponentDetail(slug: string, componentPreviewReady: boolean): st
 
   const related = componentCatalog.filter((component) => component.category === doc.category && component.slug !== doc.slug).slice(0, 4);
   const api = getComponentApi(doc);
+  const useCases = getComponentUseCases(doc);
 
   return `
     <section class="component-page">
@@ -1379,6 +1381,26 @@ function renderComponentDetail(slug: string, componentPreviewReady: boolean): st
               <p class="muted">Use the Vue wrapper when you want template-first usage while keeping the core component contract aligned with the custom element.</p>
               <cindor-code-block code="${escapeAttribute(getVueUsageCode(doc))}" language="vue"></cindor-code-block>
             </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading">
+            <h2>Use cases</h2>
+            <p>These scenarios help position ${doc.tag} in a real interface instead of treating it like an isolated widget.</p>
+          </div>
+
+          <div class="use-case-grid">
+            ${useCases
+              .map(
+                (useCase) => `
+                  <div class="preview-block use-case-card">
+                    <strong>${useCase.title}</strong>
+                    <p class="muted">${useCase.description}</p>
+                  </div>
+                `
+              )
+              .join("")}
           </div>
         </section>
 
