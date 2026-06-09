@@ -11,6 +11,7 @@ import {
   type ComponentDoc,
   type ComponentLayerFilter
 } from "./catalog.js";
+import { plannedComponents, type PlannedComponent, type PlannedComponentStatus } from "./component-roadmap.js";
 import { getComponentUseCases } from "./component-use-cases.js";
 import {
   ensureComponentPreviewRegistered,
@@ -1017,6 +1018,28 @@ function renderDocsHome(activeSectionId: string): string {
           </cindor-card>
         </div>
 
+        <section class="section roadmap-section">
+          <div class="section-heading">
+            <h3>Planned component roadmap</h3>
+            <p>The next gaps are higher-level workflow surfaces. This list keeps the order explicit so docs planning and implementation stay aligned.</p>
+          </div>
+
+          <div class="roadmap-overview">
+            <div class="preview-block">
+              <strong>What ships first</strong>
+              <p class="muted"><code>virtual-list</code> is the immediate next build. Everything else stays queued behind it so we do not spread work across ten half-finished components.</p>
+            </div>
+            <div class="preview-block">
+              <strong>How the backlog is grouped</strong>
+              <p class="muted">The roadmap is split into collection foundations, dense data workbenches, workspace authoring, and guided onboarding so related components can share primitives and docs patterns.</p>
+            </div>
+          </div>
+
+          <div class="roadmap-list">
+            ${plannedComponents.map((component) => renderPlannedComponentCard(component)).join("")}
+          </div>
+        </section>
+
         <div class="demo-grid">
           <div class="preview-block">
             <div class="live-toolbar">
@@ -1467,6 +1490,36 @@ function renderFactCard(label: string, value: string): string {
       </div>
     </cindor-card>
   `;
+}
+
+function renderPlannedComponentCard(component: PlannedComponent): string {
+  return `
+    <article class="preview-block roadmap-card">
+      <div class="roadmap-card-header">
+        <div class="roadmap-card-title-row">
+          <span class="roadmap-order">#${component.order}</span>
+          <strong>${component.title}</strong>
+        </div>
+        <div class="component-meta">
+          <cindor-badge tone="${getPlannedComponentTone(component.status)}">${getPlannedComponentLabel(component.status)}</cindor-badge>
+          <cindor-badge>${component.phase}</cindor-badge>
+        </div>
+      </div>
+      <p class="muted">${component.summary}</p>
+      <div class="component-inline-meta">
+        <code>${component.slug}</code>
+      </div>
+      <p class="roadmap-rationale">${component.rationale}</p>
+    </article>
+  `;
+}
+
+function getPlannedComponentLabel(status: PlannedComponentStatus): string {
+  return status === "next" ? "Next up" : "Queued";
+}
+
+function getPlannedComponentTone(status: PlannedComponentStatus): "accent" | "neutral" {
+  return status === "next" ? "accent" : "neutral";
 }
 
 function renderComponentPreview(doc: ComponentDoc, componentPreviewReady: boolean): string {
