@@ -56,6 +56,14 @@ const obj = (name, typeExpression, options = {}) => ({
   typeExpression
 });
 
+const func = (name, typeExpression, options = {}) => ({
+  attr: options.attr ?? name,
+  forceProperty: options.forceProperty ?? true,
+  kind: "function",
+  name,
+  typeExpression
+});
+
 const handler = (domEvent, options = {}) => ({
   domEvent,
   emitName: options.emitName ?? domEvent,
@@ -924,6 +932,19 @@ export const componentDefinitions = [
       str("selectedLabel", "Selected", { attr: "selected-label", alwaysPass: true }),
       arr("modelValue", "string[]", { attr: "selected-values" }),
       num("size", 8)
+    ]
+  }),
+  component("CindorVirtualList", "cindor-virtual-list", {
+    reactEvents: ["range-change"],
+    vueHandlers: [handler("range-change")],
+    vueProps: [
+      str("emptyMessage", "No items to display.", { alwaysPass: true, attr: "empty-message" }),
+      str("height", "24rem", { alwaysPass: true }),
+      num("itemHeight", 72, { attr: "item-height" }),
+      arr("items", "unknown[]"),
+      func("itemKey", "VirtualListItemKey<any> | undefined"),
+      num("overscan", 4),
+      func("renderItem", "VirtualListItemRenderer<any> | undefined")
     ]
   }),
   component("CindorSideNav", "cindor-side-nav", {

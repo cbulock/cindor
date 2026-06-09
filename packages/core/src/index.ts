@@ -134,6 +134,13 @@ export { CindorToast, type ToastTone } from "./components/toast/cindor-toast.js"
 export { CindorToastRegion } from "./components/toast/cindor-toast-region.js";
 export { CindorTransferList } from "./components/transfer-list/cindor-transfer-list.js";
 export {
+  CindorVirtualList,
+  type VirtualListItemKey,
+  type VirtualListItemRenderer,
+  type VirtualListRangeChangeDetail,
+  type VirtualListRenderDetail
+} from "./components/virtual-list/cindor-virtual-list.js";
+export {
   clearToasts,
   dismissToast,
   ensureToastRegion,

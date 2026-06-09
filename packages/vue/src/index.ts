@@ -28,7 +28,9 @@ import type {
   StepperStep,
   TagTone,
   ToastPlacement,
-  ToolbarOrientation
+  ToolbarOrientation,
+  VirtualListItemKey,
+  VirtualListItemRenderer
 } from "cindor-ui-core";
 export { clearToasts, dismissToast, ensureToastRegion, showToast } from "cindor-ui-core";
 import "cindor-ui-core/register";
@@ -3128,6 +3130,37 @@ export const CindorTransferList = defineComponent({
             },
             slots.default?.()
           );
+  }
+});
+
+export const CindorVirtualList = defineComponent({
+  name: "CindorVirtualList",
+  props: {
+    emptyMessage: { type: String, default: "No items to display." },
+    height: { type: String, default: "24rem" },
+    itemHeight: { type: Number, default: 72 },
+    items: { type: Array as PropType<unknown[]>, default: () => [] },
+    itemKey: { type: Function as PropType<VirtualListItemKey<any> | undefined>, default: undefined },
+    overscan: { type: Number, default: 4 },
+    renderItem: { type: Function as PropType<VirtualListItemRenderer<any> | undefined>, default: undefined }
+  },
+  emits: ["range-change"],
+  setup(props, { attrs, emit }) {
+    const handleRangeChange = (event: Event) => {
+      emit("range-change", event);
+    };
+    return () =>
+          h("cindor-virtual-list", {
+              ...attrs,
+              "empty-message": props.emptyMessage,
+              height: props.height,
+              "item-height": props.itemHeight,
+              ".items": props.items,
+              ".itemKey": props.itemKey,
+              overscan: props.overscan,
+              ".renderItem": props.renderItem,
+              onRangeChange: handleRangeChange,
+          });
   }
 });
 

@@ -105,6 +105,7 @@ import {
   CindorTimeline as CindorTimelineElement,
   CindorTimelineItem as CindorTimelineItemElement,
   CindorTransferList as CindorTransferListElement,
+  CindorVirtualList as CindorVirtualListElement,
   CindorSideNav as CindorSideNavElement,
   CindorSideNavItem as CindorSideNavItemElement,
 } from "cindor-ui-core";
@@ -921,6 +922,15 @@ export const CindorTransferList = createComponent({
   events: {
     onChange: "change",
     onInput: "input"
+  }
+});
+
+export const CindorVirtualList = createComponent({
+  react: React,
+  tagName: "cindor-virtual-list",
+  elementClass: CindorVirtualListElement,
+  events: {
+    onRangeChange: "range-change"
   }
 });
 

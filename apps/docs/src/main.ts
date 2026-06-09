@@ -2725,6 +2725,16 @@ function getUsageCode(doc: ComponentDoc): string {
   <option value="product">Product</option>
   <option value="support">Support</option>
 </cindor-transfer-list>`;
+    case "virtual-list":
+      return `<cindor-virtual-list id="component-virtual-list" height="20rem" item-height="72"></cindor-virtual-list>
+<script type="module">
+  const list = document.querySelector("#component-virtual-list");
+  list.items = [
+    { id: "1", label: "Deploy API cluster", description: "Review rollout notes and verify traffic shifts.", meta: "Needs review" },
+    { id: "2", label: "Backfill analytics export", description: "Confirm the delayed export completes before the reporting window closes.", meta: "Healthy" },
+    { id: "3", label: "Rotate incident owner", description: "Hand off the current incident queue to the next responder.", meta: "Today" }
+  ];
+</script>`;
     case "toast":
       return `<cindor-toast open tone="success">Saved successfully.</cindor-toast>`;
     case "toast-region":
@@ -3206,6 +3216,16 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
       <option value="engineering">Engineering</option>
       <option value="product">Product</option>
     </${componentName}>`;
+    case "virtual-list":
+      return `<${componentName}
+      height="20rem"
+      itemHeight={72}
+      items={[
+        { id: "1", label: "Deploy API cluster", description: "Review rollout notes and verify traffic shifts.", meta: "Needs review" },
+        { id: "2", label: "Backfill analytics export", description: "Confirm the delayed export completes before the reporting window closes.", meta: "Healthy" },
+        { id: "3", label: "Rotate incident owner", description: "Hand off the current incident queue to the next responder.", meta: "Today" }
+      ]}
+    />`;
     case "tree-item":
       return `<${componentName} label="Guides" expanded>
       <cindor-tree-item label="Getting started"></cindor-tree-item>
@@ -3480,6 +3500,16 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
     <option value="engineering">Engineering</option>
     <option value="product">Product</option>
   </${componentName}>`;
+    case "virtual-list":
+      return `<${componentName}
+    height="20rem"
+    :item-height="72"
+    :items="[
+      { id: '1', label: 'Deploy API cluster', description: 'Review rollout notes and verify traffic shifts.', meta: 'Needs review' },
+      { id: '2', label: 'Backfill analytics export', description: 'Confirm the delayed export completes before the reporting window closes.', meta: 'Healthy' },
+      { id: '3', label: 'Rotate incident owner', description: 'Hand off the current incident queue to the next responder.', meta: 'Today' }
+    ]"
+  />`;
     case "tree-item":
       return `<${componentName} label="Guides" expanded>
     <cindor-tree-item label="Getting started"></cindor-tree-item>
@@ -3585,6 +3615,7 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "transfer-list":
     case "tree-item":
     case "tree-view":
+    case "virtual-list":
     case "url-input":
       return doc.slug === "filter-builder" ? `<cindor-filter-builder id="filter-builder-preview"></cindor-filter-builder>` : getUsageCode(doc);
     case "data-table":
