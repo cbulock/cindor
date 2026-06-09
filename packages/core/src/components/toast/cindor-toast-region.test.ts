@@ -61,6 +61,36 @@ describe("cindor-toast-region", () => {
     expect(toast?.querySelector("strong")?.textContent).toBe("Saved");
   });
 
+  it("updates an existing managed toast when the same id is shown again", async () => {
+    const region = document.createElement("cindor-toast-region") as CindorToastRegion;
+    document.body.append(region);
+    await region.updateComplete;
+
+    const id = region.showToast({
+      content: "Draft saved",
+      duration: 0,
+      id: "toast-shared",
+      tone: "success"
+    });
+
+    const updatedId = region.showToast({
+      content: "Draft published",
+      dismissible: false,
+      duration: 0,
+      id: "toast-shared",
+      tone: "warning"
+    });
+
+    const toasts = region.querySelectorAll("cindor-toast");
+    const toast = region.querySelector('[data-toast-id="toast-shared"]');
+
+    expect(updatedId).toBe(id);
+    expect(toasts).toHaveLength(1);
+    expect(toast?.textContent).toContain("Draft published");
+    expect(toast?.getAttribute("tone")).toBe("warning");
+    expect(toast?.hasAttribute("dismissible")).toBe(false);
+  });
+
   it("dispatches lifecycle events and removes timed toasts", async () => {
     vi.useFakeTimers();
 

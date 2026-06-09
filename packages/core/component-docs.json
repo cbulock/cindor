@@ -7271,7 +7271,7 @@
         {
           "attributeName": "max-visible",
           "defaultValue": "5",
-          "description": "",
+          "description": "Maximum number of visible managed toasts before the oldest is removed.",
           "name": "maxVisible",
           "reflects": true,
           "type": "number",
@@ -7280,7 +7280,7 @@
         {
           "attributeName": "placement",
           "defaultValue": "\"top-end\"",
-          "description": "",
+          "description": "Fixed viewport placement for the toast stack.",
           "name": "placement",
           "reflects": true,
           "type": "ToastPlacement",
@@ -7295,7 +7295,7 @@
           "returnType": "void"
         },
         {
-          "description": "",
+          "description": "Dismisses a managed toast by id.",
           "name": "dismissToast",
           "parameters": [
             {

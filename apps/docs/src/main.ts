@@ -2685,7 +2685,7 @@ function getUsageCode(doc: ComponentDoc): string {
     case "toast":
       return `<cindor-toast open tone="success">Saved successfully.</cindor-toast>`;
     case "toast-region":
-      return `<cindor-toast-region></cindor-toast-region>`;
+      return `<cindor-toast-region placement="top-end" max-visible="3"></cindor-toast-region>`;
     case "toolbar":
       return `<cindor-toolbar aria-label="Formatting actions">
   <cindor-button-group attached>

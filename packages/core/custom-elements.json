@@ -205,7 +205,7 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
+      "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
       "declarations": [
         {
           "kind": "variable",
@@ -213,7 +213,7 @@
           "type": {
             "text": "object"
           },
-          "default": "{ title: \"Components/Alert\", args: { message: \"The upstream Cindor tokens loaded successfully.\", title: \"Heads up\", tone: \"info\" }, argTypes: { tone: { control: \"radio\", options: [\"info\", \"success\", \"warning\", \"danger\"] } }, render: ({ message, title, tone }: AlertStoryArgs) => ` <cindor-alert tone=\"${tone}\"> <strong>${title}</strong> <span>${message}</span> </cindor-alert> ` }"
+          "default": "{ title: \"Display/Activity Item\", render: () => ` <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Ops\"></cindor-avatar> <span slot=\"title\">Database failover completed</span> <span slot=\"timestamp\">5 minutes ago</span> <span slot=\"meta\">Primary cluster</span> Connections were restored automatically after the failover. </cindor-activity-item> ` }"
         },
         {
           "kind": "variable",
@@ -230,7 +230,7 @@
           "name": "default",
           "declaration": {
             "name": "meta",
-            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
           }
         },
         {
@@ -238,40 +238,66 @@
           "name": "Default",
           "declaration": {
             "name": "Default",
-            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/alert/cindor-alert.ts",
+      "path": "packages/core/src/components/activity-item/cindor-activity-item.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "",
-          "name": "CindorAlert",
+          "description": "Single event row used inside CindorActivityFeed.",
+          "name": "CindorActivityItem",
+          "slots": [
+            {
+              "description": "Leading avatar, icon, or status mark.",
+              "name": "leading"
+            },
+            {
+              "description": "Main activity title.",
+              "name": "title"
+            },
+            {
+              "description": "Time or date associated with the event.",
+              "name": "timestamp"
+            },
+            {
+              "description": "Supplemental metadata such as actor, environment, or destination.",
+              "name": "meta"
+            },
+            {
+              "description": "Optional trailing actions for the activity.",
+              "name": "actions"
+            },
+            {
+              "description": "Main event description.",
+              "name": ""
+            }
+          ],
           "members": [
             {
               "kind": "field",
-              "name": "tone",
+              "name": "unread",
               "privacy": "public",
               "type": {
-                "text": "AlertTone"
+                "text": "boolean"
               },
-              "default": "\"info\"",
-              "attribute": "tone",
+              "default": "false",
+              "attribute": "unread",
               "reflects": true
             }
           ],
           "attributes": [
             {
-              "name": "tone",
+              "name": "unread",
               "type": {
-                "text": "AlertTone"
+                "text": "boolean"
               },
-              "default": "\"info\"",
-              "fieldName": "tone"
+              "default": "false",
+              "fieldName": "unread"
             }
           ],
           "superclass": {
@@ -284,10 +310,10 @@
       "exports": [
         {
           "kind": "js",
-          "name": "CindorAlert",
+          "name": "CindorActivityItem",
           "declaration": {
-            "name": "CindorAlert",
-            "module": "packages/core/src/components/alert/cindor-alert.ts"
+            "name": "CindorActivityItem",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
           }
         }
       ]
@@ -871,7 +897,7 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
+      "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
       "declarations": [
         {
           "kind": "variable",
@@ -879,7 +905,7 @@
           "type": {
             "text": "object"
           },
-          "default": "{ title: \"Display/Activity Item\", render: () => ` <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Ops\"></cindor-avatar> <span slot=\"title\">Database failover completed</span> <span slot=\"timestamp\">5 minutes ago</span> <span slot=\"meta\">Primary cluster</span> Connections were restored automatically after the failover. </cindor-activity-item> ` }"
+          "default": "{ title: \"Components/Alert\", args: { message: \"The upstream Cindor tokens loaded successfully.\", title: \"Heads up\", tone: \"info\" }, argTypes: { tone: { control: \"radio\", options: [\"info\", \"success\", \"warning\", \"danger\"] } }, render: ({ message, title, tone }: AlertStoryArgs) => ` <cindor-alert tone=\"${tone}\"> <strong>${title}</strong> <span>${message}</span> </cindor-alert> ` }"
         },
         {
           "kind": "variable",
@@ -896,7 +922,7 @@
           "name": "default",
           "declaration": {
             "name": "meta",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
+            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
           }
         },
         {
@@ -904,66 +930,40 @@
           "name": "Default",
           "declaration": {
             "name": "Default",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
+            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-item/cindor-activity-item.ts",
+      "path": "packages/core/src/components/alert/cindor-alert.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "Single event row used inside CindorActivityFeed.",
-          "name": "CindorActivityItem",
-          "slots": [
-            {
-              "description": "Leading avatar, icon, or status mark.",
-              "name": "leading"
-            },
-            {
-              "description": "Main activity title.",
-              "name": "title"
-            },
-            {
-              "description": "Time or date associated with the event.",
-              "name": "timestamp"
-            },
-            {
-              "description": "Supplemental metadata such as actor, environment, or destination.",
-              "name": "meta"
-            },
-            {
-              "description": "Optional trailing actions for the activity.",
-              "name": "actions"
-            },
-            {
-              "description": "Main event description.",
-              "name": ""
-            }
-          ],
+          "description": "",
+          "name": "CindorAlert",
           "members": [
             {
               "kind": "field",
-              "name": "unread",
+              "name": "tone",
               "privacy": "public",
               "type": {
-                "text": "boolean"
+                "text": "AlertTone"
               },
-              "default": "false",
-              "attribute": "unread",
+              "default": "\"info\"",
+              "attribute": "tone",
               "reflects": true
             }
           ],
           "attributes": [
             {
-              "name": "unread",
+              "name": "tone",
               "type": {
-                "text": "boolean"
+                "text": "AlertTone"
               },
-              "default": "false",
-              "fieldName": "unread"
+              "default": "\"info\"",
+              "fieldName": "tone"
             }
           ],
           "superclass": {
@@ -976,10 +976,10 @@
       "exports": [
         {
           "kind": "js",
-          "name": "CindorActivityItem",
+          "name": "CindorAlert",
           "declaration": {
-            "name": "CindorActivityItem",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
+            "name": "CindorAlert",
+            "module": "packages/core/src/components/alert/cindor-alert.ts"
           }
         }
       ]
@@ -1116,6 +1116,111 @@
           "declaration": {
             "name": "CindorAvatar",
             "module": "packages/core/src/components/avatar/cindor-avatar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/badge/cindor-badge.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Primitives/Badge\", args: { label: \"Active\", tone: \"neutral\" }, argTypes: { tone: { control: \"radio\", options: [\"neutral\", \"accent\", \"success\"] } }, render: ({ label, tone }: BadgeStoryArgs) => `<cindor-badge tone=\"${tone}\">${label}</cindor-badge>` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        },
+        {
+          "kind": "variable",
+          "name": "Success",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ args: { label: \"Live\", tone: \"success\" } }"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Success",
+          "declaration": {
+            "name": "Success",
+            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/badge/cindor-badge.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorBadge",
+          "members": [
+            {
+              "kind": "field",
+              "name": "tone",
+              "privacy": "public",
+              "type": {
+                "text": "BadgeTone"
+              },
+              "default": "\"neutral\"",
+              "attribute": "tone",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "tone",
+              "type": {
+                "text": "BadgeTone"
+              },
+              "default": "\"neutral\"",
+              "fieldName": "tone"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorBadge",
+          "declaration": {
+            "name": "CindorBadge",
+            "module": "packages/core/src/components/badge/cindor-badge.ts"
           }
         }
       ]
@@ -1827,111 +1932,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/badge/cindor-badge.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Primitives/Badge\", args: { label: \"Active\", tone: \"neutral\" }, argTypes: { tone: { control: \"radio\", options: [\"neutral\", \"accent\", \"success\"] } }, render: ({ label, tone }: BadgeStoryArgs) => `<cindor-badge tone=\"${tone}\">${label}</cindor-badge>` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        },
-        {
-          "kind": "variable",
-          "name": "Success",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ args: { label: \"Live\", tone: \"success\" } }"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Success",
-          "declaration": {
-            "name": "Success",
-            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/badge/cindor-badge.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorBadge",
-          "members": [
-            {
-              "kind": "field",
-              "name": "tone",
-              "privacy": "public",
-              "type": {
-                "text": "BadgeTone"
-              },
-              "default": "\"neutral\"",
-              "attribute": "tone",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "tone",
-              "type": {
-                "text": "BadgeTone"
-              },
-              "default": "\"neutral\"",
-              "fieldName": "tone"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorBadge",
-          "declaration": {
-            "name": "CindorBadge",
-            "module": "packages/core/src/components/badge/cindor-badge.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/button-group/cindor-button-group.stories.ts",
       "declarations": [
         {
@@ -2111,73 +2111,6 @@
           "declaration": {
             "name": "CindorButtonGroup",
             "module": "packages/core/src/components/button-group/cindor-button-group.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/card/cindor-card.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Components/Card\", args: { body: \"All checks are aligned to Cindor tokens and native platform primitives.\", heading: \"Pipeline status\" }, render: ({ body, heading }: CardStoryArgs) => ` <cindor-card> <h4>${heading}</h4> <p>${body}</p> </cindor-card> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/card/cindor-card.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/card/cindor-card.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/card/cindor-card.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorCard",
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorCard",
-          "declaration": {
-            "name": "CindorCard",
-            "module": "packages/core/src/components/card/cindor-card.ts"
           }
         }
       ]
@@ -2769,6 +2702,73 @@
           "declaration": {
             "name": "CindorCalendar",
             "module": "packages/core/src/components/calendar/cindor-calendar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/card/cindor-card.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Components/Card\", args: { body: \"All checks are aligned to Cindor tokens and native platform primitives.\", heading: \"Pipeline status\" }, render: ({ body, heading }: CardStoryArgs) => ` <cindor-card> <h4>${heading}</h4> <p>${body}</p> </cindor-card> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/card/cindor-card.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/card/cindor-card.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/card/cindor-card.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorCard",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorCard",
+          "declaration": {
+            "name": "CindorCard",
+            "module": "packages/core/src/components/card/cindor-card.ts"
           }
         }
       ]
@@ -7486,6 +7486,361 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/date-range-picker/cindor-date-range-picker.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Forms/Date Range Picker\", render: () => `<cindor-date-range-picker aria-label=\"Vacation range\" month=\"2026-04\" start-value=\"2026-04-12\" end-value=\"2026-04-18\"></cindor-date-range-picker>` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/date-range-picker/cindor-date-range-picker.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/date-range-picker/cindor-date-range-picker.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/date-range-picker/cindor-date-range-picker.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Popup date range picker powered by the Cindor range calendar.",
+          "name": "CindorDateRangePicker",
+          "members": [
+            {
+              "kind": "field",
+              "name": "endValue",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "end-value",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "max",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "max",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "min",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "min",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "month",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "month",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Select a date range\"",
+              "attribute": "placeholder",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "startValue",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "start-value",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "floatingCleanup",
+              "type": {
+                "text": "() => void | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "floatingPanel",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "updateFloatingPosition",
+              "type": {
+                "text": "() => void | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "show",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleFieldClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleFieldKeyDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleToggleClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleClear",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleCalendarInput",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleCalendarChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleDocumentPointerDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "syncFloatingPosition",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "destroyFloatingPosition",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "dispatchToggle",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "fieldElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "panelElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "rangeSummary",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "events": [
+            {
+              "name": "toggle",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the popup opens or closes."
+            },
+            {
+              "description": "Fired as the selected range changes.",
+              "name": "input"
+            },
+            {
+              "description": "Fired when a range selection completes.",
+              "name": "change"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "end-value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "endValue"
+            },
+            {
+              "name": "max",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "max"
+            },
+            {
+              "name": "min",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "min"
+            },
+            {
+              "name": "month",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "month"
+            },
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "open"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Select a date range\"",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "start-value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "startValue"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorDateRangePicker",
+          "declaration": {
+            "name": "CindorDateRangePicker",
+            "module": "packages/core/src/components/date-range-picker/cindor-date-range-picker.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/date-picker/cindor-date-picker.stories.ts",
       "declarations": [
         {
@@ -7959,361 +8314,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/date-range-picker/cindor-date-range-picker.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Forms/Date Range Picker\", render: () => `<cindor-date-range-picker aria-label=\"Vacation range\" month=\"2026-04\" start-value=\"2026-04-12\" end-value=\"2026-04-18\"></cindor-date-range-picker>` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/date-range-picker/cindor-date-range-picker.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/date-range-picker/cindor-date-range-picker.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/date-range-picker/cindor-date-range-picker.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Popup date range picker powered by the Cindor range calendar.",
-          "name": "CindorDateRangePicker",
-          "members": [
-            {
-              "kind": "field",
-              "name": "endValue",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "end-value",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "max",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "max",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "min",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "min",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "month",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "month",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "open",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "open",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "placeholder",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"Select a date range\"",
-              "attribute": "placeholder",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "startValue",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "start-value",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "floatingCleanup",
-              "type": {
-                "text": "() => void | undefined"
-              },
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "floatingPanel",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "field",
-              "name": "updateFloatingPosition",
-              "type": {
-                "text": "() => void | undefined"
-              },
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "show",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "close",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleFieldClick",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleFieldKeyDown",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleToggleClick",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleClear",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleCalendarInput",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleCalendarChange",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleDocumentPointerDown",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "syncFloatingPosition",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "destroyFloatingPosition",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchToggle",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "fieldElement",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "panelElement",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "rangeSummary",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "events": [
-            {
-              "name": "toggle",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired when the popup opens or closes."
-            },
-            {
-              "description": "Fired as the selected range changes.",
-              "name": "input"
-            },
-            {
-              "description": "Fired when a range selection completes.",
-              "name": "change"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "end-value",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "endValue"
-            },
-            {
-              "name": "max",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "max"
-            },
-            {
-              "name": "min",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "min"
-            },
-            {
-              "name": "month",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "month"
-            },
-            {
-              "name": "open",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "open"
-            },
-            {
-              "name": "placeholder",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"Select a date range\"",
-              "fieldName": "placeholder"
-            },
-            {
-              "name": "start-value",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "startValue"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorDateRangePicker",
-          "declaration": {
-            "name": "CindorDateRangePicker",
-            "module": "packages/core/src/components/date-range-picker/cindor-date-range-picker.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/date-time-picker/cindor-date-time-picker.stories.ts",
       "declarations": [
         {
@@ -8714,6 +8714,79 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/description-list/cindor-description-list.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Description List\", render: () => ` <cindor-description-list> <cindor-description-item> <span slot=\"term\">Status</span> Healthy </cindor-description-item> <cindor-description-item> <span slot=\"term\">Region</span> us-east-1 </cindor-description-item> <cindor-description-item> <span slot=\"term\">Updated</span> 2 minutes ago </cindor-description-item> </cindor-description-list> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/description-list/cindor-description-list.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/description-list/cindor-description-list.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/description-list/cindor-description-list.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Key-value description list for metadata and detail pages.",
+          "name": "CindorDescriptionList",
+          "slots": [
+            {
+              "description": "`cindor-description-item` children.",
+              "name": ""
+            }
+          ],
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorDescriptionList",
+          "declaration": {
+            "name": "CindorDescriptionList",
+            "module": "packages/core/src/components/description-list/cindor-description-list.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/dialog/cindor-dialog.stories.ts",
       "declarations": [
         {
@@ -9084,79 +9157,6 @@
           "declaration": {
             "name": "CindorDialog",
             "module": "packages/core/src/components/dialog/cindor-dialog.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/description-list/cindor-description-list.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Description List\", render: () => ` <cindor-description-list> <cindor-description-item> <span slot=\"term\">Status</span> Healthy </cindor-description-item> <cindor-description-item> <span slot=\"term\">Region</span> us-east-1 </cindor-description-item> <cindor-description-item> <span slot=\"term\">Updated</span> 2 minutes ago </cindor-description-item> </cindor-description-list> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/description-list/cindor-description-list.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/description-list/cindor-description-list.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/description-list/cindor-description-list.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Key-value description list for metadata and detail pages.",
-          "name": "CindorDescriptionList",
-          "slots": [
-            {
-              "description": "`cindor-description-item` children.",
-              "name": ""
-            }
-          ],
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorDescriptionList",
-          "declaration": {
-            "name": "CindorDescriptionList",
-            "module": "packages/core/src/components/description-list/cindor-description-list.ts"
           }
         }
       ]
@@ -29098,7 +29098,7 @@
           "type": {
             "text": "object"
           },
-          "default": "{ title: \"Composites/Toast Region\", args: { firstTone: \"success\", placement: \"top-end\", secondTone: \"warning\" }, argTypes: { firstTone: { control: \"radio\", options: [\"neutral\", \"success\", \"warning\", \"danger\"] }, placement: { control: \"radio\", options: [\"top-start\", \"top-end\", \"bottom-start\", \"bottom-end\"] }, secondTone: { control: \"radio\", options: [\"neutral\", \"success\", \"warning\", \"danger\"] } }, render: ({ firstTone, placement, secondTone }: ToastRegionStoryArgs) => ` <div style=\"min-height: 16rem; position: relative;\"> <cindor-toast-region placement=\"${placement}\"> <cindor-toast dismissible tone=\"${firstTone}\"> <span>Changes saved to the design token layer.</span> </cindor-toast> <cindor-toast dismissible tone=\"${secondTone}\"> <span>Theme settings were updated successfully.</span> </cindor-toast> </cindor-toast-region> </div> ` }"
+          "default": "{ title: \"Composites/Toast Region\", args: { firstTone: \"success\", placement: \"top-end\", secondTone: \"warning\" }, argTypes: { firstTone: { control: \"radio\", options: [\"neutral\", \"success\", \"warning\", \"danger\"] }, placement: { control: \"radio\", options: [\"top-start\", \"top-end\", \"bottom-start\", \"bottom-end\"] }, secondTone: { control: \"radio\", options: [\"neutral\", \"success\", \"warning\", \"danger\"] } }, render: ({ firstTone, placement, secondTone }: ToastRegionStoryArgs) => { const showToast = (event: Event, tone: ToastRegionStoryArgs[\"firstTone\"], message: string, id?: string) => { const region = (event.currentTarget as HTMLElement) .closest(\"[data-toast-demo]\") ?.querySelector(\"cindor-toast-region\") as CindorToastRegion | null; region?.showToast({ content: message, duration: 0, id, tone }); }; return html` <div data-toast-demo style=\"min-height: 16rem; position: relative; display: grid; gap: var(--space-3); align-content: start;\"> <div style=\"display: flex; flex-wrap: wrap; gap: var(--space-2);\"> <cindor-button @click=${(event: Event) => showToast(event, firstTone, \"Changes saved to the design token layer.\", \"toast-demo-primary\")}> Show primary toast </cindor-button> <cindor-button variant=\"ghost\" @click=${(event: Event) => showToast(event, secondTone, \"Theme settings were updated successfully.\", \"toast-demo-secondary\")} > Show secondary toast </cindor-button> <cindor-button variant=\"ghost\" @click=${(event: Event) => showToast(event, \"warning\", \"Publishing state updated in place.\", \"toast-demo-primary\")} > Update existing toast </cindor-button> </div> <cindor-toast-region placement=${placement}></cindor-toast-region> </div> `; } }"
         },
         {
           "kind": "variable",
@@ -29155,6 +29155,7 @@
                 "text": "number"
               },
               "default": "5",
+              "description": "Maximum number of visible managed toasts before the oldest is removed.",
               "attribute": "max-visible",
               "reflects": true
             },
@@ -29166,6 +29167,7 @@
                 "text": "ToastPlacement"
               },
               "default": "\"top-end\"",
+              "description": "Fixed viewport placement for the toast stack.",
               "attribute": "placement",
               "reflects": true
             },
@@ -29199,7 +29201,8 @@
                     "text": "string"
                   }
                 }
-              ]
+              ],
+              "description": "Dismisses a managed toast by id."
             },
             {
               "kind": "method",
@@ -29238,6 +29241,54 @@
                   "name": "content",
                   "type": {
                     "text": "ToastContent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "applyToastOptions",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "toast",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "options",
+                  "type": {
+                    "text": "{\n      content: ToastContent;\n      dismissible: boolean;\n      tone: NonNullable<ShowToastOptions[\"tone\"]>;\n    }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "scheduleToastRemoval",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number | undefined"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "duration",
+                  "type": {
+                    "text": "number"
                   }
                 }
               ]
@@ -29292,6 +29343,7 @@
                 "text": "number"
               },
               "default": "5",
+              "description": "Maximum number of visible managed toasts before the oldest is removed.",
               "fieldName": "maxVisible"
             },
             {
@@ -29300,6 +29352,7 @@
                 "text": "ToastPlacement"
               },
               "default": "\"top-end\"",
+              "description": "Fixed viewport placement for the toast stack.",
               "fieldName": "placement"
             }
           ],
