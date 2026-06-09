@@ -2676,11 +2676,11 @@ function getUsageCode(doc: ComponentDoc): string {
   </cindor-timeline-item>
 </cindor-timeline>`;
     case "transfer-list":
-      return `<cindor-transfer-list>
-  <option value="design">Design</option>
-  <option selected value="engineering">Engineering</option>
-  <option value="product">Product</option>
-  <option value="support">Support</option>
+      return `<cindor-transfer-list available-label="Available reviewers" selected-label="Release approvers">
+  <option value="design">Design review</option>
+  <option selected value="engineering">Engineering lead</option>
+  <option value="product">Product owner</option>
+  <option value="support">Support readiness</option>
 </cindor-transfer-list>`;
     case "toast":
       return `<cindor-toast open tone="success">Saved successfully.</cindor-toast>`;
