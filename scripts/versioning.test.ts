@@ -21,9 +21,11 @@ describe("versioning helpers", () => {
   it("filters release-relevant files out of docs-only diffs", () => {
     expect(
       getChangedReleaseRelevantFiles([
+        ".gitignore",
         "apps/docs/src/main.ts",
         "docs/roadmap.md",
         "README.md",
+        "scripts/versioning.test.ts",
         "package.json",
         "packages/core/src/components/button/cindor-button.ts"
       ])
