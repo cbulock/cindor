@@ -2716,7 +2716,9 @@ function getUsageCode(doc: ComponentDoc): string {
   </cindor-tree-item>
 </cindor-tree-view>`;
     case "tooltip":
-      return `<cindor-tooltip text="Helpful context"></cindor-tooltip>`;
+      return `<cindor-tooltip text="Explain why this action is disabled until the required setup is complete.">
+  <cindor-button>Why is this locked?</cindor-button>
+</cindor-tooltip>`;
     case "url-input":
       return `<cindor-url-input value="https://cindor.dev"></cindor-url-input>`;
     case "accordion":

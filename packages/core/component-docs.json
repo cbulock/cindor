@@ -7388,7 +7388,7 @@
         {
           "attributeName": "open",
           "defaultValue": "false",
-          "description": "",
+          "description": "Controls whether the tooltip bubble is visible.",
           "name": "open",
           "reflects": true,
           "type": "boolean",
@@ -7397,7 +7397,7 @@
         {
           "attributeName": "text",
           "defaultValue": "\"\"",
-          "description": "",
+          "description": "Plain-text helper copy rendered inside the tooltip bubble.",
           "name": "text",
           "reflects": true,
           "type": "string",
