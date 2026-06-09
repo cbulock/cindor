@@ -18,6 +18,8 @@ import type {
   ProviderThemeTokens,
   SegmentedControlOption,
   SkeletonVariant,
+  SortableListItemKey,
+  SortableListItemRenderer,
   SplitterOrientation,
   StackAlign,
   StackDirection,
@@ -3130,6 +3132,49 @@ export const CindorTransferList = defineComponent({
             },
             slots.default?.()
           );
+  }
+});
+
+export const CindorSortableList = defineComponent({
+  name: "CindorSortableList",
+  props: {
+    disabled: { type: Boolean, default: false },
+    dragHandleLabel: { type: String, default: "Drag to reorder" },
+    emptyMessage: { type: String, default: "No items to display." },
+    items: { type: Array as PropType<unknown[]>, default: () => [] },
+    itemKey: { type: Function as PropType<SortableListItemKey<any> | undefined>, default: undefined },
+    moveDownLabel: { type: String, default: "Move item down" },
+    moveUpLabel: { type: String, default: "Move item up" },
+    renderItem: { type: Function as PropType<SortableListItemRenderer<any> | undefined>, default: undefined }
+  },
+  emits: ["reorder", "input", "change"],
+  setup(props, { attrs, emit }) {
+    const handleReorder = (event: Event) => {
+      emit("reorder", event);
+    };
+
+    const handleInput = (event: Event) => {
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      emit("change", event);
+    };
+    return () =>
+          h("cindor-sortable-list", {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              "drag-handle-label": props.dragHandleLabel,
+              "empty-message": props.emptyMessage,
+              ".items": props.items,
+              ".itemKey": props.itemKey,
+              "move-down-label": props.moveDownLabel,
+              "move-up-label": props.moveUpLabel,
+              ".renderItem": props.renderItem,
+              onReorder: handleReorder,
+              onInput: handleInput,
+              onChange: handleChange,
+          });
   }
 });
 

@@ -934,6 +934,20 @@ export const componentDefinitions = [
       num("size", 8)
     ]
   }),
+  component("CindorSortableList", "cindor-sortable-list", {
+    reactEvents: ["reorder", "input", "change"],
+    vueHandlers: [handler("reorder"), handler("input"), handler("change")],
+    vueProps: [
+      bool("disabled"),
+      str("dragHandleLabel", "Drag to reorder", { attr: "drag-handle-label", alwaysPass: true }),
+      str("emptyMessage", "No items to display.", { attr: "empty-message", alwaysPass: true }),
+      arr("items", "unknown[]"),
+      func("itemKey", "SortableListItemKey<any> | undefined"),
+      str("moveDownLabel", "Move item down", { attr: "move-down-label", alwaysPass: true }),
+      str("moveUpLabel", "Move item up", { attr: "move-up-label", alwaysPass: true }),
+      func("renderItem", "SortableListItemRenderer<any> | undefined")
+    ]
+  }),
   component("CindorVirtualList", "cindor-virtual-list", {
     reactEvents: ["range-change"],
     vueHandlers: [handler("range-change")],

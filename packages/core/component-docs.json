@@ -5829,6 +5829,115 @@
       "tagName": "cindor-skeleton"
     },
     {
+      "className": "CindorSortableList",
+      "description": "Reorderable list surface for ranked items, playlists, and editable collections.\n\nUse `items` with the default row rendering or pass `renderItem` for richer layouts.",
+      "modulePath": "packages/core/src/components/sortable-list/cindor-sortable-list.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "drag-handle-label",
+          "defaultValue": "\"Drag to reorder\"",
+          "description": "",
+          "name": "dragHandleLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "empty-message",
+          "defaultValue": "\"No items to display.\"",
+          "description": "",
+          "name": "emptyMessage",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "items",
+          "reflects": false,
+          "type": "T[]",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": null,
+          "description": "",
+          "name": "itemKey",
+          "reflects": false,
+          "type": "SortableListItemKey<T> | undefined",
+          "values": null
+        },
+        {
+          "attributeName": "move-down-label",
+          "defaultValue": "\"Move item down\"",
+          "description": "",
+          "name": "moveDownLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "move-up-label",
+          "defaultValue": "\"Move item up\"",
+          "description": "",
+          "name": "moveUpLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": null,
+          "description": "",
+          "name": "renderItem",
+          "reflects": false,
+          "type": "SortableListItemRenderer<T> | undefined",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "description": "",
+          "name": "eventName",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "Fired when the item order changes.",
+          "name": "reorder",
+          "type": "CustomEvent<SortableListReorderDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the item order changes.",
+          "name": "input",
+          "type": "CustomEvent<SortableListReorderDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the item order changes.",
+          "name": "change",
+          "type": "CustomEvent<SortableListReorderDetail>",
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "Sortable list surface for drag and button-based reordering.",
+      "tagName": "cindor-sortable-list"
+    },
+    {
       "className": "CindorSpinner",
       "description": "",
       "modulePath": "packages/core/src/components/spinner/cindor-spinner.ts",

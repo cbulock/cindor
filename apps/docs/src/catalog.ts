@@ -117,6 +117,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("skeleton", "Skeleton", "Primitive", "Display", "placeholder block", "Loading placeholder for deferred content."),
   defineComponent("side-nav", "Side Nav", "Component", "Navigation", "nav landmark and nested links", "Persistent application or docs navigation with nested collapsible sections."),
   defineComponent("side-nav-item", "Side Nav Item", "Primitive", "Navigation", "nested nav row", "Single row inside side navigation with optional nested children."),
+  defineComponent("sortable-list", "Sortable List", "Component", "Data", "reorderable ranked collection", "Drag- and button-driven list reordering for ranked tasks, playlists, and editable collections."),
   defineComponent("splitter", "Splitter", "Component", "Display", "resizable flex layout", "Resizable multi-panel layout for application shells and workbench views."),
   defineComponent("splitter-panel", "Splitter Panel", "Primitive", "Display", "panel surface", "Panel region that participates in splitter sizing and resizing."),
   defineComponent("spinner", "Spinner", "Primitive", "Feedback", "indeterminate loader", "Compact loading indicator for pending work."),

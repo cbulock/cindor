@@ -105,6 +105,7 @@ import {
   CindorTimeline as CindorTimelineElement,
   CindorTimelineItem as CindorTimelineItemElement,
   CindorTransferList as CindorTransferListElement,
+  CindorSortableList as CindorSortableListElement,
   CindorVirtualList as CindorVirtualListElement,
   CindorSideNav as CindorSideNavElement,
   CindorSideNavItem as CindorSideNavItemElement,
@@ -922,6 +923,17 @@ export const CindorTransferList = createComponent({
   events: {
     onChange: "change",
     onInput: "input"
+  }
+});
+
+export const CindorSortableList = createComponent({
+  react: React,
+  tagName: "cindor-sortable-list",
+  elementClass: CindorSortableListElement,
+  events: {
+    onReorder: "reorder",
+    onInput: "input",
+    onChange: "change"
   }
 });
 

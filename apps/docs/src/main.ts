@@ -2725,6 +2725,16 @@ function getUsageCode(doc: ComponentDoc): string {
   <option value="product">Product</option>
   <option value="support">Support</option>
 </cindor-transfer-list>`;
+    case "sortable-list":
+      return `<cindor-sortable-list id="component-sortable-list"></cindor-sortable-list>
+<script type="module">
+  const list = document.querySelector("#component-sortable-list");
+  list.items = [
+    { id: "backlog", label: "Backlog grooming", description: "Review incoming requests and trim duplicates before triage.", meta: "Today" },
+    { id: "design-review", label: "Design review", description: "Confirm responsive spacing and states before implementation.", meta: "Needs review" },
+    { id: "release-checklist", label: "Release checklist", description: "Verify cutover tasks, rollback notes, and ownership handoff.", meta: "Ready" }
+  ];
+</script>`;
     case "virtual-list":
       return `<cindor-virtual-list id="component-virtual-list" height="20rem" item-height="72"></cindor-virtual-list>
 <script type="module">
@@ -3216,6 +3226,14 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
       <option value="engineering">Engineering</option>
       <option value="product">Product</option>
     </${componentName}>`;
+    case "sortable-list":
+      return `<${componentName}
+      items={[
+        { id: "backlog", label: "Backlog grooming", description: "Review incoming requests and trim duplicates before triage.", meta: "Today" },
+        { id: "design-review", label: "Design review", description: "Confirm responsive spacing and states before implementation.", meta: "Needs review" },
+        { id: "release-checklist", label: "Release checklist", description: "Verify cutover tasks, rollback notes, and ownership handoff.", meta: "Ready" }
+      ]}
+    />`;
     case "virtual-list":
       return `<${componentName}
       height="20rem"
@@ -3500,6 +3518,14 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
     <option value="engineering">Engineering</option>
     <option value="product">Product</option>
   </${componentName}>`;
+    case "sortable-list":
+      return `<${componentName}
+    :items="[
+      { id: 'backlog', label: 'Backlog grooming', description: 'Review incoming requests and trim duplicates before triage.', meta: 'Today' },
+      { id: 'design-review', label: 'Design review', description: 'Confirm responsive spacing and states before implementation.', meta: 'Needs review' },
+      { id: 'release-checklist', label: 'Release checklist', description: 'Verify cutover tasks, rollback notes, and ownership handoff.', meta: 'Ready' }
+    ]"
+  />`;
     case "virtual-list":
       return `<${componentName}
     height="20rem"
@@ -3613,6 +3639,7 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "toast":
     case "toolbar":
     case "transfer-list":
+    case "sortable-list":
     case "tree-item":
     case "tree-view":
     case "virtual-list":
