@@ -2,6 +2,7 @@ import { css, html, LitElement, nothing } from "lit";
 
 export type DataGridRow = Record<string, unknown>;
 export type DataGridCellAlign = "center" | "end" | "start";
+export type DataGridSortDirection = "ascending" | "descending";
 
 export type DataGridEditorOption = {
   label: string;
@@ -36,6 +37,11 @@ export type DataGridActiveCellDetail = {
   rowIndex: number;
 };
 
+export type DataGridSortChangeDetail = {
+  sortDirection: DataGridSortDirection;
+  sortKey: string;
+};
+
 export type DataGridCellEditor =
   | {
       autocomplete?: string;
@@ -57,8 +63,14 @@ export type DataGridColumn = {
   headerLabel?: string;
   key: string;
   label: string;
+  sortable?: boolean;
   sticky?: "start";
   width?: string;
+};
+
+type DataGridRenderedColumn = {
+  column: DataGridColumn;
+  stickyOffset: string | null;
 };
 
 type SelectHost = HTMLElement & { value: string };
@@ -72,6 +84,7 @@ type TextInputHost = HTMLElement & { value: string };
  * @tag cindor-data-grid
  * @fires {CustomEvent<DataGridActiveCellDetail>} active-cell-change - Fired when the active cell changes.
  * @fires {CustomEvent<DataGridCellEditDetail>} cell-edit - Fired when an inline editor updates a cell value.
+ * @fires {CustomEvent<DataGridSortChangeDetail>} sort-change - Fired when the active sort column or direction changes.
  */
 export class CindorDataGrid extends LitElement {
   static styles = css`
@@ -116,7 +129,7 @@ export class CindorDataGrid extends LitElement {
     th[data-sticky="start"],
     td[data-sticky="start"] {
       position: sticky;
-      left: 0;
+      left: var(--cindor-data-grid-sticky-offset, 0px);
       z-index: 1;
       background: var(--surface);
     }
@@ -165,26 +178,45 @@ export class CindorDataGrid extends LitElement {
       padding: var(--space-4);
       color: var(--fg-muted);
     }
+
+    .sort-button {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+    }
   `;
 
   static properties = {
     columns: { attribute: false },
     emptyMessage: { reflect: true, attribute: "empty-message" },
     rowIdKey: { reflect: true, attribute: "row-id-key" },
-    rows: { attribute: false }
+    rows: { attribute: false },
+    sortDirection: { reflect: true, attribute: "sort-direction" },
+    sortKey: { reflect: true, attribute: "sort-key" }
   };
 
   columns: DataGridColumn[] = [];
   emptyMessage = "No rows to display.";
   rowIdKey = "id";
   rows: DataGridRow[] = [];
+  sortDirection: DataGridSortDirection = "ascending";
+  sortKey = "";
 
   private activeColumnIndex = 0;
   private activeRowIndex = 0;
   private editingCellKey: string | null = null;
 
   protected override render() {
-    if (this.rows.length === 0 || this.columns.length === 0) {
+    const rows = this.sortedRows;
+    const renderedColumns = this.renderedColumns;
+
+    if (rows.length === 0 || this.columns.length === 0) {
       return html`<div class="surface"><div class="message" part="empty">${this.emptyMessage}</div></div>`;
     }
 
@@ -194,23 +226,25 @@ export class CindorDataGrid extends LitElement {
           <table aria-label=${this.getAttribute("aria-label") ?? "Data grid"} role="grid">
             <thead>
               <tr role="row">
-                ${this.columns.map((column) => {
+                ${renderedColumns.map(({ column, stickyOffset }) => {
                   const align = this.resolveAlign(column);
+                  const active = Boolean(column.sortable && column.key === this.sortKey);
                   return html`
                     <th
                       role="columnheader"
+                      aria-sort=${column.sortable ? (active ? this.sortDirection : "none") : nothing}
                       data-align=${align}
-                      data-sticky=${column.sticky ?? nothing}
-                      style=${column.width ? `width:${column.width};` : nothing}
+                      data-sticky=${stickyOffset ? "start" : nothing}
+                      style=${this.columnCellStyle(column, stickyOffset)}
                     >
-                      ${column.headerLabel || column.label}
+                      ${this.renderHeaderCell(column, active)}
                     </th>
                   `;
                 })}
               </tr>
             </thead>
             <tbody>
-              ${this.rows.map((row, rowIndex) => this.renderRow(row, rowIndex))}
+              ${rows.map((row, rowIndex) => this.renderRow(row, rowIndex))}
             </tbody>
           </table>
         </div>
@@ -218,12 +252,27 @@ export class CindorDataGrid extends LitElement {
     `;
   }
 
+  private renderHeaderCell(column: DataGridColumn, active: boolean) {
+    const label = column.headerLabel || column.label;
+    if (!column.sortable) {
+      return label;
+    }
+
+    return html`
+      <button class="sort-button" type="button" @click=${() => this.toggleSort(column)}>
+        <span>${label}</span>
+        <span aria-hidden="true">${active ? (this.sortDirection === "ascending" ? "↑" : "↓") : "↕"}</span>
+      </button>
+    `;
+  }
+
   private renderRow(row: DataGridRow, rowIndex: number) {
     const rowId = this.getRowId(row, rowIndex);
+    const renderedColumns = this.renderedColumns;
 
     return html`
       <tr role="row">
-        ${this.columns.map((column, columnIndex) => {
+        ${renderedColumns.map(({ column, stickyOffset }, columnIndex) => {
           const detail = this.createCellDetail(column, columnIndex, row, rowId, rowIndex);
           const active = this.activeRowIndex === rowIndex && this.activeColumnIndex === columnIndex;
           const editing = this.editingCellKey === this.getCellKey(rowIndex, columnIndex);
@@ -235,8 +284,8 @@ export class CindorDataGrid extends LitElement {
               aria-colindex=${String(columnIndex + 1)}
               aria-rowindex=${String(rowIndex + 1)}
               data-align=${align}
-              data-sticky=${column.sticky ?? nothing}
-              style=${column.width ? `width:${column.width};` : nothing}
+              data-sticky=${stickyOffset ? "start" : nothing}
+              style=${this.columnCellStyle(column, stickyOffset)}
             >
               ${editing ? this.renderCellEditor(detail) : this.renderCellButton(detail, active)}
             </td>
@@ -258,7 +307,7 @@ export class CindorDataGrid extends LitElement {
         @click=${() => this.activateCell(detail.rowIndex, detail.columnIndex)}
         @keydown=${(event: KeyboardEvent) => this.handleCellKeydown(event, detail)}
       >
-        ${content || nothing}
+        ${content}
       </button>
     `;
   }
@@ -383,6 +432,7 @@ export class CindorDataGrid extends LitElement {
     this.activeColumnIndex = clamp(columnIndex, 0, this.columns.length - 1);
     this.editingCellKey = null;
     this.requestUpdate();
+    queueMicrotask(() => this.focusActiveCell());
 
     const detail = this.createCellDetail(
       this.columns[this.activeColumnIndex] as DataGridColumn,
@@ -467,6 +517,94 @@ export class CindorDataGrid extends LitElement {
 
   private resolveAlign(column: DataGridColumn): DataGridCellAlign {
     return column.align ?? "start";
+  }
+
+  private toggleSort(column: DataGridColumn): void {
+    if (!column.sortable) {
+      return;
+    }
+
+    if (this.sortKey === column.key) {
+      this.sortDirection = this.sortDirection === "ascending" ? "descending" : "ascending";
+    } else {
+      this.sortKey = column.key;
+      this.sortDirection = "ascending";
+    }
+
+    this.dispatchEvent(
+      new CustomEvent<DataGridSortChangeDetail>("sort-change", {
+        bubbles: true,
+        composed: true,
+        detail: {
+          sortDirection: this.sortDirection,
+          sortKey: this.sortKey
+        }
+      })
+    );
+  }
+
+  private get sortedRows(): DataGridRow[] {
+    const rows = [...this.rows];
+    const column = this.columns.find((entry) => entry.key === this.sortKey && entry.sortable);
+
+    if (!column) {
+      return rows;
+    }
+
+    return rows.sort((left, right) => {
+      const leftValue = left[column.key];
+      const rightValue = right[column.key];
+      const comparison = this.defaultSortComparison(leftValue, rightValue);
+      return this.sortDirection === "ascending" ? comparison : -comparison;
+    });
+  }
+
+  private defaultSortComparison(leftValue: unknown, rightValue: unknown): number {
+    const leftString = leftValue === null || leftValue === undefined ? "" : String(leftValue);
+    const rightString = rightValue === null || rightValue === undefined ? "" : String(rightValue);
+    return leftString.localeCompare(rightString, undefined, { numeric: true, sensitivity: "base" });
+  }
+
+  private get renderedColumns(): DataGridRenderedColumn[] {
+    let stickyOffset = "0px";
+
+    return this.columns.map((column) => {
+      const nextColumn: DataGridRenderedColumn = {
+        column,
+        stickyOffset: column.sticky === "start" ? stickyOffset : null
+      };
+
+      if (column.sticky === "start") {
+        stickyOffset = `calc(${stickyOffset} + ${this.stickyColumnWidth(column)})`;
+      }
+
+      return nextColumn;
+    });
+  }
+
+  private columnCellStyle(column: DataGridColumn, stickyOffset: string | null): string | typeof nothing {
+    const styles: string[] = [];
+
+    if (column.width) {
+      styles.push(`width:${column.width};max-width:${column.width};`);
+    }
+
+    if (stickyOffset) {
+      styles.push(`--cindor-data-grid-sticky-offset:${stickyOffset};`);
+    }
+
+    return styles.length > 0 ? styles.join("") : nothing;
+  }
+
+  private stickyColumnWidth(column: DataGridColumn): string {
+    return column.width ?? "12rem";
+  }
+
+  private focusActiveCell(): void {
+    const button = this.renderRoot.querySelector<HTMLButtonElement>(
+      `.cell-button[data-active="true"][tabindex="0"]`
+    );
+    button?.focus();
   }
 }
 

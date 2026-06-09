@@ -82,6 +82,95 @@ describe("cindor-data-grid", () => {
       value: false
     });
   });
+
+  it("renders falsy values instead of dropping them", async () => {
+    const element = document.createElement("cindor-data-grid") as CindorDataGrid;
+    element.columns = [
+      { key: "count", label: "Count" },
+      { key: "enabled", label: "Enabled" }
+    ];
+    element.rows = [{ id: "row-1", count: 0, enabled: false }];
+    document.body.append(element);
+    await element.updateComplete;
+
+    const buttons = [...element.renderRoot.querySelectorAll<HTMLButtonElement>(".cell-button")];
+    const text = buttons.map((button) => button.textContent?.trim());
+
+    expect(text).toContain("0");
+    expect(text).toContain("false");
+  });
+
+  it("sorts rows and emits sort-change from sortable headers", async () => {
+    const element = document.createElement("cindor-data-grid") as CindorDataGrid;
+    element.columns = [
+      { key: "owner", label: "Owner", sortable: true },
+      { key: "status", label: "Status" }
+    ];
+    element.rows = [
+      { id: "row-1", owner: "Release Ops", status: "Healthy" },
+      { id: "row-2", owner: "Analytics", status: "Needs review" }
+    ];
+    const listener = vi.fn();
+    element.addEventListener("sort-change", listener);
+    document.body.append(element);
+    await element.updateComplete;
+
+    const sortButton = element.renderRoot.querySelector<HTMLButtonElement>(".sort-button");
+    sortButton?.click();
+    await element.updateComplete;
+
+    let buttons = [...element.renderRoot.querySelectorAll<HTMLButtonElement>(".cell-button")];
+    expect(buttons[0]?.textContent?.trim()).toBe("Analytics");
+    expect(listener.mock.calls[0]?.[0].detail).toMatchObject({
+      sortDirection: "ascending",
+      sortKey: "owner"
+    });
+
+    sortButton?.click();
+    await element.updateComplete;
+
+    buttons = [...element.renderRoot.querySelectorAll<HTMLButtonElement>(".cell-button")];
+    expect(buttons[0]?.textContent?.trim()).toBe("Release Ops");
+    expect(listener.mock.calls[1]?.[0].detail).toMatchObject({
+      sortDirection: "descending",
+      sortKey: "owner"
+    });
+  });
+
+  it("applies cumulative sticky offsets for multiple sticky columns", async () => {
+    const element = document.createElement("cindor-data-grid") as CindorDataGrid;
+    element.columns = [
+      { key: "name", label: "Name", sticky: "start", width: "10rem" },
+      { key: "team", label: "Team", sticky: "start", width: "8rem" },
+      { key: "status", label: "Status" }
+    ];
+    element.rows = [{ id: "row-1", name: "Avery", team: "Ops", status: "Healthy" }];
+    document.body.append(element);
+    await element.updateComplete;
+
+    const headerCells = [...element.renderRoot.querySelectorAll<HTMLTableCellElement>("thead th")];
+    const bodyCells = [...element.renderRoot.querySelectorAll<HTMLTableCellElement>("tbody td")];
+
+    expect(headerCells[0]?.getAttribute("style")).toContain("--cindor-data-grid-sticky-offset:0px;");
+    expect(headerCells[1]?.getAttribute("style")).toContain("--cindor-data-grid-sticky-offset:calc(0px + 10rem);");
+    expect(bodyCells[0]?.getAttribute("style")).toContain("--cindor-data-grid-sticky-offset:0px;");
+    expect(bodyCells[1]?.getAttribute("style")).toContain("--cindor-data-grid-sticky-offset:calc(0px + 10rem);");
+  });
+
+  it("moves focus to the newly active cell during keyboard navigation", async () => {
+    const element = createGrid();
+    document.body.append(element);
+    await element.updateComplete;
+
+    const buttons = [...element.renderRoot.querySelectorAll<HTMLButtonElement>(".cell-button")];
+    buttons[0]?.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true }));
+    await element.updateComplete;
+    await Promise.resolve();
+
+    const activeButton = element.renderRoot.querySelector<HTMLButtonElement>('.cell-button[data-active="true"][tabindex="0"]');
+    expect(activeButton?.textContent?.trim()).toBe("Healthy");
+    expect((element.renderRoot as ShadowRoot).activeElement).toBe(activeButton);
+  });
 });
 
 function createGrid(): CindorDataGrid {
