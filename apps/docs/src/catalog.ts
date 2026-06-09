@@ -76,6 +76,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("empty-state", "Empty State", "Component", "Display", "content container", "Structured zero-state messaging for empty data and first-run moments."),
   defineComponent("empty-search-results", "Empty Search Results", "Component", "Display", "search zero state messaging", "Search-specific zero-state surface with suggestions and recovery actions."),
   defineComponent("error-text", "Error Text", "Primitive", "Forms", "support text", "Dedicated validation text primitive for field-level errors."),
+  defineComponent("field-array", "Field Array", "Component", "Forms", "repeatable grouped field shell", "Repeated field-group workflow for append, remove, and reorder flows such as contacts, links, and rule editors."),
   defineComponent("fieldset", "Fieldset", "Primitive", "Forms", "fieldset and legend", "Grouped controls with native fieldset semantics."),
   defineComponent("file-input", "File Input", "Primitive", "Forms", "input type=file", "Styled file picker with selected file summaries."),
   defineComponent("filter-builder", "Filter Builder", "Component", "Forms", "fieldset plus Cindor form primitives", "Rule and group filtering interface for advanced query and reporting flows."),

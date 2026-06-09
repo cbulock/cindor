@@ -2842,6 +2842,200 @@
       "tagName": "cindor-error-text"
     },
     {
+      "className": "CindorFieldArray",
+      "description": "Repeated field-group shell for append, remove, and reorder workflows.\n\nThe `items` property is the working array, and `value` mirrors that state as serialized JSON for forms.",
+      "modulePath": "packages/core/src/components/field-array/cindor-field-array.ts",
+      "properties": [
+        {
+          "attributeName": "add-label",
+          "defaultValue": "\"Add item\"",
+          "description": "",
+          "name": "addLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "empty-copy",
+          "defaultValue": "\"Add the first item to start building this repeated field group.\"",
+          "description": "",
+          "name": "emptyCopy",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "empty-title",
+          "defaultValue": "\"No items yet\"",
+          "description": "",
+          "name": "emptyTitle",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "items",
+          "reflects": false,
+          "type": "T[]",
+          "values": null
+        },
+        {
+          "attributeName": "max-items",
+          "defaultValue": null,
+          "description": "",
+          "name": "maxItems",
+          "reflects": true,
+          "type": "number | undefined",
+          "values": null
+        },
+        {
+          "attributeName": "min-items",
+          "defaultValue": "0",
+          "description": "",
+          "name": "minItems",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "move-down-label",
+          "defaultValue": "\"Move item down\"",
+          "description": "",
+          "name": "moveDownLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "move-up-label",
+          "defaultValue": "\"Move item up\"",
+          "description": "",
+          "name": "moveUpLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "remove-label",
+          "defaultValue": "\"Remove item\"",
+          "description": "",
+          "name": "removeLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": false,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": null,
+          "description": "",
+          "name": "createItem",
+          "reflects": false,
+          "type": "FieldArrayCreateItem<T> | undefined",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": null,
+          "description": "",
+          "name": "renderItem",
+          "reflects": false,
+          "type": "FieldArrayItemRenderer<T> | undefined",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the item array changes.",
+          "name": "input",
+          "type": "CustomEvent<FieldArrayChangeDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the item array changes.",
+          "name": "change",
+          "type": "CustomEvent<FieldArrayChangeDetail>",
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "cindor-field-array"
+    },
+    {
       "className": "CindorFieldset",
       "description": "",
       "modulePath": "packages/core/src/components/fieldset/cindor-fieldset.ts",

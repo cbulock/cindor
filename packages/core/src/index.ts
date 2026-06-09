@@ -44,6 +44,14 @@ export { CindorEmailInput } from "./components/email-input/cindor-email-input.js
 export { CindorErrorText } from "./components/error-text/cindor-error-text.js";
 export { CindorEmptyState } from "./components/empty-state/cindor-empty-state.js";
 export { CindorEmptySearchResults } from "./components/empty-search-results/cindor-empty-search-results.js";
+export {
+  CindorFieldArray,
+  type FieldArrayAction,
+  type FieldArrayChangeDetail,
+  type FieldArrayCreateItem,
+  type FieldArrayItemRenderer,
+  type FieldArrayRenderDetail
+} from "./components/field-array/cindor-field-array.js";
 export { CindorFieldset } from "./components/fieldset/cindor-fieldset.js";
 export { CindorForm } from "./components/form/cindor-form.js";
 export { CindorFileInput } from "./components/file-input/cindor-file-input.js";

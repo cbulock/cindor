@@ -2466,6 +2466,21 @@ function getUsageCode(doc: ComponentDoc): string {
 </cindor-empty-search-results>`;
     case "error-text":
       return `<cindor-error-text>Please enter a valid email address.</cindor-error-text>`;
+    case "field-array":
+      return `<cindor-field-array id="team-field-array" min-items="1"></cindor-field-array>
+<script type="module">
+  const fieldArray = document.querySelector("#team-field-array");
+  fieldArray.items = [
+    { id: "contact-1", label: "Primary contact", description: "Owns launch communication and approval routing.", meta: "Required" },
+    { id: "contact-2", label: "Billing contact", description: "Receives invoices and renewal reminders.", meta: "Optional" }
+  ];
+  fieldArray.createItem = ({ items }) => ({
+    id: "contact-" + (items.length + 1),
+    label: "Additional contact " + (items.length + 1),
+    description: "Add ownership notes and follow-up context.",
+    meta: "Optional"
+  });
+</script>`;
     case "fieldset":
       return `<cindor-fieldset legend="Notifications">
   <cindor-checkbox>Email</cindor-checkbox>
@@ -3025,6 +3040,14 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
     </${componentName}>`;
     case "error-text":
       return `<${componentName}>Please enter a valid email address.</${componentName}>`;
+    case "field-array":
+      return `<${componentName}
+      minItems={1}
+      items={[
+        { id: "contact-1", label: "Primary contact", description: "Owns launch communication and approval routing.", meta: "Required" },
+        { id: "contact-2", label: "Billing contact", description: "Receives invoices and renewal reminders.", meta: "Optional" }
+      ]}
+    />`;
     case "form":
       return `<${componentName} description="Create a workspace with shared field and validation wiring." onsubmit="event.preventDefault()">
       <cindor-form-row>
@@ -3338,6 +3361,14 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
   </${componentName}>`;
     case "error-text":
       return `<${componentName}>Please enter a valid email address.</${componentName}>`;
+    case "field-array":
+      return `<${componentName}
+    :min-items="1"
+    :items="[
+      { id: 'contact-1', label: 'Primary contact', description: 'Owns launch communication and approval routing.', meta: 'Required' },
+      { id: 'contact-2', label: 'Billing contact', description: 'Receives invoices and renewal reminders.', meta: 'Optional' }
+    ]"
+  />`;
     case "date-picker":
       return `<${componentName} month="2026-04" value="2026-04-26" />`;
     case "date-range-picker":
@@ -3587,6 +3618,7 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "empty-state":
     case "empty-search-results":
     case "error-text":
+    case "field-array":
     case "fieldset":
     case "file-input":
     case "filter-builder":

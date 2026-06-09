@@ -36,6 +36,7 @@ import { CindorDropdownMenu } from "./components/dropdown-menu/cindor-dropdown-m
 import { CindorDropzone } from "./components/dropzone/cindor-dropzone.js";
 import { CindorEmptyState } from "./components/empty-state/cindor-empty-state.js";
 import { CindorEmptySearchResults } from "./components/empty-search-results/cindor-empty-search-results.js";
+import { CindorFieldArray } from "./components/field-array/cindor-field-array.js";
 import { CindorFieldset } from "./components/fieldset/cindor-fieldset.js";
 import { CindorForm } from "./components/form/cindor-form.js";
 import { CindorFileInput } from "./components/file-input/cindor-file-input.js";
@@ -128,6 +129,7 @@ const definitions = [
   ["cindor-form", CindorForm],
   ["cindor-range", CindorRange],
   ["cindor-file-input", CindorFileInput],
+  ["cindor-field-array", CindorFieldArray],
   ["cindor-filter-builder", CindorFilterBuilder],
   ["cindor-form-field", CindorFormField],
   ["cindor-form-row", CindorFormRow],

@@ -35,6 +35,7 @@ import {
   CindorErrorText as CindorErrorTextElement,
   CindorRange as CindorRangeElement,
   CindorFileInput as CindorFileInputElement,
+  CindorFieldArray as CindorFieldArrayElement,
   CindorFilterBuilder as CindorFilterBuilderElement,
   CindorPagination as CindorPaginationElement,
   CindorPageHeader as CindorPageHeaderElement,
@@ -337,6 +338,16 @@ export const CindorFileInput = createComponent({
   events: {
     onInput: "input",
     onChange: "change"
+  }
+});
+
+export const CindorFieldArray = createComponent({
+  react: React,
+  tagName: "cindor-field-array",
+  elementClass: CindorFieldArrayElement,
+  events: {
+    onChange: "change",
+    onInput: "input"
   }
 });
 

@@ -11,6 +11,8 @@ import type {
   DataTableColumn,
   DataTableRow,
   DataTableSortDirection,
+  FieldArrayCreateItem,
+  FieldArrayItemRenderer,
   FilterBuilderField,
   LucideIconName,
   ProviderTheme,
@@ -930,6 +932,60 @@ export const CindorFileInput = defineComponent({
               multiple: props.multiple || undefined,
               name: props.name || undefined,
               required: props.required || undefined,
+              onInput: handleInput,
+              onChange: handleChange,
+          });
+  }
+});
+
+export const CindorFieldArray = defineComponent({
+  name: "CindorFieldArray",
+  props: {
+    addLabel: { type: String, default: "Add item" },
+    createItem: { type: Function as PropType<FieldArrayCreateItem<any> | undefined>, default: undefined },
+    disabled: { type: Boolean, default: false },
+    emptyCopy: { type: String, default: "Add the first item to start building this repeated field group." },
+    emptyTitle: { type: String, default: "No items yet" },
+    items: { type: Array as PropType<unknown[]>, default: () => [] },
+    maxItems: { type: Number, default: 0 },
+    minItems: { type: Number, default: 0 },
+    moveDownLabel: { type: String, default: "Move item down" },
+    moveUpLabel: { type: String, default: "Move item up" },
+    name: { type: String, default: "" },
+    removeLabel: { type: String, default: "Remove item" },
+    renderItem: { type: Function as PropType<FieldArrayItemRenderer<any> | undefined>, default: undefined },
+    modelValue: { type: String, default: "" }
+  },
+  emits: ["update:modelValue", "input", "change"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("change", event);
+    };
+    return () =>
+          h("cindor-field-array", {
+              ...attrs,
+              "add-label": props.addLabel,
+              ".createItem": props.createItem,
+              disabled: props.disabled || undefined,
+              "empty-copy": props.emptyCopy,
+              "empty-title": props.emptyTitle,
+              ".items": props.items,
+              "max-items": props.maxItems,
+              "min-items": props.minItems,
+              "move-down-label": props.moveDownLabel,
+              "move-up-label": props.moveUpLabel,
+              name: props.name || undefined,
+              "remove-label": props.removeLabel,
+              ".renderItem": props.renderItem,
+              value: props.modelValue,
               onInput: handleInput,
               onChange: handleChange,
           });

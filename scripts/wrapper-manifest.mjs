@@ -346,6 +346,26 @@ export const componentDefinitions = [
     ],
     vueProps: [str("accept"), bool("disabled"), bool("multiple"), str("name"), bool("required")]
   }),
+  component("CindorFieldArray", "cindor-field-array", {
+    reactEvents: ["change", "input"],
+    vueHandlers: textModelHandlers,
+    vueProps: [
+      str("addLabel", "Add item", { attr: "add-label", alwaysPass: true }),
+      func("createItem", "FieldArrayCreateItem<any> | undefined"),
+      bool("disabled"),
+      str("emptyCopy", "Add the first item to start building this repeated field group.", { attr: "empty-copy", alwaysPass: true }),
+      str("emptyTitle", "No items yet", { attr: "empty-title", alwaysPass: true }),
+      arr("items", "unknown[]"),
+      num("maxItems", 0, { attr: "max-items" }),
+      num("minItems", 0, { attr: "min-items" }),
+      str("moveDownLabel", "Move item down", { attr: "move-down-label", alwaysPass: true }),
+      str("moveUpLabel", "Move item up", { attr: "move-up-label", alwaysPass: true }),
+      str("name"),
+      str("removeLabel", "Remove item", { attr: "remove-label", alwaysPass: true }),
+      func("renderItem", "FieldArrayItemRenderer<any> | undefined"),
+      str("modelValue", "", { attr: "value", alwaysPass: true })
+    ]
+  }),
   component("CindorFilterBuilder", "cindor-filter-builder", {
     reactEvents: ["change", "input"],
     vueHandlers: textModelHandlers,
