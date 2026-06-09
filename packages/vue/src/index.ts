@@ -8,6 +8,8 @@ import type {
   ButtonVariant,
   ChipTone,
   CommandPaletteCommand,
+  DataGridColumn,
+  DataGridRow,
   DataTableColumn,
   DataTableRow,
   DataTableSortDirection,
@@ -372,6 +374,26 @@ export const CindorCalendar = defineComponent({
               "start-value": props.startValue || undefined,
               onInput: handleInput,
               onChange: handleChange,
+          });
+  }
+});
+
+export const CindorDataGrid = defineComponent({
+  name: "CindorDataGrid",
+  props: {
+    columns: { type: Array as PropType<DataGridColumn[]>, default: () => [] },
+    emptyMessage: { type: String, default: "No rows to display." },
+    rowIdKey: { type: String, default: "id" },
+    rows: { type: Array as PropType<DataGridRow[]>, default: () => [] }
+  },
+  setup(props, { attrs }) {
+    return () =>
+          h("cindor-data-grid", {
+              ...attrs,
+              ".columns": props.columns,
+              "empty-message": props.emptyMessage,
+              "row-id-key": props.rowIdKey,
+              ".rows": props.rows,
           });
   }
 });

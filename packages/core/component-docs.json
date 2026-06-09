@@ -1396,6 +1396,67 @@
       "tagName": "cindor-context-menu"
     },
     {
+      "className": "CindorDataGrid",
+      "description": "Keyboard-navigable editable grid for dense operational data.",
+      "modulePath": "packages/core/src/components/data-grid/cindor-data-grid.ts",
+      "properties": [
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "columns",
+          "reflects": false,
+          "type": "DataGridColumn[]",
+          "values": null
+        },
+        {
+          "attributeName": "empty-message",
+          "defaultValue": "\"No rows to display.\"",
+          "description": "",
+          "name": "emptyMessage",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "row-id-key",
+          "defaultValue": "\"id\"",
+          "description": "",
+          "name": "rowIdKey",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "rows",
+          "reflects": false,
+          "type": "DataGridRow[]",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "description": "Fired when an inline editor updates a cell value.",
+          "name": "cell-edit",
+          "type": "CustomEvent<DataGridCellEditDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the active cell changes.",
+          "name": "active-cell-change",
+          "type": "CustomEvent<DataGridActiveCellDetail>",
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "Editable grid foundation with sticky columns and active-cell navigation.",
+      "tagName": "cindor-data-grid"
+    },
+    {
       "className": "CindorDataTable",
       "description": "Searchable, sortable application data table built from native table semantics.",
       "modulePath": "packages/core/src/components/data-table/cindor-data-table.ts",

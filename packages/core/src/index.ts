@@ -26,6 +26,17 @@ export { CindorCombobox } from "./components/combobox/cindor-combobox.js";
 export { CindorCommandBar } from "./components/command-bar/cindor-command-bar.js";
 export { CindorCommandPalette, type CommandPaletteCommand } from "./components/command-palette/cindor-command-palette.js";
 export { CindorContextMenu } from "./components/context-menu/cindor-context-menu.js";
+export {
+  CindorDataGrid,
+  type DataGridActiveCellDetail,
+  type DataGridCellAlign,
+  type DataGridCellEditDetail,
+  type DataGridCellEditor,
+  type DataGridCellRenderDetail,
+  type DataGridColumn,
+  type DataGridEditorOption,
+  type DataGridRow
+} from "./components/data-grid/cindor-data-grid.js";
 export { CindorDatePicker } from "./components/date-picker/cindor-date-picker.js";
 export { CindorDateRangePicker } from "./components/date-range-picker/cindor-date-range-picker.js";
 export { CindorDateTimePicker } from "./components/date-time-picker/cindor-date-time-picker.js";

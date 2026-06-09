@@ -2355,6 +2355,36 @@ function getUsageCode(doc: ComponentDoc): string {
   <cindor-menu-item>Rename</cindor-menu-item>
   <cindor-menu-item>Duplicate</cindor-menu-item>
 </cindor-context-menu>`;
+    case "data-grid":
+      return `<cindor-data-grid id="component-data-grid"></cindor-data-grid>
+
+<script type="module">
+  const grid = document.querySelector("#component-data-grid");
+
+  grid.columns = [
+    { key: "owner", label: "Owner", sticky: "start", width: "16rem" },
+    {
+      key: "status",
+      label: "Status",
+      editor: {
+        type: "select",
+        options: [
+          { label: "Healthy", value: "Healthy" },
+          { label: "Needs review", value: "Needs review" },
+          { label: "Blocked", value: "Blocked" }
+        ]
+      }
+    },
+    { key: "window", label: "Window", editor: { type: "input", placeholder: "Delivery window" } },
+    { key: "enabled", label: "Enabled", align: "center", editor: { type: "switch" }, width: "8rem" }
+  ];
+
+  grid.rows = [
+    { id: "row-1", owner: "Release Ops", status: "Healthy", window: "Today", enabled: true },
+    { id: "row-2", owner: "Analytics", status: "Needs review", window: "Tomorrow", enabled: false },
+    { id: "row-3", owner: "Support", status: "Blocked", window: "This week", enabled: true }
+  ];
+</script>`;
     case "data-table":
       return `<cindor-data-table id="component-table" caption="Components"></cindor-data-table>
 
@@ -3048,6 +3078,30 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
         { id: "contact-2", label: "Billing contact", description: "Receives invoices and renewal reminders.", meta: "Optional" }
       ]}
     />`;
+    case "data-grid":
+      return `<${componentName}
+      columns={[
+        { key: "owner", label: "Owner", sticky: "start", width: "16rem" },
+        {
+          key: "status",
+          label: "Status",
+          editor: {
+            type: "select",
+            options: [
+              { label: "Healthy", value: "Healthy" },
+              { label: "Needs review", value: "Needs review" },
+              { label: "Blocked", value: "Blocked" }
+            ]
+          }
+        },
+        { key: "window", label: "Window", editor: { type: "input", placeholder: "Delivery window" } },
+        { key: "enabled", label: "Enabled", align: "center", editor: { type: "switch" }, width: "8rem" }
+      ]}
+      rows={[
+        { id: "row-1", owner: "Release Ops", status: "Healthy", window: "Today", enabled: true },
+        { id: "row-2", owner: "Analytics", status: "Needs review", window: "Tomorrow", enabled: false }
+      ]}
+    />`;
     case "form":
       return `<${componentName} description="Create a workspace with shared field and validation wiring." onsubmit="event.preventDefault()">
       <cindor-form-row>
@@ -3369,6 +3423,30 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
       { id: 'contact-2', label: 'Billing contact', description: 'Receives invoices and renewal reminders.', meta: 'Optional' }
     ]"
   />`;
+    case "data-grid":
+      return `<${componentName}
+    :columns="[
+      { key: 'owner', label: 'Owner', sticky: 'start', width: '16rem' },
+      {
+        key: 'status',
+        label: 'Status',
+        editor: {
+          type: 'select',
+          options: [
+            { label: 'Healthy', value: 'Healthy' },
+            { label: 'Needs review', value: 'Needs review' },
+            { label: 'Blocked', value: 'Blocked' }
+          ]
+        }
+      },
+      { key: 'window', label: 'Window', editor: { type: 'input', placeholder: 'Delivery window' } },
+      { key: 'enabled', label: 'Enabled', align: 'center', editor: { type: 'switch' }, width: '8rem' }
+    ]"
+    :rows="[
+      { id: 'row-1', owner: 'Release Ops', status: 'Healthy', window: 'Today', enabled: true },
+      { id: 'row-2', owner: 'Analytics', status: 'Needs review', window: 'Tomorrow', enabled: false }
+    ]"
+  />`;
     case "date-picker":
       return `<${componentName} month="2026-04" value="2026-04-26" />`;
     case "date-range-picker":
@@ -3619,6 +3697,7 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "empty-search-results":
     case "error-text":
     case "field-array":
+    case "data-grid":
     case "fieldset":
     case "file-input":
     case "filter-builder":
@@ -4202,6 +4281,34 @@ function getLegacyComponentApi(doc: ComponentDoc): ComponentApiSurface {
           compositionGroup([])
         ],
         intro: `${doc.tag} is property-driven. Most integrations assign a command array in JavaScript and listen for command-select to route the chosen action.`
+      };
+    case "data-grid":
+      return {
+        groups: [
+          propertyGroup([
+            apiItem("columns / rows", "Columns and rows are assigned as JavaScript properties for editable operational data.", {
+              type: "DataGridColumn[] / DataGridRow[]"
+            }),
+            apiItem("empty-message", "Message shown when the grid has no renderable rows or columns.", {
+              defaultValue: `"No rows to display."`,
+              type: "string"
+            }),
+            apiItem("row-id-key", "Property used to derive stable row ids when rows include an identifier field.", {
+              defaultValue: `"id"`,
+              type: "string"
+            })
+          ]),
+          eventGroup([
+            apiItem("active-cell-change", "Fired when the active keyboard cell changes.", {
+              type: "CustomEvent<DataGridActiveCellDetail>"
+            }),
+            apiItem("cell-edit", "Fired after an inline input, select, or switch editor commits a value.", {
+              type: "CustomEvent<DataGridCellEditDetail>"
+            })
+          ], "Editing is configured per column through a column.editor definition."),
+          compositionGroup([])
+        ],
+        intro: `${doc.tag} is an editable grid foundation for dense operational review surfaces. Assign columns and rows in JavaScript, then listen for cell-edit to persist inline updates.`
       };
     case "data-table":
       return {

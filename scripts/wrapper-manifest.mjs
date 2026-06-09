@@ -209,6 +209,15 @@ export const componentDefinitions = [
       str("startValue", "", { attr: "start-value" })
     ]
   }),
+  component("CindorDataGrid", "cindor-data-grid", {
+    reactEvents: ["active-cell-change", "cell-edit"],
+    vueProps: [
+      arr("columns", "DataGridColumn[]"),
+      str("emptyMessage", "No rows to display.", { attr: "empty-message", alwaysPass: true }),
+      str("rowIdKey", "id", { attr: "row-id-key", alwaysPass: true }),
+      arr("rows", "DataGridRow[]")
+    ]
+  }),
   component("CindorBadge", "cindor-badge", {
     slots: slots.default,
     vueProps: [typed("tone", '"neutral" | "accent" | "success"', "neutral")]

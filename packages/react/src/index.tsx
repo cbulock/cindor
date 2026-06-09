@@ -11,6 +11,7 @@ import {
   CindorIconButton as CindorIconButtonElement,
   CindorCard as CindorCardElement,
   CindorCalendar as CindorCalendarElement,
+  CindorDataGrid as CindorDataGridElement,
   CindorBadge as CindorBadgeElement,
   CindorDivider as CindorDividerElement,
   CindorProvider as CindorProviderElement,
@@ -169,6 +170,16 @@ export const CindorCalendar = createComponent({
   events: {
     onInput: "input",
     onChange: "change"
+  }
+});
+
+export const CindorDataGrid = createComponent({
+  react: React,
+  tagName: "cindor-data-grid",
+  elementClass: CindorDataGridElement,
+  events: {
+    onActiveCellChange: "active-cell-change",
+    onCellEdit: "cell-edit"
   }
 });
 
