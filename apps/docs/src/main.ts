@@ -63,6 +63,10 @@ type FilterBuilderHost = HTMLElement & {
   value: string;
 };
 
+type VirtualListHost = HTMLElement & {
+  items: Array<{ description: string; id: string; label: string; meta: string }>;
+};
+
 type ApiItem = {
   attributeName?: string | null;
   defaultValue?: string;
@@ -447,6 +451,27 @@ const filterBuilderPreviewValue = JSON.stringify({
   logic: "and",
   type: "group"
 });
+
+const virtualListPreviewItems = [
+  {
+    id: "1",
+    label: "Deploy API cluster",
+    description: "Review rollout notes and verify traffic shifts.",
+    meta: "Needs review"
+  },
+  {
+    id: "2",
+    label: "Backfill analytics export",
+    description: "Confirm the delayed export completes before the reporting window closes.",
+    meta: "Healthy"
+  },
+  {
+    id: "3",
+    label: "Rotate incident owner",
+    description: "Hand off the current incident queue to the next responder.",
+    meta: "Today"
+  }
+] as const;
 
 let componentDocsByTag: Map<string, GeneratedComponentDoc> | null = null;
 let componentDocsLoadPromise: Promise<void> | null = null;
@@ -1890,6 +1915,13 @@ function hydrateComponentPage(slug: string): void {
       stepper.value = "review";
     }
   }
+
+  if (slug === "virtual-list") {
+    const virtualList = root.querySelector<VirtualListHost>('[data-component-preview="virtual-list"] #component-virtual-list');
+    if (virtualList) {
+      virtualList.items = [...virtualListPreviewItems];
+    }
+  }
 }
 
 function handlePaletteSelect(event: Event): void {
@@ -2781,15 +2813,7 @@ function getUsageCode(doc: ComponentDoc): string {
   ];
 </script>`;
     case "virtual-list":
-      return `<cindor-virtual-list id="component-virtual-list" height="20rem" item-height="72"></cindor-virtual-list>
-<script type="module">
-  const list = document.querySelector("#component-virtual-list");
-  list.items = [
-    { id: "1", label: "Deploy API cluster", description: "Review rollout notes and verify traffic shifts.", meta: "Needs review" },
-    { id: "2", label: "Backfill analytics export", description: "Confirm the delayed export completes before the reporting window closes.", meta: "Healthy" },
-    { id: "3", label: "Rotate incident owner", description: "Hand off the current incident queue to the next responder.", meta: "Today" }
-  ];
-</script>`;
+      return `<cindor-virtual-list id="component-virtual-list" height="20rem" item-height="72"></cindor-virtual-list>`;
     case "toast":
       return `<cindor-toast open tone="success">Saved successfully.</cindor-toast>`;
     case "toast-region":
@@ -3753,9 +3777,10 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "sortable-list":
     case "tree-item":
     case "tree-view":
-    case "virtual-list":
     case "url-input":
       return doc.slug === "filter-builder" ? `<cindor-filter-builder id="filter-builder-preview"></cindor-filter-builder>` : getUsageCode(doc);
+    case "virtual-list":
+      return `<cindor-virtual-list id="component-virtual-list" height="20rem" item-height="72"></cindor-virtual-list>`;
     case "data-table":
       return `<div class="preview-block">
         <strong>Small data set preview</strong>

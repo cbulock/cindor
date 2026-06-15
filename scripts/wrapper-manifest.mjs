@@ -985,9 +985,9 @@ export const componentDefinitions = [
       str("height", "24rem", { alwaysPass: true }),
       num("itemHeight", 72, { attr: "item-height" }),
       arr("items", "unknown[]"),
-      func("itemKey", "VirtualListItemKey<any> | undefined"),
+      func("itemKey", "VirtualListItemKey<unknown> | undefined"),
       num("overscan", 4),
-      func("renderItem", "VirtualListItemRenderer<any> | undefined")
+      func("renderItem", "VirtualListItemRenderer<unknown> | undefined")
     ]
   }),
   component("CindorSideNav", "cindor-side-nav", {

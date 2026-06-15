@@ -4,6 +4,10 @@ import "../../register.js";
 
 import { CindorVirtualList } from "./cindor-virtual-list.js";
 
+afterEach(() => {
+  restoreResizeObserverMock();
+});
+
 describe("cindor-virtual-list", () => {
   it("renders the empty message when there are no items", async () => {
     const element = document.createElement("cindor-virtual-list") as unknown as CindorVirtualList;
@@ -86,7 +90,29 @@ describe("cindor-virtual-list", () => {
 
     resizeObserverController.restore();
   });
+
+  it("rerenders when renderItem changes after the initial render", async () => {
+    const resizeObserverController = installResizeObserverMock();
+    const element = document.createElement("cindor-virtual-list") as unknown as CindorVirtualList<{ label: string }>;
+    element.height = "90px";
+    element.itemHeight = 30;
+    element.items = [{ label: "Alpha" }];
+    document.body.append(element);
+    await element.updateComplete;
+
+    const viewport = element.renderRoot.querySelector<HTMLElement>('[part="viewport"]');
+    Object.defineProperty(viewport, "clientHeight", { configurable: true, value: 90 });
+    resizeObserverController.flush();
+    await element.updateComplete;
+
+    element.renderItem = ({ item }) => html`<span class="custom-row">${item.label} custom</span>`;
+    await element.updateComplete;
+
+    expect(element.renderRoot.querySelector(".custom-row")?.textContent).toContain("Alpha custom");
+  });
 });
+
+let activeResizeObserverRestore: (() => void) | undefined;
 
 function installResizeObserverMock(): { flush: () => void; restore: () => void } {
   const callbacks = new Set<ResizeObserverCallback>();
@@ -106,7 +132,15 @@ function installResizeObserverMock(): { flush: () => void; restore: () => void }
     }
   }
 
+  const restore = () => {
+    globalThis.ResizeObserver = originalResizeObserver;
+    if (activeResizeObserverRestore === restore) {
+      activeResizeObserverRestore = undefined;
+    }
+  };
+
   globalThis.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver;
+  activeResizeObserverRestore = restore;
 
   return {
     flush() {
@@ -114,8 +148,10 @@ function installResizeObserverMock(): { flush: () => void; restore: () => void }
         callback([], {} as ResizeObserver);
       }
     },
-    restore() {
-      globalThis.ResizeObserver = originalResizeObserver;
-    }
+    restore
   };
+}
+
+function restoreResizeObserverMock(): void {
+  activeResizeObserverRestore?.();
 }

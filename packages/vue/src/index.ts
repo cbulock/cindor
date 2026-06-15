@@ -3263,9 +3263,9 @@ export const CindorVirtualList = defineComponent({
     height: { type: String, default: "24rem" },
     itemHeight: { type: Number, default: 72 },
     items: { type: Array as PropType<unknown[]>, default: () => [] },
-    itemKey: { type: Function as PropType<VirtualListItemKey<any> | undefined>, default: undefined },
+    itemKey: { type: Function as PropType<VirtualListItemKey<unknown> | undefined>, default: undefined },
     overscan: { type: Number, default: 4 },
-    renderItem: { type: Function as PropType<VirtualListItemRenderer<any> | undefined>, default: undefined }
+    renderItem: { type: Function as PropType<VirtualListItemRenderer<unknown> | undefined>, default: undefined }
   },
   emits: ["range-change"],
   setup(props, { attrs, emit }) {

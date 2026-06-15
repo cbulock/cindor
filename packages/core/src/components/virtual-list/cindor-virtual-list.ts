@@ -70,10 +70,6 @@ export class CindorVirtualList<T = unknown> extends LitElement {
       background: var(--surface);
     }
 
-    .row:last-child {
-      border-block-end: 0;
-    }
-
     .row-header {
       display: flex;
       flex-wrap: wrap;
@@ -105,8 +101,10 @@ export class CindorVirtualList<T = unknown> extends LitElement {
     emptyMessage: { reflect: true, attribute: "empty-message" },
     height: { reflect: true },
     itemHeight: { type: Number, reflect: true, attribute: "item-height" },
+    itemKey: { attribute: false },
     items: { attribute: false },
-    overscan: { type: Number, reflect: true }
+    overscan: { type: Number, reflect: true },
+    renderItem: { attribute: false }
   };
 
   emptyMessage = "No items to display.";
