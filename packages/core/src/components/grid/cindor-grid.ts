@@ -70,7 +70,7 @@ export class CindorGrid extends LitElement {
   }
 
   private get templateColumns(): string {
-    const minColumnWidth = this.minColumnWidth.trim();
+    const minColumnWidth = this.minColumnWidth.trim().replace(/[;\n\r]/g, "");
 
     if (minColumnWidth.length > 0) {
       return `repeat(auto-fit, minmax(min(${minColumnWidth}, 100%), 1fr))`;
