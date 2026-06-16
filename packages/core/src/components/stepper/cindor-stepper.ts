@@ -322,7 +322,10 @@ export class CindorStepper extends LitElement {
 
   private handleInteractiveKeyDown = (event: KeyboardEvent): void => {
     const enabledControls = this.enabledControls;
-    const currentIndex = findCurrentIndexFromPath(event.composedPath(), enabledControls);
+    const target = event.currentTarget;
+    const currentIndex = target instanceof HTMLButtonElement
+      ? enabledControls.indexOf(target)
+      : findCurrentIndexFromPath(event.composedPath(), enabledControls);
     if (currentIndex === -1) {
       return;
     }
