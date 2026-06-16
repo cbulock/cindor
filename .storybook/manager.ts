@@ -4,6 +4,7 @@ import { create } from "storybook/theming";
 import "../packages/core/src/design/fonts.css";
 
 const brandUrl = process.env.STORYBOOK_BRAND_URL?.trim() || "https://docs.cindor.dev/";
+const brandImage = new URL("./branding/cindor-wordmark.png", window.location.href).toString();
 
 addons.setConfig({
   theme: create({
@@ -33,6 +34,7 @@ addons.setConfig({
     inputBorder: "#2c2a26",
     inputTextColor: "#f3f1ec",
     inputBorderRadius: 4,
+    brandImage,
     brandTitle: "Cindor UI",
     brandUrl
   })

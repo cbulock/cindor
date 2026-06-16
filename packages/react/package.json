@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@lit/react": "^1.0.7",
-    "cindor-ui-core": "0.1.79"
+    "cindor-ui-core": "0.1.72"
   },
   "peerDependencies": {
     "react": "^19.0.0",
