@@ -1,5 +1,7 @@
 import "cindor-ui-core/styles.css";
 import "./app.css";
+import cindorIconUrl from "../../../branding/cindor-icon.png";
+import cindorWordmarkUrl from "../../../branding/cindor-wordmark.png";
 
 import type { CommandPaletteCommand, FilterBuilderField, SegmentedControlOption, StepperStep } from "cindor-ui-core";
 
@@ -543,7 +545,7 @@ function renderLandingShell(): string {
     <div class="landing-shell">
       <header class="landing-header">
         <div class="landing-brand">
-          <strong>Cindor UI</strong>
+          <img class="brand-image landing-brand-image" src="${cindorWordmarkUrl}" alt="Cindor UI" />
           <span class="eyebrow">Design-forward web components for modern product surfaces.</span>
         </div>
 
@@ -566,8 +568,11 @@ function renderSidebar(activeSectionId: string, route: Route): string {
 
   return `
     <div class="brand">
+      <div class="brand-row">
+        <img class="brand-image sidebar-brand-image" src="${cindorWordmarkUrl}" alt="Cindor UI" />
+        <span class="brand-tag">Docs</span>
+      </div>
       <div class="brand-copy">
-        <strong>Cindor UI docs</strong>
         <span class="eyebrow">Technical reference for the Cindor component library.</span>
       </div>
     </div>
@@ -637,7 +642,7 @@ function renderMobileHeader(route: Route): string {
   return `
     <header class="mobile-header">
       <a class="mobile-header-home" href="${docsEntryUrl}" aria-label="Open docs home">
-        <strong>Cindor UI docs</strong>
+        <img class="brand-image mobile-header-brand-image" src="${cindorWordmarkUrl}" alt="Cindor UI" />
         <span class="mobile-header-label">${currentLabel}</span>
       </a>
 
@@ -2018,6 +2023,8 @@ function syncPageMetadata(route: Route): void {
   const metadata = getPageMetadata(route);
 
   document.title = metadata.title;
+  setHeadLink('link[rel="icon"]', { href: cindorIconUrl, rel: "icon", type: "image/png" });
+  setHeadLink('link[rel="apple-touch-icon"]', { href: cindorIconUrl, rel: "apple-touch-icon" });
   setMetaTag("description", metadata.description);
   setMetaTag("robots", metadata.robots);
   setMetaTag("application-name", DOCS_SITE_NAME);
@@ -2096,13 +2103,20 @@ function setMetaProperty(property: string, content: string): void {
 }
 
 function setCanonicalUrl(href: string): void {
-  const element = getOrCreateHeadElement('link[rel="canonical"]', () => {
-    const link = document.createElement("link");
-    link.setAttribute("rel", "canonical");
-    return link;
-  });
+  setHeadLink('link[rel="canonical"]', { href, rel: "canonical" });
+}
 
-  element.setAttribute("href", href);
+function setHeadLink(
+  selector: string,
+  attributes: Record<string, string>
+): HTMLLinkElement {
+  const element = getOrCreateHeadElement(selector, () => document.createElement("link"));
+
+  for (const [name, value] of Object.entries(attributes)) {
+    element.setAttribute(name, value);
+  }
+
+  return element;
 }
 
 function getOrCreateHeadElement<T extends HTMLElement>(selector: string, createElement: () => T): T {
