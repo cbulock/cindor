@@ -2103,8 +2103,7 @@ function setMetaProperty(property: string, content: string): void {
 }
 
 function setCanonicalUrl(href: string): void {
-  const element = setHeadLink('link[rel="canonical"]', { href, rel: "canonical" });
-  element.setAttribute("href", href);
+  setHeadLink('link[rel="canonical"]', { href, rel: "canonical" });
 }
 
 function setHeadLink(
