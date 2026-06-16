@@ -156,7 +156,8 @@ export class CindorPanelInspector extends LitElement {
   }
 
   private get resolvedHeadingLevel(): number {
-    return Math.min(6, Math.max(1, Math.trunc(this.headingLevel || 2)));
+    const level = Number.isFinite(this.headingLevel) ? Math.trunc(this.headingLevel) : 2;
+    return Math.min(6, Math.max(1, level));
   }
 
   private readonly handleActionsSlotChange = (event: Event): void => {
