@@ -1,6 +1,6 @@
 {
   "name": "cindor-ui-vue",
-  "version": "0.1.79",
+  "version": "0.1.72",
   "description": "Thin Vue wrappers for the Cindor web component library.",
   "type": "module",
   "main": "./dist/index.cjs",
