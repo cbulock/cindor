@@ -9,9 +9,9 @@ type StepperStoryArgs = {
 };
 
 const steps: StepperStep[] = [
-  { description: "Tell us what you are building.", label: "Project details", value: "details" },
+  { description: "Tell us what you are building.", label: "Project details", status: "complete", value: "details" },
   { description: "Invite collaborators and assign roles.", label: "Team", value: "team" },
-  { description: "Review settings and launch the workspace.", label: "Launch", value: "launch" }
+  { description: "Review settings and launch the workspace.", optional: true, value: "launch", label: "Launch" }
 ];
 
 const meta = {

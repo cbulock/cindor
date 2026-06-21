@@ -12,6 +12,8 @@ import type {
   DataTableRow,
   DataTableSortDirection,
   FilterBuilderField,
+  GridAlign,
+  GridGap,
   LucideIconName,
   ProviderTheme,
   ProviderThemeFamily,
@@ -822,6 +824,32 @@ export const CindorFormRow = defineComponent({
             {
               ...attrs,
               columns: props.columns,
+            },
+            slots.default?.()
+          );
+  }
+});
+
+export const CindorGrid = defineComponent({
+  name: "CindorGrid",
+  props: {
+    align: { type: String as PropType<GridAlign>, default: "stretch" },
+    columns: { type: Number, default: 2 },
+    gap: { type: String as PropType<GridGap>, default: "4" },
+    justify: { type: String as PropType<GridAlign>, default: "stretch" },
+    minColumnWidth: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-grid",
+            {
+              ...attrs,
+              align: props.align,
+              columns: props.columns,
+              gap: props.gap,
+              justify: props.justify,
+              "min-column-width": props.minColumnWidth || undefined,
             },
             slots.default?.()
           );

@@ -18,6 +18,7 @@ import { attachFloatingPosition } from "../shared/floating-position.js";
  */
 export class CindorSplitButton extends LitElement {
   private static nextFormIdCounter = 0;
+  private static nextMenuIdCounter = 0;
 
   static styles = css`
     :host {
@@ -115,6 +116,7 @@ export class CindorSplitButton extends LitElement {
   private candidateFormId?: string;
   private floatingCleanup?: () => void;
   private floatingMenu: HTMLElement | null = null;
+  private readonly generatedMenuId = `${this.localName || "cindor-split-button"}-menu-${CindorSplitButton.nextMenuIdCounter++}`;
   private updateFloatingPosition?: () => void;
 
   override disconnectedCallback(): void {
@@ -141,9 +143,13 @@ export class CindorSplitButton extends LitElement {
   }
 
   /** Closes the secondary action menu. */
-  hideMenu(): void {
+  hideMenu(options?: { restoreFocus?: boolean }): void {
     this.detailsElement?.removeAttribute("open");
     this.open = false;
+
+    if (options?.restoreFocus) {
+      this.menuTriggerButton?.focus();
+    }
   }
 
   /** Toggles the secondary action menu. */
@@ -174,6 +180,9 @@ export class CindorSplitButton extends LitElement {
         <details ?open=${this.open} @toggle=${this.handleToggle}>
           <summary part="menu-trigger" @click=${this.handleSummaryClick}>
             <cindor-button
+              aria-controls=${this.menuId}
+              aria-expanded=${String(this.open)}
+              aria-haspopup="menu"
               aria-label=${ifDefined(this.menuLabel || undefined)}
               ?disabled=${this.disabled}
               ?icon-only=${true}
@@ -185,7 +194,13 @@ export class CindorSplitButton extends LitElement {
               </slot>
             </cindor-button>
           </summary>
-          <cindor-menu class="menu" part="menu" @menu-item-select=${this.handleItemSelect}>
+          <cindor-menu
+            class="menu"
+            id=${this.menuId}
+            part="menu"
+            @keydown=${this.handleMenuKeydown}
+            @menu-item-select=${this.handleItemSelect}
+          >
             <slot name="menu"></slot>
           </cindor-menu>
         </details>
@@ -200,6 +215,16 @@ export class CindorSplitButton extends LitElement {
 
   private handleItemSelect = (): void => {
     this.hideMenu();
+  };
+
+  private handleMenuKeydown = (event: KeyboardEvent): void => {
+    if (event.key !== "Escape") {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    this.hideMenu({ restoreFocus: true });
   };
 
   private handleSummaryClick = (event: MouseEvent): void => {
@@ -306,6 +331,14 @@ export class CindorSplitButton extends LitElement {
 
   private get primaryButton(): HTMLElement | null {
     return this.renderRoot.querySelector("cindor-button.primary");
+  }
+
+  private get menuId(): string {
+    return this.menuElement?.id || this.generatedMenuId;
+  }
+
+  private get menuTriggerButton(): HTMLElement | null {
+    return this.renderRoot.querySelector('summary cindor-button');
   }
 
   private get summaryElement(): HTMLElement | null {

@@ -12,6 +12,7 @@ export const versionFiles = [
 ];
 
 export const exemptNonVersionFiles = [
+  ".gitignore",
   ".github/workflows/create-release.yml",
   ".github/workflows/publish-packages.yml",
   ".github/workflows/version-bump.yml",
@@ -19,6 +20,7 @@ export const exemptNonVersionFiles = [
   "packages/core/custom-elements.json",
   "scripts/auto-version-bump.mjs",
   "scripts/check-version-bump.mjs",
+  "scripts/versioning.test.ts",
   "scripts/versioning.mjs"
 ];
 

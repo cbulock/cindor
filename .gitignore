@@ -2,3 +2,10 @@ node_modules
 dist
 coverage
 storybook-static
+.openclaw/
+.playwright-cli/
+HEARTBEAT.md
+IDENTITY.md
+SOUL.md
+TOOLS.md
+USER.md

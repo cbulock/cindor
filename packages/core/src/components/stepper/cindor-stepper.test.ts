@@ -32,4 +32,36 @@ describe("cindor-stepper", () => {
 
     expect(element.value).toBe("team");
   });
+
+  it("moves between interactive steps with arrow keys", async () => {
+    const element = document.createElement("cindor-stepper") as CindorStepper;
+    element.interactive = true;
+    element.steps = steps;
+    element.value = "details";
+    document.body.append(element);
+    await element.updateComplete;
+
+    const currentButton = element.renderRoot.querySelector('[aria-current="step"]') as HTMLButtonElement;
+    currentButton.focus();
+    currentButton.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, composed: true, key: "ArrowRight" }));
+    await element.updateComplete;
+
+    expect(element.value).toBe("team");
+    expect(element.renderRoot.querySelector('[aria-current="step"]')?.textContent).toContain("Team");
+  });
+
+  it("uses roving tabindex for interactive controls", async () => {
+    const element = document.createElement("cindor-stepper") as CindorStepper;
+    element.interactive = true;
+    element.steps = steps;
+    element.value = "team";
+    document.body.append(element);
+    await element.updateComplete;
+
+    const buttons = Array.from(element.renderRoot.querySelectorAll("button.control"));
+
+    expect(buttons[0]?.getAttribute("tabindex")).toBe("-1");
+    expect(buttons[1]?.getAttribute("tabindex")).toBe("0");
+    expect(buttons[2]?.getAttribute("tabindex")).toBe("-1");
+  });
 });

@@ -127,12 +127,25 @@ export class CindorTransferList extends FormAssociatedElement {
     size: { type: Number, reflect: true }
   };
 
+  /** Visible label for the available-options column. */
   availableLabel = "Available";
+
+  /** Disables both lists and all move actions. */
   disabled = false;
+
+  /** Form field name used when selected values are submitted. */
   name = "";
+
+  /** Requires at least one selected value for validity. */
   required = false;
+
+  /** Visible label for the chosen-options column. */
   selectedLabel = "Selected";
+
+  /** Ordered values currently shown in the chosen list. */
   selectedValues: string[] = [];
+
+  /** Minimum visible row count for each native multi-select. */
   size = 8;
 
   private activeAvailableValues: string[] = [];
@@ -334,18 +347,21 @@ export class CindorTransferList extends FormAssociatedElement {
       return;
     }
 
+    const movedValues: string[] = [];
     const selected = new Set(this.selectedValues);
     for (const value of this.activeAvailableValues) {
       const option = this.optionNodes.find((candidate) => candidate.value === value);
       if (option && !option.disabled) {
         selected.add(value);
+        movedValues.push(value);
       }
     }
 
     this.selectedValues = this.optionNodes.filter((option) => selected.has(option.value)).map((option) => option.value);
     this.activeAvailableValues = [];
+    this.activeSelectedValues = movedValues;
     this.dispatchValueEvents();
-    this.requestUpdate();
+    this.focusListAfterMove("selected");
   };
 
   private moveAllToChosen = (): void => {
@@ -354,12 +370,16 @@ export class CindorTransferList extends FormAssociatedElement {
     }
 
     const currentlySelected = new Set(this.selectedValues);
-    this.selectedValues = this.optionNodes
+    const nextSelectedValues = this.optionNodes
       .filter((option) => currentlySelected.has(option.value) || !option.disabled)
       .map((option) => option.value);
+
+    const movedValues = nextSelectedValues.filter((value) => !currentlySelected.has(value));
+    this.selectedValues = nextSelectedValues;
+    this.activeSelectedValues = movedValues;
     this.activeAvailableValues = [];
     this.dispatchValueEvents();
-    this.requestUpdate();
+    this.focusListAfterMove("selected");
   };
 
   private moveSelectedToAvailable = (): void => {
@@ -367,11 +387,13 @@ export class CindorTransferList extends FormAssociatedElement {
       return;
     }
 
+    const movedValues = [...this.activeSelectedValues];
     const removed = new Set(this.activeSelectedValues);
     this.selectedValues = this.selectedValues.filter((value) => !removed.has(value));
     this.activeSelectedValues = [];
+    this.activeAvailableValues = movedValues;
     this.dispatchValueEvents();
-    this.requestUpdate();
+    this.focusListAfterMove("available");
   };
 
   private moveAllToAvailable = (): void => {
@@ -379,11 +401,28 @@ export class CindorTransferList extends FormAssociatedElement {
       return;
     }
 
+    this.activeAvailableValues = [...this.selectedValues];
     this.selectedValues = [];
     this.activeSelectedValues = [];
     this.dispatchValueEvents();
-    this.requestUpdate();
+    this.focusListAfterMove("available");
   };
+
+  private focusListAfterMove(target: "available" | "selected"): void {
+    void this.updateComplete.then(() => {
+      const select = target === "available" ? this.availableSelect : this.selectedSelect;
+      const values = target === "available" ? this.activeAvailableValues : this.activeSelectedValues;
+      if (!select) {
+        return;
+      }
+
+      for (const option of Array.from(select.options)) {
+        option.selected = values.includes(option.value);
+      }
+
+      select.focus();
+    });
+  }
 
   private renderActionButton(
     label: string,

@@ -519,6 +519,16 @@ a {
   gap: var(--space-4);
 }
 
+.use-case-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+}
+
+.use-case-card {
+  align-content: start;
+}
+
 .catalog-controls {
   display: grid;
   gap: var(--space-3);

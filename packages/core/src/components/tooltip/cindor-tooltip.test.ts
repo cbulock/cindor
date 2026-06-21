@@ -83,4 +83,20 @@ describe("cindor-tooltip", () => {
 
     expect(trigger.getAttribute("aria-describedby")).toBe("existing-help");
   });
+
+  it("does not open when no tooltip text is provided", async () => {
+    const element = document.createElement("cindor-tooltip") as CindorTooltip;
+    element.text = "   ";
+    element.innerHTML = "<button>Trigger</button>";
+    document.body.append(element);
+    await element.updateComplete;
+
+    const trigger = element.querySelector("button") as HTMLButtonElement;
+    trigger.dispatchEvent(new Event("mouseenter"));
+    await element.updateComplete;
+
+    expect(element.open).toBe(false);
+    expect(element.renderRoot.querySelector('[role="tooltip"]')).toBeNull();
+    expect(trigger.hasAttribute("aria-describedby")).toBe(false);
+  });
 });

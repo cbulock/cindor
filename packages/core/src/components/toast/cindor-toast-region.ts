@@ -53,7 +53,10 @@ export class CindorToastRegion extends LitElement {
 
   private static nextId = 0;
 
+  /** Maximum number of visible managed toasts before the oldest is removed. */
   maxVisible = 5;
+
+  /** Fixed viewport placement for the toast stack. */
   placement: ToastPlacement = "top-end";
 
   private managedToasts = new Map<string, ManagedToastRecord>();
@@ -64,6 +67,7 @@ export class CindorToastRegion extends LitElement {
     }
   }
 
+  /** Dismisses a managed toast by id. */
   dismissToast(id: string): boolean {
     if (!this.managedToasts.has(id)) {
       return false;
@@ -75,41 +79,32 @@ export class CindorToastRegion extends LitElement {
 
   showToast(options: ShowToastOptions): string {
     const id = options.id || `cindor-toast-${CindorToastRegion.nextId++}`;
-    const toast = document.createElement("cindor-toast");
+    const existingRecord = this.managedToasts.get(id);
+    const toast = existingRecord?.toast ?? document.createElement("cindor-toast");
     const tone = options.tone ?? "neutral";
     const dismissible = options.dismissible ?? true;
     const duration = options.duration ?? 5000;
 
     toast.setAttribute("data-toast-id", id);
-    toast.setAttribute("tone", tone);
+    this.applyToastOptions(toast, { content: options.content, dismissible, tone });
 
-    if (dismissible) {
-      toast.setAttribute("dismissible", "");
+    if (!existingRecord) {
+      this.append(toast);
+      this.pruneOverflow();
+    } else {
+      this.append(toast);
+      if (existingRecord.timeoutId !== undefined) {
+        window.clearTimeout(existingRecord.timeoutId);
+      }
+      toast.removeEventListener("close", existingRecord.closeHandler);
     }
-
-    this.assignToastContent(toast, options.content);
-    this.append(toast);
-    this.pruneOverflow();
 
     const closeHandler = () => {
       this.removeToastById(id);
     };
 
-    let timeoutId: number | undefined;
-    if (duration > 0) {
-      timeoutId = window.setTimeout(() => {
-        const currentToast = this.managedToasts.get(id)?.toast as (HTMLElement & { close?: () => void }) | undefined;
-
-        if (typeof currentToast?.close === "function") {
-          currentToast.close();
-          return;
-        }
-
-        this.removeToastById(id);
-      }, duration);
-    }
-
     toast.addEventListener("close", closeHandler, { once: true });
+    const timeoutId = this.scheduleToastRemoval(id, duration);
     this.managedToasts.set(id, { closeHandler, timeoutId, toast });
     this.dispatchEvent(new CustomEvent("toast-show", { detail: { id, tone }, bubbles: true, composed: true }));
 
@@ -134,6 +129,42 @@ export class CindorToastRegion extends LitElement {
     }
 
     toast.append(content);
+  }
+
+  private applyToastOptions(
+    toast: HTMLElement,
+    options: {
+      content: ToastContent;
+      dismissible: boolean;
+      tone: NonNullable<ShowToastOptions["tone"]>;
+    }
+  ): void {
+    toast.setAttribute("tone", options.tone);
+
+    if (options.dismissible) {
+      toast.setAttribute("dismissible", "");
+    } else {
+      toast.removeAttribute("dismissible");
+    }
+
+    this.assignToastContent(toast, options.content);
+  }
+
+  private scheduleToastRemoval(id: string, duration: number): number | undefined {
+    if (duration <= 0) {
+      return undefined;
+    }
+
+    return window.setTimeout(() => {
+      const currentToast = this.managedToasts.get(id)?.toast as (HTMLElement & { close?: () => void }) | undefined;
+
+      if (typeof currentToast?.close === "function") {
+        currentToast.close();
+        return;
+      }
+
+      this.removeToastById(id);
+    }, duration);
   }
 
   private pruneOverflow(): void {

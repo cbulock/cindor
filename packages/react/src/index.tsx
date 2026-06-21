@@ -31,6 +31,7 @@ import {
   CindorForm as CindorFormElement,
   CindorFormField as CindorFormFieldElement,
   CindorFormRow as CindorFormRowElement,
+  CindorGrid as CindorGridElement,
   CindorHelperText as CindorHelperTextElement,
   CindorErrorText as CindorErrorTextElement,
   CindorRange as CindorRangeElement,
@@ -304,6 +305,12 @@ export const CindorFormRow = createComponent({
   react: React,
   tagName: "cindor-form-row",
   elementClass: CindorFormRowElement
+});
+
+export const CindorGrid = createComponent({
+  react: React,
+  tagName: "cindor-grid",
+  elementClass: CindorGridElement
 });
 
 export const CindorHelperText = createComponent({

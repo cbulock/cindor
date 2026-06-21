@@ -8,8 +8,8 @@ const meta = {
   title: "Components/Tooltip",
   args: {
     open: false,
-    text: "Shows extra context",
-    triggerLabel: "Hover me"
+    text: "Explain why this action is disabled until the required setup is complete.",
+    triggerLabel: "Why is this locked?"
   },
   render: ({ open, text, triggerLabel }: TooltipStoryArgs) =>
     `<cindor-tooltip ${open ? "open" : ""} text="${text}"><cindor-button>${triggerLabel}</cindor-button></cindor-tooltip>`
