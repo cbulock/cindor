@@ -1435,6 +1435,27 @@
           "reflects": false,
           "type": "DataGridRow[]",
           "values": null
+        },
+        {
+          "attributeName": "sort-direction",
+          "defaultValue": "\"ascending\"",
+          "description": "",
+          "name": "sortDirection",
+          "reflects": true,
+          "type": "\"ascending\" | \"descending\"",
+          "values": [
+            "ascending",
+            "descending"
+          ]
+        },
+        {
+          "attributeName": "sort-key",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "sortKey",
+          "reflects": true,
+          "type": "string",
+          "values": null
         }
       ],
       "methods": [],
@@ -1449,6 +1470,12 @@
           "description": "Fired when the active cell changes.",
           "name": "active-cell-change",
           "type": "CustomEvent<DataGridActiveCellDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the active sort column or direction changes.",
+          "name": "sort-change",
+          "type": "CustomEvent<DataGridSortChangeDetail>",
           "values": null
         }
       ],
@@ -3525,6 +3552,88 @@
       "tagName": "cindor-form-row"
     },
     {
+      "className": "CindorGrid",
+      "description": "Responsive grid primitive for cards, summaries, and multi-column layout groupings.",
+      "modulePath": "packages/core/src/components/grid/cindor-grid.ts",
+      "properties": [
+        {
+          "attributeName": "align",
+          "defaultValue": "\"stretch\"",
+          "description": "Aligns items along the block axis within each grid cell.",
+          "name": "align",
+          "reflects": true,
+          "type": "\"start\" | \"center\" | \"end\" | \"stretch\" | \"baseline\"",
+          "values": [
+            "start",
+            "center",
+            "end",
+            "stretch",
+            "baseline"
+          ]
+        },
+        {
+          "attributeName": "columns",
+          "defaultValue": "2",
+          "description": "Fixed column count used when minColumnWidth is not supplied.",
+          "name": "columns",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "gap",
+          "defaultValue": "\"4\"",
+          "description": "Gap token between grid items.",
+          "name": "gap",
+          "reflects": true,
+          "type": "\"0\" | \"1\" | \"2\" | \"3\" | \"4\" | \"5\" | \"6\"",
+          "values": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ]
+        },
+        {
+          "attributeName": "justify",
+          "defaultValue": "\"stretch\"",
+          "description": "Aligns items along the inline axis within each grid cell.",
+          "name": "justify",
+          "reflects": true,
+          "type": "\"start\" | \"center\" | \"end\" | \"stretch\" | \"baseline\"",
+          "values": [
+            "start",
+            "center",
+            "end",
+            "stretch",
+            "baseline"
+          ]
+        },
+        {
+          "attributeName": "min-column-width",
+          "defaultValue": "\"\"",
+          "description": "When present, switches to an auto-fit responsive grid using this minimum track size.",
+          "name": "minColumnWidth",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Child elements arranged by the configured grid settings.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-grid"
+    },
+    {
       "className": "CindorHelperText",
       "description": "",
       "modulePath": "packages/core/src/components/helper-text/cindor-helper-text.ts",
@@ -4858,16 +4967,25 @@
         {
           "attributeName": "description",
           "defaultValue": "\"\"",
-          "description": "",
+          "description": "Supporting copy shown below the title.",
           "name": "description",
           "reflects": true,
           "type": "string",
           "values": null
         },
         {
+          "attributeName": "heading-level",
+          "defaultValue": "2",
+          "description": "Heading level used for the inspector title, clamped between 1 and 6.",
+          "name": "headingLevel",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
           "attributeName": "sticky",
           "defaultValue": "false",
-          "description": "",
+          "description": "Pins the inspector near the top of the viewport while its container scrolls.",
           "name": "sticky",
           "reflects": true,
           "type": "boolean",
@@ -4876,7 +4994,7 @@
         {
           "attributeName": "title",
           "defaultValue": "\"\"",
-          "description": "",
+          "description": "Primary heading text for the inspector.",
           "name": "title",
           "reflects": true,
           "type": "string",
@@ -6282,7 +6400,13 @@
         {
           "description": "Closes the secondary action menu.",
           "name": "hideMenu",
-          "parameters": [],
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "{ restoreFocus?: boolean }"
+            }
+          ],
           "returnType": "void"
         },
         {
@@ -6551,7 +6675,7 @@
         {
           "attributeName": "disabled",
           "defaultValue": "false",
-          "description": "",
+          "description": "Disables interactive step changes across the whole control.",
           "name": "disabled",
           "reflects": true,
           "type": "boolean",
@@ -6560,7 +6684,7 @@
         {
           "attributeName": "interactive",
           "defaultValue": "false",
-          "description": "",
+          "description": "Enables click and keyboard step selection.",
           "name": "interactive",
           "reflects": true,
           "type": "boolean",
@@ -6569,7 +6693,7 @@
         {
           "attributeName": "orientation",
           "defaultValue": "\"horizontal\"",
-          "description": "",
+          "description": "Switches between horizontal and vertical presentation.",
           "name": "orientation",
           "reflects": true,
           "type": "\"horizontal\" | \"vertical\"",
@@ -6581,7 +6705,7 @@
         {
           "attributeName": null,
           "defaultValue": "[]",
-          "description": "",
+          "description": "Ordered workflow steps assigned as a property.",
           "name": "steps",
           "reflects": false,
           "type": "StepperStep[]",
@@ -6590,7 +6714,7 @@
         {
           "attributeName": "value",
           "defaultValue": "\"\"",
-          "description": "",
+          "description": "Current active step value.",
           "name": "value",
           "reflects": true,
           "type": "string",
@@ -7538,7 +7662,7 @@
         {
           "attributeName": "max-visible",
           "defaultValue": "5",
-          "description": "",
+          "description": "Maximum number of visible managed toasts before the oldest is removed.",
           "name": "maxVisible",
           "reflects": true,
           "type": "number",
@@ -7547,7 +7671,7 @@
         {
           "attributeName": "placement",
           "defaultValue": "\"top-end\"",
-          "description": "",
+          "description": "Fixed viewport placement for the toast stack.",
           "name": "placement",
           "reflects": true,
           "type": "ToastPlacement",
@@ -7562,7 +7686,7 @@
           "returnType": "void"
         },
         {
-          "description": "",
+          "description": "Dismisses a managed toast by id.",
           "name": "dismissToast",
           "parameters": [
             {
@@ -7655,7 +7779,7 @@
         {
           "attributeName": "open",
           "defaultValue": "false",
-          "description": "",
+          "description": "Controls whether the tooltip bubble is visible.",
           "name": "open",
           "reflects": true,
           "type": "boolean",
@@ -7664,7 +7788,7 @@
         {
           "attributeName": "text",
           "defaultValue": "\"\"",
-          "description": "",
+          "description": "Plain-text helper copy rendered inside the tooltip bubble.",
           "name": "text",
           "reflects": true,
           "type": "string",
@@ -7690,7 +7814,7 @@
         {
           "attributeName": "available-label",
           "defaultValue": "\"Available\"",
-          "description": "",
+          "description": "Visible label for the available-options column.",
           "name": "availableLabel",
           "reflects": true,
           "type": "string",
@@ -7699,7 +7823,7 @@
         {
           "attributeName": "disabled",
           "defaultValue": "false",
-          "description": "",
+          "description": "Disables both lists and all move actions.",
           "name": "disabled",
           "reflects": true,
           "type": "boolean",
@@ -7708,7 +7832,7 @@
         {
           "attributeName": "name",
           "defaultValue": "\"\"",
-          "description": "",
+          "description": "Form field name used when selected values are submitted.",
           "name": "name",
           "reflects": true,
           "type": "string",
@@ -7717,7 +7841,7 @@
         {
           "attributeName": "required",
           "defaultValue": "false",
-          "description": "",
+          "description": "Requires at least one selected value for validity.",
           "name": "required",
           "reflects": true,
           "type": "boolean",
@@ -7726,7 +7850,7 @@
         {
           "attributeName": "selected-label",
           "defaultValue": "\"Selected\"",
-          "description": "",
+          "description": "Visible label for the chosen-options column.",
           "name": "selectedLabel",
           "reflects": true,
           "type": "string",
@@ -7735,7 +7859,7 @@
         {
           "attributeName": null,
           "defaultValue": "[]",
-          "description": "",
+          "description": "Ordered values currently shown in the chosen list.",
           "name": "selectedValues",
           "reflects": false,
           "type": "string[]",
@@ -7744,7 +7868,7 @@
         {
           "attributeName": "size",
           "defaultValue": "8",
-          "description": "",
+          "description": "Minimum visible row count for each native multi-select.",
           "name": "size",
           "reflects": true,
           "type": "number",
@@ -7826,7 +7950,7 @@
         {
           "attributeName": "disabled",
           "defaultValue": "false",
-          "description": "",
+          "description": "Disables both the row selection button and any branch toggle control.",
           "name": "disabled",
           "reflects": true,
           "type": "boolean",
@@ -7835,7 +7959,7 @@
         {
           "attributeName": "expanded",
           "defaultValue": "false",
-          "description": "",
+          "description": "Expands branch children when nested tree items are present.",
           "name": "expanded",
           "reflects": true,
           "type": "boolean",
@@ -7844,7 +7968,7 @@
         {
           "attributeName": "label",
           "defaultValue": "\"\"",
-          "description": "",
+          "description": "Visible row label. Falls back to value when omitted.",
           "name": "label",
           "reflects": true,
           "type": "string",
@@ -7853,7 +7977,7 @@
         {
           "attributeName": "selected",
           "defaultValue": "false",
-          "description": "",
+          "description": "Applied by the parent tree view to reflect the active selection state.",
           "name": "selected",
           "reflects": true,
           "type": "boolean",
@@ -7862,7 +7986,7 @@
         {
           "attributeName": "value",
           "defaultValue": "\"\"",
-          "description": "",
+          "description": "Stable selection value for this item. Falls back to label when omitted.",
           "name": "value",
           "reflects": true,
           "type": "string",
@@ -7889,7 +8013,7 @@
           "returnType": "void"
         },
         {
-          "description": "",
+          "description": "Expands or collapses the branch when child tree items exist.",
           "name": "toggle",
           "parameters": [
             {
@@ -7936,7 +8060,7 @@
         {
           "attributeName": "value",
           "defaultValue": "\"\"",
-          "description": "",
+          "description": "Value of the currently selected tree item.",
           "name": "value",
           "reflects": true,
           "type": "string",

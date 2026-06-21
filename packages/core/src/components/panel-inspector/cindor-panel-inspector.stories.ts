@@ -1,21 +1,27 @@
 type PanelInspectorStoryArgs = {
+  headingLevel: number;
   sticky: boolean;
 };
 
 const meta = {
   title: "Display/Panel Inspector",
   args: {
+    headingLevel: 2,
     sticky: false
   },
   argTypes: {
+    headingLevel: {
+      control: { type: "number", min: 1, max: 6, step: 1 }
+    },
     sticky: {
       control: "boolean"
     }
   },
-  render: ({ sticky }: PanelInspectorStoryArgs) => `
+  render: ({ headingLevel, sticky }: PanelInspectorStoryArgs) => `
     <cindor-panel-inspector
       title="Deployment details"
       description="Review metadata, release health, and supporting actions for the selected deployment."
+      heading-level="${headingLevel}"
       ${sticky ? "sticky" : ""}
     >
       <cindor-badge slot="meta" tone="accent">Healthy</cindor-badge>

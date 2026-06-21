@@ -84,6 +84,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("form", "Form", "Component", "Forms", "form orchestration wrapper", "Higher-level form surface for layout, validation summaries, and submission state."),
   defineComponent("form-field", "Form Field", "Composite", "Forms", "label description wrapper", "Reusable field framing with label, help text, and error slots."),
   defineComponent("form-row", "Form Row", "Composite", "Forms", "responsive field grid", "Responsive row layout for composing multiple Cindor form fields together."),
+  defineComponent("grid", "Grid", "Primitive", "Display", "CSS grid layout", "Responsive grid primitive for cards, summaries, and multi-column composition."),
   defineComponent("helper-text", "Helper Text", "Primitive", "Forms", "support text", "Secondary descriptive text for form controls."),
   defineComponent("icon", "Icon", "Primitive", "Display", "svg icon", "Lucide-backed icon wrapper used across the library."),
   defineComponent("icon-button", "Icon Button", "Primitive", "Actions", "button plus icon", "Icon-only action button built from the core button surface."),

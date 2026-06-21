@@ -33,6 +33,24 @@ describe("cindor-split-button", () => {
     expect(menuTrigger?.getAttribute("aria-label")).toBe("More publish actions");
   });
 
+  it("connects the menu trigger to the internal menu state", async () => {
+    const element = document.createElement("cindor-split-button") as CindorSplitButton;
+    element.open = true;
+    element.innerHTML = `
+      Publish
+      <cindor-menu-item slot="menu">Save draft</cindor-menu-item>
+    `;
+    document.body.append(element);
+    await element.updateComplete;
+
+    const menuTrigger = element.renderRoot.querySelector("summary cindor-button");
+    const menu = element.renderRoot.querySelector('[part="menu"]');
+
+    expect(menuTrigger?.getAttribute("aria-haspopup")).toBe("menu");
+    expect(menuTrigger?.getAttribute("aria-expanded")).toBe("true");
+    expect(menuTrigger?.getAttribute("aria-controls")).toBe(menu?.id);
+  });
+
   it("forwards host accessible naming to the internal menu", async () => {
     const element = document.createElement("cindor-split-button") as CindorSplitButton;
     element.open = true;
@@ -79,6 +97,25 @@ describe("cindor-split-button", () => {
     await element.updateComplete;
 
     expect(element.open).toBe(false);
+  });
+
+  it("closes on Escape and restores focus to the menu trigger", async () => {
+    const element = document.createElement("cindor-split-button") as CindorSplitButton;
+    element.open = true;
+    element.innerHTML = `
+      Publish
+      <cindor-menu-item slot="menu">Save draft</cindor-menu-item>
+    `;
+    document.body.append(element);
+    await element.updateComplete;
+
+    const menu = element.renderRoot.querySelector('[part="menu"]') as HTMLElement;
+    const menuTrigger = element.renderRoot.querySelector("summary cindor-button") as HTMLElement;
+    menu.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, composed: true, key: "Escape" }));
+    await element.updateComplete;
+
+    expect(element.open).toBe(false);
+    expect((element.renderRoot as ShadowRoot).activeElement).toBe(menuTrigger);
   });
 
   it("submits its owning form when configured as a submit button", async () => {

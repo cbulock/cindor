@@ -320,6 +320,95 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Components/Alert\", args: { message: \"The upstream Cindor tokens loaded successfully.\", title: \"Heads up\", tone: \"info\" }, argTypes: { tone: { control: \"radio\", options: [\"info\", \"success\", \"warning\", \"danger\"] } }, render: ({ message, title, tone }: AlertStoryArgs) => ` <cindor-alert tone=\"${tone}\"> <strong>${title}</strong> <span>${message}</span> </cindor-alert> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/alert/cindor-alert.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorAlert",
+          "members": [
+            {
+              "kind": "field",
+              "name": "tone",
+              "privacy": "public",
+              "type": {
+                "text": "AlertTone"
+              },
+              "default": "\"info\"",
+              "attribute": "tone",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "tone",
+              "type": {
+                "text": "AlertTone"
+              },
+              "default": "\"info\"",
+              "fieldName": "tone"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorAlert",
+          "declaration": {
+            "name": "CindorAlert",
+            "module": "packages/core/src/components/alert/cindor-alert.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/autocomplete/cindor-autocomplete.stories.ts",
       "declarations": [
         {
@@ -891,95 +980,6 @@
           "declaration": {
             "name": "CindorAutocomplete",
             "module": "packages/core/src/components/autocomplete/cindor-autocomplete.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Components/Alert\", args: { message: \"The upstream Cindor tokens loaded successfully.\", title: \"Heads up\", tone: \"info\" }, argTypes: { tone: { control: \"radio\", options: [\"info\", \"success\", \"warning\", \"danger\"] } }, render: ({ message, title, tone }: AlertStoryArgs) => ` <cindor-alert tone=\"${tone}\"> <strong>${title}</strong> <span>${message}</span> </cindor-alert> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/alert/cindor-alert.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorAlert",
-          "members": [
-            {
-              "kind": "field",
-              "name": "tone",
-              "privacy": "public",
-              "type": {
-                "text": "AlertTone"
-              },
-              "default": "\"info\"",
-              "attribute": "tone",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "tone",
-              "type": {
-                "text": "AlertTone"
-              },
-              "default": "\"info\"",
-              "fieldName": "tone"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorAlert",
-          "declaration": {
-            "name": "CindorAlert",
-            "module": "packages/core/src/components/alert/cindor-alert.ts"
           }
         }
       ]
@@ -4625,6 +4625,266 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/context-menu/cindor-context-menu.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Overlays/Context Menu\", args: { open: false }, argTypes: { open: { control: \"boolean\" } }, render: ({ open }: ContextMenuStoryArgs) => ` <cindor-context-menu aria-label=\"Context actions\" ${open ? \"open\" : \"\"}> <div slot=\"trigger\" style=\"padding: var(--space-6); border: 1px dashed var(--border); border-radius: var(--radius-lg);\"> Right click this surface </div> <cindor-menu-item>Rename</cindor-menu-item> <cindor-menu-item>Duplicate</cindor-menu-item> <cindor-menu-item>Archive</cindor-menu-item> </cindor-context-menu> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/context-menu/cindor-context-menu.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/context-menu/cindor-context-menu.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/context-menu/cindor-context-menu.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Right-click menu surface that composes Cindor menu primitives.",
+          "name": "CindorContextMenu",
+          "slots": [
+            {
+              "description": "Element that receives context menu and keyboard-open interaction.",
+              "name": "trigger"
+            },
+            {
+              "description": "`cindor-menu-item` children rendered inside the menu.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "open",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "anchorX",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "anchorY",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "restoreFocusTarget",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "openAt",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "x",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "y",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "handleContextMenu",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleTriggerKeydown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleMenuItemSelect",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleMenuKeydown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleDocumentPointerDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleWindowBlur",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleViewportChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "positionMenu",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncMenuA11y",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusFirstItem",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "dispatchToggleEvent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "menuElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "triggerElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "events": [
+            {
+              "name": "toggle",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the menu opens or closes."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "open"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorContextMenu",
+          "declaration": {
+            "name": "CindorContextMenu",
+            "module": "packages/core/src/components/context-menu/cindor-context-menu.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/data-grid/cindor-data-grid.stories.ts",
       "declarations": [
         {
@@ -4714,6 +4974,28 @@
             },
             {
               "kind": "field",
+              "name": "sortDirection",
+              "privacy": "public",
+              "type": {
+                "text": "DataGridSortDirection"
+              },
+              "default": "\"ascending\"",
+              "attribute": "sort-direction",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "sortKey",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "sort-key",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "activeColumnIndex",
               "type": {
                 "text": "number"
@@ -4738,6 +5020,25 @@
               },
               "privacy": "private",
               "default": "null"
+            },
+            {
+              "kind": "method",
+              "name": "renderHeaderCell",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "DataGridColumn"
+                  }
+                },
+                {
+                  "name": "active",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
             },
             {
               "kind": "method",
@@ -5118,6 +5419,118 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "toggleSort",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "DataGridColumn"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "sortedRows",
+              "type": {
+                "text": "DataGridRow[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "defaultSortComparison",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "leftValue",
+                  "type": {
+                    "text": "unknown"
+                  }
+                },
+                {
+                  "name": "rightValue",
+                  "type": {
+                    "text": "unknown"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "renderedColumns",
+              "type": {
+                "text": "DataGridRenderedColumn[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "columnCellStyle",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string | typeof nothing"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "DataGridColumn"
+                  }
+                },
+                {
+                  "name": "stickyOffset",
+                  "type": {
+                    "text": "string | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "stickyColumnWidth",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "DataGridColumn"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "focusActiveCell",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             }
           ],
           "events": [
@@ -5134,6 +5547,13 @@
                 "text": "CustomEvent<DataGridActiveCellDetail>"
               },
               "description": "Fired when the active cell changes."
+            },
+            {
+              "name": "sort-change",
+              "type": {
+                "text": "CustomEvent<DataGridSortChangeDetail>"
+              },
+              "description": "Fired when the active sort column or direction changes."
             }
           ],
           "attributes": [
@@ -5152,6 +5572,22 @@
               },
               "default": "\"id\"",
               "fieldName": "rowIdKey"
+            },
+            {
+              "name": "sort-direction",
+              "type": {
+                "text": "DataGridSortDirection"
+              },
+              "default": "\"ascending\"",
+              "fieldName": "sortDirection"
+            },
+            {
+              "name": "sort-key",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "sortKey"
             }
           ],
           "superclass": {
@@ -5161,6 +5597,10 @@
           "tagName": "cindor-data-grid",
           "customElement": true,
           "summary": "Editable grid foundation with sticky columns and active-cell navigation."
+        },
+        {
+          "kind": "variable",
+          "name": "column"
         }
       ],
       "exports": [
@@ -5170,266 +5610,6 @@
           "declaration": {
             "name": "CindorDataGrid",
             "module": "packages/core/src/components/data-grid/cindor-data-grid.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/context-menu/cindor-context-menu.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Overlays/Context Menu\", args: { open: false }, argTypes: { open: { control: \"boolean\" } }, render: ({ open }: ContextMenuStoryArgs) => ` <cindor-context-menu aria-label=\"Context actions\" ${open ? \"open\" : \"\"}> <div slot=\"trigger\" style=\"padding: var(--space-6); border: 1px dashed var(--border); border-radius: var(--radius-lg);\"> Right click this surface </div> <cindor-menu-item>Rename</cindor-menu-item> <cindor-menu-item>Duplicate</cindor-menu-item> <cindor-menu-item>Archive</cindor-menu-item> </cindor-context-menu> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/context-menu/cindor-context-menu.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/context-menu/cindor-context-menu.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/context-menu/cindor-context-menu.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Right-click menu surface that composes Cindor menu primitives.",
-          "name": "CindorContextMenu",
-          "slots": [
-            {
-              "description": "Element that receives context menu and keyboard-open interaction.",
-              "name": "trigger"
-            },
-            {
-              "description": "`cindor-menu-item` children rendered inside the menu.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "open",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "open",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "anchorX",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "anchorY",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "restoreFocusTarget",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "method",
-              "name": "close",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "openAt",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "x",
-                  "type": {
-                    "text": "number"
-                  }
-                },
-                {
-                  "name": "y",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "handleContextMenu",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleTriggerKeydown",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleMenuItemSelect",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleMenuKeydown",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleDocumentPointerDown",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleWindowBlur",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleViewportChange",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "positionMenu",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "syncMenuA11y",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focusFirstItem",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchToggleEvent",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "menuElement",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "triggerElement",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "events": [
-            {
-              "name": "toggle",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired when the menu opens or closes."
-            }
-          ],
-          "attributes": [
-            {
-              "name": "open",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "open"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorContextMenu",
-          "declaration": {
-            "name": "CindorContextMenu",
-            "module": "packages/core/src/components/context-menu/cindor-context-menu.ts"
           }
         }
       ]
@@ -14693,6 +14873,205 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/grid/cindor-grid.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Layout/Grid\", args: { align: \"stretch\", columns: 3, gap: \"4\", justify: \"stretch\", minColumnWidth: \"14rem\" }, argTypes: { align: { control: \"select\", options: [\"start\", \"center\", \"end\", \"stretch\", \"baseline\"] }, columns: { control: { type: \"number\", min: 1, max: 6, step: 1 } }, gap: { control: \"select\", options: [\"0\", \"1\", \"2\", \"3\", \"4\", \"5\", \"6\"] }, justify: { control: \"select\", options: [\"start\", \"center\", \"end\", \"stretch\", \"baseline\"] }, minColumnWidth: { control: \"text\" } }, render: ({ align, columns, gap, justify, minColumnWidth }: GridStoryArgs) => ` <cindor-grid align=\"${align}\" columns=\"${columns}\" gap=\"${gap}\" justify=\"${justify}\" min-column-width=\"${minColumnWidth}\" > <cindor-card><div style=\"padding: var(--space-4);\">Overview</div></cindor-card> <cindor-card><div style=\"padding: var(--space-4);\">Approvals</div></cindor-card> <cindor-card><div style=\"padding: var(--space-4);\">Audit trail</div></cindor-card> <cindor-card><div style=\"padding: var(--space-4);\">Release notes</div></cindor-card> </cindor-grid> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/grid/cindor-grid.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/grid/cindor-grid.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/grid/cindor-grid.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Responsive grid primitive for cards, summaries, and multi-column layout groupings.",
+          "name": "CindorGrid",
+          "slots": [
+            {
+              "description": "Child elements arranged by the configured grid settings.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "privacy": "public",
+              "type": {
+                "text": "GridAlign"
+              },
+              "default": "\"stretch\"",
+              "description": "Aligns items along the block axis within each grid cell.",
+              "attribute": "align",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "columns",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "2",
+              "description": "Fixed column count used when minColumnWidth is not supplied.",
+              "attribute": "columns",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "gap",
+              "privacy": "public",
+              "type": {
+                "text": "GridGap"
+              },
+              "default": "\"4\"",
+              "description": "Gap token between grid items.",
+              "attribute": "gap",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "justify",
+              "privacy": "public",
+              "type": {
+                "text": "GridAlign"
+              },
+              "default": "\"stretch\"",
+              "description": "Aligns items along the inline axis within each grid cell.",
+              "attribute": "justify",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "minColumnWidth",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "When present, switches to an auto-fit responsive grid using this minimum track size.",
+              "attribute": "min-column-width",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "templateColumns",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "normalizedColumns",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "GridAlign"
+              },
+              "default": "\"stretch\"",
+              "description": "Aligns items along the block axis within each grid cell.",
+              "fieldName": "align"
+            },
+            {
+              "name": "columns",
+              "type": {
+                "text": "number"
+              },
+              "default": "2",
+              "description": "Fixed column count used when minColumnWidth is not supplied.",
+              "fieldName": "columns"
+            },
+            {
+              "name": "gap",
+              "type": {
+                "text": "GridGap"
+              },
+              "default": "\"4\"",
+              "description": "Gap token between grid items.",
+              "fieldName": "gap"
+            },
+            {
+              "name": "justify",
+              "type": {
+                "text": "GridAlign"
+              },
+              "default": "\"stretch\"",
+              "description": "Aligns items along the inline axis within each grid cell.",
+              "fieldName": "justify"
+            },
+            {
+              "name": "min-column-width",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "When present, switches to an auto-fit responsive grid using this minimum track size.",
+              "fieldName": "minColumnWidth"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorGrid",
+          "declaration": {
+            "name": "CindorGrid",
+            "module": "packages/core/src/components/grid/cindor-grid.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/helper-text/cindor-helper-text.stories.ts",
       "declarations": [
         {
@@ -14936,6 +15315,269 @@
           "declaration": {
             "name": "CindorIcon",
             "module": "packages/core/src/components/icon/cindor-icon.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/icon-button/cindor-icon-button.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Primitives/Icon Button\", args: { disabled: false, label: \"Close dialog\", name: \"x\" }, render: ({ disabled, label, name }: IconButtonStoryArgs) => `<cindor-icon-button ${disabled ? \"disabled\" : \"\"} label=\"${label}\" name=\"${name}\"></cindor-icon-button>` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/icon-button/cindor-icon-button.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/icon-button/cindor-icon-button.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/icon-button/cindor-icon-button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorIconButton",
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "name",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "16",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "strokeWidth",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "2.25",
+              "attribute": "stroke-width",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "privacy": "public",
+              "type": {
+                "text": "ButtonType"
+              },
+              "default": "\"button\"",
+              "attribute": "type",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "hostA11yObserver",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new MutationObserver(() => { this.requestUpdate(); })"
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "click",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "buttonElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaDescribedBy",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaDescription",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaLabel",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaLabelledBy",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "label"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "name"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "default": "16",
+              "fieldName": "size"
+            },
+            {
+              "name": "stroke-width",
+              "type": {
+                "text": "number"
+              },
+              "default": "2.25",
+              "fieldName": "strokeWidth"
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "ButtonType"
+              },
+              "default": "\"button\"",
+              "fieldName": "type"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorIconButton",
+          "declaration": {
+            "name": "CindorIconButton",
+            "module": "packages/core/src/components/icon-button/cindor-icon-button.ts"
           }
         }
       ]
@@ -15216,269 +15858,6 @@
           "declaration": {
             "name": "CindorInlineEdit",
             "module": "packages/core/src/components/inline-edit/cindor-inline-edit.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/icon-button/cindor-icon-button.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Primitives/Icon Button\", args: { disabled: false, label: \"Close dialog\", name: \"x\" }, render: ({ disabled, label, name }: IconButtonStoryArgs) => `<cindor-icon-button ${disabled ? \"disabled\" : \"\"} label=\"${label}\" name=\"${name}\"></cindor-icon-button>` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/icon-button/cindor-icon-button.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/icon-button/cindor-icon-button.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/icon-button/cindor-icon-button.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorIconButton",
-          "members": [
-            {
-              "kind": "field",
-              "name": "disabled",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "disabled",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "label",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "label",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "name",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "default": "16",
-              "attribute": "size",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "strokeWidth",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "default": "2.25",
-              "attribute": "stroke-width",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "type",
-              "privacy": "public",
-              "type": {
-                "text": "ButtonType"
-              },
-              "default": "\"button\"",
-              "attribute": "type",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "hostA11yObserver",
-              "privacy": "private",
-              "readonly": true,
-              "default": "new MutationObserver(() => { this.requestUpdate(); })"
-            },
-            {
-              "kind": "method",
-              "name": "focus",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "click",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "buttonElement",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "hostAriaDescribedBy",
-              "type": {
-                "text": "string | undefined"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "hostAriaDescription",
-              "type": {
-                "text": "string | undefined"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "hostAriaLabel",
-              "type": {
-                "text": "string | undefined"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "hostAriaLabelledBy",
-              "type": {
-                "text": "string | undefined"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "disabled"
-            },
-            {
-              "name": "label",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "label"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "name"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "default": "16",
-              "fieldName": "size"
-            },
-            {
-              "name": "stroke-width",
-              "type": {
-                "text": "number"
-              },
-              "default": "2.25",
-              "fieldName": "strokeWidth"
-            },
-            {
-              "name": "type",
-              "type": {
-                "text": "ButtonType"
-              },
-              "default": "\"button\"",
-              "fieldName": "type"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorIconButton",
-          "declaration": {
-            "name": "CindorIconButton",
-            "module": "packages/core/src/components/icon-button/cindor-icon-button.ts"
           }
         }
       ]
@@ -20049,7 +20428,7 @@
           "type": {
             "text": "object"
           },
-          "default": "{ title: \"Display/Panel Inspector\", args: { sticky: false }, argTypes: { sticky: { control: \"boolean\" } }, render: ({ sticky }: PanelInspectorStoryArgs) => ` <cindor-panel-inspector title=\"Deployment details\" description=\"Review metadata, release health, and supporting actions for the selected deployment.\" ${sticky ? \"sticky\" : \"\"} > <cindor-badge slot=\"meta\" tone=\"accent\">Healthy</cindor-badge> <cindor-button slot=\"actions\" variant=\"ghost\">Open logs</cindor-button> <cindor-description-list> <cindor-description-item> <span slot=\"term\">Version</span> 2026.04.28-1 </cindor-description-item> <cindor-description-item> <span slot=\"term\">Region</span> us-east-1 </cindor-description-item> </cindor-description-list> <div slot=\"footer\">Last updated 4 minutes ago by Release Bot.</div> </cindor-panel-inspector> ` }"
+          "default": "{ title: \"Display/Panel Inspector\", args: { headingLevel: 2, sticky: false }, argTypes: { headingLevel: { control: { type: \"number\", min: 1, max: 6, step: 1 } }, sticky: { control: \"boolean\" } }, render: ({ headingLevel, sticky }: PanelInspectorStoryArgs) => ` <cindor-panel-inspector title=\"Deployment details\" description=\"Review metadata, release health, and supporting actions for the selected deployment.\" heading-level=\"${headingLevel}\" ${sticky ? \"sticky\" : \"\"} > <cindor-badge slot=\"meta\" tone=\"accent\">Healthy</cindor-badge> <cindor-button slot=\"actions\" variant=\"ghost\">Open logs</cindor-button> <cindor-description-list> <cindor-description-item> <span slot=\"term\">Version</span> 2026.04.28-1 </cindor-description-item> <cindor-description-item> <span slot=\"term\">Region</span> us-east-1 </cindor-description-item> </cindor-description-list> <div slot=\"footer\">Last updated 4 minutes ago by Release Bot.</div> </cindor-panel-inspector> ` }"
         },
         {
           "kind": "variable",
@@ -20114,8 +20493,61 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Supporting copy shown below the title.",
               "attribute": "description",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "headingLevel",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "2",
+              "description": "Heading level used for the inspector title, clamped between 1 and 6.",
+              "attribute": "heading-level",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "hasActionsContent",
+              "privacy": "protected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "hasActionsContent"
+            },
+            {
+              "kind": "field",
+              "name": "hasBodyContent",
+              "privacy": "protected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "hasBodyContent"
+            },
+            {
+              "kind": "field",
+              "name": "hasFooterContent",
+              "privacy": "protected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "hasFooterContent"
+            },
+            {
+              "kind": "field",
+              "name": "hasMetaContent",
+              "privacy": "protected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "hasMetaContent"
             },
             {
               "kind": "field",
@@ -20125,6 +20557,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Pins the inspector near the top of the viewport while its container scrolls.",
               "attribute": "sticky",
               "reflects": true
             },
@@ -20136,6 +20569,7 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Primary heading text for the inspector.",
               "attribute": "title",
               "reflects": true
             },
@@ -20147,6 +20581,109 @@
               },
               "privacy": "private",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "resolvedHeadingLevel",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "handleActionsSlotChange",
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "handleBodySlotChange",
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "handleFooterSlotChange",
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "handleMetaSlotChange",
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "syncSlotState",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "slotHasContent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "updateSlotPresence",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "key",
+                  "type": {
+                    "text": "\"hasActionsContent\" | \"hasBodyContent\" | \"hasFooterContent\" | \"hasMetaContent\""
+                  }
+                },
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "hasAssignedContent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "slot",
+                  "type": {
+                    "text": "HTMLSlotElement"
+                  }
+                }
+              ]
             }
           ],
           "attributes": [
@@ -20156,7 +20693,49 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Supporting copy shown below the title.",
               "fieldName": "description"
+            },
+            {
+              "name": "heading-level",
+              "type": {
+                "text": "number"
+              },
+              "default": "2",
+              "description": "Heading level used for the inspector title, clamped between 1 and 6.",
+              "fieldName": "headingLevel"
+            },
+            {
+              "name": "hasActionsContent",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "hasActionsContent"
+            },
+            {
+              "name": "hasBodyContent",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "hasBodyContent"
+            },
+            {
+              "name": "hasFooterContent",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "hasFooterContent"
+            },
+            {
+              "name": "hasMetaContent",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "hasMetaContent"
             },
             {
               "name": "sticky",
@@ -20164,6 +20743,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Pins the inspector near the top of the viewport while its container scrolls.",
               "fieldName": "sticky"
             },
             {
@@ -20172,6 +20752,7 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Primary heading text for the inspector.",
               "fieldName": "title"
             }
           ],
@@ -25297,7 +25878,7 @@
           "type": {
             "text": "object"
           },
-          "default": "{ title: \"Actions/Split Button\", args: { disabled: false, menuLabel: \"More publishing actions\", variant: \"solid\" }, argTypes: { variant: { control: \"radio\", options: [\"solid\", \"ghost\"] } }, render: ({ disabled, menuLabel, variant }: SplitButtonStoryArgs) => ` <cindor-split-button ${disabled ? \"disabled\" : \"\"} menu-label=\"${menuLabel}\" variant=\"${variant}\"> <cindor-icon slot=\"start-icon\" name=\"rocket\" size=\"16\"></cindor-icon> Publish <cindor-menu-item slot=\"menu\">Schedule for later</cindor-menu-item> <cindor-menu-item slot=\"menu\">Save draft</cindor-menu-item> <cindor-menu-item slot=\"menu\">Duplicate</cindor-menu-item> </cindor-split-button> ` }"
+          "default": "{ title: \"Actions/Split Button\", args: { disabled: false, menuLabel: \"More publishing actions\", variant: \"solid\" }, argTypes: { variant: { control: \"radio\", options: [\"solid\", \"ghost\"] } }, render: ({ disabled, menuLabel, variant }: SplitButtonStoryArgs) => ` <cindor-split-button ${disabled ? \"disabled\" : \"\"} menu-label=\"${menuLabel}\" variant=\"${variant}\"> <cindor-icon slot=\"start-icon\" name=\"rocket\" size=\"16\"></cindor-icon> Publish changes <cindor-menu-item slot=\"menu\">Schedule publish</cindor-menu-item> <cindor-menu-item slot=\"menu\">Save draft</cindor-menu-item> <cindor-menu-item slot=\"menu\">Duplicate draft</cindor-menu-item> </cindor-split-button> ` }"
         },
         {
           "kind": "variable",
@@ -25402,6 +25983,16 @@
             },
             {
               "kind": "field",
+              "name": "nextMenuIdCounter",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "static": true,
+              "default": "0"
+            },
+            {
+              "kind": "field",
               "name": "disabled",
               "privacy": "public",
               "type": {
@@ -25487,6 +26078,13 @@
             },
             {
               "kind": "field",
+              "name": "generatedMenuId",
+              "privacy": "private",
+              "readonly": true,
+              "default": "`${this.localName || \"cindor-split-button\"}-menu-${CindorSplitButton.nextMenuIdCounter++}`"
+            },
+            {
+              "kind": "field",
               "name": "updateFloatingPosition",
               "type": {
                 "text": "() => void | undefined"
@@ -25538,6 +26136,15 @@
                   "text": "void"
                 }
               },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "{ restoreFocus?: boolean }"
+                  }
+                }
+              ],
               "description": "Closes the secondary action menu."
             },
             {
@@ -25553,6 +26160,11 @@
             {
               "kind": "field",
               "name": "handleItemSelect",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleMenuKeydown",
               "privacy": "private"
             },
             {
@@ -25625,6 +26237,24 @@
             {
               "kind": "field",
               "name": "primaryButton",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "menuId",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "menuTriggerButton",
               "type": {
                 "text": "HTMLElement | null"
               },
@@ -26577,6 +27207,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Disables interactive step changes across the whole control.",
               "attribute": "disabled",
               "reflects": true
             },
@@ -26588,6 +27219,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Enables click and keyboard step selection.",
               "attribute": "interactive",
               "reflects": true
             },
@@ -26599,6 +27231,7 @@
                 "text": "StepperOrientation"
               },
               "default": "\"horizontal\"",
+              "description": "Switches between horizontal and vertical presentation.",
               "attribute": "orientation",
               "reflects": true
             },
@@ -26609,7 +27242,8 @@
               "type": {
                 "text": "StepperStep[]"
               },
-              "default": "[]"
+              "default": "[]",
+              "description": "Ordered workflow steps assigned as a property."
             },
             {
               "kind": "field",
@@ -26619,6 +27253,7 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Current active step value.",
               "attribute": "value",
               "reflects": true
             },
@@ -26726,6 +27361,38 @@
             },
             {
               "kind": "field",
+              "name": "handleInteractiveKeyDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "enabledControls",
+              "type": {
+                "text": "HTMLButtonElement[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "controlForValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "HTMLButtonElement | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
               "name": "currentControl",
               "type": {
                 "text": "HTMLElement | null"
@@ -26782,6 +27449,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Disables interactive step changes across the whole control.",
               "fieldName": "disabled"
             },
             {
@@ -26790,6 +27458,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Enables click and keyboard step selection.",
               "fieldName": "interactive"
             },
             {
@@ -26798,6 +27467,7 @@
                 "text": "StepperOrientation"
               },
               "default": "\"horizontal\"",
+              "description": "Switches between horizontal and vertical presentation.",
               "fieldName": "orientation"
             },
             {
@@ -26806,6 +27476,7 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Current active step value.",
               "fieldName": "value"
             }
           ],
@@ -27779,6 +28450,644 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/tag-input/cindor-tag-input.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Forms/Tag Input\", args: { disabled: false, required: false }, argTypes: { disabled: { control: \"boolean\" }, required: { control: \"boolean\" } }, render: ({ disabled, required }: TagInputStoryArgs) => ` <cindor-tag-input aria-label=\"Labels\" ${disabled ? \"disabled\" : \"\"} ${required ? \"required\" : \"\"} placeholder=\"Add labels\"></cindor-tag-input> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        },
+        {
+          "kind": "variable",
+          "name": "WithSuggestions",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ render: ({ disabled, required }: TagInputStoryArgs) => ` <cindor-tag-input id=\"tag-input-suggestions-story\" aria-label=\"Labels\" ${disabled ? \"disabled\" : \"\"} ${required ? \"required\" : \"\"} placeholder=\"Add labels\"></cindor-tag-input> <script> const element = document.getElementById(\"tag-input-suggestions-story\"); if (element) { element.suggestions = [ { label: \"Accessibility\", keywords: [\"a11y\"] }, { label: \"Bug\" }, { label: \"Design System\", keywords: [\"tokens\", \"theme\"] }, { label: \"Performance\", keywords: [\"speed\"] } ]; } </script> ` }"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/tag-input/cindor-tag-input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/tag-input/cindor-tag-input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "WithSuggestions",
+          "declaration": {
+            "name": "WithSuggestions",
+            "module": "packages/core/src/components/tag-input/cindor-tag-input.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/tag-input/cindor-tag-input.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Freeform tag entry with removable tokens.",
+          "name": "CindorTagInput",
+          "members": [
+            {
+              "kind": "field",
+              "name": "nextId",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "static": true,
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "name",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Add a tag\"",
+              "attribute": "placeholder",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "required",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "suggestions",
+              "privacy": "public",
+              "type": {
+                "text": "TagInputSuggestion[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "values",
+              "privacy": "public",
+              "type": {
+                "text": "string[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "activeIndex",
+              "privacy": "private",
+              "type": {
+                "text": "number"
+              },
+              "default": "-1",
+              "attribute": "activeIndex"
+            },
+            {
+              "kind": "field",
+              "name": "defaultValues",
+              "type": {
+                "text": "string[]"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "draftValue",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "floatingCleanup",
+              "type": {
+                "text": "() => void | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "floatingListbox",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "initializedValues",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "listId",
+              "privacy": "private",
+              "default": "`cindor-tag-input-list-${CindorTagInput.nextId++}`"
+            },
+            {
+              "kind": "field",
+              "name": "updateFloatingPosition",
+              "type": {
+                "text": "() => void | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "formDisabledCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "disabled",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleBlur",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleControlPointerDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleFocus",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleInput",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleKeyDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "commitDraft",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "commitSuggestion",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "removeTag",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "dispatchValueEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleOptionHover",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleOptionSelect",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "syncFormState",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncValidity",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncFloatingPosition",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "destroyFloatingPosition",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "normalizeTag",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "normalizeValues",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "values",
+                  "type": {
+                    "text": "string[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "inputElement",
+              "type": {
+                "text": "HTMLInputElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "panelElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "isValueMissing",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "filteredSuggestions",
+              "type": {
+                "text": "TagInputSuggestion[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "listboxVisible",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "activeDescendantId",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "renderedOptions",
+              "type": {
+                "text": "CindorOption[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "getInitialActiveIndex",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getNextActiveIndex",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "1 | -1"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getOptionId",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "name": "input",
+              "type": {
+                "text": "CustomEvent<TagInputChangeDetail>"
+              },
+              "description": "Fired when the committed tag values change."
+            },
+            {
+              "name": "change",
+              "type": {
+                "text": "CustomEvent<TagInputChangeDetail>"
+              },
+              "description": "Fired when the committed tag values change."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "activeIndex",
+              "type": {
+                "text": "number"
+              },
+              "default": "-1",
+              "fieldName": "activeIndex"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "name"
+            },
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "open"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Add a tag\"",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "required"
+            }
+          ],
+          "superclass": {
+            "name": "FormAssociatedElement",
+            "module": "/packages/core/src/components/shared/form-associated-element.js"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorTagInput",
+          "declaration": {
+            "name": "CindorTagInput",
+            "module": "packages/core/src/components/tag-input/cindor-tag-input.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/tel-input/cindor-tel-input.stories.ts",
       "declarations": [
         {
@@ -28448,644 +29757,6 @@
           "declaration": {
             "name": "CindorTelInput",
             "module": "packages/core/src/components/tel-input/cindor-tel-input.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/tag-input/cindor-tag-input.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Forms/Tag Input\", args: { disabled: false, required: false }, argTypes: { disabled: { control: \"boolean\" }, required: { control: \"boolean\" } }, render: ({ disabled, required }: TagInputStoryArgs) => ` <cindor-tag-input aria-label=\"Labels\" ${disabled ? \"disabled\" : \"\"} ${required ? \"required\" : \"\"} placeholder=\"Add labels\"></cindor-tag-input> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        },
-        {
-          "kind": "variable",
-          "name": "WithSuggestions",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ render: ({ disabled, required }: TagInputStoryArgs) => ` <cindor-tag-input id=\"tag-input-suggestions-story\" aria-label=\"Labels\" ${disabled ? \"disabled\" : \"\"} ${required ? \"required\" : \"\"} placeholder=\"Add labels\"></cindor-tag-input> <script> const element = document.getElementById(\"tag-input-suggestions-story\"); if (element) { element.suggestions = [ { label: \"Accessibility\", keywords: [\"a11y\"] }, { label: \"Bug\" }, { label: \"Design System\", keywords: [\"tokens\", \"theme\"] }, { label: \"Performance\", keywords: [\"speed\"] } ]; } </script> ` }"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/tag-input/cindor-tag-input.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/tag-input/cindor-tag-input.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "WithSuggestions",
-          "declaration": {
-            "name": "WithSuggestions",
-            "module": "packages/core/src/components/tag-input/cindor-tag-input.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/tag-input/cindor-tag-input.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Freeform tag entry with removable tokens.",
-          "name": "CindorTagInput",
-          "members": [
-            {
-              "kind": "field",
-              "name": "nextId",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "static": true,
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "disabled",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "name",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "open",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "open",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "placeholder",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"Add a tag\"",
-              "attribute": "placeholder",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "required",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "suggestions",
-              "privacy": "public",
-              "type": {
-                "text": "TagInputSuggestion[]"
-              },
-              "default": "[]"
-            },
-            {
-              "kind": "field",
-              "name": "values",
-              "privacy": "public",
-              "type": {
-                "text": "string[]"
-              },
-              "default": "[]"
-            },
-            {
-              "kind": "field",
-              "name": "activeIndex",
-              "privacy": "private",
-              "type": {
-                "text": "number"
-              },
-              "default": "-1",
-              "attribute": "activeIndex"
-            },
-            {
-              "kind": "field",
-              "name": "defaultValues",
-              "type": {
-                "text": "string[]"
-              },
-              "privacy": "private",
-              "default": "[]"
-            },
-            {
-              "kind": "field",
-              "name": "draftValue",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "\"\""
-            },
-            {
-              "kind": "field",
-              "name": "floatingCleanup",
-              "type": {
-                "text": "() => void | undefined"
-              },
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "floatingListbox",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "field",
-              "name": "initializedValues",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "listId",
-              "privacy": "private",
-              "default": "`cindor-tag-input-list-${CindorTagInput.nextId++}`"
-            },
-            {
-              "kind": "field",
-              "name": "updateFloatingPosition",
-              "type": {
-                "text": "() => void | undefined"
-              },
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focus",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "formDisabledCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "disabled",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "formResetCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleBlur",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleControlPointerDown",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleFocus",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleInput",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleKeyDown",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "commitDraft",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "commitSuggestion",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "index",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "removeTag",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "dispatchValueEvents",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleOptionHover",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleOptionSelect",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "syncFormState",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "syncValidity",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "syncFloatingPosition",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "destroyFloatingPosition",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "normalizeTag",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "normalizeValues",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "string[]"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "values",
-                  "type": {
-                    "text": "string[]"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "inputElement",
-              "type": {
-                "text": "HTMLInputElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "panelElement",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "isValueMissing",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "filteredSuggestions",
-              "type": {
-                "text": "TagInputSuggestion[]"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "listboxVisible",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "activeDescendantId",
-              "type": {
-                "text": "string | undefined"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "renderedOptions",
-              "type": {
-                "text": "CindorOption[]"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "method",
-              "name": "getInitialActiveIndex",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "number"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getNextActiveIndex",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "number"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "direction",
-                  "type": {
-                    "text": "1 | -1"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "getOptionId",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "index",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            }
-          ],
-          "events": [
-            {
-              "name": "input",
-              "type": {
-                "text": "CustomEvent<TagInputChangeDetail>"
-              },
-              "description": "Fired when the committed tag values change."
-            },
-            {
-              "name": "change",
-              "type": {
-                "text": "CustomEvent<TagInputChangeDetail>"
-              },
-              "description": "Fired when the committed tag values change."
-            }
-          ],
-          "attributes": [
-            {
-              "name": "activeIndex",
-              "type": {
-                "text": "number"
-              },
-              "default": "-1",
-              "fieldName": "activeIndex"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "disabled"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "name"
-            },
-            {
-              "name": "open",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "open"
-            },
-            {
-              "name": "placeholder",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"Add a tag\"",
-              "fieldName": "placeholder"
-            },
-            {
-              "name": "required",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "required"
-            }
-          ],
-          "superclass": {
-            "name": "FormAssociatedElement",
-            "module": "/packages/core/src/components/shared/form-associated-element.js"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorTagInput",
-          "declaration": {
-            "name": "CindorTagInput",
-            "module": "packages/core/src/components/tag-input/cindor-tag-input.ts"
           }
         }
       ]
@@ -30247,7 +30918,7 @@
           "type": {
             "text": "object"
           },
-          "default": "{ title: \"Composites/Toast Region\", args: { firstTone: \"success\", placement: \"top-end\", secondTone: \"warning\" }, argTypes: { firstTone: { control: \"radio\", options: [\"neutral\", \"success\", \"warning\", \"danger\"] }, placement: { control: \"radio\", options: [\"top-start\", \"top-end\", \"bottom-start\", \"bottom-end\"] }, secondTone: { control: \"radio\", options: [\"neutral\", \"success\", \"warning\", \"danger\"] } }, render: ({ firstTone, placement, secondTone }: ToastRegionStoryArgs) => ` <div style=\"min-height: 16rem; position: relative;\"> <cindor-toast-region placement=\"${placement}\"> <cindor-toast dismissible tone=\"${firstTone}\"> <span>Changes saved to the design token layer.</span> </cindor-toast> <cindor-toast dismissible tone=\"${secondTone}\"> <span>Theme settings were updated successfully.</span> </cindor-toast> </cindor-toast-region> </div> ` }"
+          "default": "{ title: \"Composites/Toast Region\", args: { firstTone: \"success\", placement: \"top-end\", secondTone: \"warning\" }, argTypes: { firstTone: { control: \"radio\", options: [\"neutral\", \"success\", \"warning\", \"danger\"] }, placement: { control: \"radio\", options: [\"top-start\", \"top-end\", \"bottom-start\", \"bottom-end\"] }, secondTone: { control: \"radio\", options: [\"neutral\", \"success\", \"warning\", \"danger\"] } }, render: ({ firstTone, placement, secondTone }: ToastRegionStoryArgs) => { const showToast = (event: Event, tone: ToastRegionStoryArgs[\"firstTone\"], message: string, id?: string) => { const region = (event.currentTarget as HTMLElement) .closest(\"[data-toast-demo]\") ?.querySelector(\"cindor-toast-region\") as CindorToastRegion | null; region?.showToast({ content: message, duration: 0, id, tone }); }; return html` <div data-toast-demo style=\"min-height: 16rem; position: relative; display: grid; gap: var(--space-3); align-content: start;\"> <div style=\"display: flex; flex-wrap: wrap; gap: var(--space-2);\"> <cindor-button @click=${(event: Event) => showToast(event, firstTone, \"Changes saved to the design token layer.\", \"toast-demo-primary\")}> Show primary toast </cindor-button> <cindor-button variant=\"ghost\" @click=${(event: Event) => showToast(event, secondTone, \"Theme settings were updated successfully.\", \"toast-demo-secondary\")} > Show secondary toast </cindor-button> <cindor-button variant=\"ghost\" @click=${(event: Event) => showToast(event, \"warning\", \"Publishing state updated in place.\", \"toast-demo-primary\")} > Update existing toast </cindor-button> </div> <cindor-toast-region placement=${placement}></cindor-toast-region> </div> `; } }"
         },
         {
           "kind": "variable",
@@ -30304,6 +30975,7 @@
                 "text": "number"
               },
               "default": "5",
+              "description": "Maximum number of visible managed toasts before the oldest is removed.",
               "attribute": "max-visible",
               "reflects": true
             },
@@ -30315,6 +30987,7 @@
                 "text": "ToastPlacement"
               },
               "default": "\"top-end\"",
+              "description": "Fixed viewport placement for the toast stack.",
               "attribute": "placement",
               "reflects": true
             },
@@ -30348,7 +31021,8 @@
                     "text": "string"
                   }
                 }
-              ]
+              ],
+              "description": "Dismisses a managed toast by id."
             },
             {
               "kind": "method",
@@ -30387,6 +31061,54 @@
                   "name": "content",
                   "type": {
                     "text": "ToastContent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "applyToastOptions",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "toast",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "options",
+                  "type": {
+                    "text": "{\n      content: ToastContent;\n      dismissible: boolean;\n      tone: NonNullable<ShowToastOptions[\"tone\"]>;\n    }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "scheduleToastRemoval",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number | undefined"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "duration",
+                  "type": {
+                    "text": "number"
                   }
                 }
               ]
@@ -30441,6 +31163,7 @@
                 "text": "number"
               },
               "default": "5",
+              "description": "Maximum number of visible managed toasts before the oldest is removed.",
               "fieldName": "maxVisible"
             },
             {
@@ -30449,6 +31172,7 @@
                 "text": "ToastPlacement"
               },
               "default": "\"top-end\"",
+              "description": "Fixed viewport placement for the toast stack.",
               "fieldName": "placement"
             }
           ],
@@ -30811,7 +31535,7 @@
           "type": {
             "text": "object"
           },
-          "default": "{ title: \"Components/Tooltip\", args: { open: false, text: \"Shows extra context\", triggerLabel: \"Hover me\" }, render: ({ open, text, triggerLabel }: TooltipStoryArgs) => `<cindor-tooltip ${open ? \"open\" : \"\"} text=\"${text}\"><cindor-button>${triggerLabel}</cindor-button></cindor-tooltip>` }"
+          "default": "{ title: \"Components/Tooltip\", args: { open: false, text: \"Explain why this action is disabled until the required setup is complete.\", triggerLabel: \"Why is this locked?\" }, render: ({ open, text, triggerLabel }: TooltipStoryArgs) => `<cindor-tooltip ${open ? \"open\" : \"\"} text=\"${text}\"><cindor-button>${triggerLabel}</cindor-button></cindor-tooltip>` }"
         },
         {
           "kind": "variable",
@@ -30858,6 +31582,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Controls whether the tooltip bubble is visible.",
               "attribute": "open",
               "reflects": true
             },
@@ -30869,6 +31594,7 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Plain-text helper copy rendered inside the tooltip bubble.",
               "attribute": "text",
               "reflects": true
             },
@@ -31063,6 +31789,15 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "field",
+              "name": "hasText",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "readonly": true
             }
           ],
           "attributes": [
@@ -31072,6 +31807,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Controls whether the tooltip bubble is visible.",
               "fieldName": "open"
             },
             {
@@ -31080,6 +31816,7 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Plain-text helper copy rendered inside the tooltip bubble.",
               "fieldName": "text"
             }
           ],
@@ -31111,7 +31848,7 @@
           "type": {
             "text": "object"
           },
-          "default": "{ title: \"Selection/Transfer List\", args: { disabled: false, required: false }, argTypes: { disabled: { control: \"boolean\" }, required: { control: \"boolean\" } }, render: ({ disabled, required }: TransferListStoryArgs) => ` <cindor-transfer-list available-label=\"Available teams\" selected-label=\"Assigned teams\" ${disabled ? \"disabled\" : \"\"} ${required ? \"required\" : \"\"}> <option value=\"design\">Design</option> <option value=\"engineering\" selected>Engineering</option> <option value=\"product\">Product</option> <option value=\"support\">Support</option> </cindor-transfer-list> ` }"
+          "default": "{ title: \"Selection/Transfer List\", args: { disabled: false, required: false }, argTypes: { disabled: { control: \"boolean\" }, required: { control: \"boolean\" } }, render: ({ disabled, required }: TransferListStoryArgs) => ` <cindor-transfer-list available-label=\"Available reviewers\" selected-label=\"Release approvers\" ${disabled ? \"disabled\" : \"\"} ${required ? \"required\" : \"\"}> <option value=\"design\">Design review</option> <option value=\"engineering\" selected>Engineering lead</option> <option value=\"product\">Product owner</option> <option value=\"support\">Support readiness</option> </cindor-transfer-list> ` }"
         },
         {
           "kind": "variable",
@@ -31164,6 +31901,7 @@
                 "text": "string"
               },
               "default": "\"Available\"",
+              "description": "Visible label for the available-options column.",
               "attribute": "available-label",
               "reflects": true
             },
@@ -31175,6 +31913,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Disables both lists and all move actions.",
               "attribute": "disabled",
               "reflects": true
             },
@@ -31186,6 +31925,7 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Form field name used when selected values are submitted.",
               "attribute": "name",
               "reflects": true
             },
@@ -31197,6 +31937,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Requires at least one selected value for validity.",
               "attribute": "required",
               "reflects": true
             },
@@ -31208,6 +31949,7 @@
                 "text": "string"
               },
               "default": "\"Selected\"",
+              "description": "Visible label for the chosen-options column.",
               "attribute": "selected-label",
               "reflects": true
             },
@@ -31218,7 +31960,8 @@
               "type": {
                 "text": "string[]"
               },
-              "default": "[]"
+              "default": "[]",
+              "description": "Ordered values currently shown in the chosen list."
             },
             {
               "kind": "field",
@@ -31228,6 +31971,7 @@
                 "text": "number"
               },
               "default": "8",
+              "description": "Minimum visible row count for each native multi-select.",
               "attribute": "size",
               "reflects": true
             },
@@ -31392,6 +32136,24 @@
               "kind": "field",
               "name": "moveAllToAvailable",
               "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "focusListAfterMove",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "\"available\" | \"selected\""
+                  }
+                }
+              ]
             },
             {
               "kind": "method",
@@ -31571,6 +32333,7 @@
                 "text": "string"
               },
               "default": "\"Available\"",
+              "description": "Visible label for the available-options column.",
               "fieldName": "availableLabel"
             },
             {
@@ -31579,6 +32342,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Disables both lists and all move actions.",
               "fieldName": "disabled"
             },
             {
@@ -31587,6 +32351,7 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Form field name used when selected values are submitted.",
               "fieldName": "name"
             },
             {
@@ -31595,6 +32360,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Requires at least one selected value for validity.",
               "fieldName": "required"
             },
             {
@@ -31603,6 +32369,7 @@
                 "text": "string"
               },
               "default": "\"Selected\"",
+              "description": "Visible label for the chosen-options column.",
               "fieldName": "selectedLabel"
             },
             {
@@ -31611,6 +32378,7 @@
                 "text": "number"
               },
               "default": "8",
+              "description": "Minimum visible row count for each native multi-select.",
               "fieldName": "size"
             }
           ],
@@ -31698,6 +32466,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Disables both the row selection button and any branch toggle control.",
               "attribute": "disabled",
               "reflects": true
             },
@@ -31709,6 +32478,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Expands branch children when nested tree items are present.",
               "attribute": "expanded",
               "reflects": true
             },
@@ -31720,6 +32490,7 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Visible row label. Falls back to value when omitted.",
               "attribute": "label",
               "reflects": true
             },
@@ -31731,6 +32502,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Applied by the parent tree view to reflect the active selection state.",
               "attribute": "selected",
               "reflects": true
             },
@@ -31742,6 +32514,7 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Stable selection value for this item. Falls back to label when omitted.",
               "attribute": "value",
               "reflects": true
             },
@@ -31797,7 +32570,8 @@
                     "text": "boolean"
                   }
                 }
-              ]
+              ],
+              "description": "Expands or collapses the branch when child tree items exist."
             },
             {
               "kind": "field",
@@ -31883,6 +32657,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Disables both the row selection button and any branch toggle control.",
               "fieldName": "disabled"
             },
             {
@@ -31891,6 +32666,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Expands branch children when nested tree items are present.",
               "fieldName": "expanded"
             },
             {
@@ -31899,6 +32675,7 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Visible row label. Falls back to value when omitted.",
               "fieldName": "label"
             },
             {
@@ -31907,6 +32684,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Applied by the parent tree view to reflect the active selection state.",
               "fieldName": "selected"
             },
             {
@@ -31915,6 +32693,7 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Stable selection value for this item. Falls back to label when omitted.",
               "fieldName": "value"
             }
           ],
@@ -31946,7 +32725,7 @@
           "type": {
             "text": "object"
           },
-          "default": "{ title: \"Navigation/Tree View\", render: () => ` <cindor-tree-view aria-label=\"Documentation navigation\"> <cindor-tree-item label=\"Overview\"></cindor-tree-item> <cindor-tree-item label=\"Guides\" expanded> <cindor-tree-item label=\"Getting started\"></cindor-tree-item> <cindor-tree-item label=\"Design tokens\"></cindor-tree-item> </cindor-tree-item> <cindor-tree-item label=\"Components\" expanded> <cindor-tree-item label=\"Button\"></cindor-tree-item> <cindor-tree-item label=\"Dialog\"></cindor-tree-item> </cindor-tree-item> </cindor-tree-view> ` }"
+          "default": "{ title: \"Navigation/Tree View\", render: () => ` <cindor-tree-view aria-label=\"Project navigation\"> <cindor-tree-item label=\"Overview\" value=\"overview\"> <cindor-icon slot=\"start\" name=\"layout-dashboard\" size=\"16\"></cindor-icon> </cindor-tree-item> <cindor-tree-item label=\"Guides\" expanded value=\"guides\"> <cindor-icon slot=\"start\" name=\"book-open\" size=\"16\"></cindor-icon> <cindor-tree-item label=\"Getting started\" value=\"guides-getting-started\"> <cindor-icon slot=\"start\" name=\"flag\" size=\"16\"></cindor-icon> </cindor-tree-item> <cindor-tree-item label=\"Design tokens\" value=\"guides-design-tokens\"> <cindor-icon slot=\"start\" name=\"palette\" size=\"16\"></cindor-icon> </cindor-tree-item> </cindor-tree-item> <cindor-tree-item label=\"Components\" expanded value=\"components\"> <cindor-icon slot=\"start\" name=\"blocks\" size=\"16\"></cindor-icon> <cindor-tree-item label=\"Button\" value=\"components-button\"> <cindor-icon slot=\"start\" name=\"mouse-pointer-click\" size=\"16\"></cindor-icon> </cindor-tree-item> <cindor-tree-item label=\"Dialog\" value=\"components-dialog\"> <cindor-icon slot=\"start\" name=\"square-stack\" size=\"16\"></cindor-icon> </cindor-tree-item> </cindor-tree-item> <cindor-tree-item disabled label=\"Archived\" value=\"archived\"> <cindor-icon slot=\"start\" name=\"archive\" size=\"16\"></cindor-icon> </cindor-tree-item> </cindor-tree-view> ` }"
         },
         {
           "kind": "variable",
@@ -31999,6 +32778,7 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Value of the currently selected tree item.",
               "attribute": "value",
               "reflects": true
             },
@@ -32196,6 +32976,30 @@
             },
             {
               "kind": "method",
+              "name": "nearestVisibleAncestor",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "CindorTreeItem | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "CindorTreeItem | undefined"
+                  }
+                },
+                {
+                  "name": "visibleItems",
+                  "type": {
+                    "text": "CindorTreeItem[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "childItems",
               "privacy": "private",
               "return": {
@@ -32272,6 +33076,7 @@
                 "text": "string"
               },
               "default": "\"\"",
+              "description": "Value of the currently selected tree item.",
               "fieldName": "value"
             }
           ],
@@ -33062,6 +33867,7 @@
             {
               "kind": "field",
               "name": "itemKey",
+              "privacy": "public",
               "type": {
                 "text": "VirtualListItemKey<T> | undefined"
               }
@@ -33080,6 +33886,7 @@
             {
               "kind": "field",
               "name": "renderItem",
+              "privacy": "public",
               "type": {
                 "text": "VirtualListItemRenderer<T> | undefined"
               }

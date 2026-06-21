@@ -67,6 +67,49 @@ describe("cindor-transfer-list", () => {
     expect(element.renderRoot.querySelector("cindor-button[part=\"add-button\"]")).not.toBeNull();
   });
 
+  it("moves focus and selection context into the chosen list after adding items", async () => {
+    const element = document.createElement("cindor-transfer-list") as CindorTransferList;
+    element.innerHTML =
+      '<option value="design">Design</option><option value="engineering">Engineering</option><option value="product">Product</option>';
+    document.body.append(element);
+    await element.updateComplete;
+
+    const availableSelect = element.renderRoot.querySelector('[part="available-select"]') as HTMLSelectElement;
+    availableSelect.options[0].selected = true;
+    availableSelect.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    await element.updateComplete;
+
+    (element.renderRoot.querySelector('cindor-button[part="add-button"]') as HTMLElement).click();
+    await element.updateComplete;
+    await Promise.resolve();
+
+    const selectedSelect = element.renderRoot.querySelector('[part="selected-select"]') as HTMLSelectElement;
+    expect((element.renderRoot as ShadowRoot).activeElement).toBe(selectedSelect);
+    expect(Array.from(selectedSelect.selectedOptions).map((option) => option.value)).toEqual(["design"]);
+  });
+
+  it("moves focus and selection context back into the available list after removing items", async () => {
+    const element = document.createElement("cindor-transfer-list") as CindorTransferList;
+    element.selectedValues = ["engineering"];
+    element.innerHTML =
+      '<option value="design">Design</option><option value="engineering">Engineering</option><option value="product">Product</option>';
+    document.body.append(element);
+    await element.updateComplete;
+
+    const selectedSelect = element.renderRoot.querySelector('[part="selected-select"]') as HTMLSelectElement;
+    selectedSelect.options[0].selected = true;
+    selectedSelect.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    await element.updateComplete;
+
+    (element.renderRoot.querySelector('cindor-button[part="remove-button"]') as HTMLElement).click();
+    await element.updateComplete;
+    await Promise.resolve();
+
+    const availableSelect = element.renderRoot.querySelector('[part="available-select"]') as HTMLSelectElement;
+    expect((element.renderRoot as ShadowRoot).activeElement).toBe(availableSelect);
+    expect(Array.from(availableSelect.selectedOptions).map((option) => option.value)).toEqual(["engineering"]);
+  });
+
   it("marks itself invalid when required and empty", async () => {
     const element = document.createElement("cindor-transfer-list") as CindorTransferList;
     element.required = true;

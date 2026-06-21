@@ -86,32 +86,131 @@ export class CindorPanelInspector extends LitElement {
 
   static properties = {
     description: { reflect: true },
+    headingLevel: { type: Number, reflect: true, attribute: "heading-level" },
+    hasActionsContent: { state: true },
+    hasBodyContent: { state: true },
+    hasFooterContent: { state: true },
+    hasMetaContent: { state: true },
     sticky: { type: Boolean, reflect: true },
     title: { reflect: true }
   };
 
+  /** Supporting copy shown below the title. */
   description = "";
+  /** Heading level used for the inspector title, clamped between 1 and 6. */
+  headingLevel = 2;
+  protected hasActionsContent = false;
+  protected hasBodyContent = false;
+  protected hasFooterContent = false;
+  protected hasMetaContent = false;
+  /** Pins the inspector near the top of the viewport while its container scrolls. */
   sticky = false;
+  /** Primary heading text for the inspector. */
   title = "";
 
   protected override render() {
+    const titleTemplate = this.title
+      ? this.resolvedHeadingLevel === 1
+        ? html`<h1 class="title" part="title">${this.title}</h1>`
+        : this.resolvedHeadingLevel === 2
+          ? html`<h2 class="title" part="title">${this.title}</h2>`
+          : this.resolvedHeadingLevel === 3
+            ? html`<h3 class="title" part="title">${this.title}</h3>`
+            : this.resolvedHeadingLevel === 4
+              ? html`<h4 class="title" part="title">${this.title}</h4>`
+              : this.resolvedHeadingLevel === 5
+                ? html`<h5 class="title" part="title">${this.title}</h5>`
+                : html`<h6 class="title" part="title">${this.title}</h6>`
+      : null;
+
     return html`
       <aside aria-label=${ifDefined(this.accessibleLabel)} class="surface" part="surface">
         <div class="header" part="header">
           <div class="copy" part="copy">
-            ${this.title ? html`<h2 class="title" part="title">${this.title}</h2>` : null}
+            ${titleTemplate}
             ${this.description ? html`<p class="description" part="description">${this.description}</p>` : null}
-            <div class="meta" part="meta"><slot name="meta"></slot></div>
+            ${this.hasMetaContent
+              ? html`<div class="meta" part="meta"><slot name="meta" @slotchange=${this.handleMetaSlotChange}></slot></div>`
+              : html`<slot name="meta" hidden @slotchange=${this.handleMetaSlotChange}></slot>`}
           </div>
-          <div class="actions" part="actions"><slot name="actions"></slot></div>
+          ${this.hasActionsContent
+            ? html`<div class="actions" part="actions"><slot name="actions" @slotchange=${this.handleActionsSlotChange}></slot></div>`
+            : html`<slot name="actions" hidden @slotchange=${this.handleActionsSlotChange}></slot>`}
         </div>
-        <div class="body" part="body"><slot></slot></div>
-        <div class="footer" part="footer"><slot name="footer"></slot></div>
+        ${this.hasBodyContent
+          ? html`<div class="body" part="body"><slot @slotchange=${this.handleBodySlotChange}></slot></div>`
+          : html`<slot hidden @slotchange=${this.handleBodySlotChange}></slot>`}
+        ${this.hasFooterContent
+          ? html`<div class="footer" part="footer"><slot name="footer" @slotchange=${this.handleFooterSlotChange}></slot></div>`
+          : html`<slot name="footer" hidden @slotchange=${this.handleFooterSlotChange}></slot>`}
       </aside>
     `;
   }
 
+  protected override firstUpdated(): void {
+    this.syncSlotState();
+  }
+
   private get accessibleLabel(): string | undefined {
     return this.getAttribute("aria-label") ?? (this.title || undefined);
+  }
+
+  private get resolvedHeadingLevel(): number {
+    const level = Number.isFinite(this.headingLevel) ? Math.trunc(this.headingLevel) : 2;
+    return Math.min(6, Math.max(1, level));
+  }
+
+  private readonly handleActionsSlotChange = (event: Event): void => {
+    this.updateSlotPresence("hasActionsContent", event);
+  };
+
+  private readonly handleBodySlotChange = (event: Event): void => {
+    this.updateSlotPresence("hasBodyContent", event);
+  };
+
+  private readonly handleFooterSlotChange = (event: Event): void => {
+    this.updateSlotPresence("hasFooterContent", event);
+  };
+
+  private readonly handleMetaSlotChange = (event: Event): void => {
+    this.updateSlotPresence("hasMetaContent", event);
+  };
+
+  private syncSlotState(): void {
+    this.hasMetaContent = this.slotHasContent('slot[name="meta"]');
+    this.hasActionsContent = this.slotHasContent('slot[name="actions"]');
+    this.hasBodyContent = this.slotHasContent("slot:not([name])");
+    this.hasFooterContent = this.slotHasContent('slot[name="footer"]');
+  }
+
+  private slotHasContent(selector: string): boolean {
+    const slot = this.renderRoot.querySelector(selector);
+    return slot instanceof HTMLSlotElement ? this.hasAssignedContent(slot) : false;
+  }
+
+  private updateSlotPresence(
+    key: "hasActionsContent" | "hasBodyContent" | "hasFooterContent" | "hasMetaContent",
+    event: Event
+  ): void {
+    const slot = event.target;
+    if (!(slot instanceof HTMLSlotElement)) {
+      return;
+    }
+
+    const nextValue = this.hasAssignedContent(slot);
+    if (this[key] !== nextValue) {
+      this[key] = nextValue;
+      this.requestUpdate();
+    }
+  }
+
+  private hasAssignedContent(slot: HTMLSlotElement): boolean {
+    return slot.assignedNodes({ flatten: true }).some((node) => {
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        return true;
+      }
+
+      return node.nodeType === Node.TEXT_NODE && node.textContent?.trim().length;
+    });
   }
 }

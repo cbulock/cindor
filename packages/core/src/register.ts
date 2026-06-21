@@ -44,6 +44,7 @@ import { CindorFileInput } from "./components/file-input/cindor-file-input.js";
 import { CindorFilterBuilder } from "./components/filter-builder/cindor-filter-builder.js";
 import { CindorFormField } from "./components/form-field/cindor-form-field.js";
 import { CindorFormRow } from "./components/form-row/cindor-form-row.js";
+import { CindorGrid } from "./components/grid/cindor-grid.js";
 import { CindorHelperText } from "./components/helper-text/cindor-helper-text.js";
 import { CindorIcon } from "./components/icon/cindor-icon.js";
 import { CindorIconButton } from "./components/icon-button/cindor-icon-button.js";
@@ -134,6 +135,7 @@ const definitions = [
   ["cindor-filter-builder", CindorFilterBuilder],
   ["cindor-form-field", CindorFormField],
   ["cindor-form-row", CindorFormRow],
+  ["cindor-grid", CindorGrid],
   ["cindor-helper-text", CindorHelperText],
   ["cindor-icon", CindorIcon],
   ["cindor-icon-button", CindorIconButton],

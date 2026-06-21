@@ -1,5 +1,7 @@
 import "cindor-ui-core/styles.css";
 import "./app.css";
+import cindorIconUrl from "../../../branding/cindor-icon.png";
+import cindorWordmarkUrl from "../../../branding/cindor-wordmark.png";
 
 import type { CommandPaletteCommand, FilterBuilderField, SegmentedControlOption, StepperStep } from "cindor-ui-core";
 
@@ -570,7 +572,7 @@ function renderLandingShell(): string {
     <div class="landing-shell">
       <header class="landing-header">
         <div class="landing-brand">
-          <strong>Cindor UI</strong>
+          <img class="brand-image landing-brand-image" src="${cindorWordmarkUrl}" alt="Cindor UI" />
           <span class="eyebrow">Design-forward web components for modern product surfaces.</span>
         </div>
 
@@ -593,8 +595,11 @@ function renderSidebar(activeSectionId: string, route: Route): string {
 
   return `
     <div class="brand">
+      <div class="brand-row">
+        <img class="brand-image sidebar-brand-image" src="${cindorWordmarkUrl}" alt="Cindor UI" />
+        <span class="brand-tag">Docs</span>
+      </div>
       <div class="brand-copy">
-        <strong>Cindor UI docs</strong>
         <span class="eyebrow">Technical reference for the Cindor component library.</span>
       </div>
     </div>
@@ -664,7 +669,7 @@ function renderMobileHeader(route: Route): string {
   return `
     <header class="mobile-header">
       <a class="mobile-header-home" href="${docsEntryUrl}" aria-label="Open docs home">
-        <strong>Cindor UI docs</strong>
+        <img class="brand-image mobile-header-brand-image" src="${cindorWordmarkUrl}" alt="Cindor UI" />
         <span class="mobile-header-label">${currentLabel}</span>
       </a>
 
@@ -2125,6 +2130,8 @@ function syncPageMetadata(route: Route): void {
   const metadata = getPageMetadata(route);
 
   document.title = metadata.title;
+  setHeadLink('link[rel="icon"]', { href: cindorIconUrl, rel: "icon", type: "image/png" });
+  setHeadLink('link[rel="apple-touch-icon"]', { href: cindorIconUrl, rel: "apple-touch-icon" });
   setMetaTag("description", metadata.description);
   setMetaTag("robots", metadata.robots);
   setMetaTag("application-name", DOCS_SITE_NAME);
@@ -2203,13 +2210,20 @@ function setMetaProperty(property: string, content: string): void {
 }
 
 function setCanonicalUrl(href: string): void {
-  const element = getOrCreateHeadElement('link[rel="canonical"]', () => {
-    const link = document.createElement("link");
-    link.setAttribute("rel", "canonical");
-    return link;
-  });
+  setHeadLink('link[rel="canonical"]', { href, rel: "canonical" });
+}
 
-  element.setAttribute("href", href);
+function setHeadLink(
+  selector: string,
+  attributes: Record<string, string>
+): HTMLLinkElement {
+  const element = getOrCreateHeadElement(selector, () => document.createElement("link"));
+
+  for (const [name, value] of Object.entries(attributes)) {
+    element.setAttribute(name, value);
+  }
+
+  return element;
 }
 
 function getOrCreateHeadElement<T extends HTMLElement>(selector: string, createElement: () => T): T {
@@ -2346,10 +2360,10 @@ function getUsageCode(doc: ComponentDoc): string {
     case "split-button":
       return `<cindor-split-button menu-label="More publish actions">
   <cindor-icon slot="start-icon" name="rocket" size="16"></cindor-icon>
-  Publish
-  <cindor-menu-item slot="menu">Schedule for later</cindor-menu-item>
+  Publish changes
+  <cindor-menu-item slot="menu">Schedule publish</cindor-menu-item>
   <cindor-menu-item slot="menu">Save draft</cindor-menu-item>
-  <cindor-menu-item slot="menu">Duplicate</cindor-menu-item>
+  <cindor-menu-item slot="menu">Duplicate draft</cindor-menu-item>
 </cindor-split-button>`;
     case "calendar":
       return `<cindor-calendar month="2026-04" value="2026-04-26"></cindor-calendar>`;
@@ -2582,6 +2596,12 @@ function getUsageCode(doc: ComponentDoc): string {
     <cindor-input></cindor-input>
   </cindor-form-field>
 </cindor-form-row>`;
+    case "grid":
+      return `<cindor-grid columns="3" gap="4" min-column-width="14rem">
+  <cindor-card><div style="padding: var(--space-4);">Overview</div></cindor-card>
+  <cindor-card><div style="padding: var(--space-4);">Approvals</div></cindor-card>
+  <cindor-card><div style="padding: var(--space-4);">Audit trail</div></cindor-card>
+</cindor-grid>`;
     case "helper-text":
       return `<cindor-helper-text>Used for keyboard shortcuts and system labels.</cindor-helper-text>`;
     case "icon":
@@ -2685,13 +2705,17 @@ function getUsageCode(doc: ComponentDoc): string {
   <cindor-button slot="actions">Deploy</cindor-button>
 </cindor-page-header>`;
     case "panel-inspector":
-      return `<cindor-panel-inspector title="Deployment details" description="Review metadata and release health.">
+      return `<cindor-panel-inspector title="Deployment details" description="Review metadata and release health." heading-level="3" sticky>
   <cindor-badge slot="meta" tone="accent">Healthy</cindor-badge>
   <cindor-button slot="actions" variant="ghost">Open logs</cindor-button>
   <cindor-description-list>
     <cindor-description-item>
       <span slot="term">Version</span>
       2026.04.28-1
+    </cindor-description-item>
+    <cindor-description-item>
+      <span slot="term">Region</span>
+      us-east-1
     </cindor-description-item>
   </cindor-description-list>
   <div slot="footer">Last updated 4 minutes ago by Release Bot.</div>
@@ -2753,7 +2777,7 @@ function getUsageCode(doc: ComponentDoc): string {
   <cindor-button variant="ghost">Share</cindor-button>
 </cindor-stack>`;
     case "stepper":
-      return `<cindor-stepper></cindor-stepper>`;
+      return `<cindor-stepper id="stepper-preview" aria-label="Workspace setup steps" interactive></cindor-stepper>`;
     case "switch":
       return `<cindor-switch>Available for notifications</cindor-switch>`;
     case "tag-input":
@@ -2796,11 +2820,11 @@ function getUsageCode(doc: ComponentDoc): string {
   </cindor-timeline-item>
 </cindor-timeline>`;
     case "transfer-list":
-      return `<cindor-transfer-list>
-  <option value="design">Design</option>
-  <option selected value="engineering">Engineering</option>
-  <option value="product">Product</option>
-  <option value="support">Support</option>
+      return `<cindor-transfer-list available-label="Available reviewers" selected-label="Release approvers">
+  <option value="design">Design review</option>
+  <option selected value="engineering">Engineering lead</option>
+  <option value="product">Product owner</option>
+  <option value="support">Support readiness</option>
 </cindor-transfer-list>`;
     case "sortable-list":
       return `<cindor-sortable-list id="component-sortable-list"></cindor-sortable-list>
@@ -2817,7 +2841,7 @@ function getUsageCode(doc: ComponentDoc): string {
     case "toast":
       return `<cindor-toast open tone="success">Saved successfully.</cindor-toast>`;
     case "toast-region":
-      return `<cindor-toast-region></cindor-toast-region>`;
+      return `<cindor-toast-region placement="top-end" max-visible="3"></cindor-toast-region>`;
     case "toolbar":
       return `<cindor-toolbar aria-label="Formatting actions">
   <cindor-button-group attached>
@@ -2830,15 +2854,27 @@ function getUsageCode(doc: ComponentDoc): string {
   <cindor-tree-item label="Getting started"></cindor-tree-item>
 </cindor-tree-item>`;
     case "tree-view":
-      return `<cindor-tree-view>
-  <cindor-tree-item label="Overview"></cindor-tree-item>
-  <cindor-tree-item label="Guides" expanded>
-    <cindor-tree-item label="Getting started"></cindor-tree-item>
-    <cindor-tree-item label="Theming"></cindor-tree-item>
+      return `<cindor-tree-view aria-label="Project navigation">
+  <cindor-tree-item label="Overview" value="overview">
+    <cindor-icon slot="start" name="layout-dashboard" size="16"></cindor-icon>
+  </cindor-tree-item>
+  <cindor-tree-item label="Guides" expanded value="guides">
+    <cindor-icon slot="start" name="book-open" size="16"></cindor-icon>
+    <cindor-tree-item label="Getting started" value="guides-getting-started">
+      <cindor-icon slot="start" name="flag" size="16"></cindor-icon>
+    </cindor-tree-item>
+    <cindor-tree-item label="Theming" value="guides-theming">
+      <cindor-icon slot="start" name="palette" size="16"></cindor-icon>
+    </cindor-tree-item>
+  </cindor-tree-item>
+  <cindor-tree-item label="Components" value="components">
+    <cindor-icon slot="start" name="blocks" size="16"></cindor-icon>
   </cindor-tree-item>
 </cindor-tree-view>`;
     case "tooltip":
-      return `<cindor-tooltip text="Helpful context"></cindor-tooltip>`;
+      return `<cindor-tooltip text="Explain why this action is disabled until the required setup is complete.">
+  <cindor-button>Why is this locked?</cindor-button>
+</cindor-tooltip>`;
     case "url-input":
       return `<cindor-url-input value="https://cindor.dev"></cindor-url-input>`;
     case "accordion":
@@ -3146,6 +3182,12 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
       <cindor-form-field label="Last name">
         <cindor-input />
       </cindor-form-field>
+    </${componentName}>`;
+    case "grid":
+      return `<${componentName} columns={3} gap="4" minColumnWidth="14rem">
+      <cindor-card><div style={{ padding: "var(--space-4)" }}>Overview</div></cindor-card>
+      <cindor-card><div style={{ padding: "var(--space-4)" }}>Approvals</div></cindor-card>
+      <cindor-card><div style={{ padding: "var(--space-4)" }}>Audit trail</div></cindor-card>
     </${componentName}>`;
     case "date-picker":
       return `<${componentName} month="2026-04" value="2026-04-26" />`;
@@ -3572,6 +3614,12 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
     </cindor-description-list>
     <div slot="footer">Last updated 4 minutes ago by Release Bot.</div>
   </${componentName}>`;
+    case "grid":
+      return `<${componentName} :columns="3" gap="4" min-column-width="14rem">
+    <cindor-card><div style="padding: var(--space-4);">Overview</div></cindor-card>
+    <cindor-card><div style="padding: var(--space-4);">Approvals</div></cindor-card>
+    <cindor-card><div style="padding: var(--space-4);">Audit trail</div></cindor-card>
+  </${componentName}>`;
     case "number-input":
       return `<${componentName} :value="12" />`;
     case "progress":
@@ -3726,6 +3774,7 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "file-input":
     case "filter-builder":
     case "form-field":
+    case "grid":
     case "helper-text":
     case "icon":
     case "icon-button":
@@ -4442,6 +4491,33 @@ function getLegacyComponentApi(doc: ComponentDoc): ComponentApiSurface {
           ])
         ],
         intro: `${doc.tag} is a framing component. Its API is mostly about labeling and the slotted control it wraps.`
+      };
+    case "grid":
+      return {
+        groups: [
+          propertyGroup([
+            apiItem("columns", "Fixed column count used when min-column-width is not set.", { defaultValue: "2", type: "number" }),
+            apiItem("gap", "Spacing token between grid items.", {
+              defaultValue: `"4"`,
+              type: `"0" | "1" | "2" | "3" | "4" | "5" | "6"`
+            }),
+            apiItem("min-column-width", "Optional minimum track width that switches the grid to responsive auto-fit behavior.", {
+              defaultValue: `""`,
+              type: "string"
+            }),
+            apiItem("align", "Controls align-items for content inside each grid cell.", {
+              defaultValue: `"stretch"`,
+              type: `"start" | "center" | "end" | "stretch" | "baseline"`
+            }),
+            apiItem("justify", "Controls justify-items for content inside each grid cell.", {
+              defaultValue: `"stretch"`,
+              type: `"start" | "center" | "end" | "stretch" | "baseline"`
+            })
+          ]),
+          eventGroup([]),
+          compositionGroup([apiItem("default slot", "Provide any card, panel, or layout child content to be arranged by the grid.", { type: "slot" })])
+        ],
+        intro: `${doc.tag} is a low-ceremony layout primitive. Use fixed columns for predictable admin layouts, or add min-column-width when the grid should auto-fit cards responsively.`
       };
     case "helper-text":
     case "error-text":

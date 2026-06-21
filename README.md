@@ -1,5 +1,9 @@
 # Cindor Components
 
+<p align="center">
+  <img src="./branding/cindor-wordmark.png" alt="Cindor UI" width="720" />
+</p>
+
 Cindor Components is a standards-based component library built around a framework-agnostic **web component core** with thin **React** and **Vue** wrappers.
 
 The visual foundation lives directly in this repository through the vendored Cindor fonts, design tokens, base styles, and theme hooks that ship with `cindor-ui-core`.

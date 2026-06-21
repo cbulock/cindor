@@ -35,7 +35,10 @@ export class CindorTooltip extends LitElement {
     text: { reflect: true }
   };
 
+  /** Controls whether the tooltip bubble is visible. */
   open = false;
+
+  /** Plain-text helper copy rendered inside the tooltip bubble. */
   text = "";
 
   private static nextId = 0;
@@ -50,7 +53,7 @@ export class CindorTooltip extends LitElement {
       <span class="trigger" part="trigger">
         <slot @slotchange=${this.handleSlotChange}></slot>
       </span>
-      ${this.open ? html`<span class="bubble" part="tooltip" id=${this.tooltipId} role="tooltip">${this.text}</span>` : nothing}
+      ${this.open && this.hasText ? html`<span class="bubble" part="tooltip" id=${this.tooltipId} role="tooltip">${this.text}</span>` : nothing}
     `;
   }
 
@@ -80,6 +83,10 @@ export class CindorTooltip extends LitElement {
   }
 
   private show = (): void => {
+    if (!this.hasText) {
+      return;
+    }
+
     this.open = true;
   };
 
@@ -164,7 +171,7 @@ export class CindorTooltip extends LitElement {
       return;
     }
 
-    if (this.open && this.text) {
+    if (this.open && this.hasText) {
       this.writeTriggerDescriptionTokens([...this.getTriggerDescriptionTokens(this.triggerNode), this.tooltipId]);
       return;
     }
@@ -218,5 +225,9 @@ export class CindorTooltip extends LitElement {
     }
 
     this.triggerNode.setAttribute("aria-describedby", uniqueTokens.join(" "));
+  }
+
+  private get hasText(): boolean {
+    return this.text.trim() !== "";
   }
 }

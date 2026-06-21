@@ -29,6 +29,7 @@ export class CindorTreeView extends LitElement {
     value: { reflect: true }
   };
 
+  /** Value of the currently selected tree item. */
   value = "";
 
   private readonly treeObserver = new MutationObserver(() => {
@@ -266,10 +267,33 @@ export class CindorTreeView extends LitElement {
 
   private ensureValidValue(): void {
     const visibleItems = this.visibleItems;
-    if (!visibleItems.some((item) => this.itemValue(item) === this.value)) {
-      const firstEnabled = visibleItems.find((item) => !item.disabled);
-      this.value = firstEnabled ? this.itemValue(firstEnabled) : "";
+    if (visibleItems.some((item) => this.itemValue(item) === this.value)) {
+      return;
     }
+
+    const selectedItem = this.allItems.find((item) => this.itemValue(item) === this.value);
+    const nearestVisibleAncestor = this.nearestVisibleAncestor(selectedItem, visibleItems);
+    if (nearestVisibleAncestor && !nearestVisibleAncestor.disabled) {
+      this.value = this.itemValue(nearestVisibleAncestor);
+      return;
+    }
+
+    const firstEnabled = visibleItems.find((item) => !item.disabled);
+    this.value = firstEnabled ? this.itemValue(firstEnabled) : "";
+  }
+
+  private nearestVisibleAncestor(item: CindorTreeItem | undefined, visibleItems: CindorTreeItem[]): CindorTreeItem | null {
+    let current = item ? this.parentItem(item) : null;
+
+    while (current) {
+      if (visibleItems.includes(current)) {
+        return current;
+      }
+
+      current = this.parentItem(current);
+    }
+
+    return null;
   }
 
   private childItems(item: CindorTreeItem): CindorTreeItem[] {
