@@ -176,6 +176,17 @@ const sections: DocsSection[] = [
   }
 ];
 const docsSectionIds = new Set(sections.map((section) => section.id));
+const componentCatalogByCategory = Array.from(
+  componentCatalog.reduce<Map<ComponentCategory, ComponentDoc[]>>((groups, component) => {
+    const group = groups.get(component.category);
+    if (group) {
+      group.push(component);
+    } else {
+      groups.set(component.category, [component]);
+    }
+    return groups;
+  }, new Map())
+);
 const GITHUB_REPO_URL = "https://github.com/cbulock/cindor";
 const SITE_NAME = "Cindor UI";
 const DOCS_SITE_NAME = "Cindor UI Docs";
@@ -631,30 +642,38 @@ function renderSidebar(activeSectionId: string, route: Route): string {
         .join("")}
     </nav>
 
-    <div class="sidebar-meta">
-      <div class="sidebar-meta-item">
-        <strong>${componentCatalog.length}</strong>
-        <span class="muted">documented components</span>
+    <nav class="sidebar-component-index" aria-label="Components by category">
+      <div class="sidebar-section-label-row">
+        <span class="sidebar-section-label">Components</span>
+        <span class="sidebar-section-count">${componentCatalog.length}</span>
       </div>
-      <div class="sidebar-meta-item">
-        <strong>${sections.length}</strong>
-        <span class="muted">core docs tracks</span>
-      </div>
-    </div>
-
-    ${
-      currentComponent
-        ? `
-          <div class="sidebar-current">
-            <div class="sidebar-section-label">Current component</div>
-            <a class="nav-link" data-active="true" href="${getComponentHref(currentComponent.slug)}">
-              <span class="nav-title">${currentComponent.title}</span>
-              <span class="nav-summary">${currentComponent.summary}</span>
-            </a>
-          </div>
-        `
-        : ""
-    }
+      ${componentCatalogByCategory
+        .map(
+          ([category, components]) => `
+            <section class="sidebar-component-group">
+              <div class="sidebar-component-group-title">${category}</div>
+              <div class="sidebar-component-links">
+                ${components
+                  .map((component) => {
+                    const isActive = currentComponent?.slug === component.slug;
+                    return `
+                      <a
+                        class="sidebar-component-link"
+                        data-active="${String(isActive)}"
+                        aria-current="${isActive ? "page" : "false"}"
+                        href="${getComponentHref(component.slug)}"
+                      >
+                        ${component.title}
+                      </a>
+                    `;
+                  })
+                  .join("")}
+              </div>
+            </section>
+          `
+        )
+        .join("")}
+    </nav>
   `;
 }
 
@@ -1439,26 +1458,6 @@ function renderComponentDetail(slug: string, componentPreviewReady: boolean): st
 
         <section class="section">
           <div class="section-heading">
-            <h2>Use cases</h2>
-            <p>These scenarios help position ${doc.tag} in a real interface instead of treating it like an isolated widget.</p>
-          </div>
-
-          <div class="use-case-grid">
-            ${useCases
-              .map(
-                (useCase) => `
-                  <div class="preview-block use-case-card">
-                    <strong>${useCase.title}</strong>
-                    <p class="muted">${useCase.description}</p>
-                  </div>
-                `
-              )
-              .join("")}
-          </div>
-        </section>
-
-        <section class="section">
-          <div class="section-heading">
             <h2>Living preview</h2>
             <p>${getPreviewDescription(doc)}</p>
           </div>
@@ -1490,6 +1489,26 @@ function renderComponentDetail(slug: string, componentPreviewReady: boolean): st
               </div>
             `
         }
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <h2>Use cases</h2>
+          <p>These scenarios help position ${doc.tag} in a real interface instead of treating it like an isolated widget.</p>
+        </div>
+
+        <div class="use-case-grid">
+          ${useCases
+            .map(
+              (useCase) => `
+                <div class="preview-block use-case-card">
+                  <strong>${useCase.title}</strong>
+                  <p class="muted">${useCase.description}</p>
+                </div>
+              `
+            )
+            .join("")}
+        </div>
       </section>
 
       ${
