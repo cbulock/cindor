@@ -277,6 +277,8 @@ function renderVuePropDefinition(prop) {
       return `{ type: Array as PropType<${prop.typeExpression}>, default: ${prop.defaultFactory} }`;
     case "object":
       return `{ type: Object as PropType<${prop.typeExpression}>, default: ${prop.defaultFactory} }`;
+    case "function":
+      return `{ type: Function as PropType<${prop.typeExpression}>, default: undefined }`;
     default:
       throw new Error(`Unsupported prop kind: ${prop.kind}`);
   }
@@ -406,6 +408,8 @@ function renderVuePropValue(prop) {
     case "array":
       return `props.${prop.name}`;
     case "object":
+      return `props.${prop.name}`;
+    case "function":
       return `props.${prop.name}`;
     default:
       throw new Error(`Unsupported prop kind: ${prop.kind}`);

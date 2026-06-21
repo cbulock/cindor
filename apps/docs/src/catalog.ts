@@ -59,6 +59,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("command-bar", "Command Bar", "Composite", "Actions", "summary region plus actions", "Persistent contextual action bar for bulk edits and page-level commands."),
   defineComponent("command-palette", "Command Palette", "Component", "Overlays", "dialog plus search and listbox", "Search-first action launcher for keyboard-driven workflows."),
   defineComponent("context-menu", "Context Menu", "Component", "Overlays", "right-click menu surface", "Pointer- and keyboard-opened contextual actions anchored to a trigger region."),
+  defineComponent("data-grid", "Data Grid", "Component", "Data", "editable operational grid", "Keyboard-navigable editable grid for dense operational data and inline review workflows."),
   defineComponent("data-table", "Data Table", "Component", "Data", "table", "Sortable, searchable, paginated table for application data."),
   defineComponent("data-view-toolbar", "Data View Toolbar", "Composite", "Data", "collection controls shell", "Summary and action toolbar for tables, grids, and collection pages."),
   defineComponent("date-picker", "Date Picker", "Component", "Forms", "field plus popup calendar", "Popup date field that reuses the shared calendar selection surface."),
@@ -76,6 +77,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("empty-state", "Empty State", "Component", "Display", "content container", "Structured zero-state messaging for empty data and first-run moments."),
   defineComponent("empty-search-results", "Empty Search Results", "Component", "Display", "search zero state messaging", "Search-specific zero-state surface with suggestions and recovery actions."),
   defineComponent("error-text", "Error Text", "Primitive", "Forms", "support text", "Dedicated validation text primitive for field-level errors."),
+  defineComponent("field-array", "Field Array", "Component", "Forms", "repeatable grouped field shell", "Repeated field-group workflow for append, remove, and reorder flows such as contacts, links, and rule editors."),
   defineComponent("fieldset", "Fieldset", "Primitive", "Forms", "fieldset and legend", "Grouped controls with native fieldset semantics."),
   defineComponent("file-input", "File Input", "Primitive", "Forms", "input type=file", "Styled file picker with selected file summaries."),
   defineComponent("filter-builder", "Filter Builder", "Component", "Forms", "fieldset plus Cindor form primitives", "Rule and group filtering interface for advanced query and reporting flows."),
@@ -118,6 +120,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("skeleton", "Skeleton", "Primitive", "Display", "placeholder block", "Loading placeholder for deferred content."),
   defineComponent("side-nav", "Side Nav", "Component", "Navigation", "nav landmark and nested links", "Persistent application or docs navigation with nested collapsible sections."),
   defineComponent("side-nav-item", "Side Nav Item", "Primitive", "Navigation", "nested nav row", "Single row inside side navigation with optional nested children."),
+  defineComponent("sortable-list", "Sortable List", "Component", "Data", "reorderable ranked collection", "Drag- and button-driven list reordering for ranked tasks, playlists, and editable collections."),
   defineComponent("splitter", "Splitter", "Component", "Display", "resizable flex layout", "Resizable multi-panel layout for application shells and workbench views."),
   defineComponent("splitter-panel", "Splitter Panel", "Primitive", "Display", "panel surface", "Panel region that participates in splitter sizing and resizing."),
   defineComponent("spinner", "Spinner", "Primitive", "Feedback", "indeterminate loader", "Compact loading indicator for pending work."),
@@ -140,6 +143,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("tree-item", "Tree Item", "Primitive", "Navigation", "tree row", "Single row inside a tree with optional nested child items."),
   defineComponent("tree-view", "Tree View", "Component", "Navigation", "hierarchical tree", "Single-selection tree surface for nested navigation and content hierarchies."),
   defineComponent("tooltip", "Tooltip", "Primitive", "Overlays", "hover and focus hint", "Contextual hint surface for terse supporting text."),
+  defineComponent("virtual-list", "Virtual List", "Component", "Data", "virtualized scroll region", "Windowed list surface for rendering large collections without mounting every row at once."),
   defineComponent("url-input", "URL Input", "Primitive", "Forms", "input type=url", "URL field variant built from the shared input shell.")
 ].sort((left, right) => left.title.localeCompare(right.title));
 

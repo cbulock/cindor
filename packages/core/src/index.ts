@@ -26,6 +26,17 @@ export { CindorCombobox } from "./components/combobox/cindor-combobox.js";
 export { CindorCommandBar } from "./components/command-bar/cindor-command-bar.js";
 export { CindorCommandPalette, type CommandPaletteCommand } from "./components/command-palette/cindor-command-palette.js";
 export { CindorContextMenu } from "./components/context-menu/cindor-context-menu.js";
+export {
+  CindorDataGrid,
+  type DataGridActiveCellDetail,
+  type DataGridCellAlign,
+  type DataGridCellEditDetail,
+  type DataGridCellEditor,
+  type DataGridCellRenderDetail,
+  type DataGridColumn,
+  type DataGridEditorOption,
+  type DataGridRow
+} from "./components/data-grid/cindor-data-grid.js";
 export { CindorDatePicker } from "./components/date-picker/cindor-date-picker.js";
 export { CindorDateRangePicker } from "./components/date-range-picker/cindor-date-range-picker.js";
 export { CindorDateTimePicker } from "./components/date-time-picker/cindor-date-time-picker.js";
@@ -44,6 +55,14 @@ export { CindorEmailInput } from "./components/email-input/cindor-email-input.js
 export { CindorErrorText } from "./components/error-text/cindor-error-text.js";
 export { CindorEmptyState } from "./components/empty-state/cindor-empty-state.js";
 export { CindorEmptySearchResults } from "./components/empty-search-results/cindor-empty-search-results.js";
+export {
+  CindorFieldArray,
+  type FieldArrayAction,
+  type FieldArrayChangeDetail,
+  type FieldArrayCreateItem,
+  type FieldArrayItemRenderer,
+  type FieldArrayRenderDetail
+} from "./components/field-array/cindor-field-array.js";
 export { CindorFieldset } from "./components/fieldset/cindor-fieldset.js";
 export { CindorForm } from "./components/form/cindor-form.js";
 export { CindorFileInput } from "./components/file-input/cindor-file-input.js";
@@ -134,6 +153,21 @@ export { CindorTimeInput } from "./components/time-input/cindor-time-input.js";
 export { CindorToast, type ToastTone } from "./components/toast/cindor-toast.js";
 export { CindorToastRegion } from "./components/toast/cindor-toast-region.js";
 export { CindorTransferList } from "./components/transfer-list/cindor-transfer-list.js";
+export {
+  CindorSortableList,
+  type SortableListItemKey,
+  type SortableListItemRenderer,
+  type SortableListReorderDetail,
+  type SortableListReorderReason,
+  type SortableListRenderDetail
+} from "./components/sortable-list/cindor-sortable-list.js";
+export {
+  CindorVirtualList,
+  type VirtualListItemKey,
+  type VirtualListItemRenderer,
+  type VirtualListRangeChangeDetail,
+  type VirtualListRenderDetail
+} from "./components/virtual-list/cindor-virtual-list.js";
 export {
   clearToasts,
   dismissToast,

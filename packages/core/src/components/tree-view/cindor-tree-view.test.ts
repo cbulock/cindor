@@ -1,5 +1,6 @@
 import "../../register.js";
 
+import { CindorTreeItem } from "../tree-item/cindor-tree-item.js";
 import { CindorTreeView } from "./cindor-tree-view.js";
 
 describe("cindor-tree-view", () => {

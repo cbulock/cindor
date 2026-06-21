@@ -115,7 +115,7 @@ describe("cindor-split-button", () => {
     await element.updateComplete;
 
     expect(element.open).toBe(false);
-    expect(element.renderRoot.activeElement).toBe(menuTrigger);
+    expect((element.renderRoot as ShadowRoot).activeElement).toBe(menuTrigger);
   });
 
   it("submits its owning form when configured as a submit button", async () => {

@@ -637,6 +637,50 @@ a {
   gap: var(--space-3);
 }
 
+.roadmap-section {
+  margin-block-end: var(--space-2);
+}
+
+.roadmap-overview,
+.roadmap-list {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.roadmap-overview {
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+}
+
+.roadmap-list {
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+}
+
+.roadmap-card {
+  align-content: start;
+}
+
+.roadmap-card-header {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.roadmap-card-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: baseline;
+}
+
+.roadmap-order {
+  color: var(--fg-muted);
+  font-family: "JetBrains Mono Variable", ui-monospace, monospace;
+  font-size: var(--text-sm);
+}
+
+.roadmap-rationale {
+  margin: 0;
+}
+
 .pattern-shell-preview {
   display: grid;
   gap: var(--space-4);

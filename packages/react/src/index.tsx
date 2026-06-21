@@ -11,6 +11,7 @@ import {
   CindorIconButton as CindorIconButtonElement,
   CindorCard as CindorCardElement,
   CindorCalendar as CindorCalendarElement,
+  CindorDataGrid as CindorDataGridElement,
   CindorBadge as CindorBadgeElement,
   CindorDivider as CindorDividerElement,
   CindorProvider as CindorProviderElement,
@@ -36,6 +37,7 @@ import {
   CindorErrorText as CindorErrorTextElement,
   CindorRange as CindorRangeElement,
   CindorFileInput as CindorFileInputElement,
+  CindorFieldArray as CindorFieldArrayElement,
   CindorFilterBuilder as CindorFilterBuilderElement,
   CindorPagination as CindorPaginationElement,
   CindorPageHeader as CindorPageHeaderElement,
@@ -106,6 +108,8 @@ import {
   CindorTimeline as CindorTimelineElement,
   CindorTimelineItem as CindorTimelineItemElement,
   CindorTransferList as CindorTransferListElement,
+  CindorSortableList as CindorSortableListElement,
+  CindorVirtualList as CindorVirtualListElement,
   CindorSideNav as CindorSideNavElement,
   CindorSideNavItem as CindorSideNavItemElement,
 } from "cindor-ui-core";
@@ -167,6 +171,16 @@ export const CindorCalendar = createComponent({
   events: {
     onInput: "input",
     onChange: "change"
+  }
+});
+
+export const CindorDataGrid = createComponent({
+  react: React,
+  tagName: "cindor-data-grid",
+  elementClass: CindorDataGridElement,
+  events: {
+    onActiveCellChange: "active-cell-change",
+    onCellEdit: "cell-edit"
   }
 });
 
@@ -342,6 +356,16 @@ export const CindorFileInput = createComponent({
   events: {
     onInput: "input",
     onChange: "change"
+  }
+});
+
+export const CindorFieldArray = createComponent({
+  react: React,
+  tagName: "cindor-field-array",
+  elementClass: CindorFieldArrayElement,
+  events: {
+    onChange: "change",
+    onInput: "input"
   }
 });
 
@@ -928,6 +952,26 @@ export const CindorTransferList = createComponent({
   events: {
     onChange: "change",
     onInput: "input"
+  }
+});
+
+export const CindorSortableList = createComponent({
+  react: React,
+  tagName: "cindor-sortable-list",
+  elementClass: CindorSortableListElement,
+  events: {
+    onReorder: "reorder",
+    onInput: "input",
+    onChange: "change"
+  }
+});
+
+export const CindorVirtualList = createComponent({
+  react: React,
+  tagName: "cindor-virtual-list",
+  elementClass: CindorVirtualListElement,
+  events: {
+    onRangeChange: "range-change"
   }
 });
 

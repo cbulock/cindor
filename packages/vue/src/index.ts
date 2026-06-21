@@ -8,9 +8,13 @@ import type {
   ButtonVariant,
   ChipTone,
   CommandPaletteCommand,
+  DataGridColumn,
+  DataGridRow,
   DataTableColumn,
   DataTableRow,
   DataTableSortDirection,
+  FieldArrayCreateItem,
+  FieldArrayItemRenderer,
   FilterBuilderField,
   GridAlign,
   GridGap,
@@ -20,6 +24,8 @@ import type {
   ProviderThemeTokens,
   SegmentedControlOption,
   SkeletonVariant,
+  SortableListItemKey,
+  SortableListItemRenderer,
   SplitterOrientation,
   StackAlign,
   StackDirection,
@@ -30,7 +36,9 @@ import type {
   StepperStep,
   TagTone,
   ToastPlacement,
-  ToolbarOrientation
+  ToolbarOrientation,
+  VirtualListItemKey,
+  VirtualListItemRenderer
 } from "cindor-ui-core";
 export { clearToasts, dismissToast, ensureToastRegion, showToast } from "cindor-ui-core";
 import "cindor-ui-core/register";
@@ -368,6 +376,26 @@ export const CindorCalendar = defineComponent({
               "start-value": props.startValue || undefined,
               onInput: handleInput,
               onChange: handleChange,
+          });
+  }
+});
+
+export const CindorDataGrid = defineComponent({
+  name: "CindorDataGrid",
+  props: {
+    columns: { type: Array as PropType<DataGridColumn[]>, default: () => [] },
+    emptyMessage: { type: String, default: "No rows to display." },
+    rowIdKey: { type: String, default: "id" },
+    rows: { type: Array as PropType<DataGridRow[]>, default: () => [] }
+  },
+  setup(props, { attrs }) {
+    return () =>
+          h("cindor-data-grid", {
+              ...attrs,
+              ".columns": props.columns,
+              "empty-message": props.emptyMessage,
+              "row-id-key": props.rowIdKey,
+              ".rows": props.rows,
           });
   }
 });
@@ -954,6 +982,60 @@ export const CindorFileInput = defineComponent({
               multiple: props.multiple || undefined,
               name: props.name || undefined,
               required: props.required || undefined,
+              onInput: handleInput,
+              onChange: handleChange,
+          });
+  }
+});
+
+export const CindorFieldArray = defineComponent({
+  name: "CindorFieldArray",
+  props: {
+    addLabel: { type: String, default: "Add item" },
+    createItem: { type: Function as PropType<FieldArrayCreateItem<any> | undefined>, default: undefined },
+    disabled: { type: Boolean, default: false },
+    emptyCopy: { type: String, default: "Add the first item to start building this repeated field group." },
+    emptyTitle: { type: String, default: "No items yet" },
+    items: { type: Array as PropType<unknown[]>, default: () => [] },
+    maxItems: { type: Number, default: 0 },
+    minItems: { type: Number, default: 0 },
+    moveDownLabel: { type: String, default: "Move item down" },
+    moveUpLabel: { type: String, default: "Move item up" },
+    name: { type: String, default: "" },
+    removeLabel: { type: String, default: "Remove item" },
+    renderItem: { type: Function as PropType<FieldArrayItemRenderer<any> | undefined>, default: undefined },
+    modelValue: { type: String, default: "" }
+  },
+  emits: ["update:modelValue", "input", "change"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("change", event);
+    };
+    return () =>
+          h("cindor-field-array", {
+              ...attrs,
+              "add-label": props.addLabel,
+              ".createItem": props.createItem,
+              disabled: props.disabled || undefined,
+              "empty-copy": props.emptyCopy,
+              "empty-title": props.emptyTitle,
+              ".items": props.items,
+              "max-items": props.maxItems,
+              "min-items": props.minItems,
+              "move-down-label": props.moveDownLabel,
+              "move-up-label": props.moveUpLabel,
+              name: props.name || undefined,
+              "remove-label": props.removeLabel,
+              ".renderItem": props.renderItem,
+              value: props.modelValue,
               onInput: handleInput,
               onChange: handleChange,
           });
@@ -3156,6 +3238,80 @@ export const CindorTransferList = defineComponent({
             },
             slots.default?.()
           );
+  }
+});
+
+export const CindorSortableList = defineComponent({
+  name: "CindorSortableList",
+  props: {
+    disabled: { type: Boolean, default: false },
+    dragHandleLabel: { type: String, default: "Drag to reorder" },
+    emptyMessage: { type: String, default: "No items to display." },
+    items: { type: Array as PropType<unknown[]>, default: () => [] },
+    itemKey: { type: Function as PropType<SortableListItemKey<any> | undefined>, default: undefined },
+    moveDownLabel: { type: String, default: "Move item down" },
+    moveUpLabel: { type: String, default: "Move item up" },
+    renderItem: { type: Function as PropType<SortableListItemRenderer<any> | undefined>, default: undefined }
+  },
+  emits: ["reorder", "input", "change"],
+  setup(props, { attrs, emit }) {
+    const handleReorder = (event: Event) => {
+      emit("reorder", event);
+    };
+
+    const handleInput = (event: Event) => {
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      emit("change", event);
+    };
+    return () =>
+          h("cindor-sortable-list", {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              "drag-handle-label": props.dragHandleLabel,
+              "empty-message": props.emptyMessage,
+              ".items": props.items,
+              ".itemKey": props.itemKey,
+              "move-down-label": props.moveDownLabel,
+              "move-up-label": props.moveUpLabel,
+              ".renderItem": props.renderItem,
+              onReorder: handleReorder,
+              onInput: handleInput,
+              onChange: handleChange,
+          });
+  }
+});
+
+export const CindorVirtualList = defineComponent({
+  name: "CindorVirtualList",
+  props: {
+    emptyMessage: { type: String, default: "No items to display." },
+    height: { type: String, default: "24rem" },
+    itemHeight: { type: Number, default: 72 },
+    items: { type: Array as PropType<unknown[]>, default: () => [] },
+    itemKey: { type: Function as PropType<VirtualListItemKey<unknown> | undefined>, default: undefined },
+    overscan: { type: Number, default: 4 },
+    renderItem: { type: Function as PropType<VirtualListItemRenderer<unknown> | undefined>, default: undefined }
+  },
+  emits: ["range-change"],
+  setup(props, { attrs, emit }) {
+    const handleRangeChange = (event: Event) => {
+      emit("range-change", event);
+    };
+    return () =>
+          h("cindor-virtual-list", {
+              ...attrs,
+              "empty-message": props.emptyMessage,
+              height: props.height,
+              "item-height": props.itemHeight,
+              ".items": props.items,
+              ".itemKey": props.itemKey,
+              overscan: props.overscan,
+              ".renderItem": props.renderItem,
+              onRangeChange: handleRangeChange,
+          });
   }
 });
 

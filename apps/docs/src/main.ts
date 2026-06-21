@@ -13,6 +13,7 @@ import {
   type ComponentDoc,
   type ComponentLayerFilter
 } from "./catalog.js";
+import { plannedComponents, type PlannedComponent, type PlannedComponentStatus } from "./component-roadmap.js";
 import { getComponentUseCases } from "./component-use-cases.js";
 import {
   ensureComponentPreviewRegistered,
@@ -62,6 +63,10 @@ type StepperHost = HTMLElement & {
 type FilterBuilderHost = HTMLElement & {
   fields: FilterBuilderField[];
   value: string;
+};
+
+type VirtualListHost = HTMLElement & {
+  items: Array<{ description: string; id: string; label: string; meta: string }>;
 };
 
 type ApiItem = {
@@ -448,6 +453,27 @@ const filterBuilderPreviewValue = JSON.stringify({
   logic: "and",
   type: "group"
 });
+
+const virtualListPreviewItems = [
+  {
+    id: "1",
+    label: "Deploy API cluster",
+    description: "Review rollout notes and verify traffic shifts.",
+    meta: "Needs review"
+  },
+  {
+    id: "2",
+    label: "Backfill analytics export",
+    description: "Confirm the delayed export completes before the reporting window closes.",
+    meta: "Healthy"
+  },
+  {
+    id: "3",
+    label: "Rotate incident owner",
+    description: "Hand off the current incident queue to the next responder.",
+    meta: "Today"
+  }
+] as const;
 
 let componentDocsByTag: Map<string, GeneratedComponentDoc> | null = null;
 let componentDocsLoadPromise: Promise<void> | null = null;
@@ -1022,6 +1048,28 @@ function renderDocsHome(activeSectionId: string): string {
           </cindor-card>
         </div>
 
+        <section class="section roadmap-section">
+          <div class="section-heading">
+            <h3>Planned component roadmap</h3>
+            <p>The next gaps are higher-level workflow surfaces. This list keeps the order explicit so docs planning and implementation stay aligned.</p>
+          </div>
+
+          <div class="roadmap-overview">
+            <div class="preview-block">
+              <strong>What ships first</strong>
+              <p class="muted"><code>virtual-list</code> is the immediate next build. Everything else stays queued behind it so we do not spread work across ten half-finished components.</p>
+            </div>
+            <div class="preview-block">
+              <strong>How the backlog is grouped</strong>
+              <p class="muted">The roadmap is split into collection foundations, dense data workbenches, workspace authoring, and guided onboarding so related components can share primitives and docs patterns.</p>
+            </div>
+          </div>
+
+          <div class="roadmap-list">
+            ${plannedComponents.map((component) => renderPlannedComponentCard(component)).join("")}
+          </div>
+        </section>
+
         <div class="demo-grid">
           <div class="preview-block">
             <div class="live-toolbar">
@@ -1474,6 +1522,36 @@ function renderFactCard(label: string, value: string): string {
   `;
 }
 
+function renderPlannedComponentCard(component: PlannedComponent): string {
+  return `
+    <article class="preview-block roadmap-card">
+      <div class="roadmap-card-header">
+        <div class="roadmap-card-title-row">
+          <span class="roadmap-order">#${component.order}</span>
+          <strong>${component.title}</strong>
+        </div>
+        <div class="component-meta">
+          <cindor-badge tone="${getPlannedComponentTone(component.status)}">${getPlannedComponentLabel(component.status)}</cindor-badge>
+          <cindor-badge>${component.phase}</cindor-badge>
+        </div>
+      </div>
+      <p class="muted">${component.summary}</p>
+      <div class="component-inline-meta">
+        <code>${component.slug}</code>
+      </div>
+      <p class="roadmap-rationale">${component.rationale}</p>
+    </article>
+  `;
+}
+
+function getPlannedComponentLabel(status: PlannedComponentStatus): string {
+  return status === "next" ? "Next up" : "Queued";
+}
+
+function getPlannedComponentTone(status: PlannedComponentStatus): "accent" | "neutral" {
+  return status === "next" ? "accent" : "neutral";
+}
+
 function renderComponentPreview(doc: ComponentDoc, componentPreviewReady: boolean): string {
   const previewMarkup = getPreviewMarkup(doc);
   if (!previewMarkup) {
@@ -1840,6 +1918,13 @@ function hydrateComponentPage(slug: string): void {
     if (stepper) {
       stepper.steps = stepperDetailSteps;
       stepper.value = "review";
+    }
+  }
+
+  if (slug === "virtual-list") {
+    const virtualList = root.querySelector<VirtualListHost>('[data-component-preview="virtual-list"] #component-virtual-list');
+    if (virtualList) {
+      virtualList.items = [...virtualListPreviewItems];
     }
   }
 }
@@ -2316,6 +2401,36 @@ function getUsageCode(doc: ComponentDoc): string {
   <cindor-menu-item>Rename</cindor-menu-item>
   <cindor-menu-item>Duplicate</cindor-menu-item>
 </cindor-context-menu>`;
+    case "data-grid":
+      return `<cindor-data-grid id="component-data-grid"></cindor-data-grid>
+
+<script type="module">
+  const grid = document.querySelector("#component-data-grid");
+
+  grid.columns = [
+    { key: "owner", label: "Owner", sticky: "start", width: "16rem" },
+    {
+      key: "status",
+      label: "Status",
+      editor: {
+        type: "select",
+        options: [
+          { label: "Healthy", value: "Healthy" },
+          { label: "Needs review", value: "Needs review" },
+          { label: "Blocked", value: "Blocked" }
+        ]
+      }
+    },
+    { key: "window", label: "Window", editor: { type: "input", placeholder: "Delivery window" } },
+    { key: "enabled", label: "Enabled", align: "center", editor: { type: "switch" }, width: "8rem" }
+  ];
+
+  grid.rows = [
+    { id: "row-1", owner: "Release Ops", status: "Healthy", window: "Today", enabled: true },
+    { id: "row-2", owner: "Analytics", status: "Needs review", window: "Tomorrow", enabled: false },
+    { id: "row-3", owner: "Support", status: "Blocked", window: "This week", enabled: true }
+  ];
+</script>`;
     case "data-table":
       return `<cindor-data-table id="component-table" caption="Components"></cindor-data-table>
 
@@ -2427,6 +2542,21 @@ function getUsageCode(doc: ComponentDoc): string {
 </cindor-empty-search-results>`;
     case "error-text":
       return `<cindor-error-text>Please enter a valid email address.</cindor-error-text>`;
+    case "field-array":
+      return `<cindor-field-array id="team-field-array" min-items="1"></cindor-field-array>
+<script type="module">
+  const fieldArray = document.querySelector("#team-field-array");
+  fieldArray.items = [
+    { id: "contact-1", label: "Primary contact", description: "Owns launch communication and approval routing.", meta: "Required" },
+    { id: "contact-2", label: "Billing contact", description: "Receives invoices and renewal reminders.", meta: "Optional" }
+  ];
+  fieldArray.createItem = ({ items }) => ({
+    id: "contact-" + (items.length + 1),
+    label: "Additional contact " + (items.length + 1),
+    description: "Add ownership notes and follow-up context.",
+    meta: "Optional"
+  });
+</script>`;
     case "fieldset":
       return `<cindor-fieldset legend="Notifications">
   <cindor-checkbox>Email</cindor-checkbox>
@@ -2696,6 +2826,18 @@ function getUsageCode(doc: ComponentDoc): string {
   <option value="product">Product owner</option>
   <option value="support">Support readiness</option>
 </cindor-transfer-list>`;
+    case "sortable-list":
+      return `<cindor-sortable-list id="component-sortable-list"></cindor-sortable-list>
+<script type="module">
+  const list = document.querySelector("#component-sortable-list");
+  list.items = [
+    { id: "backlog", label: "Backlog grooming", description: "Review incoming requests and trim duplicates before triage.", meta: "Today" },
+    { id: "design-review", label: "Design review", description: "Confirm responsive spacing and states before implementation.", meta: "Needs review" },
+    { id: "release-checklist", label: "Release checklist", description: "Verify cutover tasks, rollback notes, and ownership handoff.", meta: "Ready" }
+  ];
+</script>`;
+    case "virtual-list":
+      return `<cindor-virtual-list id="component-virtual-list" height="20rem" item-height="72"></cindor-virtual-list>`;
     case "toast":
       return `<cindor-toast open tone="success">Saved successfully.</cindor-toast>`;
     case "toast-region":
@@ -2988,6 +3130,38 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
     </${componentName}>`;
     case "error-text":
       return `<${componentName}>Please enter a valid email address.</${componentName}>`;
+    case "field-array":
+      return `<${componentName}
+      minItems={1}
+      items={[
+        { id: "contact-1", label: "Primary contact", description: "Owns launch communication and approval routing.", meta: "Required" },
+        { id: "contact-2", label: "Billing contact", description: "Receives invoices and renewal reminders.", meta: "Optional" }
+      ]}
+    />`;
+    case "data-grid":
+      return `<${componentName}
+      columns={[
+        { key: "owner", label: "Owner", sticky: "start", width: "16rem" },
+        {
+          key: "status",
+          label: "Status",
+          editor: {
+            type: "select",
+            options: [
+              { label: "Healthy", value: "Healthy" },
+              { label: "Needs review", value: "Needs review" },
+              { label: "Blocked", value: "Blocked" }
+            ]
+          }
+        },
+        { key: "window", label: "Window", editor: { type: "input", placeholder: "Delivery window" } },
+        { key: "enabled", label: "Enabled", align: "center", editor: { type: "switch" }, width: "8rem" }
+      ]}
+      rows={[
+        { id: "row-1", owner: "Release Ops", status: "Healthy", window: "Today", enabled: true },
+        { id: "row-2", owner: "Analytics", status: "Needs review", window: "Tomorrow", enabled: false }
+      ]}
+    />`;
     case "form":
       return `<${componentName} description="Create a workspace with shared field and validation wiring." onsubmit="event.preventDefault()">
       <cindor-form-row>
@@ -3195,6 +3369,24 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
       <option value="engineering">Engineering</option>
       <option value="product">Product</option>
     </${componentName}>`;
+    case "sortable-list":
+      return `<${componentName}
+      items={[
+        { id: "backlog", label: "Backlog grooming", description: "Review incoming requests and trim duplicates before triage.", meta: "Today" },
+        { id: "design-review", label: "Design review", description: "Confirm responsive spacing and states before implementation.", meta: "Needs review" },
+        { id: "release-checklist", label: "Release checklist", description: "Verify cutover tasks, rollback notes, and ownership handoff.", meta: "Ready" }
+      ]}
+    />`;
+    case "virtual-list":
+      return `<${componentName}
+      height="20rem"
+      itemHeight={72}
+      items={[
+        { id: "1", label: "Deploy API cluster", description: "Review rollout notes and verify traffic shifts.", meta: "Needs review" },
+        { id: "2", label: "Backfill analytics export", description: "Confirm the delayed export completes before the reporting window closes.", meta: "Healthy" },
+        { id: "3", label: "Rotate incident owner", description: "Hand off the current incident queue to the next responder.", meta: "Today" }
+      ]}
+    />`;
     case "tree-item":
       return `<${componentName} label="Guides" expanded>
       <cindor-tree-item label="Getting started"></cindor-tree-item>
@@ -3289,6 +3481,38 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
   </${componentName}>`;
     case "error-text":
       return `<${componentName}>Please enter a valid email address.</${componentName}>`;
+    case "field-array":
+      return `<${componentName}
+    :min-items="1"
+    :items="[
+      { id: 'contact-1', label: 'Primary contact', description: 'Owns launch communication and approval routing.', meta: 'Required' },
+      { id: 'contact-2', label: 'Billing contact', description: 'Receives invoices and renewal reminders.', meta: 'Optional' }
+    ]"
+  />`;
+    case "data-grid":
+      return `<${componentName}
+    :columns="[
+      { key: 'owner', label: 'Owner', sticky: 'start', width: '16rem' },
+      {
+        key: 'status',
+        label: 'Status',
+        editor: {
+          type: 'select',
+          options: [
+            { label: 'Healthy', value: 'Healthy' },
+            { label: 'Needs review', value: 'Needs review' },
+            { label: 'Blocked', value: 'Blocked' }
+          ]
+        }
+      },
+      { key: 'window', label: 'Window', editor: { type: 'input', placeholder: 'Delivery window' } },
+      { key: 'enabled', label: 'Enabled', align: 'center', editor: { type: 'switch' }, width: '8rem' }
+    ]"
+    :rows="[
+      { id: 'row-1', owner: 'Release Ops', status: 'Healthy', window: 'Today', enabled: true },
+      { id: 'row-2', owner: 'Analytics', status: 'Needs review', window: 'Tomorrow', enabled: false }
+    ]"
+  />`;
     case "date-picker":
       return `<${componentName} month="2026-04" value="2026-04-26" />`;
     case "date-range-picker":
@@ -3475,6 +3699,24 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
     <option value="engineering">Engineering</option>
     <option value="product">Product</option>
   </${componentName}>`;
+    case "sortable-list":
+      return `<${componentName}
+    :items="[
+      { id: 'backlog', label: 'Backlog grooming', description: 'Review incoming requests and trim duplicates before triage.', meta: 'Today' },
+      { id: 'design-review', label: 'Design review', description: 'Confirm responsive spacing and states before implementation.', meta: 'Needs review' },
+      { id: 'release-checklist', label: 'Release checklist', description: 'Verify cutover tasks, rollback notes, and ownership handoff.', meta: 'Ready' }
+    ]"
+  />`;
+    case "virtual-list":
+      return `<${componentName}
+    height="20rem"
+    :item-height="72"
+    :items="[
+      { id: '1', label: 'Deploy API cluster', description: 'Review rollout notes and verify traffic shifts.', meta: 'Needs review' },
+      { id: '2', label: 'Backfill analytics export', description: 'Confirm the delayed export completes before the reporting window closes.', meta: 'Healthy' },
+      { id: '3', label: 'Rotate incident owner', description: 'Hand off the current incident queue to the next responder.', meta: 'Today' }
+    ]"
+  />`;
     case "tree-item":
       return `<${componentName} label="Guides" expanded>
     <cindor-tree-item label="Getting started"></cindor-tree-item>
@@ -3526,6 +3768,8 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "empty-state":
     case "empty-search-results":
     case "error-text":
+    case "field-array":
+    case "data-grid":
     case "fieldset":
     case "file-input":
     case "filter-builder":
@@ -3579,10 +3823,13 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "toast":
     case "toolbar":
     case "transfer-list":
+    case "sortable-list":
     case "tree-item":
     case "tree-view":
     case "url-input":
       return doc.slug === "filter-builder" ? `<cindor-filter-builder id="filter-builder-preview"></cindor-filter-builder>` : getUsageCode(doc);
+    case "virtual-list":
+      return `<cindor-virtual-list id="component-virtual-list" height="20rem" item-height="72"></cindor-virtual-list>`;
     case "data-table":
       return `<div class="preview-block">
         <strong>Small data set preview</strong>
@@ -4108,6 +4355,34 @@ function getLegacyComponentApi(doc: ComponentDoc): ComponentApiSurface {
           compositionGroup([])
         ],
         intro: `${doc.tag} is property-driven. Most integrations assign a command array in JavaScript and listen for command-select to route the chosen action.`
+      };
+    case "data-grid":
+      return {
+        groups: [
+          propertyGroup([
+            apiItem("columns / rows", "Columns and rows are assigned as JavaScript properties for editable operational data.", {
+              type: "DataGridColumn[] / DataGridRow[]"
+            }),
+            apiItem("empty-message", "Message shown when the grid has no renderable rows or columns.", {
+              defaultValue: `"No rows to display."`,
+              type: "string"
+            }),
+            apiItem("row-id-key", "Property used to derive stable row ids when rows include an identifier field.", {
+              defaultValue: `"id"`,
+              type: "string"
+            })
+          ]),
+          eventGroup([
+            apiItem("active-cell-change", "Fired when the active keyboard cell changes.", {
+              type: "CustomEvent<DataGridActiveCellDetail>"
+            }),
+            apiItem("cell-edit", "Fired after an inline input, select, or switch editor commits a value.", {
+              type: "CustomEvent<DataGridCellEditDetail>"
+            })
+          ], "Editing is configured per column through a column.editor definition."),
+          compositionGroup([])
+        ],
+        intro: `${doc.tag} is an editable grid foundation for dense operational review surfaces. Assign columns and rows in JavaScript, then listen for cell-edit to persist inline updates.`
       };
     case "data-table":
       return {

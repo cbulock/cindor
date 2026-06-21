@@ -84,7 +84,7 @@ describe("cindor-transfer-list", () => {
     await Promise.resolve();
 
     const selectedSelect = element.renderRoot.querySelector('[part="selected-select"]') as HTMLSelectElement;
-    expect(element.renderRoot.activeElement).toBe(selectedSelect);
+    expect((element.renderRoot as ShadowRoot).activeElement).toBe(selectedSelect);
     expect(Array.from(selectedSelect.selectedOptions).map((option) => option.value)).toEqual(["design"]);
   });
 
@@ -106,7 +106,7 @@ describe("cindor-transfer-list", () => {
     await Promise.resolve();
 
     const availableSelect = element.renderRoot.querySelector('[part="available-select"]') as HTMLSelectElement;
-    expect(element.renderRoot.activeElement).toBe(availableSelect);
+    expect((element.renderRoot as ShadowRoot).activeElement).toBe(availableSelect);
     expect(Array.from(availableSelect.selectedOptions).map((option) => option.value)).toEqual(["engineering"]);
   });
 

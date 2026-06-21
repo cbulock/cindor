@@ -56,6 +56,14 @@ const obj = (name, typeExpression, options = {}) => ({
   typeExpression
 });
 
+const func = (name, typeExpression, options = {}) => ({
+  attr: options.attr ?? name,
+  forceProperty: options.forceProperty ?? true,
+  kind: "function",
+  name,
+  typeExpression
+});
+
 const handler = (domEvent, options = {}) => ({
   domEvent,
   emitName: options.emitName ?? domEvent,
@@ -199,6 +207,15 @@ export const componentDefinitions = [
       bool("range"),
       bool("required"),
       str("startValue", "", { attr: "start-value" })
+    ]
+  }),
+  component("CindorDataGrid", "cindor-data-grid", {
+    reactEvents: ["active-cell-change", "cell-edit"],
+    vueProps: [
+      arr("columns", "DataGridColumn[]"),
+      str("emptyMessage", "No rows to display.", { attr: "empty-message", alwaysPass: true }),
+      str("rowIdKey", "id", { attr: "row-id-key", alwaysPass: true }),
+      arr("rows", "DataGridRow[]")
     ]
   }),
   component("CindorBadge", "cindor-badge", {
@@ -347,6 +364,26 @@ export const componentDefinitions = [
       })
     ],
     vueProps: [str("accept"), bool("disabled"), bool("multiple"), str("name"), bool("required")]
+  }),
+  component("CindorFieldArray", "cindor-field-array", {
+    reactEvents: ["change", "input"],
+    vueHandlers: textModelHandlers,
+    vueProps: [
+      str("addLabel", "Add item", { attr: "add-label", alwaysPass: true }),
+      func("createItem", "FieldArrayCreateItem<any> | undefined"),
+      bool("disabled"),
+      str("emptyCopy", "Add the first item to start building this repeated field group.", { attr: "empty-copy", alwaysPass: true }),
+      str("emptyTitle", "No items yet", { attr: "empty-title", alwaysPass: true }),
+      arr("items", "unknown[]"),
+      num("maxItems", 0, { attr: "max-items" }),
+      num("minItems", 0, { attr: "min-items" }),
+      str("moveDownLabel", "Move item down", { attr: "move-down-label", alwaysPass: true }),
+      str("moveUpLabel", "Move item up", { attr: "move-up-label", alwaysPass: true }),
+      str("name"),
+      str("removeLabel", "Remove item", { attr: "remove-label", alwaysPass: true }),
+      func("renderItem", "FieldArrayItemRenderer<any> | undefined"),
+      str("modelValue", "", { attr: "value", alwaysPass: true })
+    ]
   }),
   component("CindorFilterBuilder", "cindor-filter-builder", {
     reactEvents: ["change", "input"],
@@ -934,6 +971,33 @@ export const componentDefinitions = [
       str("selectedLabel", "Selected", { attr: "selected-label", alwaysPass: true }),
       arr("modelValue", "string[]", { attr: "selected-values" }),
       num("size", 8)
+    ]
+  }),
+  component("CindorSortableList", "cindor-sortable-list", {
+    reactEvents: ["reorder", "input", "change"],
+    vueHandlers: [handler("reorder"), handler("input"), handler("change")],
+    vueProps: [
+      bool("disabled"),
+      str("dragHandleLabel", "Drag to reorder", { attr: "drag-handle-label", alwaysPass: true }),
+      str("emptyMessage", "No items to display.", { attr: "empty-message", alwaysPass: true }),
+      arr("items", "unknown[]"),
+      func("itemKey", "SortableListItemKey<any> | undefined"),
+      str("moveDownLabel", "Move item down", { attr: "move-down-label", alwaysPass: true }),
+      str("moveUpLabel", "Move item up", { attr: "move-up-label", alwaysPass: true }),
+      func("renderItem", "SortableListItemRenderer<any> | undefined")
+    ]
+  }),
+  component("CindorVirtualList", "cindor-virtual-list", {
+    reactEvents: ["range-change"],
+    vueHandlers: [handler("range-change")],
+    vueProps: [
+      str("emptyMessage", "No items to display.", { alwaysPass: true, attr: "empty-message" }),
+      str("height", "24rem", { alwaysPass: true }),
+      num("itemHeight", 72, { attr: "item-height" }),
+      arr("items", "unknown[]"),
+      func("itemKey", "VirtualListItemKey<unknown> | undefined"),
+      num("overscan", 4),
+      func("renderItem", "VirtualListItemRenderer<unknown> | undefined")
     ]
   }),
   component("CindorSideNav", "cindor-side-nav", {

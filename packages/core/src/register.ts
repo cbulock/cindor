@@ -19,6 +19,7 @@ import { CindorCombobox } from "./components/combobox/cindor-combobox.js";
 import { CindorCommandBar } from "./components/command-bar/cindor-command-bar.js";
 import { CindorCommandPalette } from "./components/command-palette/cindor-command-palette.js";
 import { CindorContextMenu } from "./components/context-menu/cindor-context-menu.js";
+import { CindorDataGrid } from "./components/data-grid/cindor-data-grid.js";
 import { CindorDataTable } from "./components/data-table/cindor-data-table.js";
 import { CindorDataViewToolbar } from "./components/data-view-toolbar/cindor-data-view-toolbar.js";
 import { CindorDatePicker } from "./components/date-picker/cindor-date-picker.js";
@@ -36,6 +37,7 @@ import { CindorDropdownMenu } from "./components/dropdown-menu/cindor-dropdown-m
 import { CindorDropzone } from "./components/dropzone/cindor-dropzone.js";
 import { CindorEmptyState } from "./components/empty-state/cindor-empty-state.js";
 import { CindorEmptySearchResults } from "./components/empty-search-results/cindor-empty-search-results.js";
+import { CindorFieldArray } from "./components/field-array/cindor-field-array.js";
 import { CindorFieldset } from "./components/fieldset/cindor-fieldset.js";
 import { CindorForm } from "./components/form/cindor-form.js";
 import { CindorFileInput } from "./components/file-input/cindor-file-input.js";
@@ -80,6 +82,7 @@ import { CindorSideNav } from "./components/side-nav/cindor-side-nav.js";
 import { CindorSideNavItem } from "./components/side-nav-item/cindor-side-nav-item.js";
 import { CindorSplitButton } from "./components/split-button/cindor-split-button.js";
 import { CindorSpinner } from "./components/spinner/cindor-spinner.js";
+import { CindorSortableList } from "./components/sortable-list/cindor-sortable-list.js";
 import { CindorSplitter } from "./components/splitter/cindor-splitter.js";
 import { CindorSplitterPanel } from "./components/splitter-panel/cindor-splitter-panel.js";
 import { CindorStack } from "./components/stack/cindor-stack.js";
@@ -103,6 +106,7 @@ import { CindorTransferList } from "./components/transfer-list/cindor-transfer-l
 import { CindorTooltip } from "./components/tooltip/cindor-tooltip.js";
 import { CindorToolbar } from "./components/toolbar/cindor-toolbar.js";
 import { CindorUrlInput } from "./components/url-input/cindor-url-input.js";
+import { CindorVirtualList } from "./components/virtual-list/cindor-virtual-list.js";
 
 const definitions = [
   ["cindor-alert", CindorAlert],
@@ -127,6 +131,7 @@ const definitions = [
   ["cindor-form", CindorForm],
   ["cindor-range", CindorRange],
   ["cindor-file-input", CindorFileInput],
+  ["cindor-field-array", CindorFieldArray],
   ["cindor-filter-builder", CindorFilterBuilder],
   ["cindor-form-field", CindorFormField],
   ["cindor-form-row", CindorFormRow],
@@ -140,6 +145,7 @@ const definitions = [
   ["cindor-command-bar", CindorCommandBar],
   ["cindor-command-palette", CindorCommandPalette],
   ["cindor-context-menu", CindorContextMenu],
+  ["cindor-data-grid", CindorDataGrid],
   ["cindor-color-input", CindorColorInput],
   ["cindor-date-picker", CindorDatePicker],
   ["cindor-date-range-picker", CindorDateRangePicker],
@@ -190,6 +196,7 @@ const definitions = [
   ["cindor-side-nav", CindorSideNav],
   ["cindor-side-nav-item", CindorSideNavItem],
   ["cindor-split-button", CindorSplitButton],
+  ["cindor-sortable-list", CindorSortableList],
   ["cindor-splitter", CindorSplitter],
   ["cindor-splitter-panel", CindorSplitterPanel],
   ["cindor-stack", CindorStack],
@@ -209,6 +216,7 @@ const definitions = [
   ["cindor-tree-view", CindorTreeView],
   ["cindor-stepper", CindorStepper],
   ["cindor-toolbar", CindorToolbar],
+  ["cindor-virtual-list", CindorVirtualList],
   ["cindor-accordion", CindorAccordion]
 ] as const;
 
