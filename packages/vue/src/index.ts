@@ -992,7 +992,7 @@ export const CindorFieldArray = defineComponent({
   name: "CindorFieldArray",
   props: {
     addLabel: { type: String, default: "Add item" },
-    createItem: { type: Function as PropType<FieldArrayCreateItem<any> | undefined>, default: undefined },
+    createItem: { type: Function as PropType<FieldArrayCreateItem<unknown> | undefined>, default: undefined },
     disabled: { type: Boolean, default: false },
     emptyCopy: { type: String, default: "Add the first item to start building this repeated field group." },
     emptyTitle: { type: String, default: "No items yet" },
@@ -1003,7 +1003,7 @@ export const CindorFieldArray = defineComponent({
     moveUpLabel: { type: String, default: "Move item up" },
     name: { type: String, default: "" },
     removeLabel: { type: String, default: "Remove item" },
-    renderItem: { type: Function as PropType<FieldArrayItemRenderer<any> | undefined>, default: undefined },
+    renderItem: { type: Function as PropType<FieldArrayItemRenderer<unknown> | undefined>, default: undefined },
     modelValue: { type: String, default: "" }
   },
   emits: ["update:modelValue", "input", "change"],
@@ -3248,10 +3248,10 @@ export const CindorSortableList = defineComponent({
     dragHandleLabel: { type: String, default: "Drag to reorder" },
     emptyMessage: { type: String, default: "No items to display." },
     items: { type: Array as PropType<unknown[]>, default: () => [] },
-    itemKey: { type: Function as PropType<SortableListItemKey<any> | undefined>, default: undefined },
+    itemKey: { type: Function as PropType<SortableListItemKey<unknown> | undefined>, default: undefined },
     moveDownLabel: { type: String, default: "Move item down" },
     moveUpLabel: { type: String, default: "Move item up" },
-    renderItem: { type: Function as PropType<SortableListItemRenderer<any> | undefined>, default: undefined }
+    renderItem: { type: Function as PropType<SortableListItemRenderer<unknown> | undefined>, default: undefined }
   },
   emits: ["reorder", "input", "change"],
   setup(props, { attrs, emit }) {
