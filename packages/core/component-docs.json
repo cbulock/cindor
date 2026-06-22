@@ -6282,12 +6282,6 @@
       "methods": [],
       "events": [
         {
-          "description": "",
-          "name": "name",
-          "type": "CustomEvent",
-          "values": null
-        },
-        {
           "description": "Fired when the item order changes.",
           "name": "reorder",
           "type": "CustomEvent<SortableListReorderDetail>",

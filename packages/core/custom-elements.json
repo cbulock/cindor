@@ -4,6 +4,79 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Activity Feed\", render: () => ` <cindor-activity-feed> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Cindor Team\"></cindor-avatar> <span slot=\"title\">New deployment completed</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">Production environment</span> Traffic is now flowing through the latest release. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"QA\"></cindor-avatar> <span slot=\"title\">Regression suite passed</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Build #1284</span> All smoke tests completed without failures. </cindor-activity-item> </cindor-activity-feed> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
+          "name": "CindorActivityFeed",
+          "slots": [
+            {
+              "description": "`cindor-activity-item` children.",
+              "name": ""
+            }
+          ],
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorActivityFeed",
+          "declaration": {
+            "name": "CindorActivityFeed",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/accordion/cindor-accordion.stories.ts",
       "declarations": [
         {
@@ -132,7 +205,7 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
+      "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
       "declarations": [
         {
           "kind": "variable",
@@ -140,7 +213,7 @@
           "type": {
             "text": "object"
           },
-          "default": "{ title: \"Display/Activity Feed\", render: () => ` <cindor-activity-feed> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Cindor Team\"></cindor-avatar> <span slot=\"title\">New deployment completed</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">Production environment</span> Traffic is now flowing through the latest release. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"QA\"></cindor-avatar> <span slot=\"title\">Regression suite passed</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Build #1284</span> All smoke tests completed without failures. </cindor-activity-item> </cindor-activity-feed> ` }"
+          "default": "{ title: \"Components/Alert\", args: { message: \"The upstream Cindor tokens loaded successfully.\", title: \"Heads up\", tone: \"info\" }, argTypes: { tone: { control: \"radio\", options: [\"info\", \"success\", \"warning\", \"danger\"] } }, render: ({ message, title, tone }: AlertStoryArgs) => ` <cindor-alert tone=\"${tone}\"> <strong>${title}</strong> <span>${message}</span> </cindor-alert> ` }"
         },
         {
           "kind": "variable",
@@ -157,7 +230,7 @@
           "name": "default",
           "declaration": {
             "name": "meta",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
           }
         },
         {
@@ -165,139 +238,40 @@
           "name": "Default",
           "declaration": {
             "name": "Default",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
+      "path": "packages/core/src/components/alert/cindor-alert.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
-          "name": "CindorActivityFeed",
-          "slots": [
-            {
-              "description": "`cindor-activity-item` children.",
-              "name": ""
-            }
-          ],
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorActivityFeed",
-          "declaration": {
-            "name": "CindorActivityFeed",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Activity Item\", render: () => ` <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Ops\"></cindor-avatar> <span slot=\"title\">Database failover completed</span> <span slot=\"timestamp\">5 minutes ago</span> <span slot=\"meta\">Primary cluster</span> Connections were restored automatically after the failover. </cindor-activity-item> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-item/cindor-activity-item.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Single event row used inside CindorActivityFeed.",
-          "name": "CindorActivityItem",
-          "slots": [
-            {
-              "description": "Leading avatar, icon, or status mark.",
-              "name": "leading"
-            },
-            {
-              "description": "Main activity title.",
-              "name": "title"
-            },
-            {
-              "description": "Time or date associated with the event.",
-              "name": "timestamp"
-            },
-            {
-              "description": "Supplemental metadata such as actor, environment, or destination.",
-              "name": "meta"
-            },
-            {
-              "description": "Optional trailing actions for the activity.",
-              "name": "actions"
-            },
-            {
-              "description": "Main event description.",
-              "name": ""
-            }
-          ],
+          "description": "",
+          "name": "CindorAlert",
           "members": [
             {
               "kind": "field",
-              "name": "unread",
+              "name": "tone",
               "privacy": "public",
               "type": {
-                "text": "boolean"
+                "text": "AlertTone"
               },
-              "default": "false",
-              "attribute": "unread",
+              "default": "\"info\"",
+              "attribute": "tone",
               "reflects": true
             }
           ],
           "attributes": [
             {
-              "name": "unread",
+              "name": "tone",
               "type": {
-                "text": "boolean"
+                "text": "AlertTone"
               },
-              "default": "false",
-              "fieldName": "unread"
+              "default": "\"info\"",
+              "fieldName": "tone"
             }
           ],
           "superclass": {
@@ -310,10 +284,10 @@
       "exports": [
         {
           "kind": "js",
-          "name": "CindorActivityItem",
+          "name": "CindorAlert",
           "declaration": {
-            "name": "CindorActivityItem",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
+            "name": "CindorAlert",
+            "module": "packages/core/src/components/alert/cindor-alert.ts"
           }
         }
       ]
@@ -897,7 +871,7 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
+      "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
       "declarations": [
         {
           "kind": "variable",
@@ -905,7 +879,7 @@
           "type": {
             "text": "object"
           },
-          "default": "{ title: \"Components/Alert\", args: { message: \"The upstream Cindor tokens loaded successfully.\", title: \"Heads up\", tone: \"info\" }, argTypes: { tone: { control: \"radio\", options: [\"info\", \"success\", \"warning\", \"danger\"] } }, render: ({ message, title, tone }: AlertStoryArgs) => ` <cindor-alert tone=\"${tone}\"> <strong>${title}</strong> <span>${message}</span> </cindor-alert> ` }"
+          "default": "{ title: \"Display/Activity Item\", render: () => ` <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Ops\"></cindor-avatar> <span slot=\"title\">Database failover completed</span> <span slot=\"timestamp\">5 minutes ago</span> <span slot=\"meta\">Primary cluster</span> Connections were restored automatically after the failover. </cindor-activity-item> ` }"
         },
         {
           "kind": "variable",
@@ -922,7 +896,7 @@
           "name": "default",
           "declaration": {
             "name": "meta",
-            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
           }
         },
         {
@@ -930,40 +904,66 @@
           "name": "Default",
           "declaration": {
             "name": "Default",
-            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/alert/cindor-alert.ts",
+      "path": "packages/core/src/components/activity-item/cindor-activity-item.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "",
-          "name": "CindorAlert",
+          "description": "Single event row used inside CindorActivityFeed.",
+          "name": "CindorActivityItem",
+          "slots": [
+            {
+              "description": "Leading avatar, icon, or status mark.",
+              "name": "leading"
+            },
+            {
+              "description": "Main activity title.",
+              "name": "title"
+            },
+            {
+              "description": "Time or date associated with the event.",
+              "name": "timestamp"
+            },
+            {
+              "description": "Supplemental metadata such as actor, environment, or destination.",
+              "name": "meta"
+            },
+            {
+              "description": "Optional trailing actions for the activity.",
+              "name": "actions"
+            },
+            {
+              "description": "Main event description.",
+              "name": ""
+            }
+          ],
           "members": [
             {
               "kind": "field",
-              "name": "tone",
+              "name": "unread",
               "privacy": "public",
               "type": {
-                "text": "AlertTone"
+                "text": "boolean"
               },
-              "default": "\"info\"",
-              "attribute": "tone",
+              "default": "false",
+              "attribute": "unread",
               "reflects": true
             }
           ],
           "attributes": [
             {
-              "name": "tone",
+              "name": "unread",
               "type": {
-                "text": "AlertTone"
+                "text": "boolean"
               },
-              "default": "\"info\"",
-              "fieldName": "tone"
+              "default": "false",
+              "fieldName": "unread"
             }
           ],
           "superclass": {
@@ -976,10 +976,10 @@
       "exports": [
         {
           "kind": "js",
-          "name": "CindorAlert",
+          "name": "CindorActivityItem",
           "declaration": {
-            "name": "CindorAlert",
-            "module": "packages/core/src/components/alert/cindor-alert.ts"
+            "name": "CindorActivityItem",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
           }
         }
       ]
@@ -4102,190 +4102,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/command-bar/cindor-command-bar.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Actions/Command Bar\", args: { count: 3, sticky: false }, argTypes: { count: { control: { type: \"number\", min: 0, step: 1 } }, sticky: { control: \"boolean\" } }, render: ({ count, sticky }: CommandBarStoryArgs) => ` <cindor-command-bar label=\"Bulk actions\" description=\"Apply actions to the currently selected records.\" count=\"${count}\" ${sticky ? \"sticky\" : \"\"} > <span>${count > 0 ? \"Selection updates are applied immediately.\" : \"Choose one or more rows to enable actions.\"}</span> <cindor-button slot=\"actions\" variant=\"ghost\">Clear</cindor-button> <cindor-button slot=\"actions\">Archive</cindor-button> </cindor-command-bar> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/command-bar/cindor-command-bar.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/command-bar/cindor-command-bar.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/command-bar/cindor-command-bar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Persistent contextual action bar for bulk actions and page-level commands.",
-          "name": "CindorCommandBar",
-          "slots": [
-            {
-              "description": "Optional supporting content shown with the summary copy.",
-              "name": ""
-            },
-            {
-              "description": "Action controls rendered on the trailing edge.",
-              "name": "actions"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "count",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "attribute": "count",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "countLabel",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"selected\"",
-              "attribute": "count-label",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "description",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "description",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "label",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "label",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "sticky",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "sticky",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "accessibleLabel",
-              "type": {
-                "text": "string | undefined"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "count",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "fieldName": "count"
-            },
-            {
-              "name": "count-label",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"selected\"",
-              "fieldName": "countLabel"
-            },
-            {
-              "name": "description",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "description"
-            },
-            {
-              "name": "label",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "label"
-            },
-            {
-              "name": "sticky",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "sticky"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorCommandBar",
-          "declaration": {
-            "name": "CindorCommandBar",
-            "module": "packages/core/src/components/command-bar/cindor-command-bar.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/command-palette/cindor-command-palette.stories.ts",
       "declarations": [
         {
@@ -4619,6 +4435,190 @@
           "declaration": {
             "name": "CindorCommandPalette",
             "module": "packages/core/src/components/command-palette/cindor-command-palette.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/command-bar/cindor-command-bar.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Actions/Command Bar\", args: { count: 3, sticky: false }, argTypes: { count: { control: { type: \"number\", min: 0, step: 1 } }, sticky: { control: \"boolean\" } }, render: ({ count, sticky }: CommandBarStoryArgs) => ` <cindor-command-bar label=\"Bulk actions\" description=\"Apply actions to the currently selected records.\" count=\"${count}\" ${sticky ? \"sticky\" : \"\"} > <span>${count > 0 ? \"Selection updates are applied immediately.\" : \"Choose one or more rows to enable actions.\"}</span> <cindor-button slot=\"actions\" variant=\"ghost\">Clear</cindor-button> <cindor-button slot=\"actions\">Archive</cindor-button> </cindor-command-bar> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/command-bar/cindor-command-bar.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/command-bar/cindor-command-bar.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/command-bar/cindor-command-bar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Persistent contextual action bar for bulk actions and page-level commands.",
+          "name": "CindorCommandBar",
+          "slots": [
+            {
+              "description": "Optional supporting content shown with the summary copy.",
+              "name": ""
+            },
+            {
+              "description": "Action controls rendered on the trailing edge.",
+              "name": "actions"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "count",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "count",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "countLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"selected\"",
+              "attribute": "count-label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "description",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "description",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "sticky",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "sticky",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "accessibleLabel",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "count",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "count"
+            },
+            {
+              "name": "count-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"selected\"",
+              "fieldName": "countLabel"
+            },
+            {
+              "name": "description",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "description"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "label"
+            },
+            {
+              "name": "sticky",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "sticky"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorCommandBar",
+          "declaration": {
+            "name": "CindorCommandBar",
+            "module": "packages/core/src/components/command-bar/cindor-command-bar.ts"
           }
         }
       ]
@@ -25651,30 +25651,6 @@
             },
             {
               "kind": "method",
-              "name": "dispatchReorderEvent",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "\"reorder\" | \"input\" | \"change\""
-                  }
-                },
-                {
-                  "name": "detail",
-                  "type": {
-                    "text": "SortableListReorderDetail<T>"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
               "name": "getItemKey",
               "privacy": "private",
               "return": {
@@ -25736,31 +25712,25 @@
           ],
           "events": [
             {
-              "name": "name",
-              "type": {
-                "text": "CustomEvent"
-              }
-            },
-            {
+              "name": "reorder",
               "type": {
                 "text": "CustomEvent<SortableListReorderDetail>"
               },
-              "description": "Fired when the item order changes.",
-              "name": "reorder"
+              "description": "Fired when the item order changes."
             },
             {
+              "name": "input",
               "type": {
                 "text": "CustomEvent<SortableListReorderDetail>"
               },
-              "description": "Fired when the item order changes.",
-              "name": "input"
+              "description": "Fired when the item order changes."
             },
             {
+              "name": "change",
               "type": {
                 "text": "CustomEvent<SortableListReorderDetail>"
               },
-              "description": "Fired when the item order changes.",
-              "name": "change"
+              "description": "Fired when the item order changes."
             }
           ],
           "attributes": [
@@ -32425,6 +32395,322 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/tree-item/cindor-tree-item.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Navigation/Tree Item\", args: { expanded: true, label: \"Guides\" }, argTypes: { expanded: { control: \"boolean\" } }, render: ({ expanded, label }: TreeItemStoryArgs) => ` <cindor-tree-item label=\"${label}\" ${expanded ? \"expanded\" : \"\"}> <cindor-tree-item label=\"Getting started\"></cindor-tree-item> <cindor-tree-item label=\"Theming\"></cindor-tree-item> </cindor-tree-item> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/tree-item/cindor-tree-item.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/tree-item/cindor-tree-item.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/tree-item/cindor-tree-item.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Hierarchical item used inside CindorTreeView.\n\nSet `label` for the visible row text and nest additional `cindor-tree-item`\nelements in the default slot to create branches.",
+          "name": "CindorTreeItem",
+          "slots": [
+            {
+              "description": "Optional leading decoration for the tree row.",
+              "name": "start"
+            },
+            {
+              "description": "Nested child `cindor-tree-item` elements for branch content.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables both the row selection button and any branch toggle control.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "expanded",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Expands branch children when nested tree items are present.",
+              "attribute": "expanded",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Visible row label. Falls back to value when omitted.",
+              "attribute": "label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Applied by the parent tree view to reflect the active selection state.",
+              "attribute": "selected",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Stable selection value for this item. Falls back to label when omitted.",
+              "attribute": "value",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "hasChildren",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "method",
+              "name": "click",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "toggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "expanded",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Expands or collapses the branch when child tree items exist."
+            },
+            {
+              "kind": "field",
+              "name": "handleItemClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleToggleClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "syncButtonState",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncChildren",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "dispatchToggleEvent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "nestedTreeItems",
+              "type": {
+                "text": "CindorTreeItem[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "buttonElement",
+              "type": {
+                "text": "HTMLButtonElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "events": [
+            {
+              "name": "toggle",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the expanded branch state changes."
+            },
+            {
+              "description": "Fired when the row is activated.",
+              "name": "tree-item-select"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables both the row selection button and any branch toggle control.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "expanded",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Expands branch children when nested tree items are present.",
+              "fieldName": "expanded"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Visible row label. Falls back to value when omitted.",
+              "fieldName": "label"
+            },
+            {
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Applied by the parent tree view to reflect the active selection state.",
+              "fieldName": "selected"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Stable selection value for this item. Falls back to label when omitted.",
+              "fieldName": "value"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorTreeItem",
+          "declaration": {
+            "name": "CindorTreeItem",
+            "module": "packages/core/src/components/tree-item/cindor-tree-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/tree-view/cindor-tree-view.stories.ts",
       "declarations": [
         {
@@ -32802,322 +33088,6 @@
           "declaration": {
             "name": "CindorTreeView",
             "module": "packages/core/src/components/tree-view/cindor-tree-view.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/tree-item/cindor-tree-item.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Navigation/Tree Item\", args: { expanded: true, label: \"Guides\" }, argTypes: { expanded: { control: \"boolean\" } }, render: ({ expanded, label }: TreeItemStoryArgs) => ` <cindor-tree-item label=\"${label}\" ${expanded ? \"expanded\" : \"\"}> <cindor-tree-item label=\"Getting started\"></cindor-tree-item> <cindor-tree-item label=\"Theming\"></cindor-tree-item> </cindor-tree-item> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/tree-item/cindor-tree-item.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/tree-item/cindor-tree-item.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/tree-item/cindor-tree-item.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Hierarchical item used inside CindorTreeView.\n\nSet `label` for the visible row text and nest additional `cindor-tree-item`\nelements in the default slot to create branches.",
-          "name": "CindorTreeItem",
-          "slots": [
-            {
-              "description": "Optional leading decoration for the tree row.",
-              "name": "start"
-            },
-            {
-              "description": "Nested child `cindor-tree-item` elements for branch content.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "disabled",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Disables both the row selection button and any branch toggle control.",
-              "attribute": "disabled",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "expanded",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Expands branch children when nested tree items are present.",
-              "attribute": "expanded",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "label",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "Visible row label. Falls back to value when omitted.",
-              "attribute": "label",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "selected",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Applied by the parent tree view to reflect the active selection state.",
-              "attribute": "selected",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "Stable selection value for this item. Falls back to label when omitted.",
-              "attribute": "value",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "hasChildren",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "method",
-              "name": "click",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focus",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "toggle",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "expanded",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "description": "Expands or collapses the branch when child tree items exist."
-            },
-            {
-              "kind": "field",
-              "name": "handleItemClick",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleSlotChange",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleToggleClick",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "syncButtonState",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "syncChildren",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchToggleEvent",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "nestedTreeItems",
-              "type": {
-                "text": "CindorTreeItem[]"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "buttonElement",
-              "type": {
-                "text": "HTMLButtonElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "events": [
-            {
-              "name": "toggle",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired when the expanded branch state changes."
-            },
-            {
-              "description": "Fired when the row is activated.",
-              "name": "tree-item-select"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Disables both the row selection button and any branch toggle control.",
-              "fieldName": "disabled"
-            },
-            {
-              "name": "expanded",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Expands branch children when nested tree items are present.",
-              "fieldName": "expanded"
-            },
-            {
-              "name": "label",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "Visible row label. Falls back to value when omitted.",
-              "fieldName": "label"
-            },
-            {
-              "name": "selected",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Applied by the parent tree view to reflect the active selection state.",
-              "fieldName": "selected"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "Stable selection value for this item. Falls back to label when omitted.",
-              "fieldName": "value"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorTreeItem",
-          "declaration": {
-            "name": "CindorTreeItem",
-            "module": "packages/core/src/components/tree-item/cindor-tree-item.ts"
           }
         }
       ]
