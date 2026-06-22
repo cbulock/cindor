@@ -309,7 +309,9 @@ function renderVueHandlerGroup(handlers) {
         "undefined";
       lines.push(`  emit("${handler.modelEmit}", ${valueExpression});`);
     }
+  }
 
+  for (const handler of handlers) {
     if (handler.emitName) {
       lines.push(`  emit("${handler.emitName}", event);`);
     }
