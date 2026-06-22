@@ -328,6 +328,7 @@ export class CindorSortableList<T = unknown> extends LitElement {
         detail
       })
     );
+  }
 
   private getItemKey(detail: SortableListRenderDetail<T>): string {
     if (this.itemKey) {
