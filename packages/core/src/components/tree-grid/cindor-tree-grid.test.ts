@@ -74,6 +74,44 @@ describe("cindor-tree-grid", () => {
     });
   });
 
+  it("reports the visible row index for nested branch toggles", async () => {
+    const nestedRows: TreeGridRow[] = [
+      {
+        id: "platform",
+        name: "Platform",
+        owner: "Jordan",
+        children: [
+          {
+            id: "platform-api",
+            name: "API",
+            owner: "Avery",
+            children: [{ id: "platform-api-auth", name: "Auth", owner: "Riley" }]
+          }
+        ]
+      }
+    ];
+
+    const element = await renderElement({
+      expandedRowIds: ["platform"],
+      rows: nestedRows
+    });
+    const handler = vi.fn();
+    element.addEventListener("row-toggle", handler);
+
+    const buttons = element.renderRoot
+      .querySelector("cindor-data-table")
+      ?.shadowRoot?.querySelectorAll('[part="tree-toggle"]') as NodeListOf<HTMLButtonElement>;
+
+    buttons[1]?.click();
+    await element.updateComplete;
+
+    expect(handler).toHaveBeenCalledTimes(1);
+    expect(handler.mock.calls[0]?.[0].detail).toMatchObject({
+      rowId: "platform-api",
+      rowIndex: 1
+    });
+  });
+
   it("keeps child rows grouped under parents when sorting roots", async () => {
     const element = await renderElement({
       expandedRowIds: ["workspace"],
@@ -88,5 +126,19 @@ describe("cindor-tree-grid", () => {
     expect(bodyRows[0]?.textContent).toContain("Platform");
     expect(bodyRows[1]?.textContent).toContain("Workspace");
     expect(bodyRows[2]?.textContent).toContain("Shell");
+  });
+
+  it("finds matching collapsed descendants through search", async () => {
+    const element = await renderElement({
+      searchable: true,
+      searchQuery: "auth"
+    });
+    const bodyRows = Array.from(
+      element.renderRoot.querySelector("cindor-data-table")?.shadowRoot?.querySelectorAll("tbody tr") ?? []
+    );
+
+    expect(bodyRows).toHaveLength(2);
+    expect(bodyRows[0]?.textContent).toContain("Platform");
+    expect(bodyRows[1]?.textContent).toContain("Auth");
   });
 });

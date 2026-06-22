@@ -24,6 +24,11 @@ type TreeGridInternalRow = DataTableRow & {
   [TREE_ORDER_KEY]: number;
 };
 
+type TreeGridFlattenOptions = {
+  autoExpandMatches: boolean;
+  query: string;
+};
+
 export type TreeGridRow = DataTableRow & {
   children?: TreeGridRow[];
 };
@@ -199,31 +204,10 @@ export class CindorTreeGrid extends LitElement {
   }
 
   private get flattenedRows(): TreeGridInternalRow[] {
-    const rows = this.sortRows(this.rows);
-    const flattened: TreeGridInternalRow[] = [];
-    let order = 0;
-
-    const visit = (entries: TreeGridRow[], level: number): void => {
-      for (const row of entries) {
-        const children = this.childRows(row);
-        const rowId = this.getRowId(row);
-        const expanded = children.length > 0 && this.expandedRowIds.includes(rowId);
-        flattened.push({
-          ...row,
-          [TREE_EXPANDED_KEY]: expanded,
-          [TREE_HAS_CHILDREN_KEY]: children.length > 0,
-          [TREE_INDENT_KEY]: level,
-          [TREE_ORDER_KEY]: order++
-        });
-
-        if (expanded) {
-          visit(this.sortRows(children), level + 1);
-        }
-      }
-    };
-
-    visit(rows, 1);
-    return flattened;
+    return this.buildFlattenedRows({
+      autoExpandMatches: true,
+      query: this.normalizedSearchQuery
+    });
   }
 
   private get renderedColumns(): DataTableColumn[] {
@@ -231,15 +215,21 @@ export class CindorTreeGrid extends LitElement {
       const stableComparator: DataTableSortComparator = (_leftValue, _rightValue, detail) =>
         Number((detail.leftRow as TreeGridInternalRow)[TREE_ORDER_KEY] ?? 0) -
         Number((detail.rightRow as TreeGridInternalRow)[TREE_ORDER_KEY] ?? 0);
+      const treeAwareSearchValue: DataTableSortValueAccessor = (row) => this.getColumnSearchText(column, row as TreeGridRow);
 
       if (column.key !== this.hierarchyColumnKey) {
-        return column.sortable ? { ...column, sortComparator: stableComparator } : column;
+        return {
+          ...column,
+          sortValue: treeAwareSearchValue,
+          sortComparator: column.sortable ? stableComparator : column.sortComparator
+        };
       }
 
       const originalCellRenderer = column.cellRenderer;
       return {
         ...column,
         cellRenderer: (detail: DataTableCellRenderDetail) => this.renderTreeCell(detail, originalCellRenderer),
+        sortValue: treeAwareSearchValue,
         sortComparator: column.sortable ? stableComparator : column.sortComparator
       };
     });
@@ -309,6 +299,73 @@ export class CindorTreeGrid extends LitElement {
     );
   }
 
+  private get normalizedSearchQuery(): string {
+    return this.searchQuery.trim().toLocaleLowerCase();
+  }
+
+  private buildFlattenedRows(options: TreeGridFlattenOptions): TreeGridInternalRow[] {
+    const rows = this.sortRows(this.rows);
+    const flattened: TreeGridInternalRow[] = [];
+    let order = 0;
+
+    const visit = (entries: TreeGridRow[], level: number): void => {
+      for (const row of entries) {
+        const children = this.sortRows(this.childRows(row));
+        const selfMatches = options.query.length === 0 || this.rowMatchesQuery(row, options.query);
+        const childMatches = options.query.length === 0 ? false : this.subtreeMatchesQuery(children, options.query);
+        const includeRow = options.query.length === 0 || selfMatches || childMatches;
+
+        if (!includeRow) {
+          continue;
+        }
+
+        const rowId = this.getRowId(row);
+        const expandedByUser = this.expandedRowIds.includes(rowId);
+        const expanded = children.length > 0 && (expandedByUser || (options.autoExpandMatches && options.query.length > 0 && childMatches));
+
+        flattened.push({
+          ...row,
+          [TREE_EXPANDED_KEY]: expanded,
+          [TREE_HAS_CHILDREN_KEY]: children.length > 0,
+          [TREE_INDENT_KEY]: level,
+          [TREE_ORDER_KEY]: order++
+        });
+
+        if (expanded && children.length > 0) {
+          visit(children, level + 1);
+        }
+      }
+    };
+
+    visit(rows, 1);
+    return flattened;
+  }
+
+  private subtreeMatchesQuery(rows: TreeGridRow[], query: string): boolean {
+    return rows.some((row) => {
+      if (this.rowMatchesQuery(row, query)) {
+        return true;
+      }
+
+      const children = this.childRows(row);
+      return children.length > 0 && this.subtreeMatchesQuery(this.sortRows(children), query);
+    });
+  }
+
+  private rowMatchesQuery(row: TreeGridRow, query: string): boolean {
+    return this.columns.some((column, rowIndex) => this.getSearchValue(column, row, rowIndex).toLocaleLowerCase().includes(query));
+  }
+
+  private getColumnSearchText(column: DataTableColumn, row: TreeGridRow): string {
+    const segments = [this.getSearchValue(column, row, 0)];
+
+    for (const child of this.childRows(row)) {
+      segments.push(this.getColumnSearchText(column, child));
+    }
+
+    return segments.join(" ");
+  }
+
   private sortRows(rows: TreeGridRow[]): TreeGridRow[] {
     const column = this.columns.find((entry) => entry.key === this.sortKey && entry.sortable);
     if (!column) {
@@ -334,6 +391,10 @@ export class CindorTreeGrid extends LitElement {
   private getSortValue(column: DataTableColumn, row: TreeGridRow, rowIndex: number): unknown {
     const accessor = column.sortValue as DataTableSortValueAccessor | undefined;
     return accessor ? accessor(row, { column, rowIndex, table: null as never }) : row[column.key];
+  }
+
+  private getSearchValue(column: DataTableColumn, row: TreeGridRow, rowIndex: number): string {
+    return this.formatValue(this.getSortValue(column, row, rowIndex));
   }
 
   private defaultSortComparison(leftValue: unknown, rightValue: unknown): number {
