@@ -4,79 +4,6 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Activity Feed\", render: () => ` <cindor-activity-feed> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Cindor Team\"></cindor-avatar> <span slot=\"title\">New deployment completed</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">Production environment</span> Traffic is now flowing through the latest release. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"QA\"></cindor-avatar> <span slot=\"title\">Regression suite passed</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Build #1284</span> All smoke tests completed without failures. </cindor-activity-item> </cindor-activity-feed> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
-          "name": "CindorActivityFeed",
-          "slots": [
-            {
-              "description": "`cindor-activity-item` children.",
-              "name": ""
-            }
-          ],
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorActivityFeed",
-          "declaration": {
-            "name": "CindorActivityFeed",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/accordion/cindor-accordion.stories.ts",
       "declarations": [
         {
@@ -205,6 +132,79 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Activity Feed\", render: () => ` <cindor-activity-feed> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Cindor Team\"></cindor-avatar> <span slot=\"title\">New deployment completed</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">Production environment</span> Traffic is now flowing through the latest release. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"QA\"></cindor-avatar> <span slot=\"title\">Regression suite passed</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Build #1284</span> All smoke tests completed without failures. </cindor-activity-item> </cindor-activity-feed> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
+          "name": "CindorActivityFeed",
+          "slots": [
+            {
+              "description": "`cindor-activity-item` children.",
+              "name": ""
+            }
+          ],
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorActivityFeed",
+          "declaration": {
+            "name": "CindorActivityFeed",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
       "declarations": [
         {
@@ -288,6 +288,121 @@
           "declaration": {
             "name": "CindorAlert",
             "module": "packages/core/src/components/alert/cindor-alert.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Activity Item\", render: () => ` <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Ops\"></cindor-avatar> <span slot=\"title\">Database failover completed</span> <span slot=\"timestamp\">5 minutes ago</span> <span slot=\"meta\">Primary cluster</span> Connections were restored automatically after the failover. </cindor-activity-item> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-item/cindor-activity-item.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Single event row used inside CindorActivityFeed.",
+          "name": "CindorActivityItem",
+          "slots": [
+            {
+              "description": "Leading avatar, icon, or status mark.",
+              "name": "leading"
+            },
+            {
+              "description": "Main activity title.",
+              "name": "title"
+            },
+            {
+              "description": "Time or date associated with the event.",
+              "name": "timestamp"
+            },
+            {
+              "description": "Supplemental metadata such as actor, environment, or destination.",
+              "name": "meta"
+            },
+            {
+              "description": "Optional trailing actions for the activity.",
+              "name": "actions"
+            },
+            {
+              "description": "Main event description.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "unread",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "unread",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "unread",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "unread"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorActivityItem",
+          "declaration": {
+            "name": "CindorActivityItem",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
           }
         }
       ]
@@ -865,121 +980,6 @@
           "declaration": {
             "name": "CindorAutocomplete",
             "module": "packages/core/src/components/autocomplete/cindor-autocomplete.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Activity Item\", render: () => ` <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Ops\"></cindor-avatar> <span slot=\"title\">Database failover completed</span> <span slot=\"timestamp\">5 minutes ago</span> <span slot=\"meta\">Primary cluster</span> Connections were restored automatically after the failover. </cindor-activity-item> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-item/cindor-activity-item.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Single event row used inside CindorActivityFeed.",
-          "name": "CindorActivityItem",
-          "slots": [
-            {
-              "description": "Leading avatar, icon, or status mark.",
-              "name": "leading"
-            },
-            {
-              "description": "Main activity title.",
-              "name": "title"
-            },
-            {
-              "description": "Time or date associated with the event.",
-              "name": "timestamp"
-            },
-            {
-              "description": "Supplemental metadata such as actor, environment, or destination.",
-              "name": "meta"
-            },
-            {
-              "description": "Optional trailing actions for the activity.",
-              "name": "actions"
-            },
-            {
-              "description": "Main event description.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "unread",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "unread",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "unread",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "unread"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorActivityItem",
-          "declaration": {
-            "name": "CindorActivityItem",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
           }
         }
       ]
@@ -4102,6 +4102,190 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/command-bar/cindor-command-bar.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Actions/Command Bar\", args: { count: 3, sticky: false }, argTypes: { count: { control: { type: \"number\", min: 0, step: 1 } }, sticky: { control: \"boolean\" } }, render: ({ count, sticky }: CommandBarStoryArgs) => ` <cindor-command-bar label=\"Bulk actions\" description=\"Apply actions to the currently selected records.\" count=\"${count}\" ${sticky ? \"sticky\" : \"\"} > <span>${count > 0 ? \"Selection updates are applied immediately.\" : \"Choose one or more rows to enable actions.\"}</span> <cindor-button slot=\"actions\" variant=\"ghost\">Clear</cindor-button> <cindor-button slot=\"actions\">Archive</cindor-button> </cindor-command-bar> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/command-bar/cindor-command-bar.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/command-bar/cindor-command-bar.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/command-bar/cindor-command-bar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Persistent contextual action bar for bulk actions and page-level commands.",
+          "name": "CindorCommandBar",
+          "slots": [
+            {
+              "description": "Optional supporting content shown with the summary copy.",
+              "name": ""
+            },
+            {
+              "description": "Action controls rendered on the trailing edge.",
+              "name": "actions"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "count",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "count",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "countLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"selected\"",
+              "attribute": "count-label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "description",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "description",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "sticky",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "sticky",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "accessibleLabel",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "count",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "count"
+            },
+            {
+              "name": "count-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"selected\"",
+              "fieldName": "countLabel"
+            },
+            {
+              "name": "description",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "description"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "label"
+            },
+            {
+              "name": "sticky",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "sticky"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorCommandBar",
+          "declaration": {
+            "name": "CindorCommandBar",
+            "module": "packages/core/src/components/command-bar/cindor-command-bar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/command-palette/cindor-command-palette.stories.ts",
       "declarations": [
         {
@@ -4435,190 +4619,6 @@
           "declaration": {
             "name": "CindorCommandPalette",
             "module": "packages/core/src/components/command-palette/cindor-command-palette.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/command-bar/cindor-command-bar.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Actions/Command Bar\", args: { count: 3, sticky: false }, argTypes: { count: { control: { type: \"number\", min: 0, step: 1 } }, sticky: { control: \"boolean\" } }, render: ({ count, sticky }: CommandBarStoryArgs) => ` <cindor-command-bar label=\"Bulk actions\" description=\"Apply actions to the currently selected records.\" count=\"${count}\" ${sticky ? \"sticky\" : \"\"} > <span>${count > 0 ? \"Selection updates are applied immediately.\" : \"Choose one or more rows to enable actions.\"}</span> <cindor-button slot=\"actions\" variant=\"ghost\">Clear</cindor-button> <cindor-button slot=\"actions\">Archive</cindor-button> </cindor-command-bar> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/command-bar/cindor-command-bar.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/command-bar/cindor-command-bar.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/command-bar/cindor-command-bar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Persistent contextual action bar for bulk actions and page-level commands.",
-          "name": "CindorCommandBar",
-          "slots": [
-            {
-              "description": "Optional supporting content shown with the summary copy.",
-              "name": ""
-            },
-            {
-              "description": "Action controls rendered on the trailing edge.",
-              "name": "actions"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "count",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "attribute": "count",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "countLabel",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"selected\"",
-              "attribute": "count-label",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "description",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "description",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "label",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "label",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "sticky",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "sticky",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "accessibleLabel",
-              "type": {
-                "text": "string | undefined"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "count",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "fieldName": "count"
-            },
-            {
-              "name": "count-label",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"selected\"",
-              "fieldName": "countLabel"
-            },
-            {
-              "name": "description",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "description"
-            },
-            {
-              "name": "label",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "label"
-            },
-            {
-              "name": "sticky",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "sticky"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorCommandBar",
-          "declaration": {
-            "name": "CindorCommandBar",
-            "module": "packages/core/src/components/command-bar/cindor-command-bar.ts"
           }
         }
       ]
