@@ -180,7 +180,8 @@ export const CindorDataGrid = createComponent({
   elementClass: CindorDataGridElement,
   events: {
     onActiveCellChange: "active-cell-change",
-    onCellEdit: "cell-edit"
+    onCellEdit: "cell-edit",
+    onSortChange: "sort-change"
   }
 });
 

@@ -33,6 +33,8 @@ export {
   type DataGridCellEditDetail,
   type DataGridCellEditor,
   type DataGridCellRenderDetail,
+  type DataGridSortChangeDetail,
+  type DataGridSortDirection,
   type DataGridColumn,
   type DataGridEditorOption,
   type DataGridRow
