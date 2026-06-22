@@ -61,6 +61,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("context-menu", "Context Menu", "Component", "Overlays", "right-click menu surface", "Pointer- and keyboard-opened contextual actions anchored to a trigger region."),
   defineComponent("data-grid", "Data Grid", "Component", "Data", "editable operational grid", "Keyboard-navigable editable grid for dense operational data and inline review workflows."),
   defineComponent("data-table", "Data Table", "Component", "Data", "table", "Sortable, searchable, paginated table for application data."),
+  defineComponent("tree-grid", "Tree Grid", "Component", "Data", "hierarchical table", "Nested collection table that keeps branches visible while rows expand and collapse inline."),
   defineComponent("data-view-toolbar", "Data View Toolbar", "Composite", "Data", "collection controls shell", "Summary and action toolbar for tables, grids, and collection pages."),
   defineComponent("date-picker", "Date Picker", "Component", "Forms", "field plus popup calendar", "Popup date field that reuses the shared calendar selection surface."),
   defineComponent("date-range-picker", "Date Range Picker", "Component", "Forms", "field plus popup range calendar", "Popup date range field for filters, reporting, and booking flows."),

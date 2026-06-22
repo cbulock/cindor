@@ -22,7 +22,7 @@ if (!comparisonBase) {
   process.exit(0);
 }
 
-const changedFiles = getChangedFiles(comparisonBase, "HEAD");
+const changedFiles = getChangedFiles(comparisonBase);
 const changedReleaseRelevantFiles = getChangedReleaseRelevantFiles(changedFiles);
 
 if (changedReleaseRelevantFiles.length === 0) {
