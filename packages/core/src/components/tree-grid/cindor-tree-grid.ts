@@ -287,7 +287,10 @@ export class CindorTreeGrid extends LitElement {
     }
 
     const expanded = this.expandedRowIds.includes(rowId);
-    this.expandedRowIds = expanded ? this.expandedRowIds.filter((value) => value !== rowId) : [...this.expandedRowIds, rowId];
+    const rowIndex = this.flattenedRows.findIndex((entry) => this.getRowId(entry) === rowId);
+    this.expandedRowIds = expanded
+      ? this.expandedRowIds.filter((value) => value !== rowId)
+      : [...this.expandedRowIds, rowId];
 
     this.dispatchEvent(
       new CustomEvent<TreeGridToggleDetail>("row-toggle", {
@@ -300,7 +303,7 @@ export class CindorTreeGrid extends LitElement {
           level,
           row,
           rowId,
-          rowIndex: this.rows.indexOf(row)
+          rowIndex
         }
       })
     );
