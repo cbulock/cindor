@@ -66,7 +66,7 @@ const func = (name, typeExpression, options = {}) => ({
 
 const handler = (domEvent, options = {}) => ({
   domEvent,
-  emitName: options.emitName ?? domEvent,
+  emitName: Object.prototype.hasOwnProperty.call(options, "emitName") ? options.emitName : domEvent,
   modelEmit: options.modelEmit,
   modelHostProperty: options.modelHostProperty,
   modelHostType: options.modelHostType,
@@ -210,12 +210,30 @@ export const componentDefinitions = [
     ]
   }),
   component("CindorDataGrid", "cindor-data-grid", {
-    reactEvents: ["active-cell-change", "cell-edit"],
+    reactEvents: ["active-cell-change", "cell-edit", "sort-change"],
+    vueHandlers: [
+      handler("active-cell-change"),
+      handler("cell-edit"),
+      handler("sort-change", {
+        emitName: "sort-change",
+        modelEmit: "update:sortDirection",
+        modelHostProperty: "sortDirection",
+        modelHostType: "SortHost"
+      }),
+      handler("sort-change", {
+        emitName: null,
+        modelEmit: "update:sortKey",
+        modelHostProperty: "sortKey",
+        modelHostType: "SortHost"
+      })
+    ],
     vueProps: [
       arr("columns", "DataGridColumn[]"),
       str("emptyMessage", "No rows to display.", { attr: "empty-message", alwaysPass: true }),
       str("rowIdKey", "id", { attr: "row-id-key", alwaysPass: true }),
-      arr("rows", "DataGridRow[]")
+      arr("rows", "DataGridRow[]"),
+      typed("sortDirection", "DataGridSortDirection", "ascending", { forceProperty: true }),
+      str("sortKey", "", { forceProperty: true })
     ]
   }),
   component("CindorBadge", "cindor-badge", {
@@ -370,7 +388,7 @@ export const componentDefinitions = [
     vueHandlers: textModelHandlers,
     vueProps: [
       str("addLabel", "Add item", { attr: "add-label", alwaysPass: true }),
-      func("createItem", "FieldArrayCreateItem<any> | undefined"),
+      func("createItem", "FieldArrayCreateItem<unknown> | undefined"),
       bool("disabled"),
       str("emptyCopy", "Add the first item to start building this repeated field group.", { attr: "empty-copy", alwaysPass: true }),
       str("emptyTitle", "No items yet", { attr: "empty-title", alwaysPass: true }),
@@ -381,7 +399,7 @@ export const componentDefinitions = [
       str("moveUpLabel", "Move item up", { attr: "move-up-label", alwaysPass: true }),
       str("name"),
       str("removeLabel", "Remove item", { attr: "remove-label", alwaysPass: true }),
-      func("renderItem", "FieldArrayItemRenderer<any> | undefined"),
+      func("renderItem", "FieldArrayItemRenderer<unknown> | undefined"),
       str("modelValue", "", { attr: "value", alwaysPass: true })
     ]
   }),
@@ -434,6 +452,18 @@ export const componentDefinitions = [
         modelEmit: "update:searchQuery",
         modelHostProperty: "searchQuery",
         modelHostType: "SearchQueryHost"
+      }),
+      handler("sort-change", {
+        emitName: "sort-change",
+        modelEmit: "update:sortDirection",
+        modelHostProperty: "sortDirection",
+        modelHostType: "SortHost"
+      }),
+      handler("sort-change", {
+        emitName: null,
+        modelEmit: "update:sortKey",
+        modelHostProperty: "sortKey",
+        modelHostType: "SortHost"
       })
     ],
     vueProps: [
@@ -981,10 +1011,10 @@ export const componentDefinitions = [
       str("dragHandleLabel", "Drag to reorder", { attr: "drag-handle-label", alwaysPass: true }),
       str("emptyMessage", "No items to display.", { attr: "empty-message", alwaysPass: true }),
       arr("items", "unknown[]"),
-      func("itemKey", "SortableListItemKey<any> | undefined"),
+      func("itemKey", "SortableListItemKey<unknown> | undefined"),
       str("moveDownLabel", "Move item down", { attr: "move-down-label", alwaysPass: true }),
       str("moveUpLabel", "Move item up", { attr: "move-up-label", alwaysPass: true }),
-      func("renderItem", "SortableListItemRenderer<any> | undefined")
+      func("renderItem", "SortableListItemRenderer<unknown> | undefined")
     ]
   }),
   component("CindorVirtualList", "cindor-virtual-list", {

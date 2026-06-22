@@ -10,6 +10,7 @@ import type {
   CommandPaletteCommand,
   DataGridColumn,
   DataGridRow,
+  DataGridSortDirection,
   DataTableColumn,
   DataTableRow,
   DataTableSortDirection,
@@ -51,6 +52,7 @@ type FileInputHost = HTMLElement & { files: FileList | null };
 type PageHost = HTMLElement & { currentPage: number };
 type ExpandedRowsHost = HTMLElement & { expandedRowIds: string[] };
 type SearchQueryHost = HTMLElement & { searchQuery: string };
+type SortHost = HTMLElement & { sortDirection: string; sortKey: string };
 
 type DataTableDebugHost = HTMLElement & {
   currentPage: number;
@@ -386,9 +388,26 @@ export const CindorDataGrid = defineComponent({
     columns: { type: Array as PropType<DataGridColumn[]>, default: () => [] },
     emptyMessage: { type: String, default: "No rows to display." },
     rowIdKey: { type: String, default: "id" },
-    rows: { type: Array as PropType<DataGridRow[]>, default: () => [] }
+    rows: { type: Array as PropType<DataGridRow[]>, default: () => [] },
+    sortDirection: { type: String as PropType<DataGridSortDirection>, default: "ascending" },
+    sortKey: { type: String, default: "" }
   },
-  setup(props, { attrs }) {
+  emits: ["active-cell-change", "cell-edit", "update:sortDirection", "sort-change", "update:sortKey"],
+  setup(props, { attrs, emit }) {
+    const handleActiveCellChange = (event: Event) => {
+      emit("active-cell-change", event);
+    };
+
+    const handleCellEdit = (event: Event) => {
+      emit("cell-edit", event);
+    };
+
+    const handleSortChange = (event: Event) => {
+      const target = event.currentTarget as SortHost;
+      emit("update:sortDirection", target.sortDirection);
+      emit("sort-change", event);
+      emit("update:sortKey", target.sortKey);
+    };
     return () =>
           h("cindor-data-grid", {
               ...attrs,
@@ -396,6 +415,11 @@ export const CindorDataGrid = defineComponent({
               "empty-message": props.emptyMessage,
               "row-id-key": props.rowIdKey,
               ".rows": props.rows,
+              ".sortDirection": props.sortDirection,
+              ".sortKey": props.sortKey || undefined,
+              onActiveCellChange: handleActiveCellChange,
+              onCellEdit: handleCellEdit,
+              onSortChange: handleSortChange,
           });
   }
 });
@@ -1167,7 +1191,7 @@ export const CindorDataTable = defineComponent({
     sortDirection: { type: String as PropType<DataTableSortDirection>, default: "ascending" },
     sortKey: { type: String, default: "" }
   },
-  emits: ["cell-edit", "update:currentPage", "page-change", "update:expandedRowIds", "row-expand", "row-action", "update:searchQuery", "search-change"],
+  emits: ["cell-edit", "update:currentPage", "page-change", "update:expandedRowIds", "row-expand", "row-action", "update:searchQuery", "search-change", "update:sortDirection", "sort-change", "update:sortKey"],
   setup(props, { attrs, emit, slots }) {
     const handleCellEdit = (event: Event) => {
       emit("cell-edit", event);
@@ -1193,6 +1217,13 @@ export const CindorDataTable = defineComponent({
       const target = event.currentTarget as SearchQueryHost;
       emit("update:searchQuery", target.searchQuery);
       emit("search-change", event);
+    };
+
+    const handleSortChange = (event: Event) => {
+      const target = event.currentTarget as SortHost;
+      emit("update:sortDirection", target.sortDirection);
+      emit("sort-change", event);
+      emit("update:sortKey", target.sortKey);
     };
     return () =>
           h(
@@ -1222,6 +1253,7 @@ export const CindorDataTable = defineComponent({
               onRowExpand: handleRowExpand,
               onRowAction: handleRowAction,
               onSearchChange: handleSearchChange,
+              onSortChange: handleSortChange,
               onVnodeMounted: chainMountedVueVNodeHook(attrs.onVnodeMounted, (vnode) => {
                 const element = getVueHostElement(vnode);
                 if (!element) {

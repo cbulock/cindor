@@ -6283,7 +6283,7 @@
       "events": [
         {
           "description": "",
-          "name": "eventName",
+          "name": "name",
           "type": "CustomEvent",
           "values": null
         },

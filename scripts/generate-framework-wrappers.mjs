@@ -71,7 +71,8 @@ function generateVueFile() {
     neededHostTypes.includes("FileInputHost") ? 'type FileInputHost = HTMLElement & { files: FileList | null };' : "",
     neededHostTypes.includes("PageHost") ? 'type PageHost = HTMLElement & { currentPage: number };' : "",
     neededHostTypes.includes("ExpandedRowsHost") ? 'type ExpandedRowsHost = HTMLElement & { expandedRowIds: string[] };' : "",
-    neededHostTypes.includes("SearchQueryHost") ? 'type SearchQueryHost = HTMLElement & { searchQuery: string };' : ""
+    neededHostTypes.includes("SearchQueryHost") ? 'type SearchQueryHost = HTMLElement & { searchQuery: string };' : "",
+    neededHostTypes.includes("SortHost") ? 'type SortHost = HTMLElement & { sortDirection: string; sortKey: string };' : ""
   ]
     .filter(Boolean)
     .join("\n");
@@ -224,7 +225,8 @@ function renderReactEvents(domEvents) {
 
 function renderVueComponent(component) {
   const propsBlock = component.vueProps.length > 0 ? renderVueProps(component.vueProps) : "";
-  const handlersBlock = component.vueHandlers.map((handler) => renderVueHandler(handler)).join("\n\n");
+  const groupedVueHandlers = groupVueHandlers(component.vueHandlers);
+  const handlersBlock = groupedVueHandlers.map((handlers) => renderVueHandlerGroup(handlers)).join("\n\n");
   const emits = unique(
     component.vueHandlers.flatMap((handler) => [handler.modelEmit, handler.emitName].filter(Boolean))
   );
@@ -284,26 +286,35 @@ function renderVuePropDefinition(prop) {
   }
 }
 
-function renderVueHandler(handler) {
-  const handlerName = toFunctionName(handler.domEvent);
+function renderVueHandlerGroup(handlers) {
+  const [firstHandler] = handlers;
+  const handlerName = toFunctionName(firstHandler.domEvent);
   const lines = [`const ${handlerName} = (event: Event) => {`];
 
-  if (handler.modelHostType && handler.modelHostProperty && !handler.modelValueExpression) {
-    lines.push(`  const target = event.currentTarget as ${handler.modelHostType};`);
-  } else if (handler.modelHostType && handler.modelValueExpression?.includes("target.")) {
-    lines.push(`  const target = event.currentTarget as ${handler.modelHostType};`);
+  const targetHandler = handlers.find(
+    (handler) =>
+      handler.modelHostType &&
+      ((handler.modelHostProperty && !handler.modelValueExpression) || handler.modelValueExpression?.includes("target."))
+  );
+
+  if (targetHandler?.modelHostType) {
+    lines.push(`  const target = event.currentTarget as ${targetHandler.modelHostType};`);
   }
 
-  if (handler.modelEmit) {
-    const valueExpression =
-      handler.modelValueExpression ??
-      (handler.modelHostProperty ? `target.${handler.modelHostProperty}` : undefined) ??
-      "undefined";
-    lines.push(`  emit("${handler.modelEmit}", ${valueExpression});`);
+  for (const handler of handlers) {
+    if (handler.modelEmit) {
+      const valueExpression =
+        handler.modelValueExpression ??
+        (handler.modelHostProperty ? `target.${handler.modelHostProperty}` : undefined) ??
+        "undefined";
+      lines.push(`  emit("${handler.modelEmit}", ${valueExpression});`);
+    }
   }
 
-  if (handler.emitName) {
-    lines.push(`  emit("${handler.emitName}", event);`);
+  for (const handler of handlers) {
+    if (handler.emitName) {
+      lines.push(`  emit("${handler.emitName}", event);`);
+    }
   }
 
   lines.push(`};`);
@@ -312,12 +323,24 @@ function renderVueHandler(handler) {
 
 function renderVueRenderProps(component) {
   const propLines = component.vueProps.map((prop) => `          ${renderVuePropKey(prop)}: ${renderVuePropValue(prop)},`);
-  const eventLines = component.vueHandlers.map(
-    (handler) => `          ${toHandlerProp(handler.domEvent)}: ${toFunctionName(handler.domEvent)},`
+  const eventLines = unique(component.vueHandlers.map((handler) => handler.domEvent)).map(
+    (domEvent) => `          ${toHandlerProp(domEvent)}: ${toFunctionName(domEvent)},`
   );
   const extraLines = renderVueExtraRenderProps(component);
 
   return ["          ...attrs,", ...propLines, ...eventLines, ...extraLines].join("\n");
+}
+
+function groupVueHandlers(handlers) {
+  const groupedHandlers = new Map();
+
+  for (const handler of handlers) {
+    const group = groupedHandlers.get(handler.domEvent) ?? [];
+    group.push(handler);
+    groupedHandlers.set(handler.domEvent, group);
+  }
+
+  return [...groupedHandlers.values()];
 }
 
 function renderVueExtraRenderProps(component) {

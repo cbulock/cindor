@@ -307,10 +307,27 @@ export class CindorSortableList<T = unknown> extends LitElement {
       reason
     };
 
-    for (const eventName of ["reorder", "input", "change"] as const) {
-      this.dispatchEvent(new CustomEvent<SortableListReorderDetail<T>>(eventName, { bubbles: true, composed: true, detail }));
-    }
-  }
+    this.dispatchEvent(
+      new CustomEvent<SortableListReorderDetail<T>>("reorder", {
+        bubbles: true,
+        composed: true,
+        detail
+      })
+    );
+    this.dispatchEvent(
+      new CustomEvent<SortableListReorderDetail<T>>("input", {
+        bubbles: true,
+        composed: true,
+        detail
+      })
+    );
+    this.dispatchEvent(
+      new CustomEvent<SortableListReorderDetail<T>>("change", {
+        bubbles: true,
+        composed: true,
+        detail
+      })
+    );
 
   private getItemKey(detail: SortableListRenderDetail<T>): string {
     if (this.itemKey) {

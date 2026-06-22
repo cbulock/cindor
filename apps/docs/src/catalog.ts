@@ -130,6 +130,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("switch", "Switch", "Primitive", "Forms", "checkbox-based toggle", "Boolean toggle styled as a switch."),
   defineComponent("tag-input", "Tag Input", "Component", "Forms", "text input with tokenized values", "Freeform tag entry surface for labels, filters, and lightweight categorization."),
   defineComponent("stat-card", "Stat Card", "Component", "Data", "summary metric card", "Dashboard metric card for KPI, trend, and supporting context."),
+  defineComponent("tab-panel", "Tab Panel", "Primitive", "Navigation", "tab panel wrapper", "Optional labeled panel wrapper used with tabs for explicit composition and ergonomics."),
   defineComponent("tabs", "Tabs", "Component", "Navigation", "tablist and panels", "Keyboard-accessible tabbed content navigation."),
   defineComponent("tel-input", "Tel Input", "Primitive", "Forms", "input type=tel", "Telephone input variant built from the shared input shell."),
   defineComponent("textarea", "Textarea", "Primitive", "Forms", "textarea", "Multiline text entry with shared accessibility wiring."),

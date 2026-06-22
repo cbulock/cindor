@@ -1,4 +1,4 @@
-export type PlannedComponentStatus = "next" | "queued";
+export type PlannedComponentStatus = "shipped" | "next" | "queued";
 
 export type PlannedComponent = {
   order: number;
@@ -16,7 +16,7 @@ export const plannedComponents: PlannedComponent[] = [
     phase: "Collection foundations",
     rationale: "Large record sets already show up across admin and internal tools, and the current catalog has no purpose-built virtualization surface.",
     slug: "virtual-list",
-    status: "next",
+    status: "shipped",
     summary: "Render very large lists efficiently without forcing teams to hand-roll virtualization around raw scroll containers.",
     title: "Virtual list"
   },
@@ -25,7 +25,7 @@ export const plannedComponents: PlannedComponent[] = [
     phase: "Collection foundations",
     rationale: "Teams need drag-to-reorder patterns for rankings, navigation, playlists, and configuration sections without inventing a custom interaction every time.",
     slug: "sortable-list",
-    status: "queued",
+    status: "shipped",
     summary: "Provide a standards-based reorderable list primitive for drag and keyboard sorting workflows.",
     title: "Sortable list"
   },
@@ -34,7 +34,7 @@ export const plannedComponents: PlannedComponent[] = [
     phase: "Collection foundations",
     rationale: "Dynamic repeated form groups are common in addresses, rules, links, and team-member editors, but the current form surface stops at individual fields and rows.",
     slug: "field-array",
-    status: "queued",
+    status: "shipped",
     summary: "Add a reusable repeated-field workflow for create and edit flows that need append, remove, and reorder behavior.",
     title: "Field array"
   },
@@ -43,7 +43,7 @@ export const plannedComponents: PlannedComponent[] = [
     phase: "Dense data workbenches",
     rationale: "Data-heavy tools eventually outgrow `data-table` and need editable cells, keyboard movement, bulk paste, and pinned columns.",
     slug: "data-grid",
-    status: "queued",
+    status: "shipped",
     summary: "Introduce spreadsheet-like editing for dense operational tools and bulk management surfaces.",
     title: "Data grid"
   },
@@ -52,7 +52,7 @@ export const plannedComponents: PlannedComponent[] = [
     phase: "Dense data workbenches",
     rationale: "Cindor already has `tree-view` and `data-table`; combining those patterns would unlock file explorers, outlines, and nested admin data.",
     slug: "tree-grid",
-    status: "queued",
+    status: "next",
     summary: "Blend hierarchical disclosure with columnar data so nested records stay explorable in-place.",
     title: "Tree grid"
   },

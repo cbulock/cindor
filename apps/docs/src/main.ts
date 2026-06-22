@@ -1075,12 +1075,12 @@ function renderDocsHome(activeSectionId: string): string {
 
           <div class="roadmap-overview">
             <div class="preview-block">
-              <strong>What ships first</strong>
-              <p class="muted"><code>virtual-list</code> is the immediate next build. Everything else stays queued behind it so we do not spread work across ten half-finished components.</p>
+              <strong>What just landed</strong>
+              <p class="muted"><code>virtual-list</code>, <code>sortable-list</code>, <code>field-array</code>, and <code>data-grid</code> now anchor the collection foundation work. <code>tree-grid</code> is the next meaningful gap in that sequence.</p>
             </div>
             <div class="preview-block">
               <strong>How the backlog is grouped</strong>
-              <p class="muted">The roadmap is split into collection foundations, dense data workbenches, workspace authoring, and guided onboarding so related components can share primitives and docs patterns.</p>
+              <p class="muted">The roadmap is split into collection foundations, dense data workbenches, workspace authoring, and guided onboarding so related components can share primitives, wrappers, and docs patterns.</p>
             </div>
           </div>
 
@@ -1564,10 +1564,18 @@ function renderPlannedComponentCard(component: PlannedComponent): string {
 }
 
 function getPlannedComponentLabel(status: PlannedComponentStatus): string {
+  if (status === "shipped") {
+    return "Shipped";
+  }
+
   return status === "next" ? "Next up" : "Queued";
 }
 
-function getPlannedComponentTone(status: PlannedComponentStatus): "accent" | "neutral" {
+function getPlannedComponentTone(status: PlannedComponentStatus): "accent" | "neutral" | "success" {
+  if (status === "shipped") {
+    return "success";
+  }
+
   return status === "next" ? "accent" : "neutral";
 }
 
