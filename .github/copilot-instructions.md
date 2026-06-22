@@ -10,7 +10,6 @@ Use the root workspace scripts:
 - `npm run test`
 - `npm run test:watch`
 - `npm run typecheck`
-- `npm run version:auto-bump`
 - `npm run storybook`
 - `npm run build-storybook`
 
@@ -33,22 +32,17 @@ Do not branch from a stale local `main` or from another feature branch unless th
 
 ## Versioning workflow
 
-This repository enforces a synchronized workspace version across:
+Cindor uses `release-please` for version bumps and release PRs. Do not manually edit workspace versions for routine component or wrapper changes.
 
-- `package.json`
-- `package-lock.json`
-- `apps/docs/package.json`
-- `packages/core/package.json`
-- `packages/react/package.json`
-- `packages/vue/package.json`
+Use Conventional Commit semantics for release-relevant work:
 
-The repo installs a `pre-push` hook through `simple-git-hooks` that runs `npm run version:auto-bump`.
+- `fix:` for patch releases
+- `feat:` for minor releases
+- `feat!:` / `fix!:` / `refactor!:` for breaking changes
 
-- If you changed non-exempt source files and did not already update the version files, the hook applies a default patch bump, refreshes `package-lock.json`, and **aborts the push on purpose**.
-- After that happens, review the version-file changes, commit them, and push again.
-- Do **not** expect the hook to create the commit for you or to continue the current push with a newly created commit.
-- If you intentionally need a larger version bump, update the version files yourself before pushing so the hook detects the explicit version change and skips the automatic patch bump.
-- For component updates, do not wait for the pre-push hook to surprise you. Run `npm run version:auto-bump` yourself before finishing the task, review any generated version-file changes, and commit them with the component work.
+For squash merges, make sure the PR title uses the intended Conventional Commit prefix, because the merged title becomes the release signal.
+
+Non-release work such as docs-only or CI-only changes should use non-releasing prefixes like `docs:` or `ci:` unless they intentionally need a package release.
 
 ## Intended architecture
 

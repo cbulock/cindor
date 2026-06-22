@@ -132,79 +132,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Activity Feed\", render: () => ` <cindor-activity-feed> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Cindor Team\"></cindor-avatar> <span slot=\"title\">New deployment completed</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">Production environment</span> Traffic is now flowing through the latest release. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"QA\"></cindor-avatar> <span slot=\"title\">Regression suite passed</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Build #1284</span> All smoke tests completed without failures. </cindor-activity-item> </cindor-activity-feed> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
-          "name": "CindorActivityFeed",
-          "slots": [
-            {
-              "description": "`cindor-activity-item` children.",
-              "name": ""
-            }
-          ],
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorActivityFeed",
-          "declaration": {
-            "name": "CindorActivityFeed",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
       "declarations": [
         {
@@ -314,6 +241,79 @@
           "declaration": {
             "name": "CindorActivityItem",
             "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Activity Feed\", render: () => ` <cindor-activity-feed> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Cindor Team\"></cindor-avatar> <span slot=\"title\">New deployment completed</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">Production environment</span> Traffic is now flowing through the latest release. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"QA\"></cindor-avatar> <span slot=\"title\">Regression suite passed</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Build #1284</span> All smoke tests completed without failures. </cindor-activity-item> </cindor-activity-feed> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
+          "name": "CindorActivityFeed",
+          "slots": [
+            {
+              "description": "`cindor-activity-item` children.",
+              "name": ""
+            }
+          ],
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorActivityFeed",
+          "declaration": {
+            "name": "CindorActivityFeed",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.ts"
           }
         }
       ]
@@ -15139,6 +15139,188 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/icon/cindor-icon.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Primitives/Icon\", args: { label: \"Search\", name: \"search\", size: 20, strokeWidth: 2.25 }, argTypes: { name: { control: \"text\", description: 'Use any Lucide icon name. Browse the full catalog at https://lucide.dev/icons/.' } }, render: ({ label, name, size, strokeWidth }: IconStoryArgs) => `<cindor-icon label=\"${label}\" name=\"${name}\" size=\"${size}\" stroke-width=\"${strokeWidth}\"></cindor-icon>` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/icon/cindor-icon.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/icon/cindor-icon.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/icon/cindor-icon.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorIcon",
+          "members": [
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "privacy": "public",
+              "type": {
+                "text": "LucideIconName | string"
+              },
+              "default": "\"\"",
+              "attribute": "name",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "20",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "strokeWidth",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "2.25",
+              "attribute": "stroke-width",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "iconNode",
+              "type": {
+                "text": "IconNode | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "iconRequestToken",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "method",
+              "name": "syncIcon",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "label"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "LucideIconName | string"
+              },
+              "default": "\"\"",
+              "fieldName": "name"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "default": "20",
+              "fieldName": "size"
+            },
+            {
+              "name": "stroke-width",
+              "type": {
+                "text": "number"
+              },
+              "default": "2.25",
+              "fieldName": "strokeWidth"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LucideIconName",
+          "declaration": {
+            "name": "LucideIconName",
+            "module": "./lucide.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CindorIcon",
+          "declaration": {
+            "name": "CindorIcon",
+            "module": "packages/core/src/components/icon/cindor-icon.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/icon-button/cindor-icon-button.stories.ts",
       "declarations": [
         {
@@ -16918,188 +17100,6 @@
           "declaration": {
             "name": "CindorLayout",
             "module": "packages/core/src/components/layout/cindor-layout.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/icon/cindor-icon.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Primitives/Icon\", args: { label: \"Search\", name: \"search\", size: 20, strokeWidth: 2.25 }, argTypes: { name: { control: \"text\", description: 'Use any Lucide icon name. Browse the full catalog at https://lucide.dev/icons/.' } }, render: ({ label, name, size, strokeWidth }: IconStoryArgs) => `<cindor-icon label=\"${label}\" name=\"${name}\" size=\"${size}\" stroke-width=\"${strokeWidth}\"></cindor-icon>` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/icon/cindor-icon.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/icon/cindor-icon.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/icon/cindor-icon.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorIcon",
-          "members": [
-            {
-              "kind": "field",
-              "name": "label",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "label",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "privacy": "public",
-              "type": {
-                "text": "LucideIconName | string"
-              },
-              "default": "\"\"",
-              "attribute": "name",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "default": "20",
-              "attribute": "size",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "strokeWidth",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "default": "2.25",
-              "attribute": "stroke-width",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "iconNode",
-              "type": {
-                "text": "IconNode | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "field",
-              "name": "iconRequestToken",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
-            },
-            {
-              "kind": "method",
-              "name": "syncIcon",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "label",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "label"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "LucideIconName | string"
-              },
-              "default": "\"\"",
-              "fieldName": "name"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "default": "20",
-              "fieldName": "size"
-            },
-            {
-              "name": "stroke-width",
-              "type": {
-                "text": "number"
-              },
-              "default": "2.25",
-              "fieldName": "strokeWidth"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LucideIconName",
-          "declaration": {
-            "name": "LucideIconName",
-            "module": "./lucide.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "CindorIcon",
-          "declaration": {
-            "name": "CindorIcon",
-            "module": "packages/core/src/components/icon/cindor-icon.ts"
           }
         }
       ]
