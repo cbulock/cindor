@@ -7937,6 +7937,214 @@
       "tagName": "cindor-transfer-list"
     },
     {
+      "className": "CindorTreeGrid",
+      "description": "Hierarchical table surface that composes the shared data-table behaviors.",
+      "modulePath": "packages/core/src/components/tree-grid/cindor-tree-grid.ts",
+      "properties": [
+        {
+          "attributeName": "caption",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "caption",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "columns",
+          "reflects": false,
+          "type": "DataTableColumn[]",
+          "values": null
+        },
+        {
+          "attributeName": "current-page",
+          "defaultValue": "1",
+          "description": "",
+          "name": "currentPage",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "density",
+          "defaultValue": "\"comfortable\"",
+          "description": "",
+          "name": "density",
+          "reflects": true,
+          "type": "DataTableDensity",
+          "values": null
+        },
+        {
+          "attributeName": "empty-message",
+          "defaultValue": "\"No rows to display.\"",
+          "description": "",
+          "name": "emptyMessage",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "expandedRowIds",
+          "reflects": false,
+          "type": "string[]",
+          "values": null
+        },
+        {
+          "attributeName": "loading",
+          "defaultValue": "false",
+          "description": "",
+          "name": "loading",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "page-size",
+          "defaultValue": "0",
+          "description": "",
+          "name": "pageSize",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "row-children-key",
+          "defaultValue": "\"children\"",
+          "description": "",
+          "name": "rowChildrenKey",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "row-id-key",
+          "defaultValue": "\"id\"",
+          "description": "",
+          "name": "rowIdKey",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "rows",
+          "reflects": false,
+          "type": "TreeGridRow[]",
+          "values": null
+        },
+        {
+          "attributeName": "searchable",
+          "defaultValue": "false",
+          "description": "",
+          "name": "searchable",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "search-label",
+          "defaultValue": "\"Search rows\"",
+          "description": "",
+          "name": "searchLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "search-placeholder",
+          "defaultValue": "\"Search rows\"",
+          "description": "",
+          "name": "searchPlaceholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "search-query",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "searchQuery",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "sort-direction",
+          "defaultValue": "\"ascending\"",
+          "description": "",
+          "name": "sortDirection",
+          "reflects": true,
+          "type": "DataTableSortDirection",
+          "values": null
+        },
+        {
+          "attributeName": "sort-key",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "sortKey",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "tree-column-key",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "treeColumnKey",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "tree-toggle-label",
+          "defaultValue": "\"Children\"",
+          "description": "",
+          "name": "treeToggleLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "description": "Fired when a branch row expands or collapses.",
+          "name": "row-toggle",
+          "type": "CustomEvent<TreeGridToggleDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the current page changes.",
+          "name": "page-change",
+          "type": "CustomEvent<DataTablePageChangeDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the search query changes.",
+          "name": "search-change",
+          "type": "CustomEvent<DataTableSearchChangeDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the active sort column or direction changes.",
+          "name": "sort-change",
+          "type": "CustomEvent<{ sortDirection: DataTableSortDirection; sortKey: string }>",
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "Tree-aware table for nested operational data.",
+      "tagName": "cindor-tree-grid"
+    },
+    {
       "className": "CindorTreeItem",
       "description": "Hierarchical item used inside CindorTreeView.\n\nSet `label` for the visible row text and nest additional `cindor-tree-item`\nelements in the default slot to create branches.",
       "modulePath": "packages/core/src/components/tree-item/cindor-tree-item.ts",

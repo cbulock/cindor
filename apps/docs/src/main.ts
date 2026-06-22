@@ -1076,7 +1076,7 @@ function renderDocsHome(activeSectionId: string): string {
           <div class="roadmap-overview">
             <div class="preview-block">
               <strong>What just landed</strong>
-              <p class="muted"><code>virtual-list</code>, <code>sortable-list</code>, <code>field-array</code>, and <code>data-grid</code> now anchor the collection foundation work. <code>tree-grid</code> is the next meaningful gap in that sequence.</p>
+              <p class="muted"><code>virtual-list</code>, <code>sortable-list</code>, <code>field-array</code>, <code>data-grid</code>, and <code>tree-grid</code> now anchor the collection foundation work. <code>workspace-switcher</code> is the next meaningful gap in that sequence.</p>
             </div>
             <div class="preview-block">
               <strong>How the backlog is grouped</strong>
@@ -2487,6 +2487,45 @@ function getUsageCode(doc: ComponentDoc): string {
     console.log(event.detail.actionKey, event.detail.row);
   });
 </script>`;
+    case "tree-grid":
+      return `<cindor-tree-grid id="component-tree-grid" caption="Workspace surfaces" tree-column-key="name"></cindor-tree-grid>
+
+<script type="module">
+  const grid = document.querySelector("#component-tree-grid");
+
+  grid.columns = [
+    { key: "name", label: "Surface", sortable: true },
+    { key: "owner", label: "Owner", sortable: true },
+    { key: "status", label: "Status", sortable: true }
+  ];
+
+  grid.rows = [
+    {
+      id: "platform",
+      name: "Platform",
+      owner: "Jordan",
+      status: "Active",
+      children: [
+        { id: "platform-api", name: "API", owner: "Avery", status: "Stable" },
+        { id: "platform-auth", name: "Auth", owner: "Riley", status: "Reviewing" }
+      ]
+    },
+    {
+      id: "workspace",
+      name: "Workspace",
+      owner: "Morgan",
+      status: "Planning",
+      children: [
+        { id: "workspace-shell", name: "Shell", owner: "Taylor", status: "Draft" }
+      ]
+    }
+  ];
+
+  grid.expandedRowIds = ["platform"];
+  grid.addEventListener("row-toggle", (event) => {
+    console.log(event.detail.rowId, event.detail.expanded);
+  });
+</script>`;
     case "data-view-toolbar":
       return `<cindor-data-view-toolbar
   title="Projects"
@@ -3418,6 +3457,13 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName} label="Guides" expanded>
       <cindor-tree-item label="Getting started"></cindor-tree-item>
     </${componentName}>`;
+    case "tree-grid":
+      return `<${componentName}
+      treeColumnKey="name"
+      columns={columns}
+      rows={rows}
+      expandedRowIds={["platform"]}
+    />`;
     case "tree-view":
       return `<${componentName}>
       <cindor-tree-item label="Overview"></cindor-tree-item>
@@ -3748,6 +3794,13 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName} label="Guides" expanded>
     <cindor-tree-item label="Getting started"></cindor-tree-item>
   </${componentName}>`;
+    case "tree-grid":
+      return `<${componentName}
+    tree-column-key="name"
+    :columns="columns"
+    :rows="rows"
+    :expanded-row-ids="['platform']"
+  />`;
     case "tree-view":
       return `<${componentName}>
     <cindor-tree-item label="Overview"></cindor-tree-item>
@@ -3851,6 +3904,7 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "toolbar":
     case "transfer-list":
     case "sortable-list":
+    case "tree-grid":
     case "tree-item":
     case "tree-view":
     case "url-input":
@@ -4430,6 +4484,31 @@ function getLegacyComponentApi(doc: ComponentDoc): ComponentApiSurface {
           compositionGroup([])
         ],
         intro: `${doc.tag} is one of the more stateful components in the library. In practice it is driven by assigned data and table configuration rather than slot content, including per-row action buttons defined on a column's actions array.`
+      };
+    case "tree-grid":
+      return {
+        groups: [
+          propertyGroup([
+            apiItem("tree-column-key", "Identifies which column renders indentation and expand/collapse controls.", {
+              defaultValue: `first column key`,
+              type: "string"
+            }),
+            apiItem("columns / rows", "Columns are assigned like data-table, but rows can include nested child arrays.", {
+              type: "assigned data objects"
+            }),
+            apiItem("expandedRowIds", "Controls which branch row ids are currently expanded.", { type: "string[]" })
+          ]),
+          eventGroup([
+            apiItem("row-toggle", "Fired when a branch row expands or collapses. The detail includes the row id, row data, hierarchy level, and the next expandedRowIds set.", {
+              type: "CustomEvent<TreeGridToggleDetail>"
+            }),
+            apiItem("sort-change", "Fired after the active sort column or direction changes.", {
+              type: "CustomEvent<{ sortDirection: DataTableSortDirection; sortKey: string }>"
+            })
+          ]),
+          compositionGroup([])
+        ],
+        intro: `${doc.tag} composes the shared data-table shell for hierarchical datasets. Assign nested row objects, pick the tree column, and listen for row-toggle to persist branch state.`
       };
     case "data-view-toolbar":
       return {

@@ -98,6 +98,7 @@ import { CindorTextarea } from "./components/textarea/cindor-textarea.js";
 import { CindorTimeline } from "./components/timeline/cindor-timeline.js";
 import { CindorTimelineItem } from "./components/timeline-item/cindor-timeline-item.js";
 import { CindorTreeItem } from "./components/tree-item/cindor-tree-item.js";
+import { CindorTreeGrid } from "./components/tree-grid/cindor-tree-grid.js";
 import { CindorTreeView } from "./components/tree-view/cindor-tree-view.js";
 import { CindorTimeInput } from "./components/time-input/cindor-time-input.js";
 import { CindorToast } from "./components/toast/cindor-toast.js";
@@ -212,6 +213,7 @@ const definitions = [
   ["cindor-timeline", CindorTimeline],
   ["cindor-timeline-item", CindorTimelineItem],
   ["cindor-transfer-list", CindorTransferList],
+  ["cindor-tree-grid", CindorTreeGrid],
   ["cindor-tree-item", CindorTreeItem],
   ["cindor-tree-view", CindorTreeView],
   ["cindor-stepper", CindorStepper],

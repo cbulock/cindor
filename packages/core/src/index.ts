@@ -150,6 +150,7 @@ export { CindorTextarea } from "./components/textarea/cindor-textarea.js";
 export { CindorTimeline } from "./components/timeline/cindor-timeline.js";
 export { CindorTimelineItem } from "./components/timeline-item/cindor-timeline-item.js";
 export { CindorTreeItem } from "./components/tree-item/cindor-tree-item.js";
+export { CindorTreeGrid, type TreeGridRow, type TreeGridToggleDetail } from "./components/tree-grid/cindor-tree-grid.js";
 export { CindorTreeView } from "./components/tree-view/cindor-tree-view.js";
 export { CindorTimeInput } from "./components/time-input/cindor-time-input.js";
 export { CindorToast, type ToastTone } from "./components/toast/cindor-toast.js";

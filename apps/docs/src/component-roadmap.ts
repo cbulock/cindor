@@ -52,7 +52,7 @@ export const plannedComponents: PlannedComponent[] = [
     phase: "Dense data workbenches",
     rationale: "Cindor already has `tree-view` and `data-table`; combining those patterns would unlock file explorers, outlines, and nested admin data.",
     slug: "tree-grid",
-    status: "next",
+    status: "shipped",
     summary: "Blend hierarchical disclosure with columnar data so nested records stay explorable in-place.",
     title: "Tree grid"
   },
@@ -61,7 +61,7 @@ export const plannedComponents: PlannedComponent[] = [
     phase: "Workspace and authoring",
     rationale: "The docs and patterns already talk about projects and workspaces, but there is no first-class shell switcher for moving between them.",
     slug: "workspace-switcher",
-    status: "queued",
+    status: "next",
     summary: "Create a dedicated workspace and project switcher that fits the existing app-shell story.",
     title: "Workspace switcher"
   },

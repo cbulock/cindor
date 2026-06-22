@@ -205,95 +205,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Components/Alert\", args: { message: \"The upstream Cindor tokens loaded successfully.\", title: \"Heads up\", tone: \"info\" }, argTypes: { tone: { control: \"radio\", options: [\"info\", \"success\", \"warning\", \"danger\"] } }, render: ({ message, title, tone }: AlertStoryArgs) => ` <cindor-alert tone=\"${tone}\"> <strong>${title}</strong> <span>${message}</span> </cindor-alert> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/alert/cindor-alert.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorAlert",
-          "members": [
-            {
-              "kind": "field",
-              "name": "tone",
-              "privacy": "public",
-              "type": {
-                "text": "AlertTone"
-              },
-              "default": "\"info\"",
-              "attribute": "tone",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "tone",
-              "type": {
-                "text": "AlertTone"
-              },
-              "default": "\"info\"",
-              "fieldName": "tone"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorAlert",
-          "declaration": {
-            "name": "CindorAlert",
-            "module": "packages/core/src/components/alert/cindor-alert.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
       "declarations": [
         {
@@ -403,6 +314,95 @@
           "declaration": {
             "name": "CindorActivityItem",
             "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Components/Alert\", args: { message: \"The upstream Cindor tokens loaded successfully.\", title: \"Heads up\", tone: \"info\" }, argTypes: { tone: { control: \"radio\", options: [\"info\", \"success\", \"warning\", \"danger\"] } }, render: ({ message, title, tone }: AlertStoryArgs) => ` <cindor-alert tone=\"${tone}\"> <strong>${title}</strong> <span>${message}</span> </cindor-alert> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/alert/cindor-alert.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorAlert",
+          "members": [
+            {
+              "kind": "field",
+              "name": "tone",
+              "privacy": "public",
+              "type": {
+                "text": "AlertTone"
+              },
+              "default": "\"info\"",
+              "attribute": "tone",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "tone",
+              "type": {
+                "text": "AlertTone"
+              },
+              "default": "\"info\"",
+              "fieldName": "tone"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorAlert",
+          "declaration": {
+            "name": "CindorAlert",
+            "module": "packages/core/src/components/alert/cindor-alert.ts"
           }
         }
       ]
@@ -15139,188 +15139,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/icon/cindor-icon.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Primitives/Icon\", args: { label: \"Search\", name: \"search\", size: 20, strokeWidth: 2.25 }, argTypes: { name: { control: \"text\", description: 'Use any Lucide icon name. Browse the full catalog at https://lucide.dev/icons/.' } }, render: ({ label, name, size, strokeWidth }: IconStoryArgs) => `<cindor-icon label=\"${label}\" name=\"${name}\" size=\"${size}\" stroke-width=\"${strokeWidth}\"></cindor-icon>` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/icon/cindor-icon.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/icon/cindor-icon.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/icon/cindor-icon.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorIcon",
-          "members": [
-            {
-              "kind": "field",
-              "name": "label",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "label",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "privacy": "public",
-              "type": {
-                "text": "LucideIconName | string"
-              },
-              "default": "\"\"",
-              "attribute": "name",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "default": "20",
-              "attribute": "size",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "strokeWidth",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "default": "2.25",
-              "attribute": "stroke-width",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "iconNode",
-              "type": {
-                "text": "IconNode | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "field",
-              "name": "iconRequestToken",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
-            },
-            {
-              "kind": "method",
-              "name": "syncIcon",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "label",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "label"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "LucideIconName | string"
-              },
-              "default": "\"\"",
-              "fieldName": "name"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "default": "20",
-              "fieldName": "size"
-            },
-            {
-              "name": "stroke-width",
-              "type": {
-                "text": "number"
-              },
-              "default": "2.25",
-              "fieldName": "strokeWidth"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "LucideIconName",
-          "declaration": {
-            "name": "LucideIconName",
-            "module": "./lucide.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "CindorIcon",
-          "declaration": {
-            "name": "CindorIcon",
-            "module": "packages/core/src/components/icon/cindor-icon.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/icon-button/cindor-icon-button.stories.ts",
       "declarations": [
         {
@@ -17100,6 +16918,188 @@
           "declaration": {
             "name": "CindorLayout",
             "module": "packages/core/src/components/layout/cindor-layout.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/icon/cindor-icon.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Primitives/Icon\", args: { label: \"Search\", name: \"search\", size: 20, strokeWidth: 2.25 }, argTypes: { name: { control: \"text\", description: 'Use any Lucide icon name. Browse the full catalog at https://lucide.dev/icons/.' } }, render: ({ label, name, size, strokeWidth }: IconStoryArgs) => `<cindor-icon label=\"${label}\" name=\"${name}\" size=\"${size}\" stroke-width=\"${strokeWidth}\"></cindor-icon>` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/icon/cindor-icon.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/icon/cindor-icon.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/icon/cindor-icon.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorIcon",
+          "members": [
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "privacy": "public",
+              "type": {
+                "text": "LucideIconName | string"
+              },
+              "default": "\"\"",
+              "attribute": "name",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "20",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "strokeWidth",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "2.25",
+              "attribute": "stroke-width",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "iconNode",
+              "type": {
+                "text": "IconNode | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "iconRequestToken",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "method",
+              "name": "syncIcon",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "label"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "LucideIconName | string"
+              },
+              "default": "\"\"",
+              "fieldName": "name"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "default": "20",
+              "fieldName": "size"
+            },
+            {
+              "name": "stroke-width",
+              "type": {
+                "text": "number"
+              },
+              "default": "2.25",
+              "fieldName": "strokeWidth"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LucideIconName",
+          "declaration": {
+            "name": "LucideIconName",
+            "module": "./lucide.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CindorIcon",
+          "declaration": {
+            "name": "CindorIcon",
+            "module": "packages/core/src/components/icon/cindor-icon.ts"
           }
         }
       ]
@@ -32389,6 +32389,785 @@
           "declaration": {
             "name": "CindorTransferList",
             "module": "packages/core/src/components/transfer-list/cindor-transfer-list.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/tree-grid/cindor-tree-grid.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Data/Tree Grid\", render: () => html` <cindor-tree-grid caption=\"Product surface map\" .columns=${columns} .expandedRowIds=${[\"platform\"]} .rows=${rows} sort-key=\"name\" tree-column-key=\"name\" ></cindor-tree-grid> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/tree-grid/cindor-tree-grid.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/tree-grid/cindor-tree-grid.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/tree-grid/cindor-tree-grid.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Hierarchical table surface that composes the shared data-table behaviors.",
+          "name": "CindorTreeGrid",
+          "members": [
+            {
+              "kind": "field",
+              "name": "caption",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "caption",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "columns",
+              "privacy": "public",
+              "type": {
+                "text": "DataTableColumn[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "currentPage",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "attribute": "current-page",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "density",
+              "privacy": "public",
+              "type": {
+                "text": "DataTableDensity"
+              },
+              "default": "\"comfortable\"",
+              "attribute": "density",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "emptyMessage",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"No rows to display.\"",
+              "attribute": "empty-message",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "expandedRowIds",
+              "privacy": "public",
+              "type": {
+                "text": "string[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "loading",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "loading",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "pageSize",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "page-size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "rowChildrenKey",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"children\"",
+              "attribute": "row-children-key",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "rowIdKey",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"id\"",
+              "attribute": "row-id-key",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "rows",
+              "privacy": "public",
+              "type": {
+                "text": "TreeGridRow[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "searchable",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "searchable",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "searchLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Search rows\"",
+              "attribute": "search-label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "searchPlaceholder",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Search rows\"",
+              "attribute": "search-placeholder",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "searchQuery",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "search-query",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "sortDirection",
+              "privacy": "public",
+              "type": {
+                "text": "DataTableSortDirection"
+              },
+              "default": "\"ascending\"",
+              "attribute": "sort-direction",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "sortKey",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "sort-key",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "treeColumnKey",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "tree-column-key",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "treeToggleLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Children\"",
+              "attribute": "tree-toggle-label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "handlePageChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleSearchChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleSortChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "hierarchyColumnKey",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "flattenedRows",
+              "type": {
+                "text": "TreeGridInternalRow[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "renderedColumns",
+              "type": {
+                "text": "DataTableColumn[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "renderTreeCell",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "detail",
+                  "type": {
+                    "text": "DataTableCellRenderDetail"
+                  }
+                },
+                {
+                  "name": "originalCellRenderer",
+                  "type": {
+                    "text": "DataTableColumn[\"cellRenderer\"]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "toggleRow",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "row",
+                  "type": {
+                    "text": "TreeGridRow"
+                  }
+                },
+                {
+                  "name": "rowId",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "level",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "normalizedSearchQuery",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "buildFlattenedRows",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TreeGridInternalRow[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "type": {
+                    "text": "TreeGridFlattenOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "subtreeMatchesQuery",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "rows",
+                  "type": {
+                    "text": "TreeGridRow[]"
+                  }
+                },
+                {
+                  "name": "query",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "rowMatchesQuery",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "row",
+                  "type": {
+                    "text": "TreeGridRow"
+                  }
+                },
+                {
+                  "name": "query",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getColumnSearchText",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "DataTableColumn"
+                  }
+                },
+                {
+                  "name": "row",
+                  "type": {
+                    "text": "TreeGridRow"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "sortRows",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TreeGridRow[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "rows",
+                  "type": {
+                    "text": "TreeGridRow[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getSortValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "unknown"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "DataTableColumn"
+                  }
+                },
+                {
+                  "name": "row",
+                  "type": {
+                    "text": "TreeGridRow"
+                  }
+                },
+                {
+                  "name": "rowIndex",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getSearchValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "DataTableColumn"
+                  }
+                },
+                {
+                  "name": "row",
+                  "type": {
+                    "text": "TreeGridRow"
+                  }
+                },
+                {
+                  "name": "rowIndex",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "defaultSortComparison",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "leftValue",
+                  "type": {
+                    "text": "unknown"
+                  }
+                },
+                {
+                  "name": "rightValue",
+                  "type": {
+                    "text": "unknown"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "childRows",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TreeGridRow[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "row",
+                  "type": {
+                    "text": "TreeGridRow"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getRowId",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "row",
+                  "type": {
+                    "text": "TreeGridRow"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "formatValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "unknown"
+                  }
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "name": "row-toggle",
+              "type": {
+                "text": "CustomEvent<TreeGridToggleDetail>"
+              },
+              "description": "Fired when a branch row expands or collapses."
+            },
+            {
+              "type": {
+                "text": "CustomEvent<DataTablePageChangeDetail>"
+              },
+              "description": "Fired when the current page changes.",
+              "name": "page-change"
+            },
+            {
+              "type": {
+                "text": "CustomEvent<DataTableSearchChangeDetail>"
+              },
+              "description": "Fired when the search query changes.",
+              "name": "search-change"
+            },
+            {
+              "type": {
+                "text": "CustomEvent<{ sortDirection: DataTableSortDirection; sortKey: string }>"
+              },
+              "description": "Fired when the active sort column or direction changes.",
+              "name": "sort-change"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "caption",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "caption"
+            },
+            {
+              "name": "current-page",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "fieldName": "currentPage"
+            },
+            {
+              "name": "density",
+              "type": {
+                "text": "DataTableDensity"
+              },
+              "default": "\"comfortable\"",
+              "fieldName": "density"
+            },
+            {
+              "name": "empty-message",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"No rows to display.\"",
+              "fieldName": "emptyMessage"
+            },
+            {
+              "name": "loading",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "loading"
+            },
+            {
+              "name": "page-size",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "pageSize"
+            },
+            {
+              "name": "row-children-key",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"children\"",
+              "fieldName": "rowChildrenKey"
+            },
+            {
+              "name": "row-id-key",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"id\"",
+              "fieldName": "rowIdKey"
+            },
+            {
+              "name": "searchable",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "searchable"
+            },
+            {
+              "name": "search-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Search rows\"",
+              "fieldName": "searchLabel"
+            },
+            {
+              "name": "search-placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Search rows\"",
+              "fieldName": "searchPlaceholder"
+            },
+            {
+              "name": "search-query",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "searchQuery"
+            },
+            {
+              "name": "sort-direction",
+              "type": {
+                "text": "DataTableSortDirection"
+              },
+              "default": "\"ascending\"",
+              "fieldName": "sortDirection"
+            },
+            {
+              "name": "sort-key",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "sortKey"
+            },
+            {
+              "name": "tree-column-key",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "treeColumnKey"
+            },
+            {
+              "name": "tree-toggle-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Children\"",
+              "fieldName": "treeToggleLabel"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "cindor-tree-grid",
+          "customElement": true,
+          "summary": "Tree-aware table for nested operational data."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorTreeGrid",
+          "declaration": {
+            "name": "CindorTreeGrid",
+            "module": "packages/core/src/components/tree-grid/cindor-tree-grid.ts"
           }
         }
       ]
