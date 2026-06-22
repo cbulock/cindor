@@ -1,6 +1,6 @@
 {
   "name": "cindor-ui-react",
-  "version": "0.1.80",
+  "version": "0.1.81",
   "description": "Thin React wrappers for the Cindor web component library.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@lit/react": "^1.0.7",
-    "cindor-ui-core": "0.1.80"
+    "cindor-ui-core": "0.1.81"
   },
   "peerDependencies": {
     "react": "^19.0.0",
