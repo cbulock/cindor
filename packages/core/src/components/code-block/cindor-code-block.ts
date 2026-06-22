@@ -22,7 +22,7 @@ export class CindorCodeBlock extends LitElement {
 
     pre {
       margin: 0;
-      padding: var(--space-4);
+      padding: var(--space-4) var(--space-4) var(--space-3);
       overflow: auto;
       border: 1px solid var(--cindor-code-block-border-color);
       border-radius: var(--radius-lg);
