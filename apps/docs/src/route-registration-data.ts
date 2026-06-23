@@ -36,6 +36,41 @@ export const docsRouteComponentSlugs = [
   "tabs"
 ] as const;
 
+export const componentDependencySlugs: Record<string, string[]> = {
+  autocomplete: ["listbox", "option"],
+  banner: ["icon-button"],
+  calendar: ["icon-button"],
+  combobox: ["listbox", "option"],
+  "command-palette": ["dialog", "icon-button", "listbox", "option", "search"],
+  "context-menu": ["menu"],
+  "data-grid": ["input", "select", "switch"],
+  "data-table": ["button", "icon", "icon-button", "input", "pagination", "search", "select", "switch", "tooltip"],
+  "date-picker": ["calendar", "icon-button"],
+  "date-range-picker": ["calendar", "icon-button"],
+  "date-time-picker": ["date-picker", "time-input"],
+  dialog: ["icon-button"],
+  drawer: ["icon-button"],
+  "dropdown-menu": ["menu"],
+  dropzone: ["button", "chip", "icon"],
+  "empty-search-results": ["icon"],
+  "field-array": ["button", "icon-button"],
+  "file-input": ["button", "chip", "icon"],
+  "filter-builder": ["button", "date-input", "fieldset", "form-field", "input", "number-input", "select"],
+  "icon-button": ["button", "icon"],
+  "inline-edit": ["button"],
+  input: ["icon"],
+  "multi-select": ["listbox", "option"],
+  "password-input": ["icon"],
+  "sortable-list": ["icon-button"],
+  "split-button": ["button", "icon", "menu"],
+  stepper: ["icon"],
+  tabs: ["form-field", "select"],
+  "tag-input": ["listbox", "option"],
+  toast: ["icon-button"],
+  "transfer-list": ["button", "form-field"],
+  "tree-grid": ["data-table"]
+};
+
 export const previewDependencySlugs: Record<string, string[]> = {
   "activity-feed": ["activity-item", "avatar"],
   "activity-item": ["activity-feed", "avatar"],
