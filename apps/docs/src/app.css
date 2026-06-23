@@ -243,8 +243,6 @@ a {
 }
 
 .sidebar-brand-image {
-  display: block;
-  max-width: 100%;
   width: min(11rem, 100%);
 }
 
