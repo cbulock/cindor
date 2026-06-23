@@ -1,0 +1,37 @@
+name: Validate PR Title
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+      - ready_for_review
+
+permissions:
+  pull-requests: read
+
+jobs:
+  semantic-title:
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Enforce conventional PR titles for squash merges
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          node <<'NODE'
+          const title = process.env.PR_TITLE ?? "";
+          const pattern = /^(feat|fix|docs|ci|chore|refactor|test|build|perf|style|revert)(\([^)]+\))?(!)?: .+/;
+
+          if (pattern.test(title)) {
+            console.log(`PR title is valid: ${title}`);
+            process.exit(0);
+          }
+
+          console.error(`Invalid PR title: ${title}`);
+          console.error("Use a Conventional Commit title such as `fix: align release automation` or `docs(ci): update release guidance`.");
+          process.exit(1);
+          NODE

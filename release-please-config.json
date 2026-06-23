@@ -1,0 +1,44 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "bootstrap-sha": "fcdb3dbd11cc028367664044d09f1ef18106086a",
+  "skip-github-release": true,
+  "skip-changelog": true,
+  "include-v-in-tag": true,
+  "include-component-in-tag": false,
+  "separate-pull-requests": false,
+  "packages": {
+    ".": {
+      "release-type": "node"
+    },
+    "apps/docs": {
+      "release-type": "node"
+    },
+    "packages/core": {
+      "release-type": "node"
+    },
+    "packages/react": {
+      "release-type": "node"
+    },
+    "packages/vue": {
+      "release-type": "node"
+    }
+  },
+  "plugins": [
+    {
+      "type": "node-workspace",
+      "merge": false,
+      "updatePeerDependencies": true
+    },
+    {
+      "type": "linked-versions",
+      "groupName": "cindor workspace",
+      "components": [
+        "cindor-ui-workspace",
+        "cindor-ui-docs",
+        "cindor-ui-core",
+        "cindor-ui-react",
+        "cindor-ui-vue"
+      ]
+    }
+  ]
+}
