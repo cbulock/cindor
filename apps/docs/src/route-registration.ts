@@ -1,4 +1,4 @@
-import { docsRouteComponentSlugs, previewDependencySlugs } from "./route-registration-data.js";
+import { componentDependencySlugs, docsRouteComponentSlugs, previewDependencySlugs } from "./route-registration-data.js";
 
 const componentModules = import.meta.glob<Record<string, unknown>>([
   "../../../packages/core/src/components/*/cindor-*.ts",
@@ -72,6 +72,11 @@ function ensureComponentRegistered(slug: string): Promise<void> {
 async function registerComponent(slug: string): Promise<void> {
   if (!componentSlugPattern.test(slug)) {
     throw new Error(`Invalid component slug "${slug}".`);
+  }
+
+  const componentDependencies = componentDependencySlugs[slug] ?? [];
+  if (componentDependencies.length > 0) {
+    await Promise.all(componentDependencies.map((dependencySlug) => ensureComponentRegistered(dependencySlug)));
   }
 
   const tagName = `cindor-${slug}`;
