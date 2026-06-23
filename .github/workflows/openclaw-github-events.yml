@@ -18,7 +18,7 @@ on:
   pull_request_review_comment:
     types: [created, edited]
   workflow_run:
-    workflows: ["Create release", "Deploy docs surfaces", "Publish packages", "Release Please", "Copilot", "Copilot code review", "Copilot cloud agent", "CodeQL"]
+    workflows: ["Create release", "Deploy docs surfaces", "Publish packages", "Release Please", "Validate PR Title", "Copilot", "Copilot code review", "Copilot cloud agent", "CodeQL"]
     types: [completed]
 
 permissions:
