@@ -10,7 +10,6 @@ Use the root workspace scripts:
 - `npm run test`
 - `npm run test:watch`
 - `npm run typecheck`
-- `npm run version:auto-bump`
 - `npm run storybook`
 - `npm run build-storybook`
 
@@ -42,13 +41,11 @@ This repository enforces a synchronized workspace version across:
 - `packages/react/package.json`
 - `packages/vue/package.json`
 
-The repo installs a `pre-push` hook through `simple-git-hooks` that runs `npm run version:auto-bump`.
+Workspace versions are owned by `release-please` on `main`.
 
-- If you changed non-exempt source files and did not already update the version files, the hook applies a default patch bump, refreshes `package-lock.json`, and **aborts the push on purpose**.
-- After that happens, review the version-file changes, commit them, and push again.
-- Do **not** expect the hook to create the commit for you or to continue the current push with a newly created commit.
-- If you intentionally need a larger version bump, update the version files yourself before pushing so the hook detects the explicit version change and skips the automatic patch bump.
-- For component updates, do not wait for the pre-push hook to surprise you. Run `npm run version:auto-bump` yourself before finishing the task, review any generated version-file changes, and commit them with the component work.
+- Do not add manual version bumps to ordinary feature PRs.
+- Keep commits and PR titles release-friendly when practical. `release-please` uses Conventional Commit semantics such as `fix:`, `feat:`, and `feat!:` to determine the next release.
+- Expect release PRs on `main` to carry the synchronized updates to the version files listed above, including `package-lock.json`.
 
 ## Intended architecture
 
