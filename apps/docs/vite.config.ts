@@ -31,10 +31,6 @@ export default defineConfig({
       {
         find: "cindor-ui-core",
         replacement: resolve(__dirname, "../../packages/core/src/index.ts")
-      },
-      {
-        find: /^lucide$/,
-        replacement: resolve(__dirname, "./src/docs-lucide.ts")
       }
     ]
   },
