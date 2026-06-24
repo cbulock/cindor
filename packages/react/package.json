@@ -35,7 +35,7 @@
     }
   },
   "scripts": {
-    "build": "tsup src/index.tsx --format esm,cjs --dts --external react --external react/jsx-runtime --external cindor-ui-core --external cindor-ui-core/register"
+    "build": "tsdown --config tsdown.config.ts"
   },
   "dependencies": {
     "@lit/react": "^1.0.7",

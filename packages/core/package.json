@@ -56,7 +56,7 @@
     "./component-docs.json": "./component-docs.json"
   },
   "scripts": {
-    "build": "tsup --config tsup.config.ts && tsc -p tsconfig.build.json"
+    "build": "tsdown --config tsdown.config.ts && tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.7.6",

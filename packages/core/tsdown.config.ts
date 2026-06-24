@@ -1,7 +1,7 @@
 import { readdirSync, statSync } from "node:fs";
 import { join, posix, relative, sep } from "node:path";
 
-import { defineConfig } from "tsup";
+import { defineConfig } from "tsdown";
 
 const srcRoot = join(import.meta.dirname, "src");
 const componentRoot = join(srcRoot, "components");
@@ -14,7 +14,12 @@ export default defineConfig({
     ...getComponentEntries(componentRoot)
   },
   format: ["esm"],
-  target: "es2022"
+  target: "es2022",
+  dts: false,
+  outExtensions: () => ({
+    js: ".js",
+    dts: ".d.ts"
+  })
 });
 
 function getComponentEntries(directory: string): Record<string, string> {
