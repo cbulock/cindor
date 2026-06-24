@@ -224,6 +224,12 @@ const componentPlaygroundUrls = new Map(
     })
     .filter((entry): entry is readonly [string, string] => Boolean(entry))
 );
+const lucideIconModules = import.meta.glob("../../../node_modules/lucide/dist/esm/icons/*.mjs");
+const lucideIconNames = Object.keys(lucideIconModules)
+  .map((path) => path.split("/").at(-1)?.replace(/\.mjs$/u, "") ?? "")
+  .filter(Boolean)
+  .sort((left, right) => left.localeCompare(right));
+const lucideIconNameCount = lucideIconNames.length;
 
 const setupSteps: StepperStep[] = [
   { description: "Install the package and import the shared global styles.", label: "Install", value: "install" },
@@ -1466,6 +1472,8 @@ function renderComponentDetail(slug: string, componentPreviewReady: boolean): st
         </section>
       </div>
 
+      ${doc.slug === "icon" ? renderIconReferenceSection() : ""}
+
       <section class="section">
         <div class="section-heading">
           <h2>API surface</h2>
@@ -1538,6 +1546,46 @@ function renderFactCard(label: string, value: string): string {
         <strong>${value}</strong>
       </div>
     </cindor-card>
+  `;
+}
+
+function renderIconReferenceSection(): string {
+  return `
+    <section class="section">
+      <div class="section-heading">
+        <h2>Lucide icon set</h2>
+        <p><code>cindor-icon</code> is a thin wrapper around the Lucide icon library, so its available names and glyphs track Lucide instead of a separate Cindor-only icon pack.</p>
+      </div>
+
+      <div class="usage-grid">
+        <div class="preview-block">
+          <strong>How naming works</strong>
+          <p class="muted">Use the Lucide icon name in the <code>name</code> attribute, usually in kebab-case like <code>triangle-alert</code> or <code>arrow-up-right</code>.</p>
+          <p class="muted">Cindor normalizes common variants, so <code>ArrowUpRight</code>, <code>arrow_up_right</code>, and <code>arrow-up-right</code> all resolve to the same Lucide icon.</p>
+          <p class="muted">For icon previews, aliases, and upstream release notes, use the <a href="https://lucide.dev/icons/" target="_blank" rel="noreferrer">Lucide icon docs</a>.</p>
+        </div>
+
+        <div class="preview-block">
+          <strong>Available icon names</strong>
+          <p class="muted">This list is generated from the installed Lucide package at build time, so it stays aligned with the icon set bundled into Cindor.</p>
+          <cindor-search id="icon-name-search" placeholder="Search Lucide icon names"></cindor-search>
+          <div class="component-inline-meta">
+            <span class="muted" data-icon-reference-count>${lucideIconNameCount} names available</span>
+            <code>lucide.dev/icons</code>
+          </div>
+          <p class="muted icon-reference-empty" data-icon-reference-empty hidden>No Lucide icon names match that search.</p>
+          <div class="icon-reference-list" data-icon-reference-list>
+            ${lucideIconNames
+              .map(
+                (name) => `
+                  <code class="icon-reference-chip" data-icon-name="${escapeAttribute(name)}">${escapeHtml(name)}</code>
+                `
+              )
+              .join("")}
+          </div>
+        </div>
+      </div>
+    </section>
   `;
 }
 
@@ -1948,12 +1996,47 @@ function hydrateComponentPage(slug: string): void {
     }
   }
 
+  if (slug === "icon") {
+    hydrateIconReference();
+  }
+
   if (slug === "virtual-list") {
     const virtualList = root.querySelector<VirtualListHost>('[data-component-preview="virtual-list"] #component-virtual-list');
     if (virtualList) {
       virtualList.items = [...virtualListPreviewItems];
     }
   }
+}
+
+function hydrateIconReference(): void {
+  const search = root.querySelector<SearchHost>("#icon-name-search");
+  const count = root.querySelector<HTMLElement>("[data-icon-reference-count]");
+  const empty = root.querySelector<HTMLElement>("[data-icon-reference-empty]");
+  const names = Array.from(root.querySelectorAll<HTMLElement>("[data-icon-name]"));
+
+  if (!search || !count || !empty || !names.length) {
+    return;
+  }
+
+  const applyFilter = () => {
+    const query = (search.value ?? "").trim().toLowerCase();
+    let visibleCount = 0;
+
+    for (const name of names) {
+      const iconName = name.dataset.iconName ?? "";
+      const matches = query === "" || iconName.includes(query);
+      name.hidden = !matches;
+      if (matches) {
+        visibleCount += 1;
+      }
+    }
+
+    count.textContent = query ? `${visibleCount} of ${lucideIconNameCount} names shown` : `${lucideIconNameCount} names available`;
+    empty.hidden = visibleCount > 0;
+  };
+
+  search.addEventListener("input", applyFilter);
+  applyFilter();
 }
 
 function handlePaletteSelect(event: Event): void {
@@ -4645,7 +4728,7 @@ function getLegacyComponentApi(doc: ComponentDoc): ComponentApiSurface {
           eventGroup([]),
           compositionGroup([])
         ],
-        intro: `${doc.tag} is configured by icon name and optional sizing overrides. Browse the full icon catalog in the <a href="https://lucide.dev/icons/" target="_blank" rel="noreferrer">Lucide docs</a>.`
+        intro: `${doc.tag} is a thin wrapper around the Lucide icon set. Pass any Lucide icon name with optional sizing overrides, then browse upstream previews and aliases in the <a href="https://lucide.dev/icons/" target="_blank" rel="noreferrer">Lucide docs</a>.`
       };
     case "icon-button":
       return {
