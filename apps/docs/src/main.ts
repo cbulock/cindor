@@ -13,6 +13,7 @@ import {
   type ComponentDoc,
   type ComponentLayerFilter
 } from "./catalog.js";
+import { getRelatedComponents } from "./component-relations.js";
 import { plannedComponents, type PlannedComponent, type PlannedComponentStatus } from "./component-roadmap.js";
 import { getComponentUseCases } from "./component-use-cases.js";
 import {
@@ -1402,7 +1403,7 @@ function renderComponentDetail(slug: string, componentPreviewReady: boolean): st
     `;
   }
 
-  const related = componentCatalog.filter((component) => component.category === doc.category && component.slug !== doc.slug).slice(0, 4);
+  const related = getRelatedComponents(doc, componentCatalog);
   const api = getComponentApi(doc);
   const useCases = getComponentUseCases(doc);
 
@@ -1525,7 +1526,7 @@ function renderComponentDetail(slug: string, componentPreviewReady: boolean): st
             <section class="section">
               <div class="section-heading">
                 <h2>Related components</h2>
-                <p>Explore other ${doc.category.toLowerCase()} surfaces that compose well with ${doc.tag}.</p>
+                <p>Explore components that share structure, naming, or composition patterns with ${doc.tag}.</p>
               </div>
               <div class="catalog-grid">
                 ${related.map((component) => renderCatalogCard(component)).join("")}
