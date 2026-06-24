@@ -25,7 +25,7 @@ export class CindorTimeline extends LitElement {
       content: "";
       position: absolute;
       inset-block: 0 var(--space-4);
-      inset-inline-start: 0.35rem;
+      inset-inline-start: calc(0.375rem - 1px);
       width: 2px;
       background: color-mix(in srgb, var(--border) 70%, transparent);
     }
