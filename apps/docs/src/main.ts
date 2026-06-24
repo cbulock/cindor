@@ -2025,6 +2025,7 @@ function hydrateIconReference(): void {
   const applyFilter = () => {
     const query = (search.value ?? "")
       .trim()
+      .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
       .toLowerCase()
       .replace(/[\s_]+/g, "-");
     let visibleCount = 0;
