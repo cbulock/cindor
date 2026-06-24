@@ -1579,7 +1579,10 @@ function renderIconReferenceSection(): string {
             ${lucideIconNames
               .map(
                 (name) => `
-                  <code class="icon-reference-chip" data-icon-name="${escapeAttribute(name)}">${escapeHtml(name)}</code>
+                  <div class="icon-reference-chip" data-icon-name="${escapeAttribute(name)}">
+                    <cindor-icon aria-hidden="true" name="${escapeAttribute(name)}" size="16"></cindor-icon>
+                    <code>${escapeHtml(name)}</code>
+                  </div>
                 `
               )
               .join("")}
@@ -2020,7 +2023,10 @@ function hydrateIconReference(): void {
   }
 
   const applyFilter = () => {
-    const query = (search.value ?? "").trim().toLowerCase();
+    const query = (search.value ?? "")
+      .trim()
+      .toLowerCase()
+      .replace(/[\s_]+/g, "-");
     let visibleCount = 0;
 
     for (const name of names) {
@@ -2037,6 +2043,7 @@ function hydrateIconReference(): void {
   };
 
   search.addEventListener("input", applyFilter);
+  search.addEventListener("change", applyFilter);
   applyFilter();
 }
 
