@@ -110,6 +110,7 @@ import {
   CindorTransferList as CindorTransferListElement,
   CindorSortableList as CindorSortableListElement,
   CindorVirtualList as CindorVirtualListElement,
+  CindorWorkspaceSwitcher as CindorWorkspaceSwitcherElement,
   CindorSideNav as CindorSideNavElement,
   CindorSideNavItem as CindorSideNavItemElement,
 } from "cindor-ui-core";
@@ -973,6 +974,18 @@ export const CindorVirtualList = createComponent({
   elementClass: CindorVirtualListElement,
   events: {
     onRangeChange: "range-change"
+  }
+});
+
+export const CindorWorkspaceSwitcher = createComponent({
+  react: React,
+  tagName: "cindor-workspace-switcher",
+  elementClass: CindorWorkspaceSwitcherElement,
+  events: {
+    onToggle: "toggle",
+    onSelect: "select",
+    onInput: "input",
+    onChange: "change"
   }
 });
 

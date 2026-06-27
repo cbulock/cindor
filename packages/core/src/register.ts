@@ -108,6 +108,7 @@ import { CindorTooltip } from "./components/tooltip/cindor-tooltip.js";
 import { CindorToolbar } from "./components/toolbar/cindor-toolbar.js";
 import { CindorUrlInput } from "./components/url-input/cindor-url-input.js";
 import { CindorVirtualList } from "./components/virtual-list/cindor-virtual-list.js";
+import { CindorWorkspaceSwitcher } from "./components/workspace-switcher/cindor-workspace-switcher.js";
 
 const definitions = [
   ["cindor-alert", CindorAlert],
@@ -219,6 +220,7 @@ const definitions = [
   ["cindor-stepper", CindorStepper],
   ["cindor-toolbar", CindorToolbar],
   ["cindor-virtual-list", CindorVirtualList],
+  ["cindor-workspace-switcher", CindorWorkspaceSwitcher],
   ["cindor-accordion", CindorAccordion]
 ] as const;
 

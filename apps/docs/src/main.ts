@@ -3,7 +3,7 @@ import "./app.css";
 import cindorIconUrl from "../../../branding/cindor-icon.png";
 import cindorWordmarkUrl from "../../../branding/cindor-wordmark.png";
 
-import type { CommandPaletteCommand, FilterBuilderField, SegmentedControlOption, StepperStep } from "cindor-ui-core";
+import type { CommandPaletteCommand, FilterBuilderField, SegmentedControlOption, StepperStep, WorkspaceSwitcherItem } from "cindor-ui-core";
 
 import {
   componentCatalog,
@@ -68,6 +68,11 @@ type FilterBuilderHost = HTMLElement & {
 
 type VirtualListHost = HTMLElement & {
   items: Array<{ description: string; id: string; label: string; meta: string }>;
+};
+
+type WorkspaceSwitcherHost = HTMLElement & {
+  items: WorkspaceSwitcherItem[];
+  value: string;
 };
 
 type ApiItem = {
@@ -492,6 +497,37 @@ const virtualListPreviewItems = [
     meta: "Today"
   }
 ] as const;
+
+const workspaceSwitcherPreviewItems: WorkspaceSwitcherItem[] = [
+  {
+    value: "ops",
+    label: "Operations hub",
+    description: "Deployments, incidents, and release health in one place.",
+    meta: "Production",
+    group: "Pinned"
+  },
+  {
+    value: "design",
+    label: "Design systems",
+    description: "Tokens, primitives, and review checkpoints for shared UI.",
+    meta: "Shared",
+    group: "Pinned"
+  },
+  {
+    value: "partner-portal",
+    label: "Partner portal",
+    description: "External-facing workflows for onboarding and account support.",
+    meta: "Last opened today",
+    group: "Recent"
+  },
+  {
+    value: "launch-q3",
+    label: "Q3 launch",
+    description: "Launch checklist, approvals, and rollout comms.",
+    meta: "Favorite",
+    group: "Recent"
+  }
+];
 
 let componentDocsByTag: Map<string, GeneratedComponentDoc> | null = null;
 let componentDocsLoadPromise: Promise<void> | null = null;
@@ -2010,6 +2046,14 @@ function hydrateComponentPage(slug: string): void {
       virtualList.items = [...virtualListPreviewItems];
     }
   }
+
+  if (slug === "workspace-switcher") {
+    const switcher = root.querySelector<WorkspaceSwitcherHost>('[data-component-preview="workspace-switcher"] #component-workspace-switcher');
+    if (switcher) {
+      switcher.items = [...workspaceSwitcherPreviewItems];
+      switcher.value = "ops";
+    }
+  }
 }
 
 function hydrateIconReference(): void {
@@ -2996,6 +3040,16 @@ function getUsageCode(doc: ComponentDoc): string {
 </script>`;
     case "virtual-list":
       return `<cindor-virtual-list id="component-virtual-list" height="20rem" item-height="72"></cindor-virtual-list>`;
+    case "workspace-switcher":
+      return `<cindor-workspace-switcher id="component-workspace-switcher" value="ops"></cindor-workspace-switcher>
+<script type="module">
+  const switcher = document.querySelector("#component-workspace-switcher");
+  switcher.items = [
+    { value: "ops", label: "Operations hub", description: "Deployments, incidents, and release health in one place.", meta: "Production", group: "Pinned" },
+    { value: "design", label: "Design systems", description: "Tokens, primitives, and review checkpoints for shared UI.", meta: "Shared", group: "Pinned" },
+    { value: "partner-portal", label: "Partner portal", description: "External-facing workflows for onboarding and account support.", meta: "Last opened today", group: "Recent" }
+  ];
+</script>`;
     case "toast":
       return `<cindor-toast open tone="success">Saved successfully.</cindor-toast>`;
     case "toast-region":
@@ -3545,6 +3599,15 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
         { id: "3", label: "Rotate incident owner", description: "Hand off the current incident queue to the next responder.", meta: "Today" }
       ]}
     />`;
+    case "workspace-switcher":
+      return `<${componentName}
+      value="ops"
+      items={[
+        { value: "ops", label: "Operations hub", description: "Deployments, incidents, and release health in one place.", meta: "Production", group: "Pinned" },
+        { value: "design", label: "Design systems", description: "Tokens, primitives, and review checkpoints for shared UI.", meta: "Shared", group: "Pinned" },
+        { value: "partner-portal", label: "Partner portal", description: "External-facing workflows for onboarding and account support.", meta: "Last opened today", group: "Recent" }
+      ]}
+    />`;
     case "tree-item":
       return `<${componentName} label="Guides" expanded>
       <cindor-tree-item label="Getting started"></cindor-tree-item>
@@ -3882,6 +3945,15 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
       { id: '3', label: 'Rotate incident owner', description: 'Hand off the current incident queue to the next responder.', meta: 'Today' }
     ]"
   />`;
+    case "workspace-switcher":
+      return `<${componentName}
+    model-value="ops"
+    :items="[
+      { value: 'ops', label: 'Operations hub', description: 'Deployments, incidents, and release health in one place.', meta: 'Production', group: 'Pinned' },
+      { value: 'design', label: 'Design systems', description: 'Tokens, primitives, and review checkpoints for shared UI.', meta: 'Shared', group: 'Pinned' },
+      { value: 'partner-portal', label: 'Partner portal', description: 'External-facing workflows for onboarding and account support.', meta: 'Last opened today', group: 'Recent' }
+    ]"
+  />`;
     case "tree-item":
       return `<${componentName} label="Guides" expanded>
     <cindor-tree-item label="Getting started"></cindor-tree-item>
@@ -4003,6 +4075,8 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
       return doc.slug === "filter-builder" ? `<cindor-filter-builder id="filter-builder-preview"></cindor-filter-builder>` : getUsageCode(doc);
     case "virtual-list":
       return `<cindor-virtual-list id="component-virtual-list" height="20rem" item-height="72"></cindor-virtual-list>`;
+    case "workspace-switcher":
+      return `<cindor-workspace-switcher id="component-workspace-switcher" value="ops"></cindor-workspace-switcher>`;
     case "data-table":
       return `<div class="preview-block">
         <strong>Small data set preview</strong>

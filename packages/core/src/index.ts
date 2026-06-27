@@ -172,6 +172,11 @@ export {
   type VirtualListRenderDetail
 } from "./components/virtual-list/cindor-virtual-list.js";
 export {
+  CindorWorkspaceSwitcher,
+  type WorkspaceSwitcherItem,
+  type WorkspaceSwitcherSelectDetail
+} from "./components/workspace-switcher/cindor-workspace-switcher.js";
+export {
   clearToasts,
   dismissToast,
   ensureToastRegion,
