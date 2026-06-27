@@ -102,4 +102,20 @@ describe("cindor-workspace-switcher", () => {
 
     expect(element.renderRoot.querySelector('[part="empty"]')?.textContent).toContain("No workspaces match your search.");
   });
+
+  it("links the combobox search field to the listbox with matching ids", async () => {
+    const element = document.createElement("cindor-workspace-switcher") as CindorWorkspaceSwitcher;
+    element.items = items;
+    document.body.append(element);
+    await element.updateComplete;
+
+    (element.renderRoot.querySelector('[part="trigger"]') as HTMLButtonElement).click();
+    await element.updateComplete;
+
+    const search = element.renderRoot.querySelector('[part="search"]') as HTMLInputElement;
+    const list = element.renderRoot.querySelector('[part="list"]') as HTMLDivElement;
+
+    expect(search.getAttribute("aria-controls")).toBe(list.id);
+    expect(search.getAttribute("aria-controls")).not.toBe(element.renderRoot.querySelector('[part="panel"]')?.id);
+  });
 });

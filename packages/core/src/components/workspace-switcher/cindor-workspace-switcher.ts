@@ -297,7 +297,8 @@ export class CindorWorkspaceSwitcher extends LitElement {
   private focusSearchOnOpen = false;
   private floatingCleanup?: () => void;
   private floatingPanel: HTMLElement | null = null;
-  private readonly listId = `cindor-workspace-switcher-list-${CindorWorkspaceSwitcher.nextId++}`;
+  private readonly panelId = `cindor-workspace-switcher-panel-${CindorWorkspaceSwitcher.nextId++}`;
+  private readonly listboxId = `cindor-workspace-switcher-listbox-${CindorWorkspaceSwitcher.nextId++}`;
   private restoreFocusOnClose = false;
   private readonly searchId = `cindor-workspace-switcher-search-${CindorWorkspaceSwitcher.nextId++}`;
   private updateFloatingPosition?: () => void;
@@ -322,7 +323,7 @@ export class CindorWorkspaceSwitcher extends LitElement {
   protected override render() {
     return html`
       <button
-        aria-controls=${this.listId}
+        aria-controls=${this.panelId}
         aria-expanded=${String(this.open)}
         aria-haspopup="dialog"
         class="trigger"
@@ -341,7 +342,7 @@ export class CindorWorkspaceSwitcher extends LitElement {
 
       ${this.open
         ? html`
-            <section aria-label=${this.title} class="panel" id=${this.listId} part="panel" role="dialog">
+            <section aria-label=${this.title} class="panel" id=${this.panelId} part="panel" role="dialog">
               <div class="panel-header">
                 <h2 class="title" part="title">${this.title}</h2>
                 <p class="helper" part="helper">Search across workspaces, projects, and recent operating surfaces.</p>
@@ -351,7 +352,7 @@ export class CindorWorkspaceSwitcher extends LitElement {
               <input
                 id=${this.searchId}
                 aria-activedescendant=${this.activeOptionId ?? nothing}
-                aria-controls=${this.listId}
+                aria-controls=${this.listboxId}
                 aria-label=${this.searchLabel}
                 class="search"
                 part="search"
@@ -364,7 +365,7 @@ export class CindorWorkspaceSwitcher extends LitElement {
               />
 
               ${this.filteredItems.length
-                ? html`<div aria-label=${this.title} class="list" part="list" role="listbox">${this.renderGroupedItems()}</div>`
+                ? html`<div aria-label=${this.title} class="list" id=${this.listboxId} part="list" role="listbox">${this.renderGroupedItems()}</div>`
                 : html`<p class="empty" part="empty">${this.emptyMessage}</p>`}
             </section>
           `
@@ -409,7 +410,7 @@ export class CindorWorkspaceSwitcher extends LitElement {
 
     if (changedProperties.has("activeIndex") && this.open) {
       requestAnimationFrame(() => {
-        this.activeOptionElement?.scrollIntoView({ block: "nearest" });
+        this.activeOptionElement?.scrollIntoView?.({ block: "nearest" });
       });
     }
   }
@@ -696,7 +697,7 @@ export class CindorWorkspaceSwitcher extends LitElement {
   }
 
   private getOptionId(index: number): string {
-    return `${this.listId}-option-${index}`;
+    return `${this.listboxId}-option-${index}`;
   }
 
   private getInitials(item?: WorkspaceSwitcherItem): string {
