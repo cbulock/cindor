@@ -4059,6 +4059,72 @@
       "tagName": "cindor-input"
     },
     {
+      "className": "CindorJsonViewer",
+      "description": "Collapsible structured JSON viewer for payloads, settings, and logs.\n\nPass a JSON string through `value` or assign structured data directly to `data`.",
+      "modulePath": "packages/core/src/components/json-viewer/cindor-json-viewer.ts",
+      "properties": [
+        {
+          "attributeName": null,
+          "defaultValue": "undefined",
+          "description": "",
+          "name": "data",
+          "reflects": false,
+          "type": "JsonViewerValue | Record<string, unknown> | unknown[] | undefined",
+          "values": null
+        },
+        {
+          "attributeName": "empty-message",
+          "defaultValue": "\"No JSON to display.\"",
+          "description": "",
+          "name": "emptyMessage",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "expanded-depth",
+          "defaultValue": "1",
+          "description": "",
+          "name": "expandedDepth",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "invalid-message",
+          "defaultValue": "\"Unable to parse JSON.\"",
+          "description": "",
+          "name": "invalidMessage",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "root-label",
+          "defaultValue": "\"JSON\"",
+          "description": "",
+          "name": "rootLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [],
+      "summary": "Collapsible JSON inspection surface for nested payloads.",
+      "tagName": "cindor-json-viewer"
+    },
+    {
       "className": "CindorLayout",
       "description": "Vertical layout container for page and workflow composition.",
       "modulePath": "packages/core/src/components/layout/cindor-layout.ts",

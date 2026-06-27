@@ -19,10 +19,12 @@ import type {
   FilterBuilderField,
   GridAlign,
   GridGap,
+  JsonViewerValue,
   LucideIconName,
   ProviderTheme,
   ProviderThemeFamily,
   ProviderThemeTokens,
+  Record,
   SegmentedControlOption,
   SkeletonVariant,
   SortableListItemKey,
@@ -3344,6 +3346,30 @@ export const CindorVirtualList = defineComponent({
               overscan: props.overscan,
               ".renderItem": props.renderItem,
               onRangeChange: handleRangeChange,
+          });
+  }
+});
+
+export const CindorJsonViewer = defineComponent({
+  name: "CindorJsonViewer",
+  props: {
+    data: { type: Object as PropType<JsonViewerValue | Record<string, unknown> | unknown[] | undefined>, default: () => undefined },
+    emptyMessage: { type: String, default: "No JSON to display." },
+    expandedDepth: { type: Number, default: 1 },
+    invalidMessage: { type: String, default: "Unable to parse JSON." },
+    rootLabel: { type: String, default: "JSON" },
+    value: { type: String, default: "" }
+  },
+  setup(props, { attrs }) {
+    return () =>
+          h("cindor-json-viewer", {
+              ...attrs,
+              ".data": props.data,
+              "empty-message": props.emptyMessage,
+              "expanded-depth": props.expandedDepth,
+              "invalid-message": props.invalidMessage,
+              "root-label": props.rootLabel,
+              value: props.value,
           });
   }
 });

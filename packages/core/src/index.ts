@@ -87,6 +87,7 @@ export { CindorIcon, type LucideIconName } from "./components/icon/cindor-icon.j
 export { CindorIconButton } from "./components/icon-button/cindor-icon-button.js";
 export { CindorInput } from "./components/input/cindor-input.js";
 export { CindorInlineEdit } from "./components/inline-edit/cindor-inline-edit.js";
+export { CindorJsonViewer, type JsonViewerValue } from "./components/json-viewer/cindor-json-viewer.js";
 export { CindorLayout } from "./components/layout/cindor-layout.js";
 export { CindorLayoutContent } from "./components/layout-content/cindor-layout-content.js";
 export { CindorLayoutHeader } from "./components/layout-header/cindor-layout-header.js";

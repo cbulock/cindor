@@ -1030,6 +1030,16 @@ export const componentDefinitions = [
       func("renderItem", "VirtualListItemRenderer<unknown> | undefined")
     ]
   }),
+  component("CindorJsonViewer", "cindor-json-viewer", {
+    vueProps: [
+      obj("data", "JsonViewerValue | Record<string, unknown> | unknown[] | undefined", { defaultFactory: "() => undefined" }),
+      str("emptyMessage", "No JSON to display.", { attr: "empty-message", alwaysPass: true }),
+      num("expandedDepth", 1, { attr: "expanded-depth" }),
+      str("invalidMessage", "Unable to parse JSON.", { attr: "invalid-message", alwaysPass: true }),
+      str("rootLabel", "JSON", { attr: "root-label", alwaysPass: true }),
+      str("value", "", { alwaysPass: true })
+    ]
+  }),
   component("CindorWorkspaceSwitcher", "cindor-workspace-switcher", {
     reactEvents: ["toggle", "select", "input", "change"],
     vueHandlers: [
