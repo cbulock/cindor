@@ -39,7 +39,8 @@ import type {
   ToastPlacement,
   ToolbarOrientation,
   VirtualListItemKey,
-  VirtualListItemRenderer
+  VirtualListItemRenderer,
+  WorkspaceSwitcherItem
 } from "cindor-ui-core";
 export { clearToasts, dismissToast, ensureToastRegion, showToast } from "cindor-ui-core";
 import "cindor-ui-core/register";
@@ -3343,6 +3344,64 @@ export const CindorVirtualList = defineComponent({
               overscan: props.overscan,
               ".renderItem": props.renderItem,
               onRangeChange: handleRangeChange,
+          });
+  }
+});
+
+export const CindorWorkspaceSwitcher = defineComponent({
+  name: "CindorWorkspaceSwitcher",
+  props: {
+    disabled: { type: Boolean, default: false },
+    emptyMessage: { type: String, default: "No workspaces match your search." },
+    items: { type: Array as PropType<WorkspaceSwitcherItem[]>, default: () => [] },
+    open: { type: Boolean, default: false },
+    placeholder: { type: String, default: "Select a workspace" },
+    searchLabel: { type: String, default: "Search workspaces" },
+    searchPlaceholder: { type: String, default: "Search workspaces" },
+    title: { type: String, default: "Switch workspace" },
+    triggerLabel: { type: String, default: "Toggle workspace switcher" },
+    modelValue: { type: String, default: "" }
+  },
+  emits: ["update:open", "toggle", "select", "update:modelValue", "input", "change"],
+  setup(props, { attrs, emit }) {
+    const handleToggle = (event: Event) => {
+      const target = event.currentTarget as OpenHost;
+      emit("update:open", target.open);
+      emit("toggle", event);
+    };
+
+    const handleSelect = (event: Event) => {
+      emit("select", event);
+    };
+
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as HTMLElement & { value: string };
+      emit("update:modelValue", target.value);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as HTMLElement & { value: string };
+      emit("update:modelValue", target.value);
+      emit("change", event);
+    };
+    return () =>
+          h("cindor-workspace-switcher", {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              "empty-message": props.emptyMessage,
+              ".items": props.items,
+              open: props.open || undefined,
+              placeholder: props.placeholder,
+              "search-label": props.searchLabel,
+              "search-placeholder": props.searchPlaceholder,
+              title: props.title,
+              "trigger-label": props.triggerLabel,
+              value: props.modelValue,
+              onToggle: handleToggle,
+              onSelect: handleSelect,
+              onInput: handleInput,
+              onChange: handleChange,
           });
   }
 });

@@ -8537,6 +8537,170 @@
       "slots": [],
       "summary": "Virtualized list surface for large collections.",
       "tagName": "cindor-virtual-list"
+    },
+    {
+      "className": "CindorWorkspaceSwitcher",
+      "description": "Searchable workspace and project switcher for app shells and multi-tenant tools.\n\nPass `items` to populate the switcher and use `value` to control the current selection.",
+      "modulePath": "packages/core/src/components/workspace-switcher/cindor-workspace-switcher.ts",
+      "properties": [
+        {
+          "attributeName": "activeIndex",
+          "defaultValue": "-1",
+          "description": "",
+          "name": "activeIndex",
+          "reflects": false,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "empty-message",
+          "defaultValue": "\"No workspaces match your search.\"",
+          "description": "",
+          "name": "emptyMessage",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "items",
+          "reflects": false,
+          "type": "WorkspaceSwitcherItem[]",
+          "values": null
+        },
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"Select a workspace\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "query",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "query",
+          "reflects": false,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "search-label",
+          "defaultValue": "\"Search workspaces\"",
+          "description": "",
+          "name": "searchLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "search-placeholder",
+          "defaultValue": "\"Search workspaces\"",
+          "description": "",
+          "name": "searchPlaceholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "title",
+          "defaultValue": "\"Switch workspace\"",
+          "description": "",
+          "name": "title",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "trigger-label",
+          "defaultValue": "\"Toggle workspace switcher\"",
+          "description": "",
+          "name": "triggerLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "show",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "close",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": false,
+              "type": "{ restoreFocus?: boolean }"
+            }
+          ],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the user selects an item.",
+          "name": "select",
+          "type": "CustomEvent<WorkspaceSwitcherSelectDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the current value changes.",
+          "name": "input",
+          "type": "CustomEvent<WorkspaceSwitcherSelectDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the current value changes.",
+          "name": "change",
+          "type": "CustomEvent<WorkspaceSwitcherSelectDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the panel opens or closes.",
+          "name": "toggle",
+          "type": "CustomEvent<{ open: boolean }>",
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "Searchable workspace switcher for cross-project navigation.",
+      "tagName": "cindor-workspace-switcher"
     }
   ]
 }

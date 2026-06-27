@@ -146,6 +146,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("tree-view", "Tree View", "Component", "Navigation", "hierarchical tree", "Single-selection tree surface for nested navigation and content hierarchies."),
   defineComponent("tooltip", "Tooltip", "Primitive", "Overlays", "hover and focus hint", "Contextual hint surface for terse supporting text."),
   defineComponent("virtual-list", "Virtual List", "Component", "Data", "virtualized scroll region", "Windowed list surface for rendering large collections without mounting every row at once."),
+  defineComponent("workspace-switcher", "Workspace Switcher", "Component", "Navigation", "searchable workspace picker", "Searchable workspace and project switcher for multi-surface product shells."),
   defineComponent("url-input", "URL Input", "Primitive", "Forms", "input type=url", "URL field variant built from the shared input shell.")
 ].sort((left, right) => left.title.localeCompare(right.title));
 

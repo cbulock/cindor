@@ -68,7 +68,8 @@ export const componentDependencySlugs: Record<string, string[]> = {
   "tag-input": ["listbox", "option"],
   toast: ["icon-button"],
   "transfer-list": ["button", "form-field"],
-  "tree-grid": ["data-table"]
+  "tree-grid": ["data-table"],
+  "workspace-switcher": ["icon"]
 };
 
 export const previewDependencySlugs: Record<string, string[]> = {

@@ -1030,6 +1030,37 @@ export const componentDefinitions = [
       func("renderItem", "VirtualListItemRenderer<unknown> | undefined")
     ]
   }),
+  component("CindorWorkspaceSwitcher", "cindor-workspace-switcher", {
+    reactEvents: ["toggle", "select", "input", "change"],
+    vueHandlers: [
+      currentOpen,
+      handler("select"),
+      handler("input", {
+        emitName: "input",
+        modelEmit: "update:modelValue",
+        modelHostProperty: "value",
+        modelHostType: "HTMLElement & { value: string }"
+      }),
+      handler("change", {
+        emitName: "change",
+        modelEmit: "update:modelValue",
+        modelHostProperty: "value",
+        modelHostType: "HTMLElement & { value: string }"
+      })
+    ],
+    vueProps: [
+      bool("disabled"),
+      str("emptyMessage", "No workspaces match your search.", { attr: "empty-message", alwaysPass: true }),
+      arr("items", "WorkspaceSwitcherItem[]"),
+      bool("open"),
+      str("placeholder", "Select a workspace", { alwaysPass: true }),
+      str("searchLabel", "Search workspaces", { attr: "search-label", alwaysPass: true }),
+      str("searchPlaceholder", "Search workspaces", { attr: "search-placeholder", alwaysPass: true }),
+      str("title", "Switch workspace", { alwaysPass: true }),
+      str("triggerLabel", "Toggle workspace switcher", { attr: "trigger-label", alwaysPass: true }),
+      str("modelValue", "", { attr: "value", alwaysPass: true })
+    ]
+  }),
   component("CindorSideNav", "cindor-side-nav", {
     slots: slots.default
   }),
