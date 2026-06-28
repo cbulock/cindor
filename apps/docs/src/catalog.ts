@@ -91,6 +91,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("icon-button", "Icon Button", "Primitive", "Actions", "button plus icon", "Icon-only action button built from the core button surface."),
   defineComponent("input", "Input", "Primitive", "Forms", "input type=text", "Shared text input shell and the foundation for typed input variants."),
   defineComponent("inline-edit", "Inline Edit", "Component", "Forms", "editable text display", "Inline text editing surface for names, labels, and lightweight settings."),
+  defineComponent("kanban-board", "Kanban Board", "Component", "Data", "board columns and cards", "Board-style planning surface for task and status workflows."),
   defineComponent("layout", "Layout", "Composite", "Display", "page section scaffold", "Page-level layout container that composes header and content regions with Cindor spacing."),
   defineComponent("layout-content", "Layout Content", "Primitive", "Display", "section region", "Primary content region for cards, forms, tables, and page sections."),
   defineComponent("layout-header", "Layout Header", "Primitive", "Display", "header region", "Header region for titles, breadcrumbs, actions, and supporting metadata."),

@@ -20,6 +20,7 @@ export const docsRouteComponentSlugs = [
   "icon",
   "icon-button",
   "input",
+  "kanban-board",
   "layout",
   "layout-content",
   "layout-header",

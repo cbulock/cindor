@@ -61,7 +61,7 @@ export const plannedComponents: PlannedComponent[] = [
     phase: "Workspace and authoring",
     rationale: "The docs and patterns already talk about projects and workspaces, but there is no first-class shell switcher for moving between them.",
     slug: "workspace-switcher",
-    status: "next",
+    status: "shipped",
     summary: "Create a dedicated workspace and project switcher that fits the existing app-shell story.",
     title: "Workspace switcher"
   },
@@ -70,7 +70,7 @@ export const plannedComponents: PlannedComponent[] = [
     phase: "Workspace and authoring",
     rationale: "Admin and product tooling constantly needs to inspect structured payloads, and a plain code block is not enough for that job.",
     slug: "json-viewer",
-    status: "queued",
+    status: "next",
     summary: "Expose collapsible structured JSON inspection for payloads, logs, settings, and API responses.",
     title: "JSON viewer"
   },
@@ -97,7 +97,7 @@ export const plannedComponents: PlannedComponent[] = [
     phase: "Guidance and onboarding",
     rationale: "Cindor has strong shell and collection pieces, but there is still no first-class board view for task and status management workflows.",
     slug: "kanban-board",
-    status: "queued",
+    status: "shipped",
     summary: "Add a board-style planning and status surface for operational and product workflow apps.",
     title: "Kanban board"
   }

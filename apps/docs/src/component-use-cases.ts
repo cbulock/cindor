@@ -723,6 +723,20 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
       description: "Reach for it when teams need a first-class grid primitive instead of repeating one-off CSS grid wrappers across features."
     }
   ],
+  "kanban-board": [
+    {
+      title: "Workflow status boards",
+      description: "Use it when teams need to scan work by stage, compare lane pressure, and keep active items visible without drilling into a table."
+    },
+    {
+      title: "Operational planning surfaces",
+      description: "Place it in product ops, launch, support, or editorial workflows where ownership and next action matter more than raw record density."
+    },
+    {
+      title: "Shared standup context",
+      description: "Reach for it when a team needs one board-style surface for triage, in-progress work, blockers, and recently shipped tasks."
+    }
+  ],
   layout: [
     {
       title: "Reusable page shells",

@@ -87,6 +87,16 @@ export { CindorIcon, type LucideIconName } from "./components/icon/cindor-icon.j
 export { CindorIconButton } from "./components/icon-button/cindor-icon-button.js";
 export { CindorInput } from "./components/input/cindor-input.js";
 export { CindorInlineEdit } from "./components/inline-edit/cindor-inline-edit.js";
+export {
+  CindorKanbanBoard,
+  type KanbanBoardAccent,
+  type KanbanBoardActionDetail,
+  type KanbanBoardActionVariant,
+  type KanbanBoardCard,
+  type KanbanBoardCardAction,
+  type KanbanBoardColumn,
+  type KanbanBoardSelectDetail
+} from "./components/kanban-board/cindor-kanban-board.js";
 export { CindorLayout } from "./components/layout/cindor-layout.js";
 export { CindorLayoutContent } from "./components/layout-content/cindor-layout-content.js";
 export { CindorLayoutHeader } from "./components/layout-header/cindor-layout-header.js";

@@ -19,6 +19,7 @@ import type {
   FilterBuilderField,
   GridAlign,
   GridGap,
+  KanbanBoardColumn,
   LucideIconName,
   ProviderTheme,
   ProviderThemeFamily,
@@ -3344,6 +3345,36 @@ export const CindorVirtualList = defineComponent({
               overscan: props.overscan,
               ".renderItem": props.renderItem,
               onRangeChange: handleRangeChange,
+          });
+  }
+});
+
+export const CindorKanbanBoard = defineComponent({
+  name: "CindorKanbanBoard",
+  props: {
+    columns: { type: Array as PropType<KanbanBoardColumn[]>, default: () => [] },
+    emptyMessage: { type: String, default: "No cards in this column." },
+    selectedCardId: { type: String, default: "" }
+  },
+  emits: ["update:selectedCardId", "select", "card-action"],
+  setup(props, { attrs, emit }) {
+    const handleSelect = (event: Event) => {
+      const target = event.currentTarget as HTMLElement & { selectedCardId: string };
+      emit("update:selectedCardId", target.selectedCardId);
+      emit("select", event);
+    };
+
+    const handleCardAction = (event: Event) => {
+      emit("card-action", event);
+    };
+    return () =>
+          h("cindor-kanban-board", {
+              ...attrs,
+              ".columns": props.columns,
+              "empty-message": props.emptyMessage,
+              "selected-card-id": props.selectedCardId,
+              onSelect: handleSelect,
+              onCardAction: handleCardAction,
           });
   }
 });

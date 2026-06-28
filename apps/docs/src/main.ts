@@ -3,7 +3,7 @@ import "./app.css";
 import cindorIconUrl from "../../../branding/cindor-icon.png";
 import cindorWordmarkUrl from "../../../branding/cindor-wordmark.png";
 
-import type { CommandPaletteCommand, FilterBuilderField, SegmentedControlOption, StepperStep, WorkspaceSwitcherItem } from "cindor-ui-core";
+import type { CommandPaletteCommand, FilterBuilderField, KanbanBoardColumn, SegmentedControlOption, StepperStep, WorkspaceSwitcherItem } from "cindor-ui-core";
 
 import {
   componentCatalog,
@@ -73,6 +73,11 @@ type VirtualListHost = HTMLElement & {
 type WorkspaceSwitcherHost = HTMLElement & {
   items: WorkspaceSwitcherItem[];
   value: string;
+};
+
+type KanbanBoardHost = HTMLElement & {
+  columns: KanbanBoardColumn[];
+  selectedCardId: string;
 };
 
 type ApiItem = {
@@ -230,6 +235,70 @@ const componentPlaygroundUrls = new Map(
     })
     .filter((entry): entry is readonly [string, string] => Boolean(entry))
 );
+const kanbanBoardDemoColumns: KanbanBoardColumn[] = [
+  {
+    id: "triage",
+    title: "Triage",
+    description: "Incoming work that still needs scope, owner, or priority.",
+    meta: "Updated 8 minutes ago",
+    accent: "warning",
+    cards: [
+      {
+        id: "triage-1",
+        title: "Review billing edge cases",
+        description: "Confirm retry behavior, dispute handoff, and what blocks launch sign-off.",
+        eyebrow: "Needs owner",
+        meta: "2 contributors",
+        tags: ["Revenue", "API"],
+        actions: [{ key: "assign", label: "Assign" }]
+      },
+      {
+        id: "triage-2",
+        title: "Document import limits",
+        description: "Capture file-size thresholds and parser failure recovery in the admin guide.",
+        eyebrow: "Docs",
+        meta: "Today",
+        tags: ["Docs"]
+      }
+    ]
+  },
+  {
+    id: "building",
+    title: "Building",
+    description: "Active implementation work with clear owners and next actions.",
+    meta: "Capacity 3",
+    accent: "accent",
+    limit: 3,
+    cards: [
+      {
+        id: "building-1",
+        title: "Ship kanban board component",
+        description: "Land core behavior, docs, tests, and wrapper generation in one pass.",
+        eyebrow: "In progress",
+        meta: "Design systems",
+        tags: ["UI", "Docs"],
+        actions: [{ key: "open-pr", label: "Open PR", variant: "solid" }]
+      }
+    ]
+  },
+  {
+    id: "done",
+    title: "Done",
+    description: "Recently completed work ready for follow-up or rollout.",
+    meta: "This week",
+    accent: "success",
+    cards: [
+      {
+        id: "done-1",
+        title: "Merge workspace switcher",
+        description: "Keyboard support, grouped search results, and docs wiring are now in place.",
+        eyebrow: "Shipped",
+        meta: "Production",
+        tags: ["Navigation"]
+      }
+    ]
+  }
+];
 const lucideIconModules = import.meta.glob("../../../node_modules/lucide/dist/esm/icons/*.mjs");
 const lucideIconNames = Object.keys(lucideIconModules)
   .map((path) => path.split("/").at(-1)?.replace(/\.mjs$/u, "") ?? "")
@@ -1119,7 +1188,7 @@ function renderDocsHome(activeSectionId: string): string {
           <div class="roadmap-overview">
             <div class="preview-block">
               <strong>What just landed</strong>
-              <p class="muted"><code>virtual-list</code>, <code>sortable-list</code>, <code>field-array</code>, <code>data-grid</code>, and <code>tree-grid</code> now anchor the collection foundation work. <code>workspace-switcher</code> is the next meaningful gap in that sequence.</p>
+              <p class="muted"><code>virtual-list</code>, <code>sortable-list</code>, <code>field-array</code>, <code>data-grid</code>, <code>tree-grid</code>, <code>workspace-switcher</code>, and <code>kanban-board</code> now cover the current workflow roadmap. <code>json-viewer</code> is the next meaningful gap in that sequence.</p>
             </div>
             <div class="preview-block">
               <strong>How the backlog is grouped</strong>
@@ -2028,6 +2097,14 @@ function hydrateComponentPage(slug: string): void {
     }
   }
 
+  if (slug === "kanban-board") {
+    const board = root.querySelector<KanbanBoardHost>('[data-component-preview="kanban-board"] #component-kanban-board');
+    if (board) {
+      board.columns = kanbanBoardDemoColumns;
+      board.selectedCardId = "building-1";
+    }
+  }
+
   if (slug === "stepper") {
     const stepper = root.querySelector<StepperHost>('[data-component-preview="stepper"] #stepper-preview');
     if (stepper) {
@@ -2814,6 +2891,12 @@ function getUsageCode(doc: ComponentDoc): string {
       return `<cindor-input placeholder="Project name"></cindor-input>`;
     case "inline-edit":
       return `<cindor-inline-edit value="Quarterly roadmap"></cindor-inline-edit>`;
+    case "kanban-board":
+      return `<cindor-kanban-board id="component-kanban-board" selected-card-id="building-1"></cindor-kanban-board>
+<script type="module">
+  const board = document.querySelector("#component-kanban-board");
+  board.columns = ${JSON.stringify(kanbanBoardDemoColumns, null, 2)};
+</script>`;
     case "layout":
       return `<cindor-layout>
   <cindor-layout-header>
@@ -3167,6 +3250,18 @@ export function Example() {
 }`;
   }
 
+  if (doc.slug === "kanban-board") {
+    return `import "cindor-ui-core/styles.css";
+import { CindorKanbanBoard } from "cindor-ui-react";
+import type { KanbanBoardColumn } from "cindor-ui-core";
+
+const columns: KanbanBoardColumn[] = ${JSON.stringify(kanbanBoardDemoColumns, null, 2)};
+
+export function Example() {
+  return <CindorKanbanBoard columns={columns} selectedCardId="building-1" />;
+}`;
+  }
+
   return `import "cindor-ui-core/styles.css";
 import { ${componentName} } from "cindor-ui-react";
 
@@ -3244,6 +3339,20 @@ const handleRowAction = (event: Event) => {
     :rows="rows"
     @row-action="handleRowAction"
   />
+</template>`;
+  }
+
+  if (doc.slug === "kanban-board") {
+    return `<script setup lang="ts">
+import "cindor-ui-core/styles.css";
+import { CindorKanbanBoard } from "cindor-ui-vue";
+import type { KanbanBoardColumn } from "cindor-ui-core";
+
+const columns: KanbanBoardColumn[] = ${JSON.stringify(kanbanBoardDemoColumns, null, 2)};
+</script>
+
+<template>
+  <CindorKanbanBoard :columns="columns" selected-card-id="building-1" />
 </template>`;
   }
 
@@ -4075,6 +4184,8 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
       return doc.slug === "filter-builder" ? `<cindor-filter-builder id="filter-builder-preview"></cindor-filter-builder>` : getUsageCode(doc);
     case "virtual-list":
       return `<cindor-virtual-list id="component-virtual-list" height="20rem" item-height="72"></cindor-virtual-list>`;
+    case "kanban-board":
+      return `<cindor-kanban-board id="component-kanban-board" selected-card-id="building-1"></cindor-kanban-board>`;
     case "workspace-switcher":
       return `<cindor-workspace-switcher id="component-workspace-switcher" value="ops"></cindor-workspace-switcher>`;
     case "data-table":

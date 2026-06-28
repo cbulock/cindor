@@ -1030,6 +1030,23 @@ export const componentDefinitions = [
       func("renderItem", "VirtualListItemRenderer<unknown> | undefined")
     ]
   }),
+  component("CindorKanbanBoard", "cindor-kanban-board", {
+    reactEvents: ["select", "card-action"],
+    vueHandlers: [
+      handler("select", {
+        emitName: "select",
+        modelEmit: "update:selectedCardId",
+        modelHostProperty: "selectedCardId",
+        modelHostType: "HTMLElement & { selectedCardId: string }"
+      }),
+      handler("card-action")
+    ],
+    vueProps: [
+      arr("columns", "KanbanBoardColumn[]"),
+      str("emptyMessage", "No cards in this column.", { attr: "empty-message", alwaysPass: true }),
+      str("selectedCardId", "", { attr: "selected-card-id", alwaysPass: true })
+    ]
+  }),
   component("CindorWorkspaceSwitcher", "cindor-workspace-switcher", {
     reactEvents: ["toggle", "select", "input", "change"],
     vueHandlers: [

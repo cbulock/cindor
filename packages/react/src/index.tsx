@@ -110,6 +110,7 @@ import {
   CindorTransferList as CindorTransferListElement,
   CindorSortableList as CindorSortableListElement,
   CindorVirtualList as CindorVirtualListElement,
+  CindorKanbanBoard as CindorKanbanBoardElement,
   CindorWorkspaceSwitcher as CindorWorkspaceSwitcherElement,
   CindorSideNav as CindorSideNavElement,
   CindorSideNavItem as CindorSideNavItemElement,
@@ -974,6 +975,16 @@ export const CindorVirtualList = createComponent({
   elementClass: CindorVirtualListElement,
   events: {
     onRangeChange: "range-change"
+  }
+});
+
+export const CindorKanbanBoard = createComponent({
+  react: React,
+  tagName: "cindor-kanban-board",
+  elementClass: CindorKanbanBoardElement,
+  events: {
+    onSelect: "select",
+    onCardAction: "card-action"
   }
 });
 

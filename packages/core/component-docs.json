@@ -4059,6 +4059,58 @@
       "tagName": "cindor-input"
     },
     {
+      "className": "CindorKanbanBoard",
+      "description": "Board-style planning surface for grouped workflow cards.\n\nPass `columns` to render board lanes and use `selectedCardId` to reflect the current active card.",
+      "modulePath": "packages/core/src/components/kanban-board/cindor-kanban-board.ts",
+      "properties": [
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "Ordered columns rendered by the board.",
+          "name": "columns",
+          "reflects": false,
+          "type": "KanbanBoardColumn[]",
+          "values": null
+        },
+        {
+          "attributeName": "empty-message",
+          "defaultValue": "\"No cards in this column.\"",
+          "description": "Message rendered when a column has no cards.",
+          "name": "emptyMessage",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "selected-card-id",
+          "defaultValue": "\"\"",
+          "description": "Current selected card identifier.",
+          "name": "selectedCardId",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "description": "Fired when a card action button is pressed.",
+          "name": "card-action",
+          "type": "CustomEvent<KanbanBoardActionDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when a card is selected.",
+          "name": "select",
+          "type": "CustomEvent<KanbanBoardSelectDetail>",
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "Board-style planning and status surface for workflow apps.",
+      "tagName": "cindor-kanban-board"
+    },
+    {
       "className": "CindorLayout",
       "description": "Vertical layout container for page and workflow composition.",
       "modulePath": "packages/core/src/components/layout/cindor-layout.ts",
