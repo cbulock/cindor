@@ -70,6 +70,11 @@ type VirtualListHost = HTMLElement & {
   items: Array<{ description: string; id: string; label: string; meta: string }>;
 };
 
+type MarkdownEditorHost = HTMLElement & {
+  mode: string;
+  value: string;
+};
+
 type WorkspaceSwitcherHost = HTMLElement & {
   items: WorkspaceSwitcherItem[];
   value: string;
@@ -497,6 +502,21 @@ const virtualListPreviewItems = [
     meta: "Today"
   }
 ] as const;
+
+const markdownEditorPreviewValue = `# Release notes
+
+Ship the new workspace shell with:
+
+- refreshed navigation
+- payload inspection
+- updated setup docs
+
+> Coordinate rollout with support before enabling the feature flag.
+
+\`\`\`ts
+const ready = true;
+\`\`\`
+`;
 
 const workspaceSwitcherPreviewItems: WorkspaceSwitcherItem[] = [
   {
@@ -1119,7 +1139,7 @@ function renderDocsHome(activeSectionId: string): string {
           <div class="roadmap-overview">
             <div class="preview-block">
               <strong>What just landed</strong>
-              <p class="muted"><code>virtual-list</code>, <code>sortable-list</code>, <code>field-array</code>, <code>data-grid</code>, and <code>tree-grid</code> now anchor the collection foundation work. <code>workspace-switcher</code> is the next meaningful gap in that sequence.</p>
+              <p class="muted"><code>virtual-list</code>, <code>sortable-list</code>, <code>field-array</code>, <code>data-grid</code>, <code>tree-grid</code>, <code>workspace-switcher</code>, and <code>markdown-editor</code> now anchor the current roadmap work. <code>json-viewer</code> is the next meaningful gap in that sequence.</p>
             </div>
             <div class="preview-block">
               <strong>How the backlog is grouped</strong>
@@ -2044,6 +2064,14 @@ function hydrateComponentPage(slug: string): void {
     const virtualList = root.querySelector<VirtualListHost>('[data-component-preview="virtual-list"] #component-virtual-list');
     if (virtualList) {
       virtualList.items = [...virtualListPreviewItems];
+    }
+  }
+
+  if (slug === "markdown-editor") {
+    const editor = root.querySelector<MarkdownEditorHost>('[data-component-preview="markdown-editor"] #component-markdown-editor');
+    if (editor) {
+      editor.mode = "split";
+      editor.value = markdownEditorPreviewValue;
     }
   }
 
@@ -3040,6 +3068,12 @@ function getUsageCode(doc: ComponentDoc): string {
 </script>`;
     case "virtual-list":
       return `<cindor-virtual-list id="component-virtual-list" height="20rem" item-height="72"></cindor-virtual-list>`;
+    case "markdown-editor":
+      return `<cindor-markdown-editor id="component-markdown-editor" mode="split"></cindor-markdown-editor>
+<script type="module">
+  const editor = document.querySelector("#component-markdown-editor");
+  editor.value = ${JSON.stringify(markdownEditorPreviewValue, null, 2)};
+</script>`;
     case "workspace-switcher":
       return `<cindor-workspace-switcher id="component-workspace-switcher" value="ops"></cindor-workspace-switcher>
 <script type="module">
@@ -3599,6 +3633,18 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
         { id: "3", label: "Rotate incident owner", description: "Hand off the current incident queue to the next responder.", meta: "Today" }
       ]}
     />`;
+    case "markdown-editor":
+      return `<${componentName}
+      mode="split"
+      value={\`# Release notes
+
+Ship the new workspace shell with:
+
+- refreshed navigation
+- payload inspection
+- updated setup docs
+\`}
+    />`;
     case "workspace-switcher":
       return `<${componentName}
       value="ops"
@@ -3945,6 +3991,18 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
       { id: '3', label: 'Rotate incident owner', description: 'Hand off the current incident queue to the next responder.', meta: 'Today' }
     ]"
   />`;
+    case "markdown-editor":
+      return `<${componentName}
+    mode="split"
+    :model-value="\`# Release notes
+
+Ship the new workspace shell with:
+
+- refreshed navigation
+- payload inspection
+- updated setup docs
+\`"
+  />`;
     case "workspace-switcher":
       return `<${componentName}
     model-value="ops"
@@ -4075,6 +4133,8 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
       return doc.slug === "filter-builder" ? `<cindor-filter-builder id="filter-builder-preview"></cindor-filter-builder>` : getUsageCode(doc);
     case "virtual-list":
       return `<cindor-virtual-list id="component-virtual-list" height="20rem" item-height="72"></cindor-virtual-list>`;
+    case "markdown-editor":
+      return `<cindor-markdown-editor id="component-markdown-editor" mode="split"></cindor-markdown-editor>`;
     case "workspace-switcher":
       return `<cindor-workspace-switcher id="component-workspace-switcher" value="ops"></cindor-workspace-switcher>`;
     case "data-table":

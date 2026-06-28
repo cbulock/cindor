@@ -110,6 +110,7 @@ import {
   CindorTransferList as CindorTransferListElement,
   CindorSortableList as CindorSortableListElement,
   CindorVirtualList as CindorVirtualListElement,
+  CindorMarkdownEditor as CindorMarkdownEditorElement,
   CindorWorkspaceSwitcher as CindorWorkspaceSwitcherElement,
   CindorSideNav as CindorSideNavElement,
   CindorSideNavItem as CindorSideNavItemElement,
@@ -974,6 +975,16 @@ export const CindorVirtualList = createComponent({
   elementClass: CindorVirtualListElement,
   events: {
     onRangeChange: "range-change"
+  }
+});
+
+export const CindorMarkdownEditor = createComponent({
+  react: React,
+  tagName: "cindor-markdown-editor",
+  elementClass: CindorMarkdownEditorElement,
+  events: {
+    onInput: "input",
+    onChange: "change"
   }
 });
 

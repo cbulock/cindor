@@ -100,6 +100,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("menu-item", "Menu Item", "Primitive", "Overlays", "menu item", "Selectable action row inside a menu."),
   defineComponent("menubar", "Menubar", "Component", "Navigation", "application menubar", "Horizontal application menubar with roving keyboard focus."),
   defineComponent("meter", "Meter", "Primitive", "Data", "meter", "Bounded scalar indicator for quality, score, or health."),
+  defineComponent("markdown-editor", "Markdown Editor", "Component", "Forms", "markdown authoring workspace", "Markdown authoring surface with write, preview, and split editing modes."),
   defineComponent("multi-select", "Multi Select", "Component", "Selection", "input plus multiselectable listbox", "Searchable multi-select picker with chip summaries for selected values."),
   defineComponent("navigation-rail", "Navigation Rail", "Component", "Navigation", "compact nav landmark", "Compact icon-and-label app navigation rail for dashboard shells."),
   defineComponent("navigation-rail-item", "Navigation Rail Item", "Primitive", "Navigation", "compact nav row", "Single destination inside a navigation rail with icon and label support."),

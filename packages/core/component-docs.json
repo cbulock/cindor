@@ -4232,6 +4232,223 @@
       "tagName": "cindor-listbox"
     },
     {
+      "className": "CindorMarkdownEditor",
+      "description": "Markdown authoring surface with write, preview, and split modes.\n\nUse the built-in toolbar for lightweight formatting shortcuts and switch to preview mode to review rendered output.",
+      "modulePath": "packages/core/src/components/markdown-editor/cindor-markdown-editor.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "mode",
+          "defaultValue": "\"write\"",
+          "description": "",
+          "name": "mode",
+          "reflects": true,
+          "type": "\"write\" | \"preview\" | \"split\"",
+          "values": [
+            "write",
+            "preview",
+            "split"
+          ]
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"Write in Markdown...\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "preview-empty-message",
+          "defaultValue": "\"Nothing to preview yet.\"",
+          "description": "",
+          "name": "previewEmptyMessage",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "preview-label",
+          "defaultValue": "\"Preview\"",
+          "description": "",
+          "name": "previewLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "readonly",
+          "defaultValue": "false",
+          "description": "",
+          "name": "readonly",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "rows",
+          "defaultValue": "14",
+          "description": "",
+          "name": "rows",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "split-label",
+          "defaultValue": "\"Split\"",
+          "description": "",
+          "name": "splitLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "toolbar-label",
+          "defaultValue": "\"Formatting\"",
+          "description": "",
+          "name": "toolbarLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "write-label",
+          "defaultValue": "\"Write\"",
+          "description": "",
+          "name": "writeLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "wrapSelection",
+          "parameters": [
+            {
+              "name": "prefix",
+              "optional": false,
+              "type": "string"
+            },
+            {
+              "name": "suffix",
+              "optional": false,
+              "type": "string"
+            },
+            {
+              "name": "fallbackText",
+              "optional": false,
+              "type": "string"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "prefixLines",
+          "parameters": [
+            {
+              "name": "prefix",
+              "optional": false,
+              "type": "string"
+            }
+          ],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "",
+          "name": "eventName",
+          "type": "Event",
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "Markdown editor with toolbar shortcuts and live preview.",
+      "tagName": "cindor-markdown-editor"
+    },
+    {
       "className": "CindorMenu",
       "description": "",
       "modulePath": "packages/core/src/components/menu/cindor-menu.ts",
