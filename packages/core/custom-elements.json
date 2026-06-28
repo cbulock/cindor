@@ -205,121 +205,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Activity Item\", render: () => ` <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Ops\"></cindor-avatar> <span slot=\"title\">Database failover completed</span> <span slot=\"timestamp\">5 minutes ago</span> <span slot=\"meta\">Primary cluster</span> Connections were restored automatically after the failover. </cindor-activity-item> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-item/cindor-activity-item.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Single event row used inside CindorActivityFeed.",
-          "name": "CindorActivityItem",
-          "slots": [
-            {
-              "description": "Leading avatar, icon, or status mark.",
-              "name": "leading"
-            },
-            {
-              "description": "Main activity title.",
-              "name": "title"
-            },
-            {
-              "description": "Time or date associated with the event.",
-              "name": "timestamp"
-            },
-            {
-              "description": "Supplemental metadata such as actor, environment, or destination.",
-              "name": "meta"
-            },
-            {
-              "description": "Optional trailing actions for the activity.",
-              "name": "actions"
-            },
-            {
-              "description": "Main event description.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "unread",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "unread",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "unread",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "unread"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorActivityItem",
-          "declaration": {
-            "name": "CindorActivityItem",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
       "declarations": [
         {
@@ -980,6 +865,121 @@
           "declaration": {
             "name": "CindorAutocomplete",
             "module": "packages/core/src/components/autocomplete/cindor-autocomplete.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Activity Item\", render: () => ` <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Ops\"></cindor-avatar> <span slot=\"title\">Database failover completed</span> <span slot=\"timestamp\">5 minutes ago</span> <span slot=\"meta\">Primary cluster</span> Connections were restored automatically after the failover. </cindor-activity-item> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-item/cindor-activity-item.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Single event row used inside CindorActivityFeed.",
+          "name": "CindorActivityItem",
+          "slots": [
+            {
+              "description": "Leading avatar, icon, or status mark.",
+              "name": "leading"
+            },
+            {
+              "description": "Main activity title.",
+              "name": "title"
+            },
+            {
+              "description": "Time or date associated with the event.",
+              "name": "timestamp"
+            },
+            {
+              "description": "Supplemental metadata such as actor, environment, or destination.",
+              "name": "meta"
+            },
+            {
+              "description": "Optional trailing actions for the activity.",
+              "name": "actions"
+            },
+            {
+              "description": "Main event description.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "unread",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "unread",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "unread",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "unread"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorActivityItem",
+          "declaration": {
+            "name": "CindorActivityItem",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
           }
         }
       ]
@@ -3647,6 +3647,146 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/code-block/cindor-code-block.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Components/Code Block\", args: { code: `<cindor-button variant=\"ghost\">Cancel</cindor-button>`, language: \"html\" }, render: ({ code, language }: CodeBlockStoryArgs) => `<cindor-code-block code=\"${code.replace(/\"/g, \"&quot;\")}\" ${language ? `language=\"${language}\"` : \"\"}></cindor-code-block>` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/code-block/cindor-code-block.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/code-block/cindor-code-block.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/code-block/cindor-code-block.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorCodeBlock",
+          "members": [
+            {
+              "kind": "field",
+              "name": "code",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "code",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "language",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "language",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "slotCode",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "handleSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "sourceCode",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "highlightedCode",
+              "type": {
+                "text": "{ className: string; html: string }"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "code",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "code"
+            },
+            {
+              "name": "language",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "language"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorCodeBlock",
+          "declaration": {
+            "name": "CindorCodeBlock",
+            "module": "packages/core/src/components/code-block/cindor-code-block.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/color-input/cindor-color-input.stories.ts",
       "declarations": [
         {
@@ -3872,146 +4012,6 @@
           "declaration": {
             "name": "CindorColorInput",
             "module": "packages/core/src/components/color-input/cindor-color-input.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/code-block/cindor-code-block.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Components/Code Block\", args: { code: `<cindor-button variant=\"ghost\">Cancel</cindor-button>`, language: \"html\" }, render: ({ code, language }: CodeBlockStoryArgs) => `<cindor-code-block code=\"${code.replace(/\"/g, \"&quot;\")}\" ${language ? `language=\"${language}\"` : \"\"}></cindor-code-block>` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/code-block/cindor-code-block.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/code-block/cindor-code-block.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/code-block/cindor-code-block.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorCodeBlock",
-          "members": [
-            {
-              "kind": "field",
-              "name": "code",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "code",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "language",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "language",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "slotCode",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "\"\""
-            },
-            {
-              "kind": "field",
-              "name": "handleSlotChange",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "sourceCode",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "highlightedCode",
-              "type": {
-                "text": "{ className: string; html: string }"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "code",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "code"
-            },
-            {
-              "name": "language",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "language"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorCodeBlock",
-          "declaration": {
-            "name": "CindorCodeBlock",
-            "module": "packages/core/src/components/code-block/cindor-code-block.ts"
           }
         }
       ]
@@ -17769,6 +17769,268 @@
           "declaration": {
             "name": "CindorJsonViewer",
             "module": "packages/core/src/components/json-viewer/cindor-json-viewer.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/kanban-board/cindor-kanban-board.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Data/Kanban Board\", render: () => ` <cindor-kanban-board id=\"storybook-kanban-board\" selected-card-id=\"build-1\"></cindor-kanban-board> <script type=\"module\"> const board = document.querySelector(\"#storybook-kanban-board\"); board.columns = ${JSON.stringify(boardColumns, null, 2)}; </script> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/kanban-board/cindor-kanban-board.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/kanban-board/cindor-kanban-board.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/kanban-board/cindor-kanban-board.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Board-style planning surface for grouped workflow cards.\n\nPass `columns` to render board lanes and use `selectedCardId` to reflect the current active card.",
+          "name": "CindorKanbanBoard",
+          "members": [
+            {
+              "kind": "field",
+              "name": "columns",
+              "privacy": "public",
+              "type": {
+                "text": "KanbanBoardColumn[]"
+              },
+              "default": "[]",
+              "description": "Ordered columns rendered by the board."
+            },
+            {
+              "kind": "field",
+              "name": "emptyMessage",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"No cards in this column.\"",
+              "description": "Message rendered when a column has no cards.",
+              "attribute": "empty-message",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "selectedCardId",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Current selected card identifier.",
+              "attribute": "selected-card-id",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "renderColumn",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "KanbanBoardColumn"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderCard",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "KanbanBoardColumn"
+                  }
+                },
+                {
+                  "name": "card",
+                  "type": {
+                    "text": "KanbanBoardCard"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleCardKeyDown",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                },
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "KanbanBoardColumn"
+                  }
+                },
+                {
+                  "name": "card",
+                  "type": {
+                    "text": "KanbanBoardCard"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleCardAction",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                },
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "KanbanBoardColumn"
+                  }
+                },
+                {
+                  "name": "card",
+                  "type": {
+                    "text": "KanbanBoardCard"
+                  }
+                },
+                {
+                  "name": "action",
+                  "type": {
+                    "text": "KanbanBoardCardAction"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "selectCard",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "KanbanBoardColumn"
+                  }
+                },
+                {
+                  "name": "card",
+                  "type": {
+                    "text": "KanbanBoardCard"
+                  }
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "name": "card-action",
+              "type": {
+                "text": "CustomEvent<KanbanBoardActionDetail>"
+              },
+              "description": "Fired when a card action button is pressed."
+            },
+            {
+              "name": "select",
+              "type": {
+                "text": "CustomEvent<KanbanBoardSelectDetail>"
+              },
+              "description": "Fired when a card is selected."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "empty-message",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"No cards in this column.\"",
+              "description": "Message rendered when a column has no cards.",
+              "fieldName": "emptyMessage"
+            },
+            {
+              "name": "selected-card-id",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Current selected card identifier.",
+              "fieldName": "selectedCardId"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "cindor-kanban-board",
+          "customElement": true,
+          "summary": "Board-style planning and status surface for workflow apps."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorKanbanBoard",
+          "declaration": {
+            "name": "CindorKanbanBoard",
+            "module": "packages/core/src/components/kanban-board/cindor-kanban-board.ts"
           }
         }
       ]

@@ -113,6 +113,7 @@ import {
   CindorVirtualList as CindorVirtualListElement,
   CindorJsonViewer as CindorJsonViewerElement,
   CindorMarkdownEditor as CindorMarkdownEditorElement,
+  CindorKanbanBoard as CindorKanbanBoardElement,
   CindorWorkspaceSwitcher as CindorWorkspaceSwitcherElement,
   CindorSideNav as CindorSideNavElement,
   CindorSideNavItem as CindorSideNavItemElement,
@@ -1005,6 +1006,16 @@ export const CindorMarkdownEditor = createComponent({
   events: {
     onInput: "input",
     onChange: "change"
+  }
+});
+
+export const CindorKanbanBoard = createComponent({
+  react: React,
+  tagName: "cindor-kanban-board",
+  elementClass: CindorKanbanBoardElement,
+  events: {
+    onSelect: "select",
+    onCardAction: "card-action"
   }
 });
 

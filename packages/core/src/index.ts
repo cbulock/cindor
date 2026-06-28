@@ -90,6 +90,16 @@ export { CindorInput } from "./components/input/cindor-input.js";
 export { CindorInlineEdit } from "./components/inline-edit/cindor-inline-edit.js";
 export { CindorJsonViewer, type JsonViewerValue } from "./components/json-viewer/cindor-json-viewer.js";
 export { CindorMarkdownEditor, type MarkdownEditorMode } from "./components/markdown-editor/cindor-markdown-editor.js";
+export {
+  CindorKanbanBoard,
+  type KanbanBoardAccent,
+  type KanbanBoardActionDetail,
+  type KanbanBoardActionVariant,
+  type KanbanBoardCard,
+  type KanbanBoardCardAction,
+  type KanbanBoardColumn,
+  type KanbanBoardSelectDetail
+} from "./components/kanban-board/cindor-kanban-board.js";
 export { CindorLayout } from "./components/layout/cindor-layout.js";
 export { CindorLayoutContent } from "./components/layout-content/cindor-layout-content.js";
 export { CindorLayoutHeader } from "./components/layout-header/cindor-layout-header.js";

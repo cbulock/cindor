@@ -97,7 +97,7 @@ export const plannedComponents: PlannedComponent[] = [
     phase: "Guidance and onboarding",
     rationale: "Cindor has strong shell and collection pieces, but there is still no first-class board view for task and status management workflows.",
     slug: "kanban-board",
-    status: "queued",
+    status: "shipped",
     summary: "Add a board-style planning and status surface for operational and product workflow apps.",
     title: "Kanban board"
   }
