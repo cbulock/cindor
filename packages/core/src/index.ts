@@ -15,6 +15,7 @@ export { CindorAvatar } from "./components/avatar/cindor-avatar.js";
 export { CindorDescriptionItem } from "./components/description-item/cindor-description-item.js";
 export { CindorDescriptionList } from "./components/description-list/cindor-description-list.js";
 export { CindorDivider } from "./components/divider/cindor-divider.js";
+export { CindorCoachmarkTour, type CoachmarkTourStep } from "./components/coachmark-tour/cindor-coachmark-tour.js";
 export { CindorDialog } from "./components/dialog/cindor-dialog.js";
 export { CindorDrawer, type DrawerSide } from "./components/drawer/cindor-drawer.js";
 export { CindorDropdownMenu } from "./components/dropdown-menu/cindor-dropdown-menu.js";
@@ -87,6 +88,7 @@ export { CindorIcon, type LucideIconName } from "./components/icon/cindor-icon.j
 export { CindorIconButton } from "./components/icon-button/cindor-icon-button.js";
 export { CindorInput } from "./components/input/cindor-input.js";
 export { CindorInlineEdit } from "./components/inline-edit/cindor-inline-edit.js";
+export { CindorJsonViewer, type JsonViewerValue } from "./components/json-viewer/cindor-json-viewer.js";
 export { CindorMarkdownEditor, type MarkdownEditorMode } from "./components/markdown-editor/cindor-markdown-editor.js";
 export { CindorLayout } from "./components/layout/cindor-layout.js";
 export { CindorLayoutContent } from "./components/layout-content/cindor-layout-content.js";

@@ -70,7 +70,7 @@ export const plannedComponents: PlannedComponent[] = [
     phase: "Workspace and authoring",
     rationale: "Admin and product tooling constantly needs to inspect structured payloads, and a plain code block is not enough for that job.",
     slug: "json-viewer",
-    status: "next",
+    status: "shipped",
     summary: "Expose collapsible structured JSON inspection for payloads, logs, settings, and API responses.",
     title: "JSON viewer"
   },
@@ -88,7 +88,7 @@ export const plannedComponents: PlannedComponent[] = [
     phase: "Guidance and onboarding",
     rationale: "The catalog has `tooltip`, `popover`, `banner`, and `dialog`, but nothing for guided onboarding or progressive feature discovery.",
     slug: "coachmark-tour",
-    status: "queued",
+    status: "next",
     summary: "Support guided onboarding and feature discovery without forcing product teams into bespoke walkthrough code.",
     title: "Coachmark tour"
   },

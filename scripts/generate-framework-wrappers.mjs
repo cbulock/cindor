@@ -436,8 +436,41 @@ function renderVuePropValue(prop) {
   }
 }
 
+const builtInTypeIdentifiers = new Set([
+  "Array",
+  "Blob",
+  "CustomEvent",
+  "Date",
+  "Element",
+  "Event",
+  "File",
+  "FileList",
+  "FormData",
+  "HTMLElement",
+  "Map",
+  "Node",
+  "NonNullable",
+  "Omit",
+  "Parameters",
+  "Partial",
+  "Pick",
+  "Promise",
+  "Readonly",
+  "Record",
+  "RegExp",
+  "Required",
+  "ReturnType",
+  "Set",
+  "URL",
+  "URLSearchParams",
+  "WeakMap",
+  "WeakSet"
+]);
+
 function extractTypeIdentifiers(typeExpression) {
-  return Array.from(typeExpression.matchAll(/\b[A-Z][A-Za-z0-9_]*/g)).map((match) => match[0]);
+  return Array.from(typeExpression.matchAll(/\b[A-Z][A-Za-z0-9_]*/g))
+    .map((match) => match[0])
+    .filter((typeName) => !builtInTypeIdentifiers.has(typeName));
 }
 
 function indent(value, spaces) {

@@ -900,6 +900,137 @@
       "tagName": "cindor-chip"
     },
     {
+      "className": "CindorCoachmarkTour",
+      "description": "",
+      "modulePath": "packages/core/src/components/coachmark-tour/cindor-coachmark-tour.ts",
+      "properties": [
+        {
+          "attributeName": "current-step",
+          "defaultValue": "0",
+          "description": "",
+          "name": "currentStep",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "dismiss-label",
+          "defaultValue": "\"Dismiss\"",
+          "description": "",
+          "name": "dismissLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "finish-label",
+          "defaultValue": "\"Finish\"",
+          "description": "",
+          "name": "finishLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "next-label",
+          "defaultValue": "\"Next\"",
+          "description": "",
+          "name": "nextLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "previous-label",
+          "defaultValue": "\"Back\"",
+          "description": "",
+          "name": "previousLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "steps",
+          "reflects": false,
+          "type": "CoachmarkTourStep[]",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "close",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "next",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "previous",
+          "parameters": [],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "show",
+          "parameters": [
+            {
+              "name": "stepIndex",
+              "optional": false,
+              "type": null
+            }
+          ],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "",
+          "name": "close",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "",
+          "name": "complete",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "",
+          "name": "open-change",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "",
+          "name": "step-change",
+          "type": "CustomEvent",
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "cindor-coachmark-tour"
+    },
+    {
       "className": "CindorCodeBlock",
       "description": "",
       "modulePath": "packages/core/src/components/code-block/cindor-code-block.ts",
@@ -4057,6 +4188,72 @@
       "slots": [],
       "summary": "",
       "tagName": "cindor-input"
+    },
+    {
+      "className": "CindorJsonViewer",
+      "description": "Collapsible structured JSON viewer for payloads, settings, and logs.\n\nPass a JSON string through `value` or assign structured data directly to `data`.",
+      "modulePath": "packages/core/src/components/json-viewer/cindor-json-viewer.ts",
+      "properties": [
+        {
+          "attributeName": null,
+          "defaultValue": "undefined",
+          "description": "",
+          "name": "data",
+          "reflects": false,
+          "type": "JsonViewerValue | Record<string, unknown> | unknown[] | undefined",
+          "values": null
+        },
+        {
+          "attributeName": "empty-message",
+          "defaultValue": "\"No JSON to display.\"",
+          "description": "",
+          "name": "emptyMessage",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "expanded-depth",
+          "defaultValue": "1",
+          "description": "",
+          "name": "expandedDepth",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "invalid-message",
+          "defaultValue": "\"Unable to parse JSON.\"",
+          "description": "",
+          "name": "invalidMessage",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "root-label",
+          "defaultValue": "\"JSON\"",
+          "description": "",
+          "name": "rootLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [],
+      "summary": "Collapsible JSON inspection surface for nested payloads.",
+      "tagName": "cindor-json-viewer"
     },
     {
       "className": "CindorLayout",

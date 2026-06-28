@@ -510,6 +510,34 @@ export const componentDefinitions = [
     slots: slots.default,
     vueProps: [str("code"), str("language")]
   }),
+  component("CindorCoachmarkTour", "cindor-coachmark-tour", {
+    reactEvents: ["close", "complete", "open-change", "step-change"],
+    vueHandlers: [
+      handler("close"),
+      handler("complete"),
+      handler("open-change", {
+        emitName: "open-change",
+        modelEmit: "update:open",
+        modelHostProperty: "open",
+        modelHostType: "OpenHost"
+      }),
+      handler("step-change", {
+        emitName: "step-change",
+        modelEmit: "update:currentStep",
+        modelHostProperty: "currentStep",
+        modelHostType: "HTMLElement & { currentStep: number }"
+      })
+    ],
+    vueProps: [
+      num("currentStep", 0, { attr: "current-step" }),
+      str("dismissLabel", "Dismiss", { attr: "dismiss-label", alwaysPass: true }),
+      str("finishLabel", "Finish", { attr: "finish-label", alwaysPass: true }),
+      str("nextLabel", "Next", { attr: "next-label", alwaysPass: true }),
+      bool("open"),
+      str("previousLabel", "Back", { attr: "previous-label", alwaysPass: true }),
+      arr("steps", "CoachmarkTourStep[]")
+    ]
+  }),
   component("CindorCommandBar", "cindor-command-bar", {
     slots: slots.all,
     vueProps: [num("count", 0), str("countLabel", "selected", { attr: "count-label", alwaysPass: true }), str("description"), str("label"), bool("sticky")]
@@ -1028,6 +1056,16 @@ export const componentDefinitions = [
       func("itemKey", "VirtualListItemKey<unknown> | undefined"),
       num("overscan", 4),
       func("renderItem", "VirtualListItemRenderer<unknown> | undefined")
+    ]
+  }),
+  component("CindorJsonViewer", "cindor-json-viewer", {
+    vueProps: [
+      obj("data", "JsonViewerValue | Record<string, unknown> | unknown[] | undefined", { defaultFactory: "() => undefined" }),
+      str("emptyMessage", "No JSON to display.", { attr: "empty-message", alwaysPass: true }),
+      num("expandedDepth", 1, { attr: "expanded-depth" }),
+      str("invalidMessage", "Unable to parse JSON.", { attr: "invalid-message", alwaysPass: true }),
+      str("rootLabel", "JSON", { attr: "root-label", alwaysPass: true }),
+      str("value", "", { alwaysPass: true })
     ]
   }),
   component("CindorMarkdownEditor", "cindor-markdown-editor", {

@@ -48,6 +48,7 @@ import {
   CindorEmptySearchResults as CindorEmptySearchResultsElement,
   CindorIcon as CindorIconElement,
   CindorCodeBlock as CindorCodeBlockElement,
+  CindorCoachmarkTour as CindorCoachmarkTourElement,
   CindorCommandBar as CindorCommandBarElement,
   CindorCommandPalette as CindorCommandPaletteElement,
   CindorContextMenu as CindorContextMenuElement,
@@ -110,6 +111,7 @@ import {
   CindorTransferList as CindorTransferListElement,
   CindorSortableList as CindorSortableListElement,
   CindorVirtualList as CindorVirtualListElement,
+  CindorJsonViewer as CindorJsonViewerElement,
   CindorMarkdownEditor as CindorMarkdownEditorElement,
   CindorWorkspaceSwitcher as CindorWorkspaceSwitcherElement,
   CindorSideNav as CindorSideNavElement,
@@ -445,6 +447,18 @@ export const CindorCodeBlock = createComponent({
   react: React,
   tagName: "cindor-code-block",
   elementClass: CindorCodeBlockElement
+});
+
+export const CindorCoachmarkTour = createComponent({
+  react: React,
+  tagName: "cindor-coachmark-tour",
+  elementClass: CindorCoachmarkTourElement,
+  events: {
+    onClose: "close",
+    onComplete: "complete",
+    onOpenChange: "open-change",
+    onStepChange: "step-change"
+  }
 });
 
 export const CindorCommandBar = createComponent({
@@ -976,6 +990,12 @@ export const CindorVirtualList = createComponent({
   events: {
     onRangeChange: "range-change"
   }
+});
+
+export const CindorJsonViewer = createComponent({
+  react: React,
+  tagName: "cindor-json-viewer",
+  elementClass: CindorJsonViewerElement
 });
 
 export const CindorMarkdownEditor = createComponent({
