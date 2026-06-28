@@ -48,6 +48,7 @@ import {
   CindorEmptySearchResults as CindorEmptySearchResultsElement,
   CindorIcon as CindorIconElement,
   CindorCodeBlock as CindorCodeBlockElement,
+  CindorCoachmarkTour as CindorCoachmarkTourElement,
   CindorCommandBar as CindorCommandBarElement,
   CindorCommandPalette as CindorCommandPaletteElement,
   CindorContextMenu as CindorContextMenuElement,
@@ -445,6 +446,18 @@ export const CindorCodeBlock = createComponent({
   react: React,
   tagName: "cindor-code-block",
   elementClass: CindorCodeBlockElement
+});
+
+export const CindorCoachmarkTour = createComponent({
+  react: React,
+  tagName: "cindor-coachmark-tour",
+  elementClass: CindorCoachmarkTourElement,
+  events: {
+    onClose: "close",
+    onComplete: "complete",
+    onOpenChange: "open-change",
+    onStepChange: "step-change"
+  }
 });
 
 export const CindorCommandBar = createComponent({

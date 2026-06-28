@@ -7,6 +7,7 @@ import type {
   ButtonType,
   ButtonVariant,
   ChipTone,
+  CoachmarkTourStep,
   CommandPaletteCommand,
   DataGridColumn,
   DataGridRow,
@@ -24,7 +25,6 @@ import type {
   ProviderTheme,
   ProviderThemeFamily,
   ProviderThemeTokens,
-  Record,
   SegmentedControlOption,
   SkeletonVariant,
   SortableListItemKey,
@@ -1418,6 +1418,56 @@ export const CindorCodeBlock = defineComponent({
             },
             slots.default?.()
           );
+  }
+});
+
+export const CindorCoachmarkTour = defineComponent({
+  name: "CindorCoachmarkTour",
+  props: {
+    currentStep: { type: Number, default: 0 },
+    dismissLabel: { type: String, default: "Dismiss" },
+    finishLabel: { type: String, default: "Finish" },
+    nextLabel: { type: String, default: "Next" },
+    open: { type: Boolean, default: false },
+    previousLabel: { type: String, default: "Back" },
+    steps: { type: Array as PropType<CoachmarkTourStep[]>, default: () => [] }
+  },
+  emits: ["close", "complete", "update:open", "open-change", "update:currentStep", "step-change"],
+  setup(props, { attrs, emit }) {
+    const handleClose = (event: Event) => {
+      emit("close", event);
+    };
+
+    const handleComplete = (event: Event) => {
+      emit("complete", event);
+    };
+
+    const handleOpenChange = (event: Event) => {
+      const target = event.currentTarget as OpenHost;
+      emit("update:open", target.open);
+      emit("open-change", event);
+    };
+
+    const handleStepChange = (event: Event) => {
+      const target = event.currentTarget as HTMLElement & { currentStep: number };
+      emit("update:currentStep", target.currentStep);
+      emit("step-change", event);
+    };
+    return () =>
+          h("cindor-coachmark-tour", {
+              ...attrs,
+              "current-step": props.currentStep,
+              "dismiss-label": props.dismissLabel,
+              "finish-label": props.finishLabel,
+              "next-label": props.nextLabel,
+              open: props.open || undefined,
+              "previous-label": props.previousLabel,
+              ".steps": props.steps,
+              onClose: handleClose,
+              onComplete: handleComplete,
+              onOpenChange: handleOpenChange,
+              onStepChange: handleStepChange,
+          });
   }
 });
 

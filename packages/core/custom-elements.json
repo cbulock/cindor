@@ -4,6 +4,134 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/accordion/cindor-accordion.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Components/Accordion\", args: { content: \"Keep the upstream Cindor theme available through the shared global stylesheet.\", open: false, summary: \"Deployment settings\" }, render: ({ content, open, summary }: AccordionStoryArgs) => ` <cindor-accordion ${open ? \"open\" : \"\"}> <span slot=\"summary\">${summary}</span> <p>${content}</p> </cindor-accordion> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        },
+        {
+          "kind": "variable",
+          "name": "Open",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ args: { open: true } }"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/accordion/cindor-accordion.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/accordion/cindor-accordion.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Open",
+          "declaration": {
+            "name": "Open",
+            "module": "packages/core/src/components/accordion/cindor-accordion.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/accordion/cindor-accordion.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorAccordion",
+          "members": [
+            {
+              "kind": "field",
+              "name": "open",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "toggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "open",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "handleToggle",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "open"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorAccordion",
+          "declaration": {
+            "name": "CindorAccordion",
+            "module": "packages/core/src/components/accordion/cindor-accordion.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
       "declarations": [
         {
@@ -852,134 +980,6 @@
           "declaration": {
             "name": "CindorAutocomplete",
             "module": "packages/core/src/components/autocomplete/cindor-autocomplete.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/accordion/cindor-accordion.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Components/Accordion\", args: { content: \"Keep the upstream Cindor theme available through the shared global stylesheet.\", open: false, summary: \"Deployment settings\" }, render: ({ content, open, summary }: AccordionStoryArgs) => ` <cindor-accordion ${open ? \"open\" : \"\"}> <span slot=\"summary\">${summary}</span> <p>${content}</p> </cindor-accordion> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        },
-        {
-          "kind": "variable",
-          "name": "Open",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ args: { open: true } }"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/accordion/cindor-accordion.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/accordion/cindor-accordion.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Open",
-          "declaration": {
-            "name": "Open",
-            "module": "packages/core/src/components/accordion/cindor-accordion.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/accordion/cindor-accordion.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorAccordion",
-          "members": [
-            {
-              "kind": "field",
-              "name": "open",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "open",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "toggle",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "open",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "handleToggle",
-              "privacy": "private"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "open",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "open"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorAccordion",
-          "declaration": {
-            "name": "CindorAccordion",
-            "module": "packages/core/src/components/accordion/cindor-accordion.ts"
           }
         }
       ]
@@ -3154,6 +3154,493 @@
           "declaration": {
             "name": "CindorChip",
             "module": "packages/core/src/components/chip/cindor-chip.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/coachmark-tour/cindor-coachmark-tour.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Components/Coachmark Tour\", args: { currentStep: 0, open: true }, render: ({ currentStep, open }: CoachmarkTourStoryArgs) => html` <div style=\" display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(16rem, 20rem); gap: var(--space-6); min-height: 28rem; padding: var(--space-6); border: 1px solid var(--border); border-radius: var(--radius-xl); background: color-mix(in srgb, var(--surface) 88%, white); \" > <section style=\"display: grid; gap: var(--space-4); align-content: start;\"> <header id=\"coachmark-tour-filters\" style=\"display: flex; gap: var(--space-2); flex-wrap: wrap;\"> <cindor-badge tone=\"accent\">Assigned to me</cindor-badge> <cindor-badge>High priority</cindor-badge> <cindor-badge>Needs review</cindor-badge> </header> <cindor-card id=\"coachmark-tour-activity\" style=\"padding: var(--space-4);\"> <strong style=\"display: block; margin-bottom: var(--space-2);\">Recent activity</strong> <p style=\"margin: 0; color: var(--fg-muted);\"> Sofia moved billing QA to done and reassigned the release checklist to platform. </p> </cindor-card> </section> <cindor-card id=\"coachmark-tour-inspector\" style=\"padding: var(--space-4); align-self: start;\"> <strong style=\"display: block; margin-bottom: var(--space-2);\">Issue inspector</strong> <p style=\"margin: 0; color: var(--fg-muted);\">Priority, owner, sprint, and due date live here.</p> </cindor-card> </div> <cindor-coachmark-tour .currentStep=${currentStep} .steps=${steps} ?open=${open} ></cindor-coachmark-tour> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/coachmark-tour/cindor-coachmark-tour.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/coachmark-tour/cindor-coachmark-tour.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/coachmark-tour/cindor-coachmark-tour.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorCoachmarkTour",
+          "members": [
+            {
+              "kind": "field",
+              "name": "currentStep",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "current-step",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "dismissLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Dismiss\"",
+              "attribute": "dismiss-label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "finishLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Finish\"",
+              "attribute": "finish-label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "nextLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Next\"",
+              "attribute": "next-label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "previousLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Back\"",
+              "attribute": "previous-label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "steps",
+              "privacy": "public",
+              "type": {
+                "text": "CoachmarkTourStep[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "cleanupAutoUpdate",
+              "type": {
+                "text": "() => void | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "lastTarget",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "previousFocusedElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "autoUpdatePosition",
+              "privacy": "private",
+              "default": "autoUpdate"
+            },
+            {
+              "kind": "field",
+              "name": "surfaceId",
+              "privacy": "private",
+              "default": "`${this.localName}-surface`"
+            },
+            {
+              "kind": "field",
+              "name": "titleId",
+              "privacy": "private",
+              "default": "`${this.localName}-title`"
+            },
+            {
+              "kind": "field",
+              "name": "descriptionId",
+              "privacy": "private",
+              "default": "`${this.localName}-description`"
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "next",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "previous",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "show",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "stepIndex",
+                  "default": "0"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "handleKeyDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "dispatchOpenChange",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "dispatchStepChange",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "normalizeCurrentStep",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "scrollTargetIntoView",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncPositioning",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "positionAgainstTarget",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "surface",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "placement",
+                  "type": {
+                    "text": "Placement"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "positionFallbackSurface",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "surface",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "syncSpotlight",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "HTMLElement | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "teardownPositioning",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "activeStep",
+              "type": {
+                "text": "CoachmarkTourStep | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "activeTarget",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "focusableElements",
+              "type": {
+                "text": "HTMLElement[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "isLastStep",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "surfaceElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "events": [
+            {
+              "name": "close",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "complete",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "open-change",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "name": "step-change",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "current-step",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "currentStep"
+            },
+            {
+              "name": "dismiss-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Dismiss\"",
+              "fieldName": "dismissLabel"
+            },
+            {
+              "name": "finish-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Finish\"",
+              "fieldName": "finishLabel"
+            },
+            {
+              "name": "next-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Next\"",
+              "fieldName": "nextLabel"
+            },
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "open"
+            },
+            {
+              "name": "previous-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Back\"",
+              "fieldName": "previousLabel"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorCoachmarkTour",
+          "declaration": {
+            "name": "CindorCoachmarkTour",
+            "module": "packages/core/src/components/coachmark-tour/cindor-coachmark-tour.ts"
           }
         }
       ]
