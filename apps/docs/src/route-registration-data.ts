@@ -26,6 +26,7 @@ export const docsRouteComponentSlugs = [
   "layout-content",
   "layout-header",
   "listbox",
+  "markdown-editor",
   "menu-item",
   "option",
   "provider",

@@ -74,6 +74,11 @@ type JsonViewerHost = HTMLElement & {
   data: JsonViewerValue | Record<string, unknown> | unknown[];
 };
 
+type MarkdownEditorHost = HTMLElement & {
+  mode: string;
+  value: string;
+};
+
 type WorkspaceSwitcherHost = HTMLElement & {
   items: WorkspaceSwitcherItem[];
   value: string;
@@ -515,6 +520,15 @@ const jsonViewerPreviewData: JsonViewerValue = {
   },
   requestId: "req_1024"
 };
+
+const markdownEditorPreviewValue = `# Release notes
+
+Ship the new workspace shell with:
+
+- refreshed navigation
+- payload inspection
+- updated setup docs
+`;
 
 const workspaceSwitcherPreviewItems: WorkspaceSwitcherItem[] = [
   {
@@ -1137,7 +1151,7 @@ function renderDocsHome(activeSectionId: string): string {
           <div class="roadmap-overview">
             <div class="preview-block">
               <strong>What just landed</strong>
-              <p class="muted"><code>virtual-list</code>, <code>sortable-list</code>, <code>field-array</code>, <code>data-grid</code>, <code>tree-grid</code>, <code>workspace-switcher</code>, and <code>json-viewer</code> now anchor the current roadmap work. <code>markdown-editor</code> is the next meaningful gap in that sequence.</p>
+              <p class="muted"><code>virtual-list</code>, <code>sortable-list</code>, <code>field-array</code>, <code>data-grid</code>, <code>tree-grid</code>, <code>workspace-switcher</code>, <code>json-viewer</code>, and <code>markdown-editor</code> now anchor the current roadmap work. <code>coachmark-tour</code> is the next meaningful gap in that sequence.</p>
             </div>
             <div class="preview-block">
               <strong>How the backlog is grouped</strong>
@@ -2069,6 +2083,14 @@ function hydrateComponentPage(slug: string): void {
     const viewer = root.querySelector<JsonViewerHost>('[data-component-preview="json-viewer"] #component-json-viewer');
     if (viewer) {
       viewer.data = jsonViewerPreviewData;
+    }
+  }
+
+  if (slug === "markdown-editor") {
+    const editor = root.querySelector<MarkdownEditorHost>('[data-component-preview="markdown-editor"] #component-markdown-editor');
+    if (editor) {
+      editor.mode = "split";
+      editor.value = markdownEditorPreviewValue;
     }
   }
 
@@ -3071,6 +3093,12 @@ function getUsageCode(doc: ComponentDoc): string {
   const viewer = document.querySelector("#component-json-viewer");
   viewer.data = ${JSON.stringify(jsonViewerPreviewData, null, 2)};
 </script>`;
+    case "markdown-editor":
+      return `<cindor-markdown-editor id="component-markdown-editor" mode="split"></cindor-markdown-editor>
+<script type="module">
+  const editor = document.querySelector("#component-markdown-editor");
+  editor.value = ${JSON.stringify(markdownEditorPreviewValue, null, 2)};
+</script>`;
     case "workspace-switcher":
       return `<cindor-workspace-switcher id="component-workspace-switcher" value="ops"></cindor-workspace-switcher>
 <script type="module">
@@ -3648,6 +3676,18 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
         requestId: "req_1024"
       }}
     />`;
+    case "markdown-editor":
+      return `<${componentName}
+      mode="split"
+      value={\`# Release notes
+
+Ship the new workspace shell with:
+
+- refreshed navigation
+- payload inspection
+- updated setup docs
+\`}
+    />`;
     case "workspace-switcher":
       return `<${componentName}
       value="ops"
@@ -4012,6 +4052,18 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
       requestId: 'req_1024'
     }"
   />`;
+    case "markdown-editor":
+      return `<${componentName}
+    mode="split"
+    :model-value="\`# Release notes
+
+Ship the new workspace shell with:
+
+- refreshed navigation
+- payload inspection
+- updated setup docs
+\`"
+  />`;
     case "workspace-switcher":
       return `<${componentName}
     model-value="ops"
@@ -4144,6 +4196,8 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
       return `<cindor-virtual-list id="component-virtual-list" height="20rem" item-height="72"></cindor-virtual-list>`;
     case "json-viewer":
       return `<cindor-json-viewer id="component-json-viewer" root-label="Deploy payload" expanded-depth="2"></cindor-json-viewer>`;
+    case "markdown-editor":
+      return `<cindor-markdown-editor id="component-markdown-editor" mode="split"></cindor-markdown-editor>`;
     case "workspace-switcher":
       return `<cindor-workspace-switcher id="component-workspace-switcher" value="ops"></cindor-workspace-switcher>`;
     case "data-table":

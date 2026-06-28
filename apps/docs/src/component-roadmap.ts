@@ -79,7 +79,7 @@ export const plannedComponents: PlannedComponent[] = [
     phase: "Workspace and authoring",
     rationale: "The library has strong display surfaces but no authoring surface for changelogs, issue bodies, comments, or internal docs.",
     slug: "markdown-editor",
-    status: "next",
+    status: "shipped",
     summary: "Add a structured markdown authoring surface that pairs with the current content-display primitives.",
     title: "Markdown editor"
   },
@@ -88,7 +88,7 @@ export const plannedComponents: PlannedComponent[] = [
     phase: "Guidance and onboarding",
     rationale: "The catalog has `tooltip`, `popover`, `banner`, and `dialog`, but nothing for guided onboarding or progressive feature discovery.",
     slug: "coachmark-tour",
-    status: "queued",
+    status: "next",
     summary: "Support guided onboarding and feature discovery without forcing product teams into bespoke walkthrough code.",
     title: "Coachmark tour"
   },

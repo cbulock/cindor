@@ -22,6 +22,7 @@ import type {
   GridGap,
   JsonViewerValue,
   LucideIconName,
+  MarkdownEditorMode,
   ProviderTheme,
   ProviderThemeFamily,
   ProviderThemeTokens,
@@ -3420,6 +3421,58 @@ export const CindorJsonViewer = defineComponent({
               "invalid-message": props.invalidMessage,
               "root-label": props.rootLabel,
               value: props.value,
+          });
+  }
+});
+
+export const CindorMarkdownEditor = defineComponent({
+  name: "CindorMarkdownEditor",
+  props: {
+    disabled: { type: Boolean, default: false },
+    mode: { type: String as PropType<MarkdownEditorMode>, default: "write" },
+    name: { type: String, default: "" },
+    placeholder: { type: String, default: "Write in Markdown..." },
+    previewEmptyMessage: { type: String, default: "Nothing to preview yet." },
+    previewLabel: { type: String, default: "Preview" },
+    readonly: { type: Boolean, default: false },
+    required: { type: Boolean, default: false },
+    rows: { type: Number, default: 14 },
+    splitLabel: { type: String, default: "Split" },
+    toolbarLabel: { type: String, default: "Formatting" },
+    writeLabel: { type: String, default: "Write" },
+    modelValue: { type: String, default: "" }
+  },
+  emits: ["update:modelValue", "input", "change"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("change", event);
+    };
+    return () =>
+          h("cindor-markdown-editor", {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              mode: props.mode,
+              name: props.name || undefined,
+              placeholder: props.placeholder,
+              "preview-empty-message": props.previewEmptyMessage,
+              "preview-label": props.previewLabel,
+              readonly: props.readonly || undefined,
+              required: props.required || undefined,
+              rows: props.rows,
+              "split-label": props.splitLabel,
+              "toolbar-label": props.toolbarLabel,
+              "write-label": props.writeLabel,
+              value: props.modelValue,
+              onInput: handleInput,
+              onChange: handleChange,
           });
   }
 });

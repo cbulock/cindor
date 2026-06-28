@@ -64,5 +64,8 @@
     "esbuild": "0.28.1",
     "ws": "8.21.0"
   },
-  "customElements": "packages/core/custom-elements.json"
+  "customElements": "packages/core/custom-elements.json",
+  "dependencies": {
+    "marked": "^18.0.5"
+  }
 }

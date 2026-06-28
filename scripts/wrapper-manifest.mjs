@@ -1068,6 +1068,25 @@ export const componentDefinitions = [
       str("value", "", { alwaysPass: true })
     ]
   }),
+  component("CindorMarkdownEditor", "cindor-markdown-editor", {
+    reactEvents: ["input", "change"],
+    vueHandlers: textModelHandlers,
+    vueProps: [
+      bool("disabled"),
+      typed("mode", "MarkdownEditorMode", "write"),
+      str("name"),
+      str("placeholder", "Write in Markdown...", { alwaysPass: true }),
+      str("previewEmptyMessage", "Nothing to preview yet.", { attr: "preview-empty-message", alwaysPass: true }),
+      str("previewLabel", "Preview", { attr: "preview-label", alwaysPass: true }),
+      bool("readonly"),
+      bool("required"),
+      num("rows", 14),
+      str("splitLabel", "Split", { attr: "split-label", alwaysPass: true }),
+      str("toolbarLabel", "Formatting", { attr: "toolbar-label", alwaysPass: true }),
+      str("writeLabel", "Write", { attr: "write-label", alwaysPass: true }),
+      str("modelValue", "", { attr: "value", alwaysPass: true })
+    ]
+  }),
   component("CindorWorkspaceSwitcher", "cindor-workspace-switcher", {
     reactEvents: ["toggle", "select", "input", "change"],
     vueHandlers: [

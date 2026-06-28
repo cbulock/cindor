@@ -112,6 +112,7 @@ import {
   CindorSortableList as CindorSortableListElement,
   CindorVirtualList as CindorVirtualListElement,
   CindorJsonViewer as CindorJsonViewerElement,
+  CindorMarkdownEditor as CindorMarkdownEditorElement,
   CindorWorkspaceSwitcher as CindorWorkspaceSwitcherElement,
   CindorSideNav as CindorSideNavElement,
   CindorSideNavItem as CindorSideNavItemElement,
@@ -995,6 +996,16 @@ export const CindorJsonViewer = createComponent({
   react: React,
   tagName: "cindor-json-viewer",
   elementClass: CindorJsonViewerElement
+});
+
+export const CindorMarkdownEditor = createComponent({
+  react: React,
+  tagName: "cindor-markdown-editor",
+  elementClass: CindorMarkdownEditorElement,
+  events: {
+    onInput: "input",
+    onChange: "change"
+  }
 });
 
 export const CindorWorkspaceSwitcher = createComponent({
