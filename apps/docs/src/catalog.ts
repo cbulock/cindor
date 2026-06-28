@@ -54,6 +54,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("chip", "Chip", "Primitive", "Display", "token label", "Compact token for values, filters, and selected items."),
   defineComponent("tag", "Tag", "Primitive", "Display", "tag token", "Explicit tag surface for labels, filters, and removable metadata."),
   defineComponent("code-block", "Code Block", "Component", "Display", "pre and code", "Syntax-highlighted code presentation with optional language hints."),
+  defineComponent("coachmark-tour", "Coachmark Tour", "Component", "Overlays", "anchored spotlight overlay", "Guided onboarding overlay for stepping through anchored product hints."),
   defineComponent("color-input", "Color Input", "Primitive", "Forms", "input type=color", "Native color picker wrapped in Cindor styling."),
   defineComponent("combobox", "Combobox", "Component", "Selection", "input plus listbox", "Searchable option picker built from input, listbox, and option primitives."),
   defineComponent("command-bar", "Command Bar", "Composite", "Actions", "summary region plus actions", "Persistent contextual action bar for bulk edits and page-level commands."),

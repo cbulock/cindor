@@ -510,6 +510,34 @@ export const componentDefinitions = [
     slots: slots.default,
     vueProps: [str("code"), str("language")]
   }),
+  component("CindorCoachmarkTour", "cindor-coachmark-tour", {
+    reactEvents: ["close", "complete", "open-change", "step-change"],
+    vueHandlers: [
+      handler("close"),
+      handler("complete"),
+      handler("open-change", {
+        emitName: "open-change",
+        modelEmit: "update:open",
+        modelHostProperty: "open",
+        modelHostType: "OpenHost"
+      }),
+      handler("step-change", {
+        emitName: "step-change",
+        modelEmit: "update:currentStep",
+        modelHostProperty: "currentStep",
+        modelHostType: "HTMLElement & { currentStep: number }"
+      })
+    ],
+    vueProps: [
+      num("currentStep", 0, { attr: "current-step" }),
+      str("dismissLabel", "Dismiss", { attr: "dismiss-label", alwaysPass: true }),
+      str("finishLabel", "Finish", { attr: "finish-label", alwaysPass: true }),
+      str("nextLabel", "Next", { attr: "next-label", alwaysPass: true }),
+      bool("open"),
+      str("previousLabel", "Back", { attr: "previous-label", alwaysPass: true }),
+      arr("steps", "CoachmarkTourStep[]")
+    ]
+  }),
   component("CindorCommandBar", "cindor-command-bar", {
     slots: slots.all,
     vueProps: [num("count", 0), str("countLabel", "selected", { attr: "count-label", alwaysPass: true }), str("description"), str("label"), bool("sticky")]

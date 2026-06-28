@@ -14,6 +14,7 @@ import { CindorCard } from "./components/card/cindor-card.js";
 import { CindorCheckbox } from "./components/checkbox/cindor-checkbox.js";
 import { CindorChip } from "./components/chip/cindor-chip.js";
 import { CindorCodeBlock } from "./components/code-block/cindor-code-block.js";
+import { CindorCoachmarkTour } from "./components/coachmark-tour/cindor-coachmark-tour.js";
 import { CindorColorInput } from "./components/color-input/cindor-color-input.js";
 import { CindorCombobox } from "./components/combobox/cindor-combobox.js";
 import { CindorCommandBar } from "./components/command-bar/cindor-command-bar.js";
@@ -144,6 +145,7 @@ const definitions = [
   ["cindor-pagination", CindorPagination],
   ["cindor-empty-state", CindorEmptyState],
   ["cindor-code-block", CindorCodeBlock],
+  ["cindor-coachmark-tour", CindorCoachmarkTour],
   ["cindor-command-bar", CindorCommandBar],
   ["cindor-command-palette", CindorCommandPalette],
   ["cindor-context-menu", CindorContextMenu],
