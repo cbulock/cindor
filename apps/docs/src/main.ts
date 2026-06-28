@@ -3,7 +3,7 @@ import "./app.css";
 import cindorIconUrl from "../../../branding/cindor-icon.png";
 import cindorWordmarkUrl from "../../../branding/cindor-wordmark.png";
 
-import type { CommandPaletteCommand, FilterBuilderField, SegmentedControlOption, StepperStep, WorkspaceSwitcherItem } from "cindor-ui-core";
+import type { CommandPaletteCommand, FilterBuilderField, JsonViewerValue, SegmentedControlOption, StepperStep, WorkspaceSwitcherItem } from "cindor-ui-core";
 
 import {
   componentCatalog,
@@ -68,6 +68,10 @@ type FilterBuilderHost = HTMLElement & {
 
 type VirtualListHost = HTMLElement & {
   items: Array<{ description: string; id: string; label: string; meta: string }>;
+};
+
+type JsonViewerHost = HTMLElement & {
+  data: JsonViewerValue | Record<string, unknown> | unknown[];
 };
 
 type WorkspaceSwitcherHost = HTMLElement & {
@@ -497,6 +501,20 @@ const virtualListPreviewItems = [
     meta: "Today"
   }
 ] as const;
+
+const jsonViewerPreviewData: JsonViewerValue = {
+  deployment: {
+    environment: "production",
+    regions: ["iad", "ord", "sfo"],
+    startedAt: "2026-06-27T23:45:00Z",
+    status: "healthy"
+  },
+  flags: {
+    dryRun: false,
+    notifyTeam: true
+  },
+  requestId: "req_1024"
+};
 
 const workspaceSwitcherPreviewItems: WorkspaceSwitcherItem[] = [
   {
@@ -1119,7 +1137,7 @@ function renderDocsHome(activeSectionId: string): string {
           <div class="roadmap-overview">
             <div class="preview-block">
               <strong>What just landed</strong>
-              <p class="muted"><code>virtual-list</code>, <code>sortable-list</code>, <code>field-array</code>, <code>data-grid</code>, and <code>tree-grid</code> now anchor the collection foundation work. <code>workspace-switcher</code> is the next meaningful gap in that sequence.</p>
+              <p class="muted"><code>virtual-list</code>, <code>sortable-list</code>, <code>field-array</code>, <code>data-grid</code>, <code>tree-grid</code>, <code>workspace-switcher</code>, and <code>json-viewer</code> now anchor the current roadmap work. <code>markdown-editor</code> is the next meaningful gap in that sequence.</p>
             </div>
             <div class="preview-block">
               <strong>How the backlog is grouped</strong>
@@ -2044,6 +2062,13 @@ function hydrateComponentPage(slug: string): void {
     const virtualList = root.querySelector<VirtualListHost>('[data-component-preview="virtual-list"] #component-virtual-list');
     if (virtualList) {
       virtualList.items = [...virtualListPreviewItems];
+    }
+  }
+
+  if (slug === "json-viewer") {
+    const viewer = root.querySelector<JsonViewerHost>('[data-component-preview="json-viewer"] #component-json-viewer');
+    if (viewer) {
+      viewer.data = jsonViewerPreviewData;
     }
   }
 
@@ -3040,6 +3065,12 @@ function getUsageCode(doc: ComponentDoc): string {
 </script>`;
     case "virtual-list":
       return `<cindor-virtual-list id="component-virtual-list" height="20rem" item-height="72"></cindor-virtual-list>`;
+    case "json-viewer":
+      return `<cindor-json-viewer id="component-json-viewer" root-label="Deploy payload" expanded-depth="2"></cindor-json-viewer>
+<script type="module">
+  const viewer = document.querySelector("#component-json-viewer");
+  viewer.data = ${JSON.stringify(jsonViewerPreviewData, null, 2)};
+</script>`;
     case "workspace-switcher":
       return `<cindor-workspace-switcher id="component-workspace-switcher" value="ops"></cindor-workspace-switcher>
 <script type="module">
@@ -3599,6 +3630,24 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
         { id: "3", label: "Rotate incident owner", description: "Hand off the current incident queue to the next responder.", meta: "Today" }
       ]}
     />`;
+    case "json-viewer":
+      return `<${componentName}
+      rootLabel="Deploy payload"
+      expandedDepth={2}
+      data={{
+        deployment: {
+          environment: "production",
+          regions: ["iad", "ord", "sfo"],
+          startedAt: "2026-06-27T23:45:00Z",
+          status: "healthy"
+        },
+        flags: {
+          dryRun: false,
+          notifyTeam: true
+        },
+        requestId: "req_1024"
+      }}
+    />`;
     case "workspace-switcher":
       return `<${componentName}
       value="ops"
@@ -3945,6 +3994,24 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
       { id: '3', label: 'Rotate incident owner', description: 'Hand off the current incident queue to the next responder.', meta: 'Today' }
     ]"
   />`;
+    case "json-viewer":
+      return `<${componentName}
+    root-label="Deploy payload"
+    :expanded-depth="2"
+    :data="{
+      deployment: {
+        environment: 'production',
+        regions: ['iad', 'ord', 'sfo'],
+        startedAt: '2026-06-27T23:45:00Z',
+        status: 'healthy'
+      },
+      flags: {
+        dryRun: false,
+        notifyTeam: true
+      },
+      requestId: 'req_1024'
+    }"
+  />`;
     case "workspace-switcher":
       return `<${componentName}
     model-value="ops"
@@ -4075,6 +4142,8 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
       return doc.slug === "filter-builder" ? `<cindor-filter-builder id="filter-builder-preview"></cindor-filter-builder>` : getUsageCode(doc);
     case "virtual-list":
       return `<cindor-virtual-list id="component-virtual-list" height="20rem" item-height="72"></cindor-virtual-list>`;
+    case "json-viewer":
+      return `<cindor-json-viewer id="component-json-viewer" root-label="Deploy payload" expanded-depth="2"></cindor-json-viewer>`;
     case "workspace-switcher":
       return `<cindor-workspace-switcher id="component-workspace-switcher" value="ops"></cindor-workspace-switcher>`;
     case "data-table":

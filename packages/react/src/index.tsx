@@ -111,6 +111,7 @@ import {
   CindorTransferList as CindorTransferListElement,
   CindorSortableList as CindorSortableListElement,
   CindorVirtualList as CindorVirtualListElement,
+  CindorJsonViewer as CindorJsonViewerElement,
   CindorWorkspaceSwitcher as CindorWorkspaceSwitcherElement,
   CindorSideNav as CindorSideNavElement,
   CindorSideNavItem as CindorSideNavItemElement,
@@ -988,6 +989,12 @@ export const CindorVirtualList = createComponent({
   events: {
     onRangeChange: "range-change"
   }
+});
+
+export const CindorJsonViewer = createComponent({
+  react: React,
+  tagName: "cindor-json-viewer",
+  elementClass: CindorJsonViewerElement
 });
 
 export const CindorWorkspaceSwitcher = createComponent({
