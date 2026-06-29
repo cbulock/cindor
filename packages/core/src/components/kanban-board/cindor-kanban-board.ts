@@ -376,6 +376,7 @@ export class CindorKanbanBoard extends LitElement {
           class="card-surface"
           part="card-surface"
           ?aria-disabled=${isDisabled}
+          aria-pressed=${isDisabled ? nothing : String(isSelected)}
           role=${isDisabled ? "group" : "button"}
           tabindex=${isDisabled ? "-1" : "0"}
           @click=${() => this.selectCard(column, card)}
@@ -427,12 +428,45 @@ export class CindorKanbanBoard extends LitElement {
       return;
     }
 
-    if (event.key !== "Enter" && event.key !== " ") {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      this.selectCard(column, card);
       return;
     }
 
-    event.preventDefault();
-    this.selectCard(column, card);
+    const focusSurfaces = this.focusableCardSurfaces;
+    const currentSurface = event.currentTarget;
+    const currentIndex = currentSurface instanceof HTMLElement ? focusSurfaces.indexOf(currentSurface) : -1;
+
+    if (currentIndex === -1) {
+      return;
+    }
+
+    const previousKey = event.key === "ArrowLeft" || event.key === "ArrowUp";
+    const nextKey = event.key === "ArrowRight" || event.key === "ArrowDown";
+
+    if (previousKey) {
+      event.preventDefault();
+      focusSurfaces[Math.max(0, currentIndex - 1)]?.focus();
+      return;
+    }
+
+    if (nextKey) {
+      event.preventDefault();
+      focusSurfaces[Math.min(focusSurfaces.length - 1, currentIndex + 1)]?.focus();
+      return;
+    }
+
+    if (event.key === "Home") {
+      event.preventDefault();
+      focusSurfaces[0]?.focus();
+      return;
+    }
+
+    if (event.key === "End") {
+      event.preventDefault();
+      focusSurfaces.at(-1)?.focus();
+    }
   }
 
   private handleCardAction(event: Event, column: KanbanBoardColumn, card: KanbanBoardCard, action: KanbanBoardCardAction): void {
@@ -478,5 +512,9 @@ export class CindorKanbanBoard extends LitElement {
         }
       })
     );
+  }
+
+  private get focusableCardSurfaces(): HTMLElement[] {
+    return Array.from(this.renderRoot.querySelectorAll<HTMLElement>('[part="card-surface"][role="button"]'));
   }
 }

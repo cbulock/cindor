@@ -71,6 +71,7 @@ describe("cindor-coachmark-tour", () => {
 
     const element = document.createElement("cindor-coachmark-tour") as CindorCoachmarkTour;
     element.steps = steps;
+    element.currentStep = 1;
     element.open = true;
     element.currentStep = 1;
     document.body.append(element);
@@ -106,6 +107,49 @@ describe("cindor-coachmark-tour", () => {
 
     expect(element.open).toBe(false);
     expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("traps tab focus inside the dialog controls and exposes modal semantics", async () => {
+    setupTargets();
+
+    const element = document.createElement("cindor-coachmark-tour") as CindorCoachmarkTour;
+    element.steps = steps;
+    element.currentStep = 1;
+    element.open = true;
+    document.body.append(element);
+    await element.updateComplete;
+
+    const previousButton = element.renderRoot.querySelector('[part="previous-button"]') as HTMLButtonElement;
+    const nextButton = element.renderRoot.querySelector('[part="next-button"]') as HTMLButtonElement;
+    const tabPreventDefault = vi.fn();
+    const shiftTabPreventDefault = vi.fn();
+
+    (
+      element as unknown as {
+        handleKeyDown: (event: KeyboardEvent) => void;
+      }
+    ).handleKeyDown({
+      key: "Tab",
+      preventDefault: tabPreventDefault,
+      shiftKey: false,
+      target: nextButton
+    } as unknown as KeyboardEvent);
+    expect(tabPreventDefault).toHaveBeenCalledTimes(1);
+
+    (
+      element as unknown as {
+        handleKeyDown: (event: KeyboardEvent) => void;
+      }
+    ).handleKeyDown({
+      key: "Tab",
+      preventDefault: shiftTabPreventDefault,
+      shiftKey: true,
+      target: previousButton
+    } as unknown as KeyboardEvent);
+    expect(shiftTabPreventDefault).toHaveBeenCalledTimes(1);
+
+    const surface = element.renderRoot.querySelector('[part="surface"]') as HTMLElement;
+    expect(surface.getAttribute("aria-modal")).toBe("true");
   });
 
   it("falls back to a centered dialog when the target cannot be found", async () => {
