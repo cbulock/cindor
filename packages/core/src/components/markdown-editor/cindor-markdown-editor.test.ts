@@ -136,9 +136,9 @@ describe("cindor-markdown-editor", () => {
 
     const preview = element.renderRoot.querySelector('[part="preview"]') as HTMLElement;
     expect(preview.getAttribute("tabindex")).toBe("-1");
-    preview.focus = vi.fn();
 
     element.focus();
 
-    expect(preview.focus).toHaveBeenCalledTimes(1);
+    expect(element.renderRoot.activeElement).toBe(preview);
+  });
 });
