@@ -73,7 +73,6 @@ describe("cindor-coachmark-tour", () => {
     element.steps = steps;
     element.currentStep = 1;
     element.open = true;
-    element.currentStep = 1;
     document.body.append(element);
     await element.updateComplete;
 
