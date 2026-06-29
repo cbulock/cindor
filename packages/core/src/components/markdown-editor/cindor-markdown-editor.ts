@@ -364,8 +364,7 @@ export class CindorMarkdownEditor extends FormAssociatedElement {
 
           ${showPreview
             ? html`
-                <section class="preview" part="preview" aria-label=${this.previewLabel}>
-                  tabindex="-1"
+                <section class="preview" part="preview" aria-label=${this.previewLabel} tabindex="-1">
                   ${this.value.trim()
                     ? unsafeHTML(this.previewHtml)
                     : html`<p class="preview-empty">${this.previewEmptyMessage}</p>`}
