@@ -68,6 +68,49 @@ describe("cindor-kanban-board", () => {
     expect(element.selectedCardId).toBe("card-a");
   });
 
+  it("moves focus between interactive cards with arrow, home, and end keys", async () => {
+    const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
+    element.columns = [
+      ...columns,
+      {
+        id: "done",
+        title: "Done",
+        cards: [
+          {
+            id: "card-b",
+            title: "Confirm release notes"
+          }
+        ]
+      }
+    ];
+    document.body.append(element);
+    await element.updateComplete;
+
+    const surfaces = Array.from(element.renderRoot.querySelectorAll('[part="card-surface"]')) as HTMLElement[];
+    surfaces.forEach((surface) => {
+      surface.focus = vi.fn();
+    });
+
+    surfaces[0]?.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, composed: true, key: "ArrowRight" }));
+    expect(surfaces[1]?.focus).toHaveBeenCalledTimes(1);
+
+    surfaces[1]?.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, composed: true, key: "Home" }));
+    expect(surfaces[0]?.focus).toHaveBeenCalledTimes(1);
+
+    surfaces[0]?.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, composed: true, key: "End" }));
+    expect(surfaces[1]?.focus).toHaveBeenCalledTimes(2);
+  });
+
+  it("exposes selected state on interactive cards", async () => {
+    const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
+    element.columns = columns;
+    element.selectedCardId = "card-a";
+    document.body.append(element);
+    await element.updateComplete;
+
+    expect(element.renderRoot.querySelector('[data-card-id="card-a"] [part="card-surface"]')?.getAttribute("aria-pressed")).toBe("true");
+  });
+
   it("emits card-action without changing the current selection", async () => {
     const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
     element.columns = columns;

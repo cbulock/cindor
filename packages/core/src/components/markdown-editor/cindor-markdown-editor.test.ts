@@ -126,4 +126,19 @@ describe("cindor-markdown-editor", () => {
     expect(element.value).toBe("seed");
     expect(textarea.value).toBe("seed");
   });
+
+  it("falls back to the preview surface when focus is requested outside write mode", async () => {
+    const element = document.createElement("cindor-markdown-editor") as CindorMarkdownEditor;
+    element.mode = "preview";
+    element.value = "Preview only";
+    document.body.append(element);
+    await element.updateComplete;
+
+    const preview = element.renderRoot.querySelector('[part="preview"]') as HTMLElement;
+    expect(preview.getAttribute("tabindex")).toBe("-1");
+    preview.focus = vi.fn();
+
+    element.focus();
+
+    expect(preview.focus).toHaveBeenCalledTimes(1);
 });
