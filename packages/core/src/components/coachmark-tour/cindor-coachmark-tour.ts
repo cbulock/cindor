@@ -12,6 +12,17 @@ export type CoachmarkTourStep = {
   title: string;
 };
 
+/**
+ * Guided onboarding overlay that spotlights existing UI and walks the user through contextual product hints.
+ *
+ * Provide `steps` with CSS selectors for each target and call `show()` to open the sequence at a specific step.
+ *
+ * @summary Guided spotlight overlay for anchored onboarding and education flows.
+ * @fires {CustomEvent<{ open: boolean }>} open-change - Fired whenever the tour opens or closes.
+ * @fires {CustomEvent<{ currentStep: number; step: CoachmarkTourStep | null }>} step-change - Fired when the active step changes.
+ * @fires close - Fired when the tour is dismissed before completion.
+ * @fires complete - Fired when the final step finishes.
+ */
 export class CindorCoachmarkTour extends LitElement {
   static styles = css`
     :host {
@@ -170,12 +181,19 @@ export class CindorCoachmarkTour extends LitElement {
     steps: { attribute: false }
   };
 
+  /** Zero-based active step index. */
   currentStep = 0;
+  /** Label used for dismiss actions. */
   dismissLabel = "Dismiss";
+  /** Label used on the final completion action. */
   finishLabel = "Finish";
+  /** Default label used on forward navigation buttons. */
   nextLabel = "Next";
+  /** Whether the tour is currently visible. */
   open = false;
+  /** Default label used on backward navigation buttons. */
   previousLabel = "Back";
+  /** Ordered onboarding steps rendered by the tour. */
   steps: CoachmarkTourStep[] = [];
 
   private cleanupAutoUpdate?: () => void;
@@ -191,6 +209,7 @@ export class CindorCoachmarkTour extends LitElement {
     super.disconnectedCallback();
   }
 
+  /** Closes the tour and restores focus to the previously active element. */
   close(): void {
     if (!this.open) {
       return;
@@ -201,6 +220,7 @@ export class CindorCoachmarkTour extends LitElement {
     this.dispatchEvent(new Event("close", { bubbles: true, composed: true }));
   }
 
+  /** Advances to the next step or completes the tour when the last step is active. */
   next(): void {
     if (this.isLastStep) {
       this.open = false;
@@ -213,6 +233,7 @@ export class CindorCoachmarkTour extends LitElement {
     this.dispatchStepChange();
   }
 
+  /** Moves back to the previous step when available. */
   previous(): void {
     if (this.currentStep <= 0) {
       return;
@@ -222,6 +243,7 @@ export class CindorCoachmarkTour extends LitElement {
     this.dispatchStepChange();
   }
 
+  /** Opens the tour and optionally jumps to a specific step index. */
   show(stepIndex = 0): void {
     this.currentStep = stepIndex;
     this.open = true;
@@ -243,6 +265,7 @@ export class CindorCoachmarkTour extends LitElement {
       <section
         aria-describedby=${this.descriptionId}
         aria-labelledby=${this.titleId}
+        aria-modal="true"
         class="surface"
         id=${this.surfaceId}
         part="surface"
@@ -349,7 +372,7 @@ export class CindorCoachmarkTour extends LitElement {
       return;
     }
 
-    const activeElement = getDeepestActiveElement(this.ownerDocument);
+    const activeElement = getDeepestActiveElement(this.ownerDocument) ?? (event.target instanceof HTMLElement ? event.target : null);
     const activeIndex = activeElement ? focusableElements.indexOf(activeElement) : -1;
 
     if (event.shiftKey) {

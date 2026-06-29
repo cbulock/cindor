@@ -90,6 +90,12 @@ export class CindorJsonViewer extends LitElement {
       list-style: none;
     }
 
+    summary:focus-visible {
+      outline: none;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--ring-focus);
+    }
+
     summary::-webkit-details-marker {
       display: none;
     }

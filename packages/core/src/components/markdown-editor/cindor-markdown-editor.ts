@@ -292,7 +292,8 @@ export class CindorMarkdownEditor extends FormAssociatedElement {
   }
 
   override focus(options?: FocusOptions): void {
-    this.textareaElement?.focus(options);
+    const focusTarget = this.textareaElement ?? this.previewElement ?? this.surfaceElement;
+    focusTarget?.focus(options);
   }
 
   reportValidity(): boolean {
@@ -363,7 +364,7 @@ export class CindorMarkdownEditor extends FormAssociatedElement {
 
           ${showPreview
             ? html`
-                <section class="preview" part="preview" aria-label=${this.previewLabel}>
+                <section class="preview" part="preview" aria-label=${this.previewLabel} tabindex="-1">
                   ${this.value.trim()
                     ? unsafeHTML(this.previewHtml)
                     : html`<p class="preview-empty">${this.previewEmptyMessage}</p>`}
@@ -472,6 +473,14 @@ export class CindorMarkdownEditor extends FormAssociatedElement {
 
   private get previewHtml(): string {
     return marked.parse(this.escapeHtml(this.value)) as string;
+  }
+
+  private get previewElement(): HTMLElement | null {
+    return this.renderRoot.querySelector(".preview");
+  }
+
+  private get surfaceElement(): HTMLElement | null {
+    return this.renderRoot.querySelector(".surface");
   }
 
   private get textareaElement(): HTMLTextAreaElement | null {

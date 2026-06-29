@@ -901,13 +901,13 @@
     },
     {
       "className": "CindorCoachmarkTour",
-      "description": "",
+      "description": "Guided onboarding overlay that spotlights existing UI and walks the user through contextual product hints.\n\nProvide `steps` with CSS selectors for each target and call `show()` to open the sequence at a specific step.",
       "modulePath": "packages/core/src/components/coachmark-tour/cindor-coachmark-tour.ts",
       "properties": [
         {
           "attributeName": "current-step",
           "defaultValue": "0",
-          "description": "",
+          "description": "Zero-based active step index.",
           "name": "currentStep",
           "reflects": true,
           "type": "number",
@@ -916,7 +916,7 @@
         {
           "attributeName": "dismiss-label",
           "defaultValue": "\"Dismiss\"",
-          "description": "",
+          "description": "Label used for dismiss actions.",
           "name": "dismissLabel",
           "reflects": true,
           "type": "string",
@@ -925,7 +925,7 @@
         {
           "attributeName": "finish-label",
           "defaultValue": "\"Finish\"",
-          "description": "",
+          "description": "Label used on the final completion action.",
           "name": "finishLabel",
           "reflects": true,
           "type": "string",
@@ -934,7 +934,7 @@
         {
           "attributeName": "next-label",
           "defaultValue": "\"Next\"",
-          "description": "",
+          "description": "Default label used on forward navigation buttons.",
           "name": "nextLabel",
           "reflects": true,
           "type": "string",
@@ -943,7 +943,7 @@
         {
           "attributeName": "open",
           "defaultValue": "false",
-          "description": "",
+          "description": "Whether the tour is currently visible.",
           "name": "open",
           "reflects": true,
           "type": "boolean",
@@ -952,7 +952,7 @@
         {
           "attributeName": "previous-label",
           "defaultValue": "\"Back\"",
-          "description": "",
+          "description": "Default label used on backward navigation buttons.",
           "name": "previousLabel",
           "reflects": true,
           "type": "string",
@@ -961,7 +961,7 @@
         {
           "attributeName": null,
           "defaultValue": "[]",
-          "description": "",
+          "description": "Ordered onboarding steps rendered by the tour.",
           "name": "steps",
           "reflects": false,
           "type": "CoachmarkTourStep[]",
@@ -970,25 +970,25 @@
       ],
       "methods": [
         {
-          "description": "",
+          "description": "Closes the tour and restores focus to the previously active element.",
           "name": "close",
           "parameters": [],
           "returnType": "void"
         },
         {
-          "description": "",
+          "description": "Advances to the next step or completes the tour when the last step is active.",
           "name": "next",
           "parameters": [],
           "returnType": "void"
         },
         {
-          "description": "",
+          "description": "Moves back to the previous step when available.",
           "name": "previous",
           "parameters": [],
           "returnType": "void"
         },
         {
-          "description": "",
+          "description": "Opens the tour and optionally jumps to a specific step index.",
           "name": "show",
           "parameters": [
             {
@@ -1002,32 +1002,32 @@
       ],
       "events": [
         {
-          "description": "",
+          "description": "Fired when the tour is dismissed before completion.",
           "name": "close",
           "type": "Event",
           "values": null
         },
         {
-          "description": "",
+          "description": "Fired when the final step finishes.",
           "name": "complete",
           "type": "Event",
           "values": null
         },
         {
-          "description": "",
+          "description": "Fired whenever the tour opens or closes.",
           "name": "open-change",
-          "type": "CustomEvent",
+          "type": "CustomEvent<{ open: boolean }>",
           "values": null
         },
         {
-          "description": "",
+          "description": "Fired when the active step changes.",
           "name": "step-change",
-          "type": "CustomEvent",
+          "type": "CustomEvent<{ currentStep: number; step: CoachmarkTourStep | null }>",
           "values": null
         }
       ],
       "slots": [],
-      "summary": "",
+      "summary": "Guided spotlight overlay for anchored onboarding and education flows.",
       "tagName": "cindor-coachmark-tour"
     },
     {
