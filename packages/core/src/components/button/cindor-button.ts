@@ -142,6 +142,9 @@ export class CindorButton extends LitElement {
   protected override render() {
     return html`
       <button
+        aria-controls=${ifDefined(this.hostAriaControls)}
+        aria-expanded=${ifDefined(this.hostAriaExpanded)}
+        aria-haspopup=${ifDefined(this.hostAriaHasPopup)}
         class="cindor-button__control"
         part="control"
         ?disabled=${this.disabled}
@@ -211,6 +214,18 @@ export class CindorButton extends LitElement {
 
   private get buttonElement(): HTMLButtonElement | null {
     return this.renderRoot.querySelector("button");
+  }
+
+  private get hostAriaControls(): string | undefined {
+    return this.getAttribute("aria-controls") ?? undefined;
+  }
+
+  private get hostAriaExpanded(): string | undefined {
+    return this.getAttribute("aria-expanded") ?? undefined;
+  }
+
+  private get hostAriaHasPopup(): string | undefined {
+    return this.getAttribute("aria-haspopup") ?? undefined;
   }
 
   private syncButtonA11y(): void {
