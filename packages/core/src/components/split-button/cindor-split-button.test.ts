@@ -28,7 +28,7 @@ describe("cindor-split-button", () => {
     document.body.append(element);
     await element.updateComplete;
 
-    const menuTrigger = element.renderRoot.querySelector('summary cindor-button');
+    const menuTrigger = element.renderRoot.querySelector('.menu-shell cindor-button');
 
     expect(menuTrigger?.getAttribute("aria-label")).toBe("More publish actions");
   });
@@ -43,12 +43,26 @@ describe("cindor-split-button", () => {
     document.body.append(element);
     await element.updateComplete;
 
-    const menuTrigger = element.renderRoot.querySelector("summary cindor-button");
+    const menuTrigger = element.renderRoot.querySelector(".menu-shell cindor-button");
     const menu = element.renderRoot.querySelector('[part="menu"]');
 
     expect(menuTrigger?.getAttribute("aria-haspopup")).toBe("menu");
     expect(menuTrigger?.getAttribute("aria-expanded")).toBe("true");
     expect(menuTrigger?.getAttribute("aria-controls")).toBe(menu?.id);
+  });
+
+  it("renders the menu trigger without summary or details wrappers", async () => {
+    const element = document.createElement("cindor-split-button") as CindorSplitButton;
+    element.innerHTML = `
+      Publish
+      <cindor-menu-item slot="menu">Save draft</cindor-menu-item>
+    `;
+    document.body.append(element);
+    await element.updateComplete;
+
+    expect(element.renderRoot.querySelector(".menu-shell cindor-button")).not.toBeNull();
+    expect(element.renderRoot.querySelector("summary")).toBeNull();
+    expect(element.renderRoot.querySelector("details")).toBeNull();
   });
 
   it("forwards host accessible naming to the internal menu", async () => {
@@ -92,8 +106,8 @@ describe("cindor-split-button", () => {
     document.body.append(element);
     await element.updateComplete;
 
-    const summary = element.renderRoot.querySelector("summary") as HTMLElement;
-    summary.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+    const menuTrigger = element.renderRoot.querySelector(".menu-shell cindor-button") as HTMLElement;
+    menuTrigger.click();
     await element.updateComplete;
 
     expect(element.open).toBe(false);
@@ -110,7 +124,7 @@ describe("cindor-split-button", () => {
     await element.updateComplete;
 
     const menu = element.renderRoot.querySelector('[part="menu"]') as HTMLElement;
-    const menuTrigger = element.renderRoot.querySelector("summary cindor-button") as HTMLElement;
+    const menuTrigger = element.renderRoot.querySelector(".menu-shell cindor-button") as HTMLElement;
     menu.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, composed: true, key: "Escape" }));
     await element.updateComplete;
 
