@@ -57,18 +57,25 @@ export class CindorContextMenu extends LitElement {
   private readonly menuId = `cindor-context-menu-menu-${++contextMenuId}`;
   private anchorY = 0;
   private restoreFocusTarget: HTMLElement | null = null;
+  private synthesizedTriggerRole = false;
+  private synthesizedTriggerTabindex = false;
+  private triggerNode: HTMLElement | null = null;
 
   override connectedCallback(): void {
     super.connectedCallback();
     document.addEventListener("pointerdown", this.handleDocumentPointerDown, true);
     window.addEventListener("blur", this.handleWindowBlur);
     window.addEventListener("resize", this.handleViewportChange);
+    queueMicrotask(() => {
+      this.syncTriggerNode();
+    });
   }
 
   override disconnectedCallback(): void {
     document.removeEventListener("pointerdown", this.handleDocumentPointerDown, true);
     window.removeEventListener("blur", this.handleWindowBlur);
     window.removeEventListener("resize", this.handleViewportChange);
+    this.detachTriggerListeners();
     super.disconnectedCallback();
   }
 
@@ -96,18 +103,8 @@ export class CindorContextMenu extends LitElement {
 
   protected override render() {
     return html`
-      <div
-        aria-controls=${this.menuId}
-        aria-expanded=${String(this.open)}
-        aria-haspopup="menu"
-        class="trigger"
-        part="trigger"
-        role="button"
-        tabindex="0"
-        @contextmenu=${this.handleContextMenu}
-        @keydown=${this.handleTriggerKeydown}
-      >
-        <slot name="trigger"></slot>
+      <div class="trigger" part="trigger">
+        <slot name="trigger" @slotchange=${this.handleSlotChange}></slot>
       </div>
       <cindor-menu
         class="menu"
@@ -123,6 +120,10 @@ export class CindorContextMenu extends LitElement {
   }
 
   protected override updated(changedProperties: Map<string, unknown>): void {
+    if (!this.triggerNode) {
+      this.syncTriggerNode();
+    }
+    this.syncTriggerA11y();
     this.syncMenuA11y();
     if (changedProperties.has("open") && this.open) {
       this.positionMenu();
@@ -134,6 +135,10 @@ export class CindorContextMenu extends LitElement {
       this.positionMenu();
     }
   }
+
+  private handleSlotChange = (): void => {
+    this.syncTriggerNode();
+  };
 
   private handleContextMenu = (event: MouseEvent): void => {
     event.preventDefault();
@@ -225,6 +230,27 @@ export class CindorContextMenu extends LitElement {
     syncA11yAttribute(this, menu, "aria-describedby");
   }
 
+  private syncTriggerA11y(): void {
+    if (!this.triggerNode) {
+      return;
+    }
+
+    this.triggerNode.setAttribute("aria-controls", this.menuId);
+    this.triggerNode.setAttribute("aria-expanded", String(this.open));
+    this.triggerNode.setAttribute("aria-haspopup", "menu");
+
+    if (!isInteractiveElement(this.triggerNode)) {
+      if (!this.triggerNode.hasAttribute("role")) {
+        this.triggerNode.setAttribute("role", "button");
+        this.synthesizedTriggerRole = true;
+      }
+      if (!this.triggerNode.hasAttribute("tabindex")) {
+        this.triggerNode.setAttribute("tabindex", "0");
+        this.synthesizedTriggerTabindex = true;
+      }
+    }
+  }
+
   private focusFirstItem(): void {
     const firstItem = Array.from(this.querySelectorAll("cindor-menu-item"))
       .find((item): item is HTMLElement => item instanceof HTMLElement && !item.hasAttribute("disabled"));
@@ -247,7 +273,48 @@ export class CindorContextMenu extends LitElement {
   }
 
   private get triggerElement(): HTMLElement | null {
-    return this.renderRoot.querySelector(".trigger");
+    return this.triggerNode ?? this.renderRoot.querySelector(".trigger");
+  }
+
+  private detachTriggerListeners(): void {
+    if (!this.triggerNode) {
+      return;
+    }
+
+    this.triggerNode.removeEventListener("contextmenu", this.handleContextMenu);
+    this.triggerNode.removeEventListener("keydown", this.handleTriggerKeydown);
+    this.triggerNode.removeAttribute("aria-controls");
+    this.triggerNode.removeAttribute("aria-expanded");
+    this.triggerNode.removeAttribute("aria-haspopup");
+    if (this.synthesizedTriggerRole) {
+      this.triggerNode.removeAttribute("role");
+    }
+    if (this.synthesizedTriggerTabindex) {
+      this.triggerNode.removeAttribute("tabindex");
+    }
+    this.synthesizedTriggerRole = false;
+    this.synthesizedTriggerTabindex = false;
+    this.triggerNode = null;
+  }
+
+  private syncTriggerNode(): void {
+    const slot = this.renderRoot.querySelector('slot[name="trigger"]');
+    const nextTrigger = slot?.assignedElements({ flatten: true }).find((element): element is HTMLElement => element instanceof HTMLElement) ?? null;
+
+    if (nextTrigger === this.triggerNode) {
+      this.syncTriggerA11y();
+      return;
+    }
+
+    this.detachTriggerListeners();
+    if (!nextTrigger) {
+      return;
+    }
+
+    this.triggerNode = nextTrigger;
+    this.triggerNode.addEventListener("contextmenu", this.handleContextMenu);
+    this.triggerNode.addEventListener("keydown", this.handleTriggerKeydown);
+    this.syncTriggerA11y();
   }
 }
 
@@ -265,4 +332,17 @@ function syncA11yAttribute(source: Element, target: Element, attribute: "aria-de
   }
 
   target.setAttribute(attribute, value);
+}
+
+function isInteractiveElement(element: HTMLElement): boolean {
+  if (element.matches('button, input, select, textarea, summary, a[href]')) {
+    return true;
+  }
+
+  if (element.getAttribute("contenteditable") === "true") {
+    return true;
+  }
+
+  const role = element.getAttribute("role");
+  return role === "button" || role === "link" || role === "menuitem";
 }
