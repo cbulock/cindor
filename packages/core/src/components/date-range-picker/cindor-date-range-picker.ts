@@ -131,11 +131,12 @@ export class CindorDateRangePicker extends LitElement {
             aria-label=${ifDefined(this.getAttribute("aria-label") ?? undefined)}
             aria-labelledby=${ifDefined(this.getAttribute("aria-labelledby") ?? undefined)}
             class="summary"
+            data-empty=${String(summary === "")}
             part="summary-button"
             type="button"
             @click=${this.handleSummaryClick}
           >
-            <span part="summary" data-empty=${String(summary === "")}>${summary || this.placeholder}</span>
+            <span part="summary">${summary || this.placeholder}</span>
           </button>
           ${this.startValue || this.endValue
             ? html`
