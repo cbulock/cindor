@@ -1,4 +1,5 @@
 import { css, html } from "lit";
+import { ifDefined } from "lit/directives/if-defined.js";
 
 import { attachFloatingPosition } from "../shared/floating-position.js";
 import { CindorCalendar } from "../calendar/cindor-calendar.js";
@@ -40,9 +41,14 @@ export class CindorDateRangePicker extends LitElement {
     }
 
     .summary {
+      display: block;
+      width: 100%;
       padding: 0 var(--space-3);
+      border: 0;
+      background: transparent;
       color: var(--fg);
       font: inherit;
+      text-align: start;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -81,6 +87,7 @@ export class CindorDateRangePicker extends LitElement {
 
   private floatingCleanup?: () => void;
   private floatingPanel: HTMLElement | null = null;
+  private readonly panelId = `cindor-date-range-picker-panel-${++dateRangePickerId}`;
   private updateFloatingPosition?: () => void;
 
   override connectedCallback(): void {
@@ -115,14 +122,31 @@ export class CindorDateRangePicker extends LitElement {
     const summary = this.rangeSummary;
     return html`
       <div class="surface">
-        <div class="field" part="field" tabindex="0" @click=${this.handleFieldClick} @keydown=${this.handleFieldKeyDown}>
-          <span class="summary" part="summary" data-empty=${String(summary === "")}>${summary || this.placeholder}</span>
+        <div class="field" part="field" role="group">
+          <button
+            aria-controls=${this.panelId}
+            aria-describedby=${ifDefined(this.getAttribute("aria-describedby") ?? undefined)}
+            aria-expanded=${String(this.open)}
+            aria-haspopup="grid"
+            aria-label=${ifDefined(this.getAttribute("aria-label") ?? undefined)}
+            aria-labelledby=${ifDefined(this.getAttribute("aria-labelledby") ?? undefined)}
+            class="summary"
+            data-empty=${String(summary === "")}
+            part="summary-button"
+            type="button"
+            @click=${this.handleSummaryClick}
+          >
+            <span part="summary">${summary || this.placeholder}</span>
+          </button>
           ${this.startValue || this.endValue
             ? html`
                 <cindor-icon-button label="Clear range" name="x" part="clear-button" @click=${this.handleClear}></cindor-icon-button>
               `
             : null}
           <cindor-icon-button
+            aria-controls=${this.panelId}
+            aria-expanded=${String(this.open)}
+            aria-haspopup="grid"
             label=${this.open ? "Close calendar" : "Open calendar"}
             name="calendar-range"
             part="toggle-button"
@@ -132,6 +156,7 @@ export class CindorDateRangePicker extends LitElement {
         ${this.open
           ? html`
               <cindor-calendar
+                id=${this.panelId}
                 part="panel"
                 end-value=${this.endValue}
                 max=${this.max}
@@ -152,15 +177,8 @@ export class CindorDateRangePicker extends LitElement {
     this.syncFloatingPosition();
   }
 
-  private handleFieldClick = (): void => {
+  private handleSummaryClick = (): void => {
     this.show();
-  };
-
-  private handleFieldKeyDown = (event: KeyboardEvent): void => {
-    if (event.key === "ArrowDown" || event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      this.show();
-    }
   };
 
   private handleToggleClick = (event: Event): void => {
@@ -282,3 +300,5 @@ export class CindorDateRangePicker extends LitElement {
     return `${this.startValue} -> ${this.endValue}`;
   }
 }
+
+let dateRangePickerId = 0;

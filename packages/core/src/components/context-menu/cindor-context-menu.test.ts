@@ -53,4 +53,47 @@ describe("cindor-context-menu", () => {
 
     expect(element.renderRoot.querySelector('[role="menu"]')?.getAttribute("aria-label")).toBe("Context actions");
   });
+
+  it("applies menu relationships to a native trigger without wrapping it in a second button", async () => {
+    const element = document.createElement("cindor-context-menu") as CindorContextMenu;
+    element.innerHTML = '<button slot="trigger">Open</button><cindor-menu-item>Rename</cindor-menu-item>';
+    document.body.append(element);
+    await element.updateComplete;
+
+    const trigger = element.querySelector('[slot="trigger"]') as HTMLButtonElement;
+    const wrapper = element.renderRoot.querySelector('[part="trigger"]') as HTMLElement;
+
+    expect(wrapper.getAttribute("role")).toBeNull();
+    expect(wrapper.getAttribute("tabindex")).toBeNull();
+    expect(trigger.getAttribute("aria-haspopup")).toBe("menu");
+    expect(trigger.getAttribute("aria-controls")).toBeTruthy();
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+
+    trigger.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, composed: true, key: "Enter" }));
+    await element.updateComplete;
+
+    expect(element.open).toBe(true);
+    expect(trigger.getAttribute("aria-expanded")).toBe("true");
+  });
+
+  it("synthesizes button semantics only for non-interactive triggers", async () => {
+    const element = document.createElement("cindor-context-menu") as CindorContextMenu;
+    element.innerHTML = '<span slot="trigger">Open</span><cindor-menu-item>Rename</cindor-menu-item>';
+    document.body.append(element);
+    await element.updateComplete;
+
+    const trigger = element.querySelector('[slot="trigger"]') as HTMLElement;
+
+    expect(trigger.getAttribute("role")).toBe("button");
+    expect(trigger.getAttribute("tabindex")).toBe("0");
+    expect(trigger.getAttribute("aria-haspopup")).toBe("menu");
+    expect(trigger.getAttribute("aria-controls")).toBeTruthy();
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+
+    trigger.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, composed: true, key: "Enter" }));
+    await element.updateComplete;
+
+    expect(element.open).toBe(true);
+    expect(trigger.getAttribute("aria-expanded")).toBe("true");
+  });
 });

@@ -60,6 +60,21 @@ describe("cindor-button", () => {
     expect(element.renderRoot.querySelector(`#${describedById ?? ""}`)?.textContent).toBe("Creates a new upload job");
   });
 
+  it("forwards popup relationship attributes to the native button", async () => {
+    const element = document.createElement("cindor-button") as CindorButton;
+    element.setAttribute("aria-controls", "popup-panel");
+    element.setAttribute("aria-expanded", "true");
+    element.setAttribute("aria-haspopup", "menu");
+    document.body.append(element);
+    await element.updateComplete;
+
+    const button = element.renderRoot.querySelector("button") as HTMLButtonElement;
+
+    expect(button.getAttribute("aria-controls")).toBe("popup-panel");
+    expect(button.getAttribute("aria-expanded")).toBe("true");
+    expect(button.getAttribute("aria-haspopup")).toBe("menu");
+  });
+
   it("submits its owning form when clicked without an explicit type", async () => {
     document.body.innerHTML = `<form><cindor-button>Save</cindor-button></form>`;
 

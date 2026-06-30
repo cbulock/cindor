@@ -49,7 +49,7 @@ export class CindorIconButton extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
     this.hostA11yObserver.observe(this, {
-      attributeFilter: ["aria-description", "aria-describedby", "aria-label", "aria-labelledby", "id"],
+      attributeFilter: ["aria-controls", "aria-description", "aria-describedby", "aria-expanded", "aria-haspopup", "aria-label", "aria-labelledby", "id"],
       attributes: true
     });
   }
@@ -71,8 +71,11 @@ export class CindorIconButton extends LitElement {
     return html`
       <cindor-button
         part="control"
+        aria-controls=${ifDefined(this.hostAriaControls)}
         aria-description=${ifDefined(this.hostAriaDescription)}
         aria-describedby=${ifDefined(this.hostAriaDescribedBy)}
+        aria-expanded=${ifDefined(this.hostAriaExpanded)}
+        aria-haspopup=${ifDefined(this.hostAriaHasPopup)}
         aria-label=${ifDefined(this.label || this.hostAriaLabel)}
         aria-labelledby=${ifDefined(this.hostAriaLabelledBy)}
         ?disabled=${this.disabled}
@@ -93,8 +96,20 @@ export class CindorIconButton extends LitElement {
     return this.getAttribute("aria-describedby") ?? undefined;
   }
 
+  private get hostAriaControls(): string | undefined {
+    return this.getAttribute("aria-controls") ?? undefined;
+  }
+
   private get hostAriaDescription(): string | undefined {
     return this.getAttribute("aria-description") ?? undefined;
+  }
+
+  private get hostAriaExpanded(): string | undefined {
+    return this.getAttribute("aria-expanded") ?? undefined;
+  }
+
+  private get hostAriaHasPopup(): string | undefined {
+    return this.getAttribute("aria-haspopup") ?? undefined;
   }
 
   private get hostAriaLabel(): string | undefined {

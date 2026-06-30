@@ -92,6 +92,7 @@ export class CindorDatePicker extends FormAssociatedElement {
   private defaultValue = "";
   private floatingCleanup?: () => void;
   private floatingPanel: HTMLElement | null = null;
+  private readonly panelId = `cindor-date-picker-panel-${++datePickerId}`;
   private updateFloatingPosition?: () => void;
 
   override connectedCallback(): void {
@@ -154,6 +155,9 @@ export class CindorDatePicker extends FormAssociatedElement {
       <div class="surface">
         <div class="field" part="field">
           <input
+            aria-controls=${this.panelId}
+            aria-expanded=${String(this.open)}
+            aria-haspopup="grid"
             part="control"
             .value=${this.value}
             ?disabled=${this.disabled}
@@ -177,6 +181,9 @@ export class CindorDatePicker extends FormAssociatedElement {
               `
             : null}
           <cindor-icon-button
+            aria-controls=${this.panelId}
+            aria-expanded=${String(this.open)}
+            aria-haspopup="grid"
             label=${this.open ? "Close calendar" : "Open calendar"}
             name="calendar"
             part="toggle-button"
@@ -187,6 +194,7 @@ export class CindorDatePicker extends FormAssociatedElement {
         ${this.open
           ? html`
               <cindor-calendar
+                id=${this.panelId}
                 part="panel"
                 .value=${this.value}
                 ?disabled=${this.disabled}
@@ -348,3 +356,5 @@ export class CindorDatePicker extends FormAssociatedElement {
     return this.renderRoot.querySelector("cindor-calendar");
   }
 }
+
+let datePickerId = 0;
