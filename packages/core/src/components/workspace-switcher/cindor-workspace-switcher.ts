@@ -353,7 +353,9 @@ export class CindorWorkspaceSwitcher extends LitElement {
                 id=${this.searchId}
                 aria-activedescendant=${this.activeOptionId ?? nothing}
                 aria-controls=${this.listboxId}
+                aria-expanded="true"
                 aria-label=${this.searchLabel}
+                aria-autocomplete="list"
                 class="search"
                 part="search"
                 .value=${this.query}

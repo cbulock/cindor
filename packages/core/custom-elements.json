@@ -294,6 +294,121 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Activity Item\", render: () => ` <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Ops\"></cindor-avatar> <span slot=\"title\">Database failover completed</span> <span slot=\"timestamp\">5 minutes ago</span> <span slot=\"meta\">Primary cluster</span> Connections were restored automatically after the failover. </cindor-activity-item> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-item/cindor-activity-item.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Single event row used inside CindorActivityFeed.",
+          "name": "CindorActivityItem",
+          "slots": [
+            {
+              "description": "Leading avatar, icon, or status mark.",
+              "name": "leading"
+            },
+            {
+              "description": "Main activity title.",
+              "name": "title"
+            },
+            {
+              "description": "Time or date associated with the event.",
+              "name": "timestamp"
+            },
+            {
+              "description": "Supplemental metadata such as actor, environment, or destination.",
+              "name": "meta"
+            },
+            {
+              "description": "Optional trailing actions for the activity.",
+              "name": "actions"
+            },
+            {
+              "description": "Main event description.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "unread",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "unread",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "unread",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "unread"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorActivityItem",
+          "declaration": {
+            "name": "CindorActivityItem",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/autocomplete/cindor-autocomplete.stories.ts",
       "declarations": [
         {
@@ -871,121 +986,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Activity Item\", render: () => ` <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Ops\"></cindor-avatar> <span slot=\"title\">Database failover completed</span> <span slot=\"timestamp\">5 minutes ago</span> <span slot=\"meta\">Primary cluster</span> Connections were restored automatically after the failover. </cindor-activity-item> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-item/cindor-activity-item.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Single event row used inside CindorActivityFeed.",
-          "name": "CindorActivityItem",
-          "slots": [
-            {
-              "description": "Leading avatar, icon, or status mark.",
-              "name": "leading"
-            },
-            {
-              "description": "Main activity title.",
-              "name": "title"
-            },
-            {
-              "description": "Time or date associated with the event.",
-              "name": "timestamp"
-            },
-            {
-              "description": "Supplemental metadata such as actor, environment, or destination.",
-              "name": "meta"
-            },
-            {
-              "description": "Optional trailing actions for the activity.",
-              "name": "actions"
-            },
-            {
-              "description": "Main event description.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "unread",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "unread",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "unread",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "unread"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorActivityItem",
-          "declaration": {
-            "name": "CindorActivityItem",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/avatar/cindor-avatar.stories.ts",
       "declarations": [
         {
@@ -1537,73 +1537,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Components/Breadcrumbs\", args: { currentLabel: \"Breadcrumbs\", homeHref: \"/\", homeLabel: \"Home\", sectionHref: \"/components\", sectionLabel: \"Components\" }, render: ({ currentLabel, homeHref, homeLabel, sectionHref, sectionLabel }: BreadcrumbsStoryArgs) => ` <cindor-breadcrumbs> <li><cindor-link href=\"${homeHref}\">${homeLabel}</cindor-link></li> <li><cindor-link href=\"${sectionHref}\">${sectionLabel}</cindor-link></li> <li aria-current=\"page\">${currentLabel}</li> </cindor-breadcrumbs> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorBreadcrumbs",
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorBreadcrumbs",
-          "declaration": {
-            "name": "CindorBreadcrumbs",
-            "module": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/button/cindor-button.stories.ts",
       "declarations": [
         {
@@ -1926,6 +1859,73 @@
           "declaration": {
             "name": "CindorButton",
             "module": "packages/core/src/components/button/cindor-button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Components/Breadcrumbs\", args: { currentLabel: \"Breadcrumbs\", homeHref: \"/\", homeLabel: \"Home\", sectionHref: \"/components\", sectionLabel: \"Components\" }, render: ({ currentLabel, homeHref, homeLabel, sectionHref, sectionLabel }: BreadcrumbsStoryArgs) => ` <cindor-breadcrumbs> <li><cindor-link href=\"${homeHref}\">${homeLabel}</cindor-link></li> <li><cindor-link href=\"${sectionHref}\">${sectionLabel}</cindor-link></li> <li aria-current=\"page\">${currentLabel}</li> </cindor-breadcrumbs> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorBreadcrumbs",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorBreadcrumbs",
+          "declaration": {
+            "name": "CindorBreadcrumbs",
+            "module": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.ts"
           }
         }
       ]
@@ -3204,7 +3204,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "Guided onboarding overlay that spotlights existing UI and walks the user through contextual product hints.\n\nProvide `steps` with CSS selectors for each target and call `show()` to open the sequence at a specific step.",
           "name": "CindorCoachmarkTour",
           "members": [
             {
@@ -3215,6 +3215,7 @@
                 "text": "number"
               },
               "default": "0",
+              "description": "Zero-based active step index.",
               "attribute": "current-step",
               "reflects": true
             },
@@ -3226,6 +3227,7 @@
                 "text": "string"
               },
               "default": "\"Dismiss\"",
+              "description": "Label used for dismiss actions.",
               "attribute": "dismiss-label",
               "reflects": true
             },
@@ -3237,6 +3239,7 @@
                 "text": "string"
               },
               "default": "\"Finish\"",
+              "description": "Label used on the final completion action.",
               "attribute": "finish-label",
               "reflects": true
             },
@@ -3248,6 +3251,7 @@
                 "text": "string"
               },
               "default": "\"Next\"",
+              "description": "Default label used on forward navigation buttons.",
               "attribute": "next-label",
               "reflects": true
             },
@@ -3259,6 +3263,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Whether the tour is currently visible.",
               "attribute": "open",
               "reflects": true
             },
@@ -3270,6 +3275,7 @@
                 "text": "string"
               },
               "default": "\"Back\"",
+              "description": "Default label used on backward navigation buttons.",
               "attribute": "previous-label",
               "reflects": true
             },
@@ -3280,7 +3286,8 @@
               "type": {
                 "text": "CoachmarkTourStep[]"
               },
-              "default": "[]"
+              "default": "[]",
+              "description": "Ordered onboarding steps rendered by the tour."
             },
             {
               "kind": "field",
@@ -3339,7 +3346,8 @@
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "description": "Closes the tour and restores focus to the previously active element."
             },
             {
               "kind": "method",
@@ -3348,7 +3356,8 @@
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "description": "Advances to the next step or completes the tour when the last step is active."
             },
             {
               "kind": "method",
@@ -3357,7 +3366,8 @@
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "description": "Moves back to the previous step when available."
             },
             {
               "kind": "method",
@@ -3372,7 +3382,8 @@
                   "name": "stepIndex",
                   "default": "0"
                 }
-              ]
+              ],
+              "description": "Opens the tour and optionally jumps to a specific step index."
             },
             {
               "kind": "field",
@@ -3556,25 +3567,29 @@
               "name": "close",
               "type": {
                 "text": "Event"
-              }
+              },
+              "description": "Fired when the tour is dismissed before completion."
             },
             {
               "name": "complete",
               "type": {
                 "text": "Event"
-              }
+              },
+              "description": "Fired when the final step finishes."
             },
             {
               "name": "open-change",
               "type": {
-                "text": "CustomEvent"
-              }
+                "text": "CustomEvent<{ open: boolean }>"
+              },
+              "description": "Fired whenever the tour opens or closes."
             },
             {
               "name": "step-change",
               "type": {
-                "text": "CustomEvent"
-              }
+                "text": "CustomEvent<{ currentStep: number; step: CoachmarkTourStep | null }>"
+              },
+              "description": "Fired when the active step changes."
             }
           ],
           "attributes": [
@@ -3584,6 +3599,7 @@
                 "text": "number"
               },
               "default": "0",
+              "description": "Zero-based active step index.",
               "fieldName": "currentStep"
             },
             {
@@ -3592,6 +3608,7 @@
                 "text": "string"
               },
               "default": "\"Dismiss\"",
+              "description": "Label used for dismiss actions.",
               "fieldName": "dismissLabel"
             },
             {
@@ -3600,6 +3617,7 @@
                 "text": "string"
               },
               "default": "\"Finish\"",
+              "description": "Label used on the final completion action.",
               "fieldName": "finishLabel"
             },
             {
@@ -3608,6 +3626,7 @@
                 "text": "string"
               },
               "default": "\"Next\"",
+              "description": "Default label used on forward navigation buttons.",
               "fieldName": "nextLabel"
             },
             {
@@ -3616,6 +3635,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Whether the tour is currently visible.",
               "fieldName": "open"
             },
             {
@@ -3624,6 +3644,7 @@
                 "text": "string"
               },
               "default": "\"Back\"",
+              "description": "Default label used on backward navigation buttons.",
               "fieldName": "previousLabel"
             }
           ],
@@ -3631,6 +3652,7 @@
             "name": "LitElement",
             "package": "lit"
           },
+          "summary": "Guided spotlight overlay for anchored onboarding and education flows.",
           "customElement": true
         }
       ],
@@ -9177,361 +9199,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/date-range-picker/cindor-date-range-picker.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Forms/Date Range Picker\", render: () => `<cindor-date-range-picker aria-label=\"Vacation range\" month=\"2026-04\" start-value=\"2026-04-12\" end-value=\"2026-04-18\"></cindor-date-range-picker>` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/date-range-picker/cindor-date-range-picker.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/date-range-picker/cindor-date-range-picker.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/date-range-picker/cindor-date-range-picker.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Popup date range picker powered by the Cindor range calendar.",
-          "name": "CindorDateRangePicker",
-          "members": [
-            {
-              "kind": "field",
-              "name": "endValue",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "end-value",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "max",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "max",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "min",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "min",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "month",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "month",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "open",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "open",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "placeholder",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"Select a date range\"",
-              "attribute": "placeholder",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "startValue",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "start-value",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "floatingCleanup",
-              "type": {
-                "text": "() => void | undefined"
-              },
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "floatingPanel",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "field",
-              "name": "updateFloatingPosition",
-              "type": {
-                "text": "() => void | undefined"
-              },
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "show",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "close",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "handleFieldClick",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleFieldKeyDown",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleToggleClick",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleClear",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleCalendarInput",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleCalendarChange",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleDocumentPointerDown",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "syncFloatingPosition",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "destroyFloatingPosition",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchToggle",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "fieldElement",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "panelElement",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "rangeSummary",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "events": [
-            {
-              "name": "toggle",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired when the popup opens or closes."
-            },
-            {
-              "description": "Fired as the selected range changes.",
-              "name": "input"
-            },
-            {
-              "description": "Fired when a range selection completes.",
-              "name": "change"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "end-value",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "endValue"
-            },
-            {
-              "name": "max",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "max"
-            },
-            {
-              "name": "min",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "min"
-            },
-            {
-              "name": "month",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "month"
-            },
-            {
-              "name": "open",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "open"
-            },
-            {
-              "name": "placeholder",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"Select a date range\"",
-              "fieldName": "placeholder"
-            },
-            {
-              "name": "start-value",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "startValue"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorDateRangePicker",
-          "declaration": {
-            "name": "CindorDateRangePicker",
-            "module": "packages/core/src/components/date-range-picker/cindor-date-range-picker.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/date-time-picker/cindor-date-time-picker.stories.ts",
       "declarations": [
         {
@@ -9855,6 +9522,423 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/date-range-picker/cindor-date-range-picker.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Forms/Date Range Picker\", render: () => `<cindor-date-range-picker aria-label=\"Vacation range\" month=\"2026-04\" start-value=\"2026-04-12\" end-value=\"2026-04-18\"></cindor-date-range-picker>` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/date-range-picker/cindor-date-range-picker.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/date-range-picker/cindor-date-range-picker.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/date-range-picker/cindor-date-range-picker.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Popup date range picker powered by the Cindor range calendar.",
+          "name": "CindorDateRangePicker",
+          "members": [
+            {
+              "kind": "field",
+              "name": "nextPanelId",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "static": true,
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "endValue",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "end-value",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "max",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "max",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "min",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "min",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "month",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "month",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Select a date range\"",
+              "attribute": "placeholder",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "startValue",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "start-value",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "floatingCleanup",
+              "type": {
+                "text": "() => void | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "floatingPanel",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "panelId",
+              "privacy": "private",
+              "readonly": true,
+              "default": "`${this.localName || \"cindor-date-range-picker\"}-panel-${CindorDateRangePicker.nextPanelId++}`"
+            },
+            {
+              "kind": "field",
+              "name": "updateFloatingPosition",
+              "type": {
+                "text": "() => void | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "show",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleFieldClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleFieldKeyDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleToggleClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleClear",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleCalendarInput",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleCalendarChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleDocumentPointerDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "syncFloatingPosition",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "destroyFloatingPosition",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "dispatchToggle",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "fieldContainerElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "triggerElement",
+              "type": {
+                "text": "HTMLButtonElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "panelElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "syncFieldA11y",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "fieldAccessibleLabel",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "rangeSummary",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "events": [
+            {
+              "name": "toggle",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the popup opens or closes."
+            },
+            {
+              "description": "Fired as the selected range changes.",
+              "name": "input"
+            },
+            {
+              "description": "Fired when a range selection completes.",
+              "name": "change"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "end-value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "endValue"
+            },
+            {
+              "name": "max",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "max"
+            },
+            {
+              "name": "min",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "min"
+            },
+            {
+              "name": "month",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "month"
+            },
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "open"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Select a date range\"",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "start-value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "startValue"
+            }
+          ],
+          "superclass": {
+            "name": "FormAssociatedElement",
+            "module": "/packages/core/src/components/shared/form-associated-element.js"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorDateRangePicker",
+          "declaration": {
+            "name": "CindorDateRangePicker",
+            "module": "packages/core/src/components/date-range-picker/cindor-date-range-picker.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/description-item/cindor-description-item.stories.ts",
       "declarations": [
         {
@@ -10163,6 +10247,15 @@
             },
             {
               "kind": "field",
+              "name": "previousFocusedElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
               "name": "presentedModal",
               "type": {
                 "text": "boolean | null"
@@ -10335,6 +10428,16 @@
             {
               "kind": "method",
               "name": "syncReferencedTextObserver",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "restorePreviousFocus",
               "privacy": "private",
               "return": {
                 "type": {
@@ -17977,6 +18080,15 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "field",
+              "name": "focusableCardSurfaces",
+              "type": {
+                "text": "HTMLElement[]"
+              },
+              "privacy": "private",
+              "readonly": true
             }
           ],
           "events": [
@@ -19024,6 +19136,24 @@
               "name": "previewHtml",
               "type": {
                 "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "previewElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "surfaceElement",
+              "type": {
+                "text": "HTMLElement | null"
               },
               "privacy": "private",
               "readonly": true

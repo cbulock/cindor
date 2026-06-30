@@ -218,4 +218,76 @@ describe("cindor-dialog", () => {
     expect(element.open).toBe(true);
     expect(element.modal).toBe(true);
   });
+
+  it("restores focus to the previously focused element when closing", async () => {
+    const trigger = document.createElement("button");
+    trigger.textContent = "Open dialog";
+    document.body.append(trigger);
+    trigger.focus();
+
+    const element = document.createElement("cindor-dialog") as CindorDialog;
+    element.open = true;
+    document.body.append(element);
+    await element.updateComplete;
+
+    element.close();
+    await element.updateComplete;
+
+    expect(document.activeElement).toBe(trigger);
+  });
+
+  it("preserves the original focus restore target when modal changes while open", async () => {
+    const trigger = document.createElement("button");
+    trigger.textContent = "Open dialog";
+    document.body.append(trigger);
+    trigger.focus();
+
+    const element = document.createElement("cindor-dialog") as CindorDialog;
+    document.body.append(element);
+    await element.updateComplete;
+
+    const dialog = element.renderRoot.querySelector("dialog") as HTMLDialogElement;
+    const closeSpy = vi.fn(() => {
+      dialog.removeAttribute("open");
+      dialog.dispatchEvent(new Event("close"));
+    });
+    const showModalSpy = vi.fn(() => {
+      dialog.setAttribute("open", "");
+    });
+    const showSpy = vi.fn(() => {
+      dialog.setAttribute("open", "");
+    });
+
+    Object.defineProperties(dialog, {
+      close: {
+        configurable: true,
+        value: closeSpy
+      },
+      show: {
+        configurable: true,
+        value: showSpy
+      },
+      showModal: {
+        configurable: true,
+        value: showModalSpy
+      }
+    });
+
+    element.showModal();
+    await element.updateComplete;
+    const closeButton = element.renderRoot
+      .querySelector("cindor-icon-button")
+      ?.shadowRoot?.querySelector("cindor-button")
+      ?.shadowRoot?.querySelector("button") as HTMLButtonElement | null;
+    closeButton?.focus();
+    expect((element.renderRoot as ShadowRoot).activeElement).not.toBeNull();
+
+    element.modal = false;
+    await element.updateComplete;
+
+    element.close();
+    await element.updateComplete;
+
+    expect(document.activeElement).toBe(trigger);
+  });
 });

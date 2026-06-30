@@ -196,6 +196,8 @@ const sections: DocsSection[] = [
   }
 ];
 const docsSectionIds = new Set(sections.map((section) => section.id));
+const focusableSelector =
+  'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 const componentCatalogByCategory = Array.from(
   componentCatalog.reduce<Map<ComponentCategory, ComponentDoc[]>>((groups, component) => {
     const group = groups.get(component.category);
@@ -643,6 +645,7 @@ const root = rootElement;
 
 let catalogQuery = "";
 let catalogLayer: ComponentLayerFilter = "all";
+let mobileNavRestoreFocusTarget: HTMLElement | null = null;
 
 const mobileMediaQuery = window.matchMedia("(max-width: 960px)");
 
@@ -704,7 +707,7 @@ function render(): void {
 
         <div class="sidebar-overlay" aria-hidden="true" data-action="close-nav"></div>
 
-        <aside class="sidebar" id="docs-sidebar">
+        <aside class="sidebar" id="docs-sidebar" tabindex="-1">
           ${renderSidebar(activeSectionId, route)}
         </aside>
 
@@ -1916,6 +1919,9 @@ function closeMobileNav(): void {
   }
 
   updateSidebarInert(shell);
+  const focusTarget = mobileNavRestoreFocusTarget;
+  mobileNavRestoreFocusTarget = null;
+  focusTarget?.focus();
 }
 
 function updateSidebarInert(shell: HTMLElement): void {
@@ -1929,6 +1935,16 @@ function updateSidebarInert(shell: HTMLElement): void {
     sidebar.setAttribute("inert", "");
   } else {
     sidebar.removeAttribute("inert");
+  }
+
+  if (isMobile && isOpen) {
+    sidebar.setAttribute("role", "dialog");
+    sidebar.setAttribute("aria-label", "Documentation navigation");
+    sidebar.setAttribute("aria-modal", "true");
+  } else {
+    sidebar.removeAttribute("role");
+    sidebar.removeAttribute("aria-label");
+    sidebar.removeAttribute("aria-modal");
   }
 }
 
@@ -1972,7 +1988,13 @@ function wireNavigation(): void {
       button.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
       button.setAttribute("aria-expanded", String(isOpen));
       document.body.classList.toggle("nav-open", isOpen);
+      mobileNavRestoreFocusTarget = isOpen ? button : null;
       updateSidebarInert(shell);
+      if (isOpen) {
+        requestAnimationFrame(() => {
+          focusMobileSidebar(shell);
+        });
+      }
     });
   });
 
@@ -1985,6 +2007,62 @@ function wireNavigation(): void {
   const shell = root.querySelector<HTMLElement>(".app-shell");
   if (shell) {
     updateSidebarInert(shell);
+    shell.querySelector<HTMLElement>("#docs-sidebar")?.addEventListener("keydown", (event) => {
+      handleMobileSidebarKeydown(shell, event);
+    });
+  }
+}
+
+function focusMobileSidebar(shell: HTMLElement): void {
+  if (!mobileMediaQuery.matches || !shell.classList.contains("sidebar-open")) {
+    return;
+  }
+
+  const sidebar = shell.querySelector<HTMLElement>("#docs-sidebar");
+  if (!sidebar) {
+    return;
+  }
+
+  const firstFocusableElement = collectFocusableElements(sidebar)[0];
+  if (firstFocusableElement) {
+    firstFocusableElement.focus();
+    return;
+  }
+
+  sidebar.focus();
+}
+
+function handleMobileSidebarKeydown(shell: HTMLElement, event: KeyboardEvent): void {
+  if (!mobileMediaQuery.matches || !shell.classList.contains("sidebar-open") || event.key !== "Tab") {
+    return;
+  }
+
+  const sidebar = shell.querySelector<HTMLElement>("#docs-sidebar");
+  if (!sidebar) {
+    return;
+  }
+
+  const focusableElements = collectFocusableElements(sidebar);
+  if (focusableElements.length === 0) {
+    event.preventDefault();
+    sidebar.focus();
+    return;
+  }
+
+  const activeElement = getDeepestActiveElement(document);
+  const activeIndex = activeElement ? focusableElements.indexOf(activeElement) : -1;
+
+  if (event.shiftKey) {
+    if (activeIndex <= 0) {
+      event.preventDefault();
+      focusableElements.at(-1)?.focus();
+    }
+    return;
+  }
+
+  if (activeIndex === -1 || activeIndex === focusableElements.length - 1) {
+    event.preventDefault();
+    focusableElements[0]?.focus();
   }
 }
 
@@ -5287,4 +5365,53 @@ function escapeAttribute(value: string): string {
 
 function escapeHtml(value: string): string {
   return escapeAttribute(value);
+}
+
+function collectFocusableElements(root: Element | ShadowRoot): HTMLElement[] {
+  const focusableElements: HTMLElement[] = [];
+  const seenElements = new Set<HTMLElement>();
+
+  const visitNode = (node: Element | ShadowRoot): void => {
+    if (node instanceof HTMLElement && node.matches(focusableSelector) && !seenElements.has(node)) {
+      seenElements.add(node);
+      focusableElements.push(node);
+    }
+
+    for (const child of Array.from(node.children)) {
+      if (!(child instanceof HTMLElement)) {
+        continue;
+      }
+
+      if (child instanceof HTMLSlotElement) {
+        for (const assignedElement of child.assignedElements({ flatten: true })) {
+          if (assignedElement instanceof HTMLElement) {
+            visitNode(assignedElement);
+          }
+        }
+        continue;
+      }
+
+      if (child.shadowRoot) {
+        visitNode(child.shadowRoot);
+      }
+
+      visitNode(child);
+    }
+  };
+
+  visitNode(root);
+  return focusableElements;
+}
+
+function getDeepestActiveElement(root: Document | ShadowRoot): HTMLElement | null {
+  const activeElement = root.activeElement;
+  if (!(activeElement instanceof HTMLElement)) {
+    return null;
+  }
+
+  if (activeElement.shadowRoot?.activeElement instanceof HTMLElement) {
+    return getDeepestActiveElement(activeElement.shadowRoot);
+  }
+
+  return activeElement;
 }

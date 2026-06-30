@@ -71,6 +71,7 @@ export class CindorDialog extends LitElement {
   private hostAriaLabel = "";
   private hostAriaLabelledBy = "";
   private managedA11yDirty = false;
+  private previousFocusedElement: HTMLElement | null = null;
   private presentedModal: boolean | null = null;
   private readonly referencedTextObserver = new ReferencedTextObserver(this, () => {
     this.requestUpdate();
@@ -176,6 +177,7 @@ export class CindorDialog extends LitElement {
 
     this.open = false;
     this.presentedModal = null;
+    this.restorePreviousFocus();
     this.dispatchEvent(new Event("close", { bubbles: true, composed: true }));
   };
 
@@ -212,6 +214,11 @@ export class CindorDialog extends LitElement {
         return;
       }
 
+      const activeElement = getDeepestActiveElement(this.ownerDocument);
+      if (!dialog.hasAttribute("open") || !activeElement || !isShadowIncludingDescendant(dialog, activeElement)) {
+        this.previousFocusedElement = activeElement;
+      }
+
       if (dialog.hasAttribute("open")) {
         this.ignoreDialogClose = true;
         if (typeof dialog.close === "function") {
@@ -242,6 +249,7 @@ export class CindorDialog extends LitElement {
       dialog.close();
     } else {
       dialog.removeAttribute("open");
+      this.restorePreviousFocus();
     }
 
     this.presentedModal = null;
@@ -326,4 +334,37 @@ export class CindorDialog extends LitElement {
   private syncReferencedTextObserver(): void {
     this.referencedTextObserver.observe(this.hostAriaLabelledBy, this.hostAriaDescribedBy);
   }
+
+  private restorePreviousFocus(): void {
+    const focusTarget = this.previousFocusedElement;
+    this.previousFocusedElement = null;
+    focusTarget?.focus();
+  }
+}
+
+function getDeepestActiveElement(root: Document | ShadowRoot): HTMLElement | null {
+  const activeElement = root.activeElement;
+  if (!(activeElement instanceof HTMLElement)) {
+    return null;
+  }
+
+  if (activeElement.shadowRoot?.activeElement instanceof HTMLElement) {
+    return getDeepestActiveElement(activeElement.shadowRoot);
+  }
+
+  return activeElement;
+}
+
+function isShadowIncludingDescendant(container: Node, target: Node): boolean {
+  let current: Node | null = target;
+  while (current) {
+    if (current === container) {
+      return true;
+    }
+
+    const root = current.getRootNode();
+    current = current.parentNode ?? (root instanceof ShadowRoot ? root.host : null);
+  }
+
+  return false;
 }

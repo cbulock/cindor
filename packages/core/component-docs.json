@@ -2343,6 +2343,18 @@
       "methods": [
         {
           "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
           "name": "show",
           "parameters": [],
           "returnType": "void"

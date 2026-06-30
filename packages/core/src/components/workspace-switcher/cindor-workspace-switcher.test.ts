@@ -117,5 +117,7 @@ describe("cindor-workspace-switcher", () => {
 
     expect(search.getAttribute("aria-controls")).toBe(list.id);
     expect(search.getAttribute("aria-controls")).not.toBe(element.renderRoot.querySelector('[part="panel"]')?.id);
+    expect(search.getAttribute("aria-expanded")).toBe("true");
+    expect(search.getAttribute("aria-autocomplete")).toBe("list");
   });
 });
