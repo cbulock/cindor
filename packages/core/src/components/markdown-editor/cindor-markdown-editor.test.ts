@@ -141,4 +141,5 @@ describe("cindor-markdown-editor", () => {
     element.focus();
 
     expect(preview.focus).toHaveBeenCalledTimes(1);
+  });
 });
