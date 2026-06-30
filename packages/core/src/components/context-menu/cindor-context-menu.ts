@@ -54,6 +54,7 @@ export class CindorContextMenu extends LitElement {
   open = false;
 
   private anchorX = 0;
+  private readonly menuId = `cindor-context-menu-menu-${++contextMenuId}`;
   private anchorY = 0;
   private restoreFocusTarget: HTMLElement | null = null;
 
@@ -95,11 +96,22 @@ export class CindorContextMenu extends LitElement {
 
   protected override render() {
     return html`
-      <div class="trigger" part="trigger" @contextmenu=${this.handleContextMenu} @keydown=${this.handleTriggerKeydown}>
+      <div
+        aria-controls=${this.menuId}
+        aria-expanded=${String(this.open)}
+        aria-haspopup="menu"
+        class="trigger"
+        part="trigger"
+        role="button"
+        tabindex="0"
+        @contextmenu=${this.handleContextMenu}
+        @keydown=${this.handleTriggerKeydown}
+      >
         <slot name="trigger"></slot>
       </div>
       <cindor-menu
         class="menu"
+        id=${this.menuId}
         part="menu"
         ?hidden=${!this.open}
         @keydown=${this.handleMenuKeydown}
@@ -133,8 +145,9 @@ export class CindorContextMenu extends LitElement {
   };
 
   private handleTriggerKeydown = (event: KeyboardEvent): void => {
-    const isContextMenuKey = event.key === "ContextMenu" || (event.key === "F10" && event.shiftKey);
-    if (!isContextMenuKey) {
+    const opensMenuWithKeyboard =
+      event.key === "ContextMenu" || (event.key === "F10" && event.shiftKey) || event.key === "Enter" || event.key === " ";
+    if (!opensMenuWithKeyboard) {
       return;
     }
 
@@ -237,6 +250,8 @@ export class CindorContextMenu extends LitElement {
     return this.renderRoot.querySelector(".trigger");
   }
 }
+
+let contextMenuId = 0;
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
