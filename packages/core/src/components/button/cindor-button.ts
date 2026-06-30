@@ -120,7 +120,7 @@ export class CindorButton extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
     this.hostA11yObserver.observe(this, {
-      attributeFilter: ["aria-describedby", "aria-description", "aria-label", "aria-labelledby", "id"],
+      attributeFilter: ["aria-controls", "aria-describedby", "aria-description", "aria-expanded", "aria-haspopup", "aria-label", "aria-labelledby", "id"],
       attributes: true
     });
   }
@@ -247,9 +247,23 @@ export class CindorButton extends LitElement {
     } else {
       button.removeAttribute("aria-describedby");
     }
+
+    syncStringAttribute(this, button, "aria-controls");
+    syncStringAttribute(this, button, "aria-expanded");
+    syncStringAttribute(this, button, "aria-haspopup");
   }
 
   private get buttonA11yIdBase(): string {
     return `${this.id || this.generatedA11yId}`;
   }
+}
+
+function syncStringAttribute(source: Element, target: Element, attribute: "aria-controls" | "aria-expanded" | "aria-haspopup"): void {
+  const value = source.getAttribute(attribute);
+  if (value === null || value === "") {
+    target.removeAttribute(attribute);
+    return;
+  }
+
+  target.setAttribute(attribute, value);
 }

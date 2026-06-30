@@ -55,19 +55,26 @@ describe("cindor-date-range-picker", () => {
     await element.updateComplete;
 
     const summaryButton = element.renderRoot.querySelector('[part="summary-button"]') as HTMLButtonElement;
-    const toggle = element.renderRoot.querySelector('[part="toggle-button"]') as HTMLElement;
+    const toggle = element.renderRoot.querySelector('[part="toggle-button"]') as HTMLElement & { updateComplete?: Promise<unknown>; renderRoot?: ShadowRoot };
+
+    await toggle.updateComplete;
+
+    const toggleControl = toggle.renderRoot?.querySelector('[part="control"]') as HTMLElement;
 
     expect(summaryButton.getAttribute("aria-label")).toBe("Project schedule");
     expect(summaryButton.getAttribute("aria-haspopup")).toBe("grid");
     expect(summaryButton.getAttribute("aria-expanded")).toBe("false");
     expect(summaryButton.getAttribute("aria-controls")).toBeTruthy();
-    expect(toggle.getAttribute("aria-controls")).toBe(summaryButton.getAttribute("aria-controls"));
+    expect(toggleControl.getAttribute("aria-haspopup")).toBe("grid");
+    expect(toggleControl.getAttribute("aria-controls")).toBe(summaryButton.getAttribute("aria-controls"));
 
     summaryButton.click();
     await element.updateComplete;
+    await toggle.updateComplete;
 
     expect(element.open).toBe(true);
     expect(summaryButton.getAttribute("aria-expanded")).toBe("true");
+    expect((toggle.renderRoot?.querySelector('[part="control"]') as HTMLElement).getAttribute("aria-expanded")).toBe("true");
     expect((element.renderRoot.querySelector("cindor-calendar") as HTMLElement).id).toBe(summaryButton.getAttribute("aria-controls"));
   });
 });

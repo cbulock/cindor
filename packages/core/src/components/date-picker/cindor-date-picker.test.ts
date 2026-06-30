@@ -45,23 +45,30 @@ describe("cindor-date-picker", () => {
     await element.updateComplete;
 
     const input = element.renderRoot.querySelector('input[part="control"]') as HTMLInputElement;
-    const toggle = element.renderRoot.querySelector('[part="toggle-button"]') as HTMLElement;
-    const clearButton = element.renderRoot.querySelector('[part="clear-button"]') as HTMLElement;
+    const toggle = element.renderRoot.querySelector('[part="toggle-button"]') as HTMLElement & { updateComplete?: Promise<unknown>; renderRoot?: ShadowRoot };
+    const clear = element.renderRoot.querySelector('[part="clear-button"]') as HTMLElement & { updateComplete?: Promise<unknown>; renderRoot?: ShadowRoot };
+
+    await toggle.updateComplete;
+    await clear.updateComplete;
+
+    const toggleControl = toggle.renderRoot?.querySelector('[part="control"]') as HTMLElement;
+    const clearControl = clear.renderRoot?.querySelector('[part="control"]') as HTMLElement;
 
     expect(input.getAttribute("aria-haspopup")).toBe("grid");
     expect(input.getAttribute("aria-expanded")).toBe("false");
     expect(input.getAttribute("aria-controls")).toBeTruthy();
-    expect(toggle.getAttribute("aria-haspopup")).toBe("grid");
-    expect(toggle.getAttribute("aria-controls")).toBe(input.getAttribute("aria-controls"));
-    expect(clearButton.getAttribute("aria-haspopup")).toBeNull();
-    expect(clearButton.getAttribute("aria-expanded")).toBeNull();
-    expect(clearButton.getAttribute("aria-controls")).toBeNull();
+    expect(toggleControl.getAttribute("aria-haspopup")).toBe("grid");
+    expect(toggleControl.getAttribute("aria-controls")).toBe(input.getAttribute("aria-controls"));
+    expect(clearControl.hasAttribute("aria-haspopup")).toBe(false);
+    expect(clearControl.hasAttribute("aria-expanded")).toBe(false);
+    expect(clearControl.hasAttribute("aria-controls")).toBe(false);
 
     element.show();
     await element.updateComplete;
+    await toggle.updateComplete;
 
     expect(input.getAttribute("aria-expanded")).toBe("true");
-    expect(toggle.getAttribute("aria-expanded")).toBe("true");
+    expect((toggle.renderRoot?.querySelector('[part="control"]') as HTMLElement).getAttribute("aria-expanded")).toBe("true");
     expect((element.renderRoot.querySelector("cindor-calendar") as HTMLElement).id).toBe(input.getAttribute("aria-controls"));
   });
 });

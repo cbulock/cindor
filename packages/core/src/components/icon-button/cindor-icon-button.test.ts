@@ -37,4 +37,24 @@ describe("cindor-icon-button", () => {
     expect(describedById).toMatch(/-description$/);
     expect(control.renderRoot.querySelector(`#${describedById ?? ""}`)?.textContent).toBe("Closes the panel");
   });
+
+  it("forwards popup relationship attributes onto the focusable control", async () => {
+    const element = document.createElement("cindor-icon-button") as CindorIconButton;
+    element.label = "Open calendar";
+    element.name = "calendar";
+    element.setAttribute("aria-controls", "calendar-panel");
+    element.setAttribute("aria-expanded", "false");
+    element.setAttribute("aria-haspopup", "grid");
+    document.body.append(element);
+    await element.updateComplete;
+
+    const control = element.renderRoot.querySelector("cindor-button") as CindorButton;
+    await control.updateComplete;
+
+    const nativeButton = control.renderRoot.querySelector("button") as HTMLButtonElement;
+
+    expect(nativeButton.getAttribute("aria-controls")).toBe("calendar-panel");
+    expect(nativeButton.getAttribute("aria-expanded")).toBe("false");
+    expect(nativeButton.getAttribute("aria-haspopup")).toBe("grid");
+  });
 });
