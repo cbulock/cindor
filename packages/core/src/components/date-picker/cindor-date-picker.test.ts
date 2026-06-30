@@ -40,17 +40,22 @@ describe("cindor-date-picker", () => {
 
   it("wires popup relationships onto the readonly field and toggle button", async () => {
     const element = document.createElement("cindor-date-picker") as CindorDatePicker;
+    element.value = "2026-04-20";
     document.body.append(element);
     await element.updateComplete;
 
     const input = element.renderRoot.querySelector('input[part="control"]') as HTMLInputElement;
     const toggle = element.renderRoot.querySelector('[part="toggle-button"]') as HTMLElement;
+    const clearButton = element.renderRoot.querySelector('[part="clear-button"]') as HTMLElement;
 
     expect(input.getAttribute("aria-haspopup")).toBe("grid");
     expect(input.getAttribute("aria-expanded")).toBe("false");
     expect(input.getAttribute("aria-controls")).toBeTruthy();
     expect(toggle.getAttribute("aria-haspopup")).toBe("grid");
     expect(toggle.getAttribute("aria-controls")).toBe(input.getAttribute("aria-controls"));
+    expect(clearButton.getAttribute("aria-haspopup")).toBeNull();
+    expect(clearButton.getAttribute("aria-expanded")).toBeNull();
+    expect(clearButton.getAttribute("aria-controls")).toBeNull();
 
     element.show();
     await element.updateComplete;

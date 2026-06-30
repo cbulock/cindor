@@ -172,9 +172,6 @@ export class CindorDatePicker extends FormAssociatedElement {
           ${this.value
             ? html`
                 <cindor-icon-button
-                  aria-controls=${this.panelId}
-                  aria-expanded=${String(this.open)}
-                  aria-haspopup="grid"
                   label="Clear date"
                   name="x"
                   part="clear-button"
