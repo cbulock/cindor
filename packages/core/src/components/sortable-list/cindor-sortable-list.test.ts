@@ -67,6 +67,18 @@ describe("cindor-sortable-list", () => {
     });
   });
 
+  it("keeps the drag handle decorative for accessibility", async () => {
+    const element = document.createElement("cindor-sortable-list") as CindorSortableList<SortableItem>;
+    element.items = createItems();
+    document.body.append(element);
+    await element.updateComplete;
+
+    const dragHandle = element.renderRoot.querySelector<HTMLElement>('[part="drag-handle"]');
+
+    expect(dragHandle?.getAttribute("aria-hidden")).toBe("true");
+    expect(dragHandle?.hasAttribute("aria-label")).toBe(false);
+  });
+
   it("uses the custom renderer when provided", async () => {
     const element = document.createElement("cindor-sortable-list") as CindorSortableList<SortableItem>;
     element.items = createItems();
