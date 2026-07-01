@@ -39,22 +39,12 @@ export class CindorSplitButton extends LitElement {
       --cindor-button-border-end-end-radius: 0px;
     }
 
-    details {
+    .menu-shell {
       position: relative;
       margin-inline-start: -1px;
     }
 
-    summary {
-      display: block;
-      list-style: none;
-      cursor: pointer;
-    }
-
-    summary::-webkit-details-marker {
-      display: none;
-    }
-
-    summary cindor-button {
+    .menu-shell cindor-button {
       --cindor-button-border-start-start-radius: 0px;
       --cindor-button-border-start-end-radius: var(--radius-md);
       --cindor-button-border-end-start-radius: 0px;
@@ -73,8 +63,12 @@ export class CindorSplitButton extends LitElement {
       transform: translateY(-4px);
     }
 
-    details[open] cindor-menu.menu {
+    :host([open]) cindor-menu.menu {
       animation: cindor-split-button-enter var(--duration-base) var(--ease-out) forwards;
+    }
+
+    cindor-menu.menu[hidden] {
+      display: none;
     }
 
     @keyframes cindor-split-button-enter {
@@ -138,14 +132,12 @@ export class CindorSplitButton extends LitElement {
       return;
     }
 
-    this.detailsElement?.setAttribute("open", "");
-    this.open = true;
+    this.setMenuOpen(true);
   }
 
   /** Closes the secondary action menu. */
   hideMenu(options?: { restoreFocus?: boolean }): void {
-    this.detailsElement?.removeAttribute("open");
-    this.open = false;
+    this.setMenuOpen(false);
 
     if (options?.restoreFocus) {
       this.menuTriggerButton?.focus();
@@ -177,33 +169,33 @@ export class CindorSplitButton extends LitElement {
           <slot></slot>
           <slot name="end-icon" slot="end-icon"></slot>
         </cindor-button>
-        <details ?open=${this.open} @toggle=${this.handleToggle}>
-          <summary part="menu-trigger" @click=${this.handleSummaryClick}>
-            <cindor-button
-              aria-controls=${this.menuId}
-              aria-expanded=${String(this.open)}
-              aria-haspopup="menu"
-              aria-label=${ifDefined(this.menuLabel || undefined)}
-              ?disabled=${this.disabled}
-              ?icon-only=${true}
-              type="button"
-              variant=${this.variant}
-            >
-              <slot name="menu-icon">
-                <cindor-icon name="chevron-down" size="16"></cindor-icon>
-              </slot>
-            </cindor-button>
-          </summary>
+        <div class="menu-shell" part="menu-trigger">
+          <cindor-button
+            aria-controls=${this.menuId}
+            aria-expanded=${String(this.open)}
+            aria-haspopup="menu"
+            aria-label=${ifDefined(this.menuLabel || undefined)}
+            ?disabled=${this.disabled}
+            ?icon-only=${true}
+            type="button"
+            variant=${this.variant}
+            @click=${this.handleMenuTriggerClick}
+          >
+            <slot name="menu-icon">
+              <cindor-icon name="chevron-down" size="16"></cindor-icon>
+            </slot>
+          </cindor-button>
           <cindor-menu
             class="menu"
             id=${this.menuId}
+            ?hidden=${!this.open}
             part="menu"
             @keydown=${this.handleMenuKeydown}
             @menu-item-select=${this.handleItemSelect}
           >
             <slot name="menu"></slot>
           </cindor-menu>
-        </details>
+        </div>
       </div>
     `;
   }
@@ -227,31 +219,12 @@ export class CindorSplitButton extends LitElement {
     this.hideMenu({ restoreFocus: true });
   };
 
-  private handleSummaryClick = (event: MouseEvent): void => {
-    if (!this.disabled) {
-      return;
-    }
-
-    event.preventDefault();
-    event.stopPropagation();
-  };
-
-  private handleToggle = (event: Event): void => {
-    event.stopPropagation();
-
-    const details = event.currentTarget as HTMLDetailsElement;
-    if (this.disabled && details.open) {
-      details.open = false;
-      this.open = false;
-      return;
-    }
-
-    this.open = details.open;
-    this.dispatchEvent(new Event("toggle", { bubbles: true, composed: true }));
+  private handleMenuTriggerClick = (): void => {
+    this.toggleMenu();
   };
 
   private syncFloatingPosition(): void {
-    const trigger = this.summaryElement;
+    const trigger = this.menuTriggerButton;
     const menu = this.menuElement;
 
     if (!this.open || !trigger || !menu) {
@@ -338,15 +311,20 @@ export class CindorSplitButton extends LitElement {
   }
 
   private get menuTriggerButton(): HTMLElement | null {
-    return this.renderRoot.querySelector('summary cindor-button');
+    return this.renderRoot.querySelector('.menu-shell cindor-button');
   }
 
-  private get summaryElement(): HTMLElement | null {
-    return this.renderRoot.querySelector("summary");
-  }
+  private setMenuOpen(nextOpen: boolean): void {
+    if (this.open === nextOpen) {
+      return;
+    }
 
-  private get detailsElement(): HTMLDetailsElement | null {
-    return this.renderRoot.querySelector("details");
+    if (this.disabled && nextOpen) {
+      return;
+    }
+
+    this.open = nextOpen;
+    this.dispatchEvent(new Event("toggle", { bubbles: true, composed: true }));
   }
 }
 
