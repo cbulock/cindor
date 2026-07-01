@@ -3,6 +3,8 @@ import { afterEach } from "vitest";
 
 import "../../register.js";
 
+import { CindorButton } from "../button/cindor-button.js";
+import { CindorIconButton } from "../icon-button/cindor-icon-button.js";
 import { CindorSortableList } from "./cindor-sortable-list.js";
 
 type SortableItem = {
@@ -32,7 +34,13 @@ describe("cindor-sortable-list", () => {
     document.body.append(element);
     await element.updateComplete;
 
-    (element as unknown as { moveItem: (fromIndex: number, toIndex: number, reason: "button") => void }).moveItem(0, 1, "button");
+    const moveDownButton = element.renderRoot.querySelectorAll<CindorIconButton>('[part="controls"] cindor-icon-button')[1];
+    await moveDownButton?.updateComplete;
+    const control = moveDownButton?.renderRoot.querySelector("cindor-button") as CindorButton | null;
+    await control?.updateComplete;
+    const nativeButton = control?.renderRoot.querySelector("button") as HTMLButtonElement | null;
+
+    nativeButton?.click();
     await element.updateComplete;
 
     expect(element.items.map((item) => item.id)).toEqual(["second", "first", "third"]);

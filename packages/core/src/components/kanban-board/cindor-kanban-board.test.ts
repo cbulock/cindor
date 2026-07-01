@@ -131,7 +131,7 @@ describe("cindor-kanban-board", () => {
     expect(actionListener.mock.calls.at(-1)?.[0].detail.cardId).toBe("card-a");
   });
 
-  it("renders a decorative drag handle for movable cards", async () => {
+  it("does not render drag handles for cards", async () => {
     const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
     element.columns = columns;
     document.body.append(element);
@@ -139,12 +139,10 @@ describe("cindor-kanban-board", () => {
 
     const dragHandle = element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-a"] [part="drag-handle"]');
 
-    expect(dragHandle).not.toBeNull();
-    expect(dragHandle?.getAttribute("aria-hidden")).toBe("true");
-    expect(dragHandle?.hasAttribute("aria-label")).toBe(false);
+    expect(dragHandle).toBeNull();
   });
 
-  it("reorders cards within a column on drag and drop", async () => {
+  it("reorders cards within a column with keyboard controls", async () => {
     const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
     element.columns = [
       {
@@ -162,23 +160,30 @@ describe("cindor-kanban-board", () => {
     document.body.append(element);
     await element.updateComplete;
 
-    const cards = element.renderRoot.querySelectorAll<HTMLElement>('[data-column-id="triage"] [part="card"]');
-    cards[0]?.dispatchEvent(createDragEvent("dragstart"));
-    cards[2]?.dispatchEvent(createDragEvent("dragover"));
-    cards[2]?.dispatchEvent(createDragEvent("drop"));
+    const firstSurface = element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-a"] [part="card-surface"]');
+    firstSurface?.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        bubbles: true,
+        composed: true,
+        ctrlKey: true,
+        key: "ArrowDown",
+        shiftKey: true
+      })
+    );
     await element.updateComplete;
 
-    expect(element.columns[0]?.cards.map((card) => card.id)).toEqual(["card-b", "card-c", "card-a"]);
+    expect(element.columns[0]?.cards.map((card) => card.id)).toEqual(["card-b", "card-a", "card-c"]);
     expect(reorderListener).toHaveBeenCalledTimes(1);
     expect(reorderListener.mock.calls[0]?.[0].detail).toMatchObject({
       cardId: "card-a",
       columnId: "triage",
-      newIndex: 2,
+      newIndex: 1,
       oldIndex: 0
     });
+    expect(element.selectedCardId).toBe("card-a");
   });
 
-  it("moves a card into another column and updates board state", async () => {
+  it("moves a card into another column with keyboard controls and keeps focus on it", async () => {
     const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
     element.columns = [
       {
@@ -200,12 +205,17 @@ describe("cindor-kanban-board", () => {
     document.body.append(element);
     await element.updateComplete;
 
-    const draggedCard = element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-a"][part="card"]');
-    const readyColumnCards = element.renderRoot.querySelector<HTMLElement>('[data-column-id="ready"] [part="column-cards"]');
-
-    draggedCard?.dispatchEvent(createDragEvent("dragstart"));
-    readyColumnCards?.dispatchEvent(createDragEvent("dragover"));
-    readyColumnCards?.dispatchEvent(createDragEvent("drop"));
+    const firstSurface = element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-a"] [part="card-surface"]');
+    firstSurface?.focus();
+    firstSurface?.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        bubbles: true,
+        composed: true,
+        ctrlKey: true,
+        key: "ArrowRight",
+        shiftKey: true
+      })
+    );
     await element.updateComplete;
 
     expect(element.columns[0]?.cards.map((card) => card.id)).toEqual(["card-b"]);
@@ -218,18 +228,8 @@ describe("cindor-kanban-board", () => {
       newIndex: 0,
       oldIndex: 0
     });
+    expect(element.selectedCardId).toBe("card-a");
+    expect(element.renderRoot.activeElement?.getAttribute("part")).toBe("card-surface");
+    expect((element.renderRoot.activeElement?.closest('[data-card-id]') as HTMLElement | null)?.dataset.cardId).toBe("card-a");
   });
 });
-
-function createDragEvent(type: string): Event {
-  const event = new Event(type, { bubbles: true, cancelable: true });
-  Object.defineProperty(event, "dataTransfer", {
-    configurable: true,
-    value: {
-      dropEffect: "move",
-      effectAllowed: "move",
-      setData: vi.fn()
-    }
-  });
-  return event;
-}

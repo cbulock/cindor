@@ -70,7 +70,7 @@ const meta = {
       <cindor-kanban-board id="storybook-kanban-board" selected-card-id="build-1"></cindor-kanban-board>
       <div style="padding:var(--space-3);border:1px solid var(--border);border-radius:var(--radius-xl);background:var(--surface);">
         <strong style="display:block;margin-bottom:var(--space-2);">Latest board event</strong>
-        <div id="storybook-kanban-board-event" style="color:var(--fg-muted);font-size:var(--text-sm);">Drag a card to reorder it or move it into another column.</div>
+        <div id="storybook-kanban-board-event" style="color:var(--fg-muted);font-size:var(--text-sm);">Use Ctrl/Cmd+Shift+Arrow keys on a card to reorder it or move it into another column.</div>
       </div>
     </div>
     <script type="module">
