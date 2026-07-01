@@ -73,6 +73,10 @@ export class CindorSortableList<T = unknown> extends LitElement {
       display: grid;
       justify-items: center;
       gap: 2px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      appearance: none;
       cursor: grab;
       color: var(--fg-muted);
       user-select: none;
@@ -199,7 +203,15 @@ export class CindorSortableList<T = unknown> extends LitElement {
         @drop=${(event: DragEvent) => this.handleDrop(event, index)}
         @dragend=${this.handleDragEnd}
       >
-        <div class="drag-handle" part="drag-handle" aria-hidden="true" title=${this.dragHandleLabel}></div>
+        <button
+          class="drag-handle"
+          part="drag-handle"
+          type="button"
+          aria-label=${this.dragHandleLabel}
+          title=${this.dragHandleLabel}
+          ?disabled=${this.disabled}
+          draggable="true"
+        ></button>
 
         <div class="content">
           ${this.renderItem ? this.renderItem(detail) : this.renderDefaultItem(item)}

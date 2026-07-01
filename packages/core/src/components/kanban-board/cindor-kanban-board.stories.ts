@@ -66,10 +66,22 @@ const boardColumns = [
 const meta = {
   title: "Data/Kanban Board",
   render: () => `
-    <cindor-kanban-board id="storybook-kanban-board" selected-card-id="build-1"></cindor-kanban-board>
+    <div style="display:grid;gap:var(--space-4);">
+      <cindor-kanban-board id="storybook-kanban-board" selected-card-id="build-1"></cindor-kanban-board>
+      <div style="padding:var(--space-3);border:1px solid var(--border);border-radius:var(--radius-xl);background:var(--surface);">
+        <strong style="display:block;margin-bottom:var(--space-2);">Latest board event</strong>
+        <div id="storybook-kanban-board-event" style="color:var(--fg-muted);font-size:var(--text-sm);">Drag a card to reorder it or move it into another column.</div>
+      </div>
+    </div>
     <script type="module">
       const board = document.querySelector("#storybook-kanban-board");
+      const eventOutput = document.querySelector("#storybook-kanban-board-event");
       board.columns = ${JSON.stringify(boardColumns, null, 2)};
+      const renderEvent = (label, detail) => {
+        eventOutput.textContent = label + ": " + JSON.stringify(detail);
+      };
+      board.addEventListener("reorder", (event) => renderEvent("reorder", event.detail));
+      board.addEventListener("move", (event) => renderEvent("move", event.detail));
     </script>
   `
 };

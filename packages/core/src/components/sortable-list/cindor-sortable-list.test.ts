@@ -67,16 +67,19 @@ describe("cindor-sortable-list", () => {
     });
   });
 
-  it("keeps the drag handle decorative for accessibility", async () => {
+  it("keeps dragHandleLabel on an accessible drag control", async () => {
     const element = document.createElement("cindor-sortable-list") as CindorSortableList<SortableItem>;
     element.items = createItems();
+    element.dragHandleLabel = "Reorder item";
     document.body.append(element);
     await element.updateComplete;
 
-    const dragHandle = element.renderRoot.querySelector<HTMLElement>('[part="drag-handle"]');
+    const dragHandle = element.renderRoot.querySelector<HTMLButtonElement>('[part="drag-handle"]');
 
-    expect(dragHandle?.getAttribute("aria-hidden")).toBe("true");
-    expect(dragHandle?.hasAttribute("aria-label")).toBe(false);
+    expect(dragHandle?.tagName).toBe("BUTTON");
+    expect(dragHandle?.getAttribute("aria-label")).toBe("Reorder item");
+    expect(dragHandle?.getAttribute("title")).toBe("Reorder item");
+    expect(dragHandle?.getAttribute("aria-hidden")).toBeNull();
   });
 
   it("uses the custom renderer when provided", async () => {
