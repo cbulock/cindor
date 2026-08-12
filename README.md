@@ -8,6 +8,17 @@ Cindor Components is a standards-based component library built around a framewor
 
 The visual foundation lives directly in this repository through the vendored Cindor fonts, design tokens, base styles, and theme hooks that ship with `cindor-ui-core`.
 
+## Licensing
+
+The repository source and published packages are licensed under MIT.
+
+Vendored font assets in `packages/core/src/design/fonts` are distributed under
+the SIL Open Font License 1.1 instead. Their notice and license text ship with
+the core package in:
+
+- `packages/core/src/design/fonts/FONT-LICENSES.md`
+- `packages/core/src/design/fonts/OFL-1.1.txt`
+
 ## Packages
 
 - `packages/core` — Lit-based custom elements in `cindor-ui-core`
