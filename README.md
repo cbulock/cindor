@@ -128,6 +128,18 @@ That stylesheet pulls in the vendored Cindor global layer that ships with this r
 
 Theme switching follows the shared root-level `data-theme` pattern used by the vendored Cindor design layer.
 
+## License
+
+The repository code and the published `cindor-ui-core`, `cindor-ui-react`, and `cindor-ui-vue` packages are MIT-licensed.
+
+Vendored font assets shipped inside `cindor-ui-core` remain under their original `OFL-1.1` licenses:
+
+- `Mona Sans`
+- `JetBrains Mono`
+- `Press Start 2P`
+
+The packaged font notices and license text live at `packages/core/src/design/fonts/LICENSES.txt` and ship with the core package alongside the font files.
+
 For scoped theming, `CindorProvider` now supports three practical paths:
 
 1. **Preset theme** — quickest path when you want a ready-made alternate look
