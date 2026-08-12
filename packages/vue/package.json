@@ -2,6 +2,7 @@
   "name": "cindor-ui-vue",
   "version": "0.1.84",
   "description": "Thin Vue wrappers for the Cindor web component library.",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
