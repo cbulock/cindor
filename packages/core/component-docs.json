@@ -4297,6 +4297,18 @@
           "values": null
         },
         {
+          "description": "Fired when a card is reordered within a column.",
+          "name": "reorder",
+          "type": "CustomEvent<KanbanBoardReorderDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when a card moves to a different column.",
+          "name": "move",
+          "type": "CustomEvent<KanbanBoardMoveDetail>",
+          "values": null
+        },
+        {
           "description": "Fired when a card is selected.",
           "name": "select",
           "type": "CustomEvent<KanbanBoardSelectDetail>",
@@ -6880,7 +6892,7 @@
         {
           "description": "Fired when the secondary action menu opens or closes.",
           "name": "toggle",
-          "type": null,
+          "type": "Event",
           "values": null
         },
         {

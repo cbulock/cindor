@@ -101,14 +101,18 @@ describe("cindor-kanban-board", () => {
     expect(surfaces[1]?.focus).toHaveBeenCalledTimes(2);
   });
 
-  it("exposes selected state on interactive cards", async () => {
+  it("keeps selected cards as plain buttons without toggle-button state", async () => {
     const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
     element.columns = columns;
     element.selectedCardId = "card-a";
     document.body.append(element);
     await element.updateComplete;
 
-    expect(element.renderRoot.querySelector('[data-card-id="card-a"] [part="card-surface"]')?.getAttribute("aria-pressed")).toBe("true");
+    const surface = element.renderRoot.querySelector<HTMLButtonElement>('[data-card-id="card-a"] [part="card-surface"]');
+
+    expect(surface?.tagName).toBe("BUTTON");
+    expect(surface?.type).toBe("button");
+    expect(surface?.hasAttribute("aria-pressed")).toBe(false);
   });
 
   it("emits card-action without changing the current selection", async () => {
@@ -125,5 +129,107 @@ describe("cindor-kanban-board", () => {
     expect(element.selectedCardId).toBe("");
     expect(actionListener.mock.calls.at(-1)?.[0].detail.actionKey).toBe("assign");
     expect(actionListener.mock.calls.at(-1)?.[0].detail.cardId).toBe("card-a");
+  });
+
+  it("does not render drag handles for cards", async () => {
+    const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
+    element.columns = columns;
+    document.body.append(element);
+    await element.updateComplete;
+
+    const dragHandle = element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-a"] [part="drag-handle"]');
+
+    expect(dragHandle).toBeNull();
+  });
+
+  it("reorders cards within a column with keyboard controls", async () => {
+    const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
+    element.columns = [
+      {
+        id: "triage",
+        title: "Triage",
+        cards: [
+          { id: "card-a", title: "Review inbound bugs" },
+          { id: "card-b", title: "Confirm release notes" },
+          { id: "card-c", title: "Update release status" }
+        ]
+      }
+    ];
+    const reorderListener = vi.fn();
+    element.addEventListener("reorder", reorderListener);
+    document.body.append(element);
+    await element.updateComplete;
+
+    const firstSurface = element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-a"] [part="card-surface"]');
+    firstSurface?.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        bubbles: true,
+        composed: true,
+        ctrlKey: true,
+        key: "ArrowDown",
+        shiftKey: true
+      })
+    );
+    await element.updateComplete;
+
+    expect(element.columns[0]?.cards.map((card) => card.id)).toEqual(["card-b", "card-a", "card-c"]);
+    expect(reorderListener).toHaveBeenCalledTimes(1);
+    expect(reorderListener.mock.calls[0]?.[0].detail).toMatchObject({
+      cardId: "card-a",
+      columnId: "triage",
+      newIndex: 1,
+      oldIndex: 0
+    });
+    expect(element.selectedCardId).toBe("card-a");
+  });
+
+  it("moves a card into another column with keyboard controls and keeps focus on it", async () => {
+    const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
+    element.columns = [
+      {
+        id: "triage",
+        title: "Triage",
+        cards: [
+          { id: "card-a", title: "Review inbound bugs" },
+          { id: "card-b", title: "Confirm release notes" }
+        ]
+      },
+      {
+        id: "ready",
+        title: "Ready",
+        cards: []
+      }
+    ];
+    const moveListener = vi.fn();
+    element.addEventListener("move", moveListener);
+    document.body.append(element);
+    await element.updateComplete;
+
+    const firstSurface = element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-a"] [part="card-surface"]');
+    firstSurface?.focus();
+    firstSurface?.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        bubbles: true,
+        composed: true,
+        ctrlKey: true,
+        key: "ArrowRight",
+        shiftKey: true
+      })
+    );
+    await element.updateComplete;
+
+    expect(element.columns[0]?.cards.map((card) => card.id)).toEqual(["card-b"]);
+    expect(element.columns[1]?.cards.map((card) => card.id)).toEqual(["card-a"]);
+    expect(moveListener).toHaveBeenCalledTimes(1);
+    expect(moveListener.mock.calls[0]?.[0].detail).toMatchObject({
+      cardId: "card-a",
+      fromColumnId: "triage",
+      toColumnId: "ready",
+      newIndex: 0,
+      oldIndex: 0
+    });
+    expect(element.selectedCardId).toBe("card-a");
+    expect(element.renderRoot.activeElement?.getAttribute("part")).toBe("card-surface");
+    expect((element.renderRoot.activeElement?.closest('[data-card-id]') as HTMLElement | null)?.dataset.cardId).toBe("card-a");
   });
 });

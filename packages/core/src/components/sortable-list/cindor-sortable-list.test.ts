@@ -3,6 +3,8 @@ import { afterEach } from "vitest";
 
 import "../../register.js";
 
+import type { CindorButton } from "../button/cindor-button.js";
+import type { CindorIconButton } from "../icon-button/cindor-icon-button.js";
 import { CindorSortableList } from "./cindor-sortable-list.js";
 
 type SortableItem = {
@@ -32,7 +34,13 @@ describe("cindor-sortable-list", () => {
     document.body.append(element);
     await element.updateComplete;
 
-    (element as unknown as { moveItem: (fromIndex: number, toIndex: number, reason: "button") => void }).moveItem(0, 1, "button");
+    const moveDownButton = element.renderRoot.querySelectorAll<CindorIconButton>('[part="controls"] cindor-icon-button')[1];
+    await moveDownButton?.updateComplete;
+    const control = moveDownButton?.renderRoot.querySelector("cindor-button") as CindorButton | null;
+    await control?.updateComplete;
+    const nativeButton = control?.renderRoot.querySelector("button") as HTMLButtonElement | null;
+
+    nativeButton?.click();
     await element.updateComplete;
 
     expect(element.items.map((item) => item.id)).toEqual(["second", "first", "third"]);
@@ -67,16 +75,19 @@ describe("cindor-sortable-list", () => {
     });
   });
 
-  it("keeps the drag handle decorative for accessibility", async () => {
+  it("keeps dragHandleLabel on an accessible drag control", async () => {
     const element = document.createElement("cindor-sortable-list") as CindorSortableList<SortableItem>;
     element.items = createItems();
+    element.dragHandleLabel = "Reorder item";
     document.body.append(element);
     await element.updateComplete;
 
-    const dragHandle = element.renderRoot.querySelector<HTMLElement>('[part="drag-handle"]');
+    const dragHandle = element.renderRoot.querySelector<HTMLButtonElement>('[part="drag-handle"]');
 
-    expect(dragHandle?.getAttribute("aria-hidden")).toBe("true");
-    expect(dragHandle?.hasAttribute("aria-label")).toBe(false);
+    expect(dragHandle?.tagName).toBe("BUTTON");
+    expect(dragHandle?.getAttribute("aria-label")).toBe("Reorder item");
+    expect(dragHandle?.getAttribute("title")).toBe("Reorder item");
+    expect(dragHandle?.getAttribute("aria-hidden")).toBeNull();
   });
 
   it("uses the custom renderer when provided", async () => {

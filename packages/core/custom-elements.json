@@ -205,6 +205,121 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Activity Item\", render: () => ` <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Ops\"></cindor-avatar> <span slot=\"title\">Database failover completed</span> <span slot=\"timestamp\">5 minutes ago</span> <span slot=\"meta\">Primary cluster</span> Connections were restored automatically after the failover. </cindor-activity-item> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-item/cindor-activity-item.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Single event row used inside CindorActivityFeed.",
+          "name": "CindorActivityItem",
+          "slots": [
+            {
+              "description": "Leading avatar, icon, or status mark.",
+              "name": "leading"
+            },
+            {
+              "description": "Main activity title.",
+              "name": "title"
+            },
+            {
+              "description": "Time or date associated with the event.",
+              "name": "timestamp"
+            },
+            {
+              "description": "Supplemental metadata such as actor, environment, or destination.",
+              "name": "meta"
+            },
+            {
+              "description": "Optional trailing actions for the activity.",
+              "name": "actions"
+            },
+            {
+              "description": "Main event description.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "unread",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "unread",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "unread",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "unread"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorActivityItem",
+          "declaration": {
+            "name": "CindorActivityItem",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
       "declarations": [
         {
@@ -865,121 +980,6 @@
           "declaration": {
             "name": "CindorAutocomplete",
             "module": "packages/core/src/components/autocomplete/cindor-autocomplete.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Activity Item\", render: () => ` <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Ops\"></cindor-avatar> <span slot=\"title\">Database failover completed</span> <span slot=\"timestamp\">5 minutes ago</span> <span slot=\"meta\">Primary cluster</span> Connections were restored automatically after the failover. </cindor-activity-item> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-item/cindor-activity-item.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Single event row used inside CindorActivityFeed.",
-          "name": "CindorActivityItem",
-          "slots": [
-            {
-              "description": "Leading avatar, icon, or status mark.",
-              "name": "leading"
-            },
-            {
-              "description": "Main activity title.",
-              "name": "title"
-            },
-            {
-              "description": "Time or date associated with the event.",
-              "name": "timestamp"
-            },
-            {
-              "description": "Supplemental metadata such as actor, environment, or destination.",
-              "name": "meta"
-            },
-            {
-              "description": "Optional trailing actions for the activity.",
-              "name": "actions"
-            },
-            {
-              "description": "Main event description.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "unread",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "unread",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "unread",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "unread"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorActivityItem",
-          "declaration": {
-            "name": "CindorActivityItem",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
           }
         }
       ]
@@ -1854,6 +1854,33 @@
               "name": "buttonElement",
               "type": {
                 "text": "HTMLButtonElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaControls",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaExpanded",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaHasPopup",
+              "type": {
+                "text": "string | undefined"
               },
               "privacy": "private",
               "readonly": true
@@ -3071,95 +3098,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/chip/cindor-chip.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Primitives/Chip\", args: { label: \"Selected file\", tone: \"neutral\" }, render: ({ label, tone }: ChipStoryArgs) => ` <cindor-chip tone=\"${tone}\">${label}</cindor-chip> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/chip/cindor-chip.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/chip/cindor-chip.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/chip/cindor-chip.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorChip",
-          "members": [
-            {
-              "kind": "field",
-              "name": "tone",
-              "privacy": "public",
-              "type": {
-                "text": "ChipTone"
-              },
-              "default": "\"neutral\"",
-              "attribute": "tone",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "tone",
-              "type": {
-                "text": "ChipTone"
-              },
-              "default": "\"neutral\"",
-              "fieldName": "tone"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorChip",
-          "declaration": {
-            "name": "CindorChip",
-            "module": "packages/core/src/components/chip/cindor-chip.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/coachmark-tour/cindor-coachmark-tour.stories.ts",
       "declarations": [
         {
@@ -3204,7 +3142,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "Guided onboarding overlay that spotlights existing UI and walks the user through contextual product hints.\n\nProvide `steps` with CSS selectors for each target and call `show()` to open the sequence at a specific step.",
           "name": "CindorCoachmarkTour",
           "members": [
             {
@@ -3215,6 +3153,7 @@
                 "text": "number"
               },
               "default": "0",
+              "description": "Zero-based active step index.",
               "attribute": "current-step",
               "reflects": true
             },
@@ -3226,6 +3165,7 @@
                 "text": "string"
               },
               "default": "\"Dismiss\"",
+              "description": "Label used for dismiss actions.",
               "attribute": "dismiss-label",
               "reflects": true
             },
@@ -3237,6 +3177,7 @@
                 "text": "string"
               },
               "default": "\"Finish\"",
+              "description": "Label used on the final completion action.",
               "attribute": "finish-label",
               "reflects": true
             },
@@ -3248,6 +3189,7 @@
                 "text": "string"
               },
               "default": "\"Next\"",
+              "description": "Default label used on forward navigation buttons.",
               "attribute": "next-label",
               "reflects": true
             },
@@ -3259,6 +3201,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Whether the tour is currently visible.",
               "attribute": "open",
               "reflects": true
             },
@@ -3270,6 +3213,7 @@
                 "text": "string"
               },
               "default": "\"Back\"",
+              "description": "Default label used on backward navigation buttons.",
               "attribute": "previous-label",
               "reflects": true
             },
@@ -3280,7 +3224,8 @@
               "type": {
                 "text": "CoachmarkTourStep[]"
               },
-              "default": "[]"
+              "default": "[]",
+              "description": "Ordered onboarding steps rendered by the tour."
             },
             {
               "kind": "field",
@@ -3339,7 +3284,8 @@
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "description": "Closes the tour and restores focus to the previously active element."
             },
             {
               "kind": "method",
@@ -3348,7 +3294,8 @@
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "description": "Advances to the next step or completes the tour when the last step is active."
             },
             {
               "kind": "method",
@@ -3357,7 +3304,8 @@
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "description": "Moves back to the previous step when available."
             },
             {
               "kind": "method",
@@ -3372,7 +3320,8 @@
                   "name": "stepIndex",
                   "default": "0"
                 }
-              ]
+              ],
+              "description": "Opens the tour and optionally jumps to a specific step index."
             },
             {
               "kind": "field",
@@ -3556,25 +3505,29 @@
               "name": "close",
               "type": {
                 "text": "Event"
-              }
+              },
+              "description": "Fired when the tour is dismissed before completion."
             },
             {
               "name": "complete",
               "type": {
                 "text": "Event"
-              }
+              },
+              "description": "Fired when the final step finishes."
             },
             {
               "name": "open-change",
               "type": {
-                "text": "CustomEvent"
-              }
+                "text": "CustomEvent<{ open: boolean }>"
+              },
+              "description": "Fired whenever the tour opens or closes."
             },
             {
               "name": "step-change",
               "type": {
-                "text": "CustomEvent"
-              }
+                "text": "CustomEvent<{ currentStep: number; step: CoachmarkTourStep | null }>"
+              },
+              "description": "Fired when the active step changes."
             }
           ],
           "attributes": [
@@ -3584,6 +3537,7 @@
                 "text": "number"
               },
               "default": "0",
+              "description": "Zero-based active step index.",
               "fieldName": "currentStep"
             },
             {
@@ -3592,6 +3546,7 @@
                 "text": "string"
               },
               "default": "\"Dismiss\"",
+              "description": "Label used for dismiss actions.",
               "fieldName": "dismissLabel"
             },
             {
@@ -3600,6 +3555,7 @@
                 "text": "string"
               },
               "default": "\"Finish\"",
+              "description": "Label used on the final completion action.",
               "fieldName": "finishLabel"
             },
             {
@@ -3608,6 +3564,7 @@
                 "text": "string"
               },
               "default": "\"Next\"",
+              "description": "Default label used on forward navigation buttons.",
               "fieldName": "nextLabel"
             },
             {
@@ -3616,6 +3573,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Whether the tour is currently visible.",
               "fieldName": "open"
             },
             {
@@ -3624,7 +3582,98 @@
                 "text": "string"
               },
               "default": "\"Back\"",
+              "description": "Default label used on backward navigation buttons.",
               "fieldName": "previousLabel"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "summary": "Guided spotlight overlay for anchored onboarding and education flows.",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorCoachmarkTour",
+          "declaration": {
+            "name": "CindorCoachmarkTour",
+            "module": "packages/core/src/components/coachmark-tour/cindor-coachmark-tour.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/chip/cindor-chip.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Primitives/Chip\", args: { label: \"Selected file\", tone: \"neutral\" }, render: ({ label, tone }: ChipStoryArgs) => ` <cindor-chip tone=\"${tone}\">${label}</cindor-chip> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/chip/cindor-chip.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/chip/cindor-chip.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/chip/cindor-chip.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorChip",
+          "members": [
+            {
+              "kind": "field",
+              "name": "tone",
+              "privacy": "public",
+              "type": {
+                "text": "ChipTone"
+              },
+              "default": "\"neutral\"",
+              "attribute": "tone",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "tone",
+              "type": {
+                "text": "ChipTone"
+              },
+              "default": "\"neutral\"",
+              "fieldName": "tone"
             }
           ],
           "superclass": {
@@ -3637,10 +3686,10 @@
       "exports": [
         {
           "kind": "js",
-          "name": "CindorCoachmarkTour",
+          "name": "CindorChip",
           "declaration": {
-            "name": "CindorCoachmarkTour",
-            "module": "packages/core/src/components/coachmark-tour/cindor-coachmark-tour.ts"
+            "name": "CindorChip",
+            "module": "packages/core/src/components/chip/cindor-chip.ts"
           }
         }
       ]
@@ -5191,6 +5240,13 @@
             },
             {
               "kind": "field",
+              "name": "menuId",
+              "privacy": "private",
+              "readonly": true,
+              "default": "`cindor-context-menu-menu-${++contextMenuId}`"
+            },
+            {
+              "kind": "field",
               "name": "anchorY",
               "type": {
                 "text": "number"
@@ -5201,6 +5257,33 @@
             {
               "kind": "field",
               "name": "restoreFocusTarget",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "synthesizedTriggerRole",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "synthesizedTriggerTabindex",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "triggerNode",
               "type": {
                 "text": "HTMLElement | null"
               },
@@ -5238,6 +5321,11 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "field",
+              "name": "handleSlotChange",
+              "privacy": "private"
             },
             {
               "kind": "field",
@@ -5296,6 +5384,16 @@
             },
             {
               "kind": "method",
+              "name": "syncTriggerA11y",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
               "name": "focusFirstItem",
               "privacy": "private",
               "return": {
@@ -5331,6 +5429,26 @@
               },
               "privacy": "private",
               "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "detachTriggerListeners",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncTriggerNode",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             }
           ],
           "events": [
@@ -8878,6 +8996,13 @@
             },
             {
               "kind": "field",
+              "name": "panelId",
+              "privacy": "private",
+              "readonly": true,
+              "default": "`cindor-date-picker-panel-${++datePickerId}`"
+            },
+            {
+              "kind": "field",
               "name": "updateFloatingPosition",
               "type": {
                 "text": "() => void | undefined"
@@ -9320,6 +9445,13 @@
             },
             {
               "kind": "field",
+              "name": "panelId",
+              "privacy": "private",
+              "readonly": true,
+              "default": "`cindor-date-range-picker-panel-${++dateRangePickerId}`"
+            },
+            {
+              "kind": "field",
               "name": "updateFloatingPosition",
               "type": {
                 "text": "() => void | undefined"
@@ -9346,12 +9478,7 @@
             },
             {
               "kind": "field",
-              "name": "handleFieldClick",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleFieldKeyDown",
+              "name": "handleSummaryClick",
               "privacy": "private"
             },
             {
@@ -15975,7 +16102,34 @@
             },
             {
               "kind": "field",
+              "name": "hostAriaControls",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "hostAriaDescription",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaExpanded",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaHasPopup",
               "type": {
                 "text": "string | undefined"
               },
@@ -17783,7 +17937,7 @@
           "type": {
             "text": "object"
           },
-          "default": "{ title: \"Data/Kanban Board\", render: () => ` <cindor-kanban-board id=\"storybook-kanban-board\" selected-card-id=\"build-1\"></cindor-kanban-board> <script type=\"module\"> const board = document.querySelector(\"#storybook-kanban-board\"); board.columns = ${JSON.stringify(boardColumns, null, 2)}; </script> ` }"
+          "default": "{ title: \"Data/Kanban Board\", render: () => ` <div style=\"display:grid;gap:var(--space-4);\"> <cindor-kanban-board id=\"storybook-kanban-board\" selected-card-id=\"build-1\"></cindor-kanban-board> <div style=\"padding:var(--space-3);border:1px solid var(--border);border-radius:var(--radius-xl);background:var(--surface);\"> <strong style=\"display:block;margin-bottom:var(--space-2);\">Latest board event</strong> <div id=\"storybook-kanban-board-event\" style=\"color:var(--fg-muted);font-size:var(--text-sm);\">Drag a card to reorder it or move it into another column.</div> </div> </div> <script type=\"module\"> const board = document.querySelector(\"#storybook-kanban-board\"); const eventOutput = document.querySelector(\"#storybook-kanban-board-event\"); board.columns = ${JSON.stringify(boardColumns, null, 2)}; const renderEvent = (label, detail) => { eventOutput.textContent = label + \": \" + JSON.stringify(detail); }; board.addEventListener(\"reorder\", (event) => renderEvent(\"reorder\", event.detail)); board.addEventListener(\"move\", (event) => renderEvent(\"move\", event.detail)); </script> ` }"
         },
         {
           "kind": "variable",
@@ -17857,6 +18011,24 @@
               "reflects": true
             },
             {
+              "kind": "field",
+              "name": "draggedCard",
+              "type": {
+                "text": "KanbanBoardDragState | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "dropTarget",
+              "type": {
+                "text": "KanbanBoardDropTarget | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
               "kind": "method",
               "name": "renderColumn",
               "privacy": "private",
@@ -17884,6 +18056,12 @@
                   "name": "card",
                   "type": {
                     "text": "KanbanBoardCard"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
                   }
                 }
               ]
@@ -17956,6 +18134,141 @@
             },
             {
               "kind": "method",
+              "name": "handleCardDragStart",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "DragEvent"
+                  }
+                },
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "KanbanBoardColumn"
+                  }
+                },
+                {
+                  "name": "card",
+                  "type": {
+                    "text": "KanbanBoardCard"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleDropTargetDragOver",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "DragEvent"
+                  }
+                },
+                {
+                  "name": "columnId",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleDrop",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "DragEvent"
+                  }
+                },
+                {
+                  "name": "columnId",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "handleCardDragEnd",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "clearDragState",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "moveCard",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "draggedCard",
+                  "type": {
+                    "text": "KanbanBoardDragState"
+                  }
+                },
+                {
+                  "name": "dropTarget",
+                  "type": {
+                    "text": "KanbanBoardDropTarget"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "selectCard",
               "privacy": "private",
               "return": {
@@ -17977,6 +18290,15 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "field",
+              "name": "focusableCardSurfaces",
+              "type": {
+                "text": "HTMLElement[]"
+              },
+              "privacy": "private",
+              "readonly": true
             }
           ],
           "events": [
@@ -17986,6 +18308,20 @@
                 "text": "CustomEvent<KanbanBoardActionDetail>"
               },
               "description": "Fired when a card action button is pressed."
+            },
+            {
+              "name": "reorder",
+              "type": {
+                "text": "CustomEvent<KanbanBoardReorderDetail>"
+              },
+              "description": "Fired when a card is reordered within a column."
+            },
+            {
+              "name": "move",
+              "type": {
+                "text": "CustomEvent<KanbanBoardMoveDetail>"
+              },
+              "description": "Fired when a card moves to a different column."
             },
             {
               "name": "select",
@@ -19024,6 +19360,24 @@
               "name": "previewHtml",
               "type": {
                 "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "previewElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "surfaceElement",
+              "type": {
+                "text": "HTMLElement | null"
               },
               "privacy": "private",
               "readonly": true
@@ -27710,12 +28064,7 @@
             },
             {
               "kind": "field",
-              "name": "handleSummaryClick",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleToggle",
+              "name": "handleMenuTriggerClick",
               "privacy": "private"
             },
             {
@@ -27803,28 +28152,31 @@
               "readonly": true
             },
             {
-              "kind": "field",
-              "name": "summaryElement",
-              "type": {
-                "text": "HTMLElement | null"
-              },
+              "kind": "method",
+              "name": "setMenuOpen",
               "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "detailsElement",
-              "type": {
-                "text": "HTMLDetailsElement | null"
+              "return": {
+                "type": {
+                  "text": "void"
+                }
               },
-              "privacy": "private",
-              "readonly": true
+              "parameters": [
+                {
+                  "name": "nextOpen",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
             }
           ],
           "events": [
             {
-              "description": "Fired when the secondary action menu opens or closes.",
-              "name": "toggle"
+              "name": "toggle",
+              "type": {
+                "text": "Event"
+              },
+              "description": "Fired when the secondary action menu opens or closes."
             },
             {
               "description": "Uses the native click event from the primary action button.",
@@ -31622,6 +31974,160 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/timeline/cindor-timeline.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Timeline\", render: () => ` <cindor-timeline> <cindor-timeline-item> <span slot=\"title\">Project created</span> <span slot=\"timestamp\">Apr 20</span> Initial workspace scaffolded. </cindor-timeline-item> <cindor-timeline-item> <span slot=\"title\">First release</span> <span slot=\"timestamp\">Apr 24</span> Shared components published internally. </cindor-timeline-item> <cindor-timeline-item> <span slot=\"title\">Production launch</span> <span slot=\"timestamp\">Today</span> Traffic is now routed to the new system. </cindor-timeline-item> </cindor-timeline> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/timeline/cindor-timeline.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/timeline/cindor-timeline.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/timeline/cindor-timeline.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Ordered event timeline for status history and activity summaries.",
+          "name": "CindorTimeline",
+          "slots": [
+            {
+              "description": "`cindor-timeline-item` children.",
+              "name": ""
+            }
+          ],
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorTimeline",
+          "declaration": {
+            "name": "CindorTimeline",
+            "module": "packages/core/src/components/timeline/cindor-timeline.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/timeline-item/cindor-timeline-item.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Timeline Item\", render: () => ` <cindor-timeline> <cindor-timeline-item> <span slot=\"title\">Deployed</span> <span slot=\"timestamp\">2m ago</span> Release 1.2.0 shipped to production. </cindor-timeline-item> </cindor-timeline> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/timeline-item/cindor-timeline-item.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/timeline-item/cindor-timeline-item.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/timeline-item/cindor-timeline-item.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Single event row used inside CindorTimeline.",
+          "name": "CindorTimelineItem",
+          "slots": [
+            {
+              "description": "Main event title.",
+              "name": "title"
+            },
+            {
+              "description": "Secondary event time or date.",
+              "name": "timestamp"
+            },
+            {
+              "description": "Event body content.",
+              "name": ""
+            }
+          ],
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorTimelineItem",
+          "declaration": {
+            "name": "CindorTimelineItem",
+            "module": "packages/core/src/components/timeline-item/cindor-timeline-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/time-input/cindor-time-input.stories.ts",
       "declarations": [
         {
@@ -32291,160 +32797,6 @@
           "declaration": {
             "name": "CindorTimeInput",
             "module": "packages/core/src/components/time-input/cindor-time-input.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/timeline/cindor-timeline.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Timeline\", render: () => ` <cindor-timeline> <cindor-timeline-item> <span slot=\"title\">Project created</span> <span slot=\"timestamp\">Apr 20</span> Initial workspace scaffolded. </cindor-timeline-item> <cindor-timeline-item> <span slot=\"title\">First release</span> <span slot=\"timestamp\">Apr 24</span> Shared components published internally. </cindor-timeline-item> <cindor-timeline-item> <span slot=\"title\">Production launch</span> <span slot=\"timestamp\">Today</span> Traffic is now routed to the new system. </cindor-timeline-item> </cindor-timeline> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/timeline/cindor-timeline.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/timeline/cindor-timeline.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/timeline/cindor-timeline.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Ordered event timeline for status history and activity summaries.",
-          "name": "CindorTimeline",
-          "slots": [
-            {
-              "description": "`cindor-timeline-item` children.",
-              "name": ""
-            }
-          ],
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorTimeline",
-          "declaration": {
-            "name": "CindorTimeline",
-            "module": "packages/core/src/components/timeline/cindor-timeline.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/timeline-item/cindor-timeline-item.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Timeline Item\", render: () => ` <cindor-timeline> <cindor-timeline-item> <span slot=\"title\">Deployed</span> <span slot=\"timestamp\">2m ago</span> Release 1.2.0 shipped to production. </cindor-timeline-item> </cindor-timeline> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/timeline-item/cindor-timeline-item.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/timeline-item/cindor-timeline-item.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/timeline-item/cindor-timeline-item.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Single event row used inside CindorTimeline.",
-          "name": "CindorTimelineItem",
-          "slots": [
-            {
-              "description": "Main event title.",
-              "name": "title"
-            },
-            {
-              "description": "Secondary event time or date.",
-              "name": "timestamp"
-            },
-            {
-              "description": "Event body content.",
-              "name": ""
-            }
-          ],
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorTimelineItem",
-          "declaration": {
-            "name": "CindorTimelineItem",
-            "module": "packages/core/src/components/timeline-item/cindor-timeline-item.ts"
           }
         }
       ]
