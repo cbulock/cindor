@@ -3,7 +3,7 @@ import { afterEach } from "vitest";
 
 import "../../register.js";
 
-import { CindorSortableList } from "./cindor-sortable-list.js";
+import type { CindorSortableList } from "./cindor-sortable-list.js";
 
 type SortableItem = {
   id: string;

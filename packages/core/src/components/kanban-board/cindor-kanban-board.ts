@@ -376,7 +376,7 @@ export class CindorKanbanBoard extends LitElement {
           class="card-surface"
           part="card-surface"
           ?aria-disabled=${isDisabled}
-          aria-pressed=${isDisabled ? nothing : String(isSelected)}
+          aria-current=${isSelected ? "true" : nothing}
           role=${isDisabled ? "group" : "button"}
           tabindex=${isDisabled ? "-1" : "0"}
           @click=${() => this.selectCard(column, card)}

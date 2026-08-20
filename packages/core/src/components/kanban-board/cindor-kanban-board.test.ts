@@ -108,7 +108,7 @@ describe("cindor-kanban-board", () => {
     document.body.append(element);
     await element.updateComplete;
 
-    expect(element.renderRoot.querySelector('[data-card-id="card-a"] [part="card-surface"]')?.getAttribute("aria-pressed")).toBe("true");
+    expect(element.renderRoot.querySelector('[data-card-id="card-a"] [part="card-surface"]')?.getAttribute("aria-current")).toBe("true");
   });
 
   it("emits card-action without changing the current selection", async () => {
