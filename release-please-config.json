@@ -5,40 +5,81 @@
   "skip-changelog": true,
   "include-v-in-tag": true,
   "include-component-in-tag": false,
-  "separate-pull-requests": false,
   "packages": {
     ".": {
-      "release-type": "node"
-    },
-    "apps/docs": {
-      "release-type": "node"
-    },
-    "packages/core": {
-      "release-type": "node"
-    },
-    "packages/react": {
-      "release-type": "node"
-    },
-    "packages/vue": {
-      "release-type": "node"
-    }
-  },
-  "plugins": [
-    {
-      "type": "node-workspace",
-      "merge": false,
-      "updatePeerDependencies": true
-    },
-    {
-      "type": "linked-versions",
-      "groupName": "cindor workspace",
-      "components": [
-        "cindor-ui-workspace",
-        "cindor-ui-docs",
-        "cindor-ui-core",
-        "cindor-ui-react",
-        "cindor-ui-vue"
+      "release-type": "node",
+      "extra-files": [
+        {
+          "type": "json",
+          "path": "apps/docs/package.json",
+          "jsonpath": "$.version"
+        },
+        {
+          "type": "json",
+          "path": "apps/docs/package.json",
+          "jsonpath": "$.dependencies[\"cindor-ui-core\"]"
+        },
+        {
+          "type": "json",
+          "path": "packages/core/package.json",
+          "jsonpath": "$.version"
+        },
+        {
+          "type": "json",
+          "path": "packages/react/package.json",
+          "jsonpath": "$.version"
+        },
+        {
+          "type": "json",
+          "path": "packages/react/package.json",
+          "jsonpath": "$.dependencies[\"cindor-ui-core\"]"
+        },
+        {
+          "type": "json",
+          "path": "packages/vue/package.json",
+          "jsonpath": "$.version"
+        },
+        {
+          "type": "json",
+          "path": "packages/vue/package.json",
+          "jsonpath": "$.dependencies[\"cindor-ui-core\"]"
+        },
+        {
+          "type": "json",
+          "path": "package-lock.json",
+          "jsonpath": "$.packages[\"apps/docs\"].version"
+        },
+        {
+          "type": "json",
+          "path": "package-lock.json",
+          "jsonpath": "$.packages[\"apps/docs\"].dependencies[\"cindor-ui-core\"]"
+        },
+        {
+          "type": "json",
+          "path": "package-lock.json",
+          "jsonpath": "$.packages[\"packages/core\"].version"
+        },
+        {
+          "type": "json",
+          "path": "package-lock.json",
+          "jsonpath": "$.packages[\"packages/react\"].version"
+        },
+        {
+          "type": "json",
+          "path": "package-lock.json",
+          "jsonpath": "$.packages[\"packages/react\"].dependencies[\"cindor-ui-core\"]"
+        },
+        {
+          "type": "json",
+          "path": "package-lock.json",
+          "jsonpath": "$.packages[\"packages/vue\"].version"
+        },
+        {
+          "type": "json",
+          "path": "package-lock.json",
+          "jsonpath": "$.packages[\"packages/vue\"].dependencies[\"cindor-ui-core\"]"
+        }
       ]
     }
-  ]
+  }
 }
