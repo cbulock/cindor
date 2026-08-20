@@ -14,21 +14,72 @@ export class CindorMenubar extends LitElement {
     :host {
       display: block;
       max-width: 100%;
+      color: var(--fg);
     }
 
     .menubar {
       display: inline-flex;
       align-items: center;
-      gap: var(--space-1);
+      gap: 2px;
+      min-height: 2.5rem;
       max-width: 100%;
       overflow-x: auto;
       overscroll-behavior-x: contain;
       scrollbar-width: thin;
-      padding: var(--space-1);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      background: var(--surface);
-      box-shadow: var(--shadow-xs);
+      padding: 0.1875rem;
+      border: 1px solid color-mix(in srgb, var(--border-strong) 65%, var(--border));
+      border-radius: var(--radius-md);
+      background:
+        linear-gradient(
+          180deg,
+          color-mix(in srgb, var(--surface-raised, var(--surface)) 88%, white 12%),
+          color-mix(in srgb, var(--surface) 96%, black 4%)
+        );
+      box-shadow:
+        inset 0 1px 0 color-mix(in srgb, white 55%, transparent),
+        var(--shadow-xs);
+      color: var(--fg);
+    }
+
+    ::slotted(cindor-button),
+    ::slotted(cindor-icon-button) {
+      --cindor-button-background: transparent;
+      --cindor-button-border-color: transparent;
+      --cindor-button-color: var(--fg);
+      --cindor-button-gap: var(--space-1);
+      --cindor-button-ghost-background: transparent;
+      --cindor-button-ghost-border-color: transparent;
+      --cindor-button-ghost-color: var(--fg);
+      --cindor-button-hover-background: color-mix(in srgb, var(--accent) 14%, transparent);
+      --cindor-button-hover-border-color: transparent;
+      --cindor-button-hover-color: var(--fg);
+      --cindor-button-min-height: 2.125rem;
+      --cindor-button-padding-block: 0;
+      --cindor-button-padding-inline: var(--space-3);
+      --cindor-button-radius: calc(var(--radius-sm) + 1px);
+      flex: none;
+      font-size: var(--text-sm);
+      font-weight: var(--weight-medium);
+    }
+
+    ::slotted(cindor-link),
+    ::slotted(button),
+    ::slotted(a) {
+      flex: none;
+      border-radius: calc(var(--radius-sm) + 1px);
+      color: var(--fg);
+      font-size: var(--text-sm);
+      font-weight: var(--weight-medium);
+      text-decoration: none;
+    }
+
+    ::slotted(button),
+    ::slotted(a) {
+      min-height: 2.125rem;
+      padding: 0 var(--space-3);
+      border: 0;
+      background: transparent;
+      font: inherit;
     }
   `;
 
