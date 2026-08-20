@@ -17,12 +17,18 @@ export class CindorNavigationRail extends LitElement {
 
     .rail {
       display: grid;
-      gap: var(--space-2);
+      gap: var(--space-1);
+      justify-items: stretch;
+      align-content: start;
       padding: var(--space-2);
       border: 1px solid var(--border);
       border-radius: var(--radius-xl);
-      background: var(--surface);
+      background: color-mix(in srgb, var(--surface) 92%, var(--bg-subtle));
       box-shadow: var(--shadow-xs);
+    }
+
+    ::slotted(cindor-navigation-rail-item) {
+      width: 100%;
     }
   `;
 

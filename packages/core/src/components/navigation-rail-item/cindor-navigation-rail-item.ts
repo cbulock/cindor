@@ -10,6 +10,8 @@ export class CindorNavigationRailItem extends LitElement {
   static styles = css`
     :host {
       display: block;
+      width: 100%;
+      box-sizing: border-box;
       color: var(--fg);
     }
 
@@ -21,18 +23,26 @@ export class CindorNavigationRailItem extends LitElement {
       min-width: 4.5rem;
       min-height: 4.5rem;
       padding: var(--space-3) var(--space-2);
-      border: 0;
+      box-sizing: border-box;
+      border: 1px solid transparent;
       border-radius: var(--radius-lg);
       background: transparent;
+      background-clip: padding-box;
       color: inherit;
       text-decoration: none;
       font: inherit;
       cursor: pointer;
       text-align: center;
+      transition:
+        background var(--duration-base) var(--ease-out),
+        border-color var(--duration-base) var(--ease-out),
+        color var(--duration-base) var(--ease-out),
+        box-shadow var(--duration-base) var(--ease-out);
     }
 
     .item:hover:not([aria-disabled="true"]):not(:disabled) {
-      background: var(--bg-subtle);
+      background: color-mix(in srgb, var(--accent) 10%, var(--bg-subtle));
+      border-color: color-mix(in srgb, var(--border-strong) 50%, transparent);
     }
 
     .item:focus-visible {
@@ -41,7 +51,9 @@ export class CindorNavigationRailItem extends LitElement {
     }
 
     .item[aria-current="page"] {
-      background: color-mix(in srgb, var(--accent) 14%, transparent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+      border-color: color-mix(in srgb, var(--accent) 26%, var(--border));
+      box-shadow: inset 0 1px 0 color-mix(in srgb, white 35%, transparent);
       color: var(--fg);
       font-weight: var(--weight-medium);
     }
