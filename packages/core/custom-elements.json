@@ -205,6 +205,121 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Activity Item\", render: () => ` <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Ops\"></cindor-avatar> <span slot=\"title\">Database failover completed</span> <span slot=\"timestamp\">5 minutes ago</span> <span slot=\"meta\">Primary cluster</span> Connections were restored automatically after the failover. </cindor-activity-item> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-item/cindor-activity-item.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Single event row used inside CindorActivityFeed.",
+          "name": "CindorActivityItem",
+          "slots": [
+            {
+              "description": "Leading avatar, icon, or status mark.",
+              "name": "leading"
+            },
+            {
+              "description": "Main activity title.",
+              "name": "title"
+            },
+            {
+              "description": "Time or date associated with the event.",
+              "name": "timestamp"
+            },
+            {
+              "description": "Supplemental metadata such as actor, environment, or destination.",
+              "name": "meta"
+            },
+            {
+              "description": "Optional trailing actions for the activity.",
+              "name": "actions"
+            },
+            {
+              "description": "Main event description.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "unread",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "unread",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "unread",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "unread"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorActivityItem",
+          "declaration": {
+            "name": "CindorActivityItem",
+            "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
       "declarations": [
         {
@@ -865,121 +980,6 @@
           "declaration": {
             "name": "CindorAutocomplete",
             "module": "packages/core/src/components/autocomplete/cindor-autocomplete.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Activity Item\", render: () => ` <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Ops\"></cindor-avatar> <span slot=\"title\">Database failover completed</span> <span slot=\"timestamp\">5 minutes ago</span> <span slot=\"meta\">Primary cluster</span> Connections were restored automatically after the failover. </cindor-activity-item> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-item/cindor-activity-item.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Single event row used inside CindorActivityFeed.",
-          "name": "CindorActivityItem",
-          "slots": [
-            {
-              "description": "Leading avatar, icon, or status mark.",
-              "name": "leading"
-            },
-            {
-              "description": "Main activity title.",
-              "name": "title"
-            },
-            {
-              "description": "Time or date associated with the event.",
-              "name": "timestamp"
-            },
-            {
-              "description": "Supplemental metadata such as actor, environment, or destination.",
-              "name": "meta"
-            },
-            {
-              "description": "Optional trailing actions for the activity.",
-              "name": "actions"
-            },
-            {
-              "description": "Main event description.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "unread",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "unread",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "unread",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "unread"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorActivityItem",
-          "declaration": {
-            "name": "CindorActivityItem",
-            "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
           }
         }
       ]
@@ -1854,6 +1854,33 @@
               "name": "buttonElement",
               "type": {
                 "text": "HTMLButtonElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaControls",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaExpanded",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaHasPopup",
+              "type": {
+                "text": "string | undefined"
               },
               "privacy": "private",
               "readonly": true
@@ -3204,7 +3231,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "Guided onboarding overlay that spotlights existing UI and walks the user through contextual product hints.\n\nProvide `steps` with CSS selectors for each target and call `show()` to open the sequence at a specific step.",
           "name": "CindorCoachmarkTour",
           "members": [
             {
@@ -3215,6 +3242,7 @@
                 "text": "number"
               },
               "default": "0",
+              "description": "Zero-based active step index.",
               "attribute": "current-step",
               "reflects": true
             },
@@ -3226,6 +3254,7 @@
                 "text": "string"
               },
               "default": "\"Dismiss\"",
+              "description": "Label used for dismiss actions.",
               "attribute": "dismiss-label",
               "reflects": true
             },
@@ -3237,6 +3266,7 @@
                 "text": "string"
               },
               "default": "\"Finish\"",
+              "description": "Label used on the final completion action.",
               "attribute": "finish-label",
               "reflects": true
             },
@@ -3248,6 +3278,7 @@
                 "text": "string"
               },
               "default": "\"Next\"",
+              "description": "Default label used on forward navigation buttons.",
               "attribute": "next-label",
               "reflects": true
             },
@@ -3259,6 +3290,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Whether the tour is currently visible.",
               "attribute": "open",
               "reflects": true
             },
@@ -3270,6 +3302,7 @@
                 "text": "string"
               },
               "default": "\"Back\"",
+              "description": "Default label used on backward navigation buttons.",
               "attribute": "previous-label",
               "reflects": true
             },
@@ -3280,7 +3313,8 @@
               "type": {
                 "text": "CoachmarkTourStep[]"
               },
-              "default": "[]"
+              "default": "[]",
+              "description": "Ordered onboarding steps rendered by the tour."
             },
             {
               "kind": "field",
@@ -3339,7 +3373,8 @@
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "description": "Closes the tour and restores focus to the previously active element."
             },
             {
               "kind": "method",
@@ -3348,7 +3383,8 @@
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "description": "Advances to the next step or completes the tour when the last step is active."
             },
             {
               "kind": "method",
@@ -3357,7 +3393,8 @@
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "description": "Moves back to the previous step when available."
             },
             {
               "kind": "method",
@@ -3372,7 +3409,8 @@
                   "name": "stepIndex",
                   "default": "0"
                 }
-              ]
+              ],
+              "description": "Opens the tour and optionally jumps to a specific step index."
             },
             {
               "kind": "field",
@@ -3556,25 +3594,29 @@
               "name": "close",
               "type": {
                 "text": "Event"
-              }
+              },
+              "description": "Fired when the tour is dismissed before completion."
             },
             {
               "name": "complete",
               "type": {
                 "text": "Event"
-              }
+              },
+              "description": "Fired when the final step finishes."
             },
             {
               "name": "open-change",
               "type": {
-                "text": "CustomEvent"
-              }
+                "text": "CustomEvent<{ open: boolean }>"
+              },
+              "description": "Fired whenever the tour opens or closes."
             },
             {
               "name": "step-change",
               "type": {
-                "text": "CustomEvent"
-              }
+                "text": "CustomEvent<{ currentStep: number; step: CoachmarkTourStep | null }>"
+              },
+              "description": "Fired when the active step changes."
             }
           ],
           "attributes": [
@@ -3584,6 +3626,7 @@
                 "text": "number"
               },
               "default": "0",
+              "description": "Zero-based active step index.",
               "fieldName": "currentStep"
             },
             {
@@ -3592,6 +3635,7 @@
                 "text": "string"
               },
               "default": "\"Dismiss\"",
+              "description": "Label used for dismiss actions.",
               "fieldName": "dismissLabel"
             },
             {
@@ -3600,6 +3644,7 @@
                 "text": "string"
               },
               "default": "\"Finish\"",
+              "description": "Label used on the final completion action.",
               "fieldName": "finishLabel"
             },
             {
@@ -3608,6 +3653,7 @@
                 "text": "string"
               },
               "default": "\"Next\"",
+              "description": "Default label used on forward navigation buttons.",
               "fieldName": "nextLabel"
             },
             {
@@ -3616,6 +3662,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Whether the tour is currently visible.",
               "fieldName": "open"
             },
             {
@@ -3624,6 +3671,7 @@
                 "text": "string"
               },
               "default": "\"Back\"",
+              "description": "Default label used on backward navigation buttons.",
               "fieldName": "previousLabel"
             }
           ],
@@ -3631,6 +3679,7 @@
             "name": "LitElement",
             "package": "lit"
           },
+          "summary": "Guided spotlight overlay for anchored onboarding and education flows.",
           "customElement": true
         }
       ],
@@ -4773,6 +4822,335 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/context-menu/cindor-context-menu.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Overlays/Context Menu\", args: { open: false }, argTypes: { open: { control: \"boolean\" } }, render: ({ open }: ContextMenuStoryArgs) => ` <cindor-context-menu aria-label=\"Context actions\" ${open ? \"open\" : \"\"}> <div slot=\"trigger\" style=\"padding: var(--space-6); border: 1px dashed var(--border); border-radius: var(--radius-lg);\"> Right click this surface </div> <cindor-menu-item>Rename</cindor-menu-item> <cindor-menu-item>Duplicate</cindor-menu-item> <cindor-menu-item>Archive</cindor-menu-item> </cindor-context-menu> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/context-menu/cindor-context-menu.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/context-menu/cindor-context-menu.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/context-menu/cindor-context-menu.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Right-click menu surface that composes Cindor menu primitives.",
+          "name": "CindorContextMenu",
+          "slots": [
+            {
+              "description": "Element that receives context menu and keyboard-open interaction.",
+              "name": "trigger"
+            },
+            {
+              "description": "`cindor-menu-item` children rendered inside the menu.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "open",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "anchorX",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "menuId",
+              "privacy": "private",
+              "readonly": true,
+              "default": "`cindor-context-menu-menu-${++contextMenuId}`"
+            },
+            {
+              "kind": "field",
+              "name": "anchorY",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "restoreFocusTarget",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "synthesizedTriggerRole",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "synthesizedTriggerTabindex",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "triggerNode",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "openAt",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "x",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "y",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "handleSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleContextMenu",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleTriggerKeydown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleMenuItemSelect",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleMenuKeydown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleDocumentPointerDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleWindowBlur",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleViewportChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "positionMenu",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncMenuA11y",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncTriggerA11y",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusFirstItem",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "dispatchToggleEvent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "menuElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "triggerElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "detachTriggerListeners",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncTriggerNode",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "toggle",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the menu opens or closes."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "open"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorContextMenu",
+          "declaration": {
+            "name": "CindorContextMenu",
+            "module": "packages/core/src/components/context-menu/cindor-context-menu.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/command-palette/cindor-command-palette.stories.ts",
       "declarations": [
         {
@@ -5106,266 +5484,6 @@
           "declaration": {
             "name": "CindorCommandPalette",
             "module": "packages/core/src/components/command-palette/cindor-command-palette.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/context-menu/cindor-context-menu.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Overlays/Context Menu\", args: { open: false }, argTypes: { open: { control: \"boolean\" } }, render: ({ open }: ContextMenuStoryArgs) => ` <cindor-context-menu aria-label=\"Context actions\" ${open ? \"open\" : \"\"}> <div slot=\"trigger\" style=\"padding: var(--space-6); border: 1px dashed var(--border); border-radius: var(--radius-lg);\"> Right click this surface </div> <cindor-menu-item>Rename</cindor-menu-item> <cindor-menu-item>Duplicate</cindor-menu-item> <cindor-menu-item>Archive</cindor-menu-item> </cindor-context-menu> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/context-menu/cindor-context-menu.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/context-menu/cindor-context-menu.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/context-menu/cindor-context-menu.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Right-click menu surface that composes Cindor menu primitives.",
-          "name": "CindorContextMenu",
-          "slots": [
-            {
-              "description": "Element that receives context menu and keyboard-open interaction.",
-              "name": "trigger"
-            },
-            {
-              "description": "`cindor-menu-item` children rendered inside the menu.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "open",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "open",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "anchorX",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "anchorY",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "restoreFocusTarget",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "method",
-              "name": "close",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "openAt",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "x",
-                  "type": {
-                    "text": "number"
-                  }
-                },
-                {
-                  "name": "y",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "handleContextMenu",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleTriggerKeydown",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleMenuItemSelect",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleMenuKeydown",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleDocumentPointerDown",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleWindowBlur",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleViewportChange",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "positionMenu",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "syncMenuA11y",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focusFirstItem",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchToggleEvent",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "menuElement",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "triggerElement",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "events": [
-            {
-              "name": "toggle",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired when the menu opens or closes."
-            }
-          ],
-          "attributes": [
-            {
-              "name": "open",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "open"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorContextMenu",
-          "declaration": {
-            "name": "CindorContextMenu",
-            "module": "packages/core/src/components/context-menu/cindor-context-menu.ts"
           }
         }
       ]
@@ -8878,6 +8996,13 @@
             },
             {
               "kind": "field",
+              "name": "panelId",
+              "privacy": "private",
+              "readonly": true,
+              "default": "`cindor-date-picker-panel-${++datePickerId}`"
+            },
+            {
+              "kind": "field",
               "name": "updateFloatingPosition",
               "type": {
                 "text": "() => void | undefined"
@@ -9320,6 +9445,13 @@
             },
             {
               "kind": "field",
+              "name": "panelId",
+              "privacy": "private",
+              "readonly": true,
+              "default": "`cindor-date-range-picker-panel-${++dateRangePickerId}`"
+            },
+            {
+              "kind": "field",
               "name": "updateFloatingPosition",
               "type": {
                 "text": "() => void | undefined"
@@ -9346,12 +9478,7 @@
             },
             {
               "kind": "field",
-              "name": "handleFieldClick",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleFieldKeyDown",
+              "name": "handleSummaryClick",
               "privacy": "private"
             },
             {
@@ -15975,7 +16102,34 @@
             },
             {
               "kind": "field",
+              "name": "hostAriaControls",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "hostAriaDescription",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaExpanded",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaHasPopup",
               "type": {
                 "text": "string | undefined"
               },
@@ -17977,6 +18131,15 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "field",
+              "name": "focusableCardSurfaces",
+              "type": {
+                "text": "HTMLElement[]"
+              },
+              "privacy": "private",
+              "readonly": true
             }
           ],
           "events": [
@@ -19024,6 +19187,24 @@
               "name": "previewHtml",
               "type": {
                 "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "previewElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "surfaceElement",
+              "type": {
+                "text": "HTMLElement | null"
               },
               "privacy": "private",
               "readonly": true
@@ -20762,6 +20943,484 @@
           "declaration": {
             "name": "CindorNavigationRailItem",
             "module": "packages/core/src/components/navigation-rail-item/cindor-navigation-rail-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/notification-center/cindor-notification-center.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Composites/Notification Center\", args: { empty: false, title: \"Team inbox\" }, argTypes: { empty: { control: \"boolean\" }, title: { control: \"text\" } }, render: ({ empty, title }: NotificationCenterStoryArgs) => ` <div style=\"max-width: 44rem;\"> <cindor-notification-center id=\"storybook-notification-center\" description=\"Persistent updates for releases, incidents, and collaborator follow-ups.\" empty-action-label=\"Configure alerts\" title=\"${title}\" > <cindor-button slot=\"actions\" variant=\"ghost\">Preferences</cindor-button> </cindor-notification-center> <script type=\"module\"> const center = document.querySelector(\"#storybook-notification-center\"); const setNotifications = (items) => { center.notifications = items; }; setNotifications(${empty ? \"[]\" : JSON.stringify(notificationItems, null, 2)}); center.addEventListener(\"notification-read-change\", (event) => { const { item, unread } = event.detail; setNotifications((center.notifications ?? []).map((entry) => (entry.id === item.id ? { ...entry, unread } : entry))); }); center.addEventListener(\"notification-dismiss\", (event) => { const { item } = event.detail; setNotifications((center.notifications ?? []).filter((entry) => entry.id !== item.id)); }); center.addEventListener(\"notification-mark-all-read\", () => { setNotifications((center.notifications ?? []).map((entry) => ({ ...entry, unread: false }))); }); </script> </div> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/notification-center/cindor-notification-center.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/notification-center/cindor-notification-center.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/notification-center/cindor-notification-center.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Persistent inbox-style surface for product notifications, alerts, and updates.\n\nPass `notifications` to render rows and listen for emitted events to update application state.",
+          "name": "CindorNotificationCenter",
+          "members": [
+            {
+              "kind": "field",
+              "name": "description",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "description",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "emptyActionLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "empty-action-label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "emptyDescription",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"New notifications will appear here when activity starts flowing in.\"",
+              "attribute": "empty-description",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "emptyTitle",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"No notifications\"",
+              "attribute": "empty-title",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "headingLevel",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "2",
+              "attribute": "heading-level",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "notifications",
+              "privacy": "public",
+              "type": {
+                "text": "NotificationCenterItem[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "showDismissAction",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "show-dismiss-action",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "showMarkAllAction",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "show-mark-all-action",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "showReadAction",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "show-read-action",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "title",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Notifications\"",
+              "attribute": "title",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "renderHeading",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "renderList",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "renderEmptyState",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "accessibleLabel",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "resolvedHeadingLevel",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "handleEmptyAction",
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "handleMarkAllRead",
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "handleDismiss",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleReadToggle",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleSelect",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleItemKeyDown",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "emitSelectionEvent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "\"notification-dismiss\" | \"notification-select\""
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "isInteractiveTarget",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "EventTarget | null"
+                  }
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "name": "notification-read-change",
+              "type": {
+                "text": "CustomEvent<NotificationCenterReadChangeDetail>"
+              },
+              "description": "Fired when a notification read state is toggled."
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "type": {
+                "text": "CustomEvent<NotificationCenterSelectDetail>"
+              },
+              "description": "Fired when a notification row is activated.",
+              "name": "notification-select"
+            },
+            {
+              "type": {
+                "text": "CustomEvent<NotificationCenterSelectDetail>"
+              },
+              "description": "Fired when a notification dismiss action is triggered.",
+              "name": "notification-dismiss"
+            },
+            {
+              "type": {
+                "text": "CustomEvent<NotificationCenterMarkAllReadDetail>"
+              },
+              "description": "Fired when all unread notifications should be marked read.",
+              "name": "notification-mark-all-read"
+            },
+            {
+              "type": {
+                "text": "CustomEvent<Record<string, never>>"
+              },
+              "description": "Fired when the empty-state action is triggered.",
+              "name": "notification-empty-action"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "description",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "description"
+            },
+            {
+              "name": "empty-action-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "emptyActionLabel"
+            },
+            {
+              "name": "empty-description",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"New notifications will appear here when activity starts flowing in.\"",
+              "fieldName": "emptyDescription"
+            },
+            {
+              "name": "empty-title",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"No notifications\"",
+              "fieldName": "emptyTitle"
+            },
+            {
+              "name": "heading-level",
+              "type": {
+                "text": "number"
+              },
+              "default": "2",
+              "fieldName": "headingLevel"
+            },
+            {
+              "name": "show-dismiss-action",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "fieldName": "showDismissAction"
+            },
+            {
+              "name": "show-mark-all-action",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "fieldName": "showMarkAllAction"
+            },
+            {
+              "name": "show-read-action",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "fieldName": "showReadAction"
+            },
+            {
+              "name": "title",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Notifications\"",
+              "fieldName": "title"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "cindor-notification-center",
+          "customElement": true,
+          "summary": "Persistent inbox-style notification list with empty, read, and dismiss states."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorNotificationCenter",
+          "declaration": {
+            "name": "CindorNotificationCenter",
+            "module": "packages/core/src/components/notification-center/cindor-notification-center.ts"
           }
         }
       ]
@@ -27710,12 +28369,7 @@
             },
             {
               "kind": "field",
-              "name": "handleSummaryClick",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleToggle",
+              "name": "handleMenuTriggerClick",
               "privacy": "private"
             },
             {
@@ -27803,28 +28457,31 @@
               "readonly": true
             },
             {
-              "kind": "field",
-              "name": "summaryElement",
-              "type": {
-                "text": "HTMLElement | null"
-              },
+              "kind": "method",
+              "name": "setMenuOpen",
               "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "detailsElement",
-              "type": {
-                "text": "HTMLDetailsElement | null"
+              "return": {
+                "type": {
+                  "text": "void"
+                }
               },
-              "privacy": "private",
-              "readonly": true
+              "parameters": [
+                {
+                  "name": "nextOpen",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
             }
           ],
           "events": [
             {
-              "description": "Fired when the secondary action menu opens or closes.",
-              "name": "toggle"
+              "name": "toggle",
+              "type": {
+                "text": "Event"
+              },
+              "description": "Fired when the secondary action menu opens or closes."
             },
             {
               "description": "Uses the native click event from the primary action button.",

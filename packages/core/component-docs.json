@@ -5092,6 +5092,150 @@
       "tagName": "cindor-navigation-rail-item"
     },
     {
+      "className": "CindorNotificationCenter",
+      "description": "Persistent inbox-style surface for product notifications, alerts, and updates.\n\nPass `notifications` to render rows and listen for emitted events to update application state.",
+      "modulePath": "packages/core/src/components/notification-center/cindor-notification-center.ts",
+      "properties": [
+        {
+          "attributeName": "description",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "description",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "empty-action-label",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "emptyActionLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "empty-description",
+          "defaultValue": "\"New notifications will appear here when activity starts flowing in.\"",
+          "description": "",
+          "name": "emptyDescription",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "empty-title",
+          "defaultValue": "\"No notifications\"",
+          "description": "",
+          "name": "emptyTitle",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "heading-level",
+          "defaultValue": "2",
+          "description": "",
+          "name": "headingLevel",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "notifications",
+          "reflects": false,
+          "type": "NotificationCenterItem[]",
+          "values": null
+        },
+        {
+          "attributeName": "show-dismiss-action",
+          "defaultValue": "true",
+          "description": "",
+          "name": "showDismissAction",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "show-mark-all-action",
+          "defaultValue": "true",
+          "description": "",
+          "name": "showMarkAllAction",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "show-read-action",
+          "defaultValue": "true",
+          "description": "",
+          "name": "showReadAction",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "title",
+          "defaultValue": "\"Notifications\"",
+          "description": "",
+          "name": "title",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "description": "Fired when a notification read state is toggled.",
+          "name": "notification-read-change",
+          "type": "CustomEvent<NotificationCenterReadChangeDetail>",
+          "values": null
+        },
+        {
+          "description": "",
+          "name": "name",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "Fired when a notification row is activated.",
+          "name": "notification-select",
+          "type": "CustomEvent<NotificationCenterSelectDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when a notification dismiss action is triggered.",
+          "name": "notification-dismiss",
+          "type": "CustomEvent<NotificationCenterSelectDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when all unread notifications should be marked read.",
+          "name": "notification-mark-all-read",
+          "type": "CustomEvent<NotificationCenterMarkAllReadDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when the empty-state action is triggered.",
+          "name": "notification-empty-action",
+          "type": "CustomEvent<Record<string, never>>",
+          "values": null
+        }
+      ],
+      "slots": [
+        {
+          "description": "",
+          "name": "actions"
+        }
+      ],
+      "summary": "Persistent inbox-style notification list with empty, read, and dismiss states.",
+      "tagName": "cindor-notification-center"
+    },
+    {
       "className": "CindorNumberInput",
       "description": "",
       "modulePath": "packages/core/src/components/number-input/cindor-number-input.ts",
@@ -6880,7 +7024,7 @@
         {
           "description": "Fired when the secondary action menu opens or closes.",
           "name": "toggle",
-          "type": null,
+          "type": "Event",
           "values": null
         },
         {

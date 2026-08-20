@@ -113,6 +113,13 @@ export { CindorNumberInput } from "./components/number-input/cindor-number-input
 export { CindorMultiSelect } from "./components/multi-select/cindor-multi-select.js";
 export { CindorNavigationRail } from "./components/navigation-rail/cindor-navigation-rail.js";
 export { CindorNavigationRailItem } from "./components/navigation-rail-item/cindor-navigation-rail-item.js";
+export {
+  CindorNotificationCenter,
+  type NotificationCenterItem,
+  type NotificationCenterMarkAllReadDetail,
+  type NotificationCenterReadChangeDetail,
+  type NotificationCenterSelectDetail
+} from "./components/notification-center/cindor-notification-center.js";
 export { CindorOption } from "./components/option/cindor-option.js";
 export { CindorPagination } from "./components/pagination/cindor-pagination.js";
 export { CindorPasswordInput } from "./components/password-input/cindor-password-input.js";
