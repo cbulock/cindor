@@ -107,6 +107,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("multi-select", "Multi Select", "Component", "Selection", "input plus multiselectable listbox", "Searchable multi-select picker with chip summaries for selected values."),
   defineComponent("navigation-rail", "Navigation Rail", "Component", "Navigation", "compact nav landmark", "Compact icon-and-label app navigation rail for dashboard shells."),
   defineComponent("navigation-rail-item", "Navigation Rail Item", "Primitive", "Navigation", "compact nav row", "Single destination inside a navigation rail with icon and label support."),
+  defineComponent("notification-center", "Notification Center", "Component", "Feedback", "durable inbox region", "Persistent inbox surface for notifications that should remain visible until reviewed."),
   defineComponent("number-input", "Number Input", "Primitive", "Forms", "input type=number", "Numeric field with the shared input shell."),
   defineComponent("option", "Option", "Primitive", "Selection", "option row", "Option primitive for listbox and combobox composition."),
   defineComponent("pagination", "Pagination", "Component", "Navigation", "button navigation", "Paged result navigation with current page state."),

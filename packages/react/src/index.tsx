@@ -61,6 +61,7 @@ import {
   CindorMenu as CindorMenuElement,
   CindorMenuItem as CindorMenuItemElement,
   CindorMultiSelect as CindorMultiSelectElement,
+  CindorNotificationCenter as CindorNotificationCenterElement,
   CindorTagInput as CindorTagInputElement,
   CindorNumberInput as CindorNumberInputElement,
   CindorSearch as CindorSearchElement,
@@ -560,6 +561,12 @@ export const CindorMultiSelect = createComponent({
     onChange: "change",
     onInput: "input"
   }
+});
+
+export const CindorNotificationCenter = createComponent({
+  react: React,
+  tagName: "cindor-notification-center",
+  elementClass: CindorNotificationCenterElement
 });
 
 export const CindorTagInput = createComponent({

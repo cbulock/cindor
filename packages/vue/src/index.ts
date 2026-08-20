@@ -1837,6 +1837,34 @@ export const CindorMultiSelect = defineComponent({
   }
 });
 
+export const CindorNotificationCenter = defineComponent({
+  name: "CindorNotificationCenter",
+  props: {
+    description: { type: String, default: "" },
+    emptyHeadline: { type: String, default: "No notifications" },
+    emptyMessage: { type: String, default: "You're all caught up. Durable updates will appear here." },
+    headingLevel: { type: Number, default: 2 },
+    eyebrow: { type: String, default: "" },
+    title: { type: String, default: "" }
+  },
+  setup(props, { attrs, slots }) {
+    return () =>
+          h(
+            "cindor-notification-center",
+            {
+              ...attrs,
+              description: props.description || undefined,
+              "empty-headline": props.emptyHeadline,
+              "empty-message": props.emptyMessage,
+              "heading-level": props.headingLevel,
+              eyebrow: props.eyebrow || undefined,
+              title: props.title || undefined,
+            },
+            slots
+          );
+  }
+});
+
 export const CindorTagInput = defineComponent({
   name: "CindorTagInput",
   props: {
