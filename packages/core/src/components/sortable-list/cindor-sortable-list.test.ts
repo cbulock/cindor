@@ -3,8 +3,8 @@ import { afterEach } from "vitest";
 
 import "../../register.js";
 
-import { CindorButton } from "../button/cindor-button.js";
-import { CindorIconButton } from "../icon-button/cindor-icon-button.js";
+import type { CindorButton } from "../button/cindor-button.js";
+import type { CindorIconButton } from "../icon-button/cindor-icon-button.js";
 import { CindorSortableList } from "./cindor-sortable-list.js";
 
 type SortableItem = {
