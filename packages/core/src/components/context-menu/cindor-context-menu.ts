@@ -299,7 +299,8 @@ export class CindorContextMenu extends LitElement {
 
   private syncTriggerNode(): void {
     const slot = this.renderRoot.querySelector('slot[name="trigger"]');
-    const nextTrigger = slot?.assignedElements({ flatten: true }).find((element): element is HTMLElement => element instanceof HTMLElement) ?? null;
+    const assignedElements = slot instanceof HTMLSlotElement ? slot.assignedElements({ flatten: true }) : [];
+    const nextTrigger = assignedElements.find((element): element is HTMLElement => element instanceof HTMLElement) ?? null;
 
     if (nextTrigger === this.triggerNode) {
       this.syncTriggerA11y();
@@ -312,8 +313,8 @@ export class CindorContextMenu extends LitElement {
     }
 
     this.triggerNode = nextTrigger;
-    this.triggerNode.addEventListener("contextmenu", this.handleContextMenu);
-    this.triggerNode.addEventListener("keydown", this.handleTriggerKeydown);
+    nextTrigger.addEventListener("contextmenu", this.handleContextMenu);
+    nextTrigger.addEventListener("keydown", this.handleTriggerKeydown);
     this.syncTriggerA11y();
   }
 }
