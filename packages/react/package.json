@@ -1,6 +1,6 @@
 {
   "name": "cindor-ui-react",
-  "version": "0.1.84",
+  "version": "0.2.0",
   "description": "Thin React wrappers for the Cindor web component library.",
   "license": "MIT",
   "type": "module",
@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@lit/react": "^1.0.7",
-    "cindor-ui-core": "0.1.84"
+    "cindor-ui-core": "0.2.0"
   },
   "peerDependencies": {
     "react": "^19.0.0",
