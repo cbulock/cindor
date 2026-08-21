@@ -665,6 +665,8 @@ export const componentDefinitions = [
       str("emptyHeadline", "No notifications", { attr: "empty-headline", alwaysPass: true }),
       str("emptyMessage", "You're all caught up. Durable updates will appear here.", { attr: "empty-message", alwaysPass: true }),
       num("headingLevel", 2, { attr: "heading-level" }),
+      num("totalCount", null, { attr: "total-count" }),
+      num("unreadCount", null, { attr: "unread-count" }),
       str("eyebrow"),
       str("title")
     ]
