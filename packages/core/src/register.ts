@@ -67,6 +67,7 @@ import { CindorMultiSelect } from "./components/multi-select/cindor-multi-select
 import { CindorNumberInput } from "./components/number-input/cindor-number-input.js";
 import { CindorNavigationRail } from "./components/navigation-rail/cindor-navigation-rail.js";
 import { CindorNavigationRailItem } from "./components/navigation-rail-item/cindor-navigation-rail-item.js";
+import { CindorNotificationCenter } from "./components/notification-center/cindor-notification-center.js";
 import { CindorOption } from "./components/option/cindor-option.js";
 import { CindorPagination } from "./components/pagination/cindor-pagination.js";
 import { CindorPasswordInput } from "./components/password-input/cindor-password-input.js";
@@ -196,6 +197,7 @@ const definitions = [
   ["cindor-multi-select", CindorMultiSelect],
   ["cindor-navigation-rail", CindorNavigationRail],
   ["cindor-navigation-rail-item", CindorNavigationRailItem],
+  ["cindor-notification-center", CindorNotificationCenter],
   ["cindor-option", CindorOption],
   ["cindor-checkbox", CindorCheckbox],
   ["cindor-page-header", CindorPageHeader],

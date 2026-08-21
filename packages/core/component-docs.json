@@ -5092,6 +5092,115 @@
       "tagName": "cindor-navigation-rail-item"
     },
     {
+      "className": "CindorNotificationCenter",
+      "description": "Durable inbox surface for notifications that need to persist beyond transient toast messaging.",
+      "modulePath": "packages/core/src/components/notification-center/cindor-notification-center.ts",
+      "properties": [
+        {
+          "attributeName": "description",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "description",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "empty-headline",
+          "defaultValue": "\"No notifications\"",
+          "description": "",
+          "name": "emptyHeadline",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "empty-message",
+          "defaultValue": "\"You're all caught up. Durable updates will appear here.\"",
+          "description": "",
+          "name": "emptyMessage",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "eyebrow",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "eyebrow",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "heading-level",
+          "defaultValue": "2",
+          "description": "",
+          "name": "headingLevel",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "total-count",
+          "defaultValue": "null",
+          "description": "",
+          "name": "totalCount",
+          "reflects": true,
+          "type": "number | null",
+          "values": null
+        },
+        {
+          "attributeName": "title",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "title",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "unread-count",
+          "defaultValue": "null",
+          "description": "",
+          "name": "unreadCount",
+          "reflects": true,
+          "type": "number | null",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [
+        {
+          "description": "Notification items such as `cindor-activity-item`, cards, or custom rows.",
+          "name": "default"
+        },
+        {
+          "description": "Optional trailing header actions.",
+          "name": "actions"
+        },
+        {
+          "description": "Optional custom empty state content shown when no notification items are slotted.",
+          "name": "empty"
+        },
+        {
+          "description": "Optional controls such as tabs, segmented controls, or buttons for filtering the inbox.",
+          "name": "filters"
+        },
+        {
+          "description": "Optional footer content such as pagination, status, or archive actions.",
+          "name": "footer"
+        },
+        {
+          "description": "Optional supporting metadata shown below the title copy.",
+          "name": "meta"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-notification-center"
+    },
+    {
       "className": "CindorNumberInput",
       "description": "",
       "modulePath": "packages/core/src/components/number-input/cindor-number-input.ts",
@@ -6880,7 +6989,7 @@
         {
           "description": "Fired when the secondary action menu opens or closes.",
           "name": "toggle",
-          "type": null,
+          "type": "Event",
           "values": null
         },
         {

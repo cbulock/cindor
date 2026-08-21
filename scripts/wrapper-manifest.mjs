@@ -658,6 +658,19 @@ export const componentDefinitions = [
     ],
     vueProps: [bool("disabled"), str("name"), bool("open"), str("placeholder", "Select options", { alwaysPass: true }), bool("required"), arr("modelValue", "string[]", { attr: "values" })]
   }),
+  component("CindorNotificationCenter", "cindor-notification-center", {
+    slots: slots.all,
+    vueProps: [
+      str("description"),
+      str("emptyHeadline", "No notifications", { attr: "empty-headline", alwaysPass: true }),
+      str("emptyMessage", "You're all caught up. Durable updates will appear here.", { attr: "empty-message", alwaysPass: true }),
+      num("headingLevel", 2, { attr: "heading-level" }),
+      num("totalCount", null, { attr: "total-count" }),
+      num("unreadCount", null, { attr: "unread-count" }),
+      str("eyebrow"),
+      str("title")
+    ]
+  }),
   component("CindorTagInput", "cindor-tag-input", {
     reactEvents: ["change", "input"],
     vueHandlers: [
