@@ -263,9 +263,15 @@ export class CindorNotificationCenter extends LitElement {
           : html`<slot name="filters" hidden @slotchange=${this.handleFiltersSlotChange}></slot>`}
         <div class="content" part="content">
           ${this.hasItemsContent
-            ? html`<div class="list" part="list" role="list"><slot @slotchange=${this.handleDefaultSlotChange}></slot></div>`
+            ? html`
+                <div class="list" part="list" role="list"><slot @slotchange=${this.handleDefaultSlotChange}></slot></div>
+                <slot name="empty" hidden @slotchange=${this.handleEmptySlotChange}></slot>
+              `
             : this.hasEmptyContent
-              ? html`<div class="empty" part="empty"><slot name="empty" @slotchange=${this.handleEmptySlotChange}></slot></div>`
+              ? html`
+                  <div class="empty" part="empty"><slot name="empty" @slotchange=${this.handleEmptySlotChange}></slot></div>
+                  <slot hidden @slotchange=${this.handleDefaultSlotChange}></slot>
+                `
               : html`
                   <div class="empty" part="empty">
                     <p class="empty-title" part="empty-title">${this.emptyHeadline}</p>
