@@ -1844,6 +1844,8 @@ export const CindorNotificationCenter = defineComponent({
     emptyHeadline: { type: String, default: "No notifications" },
     emptyMessage: { type: String, default: "You're all caught up. Durable updates will appear here." },
     headingLevel: { type: Number, default: 2 },
+    totalCount: { type: Number, default: null },
+    unreadCount: { type: Number, default: null },
     eyebrow: { type: String, default: "" },
     title: { type: String, default: "" }
   },
@@ -1857,6 +1859,8 @@ export const CindorNotificationCenter = defineComponent({
               "empty-headline": props.emptyHeadline,
               "empty-message": props.emptyMessage,
               "heading-level": props.headingLevel,
+              "total-count": props.totalCount,
+              "unread-count": props.unreadCount,
               eyebrow: props.eyebrow || undefined,
               title: props.title || undefined,
             },
