@@ -45,6 +45,11 @@ export { CindorDateRangePicker } from "./components/date-range-picker/cindor-dat
 export { CindorDateTimePicker } from "./components/date-time-picker/cindor-date-time-picker.js";
 export { CindorDateInput } from "./components/date-input/cindor-date-input.js";
 export {
+  CindorEventCalendar,
+  type EventCalendarEvent,
+  type EventCalendarEventTone
+} from "./components/event-calendar/cindor-event-calendar.js";
+export {
   CindorDataTable,
   type DataTableRowExpandDetail,
   type DataTableRowExpandEventDetail,

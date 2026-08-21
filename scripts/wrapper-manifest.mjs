@@ -209,6 +209,16 @@ export const componentDefinitions = [
       str("startValue", "", { attr: "start-value" })
     ]
   }),
+  component("CindorEventCalendar", "cindor-event-calendar", {
+    reactEvents: ["input", "change", "event-select"],
+    vueHandlers: [...textModelHandlers, handler("event-select", { emitName: "event-select" })],
+    vueProps: [
+      str("emptyMessage", "No events scheduled for this day.", { attr: "empty-message", alwaysPass: true }),
+      arr("events", "EventCalendarEvent[]"),
+      str("month"),
+      str("modelValue", "", { attr: "value", alwaysPass: true })
+    ]
+  }),
   component("CindorDataGrid", "cindor-data-grid", {
     reactEvents: ["active-cell-change", "cell-edit", "sort-change"],
     vueHandlers: [

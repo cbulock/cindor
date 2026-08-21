@@ -132,79 +132,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Activity Feed\", render: () => ` <cindor-activity-feed> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Cindor Team\"></cindor-avatar> <span slot=\"title\">New deployment completed</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">Production environment</span> Traffic is now flowing through the latest release. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"QA\"></cindor-avatar> <span slot=\"title\">Regression suite passed</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Build #1284</span> All smoke tests completed without failures. </cindor-activity-item> </cindor-activity-feed> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
-          "name": "CindorActivityFeed",
-          "slots": [
-            {
-              "description": "`cindor-activity-item` children.",
-              "name": ""
-            }
-          ],
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorActivityFeed",
-          "declaration": {
-            "name": "CindorActivityFeed",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
       "declarations": [
         {
@@ -314,6 +241,79 @@
           "declaration": {
             "name": "CindorActivityItem",
             "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Activity Feed\", render: () => ` <cindor-activity-feed> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Cindor Team\"></cindor-avatar> <span slot=\"title\">New deployment completed</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">Production environment</span> Traffic is now flowing through the latest release. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"QA\"></cindor-avatar> <span slot=\"title\">Regression suite passed</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Build #1284</span> All smoke tests completed without failures. </cindor-activity-item> </cindor-activity-feed> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
+          "name": "CindorActivityFeed",
+          "slots": [
+            {
+              "description": "`cindor-activity-item` children.",
+              "name": ""
+            }
+          ],
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorActivityFeed",
+          "declaration": {
+            "name": "CindorActivityFeed",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.ts"
           }
         }
       ]
@@ -1122,6 +1122,111 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/badge/cindor-badge.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Primitives/Badge\", args: { label: \"Active\", tone: \"neutral\" }, argTypes: { tone: { control: \"radio\", options: [\"neutral\", \"accent\", \"success\"] } }, render: ({ label, tone }: BadgeStoryArgs) => `<cindor-badge tone=\"${tone}\">${label}</cindor-badge>` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        },
+        {
+          "kind": "variable",
+          "name": "Success",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ args: { label: \"Live\", tone: \"success\" } }"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Success",
+          "declaration": {
+            "name": "Success",
+            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/badge/cindor-badge.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorBadge",
+          "members": [
+            {
+              "kind": "field",
+              "name": "tone",
+              "privacy": "public",
+              "type": {
+                "text": "BadgeTone"
+              },
+              "default": "\"neutral\"",
+              "attribute": "tone",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "tone",
+              "type": {
+                "text": "BadgeTone"
+              },
+              "default": "\"neutral\"",
+              "fieldName": "tone"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorBadge",
+          "declaration": {
+            "name": "CindorBadge",
+            "module": "packages/core/src/components/badge/cindor-badge.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/banner/cindor-banner.stories.ts",
       "declarations": [
         {
@@ -1493,111 +1598,6 @@
           "declaration": {
             "name": "CindorBreadcrumbs",
             "module": "packages/core/src/components/breadcrumbs/cindor-breadcrumbs.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/badge/cindor-badge.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Primitives/Badge\", args: { label: \"Active\", tone: \"neutral\" }, argTypes: { tone: { control: \"radio\", options: [\"neutral\", \"accent\", \"success\"] } }, render: ({ label, tone }: BadgeStoryArgs) => `<cindor-badge tone=\"${tone}\">${label}</cindor-badge>` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        },
-        {
-          "kind": "variable",
-          "name": "Success",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ args: { label: \"Live\", tone: \"success\" } }"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Success",
-          "declaration": {
-            "name": "Success",
-            "module": "packages/core/src/components/badge/cindor-badge.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/badge/cindor-badge.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorBadge",
-          "members": [
-            {
-              "kind": "field",
-              "name": "tone",
-              "privacy": "public",
-              "type": {
-                "text": "BadgeTone"
-              },
-              "default": "\"neutral\"",
-              "attribute": "tone",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "tone",
-              "type": {
-                "text": "BadgeTone"
-              },
-              "default": "\"neutral\"",
-              "fieldName": "tone"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorBadge",
-          "declaration": {
-            "name": "CindorBadge",
-            "module": "packages/core/src/components/badge/cindor-badge.ts"
           }
         }
       ]
@@ -7923,230 +7923,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Data/Data View Toolbar\", args: { itemCount: 128, selectionCount: 3 }, argTypes: { itemCount: { control: { type: \"number\", min: 0, step: 1 } }, selectionCount: { control: { type: \"number\", min: 0, step: 1 } } }, render: ({ itemCount, selectionCount }: DataViewToolbarStoryArgs) => ` <cindor-data-view-toolbar title=\"Projects\" description=\"Review active work, narrow the current scope, and run batch actions without leaving the collection view.\" item-count=\"${itemCount}\" selection-count=\"${selectionCount}\" > <cindor-badge slot=\"meta\" tone=\"accent\">Active workspace</cindor-badge> <cindor-search slot=\"filters\" placeholder=\"Search projects\"></cindor-search> <cindor-button-group slot=\"view-controls\" attached> <cindor-button variant=\"ghost\">All</cindor-button> <cindor-button variant=\"ghost\">Owned</cindor-button> <cindor-button variant=\"ghost\">Shared</cindor-button> </cindor-button-group> <cindor-segmented-control slot=\"view-controls\" aria-label=\"View mode\"></cindor-segmented-control> <cindor-button slot=\"actions\" variant=\"ghost\">Export</cindor-button> <cindor-button slot=\"actions\">Create project</cindor-button> <span>${selectionCount > 0 ? \"Bulk actions apply to the selected projects immediately.\" : \"Select rows to unlock batch actions.\"}</span> </cindor-data-view-toolbar> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Composite toolbar shell for collection pages, tables, and grid views.",
-          "name": "CindorDataViewToolbar",
-          "slots": [
-            {
-              "description": "Optional supporting copy rendered below the main toolbar row.",
-              "name": ""
-            },
-            {
-              "description": "Inline metadata such as badges, status chips, or scope labels.",
-              "name": "meta"
-            },
-            {
-              "description": "Search, filter, or scope controls anchored on the leading side.",
-              "name": "filters"
-            },
-            {
-              "description": "Layout, density, or sort controls rendered after filters.",
-              "name": "view-controls"
-            },
-            {
-              "description": "Primary and secondary actions rendered on the trailing edge.",
-              "name": "actions"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "description",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "description",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "itemCount",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "attribute": "item-count",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "itemLabel",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"items\"",
-              "attribute": "item-label",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "selectionCount",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "attribute": "selection-count",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "selectionLabel",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"selected\"",
-              "attribute": "selection-label",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "title",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "title",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "accessibleLabel",
-              "type": {
-                "text": "string | undefined"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "hasSummary",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "description",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "description"
-            },
-            {
-              "name": "item-count",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "fieldName": "itemCount"
-            },
-            {
-              "name": "item-label",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"items\"",
-              "fieldName": "itemLabel"
-            },
-            {
-              "name": "selection-count",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "fieldName": "selectionCount"
-            },
-            {
-              "name": "selection-label",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"selected\"",
-              "fieldName": "selectionLabel"
-            },
-            {
-              "name": "title",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "title"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorDataViewToolbar",
-          "declaration": {
-            "name": "CindorDataViewToolbar",
-            "module": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/date-input/cindor-date-input.stories.ts",
       "declarations": [
         {
@@ -8816,6 +8592,230 @@
           "declaration": {
             "name": "CindorDateInput",
             "module": "packages/core/src/components/date-input/cindor-date-input.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Data/Data View Toolbar\", args: { itemCount: 128, selectionCount: 3 }, argTypes: { itemCount: { control: { type: \"number\", min: 0, step: 1 } }, selectionCount: { control: { type: \"number\", min: 0, step: 1 } } }, render: ({ itemCount, selectionCount }: DataViewToolbarStoryArgs) => ` <cindor-data-view-toolbar title=\"Projects\" description=\"Review active work, narrow the current scope, and run batch actions without leaving the collection view.\" item-count=\"${itemCount}\" selection-count=\"${selectionCount}\" > <cindor-badge slot=\"meta\" tone=\"accent\">Active workspace</cindor-badge> <cindor-search slot=\"filters\" placeholder=\"Search projects\"></cindor-search> <cindor-button-group slot=\"view-controls\" attached> <cindor-button variant=\"ghost\">All</cindor-button> <cindor-button variant=\"ghost\">Owned</cindor-button> <cindor-button variant=\"ghost\">Shared</cindor-button> </cindor-button-group> <cindor-segmented-control slot=\"view-controls\" aria-label=\"View mode\"></cindor-segmented-control> <cindor-button slot=\"actions\" variant=\"ghost\">Export</cindor-button> <cindor-button slot=\"actions\">Create project</cindor-button> <span>${selectionCount > 0 ? \"Bulk actions apply to the selected projects immediately.\" : \"Select rows to unlock batch actions.\"}</span> </cindor-data-view-toolbar> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Composite toolbar shell for collection pages, tables, and grid views.",
+          "name": "CindorDataViewToolbar",
+          "slots": [
+            {
+              "description": "Optional supporting copy rendered below the main toolbar row.",
+              "name": ""
+            },
+            {
+              "description": "Inline metadata such as badges, status chips, or scope labels.",
+              "name": "meta"
+            },
+            {
+              "description": "Search, filter, or scope controls anchored on the leading side.",
+              "name": "filters"
+            },
+            {
+              "description": "Layout, density, or sort controls rendered after filters.",
+              "name": "view-controls"
+            },
+            {
+              "description": "Primary and secondary actions rendered on the trailing edge.",
+              "name": "actions"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "description",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "description",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "itemCount",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "item-count",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "itemLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"items\"",
+              "attribute": "item-label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "selectionCount",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "selection-count",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "selectionLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"selected\"",
+              "attribute": "selection-label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "title",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "title",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "accessibleLabel",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hasSummary",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "description",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "description"
+            },
+            {
+              "name": "item-count",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "itemCount"
+            },
+            {
+              "name": "item-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"items\"",
+              "fieldName": "itemLabel"
+            },
+            {
+              "name": "selection-count",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "selectionCount"
+            },
+            {
+              "name": "selection-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"selected\"",
+              "fieldName": "selectionLabel"
+            },
+            {
+              "name": "title",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "title"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorDataViewToolbar",
+          "declaration": {
+            "name": "CindorDataViewToolbar",
+            "module": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.ts"
           }
         }
       ]
@@ -12367,6 +12367,383 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/event-calendar/cindor-event-calendar.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Components/Event Calendar\", args: { emptyMessage: \"Nothing is scheduled for this day yet.\", month: \"2026-04\", value: \"2026-04-08\" }, render: ({ emptyMessage, month, value }: EventCalendarStoryArgs) => html` <cindor-event-calendar aria-label=\"Launch calendar\" empty-message=${emptyMessage} month=${month} value=${value} .events=${events} ></cindor-event-calendar> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/event-calendar/cindor-event-calendar.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/event-calendar/cindor-event-calendar.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/event-calendar/cindor-event-calendar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Month calendar with event previews and a selected-day agenda panel.\n\nAssign `events` as a property to render date-aligned event summaries.",
+          "name": "CindorEventCalendar",
+          "members": [
+            {
+              "kind": "field",
+              "name": "emptyMessage",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"No events scheduled for this day.\"",
+              "description": "Empty-state copy shown when the selected day has no scheduled items.",
+              "attribute": "empty-message",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "events",
+              "privacy": "public",
+              "type": {
+                "text": "EventCalendarEvent[]"
+              },
+              "default": "[]",
+              "description": "Event records assigned as a property. Dates use `YYYY-MM-DD` strings."
+            },
+            {
+              "kind": "field",
+              "name": "month",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Visible month using `YYYY-MM`.",
+              "attribute": "month",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Selected day using `YYYY-MM-DD`.",
+              "attribute": "value",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "handleDayClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleAgendaEventClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "showPreviousMonth",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "showNextMonth",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "buildCalendarDays",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "CalendarDay[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "visibleMonth",
+                  "type": {
+                    "text": "Date"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "chunkDays",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "CalendarDay[][]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "days",
+                  "type": {
+                    "text": "CalendarDay[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "eventCoversDate",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "eventRecord",
+                  "type": {
+                    "text": "EventCalendarEvent"
+                  }
+                },
+                {
+                  "name": "dateString",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "eventsForDate",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EventCalendarEvent[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "dateString",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderAgendaEvent",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "eventRecord",
+                  "type": {
+                    "text": "EventCalendarEvent"
+                  }
+                },
+                {
+                  "name": "dateString",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderPreview",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "eventRecord",
+                  "type": {
+                    "text": "EventCalendarEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "activeDate",
+              "type": {
+                "text": "{ date: Date; dateString: string }"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "firstEventDateInVisibleMonth",
+              "type": {
+                "text": "Date | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "firstEventDate",
+              "type": {
+                "text": "Date | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaLabel",
+              "type": {
+                "text": "string | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hostAriaLabelledBy",
+              "type": {
+                "text": "string | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "initialMonth",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "selectedDayButton",
+              "type": {
+                "text": "HTMLButtonElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "visibleMonthDate",
+              "type": {
+                "text": "Date"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "events": [
+            {
+              "description": "Fired when the selected date changes.",
+              "name": "input"
+            },
+            {
+              "description": "Fired when the selected date changes.",
+              "name": "change"
+            },
+            {
+              "description": "Fired when an agenda item is activated. Detail includes the selected date and event payload.",
+              "name": "event-select"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "empty-message",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"No events scheduled for this day.\"",
+              "description": "Empty-state copy shown when the selected day has no scheduled items.",
+              "fieldName": "emptyMessage"
+            },
+            {
+              "name": "month",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Visible month using `YYYY-MM`.",
+              "fieldName": "month"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "Selected day using `YYYY-MM-DD`.",
+              "fieldName": "value"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorEventCalendar",
+          "declaration": {
+            "name": "CindorEventCalendar",
+            "module": "packages/core/src/components/event-calendar/cindor-event-calendar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/field-array/cindor-field-array.stories.ts",
       "declarations": [
         {
@@ -15389,6 +15766,104 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/form-row/cindor-form-row.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Composites/Form Row\", args: { columns: 2 }, render: ({ columns }: FormRowStoryArgs) => ` <cindor-form-row columns=\"${columns}\"> <cindor-form-field label=\"First name\"> <cindor-input placeholder=\"Avery\"></cindor-input> </cindor-form-field> <cindor-form-field label=\"Last name\"> <cindor-input placeholder=\"Morgan\"></cindor-input> </cindor-form-field> </cindor-form-row> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/form-row/cindor-form-row.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/form-row/cindor-form-row.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/form-row/cindor-form-row.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorFormRow",
+          "members": [
+            {
+              "kind": "field",
+              "name": "columns",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "2",
+              "attribute": "columns",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "normalizedColumns",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "columns",
+              "type": {
+                "text": "number"
+              },
+              "default": "2",
+              "fieldName": "columns"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorFormRow",
+          "declaration": {
+            "name": "CindorFormRow",
+            "module": "packages/core/src/components/form-row/cindor-form-row.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/grid/cindor-grid.stories.ts",
       "declarations": [
         {
@@ -15582,104 +16057,6 @@
           "declaration": {
             "name": "CindorGrid",
             "module": "packages/core/src/components/grid/cindor-grid.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/form-row/cindor-form-row.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Composites/Form Row\", args: { columns: 2 }, render: ({ columns }: FormRowStoryArgs) => ` <cindor-form-row columns=\"${columns}\"> <cindor-form-field label=\"First name\"> <cindor-input placeholder=\"Avery\"></cindor-input> </cindor-form-field> <cindor-form-field label=\"Last name\"> <cindor-input placeholder=\"Morgan\"></cindor-input> </cindor-form-field> </cindor-form-row> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/form-row/cindor-form-row.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/form-row/cindor-form-row.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/form-row/cindor-form-row.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorFormRow",
-          "members": [
-            {
-              "kind": "field",
-              "name": "columns",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "default": "2",
-              "attribute": "columns",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "normalizedColumns",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "columns",
-              "type": {
-                "text": "number"
-              },
-              "default": "2",
-              "fieldName": "columns"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorFormRow",
-          "declaration": {
-            "name": "CindorFormRow",
-            "module": "packages/core/src/components/form-row/cindor-form-row.ts"
           }
         }
       ]

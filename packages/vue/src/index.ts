@@ -15,6 +15,7 @@ import type {
   DataTableColumn,
   DataTableRow,
   DataTableSortDirection,
+  EventCalendarEvent,
   FieldArrayCreateItem,
   FieldArrayItemRenderer,
   FilterBuilderField,
@@ -383,6 +384,45 @@ export const CindorCalendar = defineComponent({
               "start-value": props.startValue || undefined,
               onInput: handleInput,
               onChange: handleChange,
+          });
+  }
+});
+
+export const CindorEventCalendar = defineComponent({
+  name: "CindorEventCalendar",
+  props: {
+    emptyMessage: { type: String, default: "No events scheduled for this day." },
+    events: { type: Array as PropType<EventCalendarEvent[]>, default: () => [] },
+    month: { type: String, default: "" },
+    modelValue: { type: String, default: "" }
+  },
+  emits: ["update:modelValue", "input", "change", "event-select"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("change", event);
+    };
+
+    const handleEventSelect = (event: Event) => {
+      emit("event-select", event);
+    };
+    return () =>
+          h("cindor-event-calendar", {
+              ...attrs,
+              "empty-message": props.emptyMessage,
+              ".events": props.events,
+              month: props.month || undefined,
+              value: props.modelValue,
+              onInput: handleInput,
+              onChange: handleChange,
+              onEventSelect: handleEventSelect,
           });
   }
 });
