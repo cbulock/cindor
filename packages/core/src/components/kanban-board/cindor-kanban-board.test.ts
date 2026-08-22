@@ -101,18 +101,30 @@ describe("cindor-kanban-board", () => {
     expect(surfaces[1]?.focus).toHaveBeenCalledTimes(2);
   });
 
-  it("keeps selected cards as plain buttons without toggle-button state", async () => {
+  it("keeps selected cards as plain buttons while exposing the current card", async () => {
     const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
-    element.columns = columns;
+    element.columns = [
+      {
+        id: "triage",
+        title: "Triage",
+        cards: [
+          { id: "card-a", title: "Review inbound bugs" },
+          { id: "card-b", title: "Confirm release notes" }
+        ]
+      }
+    ];
     element.selectedCardId = "card-a";
     document.body.append(element);
     await element.updateComplete;
 
     const surface = element.renderRoot.querySelector<HTMLButtonElement>('[data-card-id="card-a"] [part="card-surface"]');
+    const unselectedSurface = element.renderRoot.querySelector<HTMLButtonElement>('[data-card-id="card-b"] [part="card-surface"]');
 
     expect(surface?.tagName).toBe("BUTTON");
     expect(surface?.type).toBe("button");
+    expect(surface?.getAttribute("aria-current")).toBe("true");
     expect(surface?.hasAttribute("aria-pressed")).toBe(false);
+    expect(unselectedSurface?.hasAttribute("aria-current")).toBe(false);
   });
 
   it("emits card-action without changing the current selection", async () => {

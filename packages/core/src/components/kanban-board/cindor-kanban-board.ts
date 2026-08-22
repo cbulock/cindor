@@ -427,6 +427,7 @@ export class CindorKanbanBoard extends LitElement {
               class="card-surface"
               part="card-surface"
               type="button"
+              aria-current=${isSelected ? "true" : nothing}
               aria-keyshortcuts="Control+Shift+ArrowUp Control+Shift+ArrowDown Control+Shift+ArrowLeft Control+Shift+ArrowRight Meta+Shift+ArrowUp Meta+Shift+ArrowDown Meta+Shift+ArrowLeft Meta+Shift+ArrowRight"
               ?disabled=${isDisabled}
               @click=${() => this.selectCard(column, card)}
