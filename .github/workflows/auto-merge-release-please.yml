@@ -20,6 +20,7 @@ jobs:
         !github.event.pull_request.draft &&
         github.event.pull_request.user.login == 'zeno-codebot' &&
         github.event.pull_request.base.ref == 'main' &&
+        github.event.pull_request.head.repo.full_name == github.repository &&
         github.event.pull_request.head.ref == 'release-please--branches--main' &&
         github.event.pull_request.title == 'chore: release main'
       }}
@@ -28,15 +29,44 @@ jobs:
     steps:
       - name: Enable auto-merge for the release-please PR
         env:
-          GH_TOKEN: ${{ github.token }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.RELEASE_TRIGGER_TOKEN }}
+          EXPECTED_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
           REPO: ${{ github.repository }}
         run: |
-          auto_merge_state="$(gh pr view "$PR_URL" --repo "$REPO" --json autoMergeRequest --jq 'if .autoMergeRequest == null then "disabled" else "enabled" end')"
+          if [ -z "${GH_TOKEN:-}" ]; then
+            echo "::error::RELEASE_TRIGGER_TOKEN must be configured to enable release-please auto-merge."
+            exit 1
+          fi
+
+          pr_json="$(gh api "repos/$REPO/pulls/$PR_NUMBER")"
+
+          if ! jq -e \
+            --arg actor "zeno-codebot" \
+            --arg base_ref "main" \
+            --arg expected_sha "$EXPECTED_HEAD_SHA" \
+            --arg expected_title "chore: release main" \
+            --arg expected_head_ref "release-please--branches--main" \
+            --arg repo "$REPO" \
+            '
+              .draft == false and
+              .user.login == $actor and
+              .base.ref == $base_ref and
+              .head.ref == $expected_head_ref and
+              .head.repo.full_name == $repo and
+              .title == $expected_title and
+              .head.sha == $expected_sha
+            ' >/dev/null <<<"$pr_json"; then
+            echo "::error::PR fingerprint no longer matches the trusted release-please conditions."
+            jq '{draft, title, user: .user.login, base_ref: .base.ref, head_ref: .head.ref, head_repo: .head.repo.full_name, head_sha: .head.sha}' <<<"$pr_json"
+            exit 1
+          fi
+
+          auto_merge_state="$(gh pr view "$PR_NUMBER" --repo "$REPO" --json autoMergeRequest --jq 'if .autoMergeRequest == null then "disabled" else "enabled" end')"
 
           if [ "$auto_merge_state" = "enabled" ]; then
-            echo "Auto-merge is already enabled for $PR_URL"
+            echo "Auto-merge is already enabled for PR #$PR_NUMBER"
             exit 0
           fi
 
-          gh pr merge "$PR_URL" --repo "$REPO" --auto --squash
+          gh pr merge "$PR_NUMBER" --repo "$REPO" --auto --squash --match-head-commit "$EXPECTED_HEAD_SHA"
