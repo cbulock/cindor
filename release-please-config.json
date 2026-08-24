@@ -7,6 +7,11 @@
   "include-component-in-tag": false,
   "separate-pull-requests": false,
   "packages": {
+    "apps/docs": {
+      "release-type": "node",
+      "skip-github-release": true,
+      "skip-changelog": true
+    },
     "packages/core": {
       "release-type": "node"
     },
@@ -27,6 +32,7 @@
       "type": "linked-versions",
       "groupName": "cindor workspace",
       "components": [
+        "cindor-ui-docs",
         "cindor-ui-core",
         "cindor-ui-react",
         "cindor-ui-vue"
