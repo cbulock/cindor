@@ -77,4 +77,28 @@ describe("cindor-date-range-picker", () => {
     expect((toggle.renderRoot?.querySelector('[part="control"]') as HTMLElement).getAttribute("aria-expanded")).toBe("true");
     expect((element.renderRoot.querySelector("cindor-calendar") as HTMLElement).id).toBe(summaryButton.getAttribute("aria-controls"));
   });
+
+  it("renders a polished icon separator for partial and full ranges", async () => {
+    const element = document.createElement("cindor-date-range-picker") as CindorDateRangePicker;
+    element.startValue = "2026-04-10";
+    document.body.append(element);
+    await element.updateComplete;
+
+    let summaryText = element.renderRoot.querySelector('[part="summary"]')?.textContent?.replace(/\s+/g, " ").trim();
+    let separator = element.renderRoot.querySelector('[part="summary-separator"]') as HTMLElement | null;
+
+    expect(summaryText).toBe("2026-04-10");
+    expect(separator?.getAttribute("name")).toBe("chevron-right");
+    expect(element.renderRoot.querySelector('[part="summary"]')?.textContent).not.toContain("->");
+
+    element.endValue = "2026-04-14";
+    await element.updateComplete;
+
+    summaryText = element.renderRoot.querySelector('[part="summary"]')?.textContent?.replace(/\s+/g, " ").trim();
+    separator = element.renderRoot.querySelector('[part="summary-separator"]') as HTMLElement | null;
+
+    expect(summaryText).toBe("2026-04-10 2026-04-14");
+    expect(separator?.getAttribute("name")).toBe("chevron-right");
+    expect(element.renderRoot.querySelector('[part="summary"]')?.textContent).not.toContain("->");
+  });
 });

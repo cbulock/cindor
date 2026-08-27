@@ -58,6 +58,25 @@ export class CindorDateRangePicker extends LitElement {
       color: var(--fg-subtle);
     }
 
+    .summary-content {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      max-width: 100%;
+      min-width: 0;
+    }
+
+    .summary-value {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .summary-separator {
+      flex: none;
+      color: var(--fg-muted);
+    }
+
     cindor-calendar {
       position: fixed;
       max-width: calc(100vw - 16px);
@@ -119,7 +138,7 @@ export class CindorDateRangePicker extends LitElement {
   }
 
   protected override render() {
-    const summary = this.rangeSummary;
+    const hasSummary = this.startValue !== "" || this.endValue !== "";
     return html`
       <div class="surface">
         <div class="field" part="field" role="group">
@@ -131,12 +150,14 @@ export class CindorDateRangePicker extends LitElement {
             aria-label=${ifDefined(this.getAttribute("aria-label") ?? undefined)}
             aria-labelledby=${ifDefined(this.getAttribute("aria-labelledby") ?? undefined)}
             class="summary"
-            data-empty=${String(summary === "")}
+            data-empty=${String(!hasSummary)}
             part="summary-button"
             type="button"
             @click=${this.handleSummaryClick}
           >
-            <span part="summary">${summary || this.placeholder}</span>
+            ${hasSummary
+              ? html`<span class="summary-content" part="summary">${this.renderSummary()}</span>`
+              : html`<span part="summary">${this.placeholder}</span>`}
           </button>
           ${this.startValue || this.endValue
             ? html`
@@ -288,16 +309,19 @@ export class CindorDateRangePicker extends LitElement {
     return this.renderRoot.querySelector("cindor-calendar");
   }
 
-  private get rangeSummary(): string {
-    if (!this.startValue && !this.endValue) {
-      return "";
-    }
-
+  private renderSummary() {
     if (this.startValue && !this.endValue) {
-      return `${this.startValue} ->`;
+      return html`
+        <span class="summary-value">${this.startValue}</span>
+        <cindor-icon aria-hidden="true" class="summary-separator" name="chevron-right" part="summary-separator" size="14"></cindor-icon>
+      `;
     }
 
-    return `${this.startValue} -> ${this.endValue}`;
+    return html`
+      <span class="summary-value">${this.startValue}</span>
+      <cindor-icon aria-hidden="true" class="summary-separator" name="chevron-right" part="summary-separator" size="14"></cindor-icon>
+      <span class="summary-value">${this.endValue}</span>
+    `;
   }
 }
 
