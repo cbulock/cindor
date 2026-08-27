@@ -132,6 +132,79 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Display/Activity Feed\", render: () => ` <cindor-activity-feed> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Cindor Team\"></cindor-avatar> <span slot=\"title\">New deployment completed</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">Production environment</span> Traffic is now flowing through the latest release. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"QA\"></cindor-avatar> <span slot=\"title\">Regression suite passed</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Build #1284</span> All smoke tests completed without failures. </cindor-activity-item> </cindor-activity-feed> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
+          "name": "CindorActivityFeed",
+          "slots": [
+            {
+              "description": "`cindor-activity-item` children.",
+              "name": ""
+            }
+          ],
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorActivityFeed",
+          "declaration": {
+            "name": "CindorActivityFeed",
+            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/activity-item/cindor-activity-item.stories.ts",
       "declarations": [
         {
@@ -241,79 +314,6 @@
           "declaration": {
             "name": "CindorActivityItem",
             "module": "packages/core/src/components/activity-item/cindor-activity-item.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Display/Activity Feed\", render: () => ` <cindor-activity-feed> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Cindor Team\"></cindor-avatar> <span slot=\"title\">New deployment completed</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">Production environment</span> Traffic is now flowing through the latest release. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"QA\"></cindor-avatar> <span slot=\"title\">Regression suite passed</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Build #1284</span> All smoke tests completed without failures. </cindor-activity-item> </cindor-activity-feed> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/activity-feed/cindor-activity-feed.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Vertical feed for richer activity history, updates, and audit-style event streams.",
-          "name": "CindorActivityFeed",
-          "slots": [
-            {
-              "description": "`cindor-activity-item` children.",
-              "name": ""
-            }
-          ],
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorActivityFeed",
-          "declaration": {
-            "name": "CindorActivityFeed",
-            "module": "packages/core/src/components/activity-feed/cindor-activity-feed.ts"
           }
         }
       ]
@@ -7923,6 +7923,230 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Data/Data View Toolbar\", args: { itemCount: 128, selectionCount: 3 }, argTypes: { itemCount: { control: { type: \"number\", min: 0, step: 1 } }, selectionCount: { control: { type: \"number\", min: 0, step: 1 } } }, render: ({ itemCount, selectionCount }: DataViewToolbarStoryArgs) => ` <cindor-data-view-toolbar title=\"Projects\" description=\"Review active work, narrow the current scope, and run batch actions without leaving the collection view.\" item-count=\"${itemCount}\" selection-count=\"${selectionCount}\" > <cindor-badge slot=\"meta\" tone=\"accent\">Active workspace</cindor-badge> <cindor-search slot=\"filters\" placeholder=\"Search projects\"></cindor-search> <cindor-button-group slot=\"view-controls\" attached> <cindor-button variant=\"ghost\">All</cindor-button> <cindor-button variant=\"ghost\">Owned</cindor-button> <cindor-button variant=\"ghost\">Shared</cindor-button> </cindor-button-group> <cindor-segmented-control slot=\"view-controls\" aria-label=\"View mode\"></cindor-segmented-control> <cindor-button slot=\"actions\" variant=\"ghost\">Export</cindor-button> <cindor-button slot=\"actions\">Create project</cindor-button> <span>${selectionCount > 0 ? \"Bulk actions apply to the selected projects immediately.\" : \"Select rows to unlock batch actions.\"}</span> </cindor-data-view-toolbar> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Composite toolbar shell for collection pages, tables, and grid views.",
+          "name": "CindorDataViewToolbar",
+          "slots": [
+            {
+              "description": "Optional supporting copy rendered below the main toolbar row.",
+              "name": ""
+            },
+            {
+              "description": "Inline metadata such as badges, status chips, or scope labels.",
+              "name": "meta"
+            },
+            {
+              "description": "Search, filter, or scope controls anchored on the leading side.",
+              "name": "filters"
+            },
+            {
+              "description": "Layout, density, or sort controls rendered after filters.",
+              "name": "view-controls"
+            },
+            {
+              "description": "Primary and secondary actions rendered on the trailing edge.",
+              "name": "actions"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "description",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "description",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "itemCount",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "item-count",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "itemLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"items\"",
+              "attribute": "item-label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "selectionCount",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "selection-count",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "selectionLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"selected\"",
+              "attribute": "selection-label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "title",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "title",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "accessibleLabel",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hasSummary",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "description",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "description"
+            },
+            {
+              "name": "item-count",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "itemCount"
+            },
+            {
+              "name": "item-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"items\"",
+              "fieldName": "itemLabel"
+            },
+            {
+              "name": "selection-count",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "selectionCount"
+            },
+            {
+              "name": "selection-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"selected\"",
+              "fieldName": "selectionLabel"
+            },
+            {
+              "name": "title",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "title"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorDataViewToolbar",
+          "declaration": {
+            "name": "CindorDataViewToolbar",
+            "module": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/date-input/cindor-date-input.stories.ts",
       "declarations": [
         {
@@ -8592,230 +8816,6 @@
           "declaration": {
             "name": "CindorDateInput",
             "module": "packages/core/src/components/date-input/cindor-date-input.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Data/Data View Toolbar\", args: { itemCount: 128, selectionCount: 3 }, argTypes: { itemCount: { control: { type: \"number\", min: 0, step: 1 } }, selectionCount: { control: { type: \"number\", min: 0, step: 1 } } }, render: ({ itemCount, selectionCount }: DataViewToolbarStoryArgs) => ` <cindor-data-view-toolbar title=\"Projects\" description=\"Review active work, narrow the current scope, and run batch actions without leaving the collection view.\" item-count=\"${itemCount}\" selection-count=\"${selectionCount}\" > <cindor-badge slot=\"meta\" tone=\"accent\">Active workspace</cindor-badge> <cindor-search slot=\"filters\" placeholder=\"Search projects\"></cindor-search> <cindor-button-group slot=\"view-controls\" attached> <cindor-button variant=\"ghost\">All</cindor-button> <cindor-button variant=\"ghost\">Owned</cindor-button> <cindor-button variant=\"ghost\">Shared</cindor-button> </cindor-button-group> <cindor-segmented-control slot=\"view-controls\" aria-label=\"View mode\"></cindor-segmented-control> <cindor-button slot=\"actions\" variant=\"ghost\">Export</cindor-button> <cindor-button slot=\"actions\">Create project</cindor-button> <span>${selectionCount > 0 ? \"Bulk actions apply to the selected projects immediately.\" : \"Select rows to unlock batch actions.\"}</span> </cindor-data-view-toolbar> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Composite toolbar shell for collection pages, tables, and grid views.",
-          "name": "CindorDataViewToolbar",
-          "slots": [
-            {
-              "description": "Optional supporting copy rendered below the main toolbar row.",
-              "name": ""
-            },
-            {
-              "description": "Inline metadata such as badges, status chips, or scope labels.",
-              "name": "meta"
-            },
-            {
-              "description": "Search, filter, or scope controls anchored on the leading side.",
-              "name": "filters"
-            },
-            {
-              "description": "Layout, density, or sort controls rendered after filters.",
-              "name": "view-controls"
-            },
-            {
-              "description": "Primary and secondary actions rendered on the trailing edge.",
-              "name": "actions"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "description",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "description",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "itemCount",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "attribute": "item-count",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "itemLabel",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"items\"",
-              "attribute": "item-label",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "selectionCount",
-              "privacy": "public",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "attribute": "selection-count",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "selectionLabel",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"selected\"",
-              "attribute": "selection-label",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "title",
-              "privacy": "public",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "attribute": "title",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "accessibleLabel",
-              "type": {
-                "text": "string | undefined"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "hasSummary",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "description",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "description"
-            },
-            {
-              "name": "item-count",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "fieldName": "itemCount"
-            },
-            {
-              "name": "item-label",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"items\"",
-              "fieldName": "itemLabel"
-            },
-            {
-              "name": "selection-count",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "fieldName": "selectionCount"
-            },
-            {
-              "name": "selection-label",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"selected\"",
-              "fieldName": "selectionLabel"
-            },
-            {
-              "name": "title",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "fieldName": "title"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorDataViewToolbar",
-          "declaration": {
-            "name": "CindorDataViewToolbar",
-            "module": "packages/core/src/components/data-view-toolbar/cindor-data-view-toolbar.ts"
           }
         }
       ]
@@ -9555,13 +9555,9 @@
               "readonly": true
             },
             {
-              "kind": "field",
-              "name": "rangeSummary",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "readonly": true
+              "kind": "method",
+              "name": "renderSummary",
+              "privacy": "private"
             }
           ],
           "events": [

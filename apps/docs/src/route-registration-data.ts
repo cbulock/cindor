@@ -60,7 +60,7 @@ export const componentDependencySlugs: Record<string, string[]> = {
   "data-grid": ["input", "select", "switch"],
   "data-table": ["button", "icon", "icon-button", "input", "pagination", "search", "select", "switch", "tooltip"],
   "date-picker": ["calendar", "icon-button"],
-  "date-range-picker": ["calendar", "icon-button"],
+  "date-range-picker": ["calendar", "icon", "icon-button"],
   "date-time-picker": ["date-picker", "time-input"],
   dialog: ["icon-button"],
   drawer: ["icon-button"],
