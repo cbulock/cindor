@@ -3061,6 +3061,86 @@
       "tagName": "cindor-error-text"
     },
     {
+      "className": "CindorEventCalendar",
+      "description": "Month calendar with event previews and a selected-day agenda panel.\n\nAssign `events` as a property to render date-aligned event summaries.",
+      "modulePath": "packages/core/src/components/event-calendar/cindor-event-calendar.ts",
+      "properties": [
+        {
+          "attributeName": "empty-message",
+          "defaultValue": "\"No events scheduled for this day.\"",
+          "description": "Empty-state copy shown when the selected day has no scheduled items.",
+          "name": "emptyMessage",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "Event records assigned as a property. Dates use `YYYY-MM-DD` strings.",
+          "name": "events",
+          "reflects": false,
+          "type": "EventCalendarEvent[]",
+          "values": null
+        },
+        {
+          "attributeName": "month",
+          "defaultValue": "\"\"",
+          "description": "Visible month using `YYYY-MM`.",
+          "name": "month",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "Selected day using `YYYY-MM-DD`.",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "Fired when the selected date changes.",
+          "name": "input",
+          "type": null,
+          "values": null
+        },
+        {
+          "description": "Fired when the selected date changes.",
+          "name": "change",
+          "type": null,
+          "values": null
+        },
+        {
+          "description": "Fired when an agenda item is activated. Detail includes the selected date and event payload.",
+          "name": "event-select",
+          "type": null,
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "cindor-event-calendar"
+    },
+    {
       "className": "CindorFieldArray",
       "description": "Repeated field-group shell for append, remove, and reorder workflows.\n\nThe `items` property is the working array, and `value` mirrors that state as serialized JSON for forms.",
       "modulePath": "packages/core/src/components/field-array/cindor-field-array.ts",

@@ -1,13 +1,15 @@
 import { readFileSync } from "node:fs";
 
 describe("cindor-ui-react generated entry", () => {
-  it("wires command palette and autocomplete custom events", () => {
+  it("wires command palette, autocomplete, and event calendar custom events", () => {
     const source = readFileSync("packages/react/src/index.tsx", "utf8");
     const commandPaletteBlock = matchCreateComponentBlock(source, "CindorCommandPalette");
     const autocompleteBlock = matchCreateComponentBlock(source, "CindorAutocomplete");
+    const eventCalendarBlock = matchCreateComponentBlock(source, "CindorEventCalendar");
 
     expect(commandPaletteBlock).toContain('onCommandSelect: "command-select"');
     expect(autocompleteBlock).toContain('onSuggestionSelect: "suggestion-select"');
+    expect(eventCalendarBlock).toContain('onEventSelect: "event-select"');
   });
 });
 

@@ -2,7 +2,7 @@ import { createApp, defineComponent, h, nextTick } from "vue";
 
 import type { App } from "vue";
 
-import { CindorAutocomplete, CindorBanner, CindorDataTable, CindorMultiSelect, CindorTransferList } from "./index";
+import { CindorAutocomplete, CindorBanner, CindorDataTable, CindorEventCalendar, CindorMultiSelect, CindorTransferList } from "./index";
 
 describe("cindor-ui-vue", () => {
   let container: HTMLDivElement | null = null;
@@ -164,6 +164,29 @@ describe("cindor-ui-vue", () => {
 
     expect(multiSelect.values).toBe(multiSelectValues);
     expect(transferList.selectedValues).toBe(transferListValues);
+  });
+
+  it("property-binds event arrays and mirrors model updates from event calendar", async () => {
+    const onModelUpdate = vi.fn();
+    const events = [{ date: "2026-04-08", id: "release-freeze", title: "Release freeze" }];
+
+    mount((modelValue) =>
+      h(CindorEventCalendar, {
+        events,
+        modelValue,
+        month: "2026-04",
+        "onUpdate:modelValue": onModelUpdate
+      })
+    );
+
+    const element = await queryElement<HTMLElement & { events: typeof events; value: string }>("cindor-event-calendar");
+    expect(element.events).toBe(events);
+
+    element.value = "2026-04-08";
+    element.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    await nextTick();
+
+    expect(onModelUpdate).toHaveBeenCalledWith("2026-04-08");
   });
 
   function mount(renderWrapper: (modelValue: string) => ReturnType<typeof h>) {

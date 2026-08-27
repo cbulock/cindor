@@ -2,6 +2,20 @@ import { css, html } from "lit";
 import { live } from "lit/directives/live.js";
 
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
+import {
+  addDays,
+  addMonths,
+  endOfDay,
+  endOfMonth,
+  formatDate,
+  formatMonth,
+  isDateOutOfRange,
+  parseDateString,
+  parseMonthString,
+  sameDate,
+  startOfDay,
+  startOfMonth
+} from "../shared/calendar-utils.js";
 
 type CalendarDay = {
   date: Date;
@@ -648,89 +662,4 @@ export class CindorCalendar extends FormAssociatedElement {
       </div>
     `;
   }
-}
-
-function addDays(date: Date, amount: number): Date {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate() + amount);
-}
-
-function addMonths(date: Date, amount: number): Date {
-  return new Date(date.getFullYear(), date.getMonth() + amount, 1);
-}
-
-function endOfDay(date: Date): Date {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
-}
-
-function endOfMonth(date: Date): Date {
-  return new Date(date.getFullYear(), date.getMonth() + 1, 0);
-}
-
-function formatDate(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
-
-function formatMonth(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  return `${year}-${month}`;
-}
-
-function isDateOutOfRange(date: Date, minDate: Date | null, maxDate: Date | null): boolean {
-  if (minDate && date < minDate) {
-    return true;
-  }
-
-  if (maxDate && date > maxDate) {
-    return true;
-  }
-
-  return false;
-}
-
-function parseDateString(value: string): Date | null {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
-    return null;
-  }
-
-  const [year, month, day] = value.split("-").map(Number);
-  const parsed = new Date(year, month - 1, day);
-  if (parsed.getFullYear() !== year || parsed.getMonth() !== month - 1 || parsed.getDate() !== day) {
-    return null;
-  }
-
-  return startOfDay(parsed);
-}
-
-function parseMonthString(value: string): Date | null {
-  if (!/^\d{4}-\d{2}$/.test(value)) {
-    return null;
-  }
-
-  const [year, month] = value.split("-").map(Number);
-  const parsed = new Date(year, month - 1, 1);
-  if (parsed.getFullYear() !== year || parsed.getMonth() !== month - 1) {
-    return null;
-  }
-
-  return parsed;
-}
-
-function sameDate(left: Date, right: Date): boolean {
-  return (
-    left.getFullYear() === right.getFullYear() &&
-    left.getMonth() === right.getMonth() &&
-    left.getDate() === right.getDate()
-  );
-}
-
-function startOfDay(date: Date): Date {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-}
-
-function startOfMonth(date: Date): Date {
-  return new Date(date.getFullYear(), date.getMonth(), 1);
 }
