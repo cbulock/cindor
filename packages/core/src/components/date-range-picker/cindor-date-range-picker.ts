@@ -77,6 +77,18 @@ export class CindorDateRangePicker extends LitElement {
       color: var(--fg-muted);
     }
 
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     cindor-calendar {
       position: fixed;
       max-width: calc(100vw - 16px);
@@ -313,12 +325,14 @@ export class CindorDateRangePicker extends LitElement {
     if (this.startValue && !this.endValue) {
       return html`
         <span class="summary-value">${this.startValue}</span>
+        <span class="visually-hidden"> to </span>
         <cindor-icon aria-hidden="true" class="summary-separator" name="chevron-right" part="summary-separator" size="14"></cindor-icon>
       `;
     }
 
     return html`
       <span class="summary-value">${this.startValue}</span>
+      <span class="visually-hidden"> to </span>
       <cindor-icon aria-hidden="true" class="summary-separator" name="chevron-right" part="summary-separator" size="14"></cindor-icon>
       <span class="summary-value">${this.endValue}</span>
     `;

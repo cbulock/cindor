@@ -87,7 +87,7 @@ describe("cindor-date-range-picker", () => {
     let summaryText = element.renderRoot.querySelector('[part="summary"]')?.textContent?.replace(/\s+/g, " ").trim();
     let separator = element.renderRoot.querySelector('[part="summary-separator"]') as HTMLElement | null;
 
-    expect(summaryText).toBe("2026-04-10");
+    expect(summaryText).toBe("2026-04-10 to");
     expect(separator?.getAttribute("name")).toBe("chevron-right");
     expect(element.renderRoot.querySelector('[part="summary"]')?.textContent).not.toContain("->");
 
@@ -97,7 +97,7 @@ describe("cindor-date-range-picker", () => {
     summaryText = element.renderRoot.querySelector('[part="summary"]')?.textContent?.replace(/\s+/g, " ").trim();
     separator = element.renderRoot.querySelector('[part="summary-separator"]') as HTMLElement | null;
 
-    expect(summaryText).toBe("2026-04-10 2026-04-14");
+    expect(summaryText).toBe("2026-04-10 to 2026-04-14");
     expect(separator?.getAttribute("name")).toBe("chevron-right");
     expect(element.renderRoot.querySelector('[part="summary"]')?.textContent).not.toContain("->");
   });
