@@ -8,9 +8,41 @@ import { FormAssociatedElement } from "../shared/form-associated-element.js";
 
 export type MarkdownEditorMode = "write" | "preview" | "split";
 
+type MarkdownCodeToken = {
+  lang?: string | null;
+  text: string;
+};
+
+type MarkdownHtmlToken = {
+  text: string;
+};
+
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function getCodeBlockLanguage(language: string | null | undefined): string {
+  return language?.trim().split(/\s+/u)[0]?.toLowerCase() ?? "";
+}
+
 const marked = new Marked({
   breaks: true,
-  gfm: true
+  gfm: true,
+  renderer: {
+    code(token: MarkdownCodeToken) {
+      const language = getCodeBlockLanguage(token.lang);
+      const languageAttribute = language ? ` language="${escapeHtml(language)}"` : "";
+      return `<cindor-code-block${languageAttribute}>${escapeHtml(token.text)}</cindor-code-block>`;
+    },
+    html(token: MarkdownHtmlToken) {
+      return escapeHtml(token.text);
+    }
+  }
 });
 
 type ToolbarAction = {
@@ -462,17 +494,8 @@ export class CindorMarkdownEditor extends FormAssociatedElement {
     }
   }
 
-  private escapeHtml(value: string): string {
-    return value
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#39;");
-  }
-
   private get previewHtml(): string {
-    return marked.parse(this.escapeHtml(this.value)) as string;
+    return marked.parse(this.value) as string;
   }
 
   private get previewElement(): HTMLElement | null {

@@ -51,6 +51,25 @@ describe("cindor-markdown-editor", () => {
     expect(preview.querySelector("script")).toBeNull();
   });
 
+  it("renders fenced code blocks with decoded text and syntax highlighting", async () => {
+    const element = document.createElement("cindor-markdown-editor") as CindorMarkdownEditor;
+    element.mode = "preview";
+    element.value = "```js\nconst ready = true;\nvar test = '1'\n```";
+    document.body.append(element);
+    await element.updateComplete;
+
+    const preview = element.renderRoot.querySelector('[part="preview"]') as HTMLElement;
+    const codeBlock = preview.querySelector("cindor-code-block") as CindorMarkdownEditor | null;
+
+    expect(codeBlock).not.toBeNull();
+    await (codeBlock as unknown as { updateComplete: Promise<unknown> }).updateComplete;
+
+    const renderedCode = codeBlock?.shadowRoot?.querySelector("code") as HTMLElement | null;
+    expect(renderedCode?.textContent).toContain("var test = '1'");
+    expect(renderedCode?.innerHTML).toContain("hljs-keyword");
+    expect(renderedCode?.className).toContain("language-js");
+  });
+
   it("applies toolbar formatting to the current selection", async () => {
     const element = document.createElement("cindor-markdown-editor") as CindorMarkdownEditor;
     element.value = "Launch";
