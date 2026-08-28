@@ -73,6 +73,7 @@ export const componentDependencySlugs: Record<string, string[]> = {
   "icon-button": ["button", "icon"],
   "inline-edit": ["button"],
   input: ["icon"],
+  "markdown-editor": ["code-block"],
   "multi-select": ["listbox", "option"],
   "password-input": ["icon"],
   "sortable-list": ["icon-button"],
