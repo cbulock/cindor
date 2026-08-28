@@ -126,4 +126,179 @@ describe("cindor-kanban-board", () => {
     expect(actionListener.mock.calls.at(-1)?.[0].detail.actionKey).toBe("assign");
     expect(actionListener.mock.calls.at(-1)?.[0].detail.cardId).toBe("card-a");
   });
+
+  it("reorders a card within the same column and emits move details", async () => {
+    const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
+    element.columns = [
+      {
+        id: "triage",
+        title: "Triage",
+        cards: [
+          { id: "card-a", title: "First" },
+          { id: "card-b", title: "Second" },
+          { id: "card-c", title: "Third" }
+        ]
+      }
+    ];
+    const moveListener = vi.fn();
+    element.addEventListener("card-move", moveListener);
+    document.body.append(element);
+    await element.updateComplete;
+
+    const cards = element.renderRoot.querySelectorAll<HTMLElement>('[data-card-id]');
+    stubCardBounds(cards[0], { top: 0, height: 100 });
+    stubCardBounds(cards[2], { top: 200, height: 100 });
+
+    cards[0]?.dispatchEvent(createDragEvent("dragstart"));
+    cards[2]?.dispatchEvent(createDragEvent("dragover", { clientY: 280 }));
+    cards[2]?.dispatchEvent(createDragEvent("drop", { clientY: 280 }));
+    await element.updateComplete;
+
+    expect(element.columns[0]?.cards.map((card) => card.id)).toEqual(["card-b", "card-c", "card-a"]);
+    expect(moveListener.mock.calls.at(-1)?.[0].detail).toMatchObject({
+      cardId: "card-a",
+      fromColumnId: "triage",
+      fromIndex: 0,
+      toColumnId: "triage",
+      toIndex: 2
+    });
+  });
+
+  it("moves a card across columns and allows dropping into an empty column", async () => {
+    const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
+    element.columns = [
+      {
+        id: "triage",
+        title: "Triage",
+        cards: [
+          { id: "card-a", title: "First" },
+          { id: "card-b", title: "Second" }
+        ]
+      },
+      {
+        id: "ready",
+        title: "Ready",
+        cards: []
+      }
+    ];
+    const moveListener = vi.fn();
+    element.addEventListener("card-move", moveListener);
+    document.body.append(element);
+    await element.updateComplete;
+
+    const sourceCard = element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-b"]');
+    const readyColumn = element.renderRoot.querySelector<HTMLElement>('[data-column-id="ready"] [part="column-cards"]');
+
+    sourceCard?.dispatchEvent(createDragEvent("dragstart"));
+    readyColumn?.dispatchEvent(createDragEvent("dragover"));
+    readyColumn?.dispatchEvent(createDragEvent("drop"));
+    await element.updateComplete;
+
+    expect(element.columns[0]?.cards.map((card) => card.id)).toEqual(["card-a"]);
+    expect(element.columns[1]?.cards.map((card) => card.id)).toEqual(["card-b"]);
+    expect(moveListener.mock.calls.at(-1)?.[0].detail).toMatchObject({
+      cardId: "card-b",
+      fromColumnId: "triage",
+      fromIndex: 1,
+      toColumnId: "ready",
+      toIndex: 0
+    });
+  });
+
+  it("does not allow dragging disabled cards", async () => {
+    const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
+    element.columns = [
+      {
+        id: "triage",
+        title: "Triage",
+        cards: [
+          { id: "card-a", title: "First", disabled: true },
+          { id: "card-b", title: "Second" }
+        ]
+      }
+    ];
+    const moveListener = vi.fn();
+    element.addEventListener("card-move", moveListener);
+    document.body.append(element);
+    await element.updateComplete;
+
+    const disabledCard = element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-a"]');
+    const enabledCard = element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-b"]');
+    stubCardBounds(disabledCard, { top: 0, height: 100 });
+    stubCardBounds(enabledCard, { top: 100, height: 100 });
+
+    disabledCard?.dispatchEvent(createDragEvent("dragstart"));
+    enabledCard?.dispatchEvent(createDragEvent("dragover", { clientY: 180 }));
+    enabledCard?.dispatchEvent(createDragEvent("drop", { clientY: 180 }));
+    await element.updateComplete;
+
+    expect(element.columns[0]?.cards.map((card) => card.id)).toEqual(["card-a", "card-b"]);
+    expect(moveListener).not.toHaveBeenCalled();
+  });
+
+  it("keeps a card-level drop target when dragover bubbles through the column", async () => {
+    const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
+    element.columns = [
+      {
+        id: "triage",
+        title: "Triage",
+        cards: [
+          { id: "card-a", title: "First" },
+          { id: "card-b", title: "Second" },
+          { id: "card-c", title: "Third" }
+        ]
+      }
+    ];
+    document.body.append(element);
+    await element.updateComplete;
+
+    const cards = element.renderRoot.querySelectorAll<HTMLElement>('[data-card-id]');
+    stubCardBounds(cards[0], { top: 0, height: 100 });
+    stubCardBounds(cards[1], { top: 100, height: 100 });
+
+    cards[0]?.dispatchEvent(createDragEvent("dragstart"));
+    cards[1]?.dispatchEvent(createDragEvent("dragover", { clientY: 110 }));
+    await element.updateComplete;
+
+    expect(cards[1]?.getAttribute("data-drop-before")).toBe("true");
+    expect(cards[2]?.getAttribute("data-drop-after")).toBe("false");
+  });
 });
+
+function stubCardBounds(element: HTMLElement | null | undefined, bounds: { height: number; top: number }): void {
+  if (!element) {
+    return;
+  }
+
+  Object.defineProperty(element, "getBoundingClientRect", {
+    configurable: true,
+    value: () => ({
+      bottom: bounds.top + bounds.height,
+      height: bounds.height,
+      left: 0,
+      right: 0,
+      top: bounds.top,
+      width: 200,
+      x: 0,
+      y: bounds.top,
+      toJSON: () => ({})
+    })
+  });
+}
+
+function createDragEvent(type: string, options: { clientY?: number } = {}): Event {
+  const event = new Event(type, { bubbles: true, cancelable: true });
+  Object.defineProperty(event, "clientY", {
+    configurable: true,
+    value: options.clientY ?? 0
+  });
+  Object.defineProperty(event, "dataTransfer", {
+    configurable: true,
+    value: {
+      dropEffect: "move",
+      effectAllowed: "move",
+      setData: vi.fn()
+    }
+  });
+  return event;
+}

@@ -4381,6 +4381,12 @@
           "name": "select",
           "type": "CustomEvent<KanbanBoardSelectDetail>",
           "values": null
+        },
+        {
+          "description": "Fired when a card is moved with drag and drop.",
+          "name": "card-move",
+          "type": "CustomEvent<KanbanBoardMoveDetail>",
+          "values": null
         }
       ],
       "slots": [],
