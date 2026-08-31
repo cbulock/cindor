@@ -70,6 +70,9 @@ const meta = {
     <script type="module">
       const board = document.querySelector("#storybook-kanban-board");
       board.columns = ${JSON.stringify(boardColumns, null, 2)};
+      board.addEventListener("card-move", (event) => {
+        console.log("Card moved", event.detail);
+      });
     </script>
   `
 };

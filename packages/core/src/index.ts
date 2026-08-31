@@ -102,6 +102,7 @@ export {
   type KanbanBoardActionVariant,
   type KanbanBoardCard,
   type KanbanBoardCardAction,
+  type KanbanBoardCardMoveDetail,
   type KanbanBoardColumn,
   type KanbanBoardSelectDetail
 } from "./components/kanban-board/cindor-kanban-board.js";
