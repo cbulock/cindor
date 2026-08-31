@@ -3555,9 +3555,10 @@ export const CindorKanbanBoard = defineComponent({
   props: {
     columns: { type: Array as PropType<KanbanBoardColumn[]>, default: () => [] },
     emptyMessage: { type: String, default: "No cards in this column." },
+    moveInstructions: { type: String, default: "Use Control plus arrow keys to reorder this card or move it between columns." },
     selectedCardId: { type: String, default: "" }
   },
-  emits: ["update:selectedCardId", "select", "card-action"],
+  emits: ["update:selectedCardId", "select", "card-action", "card-move"],
   setup(props, { attrs, emit }) {
     const handleSelect = (event: Event) => {
       const target = event.currentTarget as HTMLElement & { selectedCardId: string };
@@ -3568,14 +3569,20 @@ export const CindorKanbanBoard = defineComponent({
     const handleCardAction = (event: Event) => {
       emit("card-action", event);
     };
+
+    const handleCardMove = (event: Event) => {
+      emit("card-move", event);
+    };
     return () =>
           h("cindor-kanban-board", {
               ...attrs,
               ".columns": props.columns,
               "empty-message": props.emptyMessage,
+              "move-instructions": props.moveInstructions,
               "selected-card-id": props.selectedCardId,
               onSelect: handleSelect,
               onCardAction: handleCardAction,
+              onCardMove: handleCardMove,
           });
   }
 });

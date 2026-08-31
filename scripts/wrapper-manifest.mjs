@@ -1111,7 +1111,7 @@ export const componentDefinitions = [
     ]
   }),
   component("CindorKanbanBoard", "cindor-kanban-board", {
-    reactEvents: ["select", "card-action"],
+    reactEvents: ["select", "card-action", "card-move"],
     vueHandlers: [
       handler("select", {
         emitName: "select",
@@ -1119,11 +1119,16 @@ export const componentDefinitions = [
         modelHostProperty: "selectedCardId",
         modelHostType: "HTMLElement & { selectedCardId: string }"
       }),
-      handler("card-action")
+      handler("card-action"),
+      handler("card-move")
     ],
     vueProps: [
       arr("columns", "KanbanBoardColumn[]"),
       str("emptyMessage", "No cards in this column.", { attr: "empty-message", alwaysPass: true }),
+      str("moveInstructions", "Use Control plus arrow keys to reorder this card or move it between columns.", {
+        attr: "move-instructions",
+        alwaysPass: true
+      }),
       str("selectedCardId", "", { attr: "selected-card-id", alwaysPass: true })
     ]
   }),

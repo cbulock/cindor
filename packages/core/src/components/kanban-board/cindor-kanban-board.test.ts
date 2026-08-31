@@ -126,4 +126,102 @@ describe("cindor-kanban-board", () => {
     expect(actionListener.mock.calls.at(-1)?.[0].detail.actionKey).toBe("assign");
     expect(actionListener.mock.calls.at(-1)?.[0].detail.cardId).toBe("card-a");
   });
+
+  it("reorders cards with drag and drop and emits card-move detail", async () => {
+    const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
+    element.columns = [
+      {
+        id: "triage",
+        title: "Triage",
+        cards: [
+          { id: "card-a", title: "First" },
+          { id: "card-b", title: "Second" },
+          { id: "card-c", title: "Third" }
+        ]
+      }
+    ];
+    const moveListener = vi.fn();
+    element.addEventListener("card-move", moveListener);
+    document.body.append(element);
+    await element.updateComplete;
+
+    const cards = element.renderRoot.querySelectorAll<HTMLElement>('[part="card"]');
+    cards[0]?.dispatchEvent(createDragEvent("dragstart"));
+    cards[2]?.dispatchEvent(createDragEvent("dragover"));
+    cards[2]?.dispatchEvent(createDragEvent("drop"));
+    await element.updateComplete;
+
+    expect(element.columns[0]?.cards.map((card) => card.id)).toEqual(["card-b", "card-c", "card-a"]);
+    expect(moveListener.mock.calls[0]?.[0].detail).toMatchObject({
+      cardId: "card-a",
+      fromColumnId: "triage",
+      fromIndex: 0,
+      reason: "drag",
+      toColumnId: "triage",
+      toIndex: 2
+    });
+  });
+
+  it("drops a card into an empty column", async () => {
+    const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
+    element.columns = columns;
+    document.body.append(element);
+    await element.updateComplete;
+
+    element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-a"]')?.dispatchEvent(createDragEvent("dragstart"));
+    element.renderRoot.querySelector<HTMLElement>('[data-column-id="ready"] [part="column-cards"]')?.dispatchEvent(createDragEvent("dragover"));
+    element.renderRoot.querySelector<HTMLElement>('[data-column-id="ready"] [part="column-cards"]')?.dispatchEvent(createDragEvent("drop"));
+    await element.updateComplete;
+
+    expect(element.columns[0]?.cards).toHaveLength(0);
+    expect(element.columns[1]?.cards.map((card) => card.id)).toEqual(["card-a"]);
+  });
+
+  it("moves cards with control plus arrow keys as an accessible drag alternative", async () => {
+    const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
+    element.columns = [
+      { id: "todo", title: "Todo", cards: [{ id: "card-a", title: "First" }, { id: "card-b", title: "Second" }] },
+      { id: "done", title: "Done", cards: [] }
+    ];
+    const moveListener = vi.fn();
+    element.addEventListener("card-move", moveListener);
+    document.body.append(element);
+    await element.updateComplete;
+
+    const surface = element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-a"] [part="card-surface"]');
+    surface?.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, cancelable: true, ctrlKey: true, key: "ArrowDown" }));
+    await element.updateComplete;
+    expect(element.columns[0]?.cards.map((card) => card.id)).toEqual(["card-b", "card-a"]);
+
+    element.renderRoot
+      .querySelector<HTMLElement>('[data-card-id="card-a"] [part="card-surface"]')
+      ?.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, cancelable: true, ctrlKey: true, key: "ArrowRight" }));
+    await element.updateComplete;
+
+    expect(element.columns[0]?.cards.map((card) => card.id)).toEqual(["card-b"]);
+    expect(element.columns[1]?.cards.map((card) => card.id)).toEqual(["card-a"]);
+    expect(moveListener.mock.calls.at(-1)?.[0].detail).toMatchObject({ reason: "keyboard", toColumnId: "done" });
+  });
+
+  it("does not make disabled cards draggable", async () => {
+    const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
+    element.columns = [{ id: "todo", title: "Todo", cards: [{ id: "blocked", title: "Blocked", disabled: true }] }];
+    document.body.append(element);
+    await element.updateComplete;
+
+    expect(element.renderRoot.querySelector<HTMLElement>('[data-card-id="blocked"]')?.draggable).toBe(false);
+  });
 });
+
+function createDragEvent(type: string): Event {
+  const event = new Event(type, { bubbles: true, cancelable: true });
+  Object.defineProperty(event, "dataTransfer", {
+    configurable: true,
+    value: {
+      dropEffect: "move",
+      effectAllowed: "move",
+      setData: vi.fn()
+    }
+  });
+  return event;
+}
