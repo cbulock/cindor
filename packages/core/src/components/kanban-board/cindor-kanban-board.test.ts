@@ -215,6 +215,7 @@ describe("cindor-kanban-board", () => {
     element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-a"]')?.dispatchEvent(createDragEvent("dragstart"));
     const targetHeader = element.renderRoot.querySelector<HTMLElement>('[data-column-id="done"] [part="column-header"]');
     const dragOver = createDragEvent("dragover") as DragEvent;
+    if (dragOver.dataTransfer) dragOver.dataTransfer.dropEffect = "none";
     targetHeader?.dispatchEvent(dragOver);
     expect(dragOver.defaultPrevented).toBe(true);
     expect(dragOver.dataTransfer?.dropEffect).toBe("move");
