@@ -28,6 +28,14 @@ describe("cindor-coachmark-tour", () => {
     `;
   }
 
+  it("uses paired theme colors for the primary action hover state", () => {
+    const styles = (CindorCoachmarkTour.styles as { cssText: string }).cssText;
+
+    expect(styles).toMatch(
+      /\.button\[data-variant="primary"\]:hover:not\(:disabled\)\s*{[^}]*background:\s*var\(--accent-hover\);[^}]*border-color:\s*var\(--accent-hover\);[^}]*color:\s*var\(--accent-fg\);[^}]*}/s
+    );
+  });
+
   it("renders the current step and highlights its target", async () => {
     setupTargets();
 

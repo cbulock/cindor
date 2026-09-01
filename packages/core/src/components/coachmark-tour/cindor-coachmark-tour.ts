@@ -159,6 +159,12 @@ export class CindorCoachmarkTour extends LitElement {
       color: var(--accent-fg);
     }
 
+    .button[data-variant="primary"]:hover:not(:disabled) {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      color: var(--accent-fg);
+    }
+
     .button[data-variant="ghost"] {
       border-color: transparent;
       background: transparent;
