@@ -177,6 +177,55 @@ describe("cindor-kanban-board", () => {
     expect(element.columns[1]?.cards.map((card) => card.id)).toEqual(["card-a"]);
   });
 
+  it("treats a card in another column as part of the column drop target", async () => {
+    const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
+    element.columns = [
+      { id: "todo", title: "Todo", cards: [{ id: "card-a", title: "First" }] },
+      {
+        id: "done",
+        title: "Done",
+        cards: [
+          { id: "card-b", title: "Second" },
+          { id: "card-c", title: "Third" }
+        ]
+      }
+    ];
+    document.body.append(element);
+    await element.updateComplete;
+
+    element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-a"]')?.dispatchEvent(createDragEvent("dragstart"));
+    const targetCard = element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-b"]');
+    targetCard?.dispatchEvent(createDragEvent("dragover"));
+    targetCard?.dispatchEvent(createDragEvent("drop"));
+    await element.updateComplete;
+
+    expect(element.columns[0]?.cards).toHaveLength(0);
+    expect(element.columns[1]?.cards.map((card) => card.id)).toEqual(["card-b", "card-c", "card-a"]);
+  });
+
+  it("accepts a card drop anywhere in the target column", async () => {
+    const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
+    element.columns = [
+      { id: "todo", title: "Todo", cards: [{ id: "card-a", title: "First" }] },
+      { id: "done", title: "Done", cards: [{ id: "card-b", title: "Second" }] }
+    ];
+    document.body.append(element);
+    await element.updateComplete;
+
+    element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-a"]')?.dispatchEvent(createDragEvent("dragstart"));
+    const targetHeader = element.renderRoot.querySelector<HTMLElement>('[data-column-id="done"] [part="column-header"]');
+    const dragOver = createDragEvent("dragover") as DragEvent;
+    if (dragOver.dataTransfer) dragOver.dataTransfer.dropEffect = "none";
+    targetHeader?.dispatchEvent(dragOver);
+    expect(dragOver.defaultPrevented).toBe(true);
+    expect(dragOver.dataTransfer?.dropEffect).toBe("move");
+    targetHeader?.dispatchEvent(createDragEvent("drop"));
+    await element.updateComplete;
+
+    expect(element.columns[0]?.cards).toHaveLength(0);
+    expect(element.columns[1]?.cards.map((card) => card.id)).toEqual(["card-b", "card-a"]);
+  });
+
   it("moves cards with control plus arrow keys as an accessible drag alternative", async () => {
     const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
     element.columns = [
