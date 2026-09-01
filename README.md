@@ -37,6 +37,8 @@ npm install cindor-ui-core cindor-ui-vue
 
 The GitHub repository root is the workspace source tree, not a consumable replacement for the individual package entries. Apps should depend on the published `cindor-ui-core`, `cindor-ui-react`, and `cindor-ui-vue` packages instead of installing the monorepo root from GitHub.
 
+Most apps should also import `cindor-ui-core/styles.css` once near startup so the shared fonts, tokens, base styles, and theme hooks are available.
+
 ## Apps
 
 - `apps/docs` — living documentation site built with the Cindor web components themselves
