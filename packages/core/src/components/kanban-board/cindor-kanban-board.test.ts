@@ -24,6 +24,18 @@ const columns: KanbanBoardColumn[] = [
   }
 ];
 
+function createDragEvent(type: string): DragEvent {
+  const event = new Event(type, { bubbles: true, cancelable: true }) as DragEvent;
+  Object.defineProperty(event, "dataTransfer", {
+    value: {
+      dropEffect: "none",
+      effectAllowed: "none",
+      setData: vi.fn()
+    }
+  });
+  return event;
+}
+
 describe("cindor-kanban-board", () => {
   afterEach(() => {
     document.body.innerHTML = "";
@@ -125,5 +137,81 @@ describe("cindor-kanban-board", () => {
     expect(element.selectedCardId).toBe("");
     expect(actionListener.mock.calls.at(-1)?.[0].detail.actionKey).toBe("assign");
     expect(actionListener.mock.calls.at(-1)?.[0].detail.cardId).toBe("card-a");
+  });
+
+  it("moves a card between columns with drag and drop", async () => {
+    const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
+    element.columns = columns;
+    const moveListener = vi.fn();
+    element.addEventListener("card-move", moveListener);
+    document.body.append(element);
+    await element.updateComplete;
+
+    const card = element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-a"]');
+    const target = element.renderRoot.querySelector<HTMLElement>('[data-column-id="ready"] [part="column-cards"]');
+    card?.dispatchEvent(createDragEvent("dragstart"));
+    target?.dispatchEvent(createDragEvent("dragover"));
+    target?.dispatchEvent(createDragEvent("drop"));
+    await element.updateComplete;
+
+    expect(element.columns[0]?.cards).toHaveLength(0);
+    expect(element.columns[1]?.cards.map(({ id }) => id)).toEqual(["card-a"]);
+    expect(moveListener.mock.calls[0]?.[0].detail).toMatchObject({
+      cardId: "card-a",
+      fromColumnId: "triage",
+      fromIndex: 0,
+      toColumnId: "ready",
+      toIndex: 0
+    });
+  });
+
+  it("reorders cards within a column", async () => {
+    const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
+    element.columns = [{ ...columns[0]!, cards: [...columns[0]!.cards, { id: "card-b", title: "Second card" }] }];
+    document.body.append(element);
+    await element.updateComplete;
+
+    const cards = element.renderRoot.querySelectorAll<HTMLElement>("[data-card-id]");
+    cards[0]?.dispatchEvent(createDragEvent("dragstart"));
+    cards[1]?.dispatchEvent(createDragEvent("dragover"));
+    cards[1]?.dispatchEvent(createDragEvent("drop"));
+    await element.updateComplete;
+
+    expect(element.columns[0]?.cards.map(({ id }) => id)).toEqual(["card-b", "card-a"]);
+  });
+
+  it("does not drag disabled cards or drop into a full column", async () => {
+    const element = document.createElement("cindor-kanban-board") as CindorKanbanBoard;
+    element.columns = [
+      { ...columns[0]!, cards: [{ ...columns[0]!.cards[0]!, disabled: true }] },
+      { ...columns[1]!, limit: 0 }
+    ];
+    const moveListener = vi.fn();
+    element.addEventListener("card-move", moveListener);
+    document.body.append(element);
+    await element.updateComplete;
+
+    const card = element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-a"]');
+    const target = element.renderRoot.querySelector<HTMLElement>('[data-column-id="ready"] [part="column-cards"]');
+    const dragStart = createDragEvent("dragstart");
+    card?.dispatchEvent(dragStart);
+    target?.dispatchEvent(createDragEvent("drop"));
+
+    expect(dragStart.defaultPrevented).toBe(true);
+    expect(element.columns[0]?.cards).toHaveLength(1);
+    expect(moveListener).not.toHaveBeenCalled();
+
+    element.columns = [columns[0]!, { ...columns[1]!, cards: [{ id: "existing", title: "Existing" }], limit: 1 }];
+    await element.updateComplete;
+    const draggableCard = element.renderRoot.querySelector<HTMLElement>('[data-card-id="card-a"]');
+    const fullTarget = element.renderRoot.querySelector<HTMLElement>('[data-column-id="ready"] [part="column-cards"]');
+    draggableCard?.dispatchEvent(createDragEvent("dragstart"));
+    const drop = createDragEvent("drop");
+    fullTarget?.dispatchEvent(drop);
+
+    expect(drop.defaultPrevented).toBe(false);
+    expect(element.columns[0]?.cards).toHaveLength(1);
+    expect(element.columns[1]?.cards.map(({ id }) => id)).toEqual(["existing"]);
+    expect(moveListener).not.toHaveBeenCalled();
   });
 });

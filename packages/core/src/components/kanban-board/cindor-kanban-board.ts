@@ -44,6 +44,21 @@ export type KanbanBoardActionDetail = KanbanBoardSelectDetail & {
   actionKey: string;
 };
 
+export type KanbanBoardMoveDetail = {
+  card: KanbanBoardCard;
+  cardId: string;
+  columns: KanbanBoardColumn[];
+  fromColumnId: string;
+  fromIndex: number;
+  toColumnId: string;
+  toIndex: number;
+};
+
+type DraggedCard = {
+  columnId: string;
+  index: number;
+};
+
 /**
  * Board-style planning surface for grouped workflow cards.
  *
@@ -53,6 +68,7 @@ export type KanbanBoardActionDetail = KanbanBoardSelectDetail & {
  * @tag cindor-kanban-board
  * @fires {CustomEvent<KanbanBoardSelectDetail>} select - Fired when a card is selected.
  * @fires {CustomEvent<KanbanBoardActionDetail>} card-action - Fired when a card action button is pressed.
+ * @fires {CustomEvent<KanbanBoardMoveDetail>} card-move - Fired when a card is moved with drag and drop.
  */
 export class CindorKanbanBoard extends LitElement {
   static styles = css`
@@ -189,6 +205,12 @@ export class CindorKanbanBoard extends LitElement {
       gap: var(--space-3);
       align-content: start;
       min-block-size: 6rem;
+      border-radius: var(--radius-xl);
+      transition: background var(--duration-base) var(--ease-out);
+    }
+
+    .column-cards[data-drag-over="true"] {
+      background: color-mix(in srgb, var(--accent) 8%, transparent);
     }
 
     .card {
@@ -218,6 +240,15 @@ export class CindorKanbanBoard extends LitElement {
 
     .card[data-disabled="true"] {
       opacity: 0.72;
+    }
+
+    .card[data-dragging="true"] {
+      opacity: 0.55;
+    }
+
+    .card[data-drag-over="true"] {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 30%, transparent);
     }
 
     .card-surface {
@@ -321,6 +352,9 @@ export class CindorKanbanBoard extends LitElement {
   /** Current selected card identifier. */
   selectedCardId = "";
 
+  private draggedCard: DraggedCard | null = null;
+  private dragTarget: { columnId: string; index: number } | null = null;
+
   protected override render() {
     if (this.columns.length === 0) {
       return html`<div class="empty-board" part="empty-board">Add columns to render a kanban board.</div>`;
@@ -349,7 +383,15 @@ export class CindorKanbanBoard extends LitElement {
           </div>
         </header>
 
-        <div class="column-cards" part="column-cards" role="list" aria-label=${column.title}>
+        <div
+          class="column-cards"
+          data-drag-over=${String(this.dragTarget?.columnId === column.id)}
+          part="column-cards"
+          role="list"
+          aria-label=${column.title}
+          @dragover=${(event: DragEvent) => this.handleDragOver(event, column)}
+          @drop=${(event: DragEvent) => this.handleDrop(event, column, column.cards.length)}
+        >
           ${column.cards.length > 0
             ? column.cards.map((card) => this.renderCard(column, card))
             : html`<div class="empty-column" part="empty-column">${this.emptyMessage}</div>`}
@@ -361,16 +403,24 @@ export class CindorKanbanBoard extends LitElement {
   private renderCard(column: KanbanBoardColumn, card: KanbanBoardCard) {
     const isDisabled = Boolean(card.disabled);
     const isSelected = this.selectedCardId === card.id;
+    const index = column.cards.indexOf(card);
 
     return html`
       <article
         class="card"
         data-card-id=${card.id}
         data-disabled=${String(isDisabled)}
+        data-dragging=${String(this.draggedCard?.columnId === column.id && this.draggedCard.index === index)}
+        data-drag-over=${String(this.dragTarget?.columnId === column.id && this.dragTarget.index === index)}
         data-selectable=${String(!isDisabled)}
         data-selected=${String(isSelected)}
         part="card"
         role="listitem"
+        .draggable=${!isDisabled}
+        @dragstart=${(event: DragEvent) => this.handleDragStart(event, column, index)}
+        @dragover=${(event: DragEvent) => this.handleDragOver(event, column, index)}
+        @drop=${(event: DragEvent) => this.handleDrop(event, column, index)}
+        @dragend=${this.handleDragEnd}
       >
         <div
           class="card-surface"
@@ -421,6 +471,101 @@ export class CindorKanbanBoard extends LitElement {
           : nothing}
       </article>
     `;
+  }
+
+  private handleDragStart(event: DragEvent, column: KanbanBoardColumn, index: number): void {
+    if (column.cards[index]?.disabled) {
+      event.preventDefault();
+      return;
+    }
+
+    this.draggedCard = { columnId: column.id, index };
+    this.dragTarget = { columnId: column.id, index };
+    if (event.dataTransfer) {
+      event.dataTransfer.effectAllowed = "move";
+      event.dataTransfer.setData("text/plain", column.cards[index]?.id ?? "");
+    }
+    this.requestUpdate();
+  }
+
+  private handleDragOver(event: DragEvent, column: KanbanBoardColumn, index = column.cards.length): void {
+    if (!this.canDrop(column)) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.dataTransfer) {
+      event.dataTransfer.dropEffect = "move";
+    }
+    if (this.dragTarget?.columnId !== column.id || this.dragTarget.index !== index) {
+      this.dragTarget = { columnId: column.id, index };
+      this.requestUpdate();
+    }
+  }
+
+  private handleDrop(event: DragEvent, column: KanbanBoardColumn, index: number): void {
+    if (!this.canDrop(column) || !this.draggedCard) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    const source = this.draggedCard;
+    this.clearDragState();
+    this.moveCard(source, column.id, index);
+  }
+
+  private handleDragEnd = (): void => {
+    this.clearDragState();
+  };
+
+  private canDrop(column: KanbanBoardColumn): boolean {
+    if (!this.draggedCard) {
+      return false;
+    }
+    return this.draggedCard.columnId === column.id || typeof column.limit !== "number" || column.cards.length < column.limit;
+  }
+
+  private clearDragState(): void {
+    this.draggedCard = null;
+    this.dragTarget = null;
+    this.requestUpdate();
+  }
+
+  private moveCard(source: DraggedCard, toColumnId: string, requestedIndex: number): void {
+    const fromColumnIndex = this.columns.findIndex(({ id }) => id === source.columnId);
+    const toColumnIndex = this.columns.findIndex(({ id }) => id === toColumnId);
+    const sourceCard = this.columns[fromColumnIndex]?.cards[source.index];
+    if (!sourceCard || fromColumnIndex < 0 || toColumnIndex < 0) {
+      return;
+    }
+
+    const nextColumns = this.columns.map((column) => ({ ...column, cards: [...column.cards] }));
+    nextColumns[fromColumnIndex]!.cards.splice(source.index, 1);
+    const targetCards = nextColumns[toColumnIndex]!.cards;
+    const toIndex = Math.max(0, Math.min(requestedIndex, targetCards.length));
+    if (fromColumnIndex === toColumnIndex && source.index === toIndex) {
+      return;
+    }
+    targetCards.splice(toIndex, 0, sourceCard);
+    this.columns = nextColumns;
+
+    this.dispatchEvent(
+      new CustomEvent<KanbanBoardMoveDetail>("card-move", {
+        bubbles: true,
+        composed: true,
+        detail: {
+          card: sourceCard,
+          cardId: sourceCard.id,
+          columns: nextColumns,
+          fromColumnId: source.columnId,
+          fromIndex: source.index,
+          toColumnId,
+          toIndex
+        }
+      })
+    );
   }
 
   private handleCardKeyDown(event: KeyboardEvent, column: KanbanBoardColumn, card: KanbanBoardCard): void {

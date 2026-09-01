@@ -103,6 +103,7 @@ export {
   type KanbanBoardCard,
   type KanbanBoardCardAction,
   type KanbanBoardColumn,
+  type KanbanBoardMoveDetail,
   type KanbanBoardSelectDetail
 } from "./components/kanban-board/cindor-kanban-board.js";
 export { CindorLayout } from "./components/layout/cindor-layout.js";

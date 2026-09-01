@@ -320,95 +320,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Components/Alert\", args: { message: \"The upstream Cindor tokens loaded successfully.\", title: \"Heads up\", tone: \"info\" }, argTypes: { tone: { control: \"radio\", options: [\"info\", \"success\", \"warning\", \"danger\"] } }, render: ({ message, title, tone }: AlertStoryArgs) => ` <cindor-alert tone=\"${tone}\"> <strong>${title}</strong> <span>${message}</span> </cindor-alert> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/alert/cindor-alert.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "CindorAlert",
-          "members": [
-            {
-              "kind": "field",
-              "name": "tone",
-              "privacy": "public",
-              "type": {
-                "text": "AlertTone"
-              },
-              "default": "\"info\"",
-              "attribute": "tone",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "tone",
-              "type": {
-                "text": "AlertTone"
-              },
-              "default": "\"info\"",
-              "fieldName": "tone"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorAlert",
-          "declaration": {
-            "name": "CindorAlert",
-            "module": "packages/core/src/components/alert/cindor-alert.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/autocomplete/cindor-autocomplete.stories.ts",
       "declarations": [
         {
@@ -980,6 +891,95 @@
           "declaration": {
             "name": "CindorAutocomplete",
             "module": "packages/core/src/components/autocomplete/cindor-autocomplete.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/alert/cindor-alert.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Components/Alert\", args: { message: \"The upstream Cindor tokens loaded successfully.\", title: \"Heads up\", tone: \"info\" }, argTypes: { tone: { control: \"radio\", options: [\"info\", \"success\", \"warning\", \"danger\"] } }, render: ({ message, title, tone }: AlertStoryArgs) => ` <cindor-alert tone=\"${tone}\"> <strong>${title}</strong> <span>${message}</span> </cindor-alert> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/alert/cindor-alert.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/alert/cindor-alert.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "CindorAlert",
+          "members": [
+            {
+              "kind": "field",
+              "name": "tone",
+              "privacy": "public",
+              "type": {
+                "text": "AlertTone"
+              },
+              "default": "\"info\"",
+              "attribute": "tone",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "tone",
+              "type": {
+                "text": "AlertTone"
+              },
+              "default": "\"info\"",
+              "fieldName": "tone"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorAlert",
+          "declaration": {
+            "name": "CindorAlert",
+            "module": "packages/core/src/components/alert/cindor-alert.ts"
           }
         }
       ]
@@ -4822,6 +4822,335 @@
     },
     {
       "kind": "javascript-module",
+      "path": "packages/core/src/components/context-menu/cindor-context-menu.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Overlays/Context Menu\", args: { open: false }, argTypes: { open: { control: \"boolean\" } }, render: ({ open }: ContextMenuStoryArgs) => ` <cindor-context-menu aria-label=\"Context actions\" ${open ? \"open\" : \"\"}> <div slot=\"trigger\" style=\"padding: var(--space-6); border: 1px dashed var(--border); border-radius: var(--radius-lg);\"> Right click this surface </div> <cindor-menu-item>Rename</cindor-menu-item> <cindor-menu-item>Duplicate</cindor-menu-item> <cindor-menu-item>Archive</cindor-menu-item> </cindor-context-menu> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/context-menu/cindor-context-menu.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/context-menu/cindor-context-menu.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/context-menu/cindor-context-menu.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Right-click menu surface that composes Cindor menu primitives.",
+          "name": "CindorContextMenu",
+          "slots": [
+            {
+              "description": "Element that receives context menu and keyboard-open interaction.",
+              "name": "trigger"
+            },
+            {
+              "description": "`cindor-menu-item` children rendered inside the menu.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "open",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "anchorX",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "menuId",
+              "privacy": "private",
+              "readonly": true,
+              "default": "`cindor-context-menu-menu-${++contextMenuId}`"
+            },
+            {
+              "kind": "field",
+              "name": "anchorY",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "restoreFocusTarget",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "synthesizedTriggerRole",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "synthesizedTriggerTabindex",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "triggerNode",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "openAt",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "x",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "y",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "handleSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleContextMenu",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleTriggerKeydown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleMenuItemSelect",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleMenuKeydown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleDocumentPointerDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleWindowBlur",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleViewportChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "positionMenu",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncMenuA11y",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncTriggerA11y",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusFirstItem",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "dispatchToggleEvent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "menuElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "triggerElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "detachTriggerListeners",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "syncTriggerNode",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "toggle",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the menu opens or closes."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "open"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorContextMenu",
+          "declaration": {
+            "name": "CindorContextMenu",
+            "module": "packages/core/src/components/context-menu/cindor-context-menu.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "packages/core/src/components/command-palette/cindor-command-palette.stories.ts",
       "declarations": [
         {
@@ -5155,335 +5484,6 @@
           "declaration": {
             "name": "CindorCommandPalette",
             "module": "packages/core/src/components/command-palette/cindor-command-palette.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/context-menu/cindor-context-menu.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Overlays/Context Menu\", args: { open: false }, argTypes: { open: { control: \"boolean\" } }, render: ({ open }: ContextMenuStoryArgs) => ` <cindor-context-menu aria-label=\"Context actions\" ${open ? \"open\" : \"\"}> <div slot=\"trigger\" style=\"padding: var(--space-6); border: 1px dashed var(--border); border-radius: var(--radius-lg);\"> Right click this surface </div> <cindor-menu-item>Rename</cindor-menu-item> <cindor-menu-item>Duplicate</cindor-menu-item> <cindor-menu-item>Archive</cindor-menu-item> </cindor-context-menu> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/context-menu/cindor-context-menu.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/context-menu/cindor-context-menu.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/context-menu/cindor-context-menu.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Right-click menu surface that composes Cindor menu primitives.",
-          "name": "CindorContextMenu",
-          "slots": [
-            {
-              "description": "Element that receives context menu and keyboard-open interaction.",
-              "name": "trigger"
-            },
-            {
-              "description": "`cindor-menu-item` children rendered inside the menu.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "open",
-              "privacy": "public",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "open",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "anchorX",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "menuId",
-              "privacy": "private",
-              "readonly": true,
-              "default": "`cindor-context-menu-menu-${++contextMenuId}`"
-            },
-            {
-              "kind": "field",
-              "name": "anchorY",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "restoreFocusTarget",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "field",
-              "name": "synthesizedTriggerRole",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "synthesizedTriggerTabindex",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "triggerNode",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "method",
-              "name": "close",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "openAt",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "x",
-                  "type": {
-                    "text": "number"
-                  }
-                },
-                {
-                  "name": "y",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "handleSlotChange",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleContextMenu",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleTriggerKeydown",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleMenuItemSelect",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleMenuKeydown",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleDocumentPointerDown",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleWindowBlur",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleViewportChange",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "positionMenu",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "syncMenuA11y",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "syncTriggerA11y",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focusFirstItem",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchToggleEvent",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "menuElement",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "triggerElement",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "method",
-              "name": "detachTriggerListeners",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "syncTriggerNode",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "toggle",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired when the menu opens or closes."
-            }
-          ],
-          "attributes": [
-            {
-              "name": "open",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "open"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorContextMenu",
-          "declaration": {
-            "name": "CindorContextMenu",
-            "module": "packages/core/src/components/context-menu/cindor-context-menu.ts"
           }
         }
       ]
@@ -18384,6 +18384,24 @@
               "reflects": true
             },
             {
+              "kind": "field",
+              "name": "draggedCard",
+              "type": {
+                "text": "DraggedCard | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "dragTarget",
+              "type": {
+                "text": "{ columnId: string; index: number } | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
               "kind": "method",
               "name": "renderColumn",
               "privacy": "private",
@@ -18411,6 +18429,157 @@
                   "name": "card",
                   "type": {
                     "text": "KanbanBoardCard"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleDragStart",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "DragEvent"
+                  }
+                },
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "KanbanBoardColumn"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleDragOver",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "DragEvent"
+                  }
+                },
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "KanbanBoardColumn"
+                  }
+                },
+                {
+                  "name": "index",
+                  "default": "column.cards.length"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleDrop",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "DragEvent"
+                  }
+                },
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "KanbanBoardColumn"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "handleDragEnd",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "canDrop",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "KanbanBoardColumn"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "clearDragState",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "moveCard",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "source",
+                  "type": {
+                    "text": "DraggedCard"
+                  }
+                },
+                {
+                  "name": "toColumnId",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "requestedIndex",
+                  "type": {
+                    "text": "number"
                   }
                 }
               ]
@@ -18516,6 +18685,13 @@
             }
           ],
           "events": [
+            {
+              "name": "card-move",
+              "type": {
+                "text": "CustomEvent<KanbanBoardMoveDetail>"
+              },
+              "description": "Fired when a card is moved with drag and drop."
+            },
             {
               "name": "card-action",
               "type": {
@@ -19536,24 +19712,6 @@
                   "text": "void"
                 }
               }
-            },
-            {
-              "kind": "method",
-              "name": "escapeHtml",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
             },
             {
               "kind": "field",
@@ -27191,294 +27349,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "packages/core/src/components/side-nav/cindor-side-nav.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "meta",
-          "type": {
-            "text": "object"
-          },
-          "default": "{ title: \"Navigation/Side Nav\", render: () => ` <cindor-side-nav aria-label=\"Documentation\"> <cindor-side-nav-item href=\"#overview\" label=\"Overview\"></cindor-side-nav-item> <cindor-side-nav-item expanded label=\"Guides\"> <cindor-side-nav-item href=\"#getting-started\" label=\"Getting started\" current></cindor-side-nav-item> <cindor-side-nav-item href=\"#theming\" label=\"Theming\"></cindor-side-nav-item> </cindor-side-nav-item> <cindor-side-nav-item expanded label=\"Components\"> <cindor-side-nav-item href=\"#button\" label=\"Button\"></cindor-side-nav-item> <cindor-side-nav-item href=\"#dialog\" label=\"Dialog\"></cindor-side-nav-item> </cindor-side-nav-item> </cindor-side-nav> ` }"
-        },
-        {
-          "kind": "variable",
-          "name": "Default",
-          "type": {
-            "text": "object"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "meta",
-            "module": "packages/core/src/components/side-nav/cindor-side-nav.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "packages/core/src/components/side-nav/cindor-side-nav.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "packages/core/src/components/side-nav/cindor-side-nav.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Keyboard-accessible side navigation landmark with nested sections.\n\nUse direct child `cindor-side-nav-item` elements, optionally nesting them to\ncreate collapsible sections.",
-          "name": "CindorSideNav",
-          "slots": [
-            {
-              "description": "Direct child `cindor-side-nav-item` elements.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "itemObserver",
-              "privacy": "private",
-              "readonly": true,
-              "default": "new MutationObserver(() => { this.refreshItems(); })"
-            },
-            {
-              "kind": "field",
-              "name": "handleFocusIn",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleKeyDown",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "handleSlotChange",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "handleExpandKey",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "item",
-                  "type": {
-                    "text": "CindorSideNavItem"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "handleCollapseKey",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "item",
-                  "type": {
-                    "text": "CindorSideNavItem"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "focusItem",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "item",
-                  "type": {
-                    "text": "CindorSideNavItem"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "refreshItems",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "preferredItem",
-                  "optional": true,
-                  "type": {
-                    "text": "CindorSideNavItem | null"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "syncNavA11y",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "collectVisibleItems",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "CindorSideNavItem[]"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "root",
-                  "default": "this",
-                  "type": {
-                    "text": "ParentNode"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "parentItem",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "CindorSideNavItem | null"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "item",
-                  "type": {
-                    "text": "CindorSideNavItem"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "childItems",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "CindorSideNavItem[]"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "item",
-                  "type": {
-                    "text": "CindorSideNavItem"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "itemControl",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "HTMLAnchorElement | HTMLButtonElement | null"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "item",
-                  "type": {
-                    "text": "CindorSideNavItem"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "allItems",
-              "type": {
-                "text": "CindorSideNavItem[]"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "focusedItem",
-              "type": {
-                "text": "CindorSideNavItem | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "navElement",
-              "type": {
-                "text": "HTMLElement | null"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "visibleItems",
-              "type": {
-                "text": "CindorSideNavItem[]"
-              },
-              "privacy": "private",
-              "readonly": true
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CindorSideNav",
-          "declaration": {
-            "name": "CindorSideNav",
-            "module": "packages/core/src/components/side-nav/cindor-side-nav.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "packages/core/src/components/side-nav-item/cindor-side-nav-item.stories.ts",
       "declarations": [
         {
@@ -27820,6 +27690,294 @@
           "declaration": {
             "name": "CindorSideNavItem",
             "module": "packages/core/src/components/side-nav-item/cindor-side-nav-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/side-nav/cindor-side-nav.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "meta",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ title: \"Navigation/Side Nav\", render: () => ` <cindor-side-nav aria-label=\"Documentation\"> <cindor-side-nav-item href=\"#overview\" label=\"Overview\"></cindor-side-nav-item> <cindor-side-nav-item expanded label=\"Guides\"> <cindor-side-nav-item href=\"#getting-started\" label=\"Getting started\" current></cindor-side-nav-item> <cindor-side-nav-item href=\"#theming\" label=\"Theming\"></cindor-side-nav-item> </cindor-side-nav-item> <cindor-side-nav-item expanded label=\"Components\"> <cindor-side-nav-item href=\"#button\" label=\"Button\"></cindor-side-nav-item> <cindor-side-nav-item href=\"#dialog\" label=\"Dialog\"></cindor-side-nav-item> </cindor-side-nav-item> </cindor-side-nav> ` }"
+        },
+        {
+          "kind": "variable",
+          "name": "Default",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "meta",
+            "module": "packages/core/src/components/side-nav/cindor-side-nav.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "packages/core/src/components/side-nav/cindor-side-nav.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/side-nav/cindor-side-nav.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Keyboard-accessible side navigation landmark with nested sections.\n\nUse direct child `cindor-side-nav-item` elements, optionally nesting them to\ncreate collapsible sections.",
+          "name": "CindorSideNav",
+          "slots": [
+            {
+              "description": "Direct child `cindor-side-nav-item` elements.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "itemObserver",
+              "privacy": "private",
+              "readonly": true,
+              "default": "new MutationObserver(() => { this.refreshItems(); })"
+            },
+            {
+              "kind": "field",
+              "name": "handleFocusIn",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleKeyDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleExpandKey",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "CindorSideNavItem"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleCollapseKey",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "CindorSideNavItem"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "focusItem",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "CindorSideNavItem"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "refreshItems",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "preferredItem",
+                  "optional": true,
+                  "type": {
+                    "text": "CindorSideNavItem | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "syncNavA11y",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "collectVisibleItems",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "CindorSideNavItem[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "root",
+                  "default": "this",
+                  "type": {
+                    "text": "ParentNode"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "parentItem",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "CindorSideNavItem | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "CindorSideNavItem"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "childItems",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "CindorSideNavItem[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "CindorSideNavItem"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "itemControl",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "HTMLAnchorElement | HTMLButtonElement | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "CindorSideNavItem"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "allItems",
+              "type": {
+                "text": "CindorSideNavItem[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "focusedItem",
+              "type": {
+                "text": "CindorSideNavItem | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "navElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "visibleItems",
+              "type": {
+                "text": "CindorSideNavItem[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorSideNav",
+          "declaration": {
+            "name": "CindorSideNav",
+            "module": "packages/core/src/components/side-nav/cindor-side-nav.ts"
           }
         }
       ]

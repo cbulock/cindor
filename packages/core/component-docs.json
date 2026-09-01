@@ -4371,6 +4371,12 @@
       "methods": [],
       "events": [
         {
+          "description": "Fired when a card is moved with drag and drop.",
+          "name": "card-move",
+          "type": "CustomEvent<KanbanBoardMoveDetail>",
+          "values": null
+        },
+        {
           "description": "Fired when a card action button is pressed.",
           "name": "card-action",
           "type": "CustomEvent<KanbanBoardActionDetail>",
