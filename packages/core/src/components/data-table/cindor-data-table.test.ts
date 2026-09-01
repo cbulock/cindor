@@ -305,6 +305,20 @@ describe("cindor-data-table", () => {
     expect(element.renderRoot.querySelector("cindor-pagination")).not.toBeNull();
   });
 
+  it("renders the pagination summary in the footer for searchable tables", async () => {
+    const element = await renderElement({
+      searchable: true,
+      pageSize: 2,
+      currentPage: 2
+    });
+
+    const toolbarSummary = element.renderRoot.querySelector('.toolbar [part="summary"]');
+    const footerSummary = element.renderRoot.querySelector('.footer [part="summary"]');
+
+    expect(toolbarSummary).toBeNull();
+    expect(footerSummary?.textContent).toContain("Showing 3-4 of 4");
+  });
+
   it("renders loading and empty states", async () => {
     const element = await renderElement({ loading: true, rows: [] });
 

@@ -658,7 +658,7 @@ export class CindorDataTable extends LitElement {
                   .value=${this.searchQuery}
                   @input=${this.handleSearchInput}
                 ></cindor-search>
-                <p class="summary" part="summary" aria-live="polite">${this.summaryText(filteredRows.length, visibleRows.length)}</p>
+                ${showPagination ? nothing : html`<p class="summary" part="summary" aria-live="polite">${this.summaryText(filteredRows.length, visibleRows.length)}</p>`}
               </div>
             `
           : nothing}
@@ -783,7 +783,7 @@ export class CindorDataTable extends LitElement {
         ${showPagination
           ? html`
               <div class="footer" part="footer">
-                ${this.searchable ? nothing : html`<p class="summary" part="summary" aria-live="polite">${this.summaryText(filteredRows.length, visibleRows.length)}</p>`}
+                <p class="summary" part="summary" aria-live="polite">${this.summaryText(filteredRows.length, visibleRows.length)}</p>
                 <cindor-pagination
                   part="pagination"
                   aria-label="Table pagination"
