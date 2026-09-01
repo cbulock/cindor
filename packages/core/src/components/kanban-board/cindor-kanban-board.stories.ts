@@ -66,10 +66,14 @@ const boardColumns = [
 const meta = {
   title: "Data/Kanban Board",
   render: () => `
+    <p>Drag cards to reorder them, or focus a card and use Control plus an arrow key.</p>
     <cindor-kanban-board id="storybook-kanban-board" selected-card-id="build-1"></cindor-kanban-board>
     <script type="module">
       const board = document.querySelector("#storybook-kanban-board");
       board.columns = ${JSON.stringify(boardColumns, null, 2)};
+      board.addEventListener("card-move", (event) => {
+        console.log("Card moved", event.detail);
+      });
     </script>
   `
 };

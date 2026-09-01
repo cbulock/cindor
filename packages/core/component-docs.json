@@ -4359,6 +4359,15 @@
           "values": null
         },
         {
+          "attributeName": "move-instructions",
+          "defaultValue": "\"Use Control plus arrow keys to reorder this card or move it between columns.\"",
+          "description": "Instructions associated with movable cards for keyboard users.",
+          "name": "moveInstructions",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
           "attributeName": "selected-card-id",
           "defaultValue": "\"\"",
           "description": "Current selected card identifier.",
@@ -4380,6 +4389,12 @@
           "description": "Fired when a card is selected.",
           "name": "select",
           "type": "CustomEvent<KanbanBoardSelectDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when a card is moved by drag and drop or keyboard.",
+          "name": "card-move",
+          "type": "CustomEvent<KanbanBoardMoveDetail>",
           "values": null
         }
       ],
