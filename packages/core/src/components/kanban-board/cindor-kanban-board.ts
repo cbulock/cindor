@@ -393,7 +393,14 @@ export class CindorKanbanBoard extends LitElement {
     const cardCountLabel = typeof column.limit === "number" ? `${column.cards.length}/${column.limit}` : `${column.cards.length}`;
 
     return html`
-      <section class="column" data-accent=${column.accent ?? "neutral"} data-column-id=${column.id} part="column">
+      <section
+        class="column"
+        data-accent=${column.accent ?? "neutral"}
+        data-column-id=${column.id}
+        part="column"
+        @dragover=${(event: DragEvent) => this.handleColumnDragOver(event, columnIndex)}
+        @drop=${(event: DragEvent) => this.handleDrop(event, columnIndex, column.cards.length)}
+      >
         <header class="column-header" part="column-header">
           <div class="column-copy">
             <div class="column-heading">
@@ -411,8 +418,6 @@ export class CindorKanbanBoard extends LitElement {
           part="column-cards"
           role="list"
           aria-label=${column.title}
-          @dragover=${(event: DragEvent) => this.handleColumnDragOver(event, columnIndex)}
-          @drop=${(event: DragEvent) => this.handleDrop(event, columnIndex, column.cards.length)}
         >
           ${column.cards.length > 0
             ? column.cards.map((card, cardIndex) => this.renderCard(column, card, columnIndex, cardIndex))
@@ -621,7 +626,7 @@ export class CindorKanbanBoard extends LitElement {
   }
 
   private handleCardDragOver(event: DragEvent, columnIndex: number, cardIndex: number): void {
-    if (!this.canDropInColumn(columnIndex)) {
+    if (!this.draggedCard || this.draggedCard.columnIndex !== columnIndex || !this.canDropInColumn(columnIndex)) {
       return;
     }
     event.preventDefault();
@@ -644,6 +649,9 @@ export class CindorKanbanBoard extends LitElement {
   }
 
   private handleCardDrop(event: DragEvent, columnIndex: number, cardIndex: number): void {
+    if (!this.draggedCard || this.draggedCard.columnIndex !== columnIndex) {
+      return;
+    }
     event.stopPropagation();
     this.handleDrop(event, columnIndex, cardIndex);
   }
