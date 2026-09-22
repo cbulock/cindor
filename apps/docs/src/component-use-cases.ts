@@ -485,6 +485,20 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
       description: "Reach for it when splitting date and time across separate controls would make the task harder to review."
     }
   ],
+  "date-time-range-picker": [
+    {
+      title: "Booking windows",
+      description: "Use it for appointments, reservations, and maintenance windows that need precise start and end times."
+    },
+    {
+      title: "Time-bounded reports",
+      description: "Place it in audit and analytics filters when date-only boundaries would be ambiguous."
+    },
+    {
+      title: "Scheduled operations",
+      description: "Reach for it when an operational action must be constrained to an ordered, validated time interval."
+    }
+  ],
   "date-input": [
     {
       title: "Lightweight date fields",

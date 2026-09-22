@@ -62,6 +62,7 @@ export const componentDependencySlugs: Record<string, string[]> = {
   "date-picker": ["calendar", "icon-button"],
   "date-range-picker": ["calendar", "icon", "icon-button"],
   "date-time-picker": ["date-picker", "time-input"],
+  "date-time-range-picker": ["date-picker", "time-input"],
   dialog: ["icon-button"],
   drawer: ["icon-button"],
   "dropdown-menu": ["menu"],

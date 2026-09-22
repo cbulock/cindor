@@ -2501,6 +2501,143 @@
       "tagName": "cindor-date-time-picker"
     },
     {
+      "className": "CindorDateTimeRangePicker",
+      "description": "A form-associated date and time range picker.\n\n`startValue`, `endValue`, `min`, and `max` use local ISO date-time strings\nsuch as `2026-04-28T09:30`. A completed range is always ordered from the\nearlier value to the later value after user interaction.",
+      "modulePath": "packages/core/src/components/date-time-range-picker/cindor-date-time-range-picker.ts",
+      "properties": [
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "end-value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "endValue",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "max",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "max",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "min",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "min",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "start-value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "startValue",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "",
+          "name": "type",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired as either endpoint changes.",
+          "name": "input",
+          "type": null,
+          "values": null
+        },
+        {
+          "description": "Fired when an endpoint change is committed.",
+          "name": "change",
+          "type": null,
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "cindor-date-time-range-picker"
+    },
+    {
       "className": "CindorDescriptionItem",
       "description": "Term-and-value pair used inside CindorDescriptionList.",
       "modulePath": "packages/core/src/components/description-item/cindor-description-item.ts",
