@@ -67,6 +67,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("date-picker", "Date Picker", "Component", "Forms", "field plus popup calendar", "Popup date field that reuses the shared calendar selection surface."),
   defineComponent("date-range-picker", "Date Range Picker", "Component", "Forms", "field plus popup range calendar", "Popup date range field for filters, reporting, and booking flows."),
   defineComponent("date-time-picker", "Date Time Picker", "Component", "Forms", "date field plus time field", "Combined date and time entry surface built from Cindor date and time inputs."),
+  defineComponent("date-time-range-picker", "Date Time Range Picker", "Component", "Forms", "paired date and time fields", "Accessible start and end date-time entry with ordering and boundary validation."),
   defineComponent("date-input", "Date Input", "Primitive", "Forms", "input type=date", "Native date field wrapped in the shared Cindor input shell."),
   defineComponent("description-item", "Description Item", "Primitive", "Display", "term and detail pair", "Single term-and-value pair used inside a description list."),
   defineComponent("description-list", "Description List", "Composite", "Display", "description list", "Key-value metadata display for settings and detail pages."),

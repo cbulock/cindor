@@ -26,6 +26,7 @@ import { CindorDataViewToolbar } from "./components/data-view-toolbar/cindor-dat
 import { CindorDatePicker } from "./components/date-picker/cindor-date-picker.js";
 import { CindorDateRangePicker } from "./components/date-range-picker/cindor-date-range-picker.js";
 import { CindorDateTimePicker } from "./components/date-time-picker/cindor-date-time-picker.js";
+import { CindorDateTimeRangePicker } from "./components/date-time-range-picker/cindor-date-time-range-picker.js";
 import { CindorDateInput } from "./components/date-input/cindor-date-input.js";
 import { CindorEventCalendar } from "./components/event-calendar/cindor-event-calendar.js";
 import { CindorDescriptionItem } from "./components/description-item/cindor-description-item.js";
@@ -159,6 +160,7 @@ const definitions = [
   ["cindor-date-picker", CindorDatePicker],
   ["cindor-date-range-picker", CindorDateRangePicker],
   ["cindor-date-time-picker", CindorDateTimePicker],
+  ["cindor-date-time-range-picker", CindorDateTimeRangePicker],
   ["cindor-event-calendar", CindorEventCalendar],
   ["cindor-number-input", CindorNumberInput],
   ["cindor-search", CindorSearch],

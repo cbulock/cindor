@@ -43,6 +43,7 @@ export {
 export { CindorDatePicker } from "./components/date-picker/cindor-date-picker.js";
 export { CindorDateRangePicker } from "./components/date-range-picker/cindor-date-range-picker.js";
 export { CindorDateTimePicker } from "./components/date-time-picker/cindor-date-time-picker.js";
+export { CindorDateTimeRangePicker } from "./components/date-time-range-picker/cindor-date-time-range-picker.js";
 export { CindorDateInput } from "./components/date-input/cindor-date-input.js";
 export {
   CindorEventCalendar,

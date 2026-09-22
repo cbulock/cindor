@@ -1753,6 +1753,42 @@ export const CindorDateTimePicker = defineComponent({
   }
 });
 
+export const CindorDateTimeRangePicker = defineComponent({
+  name: "CindorDateTimeRangePicker",
+  props: {
+    disabled: { type: Boolean, default: false },
+    endValue: { type: String, default: "" },
+    max: { type: String, default: "" },
+    min: { type: String, default: "" },
+    name: { type: String, default: "" },
+    required: { type: Boolean, default: false },
+    startValue: { type: String, default: "" }
+  },
+  emits: ["input", "change"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      emit("change", event);
+    };
+    return () =>
+          h("cindor-date-time-range-picker", {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              "end-value": props.endValue || undefined,
+              max: props.max || undefined,
+              min: props.min || undefined,
+              name: props.name || undefined,
+              required: props.required || undefined,
+              "start-value": props.startValue || undefined,
+              onInput: handleInput,
+              onChange: handleChange,
+          });
+  }
+});
+
 export const CindorListbox = defineComponent({
   name: "CindorListbox",
   props: {

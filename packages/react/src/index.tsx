@@ -56,6 +56,7 @@ import {
   CindorDatePicker as CindorDatePickerElement,
   CindorDateRangePicker as CindorDateRangePickerElement,
   CindorDateTimePicker as CindorDateTimePickerElement,
+  CindorDateTimeRangePicker as CindorDateTimeRangePickerElement,
   CindorListbox as CindorListboxElement,
   CindorDescriptionItem as CindorDescriptionItemElement,
   CindorDescriptionList as CindorDescriptionListElement,
@@ -529,6 +530,16 @@ export const CindorDateTimePicker = createComponent({
   react: React,
   tagName: "cindor-date-time-picker",
   elementClass: CindorDateTimePickerElement,
+  events: {
+    onChange: "change",
+    onInput: "input"
+  }
+});
+
+export const CindorDateTimeRangePicker = createComponent({
+  react: React,
+  tagName: "cindor-date-time-range-picker",
+  elementClass: CindorDateTimeRangePickerElement,
   events: {
     onChange: "change",
     onInput: "input"

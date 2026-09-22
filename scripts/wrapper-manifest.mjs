@@ -634,6 +634,19 @@ export const componentDefinitions = [
       str("timeValue", "", { attr: "time-value" })
     ]
   }),
+  component("CindorDateTimeRangePicker", "cindor-date-time-range-picker", {
+    reactEvents: ["change", "input"],
+    vueHandlers: [handler("input"), handler("change")],
+    vueProps: [
+      bool("disabled"),
+      str("endValue", "", { attr: "end-value" }),
+      str("max"),
+      str("min"),
+      str("name"),
+      bool("required"),
+      str("startValue", "", { attr: "start-value" })
+    ]
+  }),
   component("CindorListbox", "cindor-listbox", {
     slots: slots.default,
     vueProps: [num("activeIndex", -1), bool("multiselectable"), str("selectedValue")]
