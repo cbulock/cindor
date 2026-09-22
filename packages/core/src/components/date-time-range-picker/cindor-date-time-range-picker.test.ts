@@ -23,6 +23,10 @@ describe("cindor-date-time-range-picker", () => {
     expect(element.endValue).toBe("2026-04-28T10:00");
   });
 
+  it("keeps each endpoint label above its paired date and time controls", () => {
+    expect(CindorDateTimeRangePicker.styles.cssText).toContain(".endpoint-label {\n      grid-column: 1 / -1;");
+  });
+
   it("applies date-time min and max boundaries to date and time controls", async () => {
     const element = document.createElement("cindor-date-time-range-picker") as CindorDateTimeRangePicker;
     element.min = "2026-04-28T09:30";
