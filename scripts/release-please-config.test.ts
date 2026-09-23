@@ -48,6 +48,7 @@ describe("release-please workspace coverage", () => {
     expect(workflow).toContain('name: "autorelease: tagged"');
     expect(workflow).toContain("github.rest.issues.createLabel");
     expect(workflow).toContain('labels: ["autorelease: tagged"]');
+    expect(workflow).toContain('github-token: ${{ env.RELEASE_TRIGGER_TOKEN }}');
     expect(workflow.indexOf("Create GitHub release")).toBeLessThan(
       workflow.indexOf("Mark the Release Please pull request as tagged")
     );

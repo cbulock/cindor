@@ -141,7 +141,7 @@ jobs:
         env:
           RELEASE_PR_NUMBER: ${{ steps.release-pr.outputs.result }}
         with:
-          github-token: ${{ github.token }}
+          github-token: ${{ env.RELEASE_TRIGGER_TOKEN }}
           script: |
             const pullNumber = Number(process.env.RELEASE_PR_NUMBER);
 
