@@ -1,6 +1,6 @@
 {
   "name": "cindor-ui-docs",
-  "version": "0.1.85",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,6 +9,6 @@
     "preview": "vite preview --host"
   },
   "dependencies": {
-    "cindor-ui-core": "0.2.0"
+    "cindor-ui-core": "0.3.0"
   }
 }
