@@ -15,6 +15,8 @@ type RootManifest = {
 };
 
 type ReleasePleaseConfig = {
+  "skip-github-release"?: boolean;
+  "skip-changelog"?: boolean;
   packages: Record<string, unknown>;
   plugins: Array<{
     type?: string;
@@ -31,6 +33,24 @@ type WorkspacePackage = {
 };
 
 describe("release-please workspace coverage", () => {
+  it("keeps the external release workflow responsible for GitHub releases", () => {
+    const releasePleaseConfig = readJson<ReleasePleaseConfig>("release-please-config.json");
+
+    expect(releasePleaseConfig["skip-github-release"]).toBe(true);
+    expect(releasePleaseConfig["skip-changelog"]).toBe(true);
+  });
+
+  it("marks a completed Release Please pull request as tagged", () => {
+    const workflow = readFileSync(resolve(".github/workflows/create-release.yml"), "utf8");
+
+    expect(workflow).toContain("Find the merged Release Please pull request");
+    expect(workflow).toContain('name: "autorelease: pending"');
+    expect(workflow).toContain('labels: ["autorelease: tagged"]');
+    expect(workflow.indexOf("Create GitHub release")).toBeLessThan(
+      workflow.indexOf("Mark the Release Please pull request as tagged")
+    );
+  });
+
   it("tracks every workspace package that pins another workspace package by exact version", () => {
     const workspacePackages = getWorkspacePackages();
     const workspacePackageNames = new Set(workspacePackages.map(({ manifest }) => manifest.name));
