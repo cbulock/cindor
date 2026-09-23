@@ -47,6 +47,7 @@ export class CindorDateTimeRangePicker extends FormAssociatedElement {
     }
 
     .endpoint-label {
+      grid-column: 1 / -1;
       color: var(--fg-muted);
       font-size: var(--text-sm);
       font-weight: var(--weight-medium);

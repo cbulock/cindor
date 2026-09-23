@@ -2811,6 +2811,8 @@ function getUsageCode(doc: ComponentDoc): string {
       return `<cindor-date-range-picker month="2026-04" start-value="2026-04-12" end-value="2026-04-18"></cindor-date-range-picker>`;
     case "date-time-picker":
       return `<cindor-date-time-picker value="2026-04-28T09:30"></cindor-date-time-picker>`;
+    case "date-time-range-picker":
+      return `<cindor-date-time-range-picker aria-label="Booking window" start-value="2026-04-28T09:30" end-value="2026-04-28T17:00"></cindor-date-time-range-picker>`;
     case "date-input":
       return `<cindor-date-input value="2026-04-26"></cindor-date-input>`;
     case "description-item":
@@ -3575,6 +3577,8 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName} month="2026-04" startValue="2026-04-12" endValue="2026-04-18" />`;
     case "date-time-picker":
       return `<${componentName} value="2026-04-28T09:30" />`;
+    case "date-time-range-picker":
+      return `<${componentName} aria-label="Booking window" startValue="2026-04-28T09:30" endValue="2026-04-28T17:00" />`;
     case "description-item":
       return `<cindor-description-list>
       <${componentName}>
@@ -3945,6 +3949,8 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
       return `<${componentName} month="2026-04" start-value="2026-04-12" end-value="2026-04-18" />`;
     case "date-time-picker":
       return `<${componentName} value="2026-04-28T09:30" />`;
+    case "date-time-range-picker":
+      return `<${componentName} aria-label="Booking window" start-value="2026-04-28T09:30" end-value="2026-04-28T17:00" />`;
     case "description-item":
       return `<cindor-description-list>
     <${componentName}>
@@ -4231,6 +4237,7 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "date-picker":
     case "date-range-picker":
     case "date-time-picker":
+    case "date-time-range-picker":
     case "date-input":
     case "description-item":
     case "description-list":
