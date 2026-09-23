@@ -1,6 +1,6 @@
 {
-  "apps/docs": "0.1.85",
-  "packages/core": "0.2.0",
-  "packages/react": "0.2.0",
-  "packages/vue": "0.2.0"
+  "apps/docs": "0.2.0",
+  "packages/core": "0.3.0",
+  "packages/react": "0.3.0",
+  "packages/vue": "0.3.0"
 }
