@@ -16,6 +16,10 @@ describe("cindor-date-picker", () => {
     document.body.innerHTML = "";
   });
 
+  it("uses border-box sizing for the 44px field height shared with text controls", () => {
+    expect(CindorDatePicker.styles.cssText).toContain(".field {\n      box-sizing: border-box;");
+  });
+
   it(
     "opens the calendar and commits the selected date",
     async () => {
