@@ -145,6 +145,26 @@ jobs:
           script: |
             const pullNumber = Number(process.env.RELEASE_PR_NUMBER);
 
+            try {
+              await github.rest.issues.getLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: "autorelease: tagged"
+              });
+            } catch (error) {
+              if (error.status !== 404) {
+                throw error;
+              }
+
+              await github.rest.issues.createLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: "autorelease: tagged",
+                color: "0e8a16",
+                description: "Release Please release created"
+              });
+            }
+
             await github.rest.issues.removeLabel({
               owner: context.repo.owner,
               repo: context.repo.repo,
