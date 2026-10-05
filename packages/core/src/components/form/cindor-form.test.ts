@@ -1,8 +1,44 @@
 import "../../register.js";
 
 import { CindorForm } from "./cindor-form.js";
+import type { CindorOtpInput } from "../otp-input/cindor-otp-input.js";
 
 describe("cindor-form", () => {
+  it("honors aggregate OTP validity in checks, field errors and the summary", async () => {
+    const form = document.createElement("cindor-form") as CindorForm;
+    form.innerHTML = '<cindor-form-field label="Verification code"><cindor-otp-input required name="code"></cindor-otp-input></cindor-form-field>';
+    document.body.append(form); await form.updateComplete;
+    const otp = form.querySelector("cindor-otp-input") as CindorOtpInput;
+    const field = form.querySelector("cindor-form-field") as HTMLElement & { validationError: string };
+    // Simulate the browser's synchronous invalid dispatch from ElementInternals.
+    const check = vi.spyOn(otp, "checkValidity").mockImplementation(() => {
+      const valid = otp.validity.valid;
+      if (!valid) otp.dispatchEvent(new Event("invalid", { cancelable: true }));
+      return valid;
+    });
+    vi.spyOn(otp, "reportValidity").mockImplementation(() => otp.checkValidity());
+    try {
+      for (const [value, invalid, message] of [
+        ["", false, "Enter the code."],
+        ["123", false, "Enter all 6 characters."],
+        ["123456", true, "The code is invalid."],
+        ["123456", false, ""]
+      ] as const) {
+        otp.value = value; otp.invalid = invalid; await otp.updateComplete;
+        expect(otp.shadowRoot?.querySelector("input")?.validity.valid).toBe(true);
+        expect(otp.checkValidity()).toBe(!message);
+        expect(check).toHaveBeenCalledTimes(1);
+        check.mockClear();
+        expect(form.checkValidity()).toBe(!message);
+        expect(form.reportValidity()).toBe(!message);
+        check.mockClear();
+        await form.updateComplete;
+        expect(field.validationError).toBe(message);
+        if (message) expect(form.shadowRoot?.textContent).toContain("Verification code");
+        else expect(form.shadowRoot?.textContent).not.toContain("still need attention");
+      }
+    } finally { form.remove(); }
+  });
   it("projects validation into cindor-form-field messaging for direct children", async () => {
     const element = document.createElement("cindor-form") as CindorForm;
     element.innerHTML = `

@@ -966,6 +966,11 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
       description: "Reach for it when multiple higher-level choice components should share one option treatment."
     }
   ],
+  "otp-input": [
+    { title: "One-time verification", description: "Use a labelled form-field with description and error text. The application owns verification, expiry, resend and submission; complete never submits automatically." },
+    { title: "Keyboard and paste", description: "Tab enters once and exits the group. Arrows and Home/End move between cells; Backspace and Delete remove characters. Full-code paste replaces the code; shorter paste overwrites from the active character." },
+    { title: "Controlled and masked codes", description: "Set value as a property, including an empty string to clear silently. Numeric mode keeps ASCII digits and leading zeros; alphanumeric also keeps case-preserving ASCII letters. Invalid lengths fall back to six. Input fires per effective edit, complete includes detail.value for a new full code, and change commits on group exit or Enter. Masked conceals display only; avoid logging codes." }
+  ],
   "password-input": [
     {
       title: "Credential and secret entry",

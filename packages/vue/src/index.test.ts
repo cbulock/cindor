@@ -2,7 +2,7 @@ import { createApp, defineComponent, h, nextTick } from "vue";
 
 import type { App } from "vue";
 
-import { CindorDiffViewer, CindorSearchableDropdown, CindorAutocomplete, CindorBanner, CindorDataTable, CindorEventCalendar, CindorMultiSelect, CindorTransferList } from "./index";
+import { CindorOtpInput, CindorDiffViewer, CindorSearchableDropdown, CindorAutocomplete, CindorBanner, CindorDataTable, CindorEventCalendar, CindorMultiSelect, CindorTransferList } from "./index";
 
 describe("cindor-ui-vue", () => {
   let container: HTMLDivElement | null = null;
@@ -13,6 +13,25 @@ describe("cindor-ui-vue", () => {
     app = null;
     container?.remove();
     container = null;
+  });
+
+  it("passes controlled OTP values and emits all aggregate events", async () => {
+    const input = vi.fn(), change = vi.fn(), complete = vi.fn(), update = vi.fn();
+    const { ref } = await import("vue");
+    const value = ref("012345");
+    container = document.createElement("div"); document.body.append(container);
+    app = createApp(defineComponent({ setup: () => () => h(CindorOtpInput, {
+      modelValue: value.value, onInput: input, onChange: change, onComplete: complete, "onUpdate:modelValue": update
+    }) }));
+    app.mount(container);
+    const element = await queryElement<HTMLElement & { value: string }>("cindor-otp-input");
+    expect(element.value).toBe("012345"); expect(element.hasAttribute("value")).toBe(false);
+    value.value = ""; await nextTick(); expect(element.value).toBe("");
+    element.value = "123456";
+    element.dispatchEvent(new Event("input")); element.dispatchEvent(new Event("change"));
+    element.dispatchEvent(new CustomEvent("complete", { detail: { value: element.value } }));
+    expect(input).toHaveBeenCalledTimes(1); expect(change).toHaveBeenCalledTimes(1); expect(complete).toHaveBeenCalledTimes(1);
+    expect(update).toHaveBeenCalledWith("123456");
   });
 
   it("passes and updates structured diff hunks as properties", async () => {

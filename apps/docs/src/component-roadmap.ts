@@ -11,6 +11,7 @@ export type PlannedComponent = {
 };
 
 export const plannedComponents: PlannedComponent[] = [
+  { order: 101, phase: "Forms", rationale: "Authentication flows need accessible grouped code entry.", slug: "otp-input", status: "shipped", summary: "One-time code input with keyboard navigation, paste, masking and aggregate form integration.", title: "OTP input" },
   { order: 100, phase: "Selection", rationale: "Predefined options need search without freeform values.", slug: "searchable-dropdown", status: "shipped", summary: "Single selection with local filtering and keyboard navigation.", title: "Searchable dropdown" },
   {
     order: 1,

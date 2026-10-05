@@ -1,3 +1,4 @@
+import { CindorOtpInput } from "./components/otp-input/cindor-otp-input.js";
 import { CindorAccordion } from "./components/accordion/cindor-accordion.js";
 import { CindorAlert } from "./components/alert/cindor-alert.js";
 import { CindorActivityFeed } from "./components/activity-feed/cindor-activity-feed.js";
@@ -138,6 +139,7 @@ const definitions = [
   ["cindor-skeleton", CindorSkeleton],
   ["cindor-link", CindorLink],
   ["cindor-rating-input", CindorRatingInput],
+  ["cindor-otp-input", CindorOtpInput],
   ["cindor-fieldset", CindorFieldset],
   ["cindor-form", CindorForm],
   ["cindor-range", CindorRange],

@@ -184,6 +184,55 @@ async function warnIfDataTableRenderedEmpty(vnode: VNode | null | undefined, sta
   );
 }
 
+export const CindorOtpInput = defineComponent({
+  name: "CindorOtpInput",
+  props: {
+    length: { type: Number, default: 6 },
+    mode: { type: String, default: "numeric" },
+    modelValue: { type: String, default: "" },
+    name: { type: String, default: "" },
+    required: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
+    invalid: { type: Boolean, default: false },
+    masked: { type: Boolean, default: false }
+  },
+  emits: ["update:modelValue", "input", "change", "complete"],
+  setup(props, { attrs, emit }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("change", event);
+    };
+
+    const handleComplete = (event: Event) => {
+      emit("complete", event);
+    };
+    return () =>
+          h("cindor-otp-input", {
+              ...attrs,
+              length: props.length,
+              mode: props.mode,
+              ".value": props.modelValue,
+              name: props.name || undefined,
+              required: props.required || undefined,
+              disabled: props.disabled || undefined,
+              readonly: props.readonly || undefined,
+              invalid: props.invalid || undefined,
+              masked: props.masked || undefined,
+              onInput: handleInput,
+              onChange: handleChange,
+              onComplete: handleComplete,
+          });
+  }
+});
+
 export const CindorButton = defineComponent({
   name: "CindorButton",
   props: {

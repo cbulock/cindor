@@ -91,6 +91,7 @@ export const componentDependencySlugs: Record<string, string[]> = {
 };
 
 export const previewDependencySlugs: Record<string, string[]> = {
+  "otp-input": ["form-field"],
   "activity-feed": ["activity-item", "avatar"],
   "activity-item": ["activity-feed", "avatar"],
   "button-group": ["button"],

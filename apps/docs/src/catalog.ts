@@ -114,6 +114,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("number-input", "Number Input", "Primitive", "Forms", "input type=number", "Numeric field with the shared input shell."),
   defineComponent("option", "Option", "Primitive", "Selection", "option row", "Option primitive for listbox and combobox composition."),
   defineComponent("pagination", "Pagination", "Component", "Navigation", "button navigation", "Paged result navigation with current page state."),
+  defineComponent("otp-input", "OTP Input", "Composite", "Forms", "grouped native inputs", "Accessible one-time code entry with paste distribution and aggregate form value."),
   defineComponent("password-input", "Password Input", "Primitive", "Forms", "input type=password", "Password field with visibility toggle behavior."),
   defineComponent("page-header", "Page Header", "Composite", "Display", "header with metadata and actions", "Reusable title, metadata, and action layout for application pages."),
   defineComponent("panel-inspector", "Panel Inspector", "Composite", "Display", "details aside", "Reusable inspector or details panel for metadata, controls, and supplemental context."),
