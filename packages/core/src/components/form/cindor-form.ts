@@ -546,6 +546,12 @@ export class CindorForm extends LitElement {
       return true;
     }
 
+    // Custom controls own aggregate validity; a shadow input may represent
+    // only one part of the value and have no native constraints of its own.
+    if (!(control instanceof HTMLInputElement || control instanceof HTMLSelectElement || control instanceof HTMLTextAreaElement)) {
+      if (control.validity) return control.validity.valid;
+    }
+
     const validationTarget = this.getValidationTarget(control);
     if (validationTarget) {
       return validationTarget.validity.valid;

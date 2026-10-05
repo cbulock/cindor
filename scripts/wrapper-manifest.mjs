@@ -154,6 +154,13 @@ const checkedModelHandlers = [
 ];
 
 export const componentDefinitions = [
+  component("CindorOtpInput", "cindor-otp-input", {
+    reactEvents: ["input", "change", "complete"],
+    vueHandlers: [...textModelHandlers, handler("complete")],
+    vueProps: [num("length", 6), str("mode", "numeric", { alwaysPass: true }),
+      str("modelValue", "", { attr: "value", alwaysPass: true, forceProperty: true }),
+      str("name"), bool("required"), bool("disabled"), bool("readonly"), bool("invalid"), bool("masked")]
+  }),
   component("CindorButton", "cindor-button", {
     slots: slots.all,
     vueProps: [bool("disabled"), bool("iconOnly"), typed("type", "ButtonType", "button"), typed("variant", "ButtonVariant", "solid")]

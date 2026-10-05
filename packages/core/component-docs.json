@@ -5743,6 +5743,182 @@
       "tagName": "cindor-option"
     },
     {
+      "className": "CindorOtpInput",
+      "description": "A grouped, form-associated one-time code control. Verification belongs to the application.",
+      "modulePath": "packages/core/src/components/otp-input/cindor-otp-input.ts",
+      "properties": [
+        {
+          "attributeName": "length",
+          "defaultValue": "6",
+          "description": "Number of characters. Non-positive, non-integer and non-finite values fall back to six.",
+          "name": "length",
+          "reflects": true,
+          "type": "number",
+          "values": null
+        },
+        {
+          "attributeName": "mode",
+          "defaultValue": "\"numeric\"",
+          "description": "ASCII digits, or case-preserving ASCII letters and digits.",
+          "name": "mode",
+          "reflects": true,
+          "type": "\"numeric\" | \"alphanumeric\"",
+          "values": [
+            "numeric",
+            "alphanumeric"
+          ]
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "Aggregate code. Property changes are silent; live values are never reflected.",
+          "name": "value",
+          "reflects": false,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "readonly",
+          "defaultValue": "false",
+          "description": "",
+          "name": "readonly",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "invalid",
+          "defaultValue": "false",
+          "description": "Application-owned error state, e.g. a rejected verification code.",
+          "name": "invalid",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "masked",
+          "defaultValue": "false",
+          "description": "Conceals display with native password inputs; value and events still contain the code.",
+          "name": "masked",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": null,
+          "description": "Side-effect-free aggregate validity for form summaries.",
+          "name": "validity",
+          "reflects": false,
+          "type": "ValidityState",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": null,
+          "description": "",
+          "name": "validationMessage",
+          "reflects": false,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "An effective user edit changed the aggregate value.",
+          "name": "input",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "A user edit produced a new full code; detail.value contains the code.",
+          "name": "complete",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "An edited value was committed by Enter or focus leaving the group.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        }
+      ],
+      "slots": [],
+      "summary": "",
+      "tagName": "cindor-otp-input"
+    },
+    {
       "className": "CindorPageHeader",
       "description": "Reusable page header with breadcrumbs, metadata, and page-level actions.",
       "modulePath": "packages/core/src/components/page-header/cindor-page-header.ts",

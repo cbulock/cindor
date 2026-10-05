@@ -212,3 +212,5 @@ export { CindorToolbar, type ToolbarOrientation } from "./components/toolbar/cin
 export { CindorUrlInput } from "./components/url-input/cindor-url-input.js";
 
 export { CindorDiffViewer, type DiffViewerLine, type DiffViewerHunk, type DiffViewerMode } from "./components/diff-viewer/cindor-diff-viewer.js";
+
+export { CindorOtpInput } from "./components/otp-input/cindor-otp-input.js";

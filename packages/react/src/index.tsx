@@ -3,6 +3,7 @@ import * as React from "react";
 import { createComponent } from "@lit/react";
 
 import {
+  CindorOtpInput as CindorOtpInputElement,
   CindorButton as CindorButtonElement,
   CindorButtonGroup as CindorButtonGroupElement,
   CindorSplitButton as CindorSplitButtonElement,
@@ -125,6 +126,17 @@ import {
 } from "cindor-ui-core";
 export { clearToasts, dismissToast, ensureToastRegion, showToast } from "cindor-ui-core";
 import "cindor-ui-core/register";
+
+export const CindorOtpInput = createComponent({
+  react: React,
+  tagName: "cindor-otp-input",
+  elementClass: CindorOtpInputElement,
+  events: {
+    onInput: "input",
+    onChange: "change",
+    onComplete: "complete"
+  }
+});
 
 export const CindorButton = createComponent({
   react: React,

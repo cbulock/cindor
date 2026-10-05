@@ -1,0 +1,17 @@
+# OTP input review for Cameron
+
+The control submits one aggregate string through ElementInternals. Character inputs have no names. Numeric mode keeps ASCII digits and leading zeros; alphanumeric mode also keeps case-preserving ASCII letters. Positive integer lengths are supported, with six as the fallback for invalid lengths.
+
+The labelled group has one roving tab stop. Arrow keys and Home/End navigate; Tab exits. Typing replaces a character and advances inside the group. Deletion keeps the string contiguous. Whole-code paste and autofill replace from the beginning; shorter paste overwrites from the active position. IME normalization waits for composition completion.
+
+Property updates are silent. Effective edits emit input, followed by complete with detail.value when the resulting code is full. Enter or group exit commits change once. Completion and Enter do not submit the authentication form. Applications own verification, expiry, resend, error state, and submission. Masking uses password inputs and only conceals display; value and events still expose the code. Live codes are never reflected into a value attribute.
+
+Integration includes exports, registration, generated React/Vue wrappers and manifests, Storybook states and an interaction check, a form-field docs preview, usage guidance, relations, and a shipped roadmap entry. Manifest generation reordered unrelated existing entries; those entries were preserved while retaining the generated OTP modules.
+
+Validation: manifest and wrapper generation, focused unit tests, full unit tests (127 files, 470 tests), typecheck, lint, workspace build, and Storybook build were run successfully. Unit tests use a temporary directory inside this worktree because the default temporary directory is restricted. React runtime coverage selects the browser entry of @lit/react in jsdom, since its Node entry intentionally skips property-setting effects.
+
+The OTP Storybook browser test could not run: the sandbox rejected its local listening socket with EPERM. Actual Tab traversal, native form submission/validation, mobile OTP autofill, password masking, zoom, and screen-reader announcements still require real-browser and assistive-technology review. An independent review helper was requested but failed to initialize; independent review remains outstanding. No remote ancestry refresh was attempted because network access is prohibited. No commit, push, or PR was created.
+
+Repair validation: single-character beforeinput now replaces the active cell regardless of caret position; non-cancelable insertion falls back to InputEvent.data. Retyping the existing character advances without emitting unchanged-value events. Cindor form checks custom controls' aggregate validity before consulting shadow inputs, so required, incomplete and rejected OTP codes appear in field errors and the validation summary. Regression unit tests cover these paths, and the Storybook interaction now includes native typing with a collapsed selection and unchanged-character navigation.
+
+Checks run during repair: focused OTP/form tests (19 tests), full unit suite (127 files, 472 tests), typecheck, lint, and workspace build including manifest/wrapper generation all passed. Unrelated manifest modules and their ordering were preserved. Browser interaction and assistive-technology checks were not run during repair; the orchestrator must rerun its configured checks independently.

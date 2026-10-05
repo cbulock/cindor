@@ -33,6 +33,7 @@ function scoreRelatedComponent(source: ComponentDoc, candidate: ComponentDoc): n
     candidate.slug.startsWith(`${source.slug}-`);
 
   let score = 0;
+  if (source.slug === "otp-input" && ["form-field", "form", "password-input", "input"].includes(candidate.slug)) score += 150;
 
   if (source.category === candidate.category) {
     score += 24;

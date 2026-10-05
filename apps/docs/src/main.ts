@@ -3039,6 +3039,8 @@ function getUsageCode(doc: ComponentDoc): string {
 </cindor-listbox>`;
     case "pagination":
       return `<cindor-pagination current-page="3" total-pages="12"></cindor-pagination>`;
+    case "otp-input":
+      return `<cindor-form-field label="Verification code" description="Enter the six-digit code sent to your phone. Arrow keys move between characters."><cindor-otp-input name="code" required></cindor-otp-input></cindor-form-field>`;
     case "password-input":
       return `<cindor-password-input value="supersecret"></cindor-password-input>`;
     case "page-header":
@@ -4303,6 +4305,7 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "number-input":
     case "option":
     case "pagination":
+    case "otp-input":
     case "password-input":
     case "page-header":
     case "panel-inspector":
