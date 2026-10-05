@@ -70,6 +70,7 @@ import {
   CindorSplitter as CindorSplitterElement,
   CindorSplitterPanel as CindorSplitterPanelElement,
   CindorSegmentedControl as CindorSegmentedControlElement,
+  CindorSearchableDropdown as CindorSearchableDropdownElement,
   CindorCombobox as CindorComboboxElement,
   CindorDateInput as CindorDateInputElement,
   CindorTimeInput as CindorTimeInputElement,
@@ -641,6 +642,16 @@ export const CindorSegmentedControl = createComponent({
   react: React,
   tagName: "cindor-segmented-control",
   elementClass: CindorSegmentedControlElement,
+  events: {
+    onInput: "input",
+    onChange: "change"
+  }
+});
+
+export const CindorSearchableDropdown = createComponent({
+  react: React,
+  tagName: "cindor-searchable-dropdown",
+  elementClass: CindorSearchableDropdownElement,
   events: {
     onInput: "input",
     onChange: "change"

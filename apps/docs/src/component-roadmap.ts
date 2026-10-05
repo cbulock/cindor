@@ -11,6 +11,7 @@ export type PlannedComponent = {
 };
 
 export const plannedComponents: PlannedComponent[] = [
+  { order: 100, phase: "Selection", rationale: "Predefined options need search without freeform values.", slug: "searchable-dropdown", status: "shipped", summary: "Single selection with local filtering and keyboard navigation.", title: "Searchable dropdown" },
   {
     order: 1,
     phase: "Collection foundations",

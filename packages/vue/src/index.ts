@@ -2152,6 +2152,48 @@ export const CindorSegmentedControl = defineComponent({
   }
 });
 
+export const CindorSearchableDropdown = defineComponent({
+  name: "CindorSearchableDropdown",
+  props: {
+    disabled: { type: Boolean, default: false },
+    modelValue: { type: String, default: "" },
+    name: { type: String, default: "" },
+    placeholder: { type: String, default: "" },
+    required: { type: Boolean, default: false },
+    emptyMessage: { type: String, default: "No matching options" }
+  },
+  emits: ["update:modelValue", "input", "change"],
+  setup(props, { attrs, emit, slots }) {
+    const handleInput = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("input", event);
+    };
+
+    const handleChange = (event: Event) => {
+      const target = event.currentTarget as InputHost;
+      emit("update:modelValue", target.value);
+      emit("change", event);
+    };
+    return () =>
+          h(
+            "cindor-searchable-dropdown",
+            {
+              ...attrs,
+              disabled: props.disabled || undefined,
+              value: props.modelValue,
+              name: props.name || undefined,
+              placeholder: props.placeholder || undefined,
+              required: props.required || undefined,
+              "empty-message": props.emptyMessage || undefined,
+              onInput: handleInput,
+              onChange: handleChange,
+            },
+            slots.default?.()
+          );
+  }
+});
+
 export const CindorCombobox = defineComponent({
   name: "CindorCombobox",
   props: {

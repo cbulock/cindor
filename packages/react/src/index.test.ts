@@ -1,6 +1,12 @@
 import { readFileSync } from "node:fs";
 
 describe("cindor-ui-react generated entry", () => {
+  it("maps searchable dropdown committed events", () => {
+    const source = readFileSync("packages/react/src/index.tsx", "utf8");
+    const block = matchCreateComponentBlock(source, "CindorSearchableDropdown");
+    expect(block).toContain('onInput: "input"');
+    expect(block).toContain('onChange: "change"');
+  });
   it("wires command palette, autocomplete, and event calendar custom events", () => {
     const source = readFileSync("packages/react/src/index.tsx", "utf8");
     const commandPaletteBlock = matchCreateComponentBlock(source, "CindorCommandPalette");

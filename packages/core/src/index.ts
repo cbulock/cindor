@@ -24,6 +24,7 @@ export { CindorBreadcrumbs } from "./components/breadcrumbs/cindor-breadcrumbs.j
 export { CindorCodeBlock } from "./components/code-block/cindor-code-block.js";
 export { CindorColorInput } from "./components/color-input/cindor-color-input.js";
 export { CindorCombobox } from "./components/combobox/cindor-combobox.js";
+export { CindorSearchableDropdown } from "./components/searchable-dropdown/cindor-searchable-dropdown.js";
 export { CindorCommandBar } from "./components/command-bar/cindor-command-bar.js";
 export { CindorCommandPalette, type CommandPaletteCommand } from "./components/command-palette/cindor-command-palette.js";
 export { CindorContextMenu } from "./components/context-menu/cindor-context-menu.js";
