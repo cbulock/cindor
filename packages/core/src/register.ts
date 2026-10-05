@@ -54,6 +54,7 @@ import { CindorIcon } from "./components/icon/cindor-icon.js";
 import { CindorIconButton } from "./components/icon-button/cindor-icon-button.js";
 import { CindorInput } from "./components/input/cindor-input.js";
 import { CindorInlineEdit } from "./components/inline-edit/cindor-inline-edit.js";
+import { CindorDiffViewer } from "./components/diff-viewer/cindor-diff-viewer.js";
 import { CindorJsonViewer } from "./components/json-viewer/cindor-json-viewer.js";
 import { CindorMarkdownEditor } from "./components/markdown-editor/cindor-markdown-editor.js";
 import { CindorKanbanBoard } from "./components/kanban-board/cindor-kanban-board.js";
@@ -191,6 +192,7 @@ const definitions = [
   ["cindor-input", CindorInput],
   ["cindor-inline-edit", CindorInlineEdit],
   ["cindor-json-viewer", CindorJsonViewer],
+  ["cindor-diff-viewer", CindorDiffViewer],
   ["cindor-markdown-editor", CindorMarkdownEditor],
   ["cindor-kanban-board", CindorKanbanBoard],
   ["cindor-layout", CindorLayout],

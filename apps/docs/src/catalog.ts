@@ -94,6 +94,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("icon-button", "Icon Button", "Primitive", "Actions", "button plus icon", "Icon-only action button built from the core button surface."),
   defineComponent("input", "Input", "Primitive", "Forms", "input type=text", "Shared text input shell and the foundation for typed input variants."),
   defineComponent("inline-edit", "Inline Edit", "Component", "Forms", "editable text display", "Inline text editing surface for names, labels, and lightweight settings."),
+  defineComponent("diff-viewer", "Diff Viewer", "Component", "Display", "structured unified and split diffs", "Compare structured source changes with line numbers and accessible change markers."),
   defineComponent("json-viewer", "JSON Viewer", "Component", "Display", "collapsible structured payload inspection", "Collapsible JSON inspection surface for nested payloads, logs, and settings."),
   defineComponent("kanban-board", "Kanban Board", "Component", "Data", "board columns and cards", "Board-style planning surface for task and status workflows."),
   defineComponent("layout", "Layout", "Composite", "Display", "page section scaffold", "Page-level layout container that composes header and content regions with Cindor spacing."),

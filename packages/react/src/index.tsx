@@ -115,6 +115,7 @@ import {
   CindorTransferList as CindorTransferListElement,
   CindorSortableList as CindorSortableListElement,
   CindorVirtualList as CindorVirtualListElement,
+  CindorDiffViewer as CindorDiffViewerElement,
   CindorJsonViewer as CindorJsonViewerElement,
   CindorMarkdownEditor as CindorMarkdownEditorElement,
   CindorKanbanBoard as CindorKanbanBoardElement,
@@ -1032,6 +1033,12 @@ export const CindorVirtualList = createComponent({
   events: {
     onRangeChange: "range-change"
   }
+});
+
+export const CindorDiffViewer = createComponent({
+  react: React,
+  tagName: "cindor-diff-viewer",
+  elementClass: CindorDiffViewerElement
 });
 
 export const CindorJsonViewer = createComponent({

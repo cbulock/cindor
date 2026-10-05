@@ -2,7 +2,7 @@ import { createApp, defineComponent, h, nextTick } from "vue";
 
 import type { App } from "vue";
 
-import { CindorSearchableDropdown, CindorAutocomplete, CindorBanner, CindorDataTable, CindorEventCalendar, CindorMultiSelect, CindorTransferList } from "./index";
+import { CindorDiffViewer, CindorSearchableDropdown, CindorAutocomplete, CindorBanner, CindorDataTable, CindorEventCalendar, CindorMultiSelect, CindorTransferList } from "./index";
 
 describe("cindor-ui-vue", () => {
   let container: HTMLDivElement | null = null;
@@ -13,6 +13,22 @@ describe("cindor-ui-vue", () => {
     app = null;
     container?.remove();
     container = null;
+  });
+
+  it("passes and updates structured diff hunks as properties", async () => {
+    const hunks = [{ oldStart: 1, newStart: 1, lines: [{ type: "addition" as const, text: "first" }] }];
+    container = document.createElement("div");
+    document.body.append(container);
+    const { ref } = await import("vue");
+    const state = ref(hunks);
+    app = createApp(defineComponent({ setup: () => () => h(CindorDiffViewer, { hunks: state.value }) }));
+    app.mount(container);
+    const element = await queryElement<HTMLElement & { hunks: typeof hunks }>("cindor-diff-viewer");
+    expect(element.hunks).toEqual(hunks);
+    expect(element.hasAttribute("hunks")).toBe(false);
+    state.value = [{ oldStart: 2, newStart: 2, lines: [] }];
+    await nextTick();
+    expect(element.hunks[0].newStart).toBe(2);
   });
 
   it("maps searchable dropdown model updates to committed host values", async () => {

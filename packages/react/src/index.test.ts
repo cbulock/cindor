@@ -1,6 +1,13 @@
 import { readFileSync } from "node:fs";
 
 describe("cindor-ui-react generated entry", () => {
+  it("exports the diff viewer with its core element class", () => {
+    const source = readFileSync("packages/react/src/index.tsx", "utf8");
+    const block = matchCreateComponentBlock(source, "CindorDiffViewer");
+    expect(block).toContain('tagName: "cindor-diff-viewer"');
+    expect(block).toContain("elementClass: CindorDiffViewerElement");
+  });
+
   it("maps searchable dropdown committed events", () => {
     const source = readFileSync("packages/react/src/index.tsx", "utf8");
     const block = matchCreateComponentBlock(source, "CindorSearchableDropdown");

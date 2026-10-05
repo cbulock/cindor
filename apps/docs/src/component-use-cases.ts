@@ -121,6 +121,10 @@ const categoryDefaults: Record<ComponentDoc["category"], ComponentUseCase[]> = {
 };
 
 const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[]>> = {
+  "diff-viewer": [
+    { title: "Settings review", description: "Compare proposed configuration changes before applying them." },
+    { title: "Source comparison", description: "Show application-supplied logical lines in unified or split form with hunk offsets." }
+  ],
   accordion: [
     {
       title: "Dense settings and preferences",

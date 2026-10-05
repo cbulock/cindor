@@ -2156,6 +2156,17 @@ function hydrateComponentPage(slug: string): void {
     }
   }
 
+  if (slug === "diff-viewer") {
+    const viewer = root.querySelector<HTMLElement & { hunks: unknown; mode: string }>("#component-diff-viewer");
+    if (viewer) {
+      viewer.hunks = [{ oldStart: 1, newStart: 1, heading: "Settings", lines: [
+        { type: "context", text: "config = {" }, { type: "deletion", text: "  enabled: false" },
+        { type: "addition", text: "  enabled: true" }, { type: "context", text: "}" }
+      ] }];
+      const select = root.querySelector<HTMLSelectElement>("#diff-viewer-mode");
+      select?.addEventListener("change", () => { viewer.mode = select.value; });
+    }
+  }
   if (slug === "json-viewer") {
     const viewer = root.querySelector<JsonViewerHost>('[data-component-preview="json-viewer"] #component-json-viewer');
     if (viewer) {
@@ -3178,6 +3189,13 @@ function getUsageCode(doc: ComponentDoc): string {
 </script>`;
     case "virtual-list":
       return `<cindor-virtual-list id="component-virtual-list" height="20rem" item-height="72"></cindor-virtual-list>`;
+    case "diff-viewer":
+      return `<cindor-diff-viewer id="diff-example" label="Settings changes"></cindor-diff-viewer>
+<script type="module">
+  document.querySelector('#diff-example').hunks = [{ oldStart: 1, newStart: 1, lines: [
+    { type: 'deletion', text: 'enabled: false' }, { type: 'addition', text: 'enabled: true' }
+  ] }];
+</script>`;
     case "json-viewer":
       return `<cindor-json-viewer id="component-json-viewer" root-label="Deploy payload" expanded-depth="2"></cindor-json-viewer>
 <script type="module">
@@ -3777,6 +3795,8 @@ function getReactUsageMarkup(doc: ComponentDoc, componentName: string): string {
         { id: "3", label: "Rotate incident owner", description: "Hand off the current incident queue to the next responder.", meta: "Today" }
       ]}
     />`;
+    case "diff-viewer":
+      return `<${componentName} mode="split" label="Settings changes" hunks={[{ oldStart: 1, newStart: 1, lines: [{ type: 'deletion', text: 'enabled: false' }, { type: 'addition', text: 'enabled: true' }] }]} />`;
     case "json-viewer":
       return `<${componentName}
       rootLabel="Deploy payload"
@@ -4155,6 +4175,8 @@ function getVueUsageMarkup(doc: ComponentDoc, componentName: string): string {
       { id: '3', label: 'Rotate incident owner', description: 'Hand off the current incident queue to the next responder.', meta: 'Today' }
     ]"
   />`;
+    case "diff-viewer":
+      return `<${componentName} mode="split" label="Settings changes" :hunks="[{ oldStart: 1, newStart: 1, lines: [{ type: 'deletion', text: 'enabled: false' }, { type: 'addition', text: 'enabled: true' }] }]" />`;
     case "json-viewer":
       return `<${componentName}
     root-label="Deploy payload"
@@ -4317,6 +4339,8 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
       return doc.slug === "filter-builder" ? `<cindor-filter-builder id="filter-builder-preview"></cindor-filter-builder>` : getUsageCode(doc);
     case "virtual-list":
       return `<cindor-virtual-list id="component-virtual-list" height="20rem" item-height="72"></cindor-virtual-list>`;
+    case "diff-viewer":
+      return `<label>Layout <select id="diff-viewer-mode"><option value="unified">Unified</option><option value="split">Split</option></select></label><cindor-diff-viewer id="component-diff-viewer" label="Settings changes"></cindor-diff-viewer><p>Assign structured hunks as a property. Each entry is one logical line; replace the array to update. Split view pairs changes within contiguous blocks. This display-only viewer renders all lines without parsing, editing, syntax highlighting, or virtualization.</p>`;
     case "json-viewer":
       return `<cindor-json-viewer id="component-json-viewer" root-label="Deploy payload" expanded-depth="2"></cindor-json-viewer>`;
     case "markdown-editor":
