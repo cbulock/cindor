@@ -317,6 +317,7 @@ const componentOverrides: Partial<Record<ComponentDoc["slug"], ComponentUseCase[
       description: "Reach for it when freeform hex entry would slow down a mostly visual choice."
     }
   ],
+  "searchable-dropdown": [{ title: "Select from a long list", description: "Use for predefined roles or owners. Unlike select, options can be filtered; unlike freeform combobox and autocomplete, typing never commits a new value." }],
   combobox: [
     {
       title: "Searchable single selection",

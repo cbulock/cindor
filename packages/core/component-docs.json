@@ -6635,6 +6635,151 @@
       "tagName": "cindor-search"
     },
     {
+      "className": "CindorSearchableDropdown",
+      "description": "Searchable single selection from predefined options. Search text never changes value.",
+      "modulePath": "packages/core/src/components/searchable-dropdown/cindor-searchable-dropdown.ts",
+      "properties": [
+        {
+          "attributeName": "empty-message",
+          "defaultValue": "\"No matching options\"",
+          "description": "",
+          "name": "emptyMessage",
+          "reflects": false,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "disabled",
+          "defaultValue": "false",
+          "description": "",
+          "name": "disabled",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "name",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "name",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "open",
+          "defaultValue": "false",
+          "description": "",
+          "name": "open",
+          "reflects": false,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "placeholder",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "placeholder",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "required",
+          "defaultValue": "false",
+          "description": "",
+          "name": "required",
+          "reflects": true,
+          "type": "boolean",
+          "values": null
+        },
+        {
+          "attributeName": "value",
+          "defaultValue": "\"\"",
+          "description": "",
+          "name": "value",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": null,
+          "description": "",
+          "name": "selectedLabel",
+          "reflects": false,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [
+        {
+          "description": "",
+          "name": "checkValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "focus",
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": "FocusOptions"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "reportValidity",
+          "parameters": [],
+          "returnType": "boolean"
+        },
+        {
+          "description": "",
+          "name": "formDisabledCallback",
+          "parameters": [
+            {
+              "name": "disabled",
+              "optional": false,
+              "type": "boolean"
+            }
+          ],
+          "returnType": "void"
+        },
+        {
+          "description": "",
+          "name": "formResetCallback",
+          "parameters": [],
+          "returnType": "void"
+        }
+      ],
+      "events": [
+        {
+          "description": "A different option was committed by the user; precedes change.",
+          "name": "input",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "A different option was committed by the user.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        }
+      ],
+      "slots": [
+        {
+          "description": "Direct native option or cindor-option children with unique values.",
+          "name": "default"
+        }
+      ],
+      "summary": "",
+      "tagName": "cindor-searchable-dropdown"
+    },
+    {
       "className": "CindorSegmentedControl",
       "description": "",
       "modulePath": "packages/core/src/components/segmented-control/cindor-segmented-control.ts",

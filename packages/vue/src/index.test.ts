@@ -2,7 +2,7 @@ import { createApp, defineComponent, h, nextTick } from "vue";
 
 import type { App } from "vue";
 
-import { CindorAutocomplete, CindorBanner, CindorDataTable, CindorEventCalendar, CindorMultiSelect, CindorTransferList } from "./index";
+import { CindorSearchableDropdown, CindorAutocomplete, CindorBanner, CindorDataTable, CindorEventCalendar, CindorMultiSelect, CindorTransferList } from "./index";
 
 describe("cindor-ui-vue", () => {
   let container: HTMLDivElement | null = null;
@@ -13,6 +13,16 @@ describe("cindor-ui-vue", () => {
     app = null;
     container?.remove();
     container = null;
+  });
+
+  it("maps searchable dropdown model updates to committed host values", async () => {
+    const onModelUpdate = vi.fn();
+    mount((modelValue) => h(CindorSearchableDropdown, { modelValue, "onUpdate:modelValue": onModelUpdate }));
+    const element = await queryElement<HTMLElement & { value: string }>("cindor-searchable-dropdown");
+    element.value = "committed";
+    element.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    await nextTick();
+    expect(onModelUpdate).toHaveBeenCalledWith("committed");
   });
 
   it("preserves structured props and emits update:modelValue from autocomplete", async () => {

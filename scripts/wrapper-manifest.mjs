@@ -754,6 +754,12 @@ export const componentDefinitions = [
     vueHandlers: textModelHandlers,
     vueProps: [bool("disabled"), str("modelValue", "", { attr: "value", alwaysPass: true }), str("name"), arr("options", "SegmentedControlOption[]"), bool("required")]
   }),
+  component("CindorSearchableDropdown", "cindor-searchable-dropdown", {
+    reactEvents: ["input", "change"],
+    slots: slots.default,
+    vueHandlers: textModelHandlers,
+    vueProps: [bool("disabled"), str("modelValue", "", { attr: "value", alwaysPass: true }), str("name"), str("placeholder"), bool("required"), str("emptyMessage", "No matching options", { attr: "empty-message" })]
+  }),
   component("CindorCombobox", "cindor-combobox", {
     slots: slots.default,
     vueHandlers: textModelHandlers,

@@ -17,6 +17,7 @@ import { CindorCodeBlock } from "./components/code-block/cindor-code-block.js";
 import { CindorCoachmarkTour } from "./components/coachmark-tour/cindor-coachmark-tour.js";
 import { CindorColorInput } from "./components/color-input/cindor-color-input.js";
 import { CindorCombobox } from "./components/combobox/cindor-combobox.js";
+import { CindorSearchableDropdown } from "./components/searchable-dropdown/cindor-searchable-dropdown.js";
 import { CindorCommandBar } from "./components/command-bar/cindor-command-bar.js";
 import { CindorCommandPalette } from "./components/command-palette/cindor-command-palette.js";
 import { CindorContextMenu } from "./components/context-menu/cindor-context-menu.js";
@@ -165,6 +166,7 @@ const definitions = [
   ["cindor-number-input", CindorNumberInput],
   ["cindor-search", CindorSearch],
   ["cindor-combobox", CindorCombobox],
+  ["cindor-searchable-dropdown", CindorSearchableDropdown],
   ["cindor-data-table", CindorDataTable],
   ["cindor-data-view-toolbar", CindorDataViewToolbar],
   ["cindor-date-input", CindorDateInput],

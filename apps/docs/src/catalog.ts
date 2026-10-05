@@ -56,6 +56,7 @@ export const componentCatalog: ComponentDoc[] = [
   defineComponent("code-block", "Code Block", "Component", "Display", "pre and code", "Syntax-highlighted code presentation with optional language hints."),
   defineComponent("coachmark-tour", "Coachmark Tour", "Component", "Overlays", "anchored spotlight overlay", "Guided onboarding overlay for stepping through anchored product hints."),
   defineComponent("color-input", "Color Input", "Primitive", "Forms", "input type=color", "Native color picker wrapped in Cindor styling."),
+  defineComponent("searchable-dropdown", "Searchable Dropdown", "Component", "Selection", "searchable select", "Filter predefined options while keeping the committed value separate from search text."),
   defineComponent("combobox", "Combobox", "Component", "Selection", "input plus listbox", "Searchable option picker built from input, listbox, and option primitives."),
   defineComponent("command-bar", "Command Bar", "Composite", "Actions", "summary region plus actions", "Persistent contextual action bar for bulk edits and page-level commands."),
   defineComponent("command-palette", "Command Palette", "Component", "Overlays", "dialog plus search and listbox", "Search-first action launcher for keyboard-driven workflows."),

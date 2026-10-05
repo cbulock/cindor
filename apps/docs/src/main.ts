@@ -2668,6 +2668,12 @@ function getUsageCode(doc: ComponentDoc): string {
       return `<cindor-code-block code="const ready = true;" language="ts"></cindor-code-block>`;
     case "color-input":
       return `<cindor-color-input value="#4f46e5"></cindor-color-input>`;
+    case "searchable-dropdown":
+      return `<cindor-searchable-dropdown aria-label="Role" placeholder="Choose a role">
+  <option value="designer">Designer</option>
+  <option value="engineer">Engineer</option>
+  <option value="pm">Product manager</option>
+</cindor-searchable-dropdown>`;
     case "combobox":
       return `<cindor-combobox placeholder="Choose a role">
   <option value="designer">Designer</option>
@@ -4231,6 +4237,7 @@ function getPreviewMarkup(doc: ComponentDoc): string | null {
     case "code-block":
     case "color-input":
     case "combobox":
+    case "searchable-dropdown":
     case "command-bar":
     case "autocomplete":
     case "data-view-toolbar":
@@ -4804,6 +4811,26 @@ function getLegacyComponentApi(doc: ComponentDoc): ComponentApiSurface {
           compositionGroup([])
         ],
         intro: `${doc.tag} is configured through code and language properties rather than slotted children.`
+      };
+    case "searchable-dropdown":
+      return {
+        groups: [
+          propertyGroup([
+            apiItem("selectedLabel", "Read-only selected option label.", { type: "string" }),
+            apiItem("empty-message", "Announced when there are no results.", { type: "string" }),
+            apiItem("required", "Requires a committed option selection.", { type: "boolean" }),
+            apiItem("name", "Form field name.", { type: "string" }),
+            apiItem("value", "Committed option value; search text is separate.", { defaultValue: `""`, type: "string" }),
+            apiItem("placeholder", "Placeholder text shown before selection.", { defaultValue: `""`, type: "string" }),
+            apiItem("disabled", "Disables user interaction.", { defaultValue: "false", type: "boolean" })
+          ]),
+          eventGroup([
+            apiItem("input", "Fires before change only when a user commits a different option.", { type: "Event" }),
+            apiItem("change", "Fires when a selection is committed.", { type: "Event" })
+          ]),
+          compositionGroup([apiItem("default slot", "Provide native <option> or <cindor-option> children for the available choices.", { type: "slot" })])
+        ],
+        intro: `${doc.tag} behaves like a searchable value picker: no freeform values. Escape restores the selected label. Use select for short lists and combobox or autocomplete for freeform input.`
       };
     case "combobox":
       return {
