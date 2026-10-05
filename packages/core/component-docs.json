@@ -2746,6 +2746,84 @@
       "tagName": "cindor-dialog"
     },
     {
+      "className": "CindorDiffViewer",
+      "description": "Structured, display-only diff with unified and split layouts.\nEach entry represents one logical line. Replace the hunks array to trigger updates.\nSplit mode pairs changes within each contiguous block, never across context lines.\nAll lines are rendered; parsing, editing, highlighting and virtualization are application concerns.",
+      "modulePath": "packages/core/src/components/diff-viewer/cindor-diff-viewer.ts",
+      "properties": [
+        {
+          "attributeName": null,
+          "defaultValue": "[]",
+          "description": "",
+          "name": "hunks",
+          "reflects": false,
+          "type": "DiffViewerHunk[]",
+          "values": null
+        },
+        {
+          "attributeName": "mode",
+          "defaultValue": "\"unified\"",
+          "description": "",
+          "name": "mode",
+          "reflects": true,
+          "type": "\"unified\" | \"split\"",
+          "values": [
+            "unified",
+            "split"
+          ]
+        },
+        {
+          "attributeName": "label",
+          "defaultValue": "\"Diff\"",
+          "description": "",
+          "name": "label",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "old-label",
+          "defaultValue": "\"Before\"",
+          "description": "",
+          "name": "oldLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "new-label",
+          "defaultValue": "\"After\"",
+          "description": "",
+          "name": "newLabel",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "empty-message",
+          "defaultValue": "\"No diff to display.\"",
+          "description": "",
+          "name": "emptyMessage",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": "invalid-message",
+          "defaultValue": "\"Unable to display diff.\"",
+          "description": "",
+          "name": "invalidMessage",
+          "reflects": true,
+          "type": "string",
+          "values": null
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "slots": [],
+      "summary": "Accessible structured diff presentation.",
+      "tagName": "cindor-diff-viewer"
+    },
+    {
       "className": "CindorDivider",
       "description": "",
       "modulePath": "packages/core/src/components/divider/cindor-divider.ts",

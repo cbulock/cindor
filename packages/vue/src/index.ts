@@ -15,6 +15,8 @@ import type {
   DataTableColumn,
   DataTableRow,
   DataTableSortDirection,
+  DiffViewerHunk,
+  DiffViewerMode,
   EventCalendarEvent,
   FieldArrayCreateItem,
   FieldArrayItemRenderer,
@@ -3548,6 +3550,32 @@ export const CindorVirtualList = defineComponent({
               overscan: props.overscan,
               ".renderItem": props.renderItem,
               onRangeChange: handleRangeChange,
+          });
+  }
+});
+
+export const CindorDiffViewer = defineComponent({
+  name: "CindorDiffViewer",
+  props: {
+    hunks: { type: Array as PropType<DiffViewerHunk[]>, default: () => [] },
+    mode: { type: String as PropType<DiffViewerMode>, default: "unified" },
+    label: { type: String, default: "Diff" },
+    oldLabel: { type: String, default: "Before" },
+    newLabel: { type: String, default: "After" },
+    emptyMessage: { type: String, default: "No diff to display." },
+    invalidMessage: { type: String, default: "Unable to display diff." }
+  },
+  setup(props, { attrs }) {
+    return () =>
+          h("cindor-diff-viewer", {
+              ...attrs,
+              ".hunks": props.hunks,
+              mode: props.mode,
+              label: props.label,
+              "old-label": props.oldLabel,
+              "new-label": props.newLabel,
+              "empty-message": props.emptyMessage,
+              "invalid-message": props.invalidMessage,
           });
   }
 });

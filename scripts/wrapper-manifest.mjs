@@ -1100,6 +1100,14 @@ export const componentDefinitions = [
       func("renderItem", "VirtualListItemRenderer<unknown> | undefined")
     ]
   }),
+  component("CindorDiffViewer", "cindor-diff-viewer", {
+    vueProps: [arr("hunks", "DiffViewerHunk[]"), typed("mode", "DiffViewerMode", "unified"),
+      str("label", "Diff", { alwaysPass: true }),
+      str("oldLabel", "Before", { attr: "old-label", alwaysPass: true }),
+      str("newLabel", "After", { attr: "new-label", alwaysPass: true }),
+      str("emptyMessage", "No diff to display.", { attr: "empty-message", alwaysPass: true }),
+      str("invalidMessage", "Unable to display diff.", { attr: "invalid-message", alwaysPass: true })]
+  }),
   component("CindorJsonViewer", "cindor-json-viewer", {
     vueProps: [
       obj("data", "JsonViewerValue | Record<string, unknown> | unknown[] | undefined", { defaultFactory: "() => undefined" }),

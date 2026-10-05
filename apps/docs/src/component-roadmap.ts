@@ -67,6 +67,15 @@ export const plannedComponents: PlannedComponent[] = [
     title: "Workspace switcher"
   },
   {
+    order: 7.5,
+    phase: "Workspace and authoring",
+    rationale: "Application settings and source review need readable comparisons.",
+    slug: "diff-viewer",
+    status: "shipped",
+    summary: "Display structured hunks in unified or split layouts with accessible change markers.",
+    title: "Diff viewer"
+  },
+  {
     order: 7,
     phase: "Workspace and authoring",
     rationale: "Admin and product tooling constantly needs to inspect structured payloads, and a plain code block is not enough for that job.",

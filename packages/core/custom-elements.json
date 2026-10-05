@@ -15124,7 +15124,7 @@
               "type": {
                 "text": "string"
               },
-              "default": "\"Submitting…\"",
+              "default": "\"Submitting\u2026\"",
               "attribute": "submitting-label",
               "reflects": true
             },
@@ -15765,7 +15765,7 @@
               "type": {
                 "text": "string"
               },
-              "default": "\"Submitting…\"",
+              "default": "\"Submitting\u2026\"",
               "fieldName": "submittingLabel"
             },
             {
@@ -22097,7 +22097,7 @@
           "type": {
             "text": "object"
           },
-          "default": "{ title: \"Feedback/Notification Center\", args: { totalCount: 12, unreadCount: 3 }, argTypes: { totalCount: { control: { type: \"number\", min: 0, step: 1 } }, unreadCount: { control: { type: \"number\", min: 0, step: 1 } } }, render: ({ totalCount, unreadCount }: NotificationCenterStoryArgs) => ` <cindor-notification-center eyebrow=\"Activity inbox\" title=\"Notifications\" description=\"Durable product updates, approvals, and teammate changes that should remain visible until reviewed.\" total-count=\"${totalCount}\" unread-count=\"${unreadCount}\" > <cindor-badge slot=\"meta\" tone=\"accent\">Workspace: Platform</cindor-badge> <cindor-button slot=\"actions\" variant=\"ghost\">Mark all read</cindor-button> <cindor-button slot=\"actions\">Open inbox settings</cindor-button> <div slot=\"filters\"> <cindor-button variant=\"ghost\">All</cindor-button> <cindor-button variant=\"ghost\">Unread</cindor-button> <cindor-button variant=\"ghost\">Mentions</cindor-button> </div> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Design Ops\"></cindor-avatar> <span slot=\"title\">Comment on review request</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">@maria • Button refresh</span> Updated spacing guidance on the destructive action variant before handoff. </cindor-activity-item> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Build Bot\"></cindor-avatar> <span slot=\"title\">Deployment blocked</span> <span slot=\"timestamp\">12 minutes ago</span> <span slot=\"meta\">Production • Release 0.1.85</span> Smoke tests failed in checkout flow and require a manual retry before rollout can continue. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"Support\"></cindor-avatar> <span slot=\"title\">Customer escalation resolved</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Priority inbox</span> Billing access was restored and the account owner confirmed the fix. </cindor-activity-item> <div slot=\"footer\">Last synced just now across web, desktop, and mobile.</div> <cindor-button slot=\"footer\" variant=\"ghost\">View all activity</cindor-button> </cindor-notification-center> ` }"
+          "default": "{ title: \"Feedback/Notification Center\", args: { totalCount: 12, unreadCount: 3 }, argTypes: { totalCount: { control: { type: \"number\", min: 0, step: 1 } }, unreadCount: { control: { type: \"number\", min: 0, step: 1 } } }, render: ({ totalCount, unreadCount }: NotificationCenterStoryArgs) => ` <cindor-notification-center eyebrow=\"Activity inbox\" title=\"Notifications\" description=\"Durable product updates, approvals, and teammate changes that should remain visible until reviewed.\" total-count=\"${totalCount}\" unread-count=\"${unreadCount}\" > <cindor-badge slot=\"meta\" tone=\"accent\">Workspace: Platform</cindor-badge> <cindor-button slot=\"actions\" variant=\"ghost\">Mark all read</cindor-button> <cindor-button slot=\"actions\">Open inbox settings</cindor-button> <div slot=\"filters\"> <cindor-button variant=\"ghost\">All</cindor-button> <cindor-button variant=\"ghost\">Unread</cindor-button> <cindor-button variant=\"ghost\">Mentions</cindor-button> </div> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Design Ops\"></cindor-avatar> <span slot=\"title\">Comment on review request</span> <span slot=\"timestamp\">2 minutes ago</span> <span slot=\"meta\">@maria \u2022 Button refresh</span> Updated spacing guidance on the destructive action variant before handoff. </cindor-activity-item> <cindor-activity-item unread> <cindor-avatar slot=\"leading\" name=\"Build Bot\"></cindor-avatar> <span slot=\"title\">Deployment blocked</span> <span slot=\"timestamp\">12 minutes ago</span> <span slot=\"meta\">Production \u2022 Release 0.1.85</span> Smoke tests failed in checkout flow and require a manual retry before rollout can continue. </cindor-activity-item> <cindor-activity-item> <cindor-avatar slot=\"leading\" name=\"Support\"></cindor-avatar> <span slot=\"title\">Customer escalation resolved</span> <span slot=\"timestamp\">Yesterday</span> <span slot=\"meta\">Priority inbox</span> Billing access was restored and the account owner confirmed the fix. </cindor-activity-item> <div slot=\"footer\">Last synced just now across web, desktop, and mobile.</div> <cindor-button slot=\"footer\" variant=\"ghost\">View all activity</cindor-button> </cindor-notification-center> ` }"
         },
         {
           "kind": "variable",
@@ -27575,6 +27575,14 @@
               },
               "privacy": "private",
               "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "initialValueAttribute",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "privacy": "private"
             },
             {
               "kind": "field",
@@ -39780,6 +39788,378 @@
           "declaration": {
             "name": "CindorWorkspaceSwitcher",
             "module": "packages/core/src/components/workspace-switcher/cindor-workspace-switcher.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/diff-viewer/cindor-diff-viewer.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Unified",
+          "type": {
+            "text": "object"
+          },
+          "default": "{}"
+        },
+        {
+          "kind": "variable",
+          "name": "Split",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ render: () => render(sample, true) }"
+        },
+        {
+          "kind": "variable",
+          "name": "Empty",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ render: () => render([]) }"
+        },
+        {
+          "kind": "variable",
+          "name": "MultipleHunks",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ render: () => render([...sample, { ...sample[0], oldStart: 50, newStart: 51 }]) }"
+        },
+        {
+          "kind": "variable",
+          "name": "UnequalReplacement",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ render: () => render(sample, true) }"
+        },
+        {
+          "kind": "variable",
+          "name": "InsertionAndDeletion",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ render: () => render([ { oldStart: 0, newStart: 1, lines: [{ type: \"addition\", text: \"new file\" }] }, { oldStart: 1, newStart: 0, lines: [{ type: \"deletion\", text: \"removed file\" }] } ], true) }"
+        },
+        {
+          "kind": "variable",
+          "name": "Whitespace",
+          "type": {
+            "text": "object"
+          },
+          "default": "{ render: () => render([{ oldStart: 1, newStart: 1, lines: [ { type: \"context\", text: \"\" }, { type: \"deletion\", text: \"\\t trailing \" }, { type: \"addition\", text: \" \" + \"long source text \".repeat(30) } ] }], true) }"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "packages/core/src/components/diff-viewer/cindor-diff-viewer.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Unified",
+          "declaration": {
+            "name": "Unified",
+            "module": "packages/core/src/components/diff-viewer/cindor-diff-viewer.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Split",
+          "declaration": {
+            "name": "Split",
+            "module": "packages/core/src/components/diff-viewer/cindor-diff-viewer.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Empty",
+          "declaration": {
+            "name": "Empty",
+            "module": "packages/core/src/components/diff-viewer/cindor-diff-viewer.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MultipleHunks",
+          "declaration": {
+            "name": "MultipleHunks",
+            "module": "packages/core/src/components/diff-viewer/cindor-diff-viewer.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "UnequalReplacement",
+          "declaration": {
+            "name": "UnequalReplacement",
+            "module": "packages/core/src/components/diff-viewer/cindor-diff-viewer.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "InsertionAndDeletion",
+          "declaration": {
+            "name": "InsertionAndDeletion",
+            "module": "packages/core/src/components/diff-viewer/cindor-diff-viewer.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Whitespace",
+          "declaration": {
+            "name": "Whitespace",
+            "module": "packages/core/src/components/diff-viewer/cindor-diff-viewer.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "packages/core/src/components/diff-viewer/cindor-diff-viewer.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Structured, display-only diff with unified and split layouts.\nEach entry represents one logical line. Replace the hunks array to trigger updates.\nSplit mode pairs changes within each contiguous block, never across context lines.\nAll lines are rendered; parsing, editing, highlighting and virtualization are application concerns.",
+          "name": "CindorDiffViewer",
+          "cssParts": [
+            {
+              "description": "Named, keyboard-focusable scrolling surface.",
+              "name": "surface"
+            },
+            {
+              "description": "Semantic diff table.",
+              "name": "table"
+            },
+            {
+              "description": "Range and optional heading.",
+              "name": "hunk"
+            },
+            {
+              "description": "Source row.",
+              "name": "line"
+            },
+            {
+              "description": "Source line number.",
+              "name": "number"
+            },
+            {
+              "description": "Whitespace-preserving source text.",
+              "name": "code"
+            },
+            {
+              "description": "Empty message.",
+              "name": "empty"
+            },
+            {
+              "description": "Invalid input message.",
+              "name": "invalid"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "hunks",
+              "privacy": "public",
+              "type": {
+                "text": "DiffViewerHunk[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "mode",
+              "privacy": "public",
+              "type": {
+                "text": "DiffViewerMode"
+              },
+              "default": "\"unified\"",
+              "attribute": "mode",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Diff\"",
+              "attribute": "label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "oldLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Before\"",
+              "attribute": "old-label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "newLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"After\"",
+              "attribute": "new-label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "emptyMessage",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"No diff to display.\"",
+              "attribute": "empty-message",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "invalidMessage",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Unable to display diff.\"",
+              "attribute": "invalid-message",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "valid",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderHunk",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "h",
+                  "type": {
+                    "text": "DiffViewerHunk"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "side",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "line",
+                  "type": {
+                    "text": "NumberedLine | undefined"
+                  }
+                },
+                {
+                  "name": "key",
+                  "type": {
+                    "text": "\"oldNumber\" | \"newNumber\""
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "code",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "line",
+                  "optional": true,
+                  "type": {
+                    "text": "NumberedLine"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "mode",
+              "type": {
+                "text": "DiffViewerMode"
+              },
+              "default": "\"unified\"",
+              "fieldName": "mode"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Diff\"",
+              "fieldName": "label"
+            },
+            {
+              "name": "old-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Before\"",
+              "fieldName": "oldLabel"
+            },
+            {
+              "name": "new-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"After\"",
+              "fieldName": "newLabel"
+            },
+            {
+              "name": "empty-message",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"No diff to display.\"",
+              "fieldName": "emptyMessage"
+            },
+            {
+              "name": "invalid-message",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Unable to display diff.\"",
+              "fieldName": "invalidMessage"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "cindor-diff-viewer",
+          "customElement": true,
+          "summary": "Accessible structured diff presentation."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CindorDiffViewer",
+          "declaration": {
+            "name": "CindorDiffViewer",
+            "module": "packages/core/src/components/diff-viewer/cindor-diff-viewer.ts"
           }
         }
       ]
