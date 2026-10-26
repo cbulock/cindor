@@ -1,3 +1,5 @@
+import { ref } from "vue";
+import { CindorButton, CindorIconButton, CindorSplitButton } from "./index.js";
 import { createApp, defineComponent, h, nextTick } from "vue";
 
 import type { App } from "vue";
@@ -277,4 +279,151 @@ async function queryElement<T extends Element>(selector: string): Promise<T> {
   }
 
   return element as T;
+}
+
+const buttonEvents = [
+  ["onClick", "click"], ["onKeydown", "keydown"], ["onKeyup", "keyup"],
+  ["onPointerdown", "pointerdown"], ["onPointerup", "pointerup"],
+  ["onMousedown", "mousedown"], ["onMouseup", "mouseup"],
+  ["onFocus", "focus"], ["onBlur", "blur"], ["onContextmenu", "contextmenu"]
+] as const;
+
+async function deepestButton(host: Element): Promise<HTMLButtonElement> {
+  const element = host as Element & { updateComplete: Promise<unknown> };
+  await Promise.resolve();
+  await element.updateComplete;
+  const inner = host.shadowRoot!.querySelector("cindor-button");
+  if (inner) return deepestButton(inner);
+  return host.shadowRoot!.querySelector("button")!;
+}
+
+describe.each([CindorButton, CindorIconButton, CindorSplitButton])("mounted button forwarding", (Component) => {
+  it.each([
+    ["aria-pressed", "mixed"], ["aria-busy", "true"], ["aria-disabled", "false"],
+    ["aria-current", "page"], ["aria-keyshortcuts", "Alt+S"], ["aria-roledescription", "action"],
+    ["aria-controls", "panel"], ["aria-expanded", "false"], ["aria-haspopup", "menu"]
+  ])("preserves %s values and removal on the native control", async (attribute, initial) => {
+    const container = document.createElement("div");
+    document.body.append(container);
+    const state = ref<Record<string, unknown>>({});
+    const app = createApp(defineComponent({ setup: () => () => h(Component, state.value) }));
+    app.mount(container);
+    const render = async (props: Record<string, unknown>) => { state.value = props; await nextTick(); };
+    const cleanup = () => app.unmount();
+    try {
+      for (const value of [initial, undefined, true, false, "mixed", null]) {
+        await render({ [attribute]: value });
+        const button = await deepestButton(container.firstElementChild!);
+        expect(button.getAttribute(attribute)).toBe(value == null ? null : String(value));
+      }
+      const host = container.firstElementChild!;
+      host.remove();
+      host.setAttribute(attribute, initial);
+      container.append(host);
+      expect((await deepestButton(host)).getAttribute(attribute)).toBe(initial);
+    } finally { cleanup(); container.remove(); }
+  });
+
+  it("preserves disabled activation and imperative focus/click", async () => {
+    const container = document.createElement("div");
+    document.body.append(container);
+    const state = ref<Record<string, unknown>>({});
+    const app = createApp(defineComponent({ setup: () => () => h(Component, state.value) }));
+    app.mount(container);
+    const render = async (props: Record<string, unknown>) => { state.value = props; await nextTick(); };
+    const cleanup = () => app.unmount();
+    const click = vi.fn();
+    try {
+      await render({ disabled: true, onClick: click });
+      const host = container.firstElementChild as HTMLElement;
+      const button = await deepestButton(host);
+      host.click();
+      expect(button.disabled).toBe(true);
+      expect(click).not.toHaveBeenCalled();
+      await render({ disabled: false, onClick: click });
+      await deepestButton(host);
+      await nextEventTask();
+      host.focus();
+      expect((button.getRootNode() as ShadowRoot).activeElement).toBe(button);
+      host.click();
+      expect(click).toHaveBeenCalledTimes(1);
+    } finally { cleanup(); container.remove(); }
+  });
+
+  it.each(buttonEvents)("delivers %s once and updates/removes handlers", async (prop, type) => {
+    const container = document.createElement("div");
+    document.body.append(container);
+    const state = ref<Record<string, unknown>>({});
+    const app = createApp(defineComponent({ setup: () => () => h(Component, state.value) }));
+    app.mount(container);
+    const render = async (props: Record<string, unknown>) => { state.value = props; await nextTick(); };
+    const cleanup = () => app.unmount();
+    const first = vi.fn((event: Event) => event.preventDefault());
+    const second = vi.fn();
+    try {
+      const capture = vi.fn();
+      const outer = vi.fn();
+      container.addEventListener(type, outer);
+      await render({ [prop]: first, [prop + "Capture"]: capture });
+      const button = await deepestButton(container.firstElementChild!);
+      // Vue timestamps listeners to ignore events already in flight during an update.
+      await nextEventTask();
+      const options = { bubbles: true, composed: true, cancelable: true };
+      const event = type.startsWith("key")
+        ? new KeyboardEvent(type, { ...options, key: "Enter" })
+        : type.startsWith("focus") || type === "blur"
+          ? new FocusEvent(type, { ...options, relatedTarget: container })
+          : new MouseEvent(type, { ...options, clientX: 17 });
+      expect(button.dispatchEvent(event)).toBe(false);
+      expect(first).toHaveBeenCalledTimes(1);
+      expect(first).toHaveBeenCalledExactlyOnceWith(event);
+      expect(capture).toHaveBeenCalledTimes(1);
+      expect(outer).toHaveBeenCalledTimes(1);
+      await render({ [prop]: second });
+      await nextEventTask();
+      button.dispatchEvent(new Event(type, { bubbles: true, composed: true }));
+      expect(first).toHaveBeenCalledTimes(1);
+      expect(second).toHaveBeenCalledTimes(1);
+      await render({});
+      button.dispatchEvent(new Event(type, { bubbles: true, composed: true }));
+      expect(second).toHaveBeenCalledTimes(1);
+    } finally { cleanup(); container.remove(); }
+  });
+});
+
+it("keeps split menu toggle and update:open delivery intact", async () => {
+  const container = document.createElement("div");
+  document.body.append(container);
+  const update = vi.fn(), toggle = vi.fn();
+  const open = ref(false);
+  const app = createApp(defineComponent({ setup: () => () => h(CindorSplitButton, {
+    open: open.value,
+    "aria-pressed": "mixed",
+    onToggle: toggle,
+    "onUpdate:open": (value: boolean) => { update(value); open.value = value; }
+  }) }));
+  app.mount(container);
+  try {
+    await nextTick();
+    const host = container.firstElementChild!;
+    await deepestButton(host);
+    const triggerHost = host.shadowRoot!.querySelector(".menu-shell cindor-button")!;
+    const trigger = await deepestButton(triggerHost);
+    await nextEventTask();
+    trigger.click();
+    await nextTick();
+    await deepestButton(host);
+    expect(update).toHaveBeenCalledExactlyOnceWith(true);
+    expect(toggle).toHaveBeenCalledTimes(1);
+    expect(trigger.getAttribute("aria-expanded")).toBe("true");
+    expect(trigger.getAttribute("aria-label")).toBe("More actions");
+    expect(trigger.hasAttribute("aria-pressed")).toBe(false);
+  } finally { app.unmount(); container.remove(); }
+});
+
+async function nextEventTask(): Promise<void> {
+  const attachedAt = Date.now();
+  do {
+    await new Promise((resolve) => setTimeout(resolve, 1));
+  } while (Date.now() <= attachedAt);
 }

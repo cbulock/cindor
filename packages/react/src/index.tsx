@@ -138,10 +138,17 @@ export const CindorOtpInput = createComponent({
   }
 });
 
-export const CindorButton = createComponent({
+const CindorButtonBase = createComponent({
   react: React,
   tagName: "cindor-button",
   elementClass: CindorButtonElement
+});
+export const CindorButton = React.forwardRef<CindorButtonElement, React.ComponentProps<typeof CindorButtonBase>>((props, ref) => {
+  // React custom elements treat boolean attributes as presence/absence.
+  const aria = Object.fromEntries(Object.entries(props)
+    .filter(([name, value]) => name.startsWith("aria-") && typeof value === "boolean")
+    .map(([name, value]) => [name, String(value)]));
+  return React.createElement(CindorButtonBase, { ...props, ...aria, ref });
 });
 
 export const CindorButtonGroup = createComponent({
@@ -150,13 +157,20 @@ export const CindorButtonGroup = createComponent({
   elementClass: CindorButtonGroupElement
 });
 
-export const CindorSplitButton = createComponent({
+const CindorSplitButtonBase = createComponent({
   react: React,
   tagName: "cindor-split-button",
   elementClass: CindorSplitButtonElement,
   events: {
     onToggle: "toggle"
   }
+});
+export const CindorSplitButton = React.forwardRef<CindorSplitButtonElement, React.ComponentProps<typeof CindorSplitButtonBase>>((props, ref) => {
+  // React custom elements treat boolean attributes as presence/absence.
+  const aria = Object.fromEntries(Object.entries(props)
+    .filter(([name, value]) => name.startsWith("aria-") && typeof value === "boolean")
+    .map(([name, value]) => [name, String(value)]));
+  return React.createElement(CindorSplitButtonBase, { ...props, ...aria, ref });
 });
 
 export const CindorChip = createComponent({
@@ -174,10 +188,17 @@ export const CindorTag = createComponent({
   }
 });
 
-export const CindorIconButton = createComponent({
+const CindorIconButtonBase = createComponent({
   react: React,
   tagName: "cindor-icon-button",
   elementClass: CindorIconButtonElement
+});
+export const CindorIconButton = React.forwardRef<CindorIconButtonElement, React.ComponentProps<typeof CindorIconButtonBase>>((props, ref) => {
+  // React custom elements treat boolean attributes as presence/absence.
+  const aria = Object.fromEntries(Object.entries(props)
+    .filter(([name, value]) => name.startsWith("aria-") && typeof value === "boolean")
+    .map(([name, value]) => [name, String(value)]));
+  return React.createElement(CindorIconButtonBase, { ...props, ...aria, ref });
 });
 
 export const CindorCard = createComponent({
