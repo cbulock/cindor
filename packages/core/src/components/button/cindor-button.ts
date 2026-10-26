@@ -1,3 +1,4 @@
+import { buttonA11yObservedAttributes, syncButtonAria } from "../shared/button-aria.js";
 import { css, html, LitElement } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 
@@ -119,8 +120,9 @@ export class CindorButton extends LitElement {
 
   override connectedCallback(): void {
     super.connectedCallback();
+    this.requestUpdate();
     this.hostA11yObserver.observe(this, {
-      attributeFilter: ["aria-controls", "aria-describedby", "aria-description", "aria-expanded", "aria-haspopup", "aria-label", "aria-labelledby", "id"],
+      attributeFilter: buttonA11yObservedAttributes,
       attributes: true
     });
   }
@@ -142,9 +144,6 @@ export class CindorButton extends LitElement {
   protected override render() {
     return html`
       <button
-        aria-controls=${ifDefined(this.hostAriaControls)}
-        aria-expanded=${ifDefined(this.hostAriaExpanded)}
-        aria-haspopup=${ifDefined(this.hostAriaHasPopup)}
         class="cindor-button__control"
         part="control"
         ?disabled=${this.disabled}
@@ -216,18 +215,6 @@ export class CindorButton extends LitElement {
     return this.renderRoot.querySelector("button");
   }
 
-  private get hostAriaControls(): string | undefined {
-    return this.getAttribute("aria-controls") ?? undefined;
-  }
-
-  private get hostAriaExpanded(): string | undefined {
-    return this.getAttribute("aria-expanded") ?? undefined;
-  }
-
-  private get hostAriaHasPopup(): string | undefined {
-    return this.getAttribute("aria-haspopup") ?? undefined;
-  }
-
   private syncButtonA11y(): void {
     const button = this.buttonElement;
     if (!button) {
@@ -263,22 +250,10 @@ export class CindorButton extends LitElement {
       button.removeAttribute("aria-describedby");
     }
 
-    syncStringAttribute(this, button, "aria-controls");
-    syncStringAttribute(this, button, "aria-expanded");
-    syncStringAttribute(this, button, "aria-haspopup");
+    syncButtonAria(this, button);
   }
 
   private get buttonA11yIdBase(): string {
     return `${this.id || this.generatedA11yId}`;
   }
-}
-
-function syncStringAttribute(source: Element, target: Element, attribute: "aria-controls" | "aria-expanded" | "aria-haspopup"): void {
-  const value = source.getAttribute(attribute);
-  if (value === null || value === "") {
-    target.removeAttribute(attribute);
-    return;
-  }
-
-  target.setAttribute(attribute, value);
 }

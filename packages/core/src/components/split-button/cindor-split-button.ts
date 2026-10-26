@@ -1,3 +1,4 @@
+import { buttonA11yObservedAttributes, syncButtonAria } from "../shared/button-aria.js";
 import { css, html, LitElement } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 
@@ -113,7 +114,19 @@ export class CindorSplitButton extends LitElement {
   private readonly generatedMenuId = `${this.localName || "cindor-split-button"}-menu-${CindorSplitButton.nextMenuIdCounter++}`;
   private updateFloatingPosition?: () => void;
 
+  private readonly hostA11yObserver = new MutationObserver(() => this.requestUpdate());
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+    this.requestUpdate();
+    this.hostA11yObserver.observe(this, {
+      attributeFilter: buttonA11yObservedAttributes,
+      attributes: true
+    });
+  }
+
   override disconnectedCallback(): void {
+    this.hostA11yObserver.disconnect();
     this.destroyFloatingPosition();
     super.disconnectedCallback();
   }
@@ -201,6 +214,9 @@ export class CindorSplitButton extends LitElement {
   }
 
   protected override updated(): void {
+    if (this.primaryButton) {
+      syncButtonAria(this, this.primaryButton);
+    }
     this.syncMenuA11y();
     this.syncFloatingPosition();
   }

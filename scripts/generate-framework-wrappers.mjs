@@ -21,13 +21,21 @@ function generateReactFile() {
     .map((component) => {
       const events = renderReactEvents(component.reactEvents ?? unique(component.vueHandlers.map((handler) => handler.domEvent)));
 
+      const isButton = ["CindorButton", "CindorIconButton", "CindorSplitButton"].includes(component.exportName);
       return [
-        `export const ${component.exportName} = createComponent({`,
+        `${isButton ? "const" : "export const"} ${component.exportName}${isButton ? "Base" : ""} = createComponent({`,
         `  react: React,`,
         `  tagName: "${component.tagName}",`,
         `  elementClass: ${component.exportName}Element${events ? "," : ""}`,
         events ? `  events: ${events}` : "",
-        `});`
+        `});`,
+        isButton ? `export const ${component.exportName} = React.forwardRef<${component.exportName}Element, React.ComponentProps<typeof ${component.exportName}Base>>((props, ref) => {
+  // React custom elements treat boolean attributes as presence/absence.
+  const aria = Object.fromEntries(Object.entries(props)
+    .filter(([name, value]) => name.startsWith("aria-") && typeof value === "boolean")
+    .map(([name, value]) => [name, String(value)]));
+  return React.createElement(${component.exportName}Base, { ...props, ...aria, ref });
+});` : ""
       ]
         .filter(Boolean)
         .join("\n");
