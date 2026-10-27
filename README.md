@@ -27,17 +27,47 @@ the core package in:
 
 ## Installation
 
-Install the published packages from the npm registry:
+Choose one of these installation alternatives from the npm registry:
 
 ```bash
+# Web components
 npm install cindor-ui-core
+
+# React
 npm install cindor-ui-core cindor-ui-react
+
+# Vue
 npm install cindor-ui-core cindor-ui-vue
 ```
 
 The GitHub repository root is the workspace source tree, not a consumable replacement for the individual package entries. Apps should depend on the published `cindor-ui-core`, `cindor-ui-react`, and `cindor-ui-vue` packages instead of installing the monorepo root from GitHub.
 
 Most apps should also import `cindor-ui-core/styles.css` once near startup so the shared fonts, tokens, base styles, and theme hooks are available.
+
+## Quick start
+
+This example uses the web component package and assumes an existing browser app with a bundler that supports npm packages and CSS imports.
+
+Import these entry points once in your application entry point:
+
+```ts
+import "cindor-ui-core/styles.css";
+import "cindor-ui-core/register";
+```
+
+Then add the components to your app's HTML:
+
+```html
+<cindor-provider theme="system">
+  <cindor-button>Save changes</cindor-button>
+</cindor-provider>
+```
+
+The registration import makes the custom elements available. The stylesheet supplies shared fonts, design tokens, base styles, and theme hooks. The provider's `theme="system"` follows the browser's light or dark preference.
+
+React and Vue wrappers register the elements automatically; applications using either wrapper still import `cindor-ui-core/styles.css` once at startup.
+
+See [Styling and theming](#styling-and-theming) for customization and the [technical documentation](https://docs.cindor.dev) for component APIs and framework examples.
 
 ## Apps
 
