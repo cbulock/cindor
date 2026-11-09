@@ -36,6 +36,7 @@
     "test:one": "vitest run --project unit",
     "test:packages": "node scripts/test-package-consumers.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:form-ownership:browser": "node scripts/test-form-ownership-browser.mjs",
     "test:selective-loading": "node scripts/test-selective-loading.mjs && node scripts/test-selective-loading-browser.mjs"
   },
   "devDependencies": {

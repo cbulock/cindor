@@ -39,6 +39,27 @@ The GitHub repository root is the workspace source tree, not a consumable replac
 
 Most apps should also import `cindor-ui-core/styles.css` once near startup so the shared fonts, tokens, base styles, and theme hooks are available.
 
+## Native forms
+
+Place native controls and Cindor inputs directly inside `cindor-form`, or provide a direct-child native `form` when you need to own the form element and its ID:
+
+```html
+<cindor-form action="/projects" method="post">
+  <input name="projectName" value="Cindor">
+  <cindor-input name="owner" value="Alex"></cindor-input>
+  <button type="submit" name="intent" value="save">Save</button>
+  <button type="reset">Reset</button>
+</cindor-form>
+```
+
+In direct-child mode, the component inserts a hidden native form in light DOM and associates controls with it through managed `form` attributes. Controls stay in their original locations and retain the default slot's layout. Descendant changes are reconciled on the next mutation-observer turn; `requestSubmit()` and `reset()` also synchronize before acting. Explicit `form` attributes are respected, including an empty attribute that opts out of association. Controls owned by another form are excluded from validation and submitting state.
+
+Native `submit`, `reset`, and `formdata` events bubble once through the component. Cancel submission or reset with `event.preventDefault()`. The event target is the native form; `event.currentTarget` is the element on which the listener was registered. Use `new FormData(event.target, event.submitter)` inside a submit listener to include a native submit button's name/value, or `new FormData(host.querySelector(":scope > form"))` after the component has updated. Listeners can modify `event.formData` in the `formdata` event.
+
+Use a native submit button when you need submitter identity, name/value, or `formaction` overrides. `cindor-button` continues to support submit/reset actions, but does not supply a native submitter. The `form` CSS part styles the visible content container; the native owner is no longer inside the component's shadow root. Nested native forms continue to own their controls normally.
+
+Run the browser ownership regression with `npm run test:form-ownership:browser` after `npx playwright install chromium`. Set `CINDOR_BROWSER_EXECUTABLE` to use an existing Chromium/Chrome executable instead.
+
 ## Selective component loading
 
 Use component subpaths to register only the requested component and the custom elements it creates:
@@ -71,7 +92,7 @@ Registration dependencies are generated from component and inherited base-class 
 
 After `npm run build`, run `npm run test:selective-loading` for the built-package bundle and browser checks. Install Playwright Chromium first, or set `CINDOR_CHROME_PATH` to an installed Chrome executable.
 
-### CommonJS consumers
+## CommonJS consumers
 
 The core, React, and Vue packages support `require()` on Node.js versions with synchronous ESM loading enabled by default: Node 20.19+, Node 22.12+, and later supported release lines. Older Node runtimes should use ESM imports or upgrade. This uses Node's [synchronous ESM interoperability](https://nodejs.org/api/modules.html#loading-ecmascript-modules-using-require); the core's `import` and `require` conditions resolve to the same module so both consumers share custom-element constructors and registration state.
 

@@ -51,7 +51,8 @@ export const Default = {
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const host = canvasElement.querySelector<CindorForm>("cindor-form")!;
     await host.updateComplete;
-    const form = host.shadowRoot!.querySelector("form")!;
+    await Promise.all(Array.from(host.querySelectorAll("cindor-input, cindor-email-input"), (input) => (input as HTMLElement & { updateComplete: Promise<boolean> }).updateComplete));
+    const form = host.querySelector("form")!;
     host.addEventListener("formdata", (event) => {
       if (event instanceof FormDataEvent) {
         event.formData.set("source", "story");
@@ -59,6 +60,8 @@ export const Default = {
     }, { once: true });
     const formData = new FormData(form);
     await expect(formData.get("source")).toBe("story");
+    await expect(formData.get("projectName")).toBe("");
+    await expect(formData.get("ownerEmail")).toBe("");
   }
 };
 

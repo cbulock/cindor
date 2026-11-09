@@ -154,20 +154,20 @@ describe("native lifecycle events", () => {
 
   it("preserves the owned form's submitter and cancellation", async () => {
     const host = await mount("cindor-form");
-    const form = host.shadowRoot!.querySelector("form")!;
+    const form = host.querySelector("form")!;
     const submitter = document.createElement("button");
     form.append(submitter);
     const listener = vi.fn((event: Event) => event.preventDefault());
     host.addEventListener("submit", listener);
     const event = new SubmitEvent("submit", { bubbles: true, cancelable: true, submitter });
     expect(form.dispatchEvent(event)).toBe(false);
-    expect(listener).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({ submitter, target: host }));
+    expect(listener).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({ submitter, target: form }));
     expect(listener.mock.calls[0][0]).toBeInstanceOf(SubmitEvent);
   });
 
   it("lets a host listener cancel an owned form reset", async () => {
     const host = await mount<LitElement & { reset(): void }>("cindor-form");
-    const form = host.shadowRoot!.querySelector("form")!;
+    const form = host.querySelector("form")!;
     const control = document.createElement("input");
     control.defaultValue = "initial";
     control.value = "edited";

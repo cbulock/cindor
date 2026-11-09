@@ -111,7 +111,7 @@ describe("cindor-form", () => {
     document.body.append(element);
     await element.updateComplete;
 
-    const form = element.shadowRoot?.querySelector("form") as HTMLFormElement;
+    const form = element.querySelector("form") as HTMLFormElement;
     const requestSubmit = vi.fn();
     form.requestSubmit = requestSubmit;
 
@@ -139,7 +139,7 @@ describe("cindor-form", () => {
     document.body.append(element);
     await element.updateComplete;
 
-    const form = element.shadowRoot?.querySelector("form") as HTMLFormElement;
+    const form = element.querySelector("form") as HTMLFormElement;
     form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
 
     expect(handleSubmit).toHaveBeenCalledTimes(1);
