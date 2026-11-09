@@ -108,14 +108,14 @@ export class CindorDropzone extends FormAssociatedElement {
       font-size: var(--text-sm);
     }
 
-    :host([disabled]) .title,
-    :host([disabled]) .description,
-    :host([disabled]) .summary-label,
-    :host([disabled]) .empty {
+    :host(:disabled) .title,
+    :host(:disabled) .description,
+    :host(:disabled) .summary-label,
+    :host(:disabled) .empty {
       color: var(--fg-subtle);
     }
 
-    :host([disabled]) cindor-icon {
+    :host(:disabled) cindor-icon {
       color: var(--fg-subtle);
     }
   `;
@@ -155,8 +155,8 @@ export class CindorDropzone extends FormAssociatedElement {
     return this.internals?.reportValidity?.() ?? true;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -178,7 +178,7 @@ export class CindorDropzone extends FormAssociatedElement {
         class="surface"
         part="surface"
         data-active="false"
-        data-disabled=${String(this.disabled)}
+        data-disabled=${String(this.effectiveDisabled)}
         @dragenter=${this.handleDragEnter}
         @dragover=${this.handleDragOver}
         @dragleave=${this.handleDragLeave}
@@ -187,7 +187,7 @@ export class CindorDropzone extends FormAssociatedElement {
         <input
           part="control"
           accept=${this.accept}
-          ?disabled=${this.disabled}
+          ?disabled=${this.effectiveDisabled}
           ?multiple=${this.multiple}
           name=${this.name}
           ?required=${this.required}
@@ -202,7 +202,7 @@ export class CindorDropzone extends FormAssociatedElement {
           <div class="description" part="description">${description}</div>
         </div>
         <div class="actions">
-          <cindor-button part="trigger" type="button" variant="ghost" ?disabled=${this.disabled} @click=${this.handleTriggerClick}>
+          <cindor-button part="trigger" type="button" variant="ghost" ?disabled=${this.effectiveDisabled} @click=${this.handleTriggerClick}>
             <cindor-icon slot="start-icon" name="folder-open" part="trigger-icon" size="16"></cindor-icon>
             ${triggerLabel}
           </cindor-button>
@@ -241,7 +241,7 @@ export class CindorDropzone extends FormAssociatedElement {
   };
 
   private handleTriggerClick = (): void => {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       return;
     }
 
@@ -249,7 +249,7 @@ export class CindorDropzone extends FormAssociatedElement {
   };
 
   private handleDragEnter = (event: DragEvent): void => {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       return;
     }
 
@@ -258,7 +258,7 @@ export class CindorDropzone extends FormAssociatedElement {
   };
 
   private handleDragOver = (event: DragEvent): void => {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       return;
     }
 
@@ -270,7 +270,7 @@ export class CindorDropzone extends FormAssociatedElement {
   };
 
   private handleDragLeave = (event: DragEvent): void => {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       return;
     }
 
@@ -284,7 +284,7 @@ export class CindorDropzone extends FormAssociatedElement {
   };
 
   private handleDrop = (event: DragEvent): void => {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       return;
     }
 
@@ -319,7 +319,7 @@ export class CindorDropzone extends FormAssociatedElement {
   }
 
   private syncFormState(): void {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       this.setFormValue(null);
       this.internals?.setValidity?.({});
       return;

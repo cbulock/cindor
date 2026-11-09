@@ -194,8 +194,8 @@ export class CindorTransferList extends FormAssociatedElement {
     return valid;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -222,7 +222,7 @@ export class CindorTransferList extends FormAssociatedElement {
               part="available-select"
               multiple
               size=${Math.max(4, this.size)}
-              ?disabled=${this.disabled}
+              ?disabled=${this.effectiveDisabled}
               @dblclick=${this.handleAvailableDoubleClick}
               @input=${this.handleAvailableInput}
             >
@@ -236,20 +236,20 @@ export class CindorTransferList extends FormAssociatedElement {
         </div>
 
         <div class="actions" part="actions">
-          ${this.renderActionButton("Add selected", "Add selected items", "add-button", this.disabled || this.activeAvailableValues.length === 0, this.moveSelectedToChosen)}
-          ${this.renderActionButton("Add all", "Add all available items", "add-all-button", this.disabled || this.availableMovableCount === 0, this.moveAllToChosen)}
+          ${this.renderActionButton("Add selected", "Add selected items", "add-button", this.effectiveDisabled || this.activeAvailableValues.length === 0, this.moveSelectedToChosen)}
+          ${this.renderActionButton("Add all", "Add all available items", "add-all-button", this.effectiveDisabled || this.availableMovableCount === 0, this.moveAllToChosen)}
           ${this.renderActionButton(
             "Remove selected",
             "Remove selected items",
             "remove-button",
-            this.disabled || this.activeSelectedValues.length === 0,
+            this.effectiveDisabled || this.activeSelectedValues.length === 0,
             this.moveSelectedToAvailable
           )}
           ${this.renderActionButton(
             "Remove all",
             "Remove all selected items",
             "remove-all-button",
-            this.disabled || this.selectedValues.length === 0,
+            this.effectiveDisabled || this.selectedValues.length === 0,
             this.moveAllToAvailable
           )}
         </div>
@@ -266,7 +266,7 @@ export class CindorTransferList extends FormAssociatedElement {
               part="selected-select"
               multiple
               size=${Math.max(4, this.size)}
-              ?disabled=${this.disabled}
+              ?disabled=${this.effectiveDisabled}
               @dblclick=${this.handleSelectedDoubleClick}
               @input=${this.handleSelectedInput}
             >
@@ -346,7 +346,7 @@ export class CindorTransferList extends FormAssociatedElement {
   }
 
   private moveSelectedToChosen = (): void => {
-    if (this.disabled || this.activeAvailableValues.length === 0) {
+    if (this.effectiveDisabled || this.activeAvailableValues.length === 0) {
       return;
     }
 
@@ -368,7 +368,7 @@ export class CindorTransferList extends FormAssociatedElement {
   };
 
   private moveAllToChosen = (): void => {
-    if (this.disabled || this.availableMovableCount === 0) {
+    if (this.effectiveDisabled || this.availableMovableCount === 0) {
       return;
     }
 
@@ -386,7 +386,7 @@ export class CindorTransferList extends FormAssociatedElement {
   };
 
   private moveSelectedToAvailable = (): void => {
-    if (this.disabled || this.activeSelectedValues.length === 0) {
+    if (this.effectiveDisabled || this.activeSelectedValues.length === 0) {
       return;
     }
 
@@ -400,7 +400,7 @@ export class CindorTransferList extends FormAssociatedElement {
   };
 
   private moveAllToAvailable = (): void => {
-    if (this.disabled || this.selectedValues.length === 0) {
+    if (this.effectiveDisabled || this.selectedValues.length === 0) {
       return;
     }
 
@@ -460,7 +460,7 @@ export class CindorTransferList extends FormAssociatedElement {
   }
 
   private syncFormState(): void {
-    if (this.disabled || this.name === "" || this.selectedValues.length === 0) {
+    if (this.effectiveDisabled || this.name === "" || this.selectedValues.length === 0) {
       this.setFormValue(null);
     } else {
       const formData = new FormData();
@@ -525,7 +525,7 @@ export class CindorTransferList extends FormAssociatedElement {
   }
 
   private get isValueMissing(): boolean {
-    return this.required && !this.disabled && this.selectedValues.length === 0;
+    return this.required && !this.effectiveDisabled && this.selectedValues.length === 0;
   }
 
   private get selectedSelect(): HTMLSelectElement | null {

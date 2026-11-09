@@ -113,8 +113,8 @@ export class CindorDateTimeRangePicker extends FormAssociatedElement {
     return this.internals?.reportValidity?.() ?? this.checkValidity();
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -158,7 +158,7 @@ export class CindorDateTimeRangePicker extends FormAssociatedElement {
         <cindor-date-picker
           aria-label=${`${this.accessibleLabel} ${label.toLowerCase()} date`}
           .value=${date}
-          ?disabled=${this.disabled}
+          ?disabled=${this.effectiveDisabled}
           max=${dateBounds.max}
           min=${dateBounds.min}
           ?required=${this.required}
@@ -168,7 +168,7 @@ export class CindorDateTimeRangePicker extends FormAssociatedElement {
         <cindor-time-input
           aria-label=${`${this.accessibleLabel} ${label.toLowerCase()} time`}
           .value=${time}
-          ?disabled=${this.disabled}
+          ?disabled=${this.effectiveDisabled}
           max=${timeBounds.max}
           min=${timeBounds.min}
           ?required=${this.required}
@@ -206,7 +206,7 @@ export class CindorDateTimeRangePicker extends FormAssociatedElement {
 
   private syncFormState(): void {
     const message = this.validationMessage;
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       this.setFormValue(null);
       this.internals?.setValidity?.({});
       return;

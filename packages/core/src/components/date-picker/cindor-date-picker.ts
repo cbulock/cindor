@@ -118,7 +118,7 @@ export class CindorDatePicker extends FormAssociatedElement {
   }
 
   get validationMessage(): string {
-    return !this.disabled && this.required && !this.value ? "Please select a date." : "";
+    return !this.effectiveDisabled && this.required && !this.value ? "Please select a date." : "";
   }
 
   get validity(): Pick<ValidityState, "valid" | "valueMissing"> {
@@ -136,7 +136,7 @@ export class CindorDatePicker extends FormAssociatedElement {
   }
 
   show(): void {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       return;
     }
 
@@ -153,8 +153,8 @@ export class CindorDatePicker extends FormAssociatedElement {
     this.dispatchToggle();
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -173,7 +173,7 @@ export class CindorDatePicker extends FormAssociatedElement {
             aria-haspopup="grid"
             part="control"
             .value=${this.value}
-            ?disabled=${this.disabled}
+            ?disabled=${this.effectiveDisabled}
             name=${this.name}
             placeholder=${this.placeholder}
             readonly
@@ -188,7 +188,7 @@ export class CindorDatePicker extends FormAssociatedElement {
                   label="Clear date"
                   name="x"
                   part="clear-button"
-                  ?disabled=${this.disabled}
+                  ?disabled=${this.effectiveDisabled}
                   @click=${this.handleClear}
                 ></cindor-icon-button>
               `
@@ -200,7 +200,7 @@ export class CindorDatePicker extends FormAssociatedElement {
             label=${this.open ? "Close calendar" : "Open calendar"}
             name="calendar"
             part="toggle-button"
-            ?disabled=${this.disabled}
+            ?disabled=${this.effectiveDisabled}
             @click=${this.handleToggleClick}
           ></cindor-icon-button>
         </div>
@@ -210,7 +210,7 @@ export class CindorDatePicker extends FormAssociatedElement {
                 id=${this.panelId}
                 part="panel"
                 .value=${this.value}
-                ?disabled=${this.disabled}
+                ?disabled=${this.effectiveDisabled}
                 max=${this.max}
                 min=${this.min}
                 month=${this.month}
@@ -297,7 +297,7 @@ export class CindorDatePicker extends FormAssociatedElement {
   };
 
   private syncFormState(): void {
-    this.setFormValue(this.disabled ? null : this.value);
+    this.setFormValue(this.effectiveDisabled ? null : this.value);
     const message = this.validationMessage;
     this.internals?.setValidity?.(message ? { valueMissing: true } : {}, message, this.inputElement ?? undefined);
   }

@@ -84,8 +84,8 @@ export class CindorCombobox extends FormAssociatedElement {
     return this.inputElement?.reportValidity() ?? true;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -107,7 +107,7 @@ export class CindorCombobox extends FormAssociatedElement {
           aria-controls=${this.listId}
           aria-expanded=${String(this.listboxVisible)}
           autocomplete=${this.autocomplete}
-          ?disabled=${this.disabled}
+          ?disabled=${this.effectiveDisabled}
           name=${this.name}
           placeholder=${this.placeholder}
           ?readonly=${this.readonly}
@@ -177,7 +177,7 @@ export class CindorCombobox extends FormAssociatedElement {
   };
 
   private handleFocus = (): void => {
-    if (this.filteredOptions.length === 0 || this.disabled) {
+    if (this.filteredOptions.length === 0 || this.effectiveDisabled) {
       return;
     }
 
@@ -195,7 +195,7 @@ export class CindorCombobox extends FormAssociatedElement {
   private handleKeyDown = (event: KeyboardEvent): void => {
     const options = this.filteredOptions;
 
-    if (options.length === 0 || this.disabled) {
+    if (options.length === 0 || this.effectiveDisabled) {
       return;
     }
 
@@ -253,7 +253,7 @@ export class CindorCombobox extends FormAssociatedElement {
   }
 
   private syncFormState(): void {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       this.setFormValue(null);
       return;
     }

@@ -89,8 +89,8 @@ export class CindorSelect extends FormAssociatedElement {
     return this.selectElement?.reportValidity() ?? true;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -105,7 +105,7 @@ export class CindorSelect extends FormAssociatedElement {
         <select
           part="control"
           .value=${live(this.value)}
-          ?disabled=${this.disabled}
+          ?disabled=${this.effectiveDisabled}
           form=${ifDefined(this.associatedFormId)}
           name=${this.name}
           ?required=${this.required}
@@ -233,7 +233,7 @@ export class CindorSelect extends FormAssociatedElement {
   }
 
   private syncFormState(): void {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       this.setFormValue(null);
       return;
     }

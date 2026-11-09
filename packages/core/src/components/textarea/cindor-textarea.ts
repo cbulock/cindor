@@ -60,8 +60,8 @@ export class CindorTextarea extends FormAssociatedElement {
     return this.textareaElement?.reportValidity() ?? true;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -74,7 +74,7 @@ export class CindorTextarea extends FormAssociatedElement {
       <textarea
         part="control"
         .value=${live(this.value)}
-        ?disabled=${this.disabled}
+        ?disabled=${this.effectiveDisabled}
         form=${ifDefined(this.associatedFormId)}
         name=${this.name}
         placeholder=${this.placeholder}
@@ -109,7 +109,7 @@ export class CindorTextarea extends FormAssociatedElement {
   };
 
   private syncFormState(): void {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       this.setFormValue(null);
       return;
     }

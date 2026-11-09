@@ -56,7 +56,7 @@ export class CindorMultiSelect extends FormAssociatedElement {
       box-shadow: var(--ring-focus);
     }
 
-    :host([disabled]) .control {
+    :host(:disabled) .control {
       background: var(--bg-subtle);
       color: var(--fg-subtle);
       cursor: not-allowed;
@@ -228,8 +228,8 @@ export class CindorMultiSelect extends FormAssociatedElement {
     return valid;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -259,7 +259,7 @@ export class CindorMultiSelect extends FormAssociatedElement {
                           class="chip-remove"
                           part="chip-remove"
                           type="button"
-                          ?disabled=${this.disabled}
+                          ?disabled=${this.effectiveDisabled}
                           @click=${() => this.removeValue(option.value)}
                         >
                           x
@@ -278,7 +278,7 @@ export class CindorMultiSelect extends FormAssociatedElement {
             aria-controls=${this.listId}
             aria-expanded=${String(this.listboxVisible)}
             autocomplete="off"
-            ?disabled=${this.disabled}
+            ?disabled=${this.effectiveDisabled}
             placeholder=${selectedOptions.length === 0 ? this.placeholder : ""}
             role="combobox"
             type="text"
@@ -349,7 +349,7 @@ export class CindorMultiSelect extends FormAssociatedElement {
   };
 
   private handleControlPointerDown = (event: PointerEvent): void => {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       return;
     }
 
@@ -366,7 +366,7 @@ export class CindorMultiSelect extends FormAssociatedElement {
   };
 
   private handleFocus = (): void => {
-    if (this.disabled || this.filteredOptions.length === 0) {
+    if (this.effectiveDisabled || this.filteredOptions.length === 0) {
       return;
     }
 
@@ -383,7 +383,7 @@ export class CindorMultiSelect extends FormAssociatedElement {
   };
 
   private handleKeyDown = (event: KeyboardEvent): void => {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       return;
     }
 
@@ -478,7 +478,7 @@ export class CindorMultiSelect extends FormAssociatedElement {
   }
 
   private removeValue(value: string): void {
-    if (!value || this.disabled || !this.values.includes(value)) {
+    if (!value || this.effectiveDisabled || !this.values.includes(value)) {
       return;
     }
 
@@ -498,7 +498,7 @@ export class CindorMultiSelect extends FormAssociatedElement {
   }
 
   private syncFormState(): void {
-    if (this.disabled || this.name === "" || this.values.length === 0) {
+    if (this.effectiveDisabled || this.name === "" || this.values.length === 0) {
       this.setFormValue(null);
     } else {
       const formData = new FormData();
@@ -635,7 +635,7 @@ export class CindorMultiSelect extends FormAssociatedElement {
   }
 
   private get isValueMissing(): boolean {
-    return this.required && !this.disabled && this.values.length === 0;
+    return this.required && !this.effectiveDisabled && this.values.length === 0;
   }
 
   private get listboxElement(): HTMLElement | null {

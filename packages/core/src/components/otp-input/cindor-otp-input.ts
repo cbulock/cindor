@@ -24,8 +24,7 @@ export class CindorOtpInput extends FormAssociatedElement {
     readonly: { type: Boolean, reflect: true },
     invalid: { type: Boolean, reflect: true },
     masked: { type: Boolean, reflect: true },
-    active: { state: true },
-    formDisabled: { state: true }
+    active: { state: true }
   };
 
   static styles = [createFieldHostStyles("fit-content"), createTextControlStyles("input"), css`
@@ -49,7 +48,6 @@ export class CindorOtpInput extends FormAssociatedElement {
   /** Conceals display with native password inputs; value and events still contain the code. */
   masked = false;
   private active = 0;
-  private formDisabled = false;
   private initialValue = "";
   private committedValue = "";
   private dirty = false;
@@ -60,7 +58,7 @@ export class CindorOtpInput extends FormAssociatedElement {
     return Number.isInteger(this.length) && this.length > 0 ? this.length : 6;
   }
 
-  private get unavailable(): boolean { return this.disabled || this.formDisabled; }
+  private get unavailable(): boolean { return this.effectiveDisabled; }
   private get cells(): HTMLInputElement[] { return Array.from(this.renderRoot?.querySelectorAll("input") ?? []); }
   private normalizeCode(value: string): string {
     return String(value ?? "").replace(this.mode === "alphanumeric" ? /[^a-zA-Z0-9]/g : /[^0-9]/g, "").slice(0, this.count);
@@ -231,7 +229,7 @@ export class CindorOtpInput extends FormAssociatedElement {
 
   checkValidity(): boolean { this.syncFormState(); return this.internals?.checkValidity?.() ?? !this.validationMessage; }
   reportValidity(): boolean { this.syncFormState(); return this.internals?.reportValidity?.() ?? !this.validationMessage; }
-  formDisabledCallback(disabled: boolean): void { this.formDisabled = disabled; this.syncFormState(); }
+  override formDisabledCallback(disabled: boolean): void { super.formDisabledCallback(disabled); this.syncFormState(); }
   formResetCallback(): void {
     this.dirty = false;
     this.value = this.normalizeCode(this.initialValue);

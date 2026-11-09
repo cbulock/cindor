@@ -60,6 +60,13 @@ export class CindorFieldArray<T = unknown> extends FormAssociatedElement {
       background: var(--surface);
     }
 
+    .item-fields {
+      min-inline-size: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
     .row-header {
       display: flex;
       flex-wrap: wrap;
@@ -181,8 +188,8 @@ export class CindorFieldArray<T = unknown> extends FormAssociatedElement {
     this.addButtonElement?.focus(options);
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -216,7 +223,7 @@ export class CindorFieldArray<T = unknown> extends FormAssociatedElement {
           ${this.canAdd
             ? html`
                 <div class="footer" part="footer">
-                  <cindor-button class="action-button" part="add-button" ?disabled=${this.disabled} @click=${this.handleAddClick}>
+                  <cindor-button class="action-button" part="add-button" ?disabled=${this.effectiveDisabled} @click=${this.handleAddClick}>
                     ${this.addLabel}
                   </cindor-button>
                 </div>
@@ -281,26 +288,28 @@ export class CindorFieldArray<T = unknown> extends FormAssociatedElement {
           </div>
           <div class="row-controls" part="row-controls">
             <cindor-icon-button
-              ?disabled=${this.disabled || index === 0}
+              ?disabled=${this.effectiveDisabled || index === 0}
               label=${this.moveUpLabel}
               name="arrow-up"
               @click=${() => this.moveItem(index, index - 1)}
             ></cindor-icon-button>
             <cindor-icon-button
-              ?disabled=${this.disabled || index === this.items.length - 1}
+              ?disabled=${this.effectiveDisabled || index === this.items.length - 1}
               label=${this.moveDownLabel}
               name="arrow-down"
               @click=${() => this.moveItem(index, index + 1)}
             ></cindor-icon-button>
             <cindor-icon-button
-              ?disabled=${this.disabled || !this.canRemove}
+              ?disabled=${this.effectiveDisabled || !this.canRemove}
               label=${this.removeLabel}
               name="trash-2"
               @click=${() => this.removeItem(index)}
             ></cindor-icon-button>
           </div>
         </div>
-        ${this.renderItem ? this.renderItem(detail) : nothing}
+        ${this.renderItem
+          ? html`<fieldset class="item-fields" ?disabled=${this.effectiveDisabled}><div>${this.renderItem(detail)}</div></fieldset>`
+          : nothing}
       </section>
     `;
   }
@@ -338,7 +347,7 @@ export class CindorFieldArray<T = unknown> extends FormAssociatedElement {
   }
 
   private moveItem(fromIndex: number, toIndex: number): void {
-    if (this.disabled || fromIndex === toIndex || fromIndex < 0 || toIndex < 0 || fromIndex >= this.items.length || toIndex >= this.items.length) {
+    if (this.effectiveDisabled || fromIndex === toIndex || fromIndex < 0 || toIndex < 0 || fromIndex >= this.items.length || toIndex >= this.items.length) {
       return;
     }
 
@@ -358,7 +367,7 @@ export class CindorFieldArray<T = unknown> extends FormAssociatedElement {
   }
 
   private syncFormState(): void {
-    this.setFormValue(!this.disabled && this.name ? this.value : null);
+    this.setFormValue(!this.effectiveDisabled && this.name ? this.value : null);
 
     if (!this.internals || typeof this.internals.setValidity !== "function") {
       return;
@@ -416,11 +425,11 @@ export class CindorFieldArray<T = unknown> extends FormAssociatedElement {
   }
 
   private get canAdd(): boolean {
-    return !this.disabled && (this.normalizedMaxItems === undefined || this.items.length < this.normalizedMaxItems);
+    return !this.effectiveDisabled && (this.normalizedMaxItems === undefined || this.items.length < this.normalizedMaxItems);
   }
 
   private get canRemove(): boolean {
-    return !this.disabled && this.items.length > this.minItems;
+    return !this.effectiveDisabled && this.items.length > this.minItems;
   }
 
   private get validationMessage(): string {

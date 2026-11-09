@@ -108,8 +108,8 @@ export class BaseInputElement extends FormAssociatedElement {
     return this.inputElement?.reportValidity() ?? true;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -144,7 +144,7 @@ export class BaseInputElement extends FormAssociatedElement {
           .value=${live(this.value)}
           aria-describedby=${ifDefined(resolvedDescriptionText ? this.controlDescriptionId : undefined)}
           autocomplete=${ifDefined(this.resolvedAutocomplete)}
-          ?disabled=${this.disabled}
+          ?disabled=${this.effectiveDisabled}
           form=${ifDefined(this.associatedFormId)}
           max=${ifDefined(this.max || undefined)}
           min=${ifDefined(this.min || undefined)}
@@ -195,7 +195,7 @@ export class BaseInputElement extends FormAssociatedElement {
       event.key !== "Enter" ||
       event.defaultPrevented ||
       event.isComposing ||
-      this.disabled ||
+      this.effectiveDisabled ||
       this.readonly ||
       !this.associatedForm
     ) {
@@ -207,7 +207,7 @@ export class BaseInputElement extends FormAssociatedElement {
   };
 
   protected syncFormState(): void {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       this.setFormValue(null);
       return;
     }

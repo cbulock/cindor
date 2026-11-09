@@ -133,8 +133,8 @@ export class CindorRatingInput extends FormAssociatedElement {
     return this.inputElements[0]?.reportValidity() ?? true;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -156,7 +156,7 @@ export class CindorRatingInput extends FormAssociatedElement {
               <input
                 part="control"
                 .checked=${live(checked)}
-                ?disabled=${this.disabled}
+                ?disabled=${this.effectiveDisabled}
                 name=${groupName}
                 ?required=${this.required && ratingValue === 1}
                 type="radio"
@@ -165,7 +165,7 @@ export class CindorRatingInput extends FormAssociatedElement {
                 @input=${this.handleInput}
                 @change=${this.handleChange}
               />
-              <span class="star" part=${checked ? "star star-filled" : "star"} data-disabled=${String(this.disabled)} data-filled=${String(ratingValue <= this.value)}>
+              <span class="star" part=${checked ? "star star-filled" : "star"} data-disabled=${String(this.effectiveDisabled)} data-filled=${String(ratingValue <= this.value)}>
                 ${renderLucideIcon({
                   iconNode: Star,
                   size: 18,
@@ -181,7 +181,7 @@ export class CindorRatingInput extends FormAssociatedElement {
         })}
       </div>
       ${this.clearable && this.value > 0
-        ? html`<button class="clear" part="clear-button" type="button" ?disabled=${this.disabled} @click=${this.handleClearClick}>Clear</button>`
+        ? html`<button class="clear" part="clear-button" type="button" ?disabled=${this.effectiveDisabled} @click=${this.handleClearClick}>Clear</button>`
         : nothing}
     `;
   }
@@ -206,7 +206,7 @@ export class CindorRatingInput extends FormAssociatedElement {
   };
 
   private handleClearClick = (): void => {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       return;
     }
 
@@ -217,7 +217,7 @@ export class CindorRatingInput extends FormAssociatedElement {
   };
 
   private syncFormState(): void {
-    if (this.disabled || this.value <= 0) {
+    if (this.effectiveDisabled || this.value <= 0) {
       this.setFormValue(null);
     } else {
       this.setFormValue(String(this.value));

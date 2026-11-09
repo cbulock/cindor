@@ -13,6 +13,24 @@ export abstract class FormAssociatedElement extends LitElement {
   private static nextFormId = 0;
 
   protected internals?: ElementInternals;
+  abstract disabled: boolean;
+  private formDisabled = false;
+
+  /** The browser reports both host and ancestor disabled state through this callback. */
+  formDisabledCallback(disabled: boolean): void {
+    if (this.formDisabled === disabled) return;
+    this.formDisabled = disabled;
+    // Attribute reflection can invoke this callback after Lit has computed its template.
+    // Schedule a follow-up render when the current update is still in progress.
+    if (this.isUpdatePending) queueMicrotask(() => this.requestUpdate());
+    this.requestUpdate();
+  }
+
+  /** Includes disabled fieldsets without reflecting their state onto the public property. */
+  protected get effectiveDisabled(): boolean {
+    return this.disabled || this.formDisabled;
+  }
+
   private readonly generatedControlIdBase = `${this.localName}-${FormAssociatedElement.nextControlId++}`;
   private readonly generatedFormId = `cindor-form-${FormAssociatedElement.nextFormId++}`;
   private readonly hostAttributeObserver = new MutationObserver(() => {

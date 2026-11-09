@@ -77,12 +77,12 @@ export class CindorFileInput extends FormAssociatedElement {
       gap: var(--space-2);
     }
 
-    :host([disabled]) .surface {
+    :host(:disabled) .surface {
       background: var(--bg-subtle);
     }
 
-    :host([disabled]) .label,
-    :host([disabled]) .files {
+    :host(:disabled) .label,
+    :host(:disabled) .files {
       color: var(--fg-subtle);
     }
   `;
@@ -117,8 +117,8 @@ export class CindorFileInput extends FormAssociatedElement {
     return this.inputElement?.reportValidity() ?? true;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -137,7 +137,7 @@ export class CindorFileInput extends FormAssociatedElement {
         <input
           part="control"
           accept=${this.accept}
-          ?disabled=${this.disabled}
+          ?disabled=${this.effectiveDisabled}
           ?multiple=${this.multiple}
           name=${this.name}
           ?required=${this.required}
@@ -147,7 +147,7 @@ export class CindorFileInput extends FormAssociatedElement {
           @input=${this.handleInput}
           @change=${this.handleChange}
         />
-        <cindor-button part="trigger" type="button" variant="ghost" ?disabled=${this.disabled} @click=${this.handleTriggerClick}>
+        <cindor-button part="trigger" type="button" variant="ghost" ?disabled=${this.effectiveDisabled} @click=${this.handleTriggerClick}>
           <cindor-icon slot="start-icon" name="upload" part="trigger-icon" size="16"></cindor-icon>
           ${triggerLabel}
         </cindor-button>
@@ -189,7 +189,7 @@ export class CindorFileInput extends FormAssociatedElement {
   };
 
   private syncFormState(): void {
-    if (this.disabled || !this.inputElement) {
+    if (this.effectiveDisabled || !this.inputElement) {
       this.setFormValue(null);
       return;
     }
@@ -222,7 +222,7 @@ export class CindorFileInput extends FormAssociatedElement {
   }
 
   private handleTriggerClick = (): void => {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       return;
     }
 

@@ -240,8 +240,8 @@ export class CindorCalendar extends FormAssociatedElement {
     return this.internals?.reportValidity?.() ?? true;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -265,7 +265,7 @@ export class CindorCalendar extends FormAssociatedElement {
             label="Previous month"
             name="chevron-left"
             part="previous-button"
-            ?disabled=${this.disabled || this.previousMonthDisabled}
+            ?disabled=${this.effectiveDisabled || this.previousMonthDisabled}
             @click=${this.showPreviousMonth}
           ></cindor-icon-button>
           <div class="month-titles" part="month-titles" style=${`--cindor-calendar-month-count:${visibleMonths.length};`}>
@@ -279,7 +279,7 @@ export class CindorCalendar extends FormAssociatedElement {
             label="Next month"
             name="chevron-right"
             part="next-button"
-            ?disabled=${this.disabled || this.nextMonthDisabled}
+            ?disabled=${this.effectiveDisabled || this.nextMonthDisabled}
             @click=${this.showNextMonth}
           ></cindor-icon-button>
         </div>
@@ -314,7 +314,7 @@ export class CindorCalendar extends FormAssociatedElement {
   }
 
   private handleDayClick = (event: Event): void => {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       return;
     }
 
@@ -359,7 +359,7 @@ export class CindorCalendar extends FormAssociatedElement {
   };
 
   private showPreviousMonth = (): void => {
-    if (this.disabled || this.previousMonthDisabled) {
+    if (this.effectiveDisabled || this.previousMonthDisabled) {
       return;
     }
 
@@ -367,7 +367,7 @@ export class CindorCalendar extends FormAssociatedElement {
   };
 
   private showNextMonth = (): void => {
-    if (this.disabled || this.nextMonthDisabled) {
+    if (this.effectiveDisabled || this.nextMonthDisabled) {
       return;
     }
 
@@ -380,7 +380,7 @@ export class CindorCalendar extends FormAssociatedElement {
   }
 
   private syncFormState(): void {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       this.setFormValue(null);
       this.internals?.setValidity?.({});
       return;
@@ -644,7 +644,7 @@ export class CindorCalendar extends FormAssociatedElement {
                           class="day"
                           part=${this.getDayPart(day)}
                           .value=${live(day.dateString)}
-                          ?disabled=${this.disabled || day.disabled}
+                          ?disabled=${this.effectiveDisabled || day.disabled}
                           data-in-range=${String(day.inRange)}
                           data-outside-month=${String(day.outsideMonth)}
                           data-range-end=${String(day.rangeEnd)}

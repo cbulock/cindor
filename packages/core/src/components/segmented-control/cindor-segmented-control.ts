@@ -135,8 +135,8 @@ export class CindorSegmentedControl extends FormAssociatedElement {
     return this.inputElements[0]?.reportValidity() ?? true;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -155,7 +155,7 @@ export class CindorSegmentedControl extends FormAssociatedElement {
               <input
                 part="control"
                 .checked=${live(option.value === this.value)}
-                ?disabled=${this.disabled || Boolean(option.disabled)}
+                ?disabled=${this.effectiveDisabled || Boolean(option.disabled)}
                 name=${groupName}
                 ?required=${this.required}
                 type="radio"
@@ -206,7 +206,7 @@ export class CindorSegmentedControl extends FormAssociatedElement {
   }
 
   private syncFormState(): void {
-    if (this.disabled || this.value === "") {
+    if (this.effectiveDisabled || this.value === "") {
       this.setFormValue(null);
     } else {
       this.setFormValue(this.value);

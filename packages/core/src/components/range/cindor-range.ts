@@ -159,8 +159,8 @@ export class CindorRange extends FormAssociatedElement {
     return this.inputElement?.reportValidity() ?? true;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -173,7 +173,7 @@ export class CindorRange extends FormAssociatedElement {
       <input
         part="control"
         .value=${live(String(this.value))}
-        ?disabled=${this.disabled}
+        ?disabled=${this.effectiveDisabled}
         max=${String(this.max)}
         min=${String(this.min)}
         name=${this.name}
@@ -208,7 +208,7 @@ export class CindorRange extends FormAssociatedElement {
   };
 
   private syncFormState(): void {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       this.setFormValue(null);
       return;
     }
