@@ -29,10 +29,12 @@
     "build-storybook": "storybook build",
     "test": "vitest run --project unit",
     "test:disabled:browser": "node scripts/test-inherited-disabled-browser.mjs",
+    "test:a11y-observation:browser": "node scripts/test-a11y-observation-browser.mjs",
     "test:all": "vitest run --project unit --project storybook",
     "test:storybook": "vitest run --project storybook",
     "test:watch": "vitest --project unit",
     "test:one": "vitest run --project unit",
+    "test:packages": "node scripts/test-package-consumers.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "devDependencies": {
