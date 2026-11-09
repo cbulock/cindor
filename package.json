@@ -28,10 +28,12 @@
     "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build",
     "test": "vitest run --project unit",
+    "test:a11y-observation:browser": "node scripts/test-a11y-observation-browser.mjs",
     "test:all": "vitest run --project unit --project storybook",
     "test:storybook": "vitest run --project storybook",
     "test:watch": "vitest --project unit",
     "test:one": "vitest run --project unit",
+    "test:packages": "node scripts/test-package-consumers.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test:form-ownership:browser": "node scripts/test-form-ownership-browser.mjs"
   },
