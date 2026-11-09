@@ -61,53 +61,163 @@ export function syncA11yMirror(
   return mirrorId;
 }
 
-export class ReferencedTextObserver {
+const rootObservers = new WeakMap<Document | ShadowRoot, ReferenceRootObserver>();
+type ReferenceListener = () => void;
+
+// Discovery is shared per tree and indexed by ID. Unrelated mutations never
+// fan out to component observers; text changes are observed on the targets.
+class ReferenceRootObserver {
+  private readonly listeners = new Map<string, Set<ReferenceListener>>();
   private readonly mutationObserver: MutationObserver;
-  private readonly observedNodes = new Set<Node>();
+  private readonly onSlotChange = (): void => {
+    const listeners = new Set([...this.listeners.values()].flatMap((entries) => [...entries]));
+    for (const listener of listeners) listener();
+  };
+
+  constructor(private readonly root: Document | ShadowRoot) {
+    this.mutationObserver = new MutationObserver((records) => {
+      const affected = new Set<ReferenceListener>();
+      const collectId = (id: string | null): void => {
+        if (id) for (const listener of this.listeners.get(id) ?? []) affected.add(listener);
+      };
+      const collectNode = (node: Node): void => {
+        if (!(node instanceof Element)) return;
+        // A removed slot no longer bubbles slotchange to its old root.
+        // Refresh scope subscribers when slots (or their ancestors) move.
+        if (root instanceof ShadowRoot && (node.localName === "slot" || node.querySelector("slot"))) {
+          for (const listeners of this.listeners.values()) {
+            for (const listener of listeners) affected.add(listener);
+          }
+        }
+        collectId(node.id);
+        for (const element of node.querySelectorAll("[id]")) collectId(element.id);
+      };
+      for (const record of records) {
+        if (record.type === "attributes") {
+          collectId(record.oldValue);
+          collectId((record.target as Element).id);
+        } else {
+          for (const node of record.addedNodes) collectNode(node);
+          for (const node of record.removedNodes) collectNode(node);
+        }
+      }
+      for (const listener of affected) listener();
+    });
+    this.mutationObserver.observe(root, {
+      childList: true, subtree: true, attributes: true,
+      attributeFilter: ["id"], attributeOldValue: true
+    });
+    root.addEventListener("slotchange", this.onSlotChange);
+  }
+
+  subscribe(ids: Set<string>, listener: ReferenceListener): () => void {
+    for (const id of ids) {
+      const listeners = this.listeners.get(id) ?? new Set<ReferenceListener>();
+      listeners.add(listener);
+      this.listeners.set(id, listeners);
+    }
+    return () => {
+      for (const id of ids) {
+        const listeners = this.listeners.get(id);
+        listeners?.delete(listener);
+        if (listeners?.size === 0) this.listeners.delete(id);
+      }
+      if (this.listeners.size === 0) {
+        this.mutationObserver.disconnect();
+        this.root.removeEventListener("slotchange", this.onSlotChange);
+        rootObservers.delete(this.root);
+      }
+    };
+  }
+}
+
+export class ReferencedTextObserver {
+  private readonly mutationObserver = new MutationObserver(() => this.refresh());
+  private readonly subscriptions = new Map<Document | ShadowRoot, () => void>();
+  private attributeValues: ReferenceValue[] = [];
+  private ids = new Set<string>();
+  private text: string[] = [];
+  private active = false;
 
   constructor(
     private readonly host: HTMLElement,
     private readonly onChange: () => void
-  ) {
-    this.mutationObserver = new MutationObserver(() => {
-      this.onChange();
-    });
-  }
+  ) {}
 
   observe(...attributeValues: ReferenceValue[]): void {
     this.disconnect();
-
-    const roots = getReferenceRoots(this.host);
-    const referencedElements = attributeValues.flatMap((attributeValue) => getReferenceElements(this.host, attributeValue));
-    if (referencedElements.length === 0) {
-      return;
-    }
-
-    for (const root of roots) {
-      this.observeNode(root, { childList: true, subtree: true });
-    }
-
-    for (const element of referencedElements) {
-      this.observeNode(element, {
-        characterData: true,
-        childList: true,
-        subtree: true
-      });
-    }
+    // Lit may finish an already queued update after disconnectedCallback.
+    if (!this.host.isConnected) return;
+    this.attributeValues = attributeValues;
+    this.ids = new Set(attributeValues.flatMap((value) => value?.split(/\s+/).filter(Boolean) ?? []));
+    if (this.ids.size === 0) return;
+    this.active = true;
+    this.text = this.resolveText();
+    this.observeTargets();
   }
 
   disconnect(): void {
+    this.active = false;
     this.mutationObserver.disconnect();
-    this.observedNodes.clear();
+    for (const unsubscribe of this.subscriptions.values()) unsubscribe();
+    this.subscriptions.clear();
+    this.attributeValues = [];
+    this.ids.clear();
+    this.text = [];
   }
 
-  private observeNode(node: Node, options: MutationObserverInit): void {
-    if (this.observedNodes.has(node)) {
-      return;
+  private readonly refresh = (): void => {
+    if (!this.active) return;
+    this.observeTargets();
+    const text = this.resolveText();
+    const changed = text.some((value, index) => value !== this.text[index]);
+    this.text = text;
+    if (changed) this.onChange();
+  };
+
+  private resolveText(): string[] {
+    return this.attributeValues.map((value) => resolveReferencedText(this.host, value ?? null));
+  }
+
+  private observeTargets(): void {
+    const roots = getReferenceRoots(this.host);
+    // Keep discovery in possible slot scopes even while the host has no matching slot.
+    const discoveryRoots = new Set(roots);
+    const addSlotScope = (element: Element): void => {
+      const root = element.parentElement?.shadowRoot;
+      if (root) discoveryRoots.add(root);
+    };
+    addSlotScope(this.host);
+    for (const root of roots) if (root instanceof ShadowRoot) addSlotScope(root.host);
+    for (const [root, unsubscribe] of this.subscriptions) {
+      if (!discoveryRoots.has(root)) {
+        unsubscribe();
+        this.subscriptions.delete(root);
+      }
+    }
+    for (const root of discoveryRoots) {
+      if (this.subscriptions.has(root)) continue;
+      let observer = rootObservers.get(root);
+      if (!observer) {
+        observer = new ReferenceRootObserver(root);
+        rootObservers.set(root, observer);
+      }
+      this.subscriptions.set(root, observer.subscribe(this.ids, this.refresh));
     }
 
-    this.observedNodes.add(node);
-    this.mutationObserver.observe(node, options);
+    this.mutationObserver.disconnect();
+    const targets = new Set<Element>();
+    for (const id of this.ids) {
+      for (const root of roots) {
+        const target = root.getElementById(id);
+        if (!target) continue;
+        targets.add(target);
+        break;
+      }
+    }
+    for (const target of targets) {
+      this.mutationObserver.observe(target, { characterData: true, childList: true, subtree: true });
+    }
   }
 }
 
@@ -120,30 +230,6 @@ function findReferenceText(id: string, roots: Array<Document | ShadowRoot>): str
   }
 
   return "";
-}
-
-function getReferenceElements(host: HTMLElement, attributeValue: ReferenceValue): HTMLElement[] {
-  if (!attributeValue) {
-    return [];
-  }
-
-  const roots = getReferenceRoots(host);
-  const elements: HTMLElement[] = [];
-  const seenElements = new Set<HTMLElement>();
-
-  for (const token of attributeValue.split(/\s+/).map((value) => value.trim()).filter((value) => value !== "")) {
-    for (const root of roots) {
-      const element = root.getElementById(token);
-      if (!(element instanceof HTMLElement) || seenElements.has(element)) {
-        continue;
-      }
-
-      seenElements.add(element);
-      elements.push(element);
-    }
-  }
-
-  return elements;
 }
 
 function getReferenceRoots(host: HTMLElement): Array<Document | ShadowRoot> {
