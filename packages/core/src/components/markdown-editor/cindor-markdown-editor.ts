@@ -337,8 +337,8 @@ export class CindorMarkdownEditor extends FormAssociatedElement {
     return this.textareaElement?.reportValidity() ?? true;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -361,7 +361,7 @@ export class CindorMarkdownEditor extends FormAssociatedElement {
                   class="toolbar-button"
                   part="toolbar-button"
                   type="button"
-                  ?disabled=${this.disabled || this.readonly}
+                  ?disabled=${this.effectiveDisabled || this.readonly}
                   title=${action.title}
                   @click=${() => action.apply(this)}
                 >
@@ -386,7 +386,7 @@ export class CindorMarkdownEditor extends FormAssociatedElement {
                   id=${this.controlId}
                   part="editor"
                   .value=${live(this.value)}
-                  ?disabled=${this.disabled}
+                  ?disabled=${this.effectiveDisabled}
                   form=${ifDefined(this.associatedFormId)}
                   name=${this.name}
                   placeholder=${this.placeholder}
@@ -422,7 +422,7 @@ export class CindorMarkdownEditor extends FormAssociatedElement {
 
   wrapSelection(prefix: string, suffix: string, fallbackText: string): void {
     const textarea = this.textareaElement;
-    if (!textarea || this.disabled || this.readonly) {
+    if (!textarea || this.effectiveDisabled || this.readonly) {
       return;
     }
 
@@ -436,7 +436,7 @@ export class CindorMarkdownEditor extends FormAssociatedElement {
 
   prefixLines(prefix: string): void {
     const textarea = this.textareaElement;
-    if (!textarea || this.disabled || this.readonly) {
+    if (!textarea || this.effectiveDisabled || this.readonly) {
       return;
     }
 
@@ -463,7 +463,7 @@ export class CindorMarkdownEditor extends FormAssociatedElement {
         class="mode-button"
         part="mode-button"
         type="button"
-        ?disabled=${this.disabled}
+        ?disabled=${this.effectiveDisabled}
         aria-pressed=${String(this.mode === mode)}
         @click=${() => {
           this.mode = mode;
@@ -491,7 +491,7 @@ export class CindorMarkdownEditor extends FormAssociatedElement {
   }
 
   private syncFormState(): void {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       this.setFormValue(null);
       return;
     }

@@ -60,7 +60,7 @@ export class CindorTagInput extends FormAssociatedElement {
         box-shadow: var(--ring-focus);
       }
 
-      :host([disabled]) .control {
+      :host(:disabled) .control {
         background: var(--bg-subtle);
         color: var(--fg-subtle);
         cursor: not-allowed;
@@ -218,8 +218,8 @@ export class CindorTagInput extends FormAssociatedElement {
     return valid;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -248,7 +248,7 @@ export class CindorTagInput extends FormAssociatedElement {
                           class="chip-remove"
                           part="chip-remove"
                           type="button"
-                          ?disabled=${this.disabled}
+                          ?disabled=${this.effectiveDisabled}
                           @click=${() => this.removeTag(value)}
                         >
                           x
@@ -267,7 +267,7 @@ export class CindorTagInput extends FormAssociatedElement {
             aria-controls=${this.listId}
             aria-expanded=${String(this.listboxVisible)}
             autocomplete="off"
-            ?disabled=${this.disabled}
+            ?disabled=${this.effectiveDisabled}
             placeholder=${this.values.length === 0 ? this.placeholder : ""}
             role="combobox"
             type="text"
@@ -330,7 +330,7 @@ export class CindorTagInput extends FormAssociatedElement {
   };
 
   private handleControlPointerDown = (event: PointerEvent): void => {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       return;
     }
 
@@ -347,7 +347,7 @@ export class CindorTagInput extends FormAssociatedElement {
   };
 
   private handleFocus = (): void => {
-    if (this.disabled || this.filteredSuggestions.length === 0) {
+    if (this.effectiveDisabled || this.filteredSuggestions.length === 0) {
       return;
     }
 
@@ -364,7 +364,7 @@ export class CindorTagInput extends FormAssociatedElement {
   };
 
   private handleKeyDown = (event: KeyboardEvent): void => {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       return;
     }
 
@@ -454,7 +454,7 @@ export class CindorTagInput extends FormAssociatedElement {
   }
 
   private removeTag(value: string): void {
-    if (!value || this.disabled || !this.values.includes(value)) {
+    if (!value || this.effectiveDisabled || !this.values.includes(value)) {
       return;
     }
 
@@ -484,7 +484,7 @@ export class CindorTagInput extends FormAssociatedElement {
   };
 
   private syncFormState(): void {
-    if (this.disabled || this.name === "" || this.values.length === 0) {
+    if (this.effectiveDisabled || this.name === "" || this.values.length === 0) {
       this.setFormValue(null);
     } else {
       const formData = new FormData();
@@ -594,7 +594,7 @@ export class CindorTagInput extends FormAssociatedElement {
   }
 
   private get isValueMissing(): boolean {
-    return this.required && !this.disabled && this.values.length === 0;
+    return this.required && !this.effectiveDisabled && this.values.length === 0;
   }
 
   private get filteredSuggestions(): TagInputSuggestion[] {

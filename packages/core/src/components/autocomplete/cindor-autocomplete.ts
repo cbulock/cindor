@@ -114,8 +114,8 @@ export class CindorAutocomplete extends FormAssociatedElement {
     return this.inputElement?.reportValidity() ?? true;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -136,7 +136,7 @@ export class CindorAutocomplete extends FormAssociatedElement {
           aria-autocomplete="list"
           aria-controls=${this.listId}
           aria-expanded=${String(this.panelVisible)}
-          ?disabled=${this.disabled}
+          ?disabled=${this.effectiveDisabled}
           name=${this.name}
           placeholder=${this.placeholder}
           ?required=${this.required}
@@ -199,7 +199,7 @@ export class CindorAutocomplete extends FormAssociatedElement {
   };
 
   private handleFocus = (): void => {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       return;
     }
 
@@ -219,7 +219,7 @@ export class CindorAutocomplete extends FormAssociatedElement {
 
   private handleKeyDown = (event: KeyboardEvent): void => {
     const suggestions = this.filteredSuggestions;
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       return;
     }
 
@@ -290,7 +290,7 @@ export class CindorAutocomplete extends FormAssociatedElement {
   }
 
   private syncFormState(): void {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       this.setFormValue(null);
       return;
     }

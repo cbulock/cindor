@@ -122,8 +122,8 @@ export class CindorColorInput extends FormAssociatedElement {
     return this.inputElement?.reportValidity() ?? true;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -137,14 +137,14 @@ export class CindorColorInput extends FormAssociatedElement {
         <input
           part="control"
           .value=${live(this.value)}
-          ?disabled=${this.disabled}
+          ?disabled=${this.effectiveDisabled}
           name=${this.name}
           type="color"
           @invalid=${this.handleControlInvalid}
           @input=${this.handleInput}
           @change=${this.handleChange}
         />
-        <button class="trigger" part="trigger" type="button" ?disabled=${this.disabled} @click=${this.handleTriggerClick}>
+        <button class="trigger" part="trigger" type="button" ?disabled=${this.effectiveDisabled} @click=${this.handleTriggerClick}>
           <span class="swatch" part="swatch" aria-hidden="true"></span>
           <span class="value" part="value">${this.value.toUpperCase()}</span>
         </button>
@@ -172,7 +172,7 @@ export class CindorColorInput extends FormAssociatedElement {
   };
 
   private syncFormState(): void {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       this.setFormValue(null);
       return;
     }
@@ -188,7 +188,7 @@ export class CindorColorInput extends FormAssociatedElement {
   }
 
   private handleTriggerClick = (): void => {
-    if (this.disabled || !this.inputElement) {
+    if (this.effectiveDisabled || !this.inputElement) {
       return;
     }
 

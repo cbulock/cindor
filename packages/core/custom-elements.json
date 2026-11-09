@@ -24761,16 +24761,6 @@
             },
             {
               "kind": "field",
-              "name": "formDisabled",
-              "privacy": "private",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "formDisabled"
-            },
-            {
-              "kind": "field",
               "name": "initialValue",
               "type": {
                 "text": "string"
@@ -25254,14 +25244,6 @@
               },
               "default": "0",
               "fieldName": "active"
-            },
-            {
-              "name": "formDisabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "formDisabled"
             }
           ],
           "superclass": {
@@ -29540,16 +29522,6 @@
             },
             {
               "kind": "field",
-              "name": "formDisabled",
-              "privacy": "private",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "attribute": "formDisabled"
-            },
-            {
-              "kind": "field",
               "name": "optionObserver",
               "privacy": "private",
               "default": "new MutationObserver(() => this.refreshOptions())"
@@ -29853,15 +29825,6 @@
             },
             {
               "kind": "field",
-              "name": "effectiveDisabled",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
               "name": "inputElement",
               "type": {
                 "text": "HTMLInputElement | null"
@@ -30010,14 +29973,6 @@
               },
               "default": "\"\"",
               "fieldName": "query"
-            },
-            {
-              "name": "formDisabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "formDisabled"
             },
             {
               "name": "empty-message",

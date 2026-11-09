@@ -33,7 +33,6 @@ export class CindorSearchableDropdown extends FormAssociatedElement {
   static properties = {
     activeIndex: { state: true },
     query: { state: true },
-    formDisabled: { state: true },
     emptyMessage: { attribute: "empty-message" },
     disabled: { type: Boolean, reflect: true },
     name: { reflect: true },
@@ -49,7 +48,6 @@ export class CindorSearchableDropdown extends FormAssociatedElement {
   private query = "";
   private initialized = false;
   private initialValueAttribute?: boolean;
-  private formDisabled = false;
   private optionObserver = new MutationObserver(() => this.refreshOptions());
   disabled = false;
   name = "";
@@ -91,8 +89,8 @@ export class CindorSearchableDropdown extends FormAssociatedElement {
     return this.inputElement?.reportValidity() ?? true;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.formDisabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
     if (this.effectiveDisabled) this.dismiss();
     this.syncFormState();
   }
@@ -320,10 +318,6 @@ export class CindorSearchableDropdown extends FormAssociatedElement {
 
   get selectedLabel(): string {
     return this.optionNodes.find((option) => option.value === this.value)?.label ?? "";
-  }
-
-  private get effectiveDisabled(): boolean {
-    return this.disabled || this.formDisabled;
   }
 
   private get inputElement(): HTMLInputElement | null {

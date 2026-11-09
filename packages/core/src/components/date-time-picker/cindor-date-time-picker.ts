@@ -59,7 +59,7 @@ export class CindorDateTimePicker extends FormAssociatedElement {
   }
 
   get validationMessage(): string {
-    return !this.disabled && this.required && !this.value ? "Please select a date and time." : "";
+    return !this.effectiveDisabled && this.required && !this.value ? "Please select a date and time." : "";
   }
 
   get validity(): Pick<ValidityState, "valid" | "valueMissing"> {
@@ -76,8 +76,8 @@ export class CindorDateTimePicker extends FormAssociatedElement {
     return this.internals?.reportValidity?.() ?? !this.validationMessage;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -107,14 +107,14 @@ export class CindorDateTimePicker extends FormAssociatedElement {
       <div class="surface" part="surface">
         <cindor-date-picker
           .value=${this.dateValue}
-          ?disabled=${this.disabled}
+          ?disabled=${this.effectiveDisabled}
           ?required=${this.required}
           @change=${this.handleDateChange}
           @input=${this.handleDateInput}
         ></cindor-date-picker>
         <cindor-time-input
           .value=${this.timeValue}
-          ?disabled=${this.disabled}
+          ?disabled=${this.effectiveDisabled}
           ?required=${this.required}
           @change=${this.handleTimeChange}
           @input=${this.handleTimeInput}
@@ -183,7 +183,7 @@ export class CindorDateTimePicker extends FormAssociatedElement {
   }
 
   private syncFormState(): void {
-    this.setFormValue(this.disabled ? null : this.value);
+    this.setFormValue(this.effectiveDisabled ? null : this.value);
     const message = this.validationMessage;
     const anchor = this.datePickerElement?.shadowRoot?.querySelector("input") ?? undefined;
     this.internals?.setValidity?.(message ? { valueMissing: true } : {}, message, anchor);

@@ -69,7 +69,7 @@ export class CindorSwitch extends FormAssociatedElement {
       background: var(--accent-fg);
     }
 
-    :host([disabled]) label {
+    :host(:disabled) label {
       cursor: not-allowed;
       opacity: 0.72;
     }
@@ -112,8 +112,8 @@ export class CindorSwitch extends FormAssociatedElement {
     return this.inputElement?.reportValidity() ?? true;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -127,7 +127,7 @@ export class CindorSwitch extends FormAssociatedElement {
         <input
           part="control"
           .checked=${live(this.checked)}
-          ?disabled=${this.disabled}
+          ?disabled=${this.effectiveDisabled}
           name=${this.name}
           ?required=${this.required}
           type="checkbox"
@@ -163,7 +163,7 @@ export class CindorSwitch extends FormAssociatedElement {
   };
 
   private syncFormState(): void {
-    if (this.disabled || !this.checked) {
+    if (this.effectiveDisabled || !this.checked) {
       this.setFormValue(null);
     } else {
       this.setFormValue(this.value);

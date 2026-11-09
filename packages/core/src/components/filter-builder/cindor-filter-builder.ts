@@ -223,8 +223,8 @@ export class CindorFilterBuilder extends FormAssociatedElement {
     this.syncFormState();
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   protected override render() {
@@ -277,12 +277,12 @@ export class CindorFilterBuilder extends FormAssociatedElement {
     const isRoot = path.length === 0;
 
     return html`
-      <cindor-fieldset class="group-fieldset" part="group" ?disabled=${this.disabled} legend=${isRoot ? "Filters" : "Group"}>
+      <cindor-fieldset class="group-fieldset" part="group" ?disabled=${this.effectiveDisabled} legend=${isRoot ? "Filters" : "Group"}>
         <div class="group-surface">
           <div class="group-toolbar" part="group-toolbar">
             <div class="control">
               <cindor-form-field label="Match">
-                <cindor-select ?disabled=${this.disabled} .value=${group.logic} @change=${(event: Event) => this.updateGroupLogic(path, event)}>
+                <cindor-select ?disabled=${this.effectiveDisabled} .value=${group.logic} @change=${(event: Event) => this.updateGroupLogic(path, event)}>
                   <option value="and">All conditions</option>
                   <option value="or">Any condition</option>
                 </cindor-select>
@@ -313,7 +313,7 @@ export class CindorFilterBuilder extends FormAssociatedElement {
       <div class="rule" part="rule">
         <div class="control">
           <cindor-form-field label="Field">
-            <cindor-select ?disabled=${this.disabled} .value=${rule.field} @change=${(event: Event) => this.handleRuleFieldChange(path, event)}>
+            <cindor-select ?disabled=${this.effectiveDisabled} .value=${rule.field} @change=${(event: Event) => this.handleRuleFieldChange(path, event)}>
               ${this.fields.map(
                 (candidate) => html`
                   <option value=${candidate.value}>${candidate.label}</option>
@@ -324,7 +324,7 @@ export class CindorFilterBuilder extends FormAssociatedElement {
         </div>
         <div class="control">
           <cindor-form-field label="Operator">
-            <cindor-select ?disabled=${this.disabled} .value=${rule.operator} @change=${(event: Event) => this.handleRuleOperatorChange(path, event)}>
+            <cindor-select ?disabled=${this.effectiveDisabled} .value=${rule.operator} @change=${(event: Event) => this.handleRuleOperatorChange(path, event)}>
               ${operators.map(
                 (operator) => html`
                   <option value=${operator.value}>${operator.label}</option>
@@ -345,7 +345,7 @@ export class CindorFilterBuilder extends FormAssociatedElement {
 
   private renderActionButton(label: string, onClick: () => void): unknown {
     return html`
-      <cindor-button ?disabled=${this.disabled} class="action-button" type="button" variant="ghost" @click=${onClick}>
+      <cindor-button ?disabled=${this.effectiveDisabled} class="action-button" type="button" variant="ghost" @click=${onClick}>
         ${label}
       </cindor-button>
     `;
@@ -356,7 +356,7 @@ export class CindorFilterBuilder extends FormAssociatedElement {
 
     if (type === "boolean") {
       return html`
-        <cindor-select ?disabled=${this.disabled} .value=${rule.value} @change=${(event: Event) => this.handleRuleValueChange(path, event)}>
+        <cindor-select ?disabled=${this.effectiveDisabled} .value=${rule.value} @change=${(event: Event) => this.handleRuleValueChange(path, event)}>
           <option value="true">True</option>
           <option value="false">False</option>
         </cindor-select>
@@ -365,7 +365,7 @@ export class CindorFilterBuilder extends FormAssociatedElement {
 
     if (type === "select") {
       return html`
-        <cindor-select ?disabled=${this.disabled} .value=${rule.value} @change=${(event: Event) => this.handleRuleValueChange(path, event)}>
+        <cindor-select ?disabled=${this.effectiveDisabled} .value=${rule.value} @change=${(event: Event) => this.handleRuleValueChange(path, event)}>
           ${(field?.options ?? []).map(
             (option) => html`
               <option value=${option.value}>${option.label}</option>
@@ -378,7 +378,7 @@ export class CindorFilterBuilder extends FormAssociatedElement {
     if (type === "number") {
       return html`
         <cindor-number-input
-          ?disabled=${this.disabled}
+          ?disabled=${this.effectiveDisabled}
           .value=${rule.value}
           placeholder=${field?.placeholder ?? ""}
           @input=${(event: Event) => this.handleRuleValueChange(path, event)}
@@ -388,13 +388,13 @@ export class CindorFilterBuilder extends FormAssociatedElement {
 
     if (type === "date") {
       return html`
-        <cindor-date-input ?disabled=${this.disabled} .value=${rule.value} @input=${(event: Event) => this.handleRuleValueChange(path, event)}></cindor-date-input>
+        <cindor-date-input ?disabled=${this.effectiveDisabled} .value=${rule.value} @input=${(event: Event) => this.handleRuleValueChange(path, event)}></cindor-date-input>
       `;
     }
 
     return html`
       <cindor-input
-        ?disabled=${this.disabled}
+        ?disabled=${this.effectiveDisabled}
         .value=${rule.value}
         placeholder=${field?.placeholder ?? ""}
         @input=${(event: Event) => this.handleRuleValueChange(path, event)}
@@ -477,7 +477,7 @@ export class CindorFilterBuilder extends FormAssociatedElement {
   }
 
   private syncFormState(): void {
-    this.setFormValue(!this.disabled && this.name ? this.value : null);
+    this.setFormValue(!this.effectiveDisabled && this.name ? this.value : null);
   }
 
   private updateGroupAtPath(

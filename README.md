@@ -156,6 +156,22 @@ For faster iteration during development, it is also normal to run a targeted tes
 npx vitest run packages/core/src/components/button/cindor-button.test.ts
 ```
 
+### Form control disabled state
+
+A form control's `disabled` property and attribute describe its explicit state. A native
+`<fieldset disabled>` also disables descendant form-associated controls, without changing
+those public values. Re-enabling the fieldset restores controls that were not explicitly
+disabled; native first-legend and nested-fieldset rules apply.
+
+Component implementations should use `effectiveDisabled` for rendering, interaction guards,
+form values, validity, and child-control bindings. Forward `formDisabledCallback` to the shared
+base; never assign its argument to the reflected `disabled` property. Field-array item renderers
+are wrapped in a native fieldset so their native and Cindor form controls inherit disabled state.
+
+Run the native browser regressions with `npm run test:disabled:browser` after
+`npx playwright install chromium`. To use a local browser, set
+`PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to its executable path.
+
 ### Component events
 
 Let composed native events reach the host through Shadow DOM. Synchronize the component's value in the internal handler so non-capture listeners see the new value. Use `bridgeNativeEvent` for explicitly supported events that stay inside the shadow root, and honor cancellation before performing the associated action. Composite widgets should publish events that describe their own state changes and contain bubbling events from private controls where appropriate.

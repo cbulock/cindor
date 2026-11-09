@@ -32,7 +32,7 @@ export class CindorRadio extends FormAssociatedElement {
       accent-color: var(--accent);
     }
 
-    :host([disabled]) label {
+    :host(:disabled) label {
       cursor: not-allowed;
       opacity: 0.72;
     }
@@ -76,8 +76,8 @@ export class CindorRadio extends FormAssociatedElement {
     return this.inputElement?.reportValidity() ?? true;
   }
 
-  formDisabledCallback(disabled: boolean): void {
-    this.disabled = disabled;
+  override formDisabledCallback(disabled: boolean): void {
+    super.formDisabledCallback(disabled);
   }
 
   formResetCallback(): void {
@@ -91,7 +91,7 @@ export class CindorRadio extends FormAssociatedElement {
         <input
           part="control"
           .checked=${live(this.checked)}
-          ?disabled=${this.disabled}
+          ?disabled=${this.effectiveDisabled}
           form=${ifDefined(this.associatedFormId)}
           name=${this.name}
           ?required=${this.required}
@@ -126,7 +126,7 @@ export class CindorRadio extends FormAssociatedElement {
   };
 
   private syncFormState(): void {
-    if (this.disabled || !this.checked) {
+    if (this.effectiveDisabled || !this.checked) {
       this.setFormValue(null);
     } else {
       this.setFormValue(this.value);

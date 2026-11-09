@@ -87,7 +87,7 @@ export class CindorPasswordInput extends BaseInputElement {
   private revealPassword = false;
 
   private handleToggleClick = (): void => {
-    if (this.disabled) {
+    if (this.effectiveDisabled) {
       return;
     }
 
@@ -105,7 +105,7 @@ export class CindorPasswordInput extends BaseInputElement {
         class="toggle"
         part="toggle"
         type="button"
-        ?disabled=${this.disabled}
+        ?disabled=${this.effectiveDisabled}
         aria-label=${this.revealPassword ? "Hide password" : "Show password"}
         aria-pressed=${String(this.revealPassword)}
         @click=${this.handleToggleClick}
