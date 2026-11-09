@@ -27,6 +27,40 @@ try {
   const page = await browser.newPage();
   await page.goto(`${server.resolvedUrls.local[0]}form-regression`);
   await page.evaluate(() => customElements.whenDefined("cindor-form"));
+  // An explicit empty form attribute opts out even when a nested owner has no ID.
+  for (const tag of ["input", "cindor-input"]) {
+    for (const nested of [false, true]) {
+      const result = await page.evaluate(async ({ tag, nested }) => {
+        const host = document.createElement("cindor-form");
+        const field = document.createElement(tag);
+        field.setAttribute("name", "opted-out");
+        field.setAttribute("required", "");
+        field.setAttribute("form", "");
+        const parent = nested ? document.createElement("form") : host;
+        parent.append(field);
+        if (nested) host.append(parent);
+        document.body.append(host);
+        await new Promise((resolve) => setTimeout(resolve, 0));
+        await host.updateComplete;
+        await field.updateComplete;
+        const form = host.querySelector("form");
+        // Some Cindor controls assign IDs to ancestor forms during rendering.
+        // Exercise the unnamed owner explicitly for both native and custom inputs.
+        if (nested) form.removeAttribute("id");
+        const associated = Array.from(form.elements).includes(field);
+        const valid = host.checkValidity();
+        const reportedValid = host.reportValidity();
+        host.submitting = true;
+        await host.updateComplete;
+        await field.updateComplete;
+        const disabled = field.disabled;
+        const included = new FormData(form).has("opted-out");
+        host.remove();
+        return { associated, valid, reportedValid, disabled, included };
+      }, { tag, nested });
+      assert.deepEqual(result, { associated: false, valid: true, reportedValid: true, disabled: false, included: false }, `${nested ? "unnamed nested" : "direct"} ${tag} empty form opt-out`);
+    }
+  }
   for (const nested of [false, true]) {
     const result = await page.evaluate(async (nested) => {
       const equal = (actual, expected, label) => {

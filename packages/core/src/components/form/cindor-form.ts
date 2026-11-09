@@ -566,7 +566,7 @@ export class CindorForm extends LitElement {
 
   private isManagedElement(element: Element): boolean {
     const explicitForm = element.getAttribute("form");
-    if (explicitForm !== null && explicitForm !== (this.legacyForm?.id ?? this.ownedFormId)) return false;
+    if (explicitForm === "" || (explicitForm !== null && explicitForm !== (this.legacyForm?.id ?? this.ownedFormId))) return false;
     if (Array.from(this.currentForm?.elements ?? []).includes(element)) return true;
     if (element.closest("cindor-form") !== this) return false;
     if (this.legacyForm) {
@@ -582,16 +582,7 @@ export class CindorForm extends LitElement {
   }
 
   private isManagedValidatableControl(element: HTMLElement): element is ValidatableElement {
-    if (!this.isManagedElement(element)) {
-      return false;
-    }
-
-    if (typeof (element as ValidatableElement).checkValidity !== "function") {
-      return false;
-    }
-
-    const explicitForm = element.getAttribute("form");
-    return explicitForm === null || explicitForm === (this.legacyForm?.id ?? this.ownedFormId);
+    return this.isManagedElement(element) && typeof (element as ValidatableElement).checkValidity === "function";
   }
 
   private refreshValidationSummary(): void {
