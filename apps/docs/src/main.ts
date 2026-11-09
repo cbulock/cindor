@@ -1033,7 +1033,7 @@ function renderDocsHome(activeSectionId: string): string {
           <section class="section" data-label="React" data-value="react">
             <div class="preview-block">
               <strong>React</strong>
-              <p class="muted">The React package wraps the same core elements and registers them for you, so usage stays close to standard JSX patterns.</p>
+              <p class="muted">The React package wraps the same core elements and registers them for you. For smaller bundles, import each wrapper from its component subpath, such as <code>cindor-ui-react/components/button</code>. Root imports register the whole library.</p>
               <cindor-code-block code="${escapeAttribute(reactInstallCode)}" language="bash"></cindor-code-block>
               <cindor-code-block code="${escapeAttribute(reactQuickStartCode)}" language="tsx"></cindor-code-block>
             </div>
@@ -1041,6 +1041,7 @@ function renderDocsHome(activeSectionId: string): string {
           <section class="section" data-label="Vue" data-value="vue">
             <div class="preview-block">
               <strong>Vue</strong>
+              <p class="muted">For smaller bundles, import wrappers from component subpaths such as <code>cindor-ui-vue/components/button</code>. Each entry registers its internal component dependencies; root imports register the whole library.</p>
               <p class="muted">The Vue package exposes thin component wrappers over the same custom element implementation and shared styles.</p>
               <cindor-code-block code="${escapeAttribute(vueInstallCode)}" language="bash"></cindor-code-block>
               <cindor-code-block code="${escapeAttribute(vueQuickStartCode)}" language="vue"></cindor-code-block>

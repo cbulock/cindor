@@ -1,7 +1,7 @@
 import { html, nothing } from "lit";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 
-import * as lucideIcons from "lucide";
+
 import type { IconNode } from "lucide";
 
 type SvgAttributeValue = boolean | number | string | undefined;
@@ -77,7 +77,7 @@ export async function loadLucideIcon(name: LucideIconName | string): Promise<Luc
     return cachedIcon;
   }
 
-  const iconNode = readLucideIcon(normalizedName);
+  const iconNode = await readLucideIcon(normalizedName);
   lucideIconCache.set(normalizedName, iconNode);
   return iconNode;
 }
@@ -99,13 +99,14 @@ export function normalizeIconName(name: string): string {
     .toLowerCase();
 }
 
-function readLucideIcon(normalizedName: string): LucideIconNode | null {
+async function readLucideIcon(normalizedName: string): Promise<LucideIconNode | null> {
   const exportName = normalizedName
     .split("-")
     .filter((part) => part.length > 0)
     .map((part) => `${part[0].toUpperCase()}${part.slice(1)}`)
     .join("");
 
+  const lucideIcons = await import("lucide");
   const iconNode = lucideIcons[exportName as keyof typeof lucideIcons];
   return isLucideIconNode(iconNode) ? iconNode : null;
 }
