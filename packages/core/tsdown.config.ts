@@ -11,7 +11,8 @@ export default defineConfig({
   entry: {
     index: join(srcRoot, "index.ts"),
     register: join(srcRoot, "register.ts"),
-    ...getComponentEntries(componentRoot)
+    ...getComponentEntries(componentRoot),
+    ...Object.fromEntries(readdirSync(join(srcRoot, "register")).filter(name => name.endsWith(".ts")).map(name => ["register/" + name.replace(/\.ts$/, ""), join(srcRoot, "register", name)]))
   },
   format: ["esm"],
   target: "es2022",

@@ -32,7 +32,8 @@
     "test:storybook": "vitest run --project storybook",
     "test:watch": "vitest --project unit",
     "test:one": "vitest run --project unit",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:selective-loading": "node scripts/test-selective-loading.mjs && node scripts/test-selective-loading-browser.mjs"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.11.0",

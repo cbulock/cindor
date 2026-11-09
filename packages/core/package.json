@@ -18,7 +18,9 @@
   "sideEffects": [
     "./src/register.ts",
     "./src/styles.css",
-    "./dist/register.js"
+    "./dist/register.js",
+    "./src/register/*.ts",
+    "./dist/register/*.js"
   ],
   "repository": {
     "type": "git",
@@ -54,7 +56,12 @@
     },
     "./styles.css": "./src/styles.css",
     "./custom-elements.json": "./custom-elements.json",
-    "./component-docs.json": "./component-docs.json"
+    "./component-docs.json": "./component-docs.json",
+    "./register/*": {
+      "types": "./dist/register/*.d.ts",
+      "import": "./dist/register/*.js",
+      "require": "./dist/register/*.js"
+    }
   },
   "scripts": {
     "build": "tsdown --config tsdown.config.ts && tsc -p tsconfig.build.json"
