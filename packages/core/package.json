@@ -1,6 +1,6 @@
 {
   "name": "cindor-ui-core",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "Framework-agnostic Cindor web components built on standard custom elements.",
   "license": "MIT",
   "type": "module",
