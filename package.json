@@ -32,6 +32,7 @@
     "test:storybook": "vitest run --project storybook",
     "test:watch": "vitest --project unit",
     "test:one": "vitest run --project unit",
+    "test:packages": "node scripts/test-package-consumers.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "devDependencies": {
