@@ -1,6 +1,6 @@
 {
   "name": "cindor-ui-vue",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "Thin Vue wrappers for the Cindor web component library.",
   "license": "MIT",
   "type": "module",
@@ -44,7 +44,7 @@
     "build": "tsdown --config tsdown.config.ts"
   },
   "dependencies": {
-    "cindor-ui-core": "0.6.3"
+    "cindor-ui-core": "0.6.4"
   },
   "peerDependencies": {
     "vue": "^3.5.0"
