@@ -39,6 +39,16 @@ The GitHub repository root is the workspace source tree, not a consumable replac
 
 Most apps should also import `cindor-ui-core/styles.css` once near startup so the shared fonts, tokens, base styles, and theme hooks are available.
 
+### CommonJS consumers
+
+The core, React, and Vue packages support `require()` on Node.js versions with synchronous ESM loading enabled by default: Node 20.19+, Node 22.12+, and later supported release lines. Older Node runtimes should use ESM imports or upgrade. This uses Node's [synchronous ESM interoperability](https://nodejs.org/api/modules.html#loading-ecmascript-modules-using-require); the core's `import` and `require` conditions resolve to the same module so both consumers share custom-element constructors and registration state.
+
+```js
+const { CindorButton } = require("cindor-ui-react");
+```
+
+TypeScript Node consumers should use `module` and `moduleResolution` set to `NodeNext` with TypeScript 5.8 or later. The repository builds with its configured Node version. After building, `npm run test:packages` packs all three libraries and checks runtime loading and TypeScript consumption from an isolated application, without workspace source aliases.
+
 ## Apps
 
 - `apps/docs` — living documentation site built with the Cindor web components themselves

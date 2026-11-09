@@ -42,3 +42,6 @@ jobs:
 
       - name: Build workspace
         run: npm run build
+
+      - name: Check packed ESM and CommonJS consumers
+        run: npm run test:packages
