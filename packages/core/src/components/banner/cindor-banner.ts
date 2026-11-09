@@ -9,6 +9,8 @@ export type BannerRoleType = "status" | "alert";
  * @slot - Default banner body content.
  * @slot icon - Optional leading icon or media.
  * @slot actions - Optional trailing actions such as buttons or links.
+ * @fires {CustomEvent} dismiss - Fired when the banner is dismissed.
+ * @fires {CustomEvent<{ open: boolean }>} open-change - Fired when dismissing the banner changes its open state.
  */
 export class CindorBanner extends LitElement {
   static styles = css`

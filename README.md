@@ -114,6 +114,12 @@ For faster iteration during development, it is also normal to run a targeted tes
 npx vitest run packages/core/src/components/button/cindor-button.test.ts
 ```
 
+### Component events
+
+Let composed native events reach the host through Shadow DOM. Synchronize the component's value in the internal handler so non-capture listeners see the new value. Use `bridgeNativeEvent` for explicitly supported events that stay inside the shadow root, and honor cancellation before performing the associated action. Composite widgets should publish events that describe their own state changes and contain bubbling events from private controls where appropriate.
+
+Document public component events with `@fires` and declare their framework bindings in `scripts/wrapper-manifest.mjs`. Use `nativeEvents` for opted-in native events that need direct framework bindings. List documented events such as button `click` in `passthroughEvents` when the frameworks already deliver them through their standard handlers. The event contract tests check host dispatches against the docs and check the docs against both wrapper declarations.
+
 ## Architecture
 
 This repository is designed around a few core rules:

@@ -7,6 +7,7 @@ import { normalizeA11yText, ReferencedTextObserver, resolveReferencedText, syncA
 export type ButtonVariant = "solid" | "ghost";
 export type ButtonType = "button" | "submit" | "reset";
 
+/** @fires {MouseEvent} click - Uses the native click event from the button control. */
 export class CindorButton extends LitElement {
   private static nextFormId = 0;
   private static nextA11yId = 0;

@@ -237,7 +237,15 @@ export class CindorFilterBuilder extends FormAssociatedElement {
       `;
     }
 
-    return html`<div class="surface" part="surface">${this.renderGroup(this.group, [])}</div>`;
+    return html`
+      <div
+        class="surface"
+        part="surface"
+        @input=${(event: Event) => event.stopPropagation()}
+        @change=${(event: Event) => event.stopPropagation()}
+        @select=${(event: Event) => event.stopPropagation()}
+      >${this.renderGroup(this.group, [])}</div>
+    `;
   }
 
   protected override updated(changedProperties: Map<string, unknown>): void {

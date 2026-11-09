@@ -11,6 +11,7 @@ import { FormAssociatedElement } from "../shared/form-associated-element.js";
  * @fires complete - A user edit produced a new full code; detail.value contains the code.
  * @csspart group - The labelled input group.
  * @csspart control - Each character input.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
  */
 export class CindorOtpInput extends FormAssociatedElement {
   static properties = {
@@ -60,7 +61,7 @@ export class CindorOtpInput extends FormAssociatedElement {
   }
 
   private get unavailable(): boolean { return this.disabled || this.formDisabled; }
-  private get cells(): HTMLInputElement[] { return Array.from(this.renderRoot.querySelectorAll("input")); }
+  private get cells(): HTMLInputElement[] { return Array.from(this.renderRoot?.querySelectorAll("input") ?? []); }
   private normalizeCode(value: string): string {
     return String(value ?? "").replace(this.mode === "alphanumeric" ? /[^a-zA-Z0-9]/g : /[^0-9]/g, "").slice(0, this.count);
   }

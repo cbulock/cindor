@@ -1,5 +1,9 @@
 import { css, html, LitElement } from "lit";
 
+/**
+ * @fires {CustomEvent<{ option: CindorOption; value: string }>} option-select - Fired when the option is activated.
+ * @fires {CustomEvent<{ option: CindorOption; value: string }>} option-hover - Fired when the pointer moves over the option.
+ */
 export class CindorOption extends LitElement {
   static styles = css`
     :host {

@@ -1,5 +1,6 @@
 import { css, html, LitElement } from "lit";
 
+/** @fires {CustomEvent<{ item: CindorMenuItem }>} menu-item-select - Fired when the menu item is activated. */
 export class CindorMenuItem extends LitElement {
   static styles = css`
     :host {

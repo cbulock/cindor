@@ -7,6 +7,7 @@ import { renderLucideIcon } from "../icon/lucide.js";
 import { CindorOption } from "../option/cindor-option.js";
 import { createFieldHostStyles, createTextControlStyles, hiddenSlotStyles } from "../shared/control-styles.js";
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
+import { bridgeNativeEvent } from "../shared/native-events.js";
 
 type SelectOption = {
   disabled: boolean;
@@ -22,6 +23,11 @@ type SelectOptGroup = {
 
 type SelectNode = { kind: "option"; option: SelectOption } | { kind: "optgroup"; group: SelectOptGroup };
 
+/**
+ * @fires {Event} input - Fired as the value changes through user interaction.
+ * @fires {Event} change - Fired when the user commits a value change.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
+ */
 export class CindorSelect extends FormAssociatedElement {
   static styles = [
     createFieldHostStyles("min(100%, 320px)"),
@@ -103,6 +109,7 @@ export class CindorSelect extends FormAssociatedElement {
           form=${ifDefined(this.associatedFormId)}
           name=${this.name}
           ?required=${this.required}
+          @invalid=${this.handleControlInvalid}
           @input=${this.handleInput}
           @change=${this.handleChange}
         >
@@ -138,19 +145,17 @@ export class CindorSelect extends FormAssociatedElement {
   }
 
   private handleChange = (event: Event): void => {
-    event.stopPropagation();
     const select = event.currentTarget as HTMLSelectElement;
     this.value = select.value;
     this.syncFormState();
-    this.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
+    bridgeNativeEvent(this, event);
   };
 
   private handleInput = (event: InputEvent): void => {
-    event.stopPropagation();
     const select = event.currentTarget as HTMLSelectElement;
     this.value = select.value;
     this.syncFormState();
-    this.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    bridgeNativeEvent(this, event);
   };
 
   private handleSlotChange = (): void => {

@@ -1,5 +1,8 @@
 import { css, html, LitElement } from "lit";
 
+import { bridgeNativeEvent } from "../shared/native-events.js";
+
+/** @fires {ToggleEvent} toggle - Fired after the disclosure opens or closes. */
 export class CindorAccordion extends LitElement {
   static styles = css`
     :host {
@@ -67,9 +70,9 @@ export class CindorAccordion extends LitElement {
   }
 
   private handleToggle = (event: Event): void => {
-    event.stopPropagation();
-    const details = event.currentTarget as HTMLDetailsElement;
-    this.open = details.open;
-    this.dispatchEvent(new Event("toggle", { bubbles: true, composed: true }));
+    if (event.target === event.currentTarget) {
+      this.open = (event.currentTarget as HTMLDetailsElement).open;
+      bridgeNativeEvent(this, event);
+    }
   };
 }

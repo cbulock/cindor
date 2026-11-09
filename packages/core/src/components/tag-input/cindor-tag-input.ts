@@ -20,6 +20,7 @@ export type TagInputSuggestion = {
  *
  * @fires {CustomEvent<TagInputChangeDetail>} input - Fired when the committed tag values change.
  * @fires {CustomEvent<TagInputChangeDetail>} change - Fired when the committed tag values change.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
  */
 export class CindorTagInput extends FormAssociatedElement {
   static styles = [
@@ -355,6 +356,7 @@ export class CindorTagInput extends FormAssociatedElement {
   };
 
   private handleInput = (event: InputEvent): void => {
+    event.stopPropagation();
     const input = event.currentTarget as HTMLInputElement;
     this.draftValue = input.value;
     this.open = this.filteredSuggestions.length > 0;

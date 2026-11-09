@@ -4,7 +4,14 @@ import { live } from "lit/directives/live.js";
 
 import { createFieldHostStyles, createTextControlStyles } from "../shared/control-styles.js";
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
+import { bridgeNativeEvent } from "../shared/native-events.js";
 
+/**
+ * @fires {InputEvent | Event} input - Fired as the value changes through user interaction.
+ * @fires {Event} change - Fired when the user commits a value change.
+ * @fires {Event} select - Fired when the native control reports text selection.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
+ */
 export class BaseInputElement extends FormAssociatedElement {
   private static readonly assistiveTextStyles = [
     "position:absolute",
@@ -148,6 +155,8 @@ export class BaseInputElement extends FormAssociatedElement {
           step=${ifDefined(this.step || undefined)}
           type=${this.inputType}
           @keydown=${this.handleKeyDown}
+          @invalid=${this.handleControlInvalid}
+          @select=${this.handleControlSelect}
           @input=${this.handleInput}
           @change=${this.handleChange}
         />
@@ -168,19 +177,17 @@ export class BaseInputElement extends FormAssociatedElement {
   }
 
   protected handleChange = (event: Event): void => {
-    event.stopPropagation();
     const input = event.currentTarget as HTMLInputElement;
     this.value = input.value;
     this.syncFormState();
-    this.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
+    bridgeNativeEvent(this, event);
   };
 
   protected handleInput = (event: InputEvent): void => {
-    event.stopPropagation();
     const input = event.currentTarget as HTMLInputElement;
     this.value = input.value;
     this.syncFormState();
-    this.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    bridgeNativeEvent(this, event);
   };
 
   protected handleKeyDown = (event: KeyboardEvent): void => {

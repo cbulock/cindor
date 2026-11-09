@@ -31,6 +31,7 @@ type FieldArrayRecord = Record<string, unknown>;
  *
  * @fires {CustomEvent<FieldArrayChangeDetail>} input - Fired when the item array changes.
  * @fires {CustomEvent<FieldArrayChangeDetail>} change - Fired when the item array changes.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
  */
 export class CindorFieldArray<T = unknown> extends FormAssociatedElement {
   static styles = css`

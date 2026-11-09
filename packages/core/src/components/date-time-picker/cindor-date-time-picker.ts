@@ -1,5 +1,6 @@
 import { css, html } from "lit";
 
+import type { CindorDatePicker } from "../date-picker/cindor-date-picker.js";
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
 
 /**
@@ -7,6 +8,7 @@ import { FormAssociatedElement } from "../shared/form-associated-element.js";
  *
  * @fires input - Fired when either the date or time value changes.
  * @fires change - Fired when the combined value changes.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
  */
 export class CindorDateTimePicker extends FormAssociatedElement {
   static styles = css`
@@ -52,7 +54,17 @@ export class CindorDateTimePicker extends FormAssociatedElement {
   }
 
   checkValidity(): boolean {
-    return !this.required || this.value !== "";
+    this.syncFormState();
+    return this.internals?.checkValidity?.() ?? !this.validationMessage;
+  }
+
+  get validationMessage(): string {
+    return !this.disabled && this.required && !this.value ? "Please select a date and time." : "";
+  }
+
+  get validity(): Pick<ValidityState, "valid" | "valueMissing"> {
+    const valueMissing = Boolean(this.validationMessage);
+    return this.internals?.validity ?? { valid: !valueMissing, valueMissing };
   }
 
   override focus(options?: FocusOptions): void {
@@ -60,7 +72,8 @@ export class CindorDateTimePicker extends FormAssociatedElement {
   }
 
   reportValidity(): boolean {
-    return this.checkValidity();
+    this.syncFormState();
+    return this.internals?.reportValidity?.() ?? !this.validationMessage;
   }
 
   formDisabledCallback(disabled: boolean): void {
@@ -69,8 +82,24 @@ export class CindorDateTimePicker extends FormAssociatedElement {
 
   formResetCallback(): void {
     this.value = this.defaultValue;
+    this.dateValue = "";
+    this.timeValue = "";
     this.syncSplitValues();
     this.syncFormState();
+  }
+
+  protected override willUpdate(changedProperties: Map<PropertyKey, unknown>): void {
+    if (!changedProperties.has("value")) {
+      return;
+    }
+
+    // A child edit that clears the combined value has already cleared one of the fields.
+    if (changedProperties.get("value") && this.value === "" && this.dateValue && this.timeValue) {
+      this.dateValue = "";
+      this.timeValue = "";
+    } else {
+      this.syncSplitValues();
+    }
   }
 
   protected override render() {
@@ -89,20 +118,22 @@ export class CindorDateTimePicker extends FormAssociatedElement {
           ?required=${this.required}
           @change=${this.handleTimeChange}
           @input=${this.handleTimeInput}
+          @select=${(event: Event) => event.stopPropagation()}
         ></cindor-time-input>
       </div>
     `;
   }
 
-  protected override updated(changedProperties: Map<PropertyKey, unknown>): void {
-    if (changedProperties.has("value")) {
-      this.syncSplitValues();
-    }
-
+  protected override updated(): void {
     this.syncFormState();
   }
 
+  protected override firstUpdated(): void {
+    void this.datePickerElement?.updateComplete.then(() => this.syncFormState());
+  }
+
   private handleDateInput = (event: Event): void => {
+    event.stopPropagation();
     const picker = event.currentTarget as HTMLElement & { value: string };
     this.dateValue = picker.value;
     this.syncCombinedValue();
@@ -110,6 +141,7 @@ export class CindorDateTimePicker extends FormAssociatedElement {
   };
 
   private handleDateChange = (event: Event): void => {
+    event.stopPropagation();
     const picker = event.currentTarget as HTMLElement & { value: string };
     this.dateValue = picker.value;
     this.syncCombinedValue();
@@ -117,6 +149,7 @@ export class CindorDateTimePicker extends FormAssociatedElement {
   };
 
   private handleTimeInput = (event: Event): void => {
+    event.stopPropagation();
     const input = event.currentTarget as HTMLElement & { value: string };
     this.timeValue = input.value;
     this.syncCombinedValue();
@@ -124,6 +157,7 @@ export class CindorDateTimePicker extends FormAssociatedElement {
   };
 
   private handleTimeChange = (event: Event): void => {
+    event.stopPropagation();
     const input = event.currentTarget as HTMLElement & { value: string };
     this.timeValue = input.value;
     this.syncCombinedValue();
@@ -149,15 +183,13 @@ export class CindorDateTimePicker extends FormAssociatedElement {
   }
 
   private syncFormState(): void {
-    if (this.disabled) {
-      this.setFormValue(null);
-      return;
-    }
-
-    this.setFormValue(this.value);
+    this.setFormValue(this.disabled ? null : this.value);
+    const message = this.validationMessage;
+    const anchor = this.datePickerElement?.shadowRoot?.querySelector("input") ?? undefined;
+    this.internals?.setValidity?.(message ? { valueMissing: true } : {}, message, anchor);
   }
 
-  private get datePickerElement(): HTMLElement | null {
-    return this.renderRoot.querySelector("cindor-date-picker");
+  private get datePickerElement(): CindorDatePicker | null {
+    return this.renderRoot?.querySelector("cindor-date-picker") ?? null;
   }
 }

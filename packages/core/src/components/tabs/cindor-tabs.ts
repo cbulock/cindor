@@ -195,7 +195,13 @@ export class CindorTabs extends LitElement {
   private renderMobilePicker() {
     return html`
       <cindor-form-field class="mobile-picker" label="Section" part="mobile-picker">
-        <cindor-select aria-label="Select tab" part="mobile-control" .value=${this.value} @change=${this.handleMobileChange}>
+        <cindor-select
+          aria-label="Select tab"
+          part="mobile-control"
+          .value=${this.value}
+          @input=${(event: Event) => event.stopPropagation()}
+          @change=${this.handleMobileChange}
+        >
           ${this.panels.map(
             (panel) => html`
               <option value=${panel.value}>${panel.label}</option>
@@ -250,6 +256,7 @@ export class CindorTabs extends LitElement {
   }
 
   private handleMobileChange = (event: Event): void => {
+    event.stopPropagation();
     const currentTarget = event.currentTarget;
     if (currentTarget && typeof currentTarget === "object" && "value" in currentTarget) {
       const value = (currentTarget as { value: unknown }).value;

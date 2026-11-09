@@ -5,6 +5,7 @@ import { live } from "lit/directives/live.js";
 import { Marked } from "marked";
 
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
+import { bridgeNativeEvent } from "../shared/native-events.js";
 
 export type MarkdownEditorMode = "write" | "preview" | "split";
 
@@ -104,6 +105,10 @@ const toolbarActions: ToolbarAction[] = [
  *
  * @summary Markdown editor with toolbar shortcuts and live preview.
  * @tag cindor-markdown-editor
+ * @fires {InputEvent | Event} input - Fired as the value changes through user interaction.
+ * @fires {Event} change - Fired when the user commits a value change.
+ * @fires {Event} select - Fired when the native control reports text selection.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
  */
 export class CindorMarkdownEditor extends FormAssociatedElement {
   static styles = css`
@@ -388,6 +393,8 @@ export class CindorMarkdownEditor extends FormAssociatedElement {
                   ?readonly=${this.readonly}
                   ?required=${this.required}
                   rows=${this.rows}
+                  @invalid=${this.handleControlInvalid}
+                  @select=${this.handleControlSelect}
                   @input=${this.handleInput}
                   @change=${this.handleChange}
                 ></textarea>
@@ -423,7 +430,8 @@ export class CindorMarkdownEditor extends FormAssociatedElement {
     const end = textarea.selectionEnd ?? textarea.value.length;
     const selection = textarea.value.slice(start, end) || fallbackText;
     textarea.setRangeText(`${prefix}${selection}${suffix}`, start, end, "select");
-    this.commitTextareaValue(textarea, "input");
+    this.commitTextareaValue(textarea);
+    this.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
   }
 
   prefixLines(prefix: string): void {
@@ -445,7 +453,8 @@ export class CindorMarkdownEditor extends FormAssociatedElement {
       .join("\n");
 
     textarea.setRangeText(prefixedBlock, blockStart, blockEnd, "select");
-    this.commitTextareaValue(textarea, "input");
+    this.commitTextareaValue(textarea);
+    this.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
   }
 
   private renderModeButton(mode: MarkdownEditorMode, label: string) {
@@ -466,20 +475,19 @@ export class CindorMarkdownEditor extends FormAssociatedElement {
   }
 
   private handleChange = (event: Event): void => {
-    event.stopPropagation();
-    this.commitTextareaValue(event.currentTarget as HTMLTextAreaElement, "change");
+    this.commitTextareaValue(event.currentTarget as HTMLTextAreaElement);
+    bridgeNativeEvent(this, event);
   };
 
   private handleInput = (event: InputEvent): void => {
-    event.stopPropagation();
-    this.commitTextareaValue(event.currentTarget as HTMLTextAreaElement, "input");
+    this.commitTextareaValue(event.currentTarget as HTMLTextAreaElement);
+    bridgeNativeEvent(this, event);
   };
 
-  private commitTextareaValue(textarea: HTMLTextAreaElement, eventName: "change" | "input"): void {
+  private commitTextareaValue(textarea: HTMLTextAreaElement): void {
     this.value = textarea.value;
     this.syncFormState();
     textarea.focus();
-    this.dispatchEvent(new Event(eventName, { bubbles: true, composed: true }));
   }
 
   private syncFormState(): void {

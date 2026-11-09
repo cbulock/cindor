@@ -1,10 +1,15 @@
 import { css, html, LitElement } from "lit";
 
 import { normalizeA11yText, ReferencedTextObserver, resolveReferencedText, syncA11yMirror } from "../shared/a11y-mirror.js";
+import { bridgeNativeEvent } from "../shared/native-events.js";
 
 const managedA11yAttributes = ["aria-describedby", "aria-description", "aria-label", "aria-labelledby"] as const;
 type ManagedA11yAttribute = (typeof managedA11yAttributes)[number];
 
+/**
+ * @fires {Event} cancel - Fired when the browser requests dismissal. When cancelable, call `preventDefault()` to keep the dialog open.
+ * @fires {Event} close - Fired when the dialog closes.
+ */
 export class CindorDialog extends LitElement {
   private static nextDialogId = 0;
 
@@ -65,7 +70,7 @@ export class CindorDialog extends LitElement {
   open = false;
 
   private readonly generatedDialogId = `${this.localName}-${CindorDialog.nextDialogId++}`;
-  private ignoreDialogClose = false;
+  private pendingModeSwitchCloses = 0;
   private hostAriaDescription = "";
   private hostAriaDescribedBy = "";
   private hostAriaLabel = "";
@@ -163,20 +168,26 @@ export class CindorDialog extends LitElement {
   }
 
   private handleCancel = (event: Event): void => {
-    event.stopPropagation();
-    this.open = false;
-    this.dispatchEvent(new Event("cancel", { bubbles: true, composed: true }));
+    if (event.target === event.currentTarget && bridgeNativeEvent(this, event)) {
+      this.open = false;
+    }
   };
 
   private handleClose = (event: Event): void => {
-    event.stopPropagation();
-    if (this.ignoreDialogClose) {
+    if (event.target !== event.currentTarget) {
+      return;
+    }
+    if (this.pendingModeSwitchCloses > 0) {
+      this.pendingModeSwitchCloses -= 1;
+      return;
+    }
+    if (this.dialogElement?.open) {
       return;
     }
 
     this.open = false;
     this.presentedModal = null;
-    this.dispatchEvent(new Event("close", { bubbles: true, composed: true }));
+    bridgeNativeEvent(this, event);
   };
 
   private handleDismiss = (): void => {
@@ -213,13 +224,13 @@ export class CindorDialog extends LitElement {
       }
 
       if (dialog.hasAttribute("open")) {
-        this.ignoreDialogClose = true;
         if (typeof dialog.close === "function") {
+          // The browser delivers close asynchronously, after the dialog has reopened.
+          this.pendingModeSwitchCloses += 1;
           dialog.close();
         } else {
           dialog.removeAttribute("open");
         }
-        this.ignoreDialogClose = false;
       }
 
       if (this.modal && typeof dialog.showModal === "function") {

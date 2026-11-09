@@ -4,7 +4,13 @@ import Star from "lucide/dist/esm/icons/star.mjs";
 
 import { renderLucideIcon } from "../icon/lucide.js";
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
+import { bridgeNativeEvent } from "../shared/native-events.js";
 
+/**
+ * @fires {Event} input - Fired as the value changes through user interaction.
+ * @fires {Event} change - Fired when the user commits a value change.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
+ */
 export class CindorRatingInput extends FormAssociatedElement {
   static styles = css`
     :host {
@@ -155,6 +161,7 @@ export class CindorRatingInput extends FormAssociatedElement {
                 ?required=${this.required && ratingValue === 1}
                 type="radio"
                 value=${String(ratingValue)}
+                @invalid=${this.handleControlInvalid}
                 @input=${this.handleInput}
                 @change=${this.handleChange}
               />
@@ -185,19 +192,17 @@ export class CindorRatingInput extends FormAssociatedElement {
   }
 
   private handleChange = (event: Event): void => {
-    event.stopPropagation();
     const input = event.currentTarget as HTMLInputElement;
     this.value = Number(input.value);
     this.syncFormState();
-    this.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
+    bridgeNativeEvent(this, event);
   };
 
   private handleInput = (event: InputEvent): void => {
-    event.stopPropagation();
     const input = event.currentTarget as HTMLInputElement;
     this.value = Number(input.value);
     this.syncFormState();
-    this.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    bridgeNativeEvent(this, event);
   };
 
   private handleClearClick = (): void => {

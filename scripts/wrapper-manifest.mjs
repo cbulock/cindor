@@ -68,6 +68,7 @@ const handler = (domEvent, options = {}) => ({
   domEvent,
   emitName: Object.prototype.hasOwnProperty.call(options, "emitName") ? options.emitName : domEvent,
   modelEmit: options.modelEmit,
+  modelHostOnly: options.modelHostOnly ?? false,
   modelHostProperty: options.modelHostProperty,
   modelHostType: options.modelHostType,
   modelValueExpression: options.modelValueExpression
@@ -75,11 +76,14 @@ const handler = (domEvent, options = {}) => ({
 
 const component = (exportName, tagName, options = {}) => ({
   exportName,
+  nativeEvents: options.nativeEvents ?? [],
+  passthroughEvents: options.passthroughEvents ?? [],
   reactEvents: options.reactEvents,
+  reactEventTypes: options.reactEventTypes ?? {},
   slots: options.slots ?? slots.none,
   tagName,
   vueDebugEmptyStateSignal: options.vueDebugEmptyStateSignal ?? false,
-  vueHandlers: options.vueHandlers ?? [],
+  vueHandlers: [...(options.vueHandlers ?? []), ...(options.nativeEvents ?? []).map((event) => handler(event))],
   vueProps: options.vueProps ?? []
 });
 
@@ -102,6 +106,7 @@ const inputStringProps = (options = {}) => [
 const currentOpen = handler("toggle", {
   emitName: "toggle",
   modelEmit: "update:open",
+  modelHostOnly: true,
   modelHostProperty: "open",
   modelHostType: "OpenHost"
 });
@@ -153,8 +158,15 @@ const checkedModelHandlers = [
   })
 ];
 
+const validationEvents = ["invalid"];
+const textControlEvents = [...validationEvents, "select"];
+const fileControlEvents = [...validationEvents, "cancel"];
+const buttonPassthroughEvents = ["click"];
+const nativeDisclosureEventTypes = { toggle: "ToggleEvent" };
+
 export const componentDefinitions = [
   component("CindorOtpInput", "cindor-otp-input", {
+    nativeEvents: validationEvents,
     reactEvents: ["input", "change", "complete"],
     vueHandlers: [...textModelHandlers, handler("complete")],
     vueProps: [num("length", 6), str("mode", "numeric", { alwaysPass: true }),
@@ -162,6 +174,7 @@ export const componentDefinitions = [
       str("name"), bool("required"), bool("disabled"), bool("readonly"), bool("invalid"), bool("masked")]
   }),
   component("CindorButton", "cindor-button", {
+    passthroughEvents: buttonPassthroughEvents,
     slots: slots.all,
     vueProps: [bool("disabled"), bool("iconOnly"), typed("type", "ButtonType", "button"), typed("variant", "ButtonVariant", "solid")]
   }),
@@ -170,6 +183,7 @@ export const componentDefinitions = [
     vueProps: [bool("attached"), typed("orientation", "ButtonGroupOrientation", "horizontal")]
   }),
   component("CindorSplitButton", "cindor-split-button", {
+    passthroughEvents: buttonPassthroughEvents,
     slots: slots.all,
     vueHandlers: [currentOpen],
     vueProps: [
@@ -190,6 +204,7 @@ export const componentDefinitions = [
     vueProps: [bool("dismissible"), str("removeLabel", "Remove tag", { attr: "remove-label", alwaysPass: true }), typed("tone", "TagTone", "accent")]
   }),
   component("CindorIconButton", "cindor-icon-button", {
+    passthroughEvents: buttonPassthroughEvents,
     vueProps: [
       bool("disabled"),
       str("label"),
@@ -201,6 +216,7 @@ export const componentDefinitions = [
   }),
   component("CindorCard", "cindor-card", { slots: slots.default }),
   component("CindorCalendar", "cindor-calendar", {
+    nativeEvents: validationEvents,
     reactEvents: ["input", "change"],
     vueHandlers: textModelHandlers,
     vueProps: [
@@ -304,6 +320,7 @@ export const componentDefinitions = [
     vueProps: [bool("unread")]
   }),
   component("CindorAutocomplete", "cindor-autocomplete", {
+    nativeEvents: textControlEvents,
     reactEvents: ["change", "input", "suggestion-select"],
     vueHandlers: [...textModelHandlers, handler("suggestion-select")],
     vueProps: [
@@ -319,6 +336,7 @@ export const componentDefinitions = [
     ]
   }),
   component("CindorAvatar", "cindor-avatar", {
+    nativeEvents: ["load", "error"],
     vueProps: [str("alt"), str("name"), str("src")]
   }),
   component("CindorProgress", "cindor-progress", {
@@ -353,7 +371,9 @@ export const componentDefinitions = [
     vueProps: [bool("disabled"), str("legend")]
   }),
   component("CindorForm", "cindor-form", {
+    nativeEvents: ["formdata"],
     reactEvents: ["reset", "submit"],
+    reactEventTypes: { formdata: "FormDataEvent", submit: "SubmitEvent" },
     slots: slots.default,
     vueHandlers: [handler("reset"), handler("submit")],
     vueProps: [str("description"), str("error"), bool("submitting"), str("submittingLabel", "Submitting…", { attr: "submitting-label", alwaysPass: true }), str("success"), bool("validateOnSubmit", true, { attr: "validate-on-submit" })]
@@ -379,10 +399,12 @@ export const componentDefinitions = [
   component("CindorHelperText", "cindor-helper-text", { slots: slots.default }),
   component("CindorErrorText", "cindor-error-text", { slots: slots.default }),
   component("CindorRange", "cindor-range", {
+    nativeEvents: validationEvents,
     vueHandlers: numberModelHandlers,
     vueProps: [bool("disabled"), num("max", 100), num("min", 0), str("name"), bool("required"), num("step", 1), num("modelValue", 0, { attr: "value" })]
   }),
   component("CindorFileInput", "cindor-file-input", {
+    nativeEvents: fileControlEvents,
     reactEvents: ["input", "change"],
     vueHandlers: [
       handler("input", {
@@ -401,6 +423,7 @@ export const componentDefinitions = [
     vueProps: [str("accept"), bool("disabled"), bool("multiple"), str("name"), bool("required")]
   }),
   component("CindorFieldArray", "cindor-field-array", {
+    nativeEvents: validationEvents,
     reactEvents: ["change", "input"],
     vueHandlers: textModelHandlers,
     vueProps: [
@@ -577,13 +600,10 @@ export const componentDefinitions = [
       handler("close", {
         emitName: "close",
         modelEmit: "update:open",
+        modelHostOnly: true,
         modelValueExpression: "false"
       }),
-      handler("cancel", {
-        emitName: "cancel",
-        modelEmit: "update:open",
-        modelValueExpression: "false"
-      }),
+      handler("cancel"),
       handler("command-select")
     ],
     vueProps: [
@@ -602,6 +622,7 @@ export const componentDefinitions = [
     vueProps: [bool("open")]
   }),
   component("CindorDatePicker", "cindor-date-picker", {
+    nativeEvents: validationEvents,
     reactEvents: ["change", "input", "toggle"],
     vueHandlers: [...textModelHandlers, currentOpen],
     vueProps: [
@@ -630,6 +651,7 @@ export const componentDefinitions = [
     ]
   }),
   component("CindorDateTimePicker", "cindor-date-time-picker", {
+    nativeEvents: validationEvents,
     reactEvents: ["change", "input"],
     vueHandlers: textModelHandlers,
     vueProps: [
@@ -642,6 +664,7 @@ export const componentDefinitions = [
     ]
   }),
   component("CindorDateTimeRangePicker", "cindor-date-time-range-picker", {
+    nativeEvents: validationEvents,
     reactEvents: ["change", "input"],
     vueHandlers: [handler("input"), handler("change")],
     vueProps: [
@@ -667,9 +690,11 @@ export const componentDefinitions = [
   component("CindorMenu", "cindor-menu", { slots: slots.default }),
   component("CindorMenuItem", "cindor-menu-item", {
     slots: slots.default,
+    vueHandlers: [handler("menu-item-select")],
     vueProps: [bool("disabled")]
   }),
   component("CindorMultiSelect", "cindor-multi-select", {
+    nativeEvents: validationEvents,
     slots: slots.default,
     reactEvents: ["change", "input"],
     vueHandlers: [
@@ -702,6 +727,7 @@ export const componentDefinitions = [
     ]
   }),
   component("CindorTagInput", "cindor-tag-input", {
+    nativeEvents: validationEvents,
     reactEvents: ["change", "input"],
     vueHandlers: [
       handler("input", {
@@ -726,6 +752,7 @@ export const componentDefinitions = [
     ]
   }),
   component("CindorNumberInput", "cindor-number-input", {
+    nativeEvents: textControlEvents,
     vueHandlers: textModelHandlers,
     vueProps: [
       bool("disabled"),
@@ -742,6 +769,7 @@ export const componentDefinitions = [
     ]
   }),
   component("CindorSearch", "cindor-search", {
+    nativeEvents: textControlEvents,
     vueHandlers: textModelHandlers,
     vueProps: inputStringProps({ includeIcons: true, startIconDefault: "search" }),
     reactEvents: ["change", "input"]
@@ -757,22 +785,26 @@ export const componentDefinitions = [
     vueProps: [num("minSize", 10, { attr: "min-size" }), num("size", 0)]
   }),
   component("CindorSegmentedControl", "cindor-segmented-control", {
+    nativeEvents: validationEvents,
     slots: slots.none,
     vueHandlers: textModelHandlers,
     vueProps: [bool("disabled"), str("modelValue", "", { attr: "value", alwaysPass: true }), str("name"), arr("options", "SegmentedControlOption[]"), bool("required")]
   }),
   component("CindorSearchableDropdown", "cindor-searchable-dropdown", {
+    nativeEvents: validationEvents,
     reactEvents: ["input", "change"],
     slots: slots.default,
     vueHandlers: textModelHandlers,
     vueProps: [bool("disabled"), str("modelValue", "", { attr: "value", alwaysPass: true }), str("name"), str("placeholder"), bool("required"), str("emptyMessage", "No matching options", { attr: "empty-message" })]
   }),
   component("CindorCombobox", "cindor-combobox", {
+    nativeEvents: textControlEvents,
     slots: slots.default,
     vueHandlers: textModelHandlers,
     vueProps: inputStringProps()
   }),
   component("CindorDateInput", "cindor-date-input", {
+    nativeEvents: textControlEvents,
     vueHandlers: textModelHandlers,
     vueProps: [
       bool("disabled"),
@@ -787,6 +819,7 @@ export const componentDefinitions = [
     ]
   }),
   component("CindorTimeInput", "cindor-time-input", {
+    nativeEvents: textControlEvents,
     vueHandlers: textModelHandlers,
     vueProps: [
       bool("disabled"),
@@ -802,6 +835,7 @@ export const componentDefinitions = [
     ]
   }),
   component("CindorRatingInput", "cindor-rating-input", {
+    nativeEvents: validationEvents,
     vueHandlers: numberModelHandlers,
     vueProps: [bool("clearable"), bool("disabled"), num("max", 5), num("modelValue", 0, { attr: "value" }), str("name"), bool("required")]
   }),
@@ -830,16 +864,19 @@ export const componentDefinitions = [
     vueProps: [typed("orientation", "ToolbarOrientation", "horizontal"), bool("wrap")]
   }),
   component("CindorPopover", "cindor-popover", {
+    reactEventTypes: nativeDisclosureEventTypes,
     slots: slots.default,
     vueHandlers: [currentOpen],
     vueProps: [bool("open")]
   }),
   component("CindorDropdownMenu", "cindor-dropdown-menu", {
+    reactEventTypes: nativeDisclosureEventTypes,
     slots: slots.default,
     vueHandlers: [currentOpen],
     vueProps: [bool("open")]
   }),
   component("CindorDropzone", "cindor-dropzone", {
+    nativeEvents: fileControlEvents,
     reactEvents: ["input", "change"],
     vueHandlers: [
       handler("input", {
@@ -869,6 +906,7 @@ export const componentDefinitions = [
     vueProps: [bool("open"), typed("side", '"start" | "end"', "end")]
   }),
   component("CindorInput", "cindor-input", {
+    nativeEvents: textControlEvents,
     vueHandlers: textModelHandlers,
     vueProps: [...inputStringProps({ includeIcons: true }), str("type", "text", { alwaysPass: true })]
   }),
@@ -896,15 +934,18 @@ export const componentDefinitions = [
     slots: slots.default
   }),
   component("CindorEmailInput", "cindor-email-input", {
+    nativeEvents: textControlEvents,
     vueHandlers: textModelHandlers,
     vueProps: inputStringProps({ autocompleteDefault: "email", includeIcons: true })
   }),
   component("CindorPasswordInput", "cindor-password-input", {
+    nativeEvents: textControlEvents,
     vueHandlers: textModelHandlers,
     vueProps: inputStringProps({ autocompleteDefault: "current-password" })
   }),
   component("CindorOption", "cindor-option", {
     slots: slots.default,
+    vueHandlers: [handler("option-select"), handler("option-hover")],
     vueProps: [bool("active"), bool("disabled"), str("label"), bool("selected"), str("value")]
   }),
   component("CindorMenubar", "cindor-menubar", {
@@ -915,26 +956,32 @@ export const componentDefinitions = [
   }),
   component("CindorNavigationRailItem", "cindor-navigation-rail-item", {
     slots: slots.all,
+    vueHandlers: [handler("navigation-rail-select")],
     vueProps: [bool("current"), bool("disabled"), str("href"), str("label"), str("rel"), str("target"), str("value")]
   }),
   component("CindorTelInput", "cindor-tel-input", {
+    nativeEvents: textControlEvents,
     vueHandlers: textModelHandlers,
     vueProps: inputStringProps({ autocompleteDefault: "tel", includeIcons: true })
   }),
   component("CindorUrlInput", "cindor-url-input", {
+    nativeEvents: textControlEvents,
     vueHandlers: textModelHandlers,
     vueProps: inputStringProps({ autocompleteDefault: "url", includeIcons: true })
   }),
   component("CindorColorInput", "cindor-color-input", {
+    nativeEvents: validationEvents,
     vueHandlers: textModelHandlers,
     vueProps: [bool("disabled"), str("modelValue", "#4f46e5", { attr: "value", alwaysPass: true }), str("name")]
   }),
   component("CindorCheckbox", "cindor-checkbox", {
+    nativeEvents: validationEvents,
     slots: slots.default,
     vueHandlers: checkedModelHandlers,
     vueProps: [bool("modelValue", false, { attr: "checked" }), bool("disabled"), str("name"), bool("required"), str("value", "on", { alwaysPass: true })]
   }),
   component("CindorSelect", "cindor-select", {
+    nativeEvents: validationEvents,
     slots: slots.default,
     vueHandlers: [
       handler("input", {
@@ -963,6 +1010,7 @@ export const componentDefinitions = [
     ]
   }),
   component("CindorRadio", "cindor-radio", {
+    nativeEvents: validationEvents,
     slots: slots.default,
     vueHandlers: [
       handler("input", {
@@ -986,21 +1034,20 @@ export const componentDefinitions = [
       handler("close", {
         emitName: "close",
         modelEmit: "update:open",
+        modelHostOnly: true,
         modelValueExpression: "false"
       }),
-      handler("cancel", {
-        emitName: "cancel",
-        modelEmit: "update:open",
-        modelValueExpression: "false"
-      })
+      handler("cancel")
     ],
     vueProps: [bool("modal", true), bool("open")]
   }),
   component("CindorTextarea", "cindor-textarea", {
+    nativeEvents: textControlEvents,
     vueHandlers: textModelHandlers,
     vueProps: [bool("disabled"), str("modelValue", "", { attr: "value", alwaysPass: true }), str("name"), str("placeholder"), bool("readonly"), bool("required"), num("rows", 4)]
   }),
   component("CindorSwitch", "cindor-switch", {
+    nativeEvents: validationEvents,
     slots: slots.default,
     vueHandlers: checkedModelHandlers,
     vueProps: [bool("disabled"), bool("modelValue", false, { attr: "checked" }), str("name"), bool("required"), str("value", "on", { alwaysPass: true })]
@@ -1022,18 +1069,13 @@ export const componentDefinitions = [
     vueProps: [str("value")]
   }),
   component("CindorAccordion", "cindor-accordion", {
+    reactEventTypes: nativeDisclosureEventTypes,
     slots: slots.default,
-    vueHandlers: [
-      handler("toggle", {
-        emitName: "toggle",
-        modelEmit: "update:open",
-        modelHostProperty: "open",
-        modelHostType: "OpenHost"
-      })
-    ],
+    vueHandlers: [currentOpen],
     vueProps: [bool("open")]
   }),
   component("CindorTreeItem", "cindor-tree-item", {
+    vueHandlers: [handler("toggle"), handler("tree-item-select")],
     slots: slots.all,
     vueProps: [bool("disabled"), bool("expanded"), str("label"), bool("selected"), str("value")]
   }),
@@ -1054,6 +1096,7 @@ export const componentDefinitions = [
     slots: slots.all
   }),
   component("CindorTransferList", "cindor-transfer-list", {
+    nativeEvents: validationEvents,
     slots: slots.default,
     reactEvents: ["change", "input"],
     vueHandlers: [
@@ -1126,6 +1169,7 @@ export const componentDefinitions = [
     ]
   }),
   component("CindorMarkdownEditor", "cindor-markdown-editor", {
+    nativeEvents: textControlEvents,
     reactEvents: ["input", "change"],
     vueHandlers: textModelHandlers,
     vueProps: [
@@ -1201,6 +1245,7 @@ export const componentDefinitions = [
     slots: slots.default
   }),
   component("CindorSideNavItem", "cindor-side-nav-item", {
+    vueHandlers: [handler("toggle"), handler("side-nav-select")],
     slots: slots.all,
     vueProps: [bool("current"), bool("disabled"), bool("expanded"), str("href"), str("label"), str("rel"), str("target"), str("value")]
   })

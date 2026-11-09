@@ -10,6 +10,7 @@ import { CindorCalendar } from "../calendar/cindor-calendar.js";
  * @fires input - Fired when the selected date changes.
  * @fires change - Fired when the selected date changes.
  * @fires toggle - Fired when the popup opens or closes.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
  */
 export class CindorDatePicker extends FormAssociatedElement {
   static styles = css`
@@ -112,7 +113,17 @@ export class CindorDatePicker extends FormAssociatedElement {
   }
 
   checkValidity(): boolean {
-    return this.inputElement?.checkValidity() ?? true;
+    this.syncFormState();
+    return this.internals?.checkValidity?.() ?? !this.validationMessage;
+  }
+
+  get validationMessage(): string {
+    return !this.disabled && this.required && !this.value ? "Please select a date." : "";
+  }
+
+  get validity(): Pick<ValidityState, "valid" | "valueMissing"> {
+    const valueMissing = Boolean(this.validationMessage);
+    return this.internals?.validity ?? { valid: !valueMissing, valueMissing };
   }
 
   override focus(options?: FocusOptions): void {
@@ -120,7 +131,8 @@ export class CindorDatePicker extends FormAssociatedElement {
   }
 
   reportValidity(): boolean {
-    return this.inputElement?.reportValidity() ?? true;
+    this.syncFormState();
+    return this.internals?.reportValidity?.() ?? !this.validationMessage;
   }
 
   show(): void {
@@ -285,15 +297,9 @@ export class CindorDatePicker extends FormAssociatedElement {
   };
 
   private syncFormState(): void {
-    if (this.disabled) {
-      this.setFormValue(null);
-      return;
-    }
-
-    this.setFormValue(this.value);
-    if (this.inputElement) {
-      this.setValidityFrom(this.inputElement);
-    }
+    this.setFormValue(this.disabled ? null : this.value);
+    const message = this.validationMessage;
+    this.internals?.setValidity?.(message ? { valueMissing: true } : {}, message, this.inputElement ?? undefined);
   }
 
   private syncFloatingPosition(): void {
@@ -350,7 +356,7 @@ export class CindorDatePicker extends FormAssociatedElement {
   }
 
   private get inputElement(): HTMLInputElement | null {
-    return this.renderRoot.querySelector("input");
+    return this.renderRoot?.querySelector("input") ?? null;
   }
 
   private get panelElement(): HTMLElement | null {

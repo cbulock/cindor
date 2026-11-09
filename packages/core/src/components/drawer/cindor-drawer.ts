@@ -8,6 +8,7 @@ const focusableSelector = 'button:not([disabled]), [href], input:not([disabled])
 
 export type DrawerSide = "start" | "end";
 
+/** @fires {Event} close - Fired when the drawer is dismissed. */
 export class CindorDrawer extends LitElement {
   private static nextDrawerId = 0;
 

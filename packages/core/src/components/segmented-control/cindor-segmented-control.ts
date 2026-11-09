@@ -2,6 +2,7 @@ import { css, html } from "lit";
 import { live } from "lit/directives/live.js";
 
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
+import { bridgeNativeEvent } from "../shared/native-events.js";
 
 export type SegmentedControlOption = {
   disabled?: boolean;
@@ -9,6 +10,11 @@ export type SegmentedControlOption = {
   value: string;
 };
 
+/**
+ * @fires {Event} input - Fired as the value changes through user interaction.
+ * @fires {Event} change - Fired when the user commits a value change.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
+ */
 export class CindorSegmentedControl extends FormAssociatedElement {
   static styles = css`
     :host {
@@ -154,6 +160,7 @@ export class CindorSegmentedControl extends FormAssociatedElement {
                 ?required=${this.required}
                 type="radio"
                 value=${option.value}
+                @invalid=${this.handleControlInvalid}
                 @input=${this.handleInput}
                 @change=${this.handleChange}
               />
@@ -175,19 +182,17 @@ export class CindorSegmentedControl extends FormAssociatedElement {
   }
 
   private handleChange = (event: Event): void => {
-    event.stopPropagation();
     const input = event.currentTarget as HTMLInputElement;
     this.value = input.value;
     this.syncFormState();
-    this.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
+    bridgeNativeEvent(this, event);
   };
 
   private handleInput = (event: InputEvent): void => {
-    event.stopPropagation();
     const input = event.currentTarget as HTMLInputElement;
     this.value = input.value;
     this.syncFormState();
-    this.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    bridgeNativeEvent(this, event);
   };
 
   private normalizeValue(): void {

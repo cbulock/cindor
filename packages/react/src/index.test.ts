@@ -1,8 +1,51 @@
 import type { ComponentType } from "react";
-import { CindorButton, CindorIconButton, CindorSplitButton } from "./index.js";
+import type { CindorInput as CindorInputElement } from "cindor-ui-core";
+import { CindorButton, CindorForm, CindorIconButton, CindorInput, CindorSplitButton } from "./index.js";
 import { createElement } from "react";
 import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
+
+it("binds onFormData to the formdata DOM event", () => {
+  const container = document.createElement("div");
+  document.body.append(container);
+  const root = createRoot(container);
+  const onFormData = vi.fn();
+  try {
+    flushSync(() => root.render(createElement(CindorForm, { onFormData })));
+    const event = new Event("formdata", { bubbles: true, composed: true });
+    container.querySelector("cindor-form")!.dispatchEvent(event);
+    expect(onFormData).toHaveBeenCalledExactlyOnceWith(event);
+  } finally {
+    root.unmount();
+    container.remove();
+  }
+});
+
+it("delivers native input, selection and validation events through the input wrapper", async () => {
+  const container = document.createElement("div");
+  document.body.append(container);
+  const root = createRoot(container);
+  const onInput = vi.fn();
+  const onSelect = vi.fn();
+  const onInvalid = vi.fn();
+  try {
+    flushSync(() => root.render(createElement(CindorInput, { required: true, onInput, onSelect, onInvalid })));
+    const host = container.querySelector<CindorInputElement>("cindor-input")!;
+    await host.updateComplete;
+    const control = host.shadowRoot!.querySelector("input")!;
+    host.checkValidity();
+    const input = new InputEvent("input", { bubbles: true, composed: true, data: "A" });
+    control.value = "A";
+    control.dispatchEvent(input);
+    control.dispatchEvent(new Event("select", { bubbles: true }));
+    expect(onInvalid).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({ type: "invalid", target: host }));
+    expect(onInput).toHaveBeenCalledExactlyOnceWith(input);
+    expect(onSelect).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({ type: "select", target: host }));
+  } finally {
+    root.unmount();
+    container.remove();
+  }
+});
 import { CindorOtpInput } from "./index.js";
 import type { CindorOtpInput as OtpElement } from "../../core/src/components/otp-input/cindor-otp-input.js";
 import { readFileSync } from "node:fs";

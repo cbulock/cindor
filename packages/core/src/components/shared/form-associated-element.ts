@@ -1,6 +1,7 @@
 import { LitElement } from "lit";
 
 import { normalizeA11yText, ReferencedTextObserver, resolveReferencedText, syncA11yMirror } from "./a11y-mirror.js";
+import { bridgeNativeEvent } from "./native-events.js";
 
 type SyncControlA11yOptions = {
   skipLabel?: boolean;
@@ -40,6 +41,14 @@ export abstract class FormAssociatedElement extends LitElement {
       this.internals.setValidity(control.validity, control.validationMessage, control);
     }
   }
+
+  protected handleControlInvalid = (event: Event): void => {
+    bridgeNativeEvent(this, event, { bubbles: false, composed: false });
+  };
+
+  protected handleControlSelect = (event: Event): void => {
+    bridgeNativeEvent(this, event);
+  };
 
   override connectedCallback(): void {
     super.connectedCallback();
