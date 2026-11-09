@@ -656,7 +656,9 @@ export class CindorDataTable extends LitElement {
                   aria-label=${this.searchLabel}
                   placeholder=${this.searchPlaceholder}
                   .value=${this.searchQuery}
+                  @change=${(event: Event) => event.stopPropagation()}
                   @input=${this.handleSearchInput}
+                  @select=${(event: Event) => event.stopPropagation()}
                 ></cindor-search>
                 ${showPagination ? nothing : html`<p class="summary" part="summary" aria-live="polite">${this.summaryText(filteredRows.length, visibleRows.length)}</p>`}
               </div>
@@ -925,7 +927,9 @@ export class CindorDataTable extends LitElement {
           ?disabled=${disabled}
           placeholder=${editor.placeholder ?? ""}
           .value=${this.normalizeTextValue(detail.value)}
+          @input=${(event: Event) => event.stopPropagation()}
           @change=${(event: Event) => this.handleTextEditorChange(detail, event)}
+          @select=${(event: Event) => event.stopPropagation()}
         ></cindor-input>
       `;
     }
@@ -939,6 +943,7 @@ export class CindorDataTable extends LitElement {
           aria-label=${ariaLabel}
           ?disabled=${disabled}
           .value=${this.normalizeTextValue(detail.value)}
+          @input=${(event: Event) => event.stopPropagation()}
           @change=${(event: Event) => this.handleSelectEditorChange(detail, event)}
         >
           ${options.map((option) => html`<option value=${option.value}>${option.label}</option>`)}
@@ -951,22 +956,26 @@ export class CindorDataTable extends LitElement {
         aria-label=${ariaLabel}
         ?checked=${Boolean(detail.value)}
         ?disabled=${disabled}
+        @input=${(event: Event) => event.stopPropagation()}
         @change=${(event: Event) => this.handleSwitchEditorChange(detail, event)}
       ></cindor-switch>
     `;
   }
 
   private handleTextEditorChange(detail: DataTableCellRenderDetail, event: Event): void {
+    event.stopPropagation();
     const input = event.currentTarget as TextInputHost;
     this.commitCellEdit(detail, input.value);
   }
 
   private handleSelectEditorChange(detail: DataTableCellRenderDetail, event: Event): void {
+    event.stopPropagation();
     const select = event.currentTarget as SelectHost;
     this.commitCellEdit(detail, select.value);
   }
 
   private handleSwitchEditorChange(detail: DataTableCellRenderDetail, event: Event): void {
+    event.stopPropagation();
     const control = event.currentTarget as SwitchHost;
     this.commitCellEdit(detail, control.checked);
   }
@@ -1154,6 +1163,7 @@ export class CindorDataTable extends LitElement {
   }
 
   private handleSearchInput = (event: Event): void => {
+    event.stopPropagation();
     const search = event.currentTarget as SearchHost;
     this.searchQuery = search.value;
     this.setCurrentPage(1);
@@ -1170,6 +1180,7 @@ export class CindorDataTable extends LitElement {
   };
 
   private handlePaginationChange = (event: Event): void => {
+    event.stopPropagation();
     const pagination = event.currentTarget as PaginationHost;
     this.setCurrentPage(pagination.currentPage);
   };

@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { CindorButton, CindorIconButton, CindorSplitButton } from "./index.js";
+import { CindorButton, CindorCommandPalette, CindorDialog, CindorIconButton, CindorInput, CindorSplitButton } from "./index.js";
 import { createApp, defineComponent, h, nextTick } from "vue";
 
 import type { App } from "vue";
@@ -15,6 +15,75 @@ describe("cindor-ui-vue", () => {
     app = null;
     container?.remove();
     container = null;
+  });
+
+  it("updates the model once with the synchronized host value and original input event", async () => {
+    const onInput = vi.fn();
+    const onModelUpdate = vi.fn();
+    const onSelect = vi.fn();
+    mount(() => h(CindorInput, { onInput, onSelect, "onUpdate:modelValue": onModelUpdate }));
+    const host = await queryElement("cindor-input");
+    const control = host.shadowRoot!.querySelector("input")!;
+    const input = new InputEvent("input", { bubbles: true, composed: true, data: "A" });
+    control.value = "A";
+    control.dispatchEvent(input);
+    control.dispatchEvent(new Event("select", { bubbles: true }));
+    expect(onInput).toHaveBeenCalledExactlyOnceWith(input);
+    expect(onModelUpdate).toHaveBeenCalledExactlyOnceWith("A");
+    expect(onSelect).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({ type: "select", target: host }));
+  });
+
+  it.each(["wrapper", "ancestor"])("honors dialog cancellation on the %s without updating v-model", async (listenerTarget) => {
+    const onOpenUpdate = vi.fn();
+    const onCancel = vi.fn((event: Event) => event.preventDefault());
+    mount(() => h("div", { onCancel: listenerTarget === "ancestor" ? onCancel : undefined }, [
+      h(CindorDialog, { open: true, onCancel: listenerTarget === "wrapper" ? onCancel : undefined, "onUpdate:open": onOpenUpdate })
+    ]));
+    const host = await queryElement<HTMLElement & { open: boolean }>("cindor-dialog");
+    const dialog = host.shadowRoot!.querySelector("dialog")!;
+    const cancel = new Event("cancel", { cancelable: true });
+    expect(dialog.dispatchEvent(cancel)).toBe(false);
+    expect(onCancel).toHaveBeenCalledTimes(1);
+    expect(onOpenUpdate).not.toHaveBeenCalled();
+    expect(host.open).toBe(true);
+  });
+
+  it("updates the model only when the wrapper's own dialog closes", async () => {
+    const onOpenUpdate = vi.fn();
+    mount(() => h(CindorDialog, { open: true, "onUpdate:open": onOpenUpdate }, {
+      default: () => h("cindor-dialog", { open: true })
+    }));
+    const host = await queryElement<HTMLElement & { open: boolean }>("cindor-dialog");
+    const inner = host.querySelector("cindor-dialog") as HTMLElement & { updateComplete: Promise<unknown> };
+    await inner.updateComplete;
+    const innerDialog = inner.shadowRoot!.querySelector("dialog")!;
+    innerDialog.removeAttribute("open");
+    innerDialog.dispatchEvent(new Event("close"));
+    expect(onOpenUpdate).not.toHaveBeenCalled();
+    const dialog = host.shadowRoot!.querySelector("dialog")!;
+    dialog.dispatchEvent(new Event("cancel", { cancelable: true }));
+    expect(onOpenUpdate).not.toHaveBeenCalled();
+    dialog.removeAttribute("open");
+    dialog.dispatchEvent(new Event("close"));
+    expect(onOpenUpdate).toHaveBeenCalledExactlyOnceWith(false);
+  });
+
+  it("publishes command palette model updates on close, after dismissal can be canceled", async () => {
+    const onOpenUpdate = vi.fn();
+    const onCancel = vi.fn((event: Event) => event.preventDefault());
+    mount(() => h("div", { onCancel }, [h(CindorCommandPalette, { open: true, "onUpdate:open": onOpenUpdate })]));
+    const host = await queryElement<HTMLElement & { open: boolean }>("cindor-command-palette");
+    const dialog = host.shadowRoot!.querySelector("cindor-dialog") as HTMLElement & { updateComplete: Promise<unknown> };
+    await dialog.updateComplete;
+    const native = dialog.shadowRoot!.querySelector("dialog")!;
+    expect(native.dispatchEvent(new Event("cancel", { cancelable: true }))).toBe(false);
+    expect(onCancel).toHaveBeenCalledTimes(1);
+    expect(onOpenUpdate).not.toHaveBeenCalled();
+    expect(host.open).toBe(true);
+    native.removeAttribute("open");
+    native.dispatchEvent(new Event("close"));
+    expect(onOpenUpdate).toHaveBeenCalledExactlyOnceWith(false);
+    expect(host.open).toBe(false);
   });
 
   it("passes controlled OTP values and emits all aggregate events", async () => {

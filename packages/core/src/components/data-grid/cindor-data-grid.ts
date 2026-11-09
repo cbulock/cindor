@@ -327,7 +327,9 @@ export class CindorDataGrid extends LitElement {
           autocomplete=${editor.autocomplete ?? ""}
           placeholder=${editor.placeholder ?? ""}
           .value=${this.normalizeTextValue(detail.value)}
+          @input=${(event: Event) => event.stopPropagation()}
           @change=${(event: Event) => this.handleTextEditorChange(detail, event)}
+          @select=${(event: Event) => event.stopPropagation()}
           @keydown=${this.handleEditorKeydown}
         ></cindor-input>
       `;
@@ -339,6 +341,7 @@ export class CindorDataGrid extends LitElement {
         <cindor-select
           aria-label=${ariaLabel}
           .value=${this.normalizeTextValue(detail.value)}
+          @input=${(event: Event) => event.stopPropagation()}
           @change=${(event: Event) => this.handleSelectEditorChange(detail, event)}
           @keydown=${this.handleEditorKeydown}
         >
@@ -351,6 +354,7 @@ export class CindorDataGrid extends LitElement {
       <cindor-switch
         aria-label=${ariaLabel}
         ?checked=${Boolean(detail.value)}
+        @input=${(event: Event) => event.stopPropagation()}
         @change=${(event: Event) => this.handleSwitchEditorChange(detail, event)}
         @keydown=${this.handleEditorKeydown}
       ></cindor-switch>
@@ -386,16 +390,19 @@ export class CindorDataGrid extends LitElement {
   };
 
   private handleTextEditorChange(detail: DataGridCellRenderDetail, event: Event): void {
+    event.stopPropagation();
     const input = event.currentTarget as TextInputHost;
     this.commitCellEdit(detail, input.value);
   }
 
   private handleSelectEditorChange(detail: DataGridCellRenderDetail, event: Event): void {
+    event.stopPropagation();
     const select = event.currentTarget as SelectHost;
     this.commitCellEdit(detail, select.value);
   }
 
   private handleSwitchEditorChange(detail: DataGridCellRenderDetail, event: Event): void {
+    event.stopPropagation();
     const control = event.currentTarget as SwitchHost;
     this.commitCellEdit(detail, control.checked);
   }

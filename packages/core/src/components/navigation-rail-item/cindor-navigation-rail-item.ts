@@ -6,6 +6,7 @@ import { css, html, LitElement, nothing } from "lit";
  * @slot start - Leading icon or badge.
  * @slot - Optional label content.
  */
+/** @fires {CustomEvent<{ item: CindorNavigationRailItem; value: string }>} navigation-rail-select - Fired when the item button is activated. */
 export class CindorNavigationRailItem extends LitElement {
   static styles = css`
     :host {

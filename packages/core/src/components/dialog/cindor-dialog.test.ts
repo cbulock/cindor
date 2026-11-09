@@ -28,10 +28,28 @@ describe("cindor-dialog", () => {
     await element.updateComplete;
 
     const dialog = element.renderRoot.querySelector("dialog");
+    dialog!.removeAttribute("open");
     dialog!.dispatchEvent(new Event("close"));
     await element.updateComplete;
 
     expect(element.open).toBe(false);
+  });
+
+  it("ignores a queued close from a previous presentation after reopening", async () => {
+    const element = document.createElement("cindor-dialog") as CindorDialog;
+    element.open = true;
+    document.body.append(element);
+    await element.updateComplete;
+
+    const dialog = element.renderRoot.querySelector("dialog")!;
+    const close = vi.fn();
+    element.addEventListener("close", close);
+    dialog.dispatchEvent(new Event("close"));
+    await element.updateComplete;
+
+    expect(dialog.open).toBe(true);
+    expect(element.open).toBe(true);
+    expect(close).not.toHaveBeenCalled();
   });
 
   it("closes when the close button is pressed", async () => {

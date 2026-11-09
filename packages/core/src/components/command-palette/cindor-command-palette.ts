@@ -12,6 +12,13 @@ export type CommandPaletteCommand = {
   value: string;
 };
 
+/**
+ * @fires {Event} input - Fired when a command is selected.
+ * @fires {Event} change - Fired when a command is selected.
+ * @fires {CustomEvent<{ command: CommandPaletteCommand; value: string }>} command-select - Fired with the selected command.
+ * @fires {Event} cancel - Fired when the browser requests dismissal. When cancelable, call `preventDefault()` to keep the palette open.
+ * @fires {Event} close - Fired when the palette closes.
+ */
 export class CindorCommandPalette extends LitElement {
   static styles = css`
     :host {
@@ -138,7 +145,6 @@ export class CindorCommandPalette extends LitElement {
       <cindor-dialog
         aria-label=${ifDefined(this.title || undefined)}
         ?open=${this.open}
-        @cancel=${this.handleCancel}
         @close=${this.handleClose}
       >
         <div class="surface" @keydown=${this.handleKeyDown}>
@@ -160,7 +166,9 @@ export class CindorCommandPalette extends LitElement {
             part="search"
             .value=${this.query}
             placeholder=${this.placeholder}
+            @change=${(event: Event) => event.stopPropagation()}
             @input=${this.handleInput}
+            @select=${(event: Event) => event.stopPropagation()}
           ></cindor-search>
 
           ${commands.length
@@ -212,16 +220,10 @@ export class CindorCommandPalette extends LitElement {
     }
   }
 
-  private handleCancel = (event: Event): void => {
-    event.stopPropagation();
-    this.open = false;
-    this.dispatchEvent(new Event("cancel", { bubbles: true, composed: true }));
-  };
-
   private handleClose = (event: Event): void => {
-    event.stopPropagation();
-    this.open = false;
-    this.dispatchEvent(new Event("close", { bubbles: true, composed: true }));
+    if (event.target === event.currentTarget) {
+      this.open = false;
+    }
   };
 
   private handleDismiss = (): void => {
@@ -229,6 +231,7 @@ export class CindorCommandPalette extends LitElement {
   };
 
   private handleInput = (event: Event): void => {
+    event.stopPropagation();
     const input = event.currentTarget as { value?: string };
     this.query = input.value ?? "";
     this.activeIndex = 0;

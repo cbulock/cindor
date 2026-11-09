@@ -2,6 +2,7 @@ import { css, html, LitElement, nothing } from "lit";
 
 export type ToastTone = "neutral" | "success" | "warning" | "danger";
 
+/** @fires {Event} close - Fired when the toast is dismissed. */
 export class CindorToast extends LitElement {
   static styles = css`
     :host {

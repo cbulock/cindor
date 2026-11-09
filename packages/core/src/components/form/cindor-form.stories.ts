@@ -1,4 +1,6 @@
 import { html } from "lit";
+import { expect } from "storybook/test";
+import type { CindorForm } from "./cindor-form.js";
 
 type FormStoryArgs = {
   description: string;
@@ -45,7 +47,20 @@ const meta = {
 
 export default meta;
 
-export const Default = {};
+export const Default = {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const host = canvasElement.querySelector<CindorForm>("cindor-form")!;
+    await host.updateComplete;
+    const form = host.shadowRoot!.querySelector("form")!;
+    host.addEventListener("formdata", (event) => {
+      if (event instanceof FormDataEvent) {
+        event.formData.set("source", "story");
+      }
+    }, { once: true });
+    const formData = new FormData(form);
+    await expect(formData.get("source")).toBe("story");
+  }
+};
 
 export const Submitting = {
   args: {

@@ -1,5 +1,6 @@
 import { css, html } from "lit";
 
+import type { CindorDatePicker } from "../date-picker/cindor-date-picker.js";
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
 
 type DateTimePart = "start" | "end";
@@ -13,6 +14,7 @@ type DateTimePart = "start" | "end";
  *
  * @fires input - Fired as either endpoint changes.
  * @fires change - Fired when an endpoint change is committed.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
  */
 export class CindorDateTimeRangePicker extends FormAssociatedElement {
   static styles = css`
@@ -99,7 +101,7 @@ export class CindorDateTimeRangePicker extends FormAssociatedElement {
 
   checkValidity(): boolean {
     this.syncFormState();
-    return this.internals?.validity?.valid ?? this.validationMessage === "";
+    return this.internals?.checkValidity?.() ?? this.internals?.validity?.valid ?? (this.validationMessage === "");
   }
 
   override focus(options?: FocusOptions): void {
@@ -141,6 +143,10 @@ export class CindorDateTimeRangePicker extends FormAssociatedElement {
     this.syncFormState();
   }
 
+  protected override firstUpdated(): void {
+    void this.startDateElement?.updateComplete.then(() => this.syncFormState());
+  }
+
   private renderEndpoint(part: DateTimePart, label: string, value: string) {
     const [date = "", time = ""] = value.split("T");
     const dateBounds = this.dateBounds();
@@ -168,6 +174,7 @@ export class CindorDateTimeRangePicker extends FormAssociatedElement {
           ?required=${this.required}
           @change=${(event: Event) => this.handleEndpointEvent(event, part, "time", "change")}
           @input=${(event: Event) => this.handleEndpointEvent(event, part, "time", "input")}
+          @select=${(event: Event) => event.stopPropagation()}
         ></cindor-time-input>
       </div>
     `;
@@ -187,7 +194,8 @@ export class CindorDateTimeRangePicker extends FormAssociatedElement {
 
     this.orderCompletedRange();
     this.syncFormState();
-    this.dispatchEvent(new Event(type, { bubbles: true, composed: true }));
+    const init = { bubbles: true, composed: true };
+    this.dispatchEvent(type === "input" ? new Event("input", init) : new Event("change", init));
   }
 
   private orderCompletedRange(): void {
@@ -207,7 +215,8 @@ export class CindorDateTimeRangePicker extends FormAssociatedElement {
     if (message) {
       this.setFormValue(null);
       const flags = message === "Please select a start and end date and time." ? { valueMissing: true } : { customError: true };
-      this.internals?.setValidity?.(flags, message, this.startDateElement ?? undefined);
+      const anchor = this.startDateElement?.shadowRoot?.querySelector("input") ?? undefined;
+      this.internals?.setValidity?.(flags, message, anchor);
       return;
     }
 
@@ -259,8 +268,8 @@ export class CindorDateTimeRangePicker extends FormAssociatedElement {
     return this.normalizeA11yText(this.getAttribute("aria-label")) || "Date and time range";
   }
 
-  private get startDateElement(): HTMLElement | null {
-    return this.renderRoot.querySelector('[part="start-endpoint"] cindor-date-picker');
+  private get startDateElement(): CindorDatePicker | null {
+    return this.renderRoot?.querySelector('[part="start-endpoint"] cindor-date-picker') ?? null;
   }
 }
 

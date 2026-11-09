@@ -19,6 +19,7 @@ type TransferListChangeDetail = {
  * @fires {CustomEvent<TransferListChangeDetail>} change - Fired when the selected values change.
  *
  * @slot - `option` or `cindor-option` children that define the available choices.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
  */
 export class CindorTransferList extends FormAssociatedElement {
   static styles = css`
@@ -305,12 +306,14 @@ export class CindorTransferList extends FormAssociatedElement {
   };
 
   private handleAvailableInput = (event: Event): void => {
+    event.stopPropagation();
     const select = event.currentTarget as HTMLSelectElement;
     this.activeAvailableValues = Array.from(select.selectedOptions).map((option) => option.value);
     this.requestUpdate();
   };
 
   private handleSelectedInput = (event: Event): void => {
+    event.stopPropagation();
     const select = event.currentTarget as HTMLSelectElement;
     this.activeSelectedValues = Array.from(select.selectedOptions).map((option) => option.value);
     this.requestUpdate();

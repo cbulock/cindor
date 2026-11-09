@@ -1,6 +1,8 @@
 import { css, html, LitElement, nothing } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 
+import { bridgeNativeEvent } from "../shared/native-events.js";
+
 type DisableCapableElement = HTMLElement & { disabled: boolean };
 type FormFieldElement = HTMLElement & {
   error?: string;
@@ -23,6 +25,11 @@ type ValidatableElement = HTMLElement & {
 const fallbackValidationMessage = "Check this field and try again.";
 const nativeFormAssociatedSelector = "button, fieldset, input, output, select, textarea";
 
+/**
+ * @fires {SubmitEvent} submit - Fired when the form is submitted. Cancel this event to prevent submission.
+ * @fires {Event} reset - Fired before resetting the form. Cancel this event to keep the current values.
+ * @fires {FormDataEvent} formdata - Fired when form data is constructed. Listeners can modify the submitted data through `event.formData`.
+ */
 export class CindorForm extends LitElement {
   private static nextOwnedFormId = 0;
 
@@ -166,7 +173,6 @@ export class CindorForm extends LitElement {
 
   reset(): void {
     this.currentForm?.reset();
-    this.clearValidationState();
   }
 
   protected override render() {
@@ -284,13 +290,13 @@ export class CindorForm extends LitElement {
   };
 
   private handleReset = (event: Event): void => {
-    this.clearValidationState();
-
-    if (!this.isUsingOwnedForm || event.target !== this.currentForm) {
+    if (event.target !== this.currentForm) {
       return;
     }
 
-    this.dispatchEvent(new Event("reset", { bubbles: true, composed: true }));
+    if (!this.isUsingOwnedForm || bridgeNativeEvent(this, event)) {
+      this.clearValidationState();
+    }
   };
 
   private handleSlotChange = (): void => {
@@ -314,14 +320,12 @@ export class CindorForm extends LitElement {
       return;
     }
 
-    const forwardedEvent = new Event("submit", {
-      bubbles: true,
-      cancelable: true,
-      composed: true
-    });
+    bridgeNativeEvent(this, event);
+  };
 
-    if (!this.dispatchEvent(forwardedEvent)) {
-      event.preventDefault();
+  private handleFormData = (event: FormDataEvent): void => {
+    if (this.isUsingOwnedForm && event.target === this.currentForm) {
+      bridgeNativeEvent(this, event);
     }
   };
 
@@ -341,6 +345,7 @@ export class CindorForm extends LitElement {
 
     this.currentForm.addEventListener("submit", this.handleSubmit);
     this.currentForm.addEventListener("reset", this.handleReset);
+    this.currentForm.addEventListener("formdata", this.handleFormData);
     this.syncSubmittingState();
   }
 
@@ -402,6 +407,7 @@ export class CindorForm extends LitElement {
 
     this.currentForm.removeEventListener("submit", this.handleSubmit);
     this.currentForm.removeEventListener("reset", this.handleReset);
+    this.currentForm.removeEventListener("formdata", this.handleFormData);
     this.currentForm.removeAttribute("aria-busy");
     this.releaseManagedDisabledState();
     this.currentForm = null;

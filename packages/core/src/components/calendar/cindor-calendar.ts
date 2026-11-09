@@ -33,6 +33,11 @@ const monthFormatter = new Intl.DateTimeFormat(undefined, { month: "long", year:
 const weekdayFormatter = new Intl.DateTimeFormat(undefined, { weekday: "short" });
 const weekdayLabels = Array.from({ length: 7 }, (_, index) => weekdayFormatter.format(new Date(2024, 0, 7 + index)));
 
+/**
+ * @fires {Event} input - Fired as the selected date or range changes.
+ * @fires {Event} change - Fired when a date or range selection is committed.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
+ */
 export class CindorCalendar extends FormAssociatedElement {
   static styles = css`
     :host {
@@ -223,7 +228,7 @@ export class CindorCalendar extends FormAssociatedElement {
 
   checkValidity(): boolean {
     this.syncFormState();
-    return !(this.internals?.validity.valid === false);
+    return this.internals?.checkValidity?.() ?? this.internals?.validity?.valid ?? true;
   }
 
   override focus(options?: FocusOptions): void {

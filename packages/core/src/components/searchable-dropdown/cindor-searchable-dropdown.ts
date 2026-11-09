@@ -15,6 +15,7 @@ type DropdownOption = LightDomOption;
  * @slot - Direct native option or cindor-option children with unique values.
  * @fires input - A different option was committed by the user; precedes change.
  * @fires change - A different option was committed by the user.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
  */
 export class CindorSearchableDropdown extends FormAssociatedElement {
   static styles = [
@@ -127,6 +128,7 @@ export class CindorSearchableDropdown extends FormAssociatedElement {
           @click=${this.handleClick}
           @focus=${this.handleFocus}
           @input=${this.handleInput}
+          @invalid=${this.handleControlInvalid}
           @keydown=${this.handleKeyDown}
         />
         ${this.listboxVisible

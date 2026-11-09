@@ -197,7 +197,7 @@ export const CindorOtpInput = defineComponent({
     invalid: { type: Boolean, default: false },
     masked: { type: Boolean, default: false }
   },
-  emits: ["update:modelValue", "input", "change", "complete"],
+  emits: ["update:modelValue", "input", "change", "complete", "invalid"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -214,6 +214,10 @@ export const CindorOtpInput = defineComponent({
     const handleComplete = (event: Event) => {
       emit("complete", event);
     };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
     return () =>
           h("cindor-otp-input", {
               ...attrs,
@@ -229,6 +233,7 @@ export const CindorOtpInput = defineComponent({
               onInput: handleInput,
               onChange: handleChange,
               onComplete: handleComplete,
+              onInvalid: handleInvalid,
           });
   }
 });
@@ -290,7 +295,7 @@ export const CindorSplitButton = defineComponent({
   setup(props, { attrs, emit, slots }) {
     const handleToggle = (event: Event) => {
       const target = event.currentTarget as OpenHost;
-      emit("update:open", target.open);
+      if (event.target === event.currentTarget) emit("update:open", target.open);
       emit("toggle", event);
     };
     return () =>
@@ -407,7 +412,7 @@ export const CindorCalendar = defineComponent({
     required: { type: Boolean, default: false },
     startValue: { type: String, default: "" }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -419,6 +424,10 @@ export const CindorCalendar = defineComponent({
       const target = event.currentTarget as InputHost;
       emit("update:modelValue", target.value);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
     };
     return () =>
           h("cindor-calendar", {
@@ -435,6 +444,7 @@ export const CindorCalendar = defineComponent({
               "start-value": props.startValue || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
           });
   }
 });
@@ -688,7 +698,7 @@ export const CindorAutocomplete = defineComponent({
     required: { type: Boolean, default: false },
     suggestions: { type: Array as PropType<AutocompleteSuggestion[]>, default: () => [] }
   },
-  emits: ["update:modelValue", "input", "change", "suggestion-select"],
+  emits: ["update:modelValue", "input", "change", "suggestion-select", "invalid", "select"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -705,6 +715,14 @@ export const CindorAutocomplete = defineComponent({
     const handleSuggestionSelect = (event: Event) => {
       emit("suggestion-select", event);
     };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
+
+    const handleSelect = (event: Event) => {
+      emit("select", event);
+    };
     return () =>
           h("cindor-autocomplete", {
               ...attrs,
@@ -720,6 +738,8 @@ export const CindorAutocomplete = defineComponent({
               onInput: handleInput,
               onChange: handleChange,
               onSuggestionSelect: handleSuggestionSelect,
+              onInvalid: handleInvalid,
+              onSelect: handleSelect,
           });
   }
 });
@@ -731,13 +751,23 @@ export const CindorAvatar = defineComponent({
     name: { type: String, default: "" },
     src: { type: String, default: "" }
   },
-  setup(props, { attrs }) {
+  emits: ["load", "error"],
+  setup(props, { attrs, emit }) {
+    const handleLoad = (event: Event) => {
+      emit("load", event);
+    };
+
+    const handleError = (event: Event) => {
+      emit("error", event);
+    };
     return () =>
           h("cindor-avatar", {
               ...attrs,
               alt: props.alt || undefined,
               name: props.name || undefined,
               src: props.src || undefined,
+              onLoad: handleLoad,
+              onError: handleError,
           });
   }
 });
@@ -908,7 +938,7 @@ export const CindorForm = defineComponent({
     success: { type: String, default: "" },
     validateOnSubmit: { type: Boolean, default: true }
   },
-  emits: ["reset", "submit"],
+  emits: ["reset", "submit", "formdata"],
   setup(props, { attrs, emit, slots }) {
     const handleReset = (event: Event) => {
       emit("reset", event);
@@ -916,6 +946,10 @@ export const CindorForm = defineComponent({
 
     const handleSubmit = (event: Event) => {
       emit("submit", event);
+    };
+
+    const handleFormdata = (event: Event) => {
+      emit("formdata", event);
     };
     return () =>
           h(
@@ -930,6 +964,7 @@ export const CindorForm = defineComponent({
               "validate-on-submit": props.validateOnSubmit || undefined,
               onReset: handleReset,
               onSubmit: handleSubmit,
+              onFormdata: handleFormdata,
             },
             slots.default?.()
           );
@@ -1043,7 +1078,7 @@ export const CindorRange = defineComponent({
     step: { type: Number, default: 1 },
     modelValue: { type: Number, default: 0 }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -1055,6 +1090,10 @@ export const CindorRange = defineComponent({
       const target = event.currentTarget as InputHost;
       emit("update:modelValue", Number(target.value));
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
     };
     return () =>
           h("cindor-range", {
@@ -1068,6 +1107,7 @@ export const CindorRange = defineComponent({
               value: props.modelValue,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
           });
   }
 });
@@ -1081,7 +1121,7 @@ export const CindorFileInput = defineComponent({
     name: { type: String, default: "" },
     required: { type: Boolean, default: false }
   },
-  emits: ["update:files", "input", "change"],
+  emits: ["update:files", "input", "change", "invalid", "cancel"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as FileInputHost;
@@ -1094,6 +1134,14 @@ export const CindorFileInput = defineComponent({
       emit("update:files", target.files);
       emit("change", event);
     };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
+
+    const handleCancel = (event: Event) => {
+      emit("cancel", event);
+    };
     return () =>
           h("cindor-file-input", {
               ...attrs,
@@ -1104,6 +1152,8 @@ export const CindorFileInput = defineComponent({
               required: props.required || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
+              onCancel: handleCancel,
           });
   }
 });
@@ -1126,7 +1176,7 @@ export const CindorFieldArray = defineComponent({
     renderItem: { type: Function as PropType<FieldArrayItemRenderer<unknown> | undefined>, default: undefined },
     modelValue: { type: String, default: "" }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -1138,6 +1188,10 @@ export const CindorFieldArray = defineComponent({
       const target = event.currentTarget as InputHost;
       emit("update:modelValue", target.value);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
     };
     return () =>
           h("cindor-field-array", {
@@ -1158,6 +1212,7 @@ export const CindorFieldArray = defineComponent({
               value: props.modelValue,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
           });
   }
 });
@@ -1616,12 +1671,11 @@ export const CindorCommandPalette = defineComponent({
     };
 
     const handleClose = (event: Event) => {
-      emit("update:open", false);
+      if (event.target === event.currentTarget) emit("update:open", false);
       emit("close", event);
     };
 
     const handleCancel = (event: Event) => {
-      emit("update:open", false);
       emit("cancel", event);
     };
 
@@ -1656,7 +1710,7 @@ export const CindorContextMenu = defineComponent({
   setup(props, { attrs, emit, slots }) {
     const handleToggle = (event: Event) => {
       const target = event.currentTarget as OpenHost;
-      emit("update:open", target.open);
+      if (event.target === event.currentTarget) emit("update:open", target.open);
       emit("toggle", event);
     };
     return () =>
@@ -1685,7 +1739,7 @@ export const CindorDatePicker = defineComponent({
     placeholder: { type: String, default: "Select a date" },
     required: { type: Boolean, default: false }
   },
-  emits: ["update:modelValue", "input", "change", "update:open", "toggle"],
+  emits: ["update:modelValue", "input", "change", "update:open", "toggle", "invalid"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -1701,8 +1755,12 @@ export const CindorDatePicker = defineComponent({
 
     const handleToggle = (event: Event) => {
       const target = event.currentTarget as OpenHost;
-      emit("update:open", target.open);
+      if (event.target === event.currentTarget) emit("update:open", target.open);
       emit("toggle", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
     };
     return () =>
           h("cindor-date-picker", {
@@ -1719,6 +1777,7 @@ export const CindorDatePicker = defineComponent({
               onInput: handleInput,
               onChange: handleChange,
               onToggle: handleToggle,
+              onInvalid: handleInvalid,
           });
   }
 });
@@ -1746,7 +1805,7 @@ export const CindorDateRangePicker = defineComponent({
 
     const handleToggle = (event: Event) => {
       const target = event.currentTarget as OpenHost;
-      emit("update:open", target.open);
+      if (event.target === event.currentTarget) emit("update:open", target.open);
       emit("toggle", event);
     };
     return () =>
@@ -1776,7 +1835,7 @@ export const CindorDateTimePicker = defineComponent({
     required: { type: Boolean, default: false },
     timeValue: { type: String, default: "" }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -1789,6 +1848,10 @@ export const CindorDateTimePicker = defineComponent({
       emit("update:modelValue", target.value);
       emit("change", event);
     };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
     return () =>
           h("cindor-date-time-picker", {
               ...attrs,
@@ -1800,6 +1863,7 @@ export const CindorDateTimePicker = defineComponent({
               "time-value": props.timeValue || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
           });
   }
 });
@@ -1815,7 +1879,7 @@ export const CindorDateTimeRangePicker = defineComponent({
     required: { type: Boolean, default: false },
     startValue: { type: String, default: "" }
   },
-  emits: ["input", "change"],
+  emits: ["input", "change", "invalid"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       emit("input", event);
@@ -1823,6 +1887,10 @@ export const CindorDateTimeRangePicker = defineComponent({
 
     const handleChange = (event: Event) => {
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
     };
     return () =>
           h("cindor-date-time-range-picker", {
@@ -1836,6 +1904,7 @@ export const CindorDateTimeRangePicker = defineComponent({
               "start-value": props.startValue || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
           });
   }
 });
@@ -1909,13 +1978,18 @@ export const CindorMenuItem = defineComponent({
   props: {
     disabled: { type: Boolean, default: false }
   },
-  setup(props, { attrs, slots }) {
+  emits: ["menu-item-select"],
+  setup(props, { attrs, emit, slots }) {
+    const handleMenuItemSelect = (event: Event) => {
+      emit("menu-item-select", event);
+    };
     return () =>
           h(
             "cindor-menu-item",
             {
               ...attrs,
               disabled: props.disabled || undefined,
+              onMenuItemSelect: handleMenuItemSelect,
             },
             slots.default?.()
           );
@@ -1932,7 +2006,7 @@ export const CindorMultiSelect = defineComponent({
     required: { type: Boolean, default: false },
     modelValue: { type: Array as PropType<string[]>, default: () => [] }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid"],
   setup(props, { attrs, emit, slots }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as HTMLElement & { values: string[] };
@@ -1944,6 +2018,10 @@ export const CindorMultiSelect = defineComponent({
       const target = event.currentTarget as HTMLElement & { values: string[] };
       emit("update:modelValue", target.values);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
     };
     return () =>
           h(
@@ -1958,6 +2036,7 @@ export const CindorMultiSelect = defineComponent({
               ".values": props.modelValue,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
             },
             slots.default?.()
           );
@@ -2005,7 +2084,7 @@ export const CindorTagInput = defineComponent({
     required: { type: Boolean, default: false },
     modelValue: { type: Array as PropType<string[]>, default: () => [] }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as HTMLElement & { values: string[] };
@@ -2018,6 +2097,10 @@ export const CindorTagInput = defineComponent({
       emit("update:modelValue", target.values);
       emit("change", event);
     };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
     return () =>
           h("cindor-tag-input", {
               ...attrs,
@@ -2028,6 +2111,7 @@ export const CindorTagInput = defineComponent({
               ".values": props.modelValue,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
           });
   }
 });
@@ -2047,7 +2131,7 @@ export const CindorNumberInput = defineComponent({
     min: { type: String, default: "" },
     step: { type: String, default: "" }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid", "select"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -2059,6 +2143,14 @@ export const CindorNumberInput = defineComponent({
       const target = event.currentTarget as InputHost;
       emit("update:modelValue", target.value);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
+
+    const handleSelect = (event: Event) => {
+      emit("select", event);
     };
     return () =>
           h("cindor-number-input", {
@@ -2076,6 +2168,8 @@ export const CindorNumberInput = defineComponent({
               step: props.step || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
+              onSelect: handleSelect,
           });
   }
 });
@@ -2093,7 +2187,7 @@ export const CindorSearch = defineComponent({
     readonly: { type: Boolean, default: false },
     required: { type: Boolean, default: false }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid", "select"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -2105,6 +2199,14 @@ export const CindorSearch = defineComponent({
       const target = event.currentTarget as InputHost;
       emit("update:modelValue", target.value);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
+
+    const handleSelect = (event: Event) => {
+      emit("select", event);
     };
     return () =>
           h("cindor-search", {
@@ -2120,6 +2222,8 @@ export const CindorSearch = defineComponent({
               required: props.required || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
+              onSelect: handleSelect,
           });
   }
 });
@@ -2176,7 +2280,7 @@ export const CindorSegmentedControl = defineComponent({
     options: { type: Array as PropType<SegmentedControlOption[]>, default: () => [] },
     required: { type: Boolean, default: false }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -2189,6 +2293,10 @@ export const CindorSegmentedControl = defineComponent({
       emit("update:modelValue", target.value);
       emit("change", event);
     };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
     return () =>
           h("cindor-segmented-control", {
               ...attrs,
@@ -2199,6 +2307,7 @@ export const CindorSegmentedControl = defineComponent({
               required: props.required || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
           });
   }
 });
@@ -2213,7 +2322,7 @@ export const CindorSearchableDropdown = defineComponent({
     required: { type: Boolean, default: false },
     emptyMessage: { type: String, default: "No matching options" }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid"],
   setup(props, { attrs, emit, slots }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -2225,6 +2334,10 @@ export const CindorSearchableDropdown = defineComponent({
       const target = event.currentTarget as InputHost;
       emit("update:modelValue", target.value);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
     };
     return () =>
           h(
@@ -2239,6 +2352,7 @@ export const CindorSearchableDropdown = defineComponent({
               "empty-message": props.emptyMessage || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
             },
             slots.default?.()
           );
@@ -2256,7 +2370,7 @@ export const CindorCombobox = defineComponent({
     readonly: { type: Boolean, default: false },
     required: { type: Boolean, default: false }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid", "select"],
   setup(props, { attrs, emit, slots }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -2268,6 +2382,14 @@ export const CindorCombobox = defineComponent({
       const target = event.currentTarget as InputHost;
       emit("update:modelValue", target.value);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
+
+    const handleSelect = (event: Event) => {
+      emit("select", event);
     };
     return () =>
           h(
@@ -2283,6 +2405,8 @@ export const CindorCombobox = defineComponent({
               required: props.required || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
+              onSelect: handleSelect,
             },
             slots.default?.()
           );
@@ -2302,7 +2426,7 @@ export const CindorDateInput = defineComponent({
     readonly: { type: Boolean, default: false },
     required: { type: Boolean, default: false }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid", "select"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -2314,6 +2438,14 @@ export const CindorDateInput = defineComponent({
       const target = event.currentTarget as InputHost;
       emit("update:modelValue", target.value);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
+
+    const handleSelect = (event: Event) => {
+      emit("select", event);
     };
     return () =>
           h("cindor-date-input", {
@@ -2329,6 +2461,8 @@ export const CindorDateInput = defineComponent({
               required: props.required || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
+              onSelect: handleSelect,
           });
   }
 });
@@ -2347,7 +2481,7 @@ export const CindorTimeInput = defineComponent({
     required: { type: Boolean, default: false },
     step: { type: String, default: "" }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid", "select"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -2359,6 +2493,14 @@ export const CindorTimeInput = defineComponent({
       const target = event.currentTarget as InputHost;
       emit("update:modelValue", target.value);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
+
+    const handleSelect = (event: Event) => {
+      emit("select", event);
     };
     return () =>
           h("cindor-time-input", {
@@ -2375,6 +2517,8 @@ export const CindorTimeInput = defineComponent({
               step: props.step || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
+              onSelect: handleSelect,
           });
   }
 });
@@ -2389,7 +2533,7 @@ export const CindorRatingInput = defineComponent({
     name: { type: String, default: "" },
     required: { type: Boolean, default: false }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -2402,6 +2546,10 @@ export const CindorRatingInput = defineComponent({
       emit("update:modelValue", Number(target.value));
       emit("change", event);
     };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
     return () =>
           h("cindor-rating-input", {
               ...attrs,
@@ -2413,6 +2561,7 @@ export const CindorRatingInput = defineComponent({
               required: props.required || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
           });
   }
 });
@@ -2524,7 +2673,7 @@ export const CindorPopover = defineComponent({
   setup(props, { attrs, emit, slots }) {
     const handleToggle = (event: Event) => {
       const target = event.currentTarget as OpenHost;
-      emit("update:open", target.open);
+      if (event.target === event.currentTarget) emit("update:open", target.open);
       emit("toggle", event);
     };
     return () =>
@@ -2549,7 +2698,7 @@ export const CindorDropdownMenu = defineComponent({
   setup(props, { attrs, emit, slots }) {
     const handleToggle = (event: Event) => {
       const target = event.currentTarget as OpenHost;
-      emit("update:open", target.open);
+      if (event.target === event.currentTarget) emit("update:open", target.open);
       emit("toggle", event);
     };
     return () =>
@@ -2574,7 +2723,7 @@ export const CindorDropzone = defineComponent({
     name: { type: String, default: "" },
     required: { type: Boolean, default: false }
   },
-  emits: ["update:files", "input", "change"],
+  emits: ["update:files", "input", "change", "invalid", "cancel"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as FileInputHost;
@@ -2587,6 +2736,14 @@ export const CindorDropzone = defineComponent({
       emit("update:files", target.files);
       emit("change", event);
     };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
+
+    const handleCancel = (event: Event) => {
+      emit("cancel", event);
+    };
     return () =>
           h("cindor-dropzone", {
               ...attrs,
@@ -2597,6 +2754,8 @@ export const CindorDropzone = defineComponent({
               required: props.required || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
+              onCancel: handleCancel,
           });
   }
 });
@@ -2641,7 +2800,7 @@ export const CindorInput = defineComponent({
     required: { type: Boolean, default: false },
     type: { type: String, default: "text" }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid", "select"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -2653,6 +2812,14 @@ export const CindorInput = defineComponent({
       const target = event.currentTarget as InputHost;
       emit("update:modelValue", target.value);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
+
+    const handleSelect = (event: Event) => {
+      emit("select", event);
     };
     return () =>
           h("cindor-input", {
@@ -2669,6 +2836,8 @@ export const CindorInput = defineComponent({
               type: props.type,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
+              onSelect: handleSelect,
           });
   }
 });
@@ -2774,7 +2943,7 @@ export const CindorEmailInput = defineComponent({
     readonly: { type: Boolean, default: false },
     required: { type: Boolean, default: false }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid", "select"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -2786,6 +2955,14 @@ export const CindorEmailInput = defineComponent({
       const target = event.currentTarget as InputHost;
       emit("update:modelValue", target.value);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
+
+    const handleSelect = (event: Event) => {
+      emit("select", event);
     };
     return () =>
           h("cindor-email-input", {
@@ -2801,6 +2978,8 @@ export const CindorEmailInput = defineComponent({
               required: props.required || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
+              onSelect: handleSelect,
           });
   }
 });
@@ -2816,7 +2995,7 @@ export const CindorPasswordInput = defineComponent({
     readonly: { type: Boolean, default: false },
     required: { type: Boolean, default: false }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid", "select"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -2828,6 +3007,14 @@ export const CindorPasswordInput = defineComponent({
       const target = event.currentTarget as InputHost;
       emit("update:modelValue", target.value);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
+
+    const handleSelect = (event: Event) => {
+      emit("select", event);
     };
     return () =>
           h("cindor-password-input", {
@@ -2841,6 +3028,8 @@ export const CindorPasswordInput = defineComponent({
               required: props.required || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
+              onSelect: handleSelect,
           });
   }
 });
@@ -2854,7 +3043,15 @@ export const CindorOption = defineComponent({
     selected: { type: Boolean, default: false },
     value: { type: String, default: "" }
   },
-  setup(props, { attrs, slots }) {
+  emits: ["option-select", "option-hover"],
+  setup(props, { attrs, emit, slots }) {
+    const handleOptionSelect = (event: Event) => {
+      emit("option-select", event);
+    };
+
+    const handleOptionHover = (event: Event) => {
+      emit("option-hover", event);
+    };
     return () =>
           h(
             "cindor-option",
@@ -2865,6 +3062,8 @@ export const CindorOption = defineComponent({
               label: props.label || undefined,
               selected: props.selected || undefined,
               value: props.value || undefined,
+              onOptionSelect: handleOptionSelect,
+              onOptionHover: handleOptionHover,
             },
             slots.default?.()
           );
@@ -2910,7 +3109,11 @@ export const CindorNavigationRailItem = defineComponent({
     target: { type: String, default: "" },
     value: { type: String, default: "" }
   },
-  setup(props, { attrs, slots }) {
+  emits: ["navigation-rail-select"],
+  setup(props, { attrs, emit, slots }) {
+    const handleNavigationRailSelect = (event: Event) => {
+      emit("navigation-rail-select", event);
+    };
     return () =>
           h(
             "cindor-navigation-rail-item",
@@ -2923,6 +3126,7 @@ export const CindorNavigationRailItem = defineComponent({
               rel: props.rel || undefined,
               target: props.target || undefined,
               value: props.value || undefined,
+              onNavigationRailSelect: handleNavigationRailSelect,
             },
             slots
           );
@@ -2942,7 +3146,7 @@ export const CindorTelInput = defineComponent({
     readonly: { type: Boolean, default: false },
     required: { type: Boolean, default: false }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid", "select"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -2954,6 +3158,14 @@ export const CindorTelInput = defineComponent({
       const target = event.currentTarget as InputHost;
       emit("update:modelValue", target.value);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
+
+    const handleSelect = (event: Event) => {
+      emit("select", event);
     };
     return () =>
           h("cindor-tel-input", {
@@ -2969,6 +3181,8 @@ export const CindorTelInput = defineComponent({
               required: props.required || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
+              onSelect: handleSelect,
           });
   }
 });
@@ -2986,7 +3200,7 @@ export const CindorUrlInput = defineComponent({
     readonly: { type: Boolean, default: false },
     required: { type: Boolean, default: false }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid", "select"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -2998,6 +3212,14 @@ export const CindorUrlInput = defineComponent({
       const target = event.currentTarget as InputHost;
       emit("update:modelValue", target.value);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
+
+    const handleSelect = (event: Event) => {
+      emit("select", event);
     };
     return () =>
           h("cindor-url-input", {
@@ -3013,6 +3235,8 @@ export const CindorUrlInput = defineComponent({
               required: props.required || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
+              onSelect: handleSelect,
           });
   }
 });
@@ -3024,7 +3248,7 @@ export const CindorColorInput = defineComponent({
     modelValue: { type: String, default: "#4f46e5" },
     name: { type: String, default: "" }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -3037,6 +3261,10 @@ export const CindorColorInput = defineComponent({
       emit("update:modelValue", target.value);
       emit("change", event);
     };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
     return () =>
           h("cindor-color-input", {
               ...attrs,
@@ -3045,6 +3273,7 @@ export const CindorColorInput = defineComponent({
               name: props.name || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
           });
   }
 });
@@ -3058,7 +3287,7 @@ export const CindorCheckbox = defineComponent({
     required: { type: Boolean, default: false },
     value: { type: String, default: "on" }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid"],
   setup(props, { attrs, emit, slots }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as CheckboxHost;
@@ -3070,6 +3299,10 @@ export const CindorCheckbox = defineComponent({
       const target = event.currentTarget as CheckboxHost;
       emit("update:modelValue", target.checked);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
     };
     return () =>
           h(
@@ -3083,6 +3316,7 @@ export const CindorCheckbox = defineComponent({
               value: props.value,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
             },
             slots.default?.()
           );
@@ -3097,7 +3331,7 @@ export const CindorSelect = defineComponent({
     name: { type: String, default: "" },
     required: { type: Boolean, default: false }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid"],
   setup(props, { attrs, emit, slots }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as SelectHost;
@@ -3110,6 +3344,10 @@ export const CindorSelect = defineComponent({
       emit("update:modelValue", target.value);
       emit("change", event);
     };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
     return () =>
           h(
             "cindor-select",
@@ -3121,6 +3359,7 @@ export const CindorSelect = defineComponent({
               required: props.required || undefined,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
             },
             slots.default?.()
           );
@@ -3162,7 +3401,7 @@ export const CindorRadio = defineComponent({
     required: { type: Boolean, default: false },
     value: { type: String, default: "on" }
   },
-  emits: ["update:checked", "input", "change"],
+  emits: ["update:checked", "input", "change", "invalid"],
   setup(props, { attrs, emit, slots }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as CheckboxHost;
@@ -3174,6 +3413,10 @@ export const CindorRadio = defineComponent({
       const target = event.currentTarget as CheckboxHost;
       emit("update:checked", target.checked);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
     };
     return () =>
           h(
@@ -3187,6 +3430,7 @@ export const CindorRadio = defineComponent({
               value: props.value,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
             },
             slots.default?.()
           );
@@ -3202,12 +3446,11 @@ export const CindorDialog = defineComponent({
   emits: ["update:open", "close", "cancel"],
   setup(props, { attrs, emit, slots }) {
     const handleClose = (event: Event) => {
-      emit("update:open", false);
+      if (event.target === event.currentTarget) emit("update:open", false);
       emit("close", event);
     };
 
     const handleCancel = (event: Event) => {
-      emit("update:open", false);
       emit("cancel", event);
     };
     return () =>
@@ -3236,7 +3479,7 @@ export const CindorTextarea = defineComponent({
     required: { type: Boolean, default: false },
     rows: { type: Number, default: 4 }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid", "select"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -3248,6 +3491,14 @@ export const CindorTextarea = defineComponent({
       const target = event.currentTarget as InputHost;
       emit("update:modelValue", target.value);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
+
+    const handleSelect = (event: Event) => {
+      emit("select", event);
     };
     return () =>
           h("cindor-textarea", {
@@ -3261,6 +3512,8 @@ export const CindorTextarea = defineComponent({
               rows: props.rows,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
+              onSelect: handleSelect,
           });
   }
 });
@@ -3274,7 +3527,7 @@ export const CindorSwitch = defineComponent({
     required: { type: Boolean, default: false },
     value: { type: String, default: "on" }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid"],
   setup(props, { attrs, emit, slots }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as CheckboxHost;
@@ -3286,6 +3539,10 @@ export const CindorSwitch = defineComponent({
       const target = event.currentTarget as CheckboxHost;
       emit("update:modelValue", target.checked);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
     };
     return () =>
           h(
@@ -3299,6 +3556,7 @@ export const CindorSwitch = defineComponent({
               value: props.value,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
             },
             slots.default?.()
           );
@@ -3359,7 +3617,7 @@ export const CindorAccordion = defineComponent({
   setup(props, { attrs, emit, slots }) {
     const handleToggle = (event: Event) => {
       const target = event.currentTarget as OpenHost;
-      emit("update:open", target.open);
+      if (event.target === event.currentTarget) emit("update:open", target.open);
       emit("toggle", event);
     };
     return () =>
@@ -3384,7 +3642,15 @@ export const CindorTreeItem = defineComponent({
     selected: { type: Boolean, default: false },
     value: { type: String, default: "" }
   },
-  setup(props, { attrs, slots }) {
+  emits: ["toggle", "tree-item-select"],
+  setup(props, { attrs, emit, slots }) {
+    const handleToggle = (event: Event) => {
+      emit("toggle", event);
+    };
+
+    const handleTreeItemSelect = (event: Event) => {
+      emit("tree-item-select", event);
+    };
     return () =>
           h(
             "cindor-tree-item",
@@ -3395,6 +3661,8 @@ export const CindorTreeItem = defineComponent({
               label: props.label || undefined,
               selected: props.selected || undefined,
               value: props.value || undefined,
+              onToggle: handleToggle,
+              onTreeItemSelect: handleTreeItemSelect,
             },
             slots
           );
@@ -3496,7 +3764,7 @@ export const CindorTransferList = defineComponent({
     modelValue: { type: Array as PropType<string[]>, default: () => [] },
     size: { type: Number, default: 8 }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid"],
   setup(props, { attrs, emit, slots }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as HTMLElement & { selectedValues: string[] };
@@ -3508,6 +3776,10 @@ export const CindorTransferList = defineComponent({
       const target = event.currentTarget as HTMLElement & { selectedValues: string[] };
       emit("update:modelValue", target.selectedValues);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
     };
     return () =>
           h(
@@ -3523,6 +3795,7 @@ export const CindorTransferList = defineComponent({
               size: props.size,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
             },
             slots.default?.()
           );
@@ -3670,7 +3943,7 @@ export const CindorMarkdownEditor = defineComponent({
     writeLabel: { type: String, default: "Write" },
     modelValue: { type: String, default: "" }
   },
-  emits: ["update:modelValue", "input", "change"],
+  emits: ["update:modelValue", "input", "change", "invalid", "select"],
   setup(props, { attrs, emit }) {
     const handleInput = (event: Event) => {
       const target = event.currentTarget as InputHost;
@@ -3682,6 +3955,14 @@ export const CindorMarkdownEditor = defineComponent({
       const target = event.currentTarget as InputHost;
       emit("update:modelValue", target.value);
       emit("change", event);
+    };
+
+    const handleInvalid = (event: Event) => {
+      emit("invalid", event);
+    };
+
+    const handleSelect = (event: Event) => {
+      emit("select", event);
     };
     return () =>
           h("cindor-markdown-editor", {
@@ -3701,6 +3982,8 @@ export const CindorMarkdownEditor = defineComponent({
               value: props.modelValue,
               onInput: handleInput,
               onChange: handleChange,
+              onInvalid: handleInvalid,
+              onSelect: handleSelect,
           });
   }
 });
@@ -3760,7 +4043,7 @@ export const CindorWorkspaceSwitcher = defineComponent({
   setup(props, { attrs, emit }) {
     const handleToggle = (event: Event) => {
       const target = event.currentTarget as OpenHost;
-      emit("update:open", target.open);
+      if (event.target === event.currentTarget) emit("update:open", target.open);
       emit("toggle", event);
     };
 
@@ -3826,7 +4109,15 @@ export const CindorSideNavItem = defineComponent({
     target: { type: String, default: "" },
     value: { type: String, default: "" }
   },
-  setup(props, { attrs, slots }) {
+  emits: ["toggle", "side-nav-select"],
+  setup(props, { attrs, emit, slots }) {
+    const handleToggle = (event: Event) => {
+      emit("toggle", event);
+    };
+
+    const handleSideNavSelect = (event: Event) => {
+      emit("side-nav-select", event);
+    };
     return () =>
           h(
             "cindor-side-nav-item",
@@ -3840,6 +4131,8 @@ export const CindorSideNavItem = defineComponent({
               rel: props.rel || undefined,
               target: props.target || undefined,
               value: props.value || undefined,
+              onToggle: handleToggle,
+              onSideNavSelect: handleSideNavSelect,
             },
             slots
           );

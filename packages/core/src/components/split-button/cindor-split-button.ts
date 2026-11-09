@@ -15,7 +15,7 @@ import { attachFloatingPosition } from "../shared/floating-position.js";
  * @slot menu-icon - Optional icon content for the menu trigger. Defaults to a chevron-down icon.
  *
  * @fires toggle - Fired when the secondary action menu opens or closes.
- * @fires click - Uses the native click event from the primary action button.
+ * @fires {MouseEvent} click - The native click that bubbles from the primary action button.
  */
 export class CindorSplitButton extends LitElement {
   private static nextFormIdCounter = 0;
@@ -182,7 +182,7 @@ export class CindorSplitButton extends LitElement {
           <slot></slot>
           <slot name="end-icon" slot="end-icon"></slot>
         </cindor-button>
-        <div class="menu-shell" part="menu-trigger">
+        <div class="menu-shell" part="menu-trigger" @click=${this.handleSecondaryClick}>
           <cindor-button
             aria-controls=${this.menuId}
             aria-expanded=${String(this.open)}
@@ -237,6 +237,10 @@ export class CindorSplitButton extends LitElement {
 
   private handleMenuTriggerClick = (): void => {
     this.toggleMenu();
+  };
+
+  private handleSecondaryClick = (event: MouseEvent): void => {
+    event.stopPropagation();
   };
 
   private syncFloatingPosition(): void {

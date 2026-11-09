@@ -4,7 +4,14 @@ import { live } from "lit/directives/live.js";
 
 import { createFieldHostStyles, createTextControlStyles } from "../shared/control-styles.js";
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
+import { bridgeNativeEvent } from "../shared/native-events.js";
 
+/**
+ * @fires {InputEvent | Event} input - Fired as the value changes through user interaction.
+ * @fires {Event} change - Fired when the user commits a value change.
+ * @fires {Event} select - Fired when the native control reports text selection.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
+ */
 export class CindorTextarea extends FormAssociatedElement {
   static styles = [
     createFieldHostStyles("min(100%, 420px)"),
@@ -74,6 +81,8 @@ export class CindorTextarea extends FormAssociatedElement {
         ?readonly=${this.readonly}
         ?required=${this.required}
         rows=${this.rows}
+        @invalid=${this.handleControlInvalid}
+        @select=${this.handleControlSelect}
         @input=${this.handleInput}
         @change=${this.handleChange}
       ></textarea>
@@ -86,19 +95,17 @@ export class CindorTextarea extends FormAssociatedElement {
   }
 
   private handleChange = (event: Event): void => {
-    event.stopPropagation();
     const textarea = event.currentTarget as HTMLTextAreaElement;
     this.value = textarea.value;
     this.syncFormState();
-    this.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
+    bridgeNativeEvent(this, event);
   };
 
   private handleInput = (event: InputEvent): void => {
-    event.stopPropagation();
     const textarea = event.currentTarget as HTMLTextAreaElement;
     this.value = textarea.value;
     this.syncFormState();
-    this.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    bridgeNativeEvent(this, event);
   };
 
   private syncFormState(): void {

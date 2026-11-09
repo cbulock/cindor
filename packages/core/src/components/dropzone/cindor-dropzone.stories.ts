@@ -1,3 +1,7 @@
+import { expect, fn } from "storybook/test";
+
+import type { CindorDropzone } from "./cindor-dropzone.js";
+
 type DropzoneStoryArgs = {
   accept: string;
   disabled: boolean;
@@ -32,3 +36,15 @@ const meta = {
 export default meta;
 
 export const Default = {};
+
+export const Required = {
+  args: { required: true },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const dropzone = canvasElement.querySelector<CindorDropzone>("cindor-dropzone")!;
+    await dropzone.updateComplete;
+    const invalid = fn((event: Event) => event.preventDefault());
+    dropzone.addEventListener("invalid", invalid, { once: true });
+    await expect(dropzone.checkValidity()).toBe(false);
+    await expect(invalid).toHaveBeenCalledTimes(1);
+  }
+};

@@ -476,6 +476,7 @@ export class CindorWorkspaceSwitcher extends LitElement {
   };
 
   private handleSearchInput = (event: Event): void => {
+    event.stopPropagation();
     this.query = (event.currentTarget as HTMLInputElement).value;
   };
 

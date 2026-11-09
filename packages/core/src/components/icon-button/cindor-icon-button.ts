@@ -4,6 +4,7 @@ import { ifDefined } from "lit/directives/if-defined.js";
 
 import type { ButtonType } from "../button/cindor-button.js";
 
+/** @fires {MouseEvent} click - Uses the native click event from the button control. */
 export class CindorIconButton extends LitElement {
   static styles = css`
     :host {

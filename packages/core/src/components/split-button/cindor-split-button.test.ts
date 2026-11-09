@@ -1,5 +1,6 @@
 import "../../register.js";
 
+import type { CindorMenuItem } from "../menu-item/cindor-menu-item.js";
 import { CindorSplitButton } from "./cindor-split-button.js";
 
 describe("cindor-split-button", () => {
@@ -94,6 +95,38 @@ describe("cindor-split-button", () => {
     await element.updateComplete;
 
     expect(element.open).toBe(false);
+  });
+
+  it("reserves bubbling click for the primary action", async () => {
+    const element = document.createElement("cindor-split-button") as CindorSplitButton;
+    const menuItem = document.createElement("cindor-menu-item") as CindorMenuItem;
+    menuItem.slot = "menu";
+    menuItem.textContent = "Save draft";
+    element.append("Publish", menuItem);
+    document.body.append(element);
+    await element.updateComplete;
+    await menuItem.updateComplete;
+
+    const click = vi.fn();
+    const capture = vi.fn();
+    const select = vi.fn();
+    element.addEventListener("click", click);
+    element.addEventListener("click", capture, true);
+    element.addEventListener("menu-item-select", select);
+
+    const trigger = element.renderRoot.querySelector<HTMLElement>(".menu-shell cindor-button")!;
+    trigger.click();
+    expect(element.open).toBe(true);
+    await element.updateComplete;
+    menuItem.click();
+    expect(element.open).toBe(false);
+    expect(select).toHaveBeenCalledTimes(1);
+    expect(click).not.toHaveBeenCalled();
+    expect(capture).toHaveBeenCalledTimes(2);
+
+    element.click();
+    expect(click).toHaveBeenCalledExactlyOnceWith(expect.any(MouseEvent));
+    expect(capture).toHaveBeenLastCalledWith(click.mock.calls[0][0]);
   });
 
   it("prevents opening the menu when disabled", async () => {

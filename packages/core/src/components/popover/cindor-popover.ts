@@ -1,7 +1,9 @@
 import { css, html, LitElement } from "lit";
 
 import { attachFloatingPosition } from "../shared/floating-position.js";
+import { bridgeNativeEvent } from "../shared/native-events.js";
 
+/** @fires {ToggleEvent} toggle - Fired after the popover opens or closes. */
 export class CindorPopover extends LitElement {
   static styles = css`
     :host {
@@ -71,10 +73,10 @@ export class CindorPopover extends LitElement {
   }
 
   private handleToggle = (event: Event): void => {
-    event.stopPropagation();
-    const details = event.currentTarget as HTMLDetailsElement;
-    this.open = details.open;
-    this.dispatchEvent(new Event("toggle", { bubbles: true, composed: true }));
+    if (event.target === event.currentTarget) {
+      this.open = (event.currentTarget as HTMLDetailsElement).open;
+      bridgeNativeEvent(this, event);
+    }
   };
 
   private syncFloatingPosition(): void {

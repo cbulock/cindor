@@ -1,10 +1,12 @@
 import { css, html, LitElement } from "lit";
 import { live } from "lit/directives/live.js";
 
+import { bridgeNativeEvent } from "../shared/native-events.js";
+
 /**
  * Inline text editing surface for titles, labels, and small editable values.
  *
- * @fires input - Fired while the draft value changes.
+ * @fires {InputEvent} input - Fired while the draft value changes.
  * @fires change - Fired when the saved value changes.
  * @fires cancel - Fired when editing is cancelled.
  * @fires toggle - Fired when editing starts or stops.
@@ -187,7 +189,7 @@ export class CindorInlineEdit extends LitElement {
   private handleInput = (event: InputEvent): void => {
     const input = event.currentTarget as HTMLInputElement;
     this.draftValue = input.value;
-    this.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    bridgeNativeEvent(this, event);
   };
 
   private handleKeyDown = (event: KeyboardEvent): void => {

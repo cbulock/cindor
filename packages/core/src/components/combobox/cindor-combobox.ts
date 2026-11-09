@@ -6,10 +6,17 @@ import { attachFloatingPosition } from "../shared/floating-position.js";
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
 import { getNextEnabledIndex } from "../shared/linear-navigation.js";
 import { readLightDomOptions, type LightDomOption } from "../shared/light-dom-options.js";
+import { bridgeNativeEvent } from "../shared/native-events.js";
 import { CindorOption } from "../option/cindor-option.js";
 
 type ComboboxOption = LightDomOption;
 
+/**
+ * @fires {InputEvent | Event} input - Fired as the user edits the value or chooses an option.
+ * @fires {Event} change - Fired when an edit or option choice is committed.
+ * @fires {Event} select - Fired when the native control reports text selection.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
+ */
 export class CindorCombobox extends FormAssociatedElement {
   static styles = [
     createFieldHostStyles("min(100%, 320px)"),
@@ -111,6 +118,8 @@ export class CindorCombobox extends FormAssociatedElement {
           @change=${this.handleChange}
           @focus=${this.handleFocus}
           @input=${this.handleInput}
+          @invalid=${this.handleControlInvalid}
+          @select=${this.handleControlSelect}
           @keydown=${this.handleKeyDown}
         />
         ${this.listboxVisible
@@ -150,23 +159,21 @@ export class CindorCombobox extends FormAssociatedElement {
   }
 
   private handleChange = (event: Event): void => {
-    event.stopPropagation();
     const input = event.currentTarget as HTMLInputElement;
     this.value = input.value;
     this.open = false;
     this.activeIndex = -1;
     this.syncFormState();
-    this.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
+    bridgeNativeEvent(this, event);
   };
 
   private handleInput = (event: InputEvent): void => {
-    event.stopPropagation();
     const input = event.currentTarget as HTMLInputElement;
     this.value = input.value;
     this.open = this.filteredOptions.length > 0;
     this.activeIndex = this.getInitialActiveIndex();
     this.syncFormState();
-    this.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    bridgeNativeEvent(this, event);
   };
 
   private handleFocus = (): void => {

@@ -18,6 +18,7 @@ type MultiSelectOption = LightDomOption;
  * @fires change - Fired when the selected values change.
  *
  * @slot - `option` or `cindor-option` children that define the available choices.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
  */
 export class CindorMultiSelect extends FormAssociatedElement {
   static styles = css`
@@ -374,6 +375,7 @@ export class CindorMultiSelect extends FormAssociatedElement {
   };
 
   private handleInput = (event: InputEvent): void => {
+    event.stopPropagation();
     const input = event.currentTarget as HTMLInputElement;
     this.query = input.value;
     this.open = this.filteredOptions.length > 0;

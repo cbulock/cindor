@@ -1,5 +1,11 @@
 import { css, html, LitElement } from "lit";
 
+import { bridgeNativeEvent } from "../shared/native-events.js";
+
+/**
+ * @fires {Event} load - Fired when the avatar image loads.
+ * @fires {Event} error - Fired when the avatar image fails to load.
+ */
 export class CindorAvatar extends LitElement {
   static styles = css`
     :host {
@@ -47,7 +53,7 @@ export class CindorAvatar extends LitElement {
     if (this.src) {
       return html`
         <span class="surface" part="surface">
-          <img part="image" src=${this.src} alt=${label} />
+          <img part="image" src=${this.src} alt=${label} @load=${this.handleImageEvent} @error=${this.handleImageEvent} />
         </span>
       `;
     }
@@ -58,6 +64,10 @@ export class CindorAvatar extends LitElement {
       </span>
     `;
   }
+
+  private handleImageEvent = (event: Event): void => {
+    bridgeNativeEvent(this, event, { bubbles: false });
+  };
 
   private get initials(): string {
     const words = this.name

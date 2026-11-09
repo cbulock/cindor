@@ -29,7 +29,14 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired after the disclosure opens or closes.",
+          "name": "toggle",
+          "type": "ToggleEvent",
+          "values": null
+        }
+      ],
       "slots": [
         {
           "description": "",
@@ -292,7 +299,19 @@
         {
           "description": "Fired as the query changes.",
           "name": "input",
-          "type": null,
+          "type": "InputEvent",
+          "values": null
+        },
+        {
+          "description": "Fired when the native control reports text selection.",
+          "name": "select",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
           "values": null
         }
       ],
@@ -334,7 +353,20 @@
         }
       ],
       "methods": [],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired when the avatar image loads.",
+          "name": "load",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the avatar image fails to load.",
+          "name": "error",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-avatar"
@@ -444,7 +476,20 @@
         }
       ],
       "methods": [],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired when the banner is dismissed.",
+          "name": "dismiss",
+          "type": "CustomEvent",
+          "values": null
+        },
+        {
+          "description": "Fired when dismissing the banner changes its open state.",
+          "name": "open-change",
+          "type": "CustomEvent<{ open: boolean }>",
+          "values": null
+        }
+      ],
       "slots": [
         {
           "description": "Default banner body content.",
@@ -547,7 +592,14 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Uses the native click event from the button control.",
+          "name": "click",
+          "type": "MouseEvent",
+          "values": null
+        }
+      ],
       "slots": [
         {
           "description": "",
@@ -743,7 +795,26 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the selected date or range changes.",
+          "name": "input",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when a date or range selection is committed.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-calendar"
@@ -859,7 +930,26 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [
         {
           "description": "",
@@ -1142,7 +1232,26 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-color-input"
@@ -1271,14 +1380,26 @@
       ],
       "events": [
         {
-          "description": "",
+          "description": "Fired as the user edits the value or chooses an option.",
           "name": "input",
+          "type": "InputEvent | Event",
+          "values": null
+        },
+        {
+          "description": "Fired when an edit or option choice is committed.",
+          "name": "change",
           "type": "Event",
           "values": null
         },
         {
-          "description": "",
-          "name": "change",
+          "description": "Fired when the native control reports text selection.",
+          "name": "select",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
           "type": "Event",
           "values": null
         }
@@ -1443,20 +1564,32 @@
       ],
       "events": [
         {
-          "description": "",
+          "description": "Fired when a command is selected.",
           "name": "input",
           "type": "Event",
           "values": null
         },
         {
-          "description": "",
+          "description": "Fired with the selected command.",
           "name": "command-select",
-          "type": "CustomEvent",
+          "type": "CustomEvent<{ command: CommandPaletteCommand; value: string }>",
           "values": null
         },
         {
-          "description": "",
+          "description": "Fired when a command is selected.",
           "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the browser requests dismissal. When cancelable, call `preventDefault()` to keep the palette open.",
+          "name": "cancel",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the palette closes.",
+          "name": "close",
           "type": "Event",
           "values": null
         }
@@ -2099,7 +2232,32 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "InputEvent | Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the native control reports text selection.",
+          "name": "select",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-date-input"
@@ -2189,6 +2347,24 @@
           "reflects": true,
           "type": "string",
           "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": null,
+          "description": "",
+          "name": "validationMessage",
+          "reflects": false,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": null,
+          "description": "",
+          "name": "validity",
+          "reflects": false,
+          "type": "Pick<ValidityState, \"valid\" | \"valueMissing\">",
+          "values": null
         }
       ],
       "methods": [
@@ -2264,6 +2440,12 @@
           "description": "Fired when the selected date changes.",
           "name": "change",
           "type": null,
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
           "values": null
         }
       ],
@@ -2436,6 +2618,24 @@
           "reflects": true,
           "type": "string",
           "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": null,
+          "description": "",
+          "name": "validationMessage",
+          "reflects": false,
+          "type": "string",
+          "values": null
+        },
+        {
+          "attributeName": null,
+          "defaultValue": null,
+          "description": "",
+          "name": "validity",
+          "reflects": false,
+          "type": "Pick<ValidityState, \"valid\" | \"valueMissing\">",
+          "values": null
         }
       ],
       "methods": [
@@ -2493,6 +2693,12 @@
           "description": "Fired when the combined value changes.",
           "name": "change",
           "type": null,
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
           "values": null
         }
       ],
@@ -2615,12 +2821,6 @@
       ],
       "events": [
         {
-          "description": "",
-          "name": "type",
-          "type": "Event",
-          "values": null
-        },
-        {
           "description": "Fired as either endpoint changes.",
           "name": "input",
           "type": null,
@@ -2630,6 +2830,12 @@
           "description": "Fired when an endpoint change is committed.",
           "name": "change",
           "type": null,
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
           "values": null
         }
       ],
@@ -2735,7 +2941,20 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired when the browser requests dismissal. When cancelable, call `preventDefault()` to keep the dialog open.",
+          "name": "cancel",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the dialog closes.",
+          "name": "close",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [
         {
           "description": "",
@@ -2871,7 +3090,14 @@
         }
       ],
       "methods": [],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired when the drawer is dismissed.",
+          "name": "close",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [
         {
           "description": "",
@@ -2897,7 +3123,14 @@
         }
       ],
       "methods": [],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired after the menu opens or closes.",
+          "name": "toggle",
+          "type": "ToggleEvent",
+          "values": null
+        }
+      ],
       "slots": [
         {
           "description": "",
@@ -3015,7 +3248,32 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the browser dismisses the file picker without changing the selection.",
+          "name": "cancel",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-dropzone"
@@ -3178,7 +3436,32 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "InputEvent | Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the native control reports text selection.",
+          "name": "select",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-email-input"
@@ -3543,6 +3826,12 @@
           "name": "change",
           "type": "CustomEvent<FieldArrayChangeDetail>",
           "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
         }
       ],
       "slots": [],
@@ -3692,7 +3981,32 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the browser dismisses the file picker without changing the selection.",
+          "name": "cancel",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-file-input"
@@ -3863,7 +4177,26 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired when the form is submitted. Cancel this event to prevent submission.",
+          "name": "submit",
+          "type": "SubmitEvent",
+          "values": null
+        },
+        {
+          "description": "Fired before resetting the form. Cancel this event to keep the current values.",
+          "name": "reset",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when form data is constructed. Listeners can modify the submitted data through `event.formData`.",
+          "name": "formdata",
+          "type": "FormDataEvent",
+          "values": null
+        }
+      ],
       "slots": [
         {
           "description": "",
@@ -4203,7 +4536,14 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Uses the native click event from the button control.",
+          "name": "click",
+          "type": "MouseEvent",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-icon-button"
@@ -4304,7 +4644,7 @@
         {
           "description": "Fired while the draft value changes.",
           "name": "input",
-          "type": null,
+          "type": "InputEvent",
           "values": null
         }
       ],
@@ -4479,7 +4819,32 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "InputEvent | Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the native control reports text selection.",
+          "name": "select",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-input"
@@ -4997,8 +5362,26 @@
       ],
       "events": [
         {
-          "description": "",
-          "name": "eventName",
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "InputEvent | Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the native control reports text selection.",
+          "name": "select",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
           "type": "Event",
           "values": null
         }
@@ -5058,7 +5441,14 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired when the menu item is activated.",
+          "name": "menu-item-select",
+          "type": "CustomEvent<{ item: CindorMenuItem }>",
+          "values": null
+        }
+      ],
       "slots": [
         {
           "description": "",
@@ -5271,6 +5661,12 @@
           "name": "change",
           "type": "CustomEvent",
           "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
         }
       ],
       "slots": [
@@ -5387,7 +5783,14 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired when the item button is activated.",
+          "name": "navigation-rail-select",
+          "type": "CustomEvent<{ item: CindorNavigationRailItem; value: string }>",
+          "values": null
+        }
+      ],
       "slots": [
         {
           "description": "Leading icon or badge.",
@@ -5668,7 +6071,32 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "InputEvent | Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the native control reports text selection.",
+          "name": "select",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-number-input"
@@ -5732,7 +6160,20 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired when the option is activated.",
+          "name": "option-select",
+          "type": "CustomEvent<{ option: CindorOption; value: string }>",
+          "values": null
+        },
+        {
+          "description": "Fired when the pointer moves over the option.",
+          "name": "option-hover",
+          "type": "CustomEvent<{ option: CindorOption; value: string }>",
+          "values": null
+        }
+      ],
       "slots": [
         {
           "description": "",
@@ -5910,6 +6351,12 @@
         {
           "description": "An edited value was committed by Enter or focus leaving the group.",
           "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
           "type": "Event",
           "values": null
         }
@@ -6243,7 +6690,32 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "InputEvent | Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the native control reports text selection.",
+          "name": "select",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-password-input"
@@ -6264,7 +6736,14 @@
         }
       ],
       "methods": [],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired after the popover opens or closes.",
+          "name": "toggle",
+          "type": "ToggleEvent",
+          "values": null
+        }
+      ],
       "slots": [
         {
           "description": "",
@@ -6488,7 +6967,26 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [
         {
           "description": "",
@@ -6611,7 +7109,26 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-range"
@@ -6720,7 +7237,26 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-rating-input"
@@ -6883,7 +7419,32 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "InputEvent | Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the native control reports text selection.",
+          "name": "select",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-search"
@@ -7022,6 +7583,12 @@
           "name": "change",
           "type": "Event",
           "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
         }
       ],
       "slots": [
@@ -7128,7 +7695,26 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-segmented-control"
@@ -7219,7 +7805,26 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [
         {
           "description": "",
@@ -7624,9 +8229,9 @@
           "values": null
         },
         {
-          "description": "Uses the native click event from the primary action button.",
+          "description": "The native click that bubbles from the primary action button.",
           "name": "click",
-          "type": null,
+          "type": "MouseEvent",
           "values": null
         }
       ],
@@ -8048,7 +8653,26 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [
         {
           "description": "",
@@ -8306,6 +8930,12 @@
           "name": "change",
           "type": "CustomEvent<TagInputChangeDetail>",
           "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
         }
       ],
       "slots": [],
@@ -8470,7 +9100,32 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "InputEvent | Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the native control reports text selection.",
+          "name": "select",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-tel-input"
@@ -8588,7 +9243,32 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "InputEvent | Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the native control reports text selection.",
+          "name": "select",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-textarea"
@@ -8751,7 +9431,32 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "InputEvent | Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the native control reports text selection.",
+          "name": "select",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-time-input"
@@ -8844,7 +9549,14 @@
         }
       ],
       "methods": [],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired when the toast is dismissed.",
+          "name": "close",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [
         {
           "description": "",
@@ -9130,6 +9842,12 @@
           "description": "Fired when the selected values change.",
           "name": "change",
           "type": "CustomEvent<TransferListChangeDetail>",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
           "values": null
         }
       ],
@@ -9657,7 +10375,32 @@
           "returnType": "void"
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "description": "Fired as the value changes through user interaction.",
+          "name": "input",
+          "type": "InputEvent | Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the user commits a value change.",
+          "name": "change",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when the native control reports text selection.",
+          "name": "select",
+          "type": "Event",
+          "values": null
+        },
+        {
+          "description": "Fired when constraint validation fails. This event is cancelable and does not bubble.",
+          "name": "invalid",
+          "type": "Event",
+          "values": null
+        }
+      ],
       "slots": [],
       "summary": "",
       "tagName": "cindor-url-input"

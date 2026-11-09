@@ -5,6 +5,7 @@ import { createFieldHostStyles, createTextControlStyles, floatingListboxStyles }
 import { attachFloatingPosition } from "../shared/floating-position.js";
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
 import { getNextEnabledIndex } from "../shared/linear-navigation.js";
+import { bridgeNativeEvent } from "../shared/native-events.js";
 import { CindorOption } from "../option/cindor-option.js";
 
 export type AutocompleteSuggestion = {
@@ -18,9 +19,11 @@ export type AutocompleteSuggestion = {
 /**
  * Suggestion-first autocomplete input for search and remote result flows.
  *
- * @fires input - Fired as the query changes.
+ * @fires {InputEvent} input - Fired as the query changes.
  * @fires change - Fired when a suggestion is committed.
  * @fires suggestion-select - Fired when a suggestion is committed.
+ * @fires {Event} select - Fired when the native control reports text selection.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
  */
 export class CindorAutocomplete extends FormAssociatedElement {
   static styles = [
@@ -142,6 +145,8 @@ export class CindorAutocomplete extends FormAssociatedElement {
           @blur=${this.handleBlur}
           @focus=${this.handleFocus}
           @input=${this.handleInput}
+          @invalid=${this.handleControlInvalid}
+          @select=${this.handleControlSelect}
           @keydown=${this.handleKeyDown}
         />
         ${this.panelVisible
@@ -209,7 +214,7 @@ export class CindorAutocomplete extends FormAssociatedElement {
     this.open = true;
     this.activeIndex = this.getInitialActiveIndex();
     this.syncFormState();
-    this.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    bridgeNativeEvent(this, event);
   };
 
   private handleKeyDown = (event: KeyboardEvent): void => {

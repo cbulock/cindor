@@ -1,7 +1,14 @@
 import { css, html } from "lit";
 
 import { FormAssociatedElement } from "../shared/form-associated-element.js";
+import { bridgeNativeEvent } from "../shared/native-events.js";
 
+/**
+ * @fires {Event} input - Fired as the value changes through user interaction.
+ * @fires {Event} change - Fired when the user commits a value change.
+ * @fires {Event} invalid - Fired when constraint validation fails. This event is cancelable and does not bubble.
+ * @fires {Event} cancel - Fired when the browser dismisses the file picker without changing the selection.
+ */
 export class CindorFileInput extends FormAssociatedElement {
   static styles = css`
     :host {
@@ -135,6 +142,8 @@ export class CindorFileInput extends FormAssociatedElement {
           name=${this.name}
           ?required=${this.required}
           type="file"
+          @invalid=${this.handleControlInvalid}
+          @cancel=${(event: Event) => bridgeNativeEvent(this, event)}
           @input=${this.handleInput}
           @change=${this.handleChange}
         />
@@ -168,17 +177,15 @@ export class CindorFileInput extends FormAssociatedElement {
   }
 
   private handleInput = (event: InputEvent): void => {
-    event.stopPropagation();
     this.syncFormState();
     this.requestUpdate();
-    this.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    bridgeNativeEvent(this, event);
   };
 
   private handleChange = (event: Event): void => {
-    event.stopPropagation();
     this.syncFormState();
     this.requestUpdate();
-    this.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
+    bridgeNativeEvent(this, event);
   };
 
   private syncFormState(): void {
