@@ -61,7 +61,47 @@ try {
     label.textContent = "Reconnected";
     await settle();
     const reconnectCorrect = inputs[0].shadowRoot.querySelector("label").textContent.trim() === "Reconnected";
-    return { unrelatedUpdates, textUpdates, textCorrect, disconnectedUpdates, reconnectCorrect };
+    const { ReferencedTextObserver, resolveReferencedText } = await import("/packages/core/src/components/shared/a11y-mirror.ts");
+    const container = document.createElement("div");
+    document.body.append(container);
+    const root = container.attachShadow({ mode: "open" });
+    root.innerHTML = '<span id="shared-label">Shadow label</span><slot></slot>';
+    const slotted = document.createElement("div");
+    container.append(slotted);
+    const slotRemovalChanges = [];
+    const observer = new ReferencedTextObserver(slotted, () => slotRemovalChanges.push(resolveReferencedText(slotted, "shared-label")));
+    observer.observe("shared-label");
+    await settle();
+    root.querySelector("slot").remove();
+    await settle();
+    label.firstChild.data = "Fallback edit";
+    await settle();
+    observer.disconnect();
+
+    const { CindorButton } = await import("/packages/core/src/components/button/cindor-button.ts");
+    let buttonUpdates = 0;
+    class ObservedButton extends CindorButton {
+      updated(changed) { super.updated(changed); buttonUpdates++; }
+    }
+    customElements.define("observed-a11y-button", ObservedButton);
+    const button = document.createElement("observed-a11y-button");
+    button.setAttribute("aria-labelledby", "shared-label");
+    document.body.append(button);
+    await settle();
+    button.requestUpdate();
+    button.remove();
+    await settle();
+    buttonUpdates = 0;
+    label.firstChild.data = "Detached button edit";
+    await settle();
+    const detachedButtonUpdates = buttonUpdates;
+    document.body.append(button);
+    await settle();
+    buttonUpdates = 0;
+    label.firstChild.data = "Reconnected button edit";
+    await settle();
+    const reconnectedButtonUpdates = buttonUpdates;
+    return { unrelatedUpdates, textUpdates, textCorrect, disconnectedUpdates, reconnectCorrect, slotRemovalChanges, detachedButtonUpdates, reconnectedButtonUpdates };
   });
   console.log(JSON.stringify(result, null, 2));
   assert.equal(result.unrelatedUpdates, 0, "Unrelated mutations must not update 100 labeled inputs");
@@ -69,6 +109,9 @@ try {
   assert.equal(result.textCorrect, true);
   assert.equal(result.disconnectedUpdates, 0);
   assert.equal(result.reconnectCorrect, true);
+  assert.deepEqual(result.slotRemovalChanges, ["Reconnected", "Fallback edit"]);
+  assert.equal(result.detachedButtonUpdates, 0);
+  assert.equal(result.reconnectedButtonUpdates, 1);
 } finally {
   await browser?.close();
   await server.close();

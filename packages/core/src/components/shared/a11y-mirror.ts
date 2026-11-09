@@ -82,6 +82,13 @@ class ReferenceRootObserver {
       };
       const collectNode = (node: Node): void => {
         if (!(node instanceof Element)) return;
+        // A removed slot no longer bubbles slotchange to its old root.
+        // Refresh scope subscribers when slots (or their ancestors) move.
+        if (root instanceof ShadowRoot && (node.localName === "slot" || node.querySelector("slot"))) {
+          for (const listeners of this.listeners.values()) {
+            for (const listener of listeners) affected.add(listener);
+          }
+        }
         collectId(node.id);
         for (const element of node.querySelectorAll("[id]")) collectId(element.id);
       };
@@ -139,6 +146,8 @@ export class ReferencedTextObserver {
 
   observe(...attributeValues: ReferenceValue[]): void {
     this.disconnect();
+    // Lit may finish an already queued update after disconnectedCallback.
+    if (!this.host.isConnected) return;
     this.attributeValues = attributeValues;
     this.ids = new Set(attributeValues.flatMap((value) => value?.split(/\s+/).filter(Boolean) ?? []));
     if (this.ids.size === 0) return;

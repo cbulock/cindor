@@ -114,6 +114,36 @@ describe("ReferencedTextObserver", () => {
     expect(changes).toEqual(["Original", "Slotted label"]);
   });
 
+  it("rebinds fallback text when an anonymous assigned slot is removed", async () => {
+    const container = document.getElementById("host")!;
+    const root = container.attachShadow({ mode: "open" });
+    root.innerHTML = '<span id="label">Slotted label</span><div><slot></slot></div>';
+    const host = document.createElement("div");
+    container.append(host);
+    const { changes } = watch(host);
+    await settle();
+    root.querySelector("div")!.remove();
+    await settle();
+    document.getElementById("label")!.firstChild!.textContent = "Updated fallback";
+    await settle();
+    expect(changes).toEqual(["Original", "Updated fallback"]);
+  });
+
+  it("does not resubscribe a detached host and resumes after reconnect", async () => {
+    const host = document.getElementById("host")!;
+    const { observer, changes } = watch(host);
+    host.remove();
+    observer.disconnect();
+    observer.observe("label");
+    document.getElementById("label")!.firstChild!.textContent = "Detached edit";
+    await settle();
+    expect(changes).toEqual([]);
+    document.body.append(host);
+    observer.observe("label");
+    document.getElementById("label")!.firstChild!.textContent = "Reconnected edit";
+    await settle();
+    expect(changes).toEqual(["Reconnected edit"]);
+  });
   it("rebinds a replacement even when its text has not changed", async () => {
     const { changes } = watch(document.getElementById("host")!);
     const replacement = document.createElement("span");
