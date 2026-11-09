@@ -32,7 +32,8 @@
     "test:storybook": "vitest run --project storybook",
     "test:watch": "vitest --project unit",
     "test:one": "vitest run --project unit",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:form-ownership:browser": "node scripts/test-form-ownership-browser.mjs"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.11.0",
