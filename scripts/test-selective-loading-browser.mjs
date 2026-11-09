@@ -41,15 +41,20 @@ for (const slug of inheritedInputs) {
     entryNames: "inherited-" + slug, tsconfigRaw: {}, minify: true
   });
 }
-const server = createServer(async (req, res) => {
-  const requestedInput = new URL(req.url, "http://localhost").searchParams.get("input");
-  if (req.url === "/" || inheritedInputs.includes(requestedInput)) {
-    res.setHeader("Content-Type", "text/html");
-    res.end(`<div id="react"></div><div id="vue"></div><script>
+// Build HTML only from trusted fixture names, before handling any requests.
+const fixturePages = new Map(["", ...inheritedInputs].map(slug => [
+  slug ? `/?input=${slug}` : "/",
+  `<div id="react"></div><div id="vue"></div><script>
       window.registeredTags = [];
       const define = customElements.define.bind(customElements);
       customElements.define = (name, constructor, options) => { window.registeredTags.push(name); define(name, constructor, options); };
-    </script><script type="module" src="/${requestedInput ? "inherited-" + requestedInput : "stdin"}.js"></script>`);
+    </script><script type="module" src="/${slug ? "inherited-" + slug : "stdin"}.js"></script>`
+]));
+const server = createServer(async (req, res) => {
+  const fixturePage = fixturePages.get(req.url);
+  if (fixturePage !== undefined) {
+    res.setHeader("Content-Type", "text/html");
+    res.end(fixturePage);
     return;
   }
   try {
@@ -60,6 +65,11 @@ const server = createServer(async (req, res) => {
 await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
 const browser = await chromium.launch({ headless: true, ...(process.env.CINDOR_CHROME_PATH ? { executablePath: process.env.CINDOR_CHROME_PATH } : {}) });
 try {
+  for (const requestPath of ["/unexpected?input=search", "/?input=unknown", `/?input=${encodeURIComponent('"><script>alert(1)</script>')}`]) {
+    const response = await fetch(`http://127.0.0.1:${server.address().port}${requestPath}`);
+    assert.equal(response.status, 404, "unexpected fixture URLs must be rejected");
+    assert.equal(await response.text(), "", "rejected requests must not reflect request data");
+  }
   for (const slug of inheritedInputs) {
     const inheritedPage = await browser.newPage();
     inheritedPage.setDefaultTimeout(15000);
