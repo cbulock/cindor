@@ -67,7 +67,7 @@ Existing root imports from `cindor-ui-react` and `cindor-ui-vue` still register 
 
 Icons retain arbitrary Lucide names, including kebab-case and PascalCase. The icon catalog loads asynchronously from the installed `lucide` package on first icon use; it does not require a CDN or private package subpaths. Enable your bundler's ESM code splitting to keep that catalog in a separate lazy chunk. Without splitting, a bundler may include the deferred catalog in one output file. Icon rendering can complete after the element's first `updateComplete`.
 
-Registration dependencies are generated from component template tags and literal `createElement` calls using the component manifest. Run `generate:manifest` and `generate:wrappers` after changing those dependencies. The generator rejects unknown tags.
+Registration dependencies are generated from component and inherited base-class template tags and literal `createElement` calls using the component manifest. Run `generate:manifest` and `generate:wrappers` after changing those dependencies. The generator rejects unknown tags.
 
 After `npm run build`, run `npm run test:selective-loading` for the built-package bundle and browser checks. Install Playwright Chromium first, or set `CINDOR_CHROME_PATH` to an installed Chrome executable.
 

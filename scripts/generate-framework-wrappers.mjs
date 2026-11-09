@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import ts from "typescript";
 
 import { componentDefinitions as allComponents } from "./wrapper-manifest.mjs";
 
@@ -9,9 +10,17 @@ const repoRoot = path.dirname(dirname);
 
 async function main() {
   const { components } = JSON.parse(await readFile(path.join(repoRoot, "packages/core/component-docs.json"), "utf8"));
+  const program = ts.createProgram(components.map(component => path.join(repoRoot, component.modulePath)), {
+    target: ts.ScriptTarget.ESNext,
+    module: ts.ModuleKind.ESNext,
+    moduleResolution: ts.ModuleResolutionKind.Bundler,
+    skipLibCheck: true,
+    noEmit: true
+  });
+  const checker = program.getTypeChecker();
   const byTag = new Map(components.map(component => [component.tagName, component]));
   for (const component of components) {
-    const source = await readFile(path.join(repoRoot, component.modulePath), "utf8");
+    const source = collectRegistrationSource(component, program, checker);
     const dependencies = [...new Set([
       ...Array.from(source.matchAll(/<\s*(cindor-[a-z0-9-]+)/g), match => match[1]),
       ...Array.from(source.matchAll(/createElement\(\s*["'](cindor-[a-z0-9-]+)["']/g), match => match[1])
@@ -38,6 +47,29 @@ async function main() {
   }
   await writeGeneratedFile(path.join(repoRoot, "packages", "react", "src", "index.tsx"), generateReactFile());
   await writeGeneratedFile(path.join(repoRoot, "packages", "vue", "src", "index.ts"), generateVueFile());
+}
+
+// Resolve base classes through TypeScript so local/aliased imports, same-file bases,
+// and multi-level inheritance contribute their templates without registering base tags.
+function collectRegistrationSource(component, program, checker) {
+  const file = program.getSourceFile(path.join(repoRoot, component.modulePath));
+  const declaration = file?.statements.find(node => ts.isClassDeclaration(node) && node.name?.text === component.className);
+  if (!declaration) throw new Error("Missing component class: " + component.className);
+  const sources = [file.text];
+  const visited = new Set();
+  const coreSourceRoot = path.join(repoRoot, "packages/core/src") + path.sep;
+  function visitBase(type) {
+    if (visited.has(type)) return;
+    visited.add(type);
+    const localDeclarations = (type.symbol?.declarations ?? []).filter(node =>
+      ts.isClassDeclaration(node) && path.resolve(node.getSourceFile().fileName).startsWith(coreSourceRoot)
+    );
+    if (localDeclarations.length === 0) return;
+    sources.push(...localDeclarations.map(node => node.getText()));
+    for (const base of type.getBaseTypes?.() ?? []) visitBase(base);
+  }
+  for (const base of checker.getTypeAtLocation(declaration).getBaseTypes() ?? []) visitBase(base);
+  return sources.join("\n");
 }
 
 function generateReactFile(componentDefinitions = allComponents, slug = "", coreImport = "cindor-ui-core") {

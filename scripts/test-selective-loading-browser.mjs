@@ -27,14 +27,29 @@ await build({
   bundle: true, splitting: true, format: "esm", platform: "browser", outdir,
   tsconfigRaw: {}, minify: true, define: { "process.env.NODE_ENV": '"production"' }
 });
+const inheritedInputs = ["search", "email-input", "date-input", "number-input", "tel-input", "time-input", "url-input", "password-input", "input"];
+for (const slug of inheritedInputs) {
+  await build({
+    stdin: { resolveDir: consumer, contents: `
+      import 'cindor-ui-core/register/${slug}';
+      const input = document.createElement('cindor-${slug}');
+      input.startIcon = 'alarm-clock';
+      document.body.append(input);
+      window.inheritedReady = true;
+    ` },
+    bundle: true, splitting: true, format: "esm", platform: "browser", outdir,
+    entryNames: "inherited-" + slug, tsconfigRaw: {}, minify: true
+  });
+}
 const server = createServer(async (req, res) => {
-  if (req.url === "/") {
+  const requestedInput = new URL(req.url, "http://localhost").searchParams.get("input");
+  if (req.url === "/" || inheritedInputs.includes(requestedInput)) {
     res.setHeader("Content-Type", "text/html");
     res.end(`<div id="react"></div><div id="vue"></div><script>
       window.registeredTags = [];
       const define = customElements.define.bind(customElements);
       customElements.define = (name, constructor, options) => { window.registeredTags.push(name); define(name, constructor, options); };
-    </script><script type="module" src="/stdin.js"></script>`);
+    </script><script type="module" src="/${requestedInput ? "inherited-" + requestedInput : "stdin"}.js"></script>`);
     return;
   }
   try {
@@ -45,6 +60,21 @@ const server = createServer(async (req, res) => {
 await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
 const browser = await chromium.launch({ headless: true, ...(process.env.CINDOR_CHROME_PATH ? { executablePath: process.env.CINDOR_CHROME_PATH } : {}) });
 try {
+  for (const slug of inheritedInputs) {
+    const inheritedPage = await browser.newPage();
+    inheritedPage.setDefaultTimeout(15000);
+    await inheritedPage.goto(`http://127.0.0.1:${server.address().port}/?input=${slug}`);
+    await inheritedPage.waitForFunction(() => window.inheritedReady);
+    assert.deepEqual(await inheritedPage.evaluate(() => window.registeredTags.sort()),
+      [`cindor-${slug}`, "cindor-icon"].sort(), `${slug} must register inherited icons without unrelated elements`);
+    await inheritedPage.waitForFunction(tag => {
+      const input = document.querySelector(tag);
+      const icons = input?.shadowRoot?.querySelectorAll('cindor-icon');
+      return icons?.length && Array.from(icons).every(icon => icon.shadowRoot?.querySelector('svg'));
+    }, `cindor-${slug}`);
+    await inheritedPage.close();
+  }
+  console.log('Built-package browser: all nine inherited input icon registrations and rendering passed in isolated pages.');
   const page = await browser.newPage();
   page.setDefaultTimeout(15000);
   const errors = [];
