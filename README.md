@@ -60,6 +60,38 @@ Use a native submit button when you need submitter identity, name/value, or `for
 
 Run the browser ownership regression with `npm run test:form-ownership:browser` after `npx playwright install chromium`. Set `CINDOR_BROWSER_EXECUTABLE` to use an existing Chromium/Chrome executable instead.
 
+## Selective component loading
+
+Use component subpaths to register only the requested component and the custom elements it creates:
+
+```ts
+// React
+import { CindorButton } from "cindor-ui-react/components/button";
+import { CindorDateTimePicker } from "cindor-ui-react/components/date-time-picker";
+
+```
+
+```ts
+// Vue
+import { CindorButton } from "cindor-ui-vue/components/button";
+
+```
+
+```ts
+// Framework-independent registration
+import "cindor-ui-core/register/date-time-picker";
+```
+
+Subpath names match the tag without the `cindor-` prefix. Composite entries register their internal dependencies transitively; register additional components you supply in slots separately. Core class imports remain side-effect free.
+
+Existing root imports from `cindor-ui-react` and `cindor-ui-vue` still register the entire library for convenience, as does `cindor-ui-core/register`. To reduce bundles, migrate each wrapper import to its component subpath and remove any register-all imports. Selective and register-all entries share the same core constructors and can be mixed safely.
+
+Icons retain arbitrary Lucide names, including kebab-case and PascalCase. The icon catalog loads asynchronously from the installed `lucide` package on first icon use; it does not require a CDN or private package subpaths. Enable your bundler's ESM code splitting to keep that catalog in a separate lazy chunk. Without splitting, a bundler may include the deferred catalog in one output file. Icon rendering can complete after the element's first `updateComplete`.
+
+Registration dependencies are generated from component and inherited base-class template tags and literal `createElement` calls using the component manifest. Run `generate:manifest` and `generate:wrappers` after changing those dependencies. The generator rejects unknown tags.
+
+After `npm run build`, run `npm run test:selective-loading` for the built-package bundle and browser checks. Install Playwright Chromium first, or set `CINDOR_CHROME_PATH` to an installed Chrome executable.
+
 ## CommonJS consumers
 
 The core, React, and Vue packages support `require()` on Node.js versions with synchronous ESM loading enabled by default: Node 20.19+, Node 22.12+, and later supported release lines. Older Node runtimes should use ESM imports or upgrade. This uses Node's [synchronous ESM interoperability](https://nodejs.org/api/modules.html#loading-ecmascript-modules-using-require); the core's `import` and `require` conditions resolve to the same module so both consumers share custom-element constructors and registration state.
